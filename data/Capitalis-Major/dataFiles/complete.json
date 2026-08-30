@@ -136,10 +136,20 @@
       "_pluginId": "Capitalis Major/Capitalis-Major",
       "_hash": "5baac298c827",
       "governments": {
-        "Capitalis-Major": {
-          "Capitalis-Major": true
+        "Capitalis Major/Capitalis-Major": {
+          "Deep Security": true,
+          "Merchant": true
         }
       },
+      "governmentEvents": [
+        "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+        "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+        "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+        "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+        "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+        "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+      ],
       "locations": {
         "Capitalis Major/Capitalis-Major": {
           "_deprecated/unused": true
@@ -396,13 +406,42 @@
       "_pluginId": "Capitalis Major/Capitalis-Major",
       "_hash": "d1c12f87f985",
       "governments": {
-        "Capitalis-Major": {
-          "Capitalis-Major": true
+        "Capitalis Major/Capitalis-Major": {
+          "Free Worlds": true,
+          "Militia": true
         }
       },
+      "governmentEvents": [
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+        "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
+        "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+        "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
+        "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+        "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+        "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
+        "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
+        "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+        "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+        "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+        "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+        "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+        "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+      ],
       "locations": {
         "Capitalis Major/Capitalis-Major": {
-          "_deprecated/unused": true
+          "EventFleetChanges": [
+            "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\" (rate 9600)",
+            "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\" (rate 19200)",
+            "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach\" (rate 4800)",
+            "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+            "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 3000)",
+            "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\"",
+            "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\"",
+            "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
+            "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+          ]
         }
       },
       "outfits": {
@@ -595,13 +634,54 @@
       "_pluginId": "Capitalis Major/Capitalis-Major",
       "_hash": "0b866373d995",
       "governments": {
-        "Capitalis-Major": {
-          "Capitalis-Major": true
+        "Capitalis Major/Capitalis-Major": {
+          "Militia": true,
+          "Merchant": true,
+          "Independent": true,
+          "Pirate": true
         }
       },
+      "governmentEvents": [
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+        "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+        "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+        "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+        "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+        "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+        "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+        "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+        "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+        "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+        "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+        "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+        "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01"
+      ],
       "locations": {
         "Capitalis Major/Capitalis-Major": {
-          "_deprecated/unused": true
+          "EventFleetChanges": [
+            "Adds fleet in \"Alpherg\" via event \"midnight independent fleet expansion\" (rate 3000)",
+            "Adds fleet in \"Antares\" via event \"midnight independent fleet expansion\" (rate 1500)",
+            "Adds fleet in \"Belenos\" via event \"midnight independent fleet expansion\" (rate 3000)",
+            "Adds fleet in \"Citadelle\" via event \"midnight independent fleet expansion\" (rate 3000)",
+            "Adds fleet in \"Men\" via event \"midnight independent fleet expansion\" (rate 600)",
+            "Adds fleet in \"Nunki\" via event \"midnight independent fleet expansion\" (rate 1500)",
+            "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 7000)",
+            "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 800)",
+            "Adds fleet in \"Shaula\" via event \"midnight independent fleet expansion\" (rate 3000)",
+            "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 1500)",
+            "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 3000)",
+            "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 5000)",
+            "Removes fleet in \"Algenib\" via event \"ScS empty algenib\"",
+            "Removes fleet in \"Ildaria\" via event \"remove pirates from Ildaria\"",
+            "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
+            "Removes fleet in \"Sheratan\" via event \"ScS korath fight ready\"",
+            "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+          ]
         }
       },
       "outfits": {
@@ -869,10 +949,16 @@
           "Kor Sestor": true
         }
       },
+      "governmentEvents": [
+        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01"
+      ],
       "locations": {
         "Capitalis Major/Capitalis-Major": {
           "Missions": [
             "Sestor Factory Ship Elimination"
+          ],
+          "TriggeredByMissionEvents": [
+            "\"Sestor Factory Ship Elimination\" → event \"wanderers: Kar Ik Vot 927 Escaped\""
           ]
         }
       },
@@ -1093,12 +1179,21 @@
       "variant": "Monolith Lesser",
       "baseShip": "Monolith",
       "_variantPluginId": "Capitalis Major/Capitalis-Major",
-      "_baseShipPluginId": "Capitalis Major/Capitalis-Major",
       "governments": {
-        "Capitalis-Major": {
-          "Capitalis-Major": true
+        "Capitalis Major/Capitalis-Major": {
+          "Deep Security": true,
+          "Merchant": true
         }
       },
+      "governmentEvents": [
+        "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+        "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+        "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+        "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+        "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+        "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+      ],
       "locations": {
         "Capitalis Major/Capitalis-Major": {
           "_deprecated/unused": true
@@ -1371,17 +1466,27 @@
       "variant": "Kar Ik Vot 927 (jump)",
       "baseShip": "Kar Ik Vot 927",
       "_variantPluginId": "Capitalis Major/Capitalis-Major",
-      "_baseShipPluginId": "Capitalis Major/Capitalis-Major",
       "governments": {
         "Capitalis Major/Capitalis-Major": {
           "Kor Sestor": true
         }
       },
+      "governmentEvents": [
+        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01"
+      ],
       "locations": {
         "Capitalis Major/Capitalis-Major": {
           "Missions": [
             "Sestor Factory Mothership",
             "Sestor Factory Mothership Rematch"
+          ],
+          "TriggeredByMissionEvents": [
+            "\"Sestor Factory Mothership Rematch\" → event \"Sestor Second Factory Eliminated A\"",
+            "\"Sestor Factory Mothership Rematch\" → event \"Sestor Second Factory Eliminated B\"",
+            "\"Sestor Factory Mothership Rematch\" → event \"Sestor Second Factory Eliminated C\"",
+            "\"Sestor Factory Mothership\" → event \"Sestor Second Factory Eliminated A\"",
+            "\"Sestor Factory Mothership\" → event \"Sestor Second Factory Eliminated B\"",
+            "\"Sestor Factory Mothership\" → event \"Sestor Second Factory Eliminated C\""
           ]
         }
       },
@@ -1508,12 +1613,14 @@
         "blast radius": 20
       },
       "description": "A turret mounted detainer is any speedy ships worst nightmare.",
-      "_internalId": "Capitalis Major/Capitalis-Major::Korath Detainer Turret",
       "governments": {
         "Capitalis Major/Capitalis-Major": {
           "Kor Sestor": true
         }
       },
+      "governmentEvents": [
+        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01"
+      ],
       "locations": {
         "Capitalis Major/Capitalis-Major": {
           "Ships": [
@@ -1526,5 +1633,5 @@
     }
   ],
   "effects": [],
-  "parsedAt": "2026-08-29T22:17:26.082Z"
+  "parsedAt": "2026-08-30T09:04:52.879Z"
 }

@@ -8,8 +8,10 @@
     "outfit space": -25,
     "cooling": 41,
     "description": "With the escalation of their war against the Wanderers, the Unfettered understood that the Sunbeams were causing them problems partly due to the heat their ships were subject to. The Squall cooling system was their answer, larger than their previus coolings but also much more efficent.",
-    "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Hai Squall Cooling",
     "governments": {
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Hai (Unfettered)": true
+      },
       "official-game/endless-sky": {
         "Hai (Unfettered)": true
       },
@@ -17,12 +19,16 @@
         "Hai (Unfettered)": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
-        "Storm Seekers": true
+        "Storm Seekers": true,
+        "Hai (Unfettered)": true
       },
       "Better Vanilla Pirates/BetterVanillaPirates": {
         "Bounty Hunter": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Planets": [
@@ -40,11 +46,17 @@
           "Solifuge (Jump, Tracker)",
           "Solifuge (Pulse)",
           "Solifuge (Tracker)"
-        ]
-      },
-      "official-game/endless-sky": {
-        "ShipyardPlanets": [
-          "Darkcloak"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
         ]
       },
       "POOT/poot-senza-solaria": {
@@ -70,6 +82,37 @@
           "Ursa Polaris Station II",
           "Valkirus Solaris Station"
         ]
+      },
+      "official-game/endless-sky": {
+        "Systems": [
+          "Ehma Ti",
+          "Hi Yahr",
+          "Wah Yoot"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
+        ]
       }
     },
     "pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion"
@@ -83,10 +126,14 @@
     "outfit space": -14,
     "cooling": 21,
     "description": "After the introduction of the Ionic Blaster and the consequential need of more reactors to power them, the Williwaw cooling wasn't anymore always enough. They developed this cooling outfit to avoid overheating when they want to use many Ionic Blasters at once.",
-    "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Hai Zephyr Cooling",
     "governments": {
-      "official-game/endless-sky": {
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Hai (Unfettered)": true
+      },
+      "official-game/endless-sky": {
+        "Hai (Unfettered)": true,
+        "Hai": true,
+        "Merchant": true
       },
       "Capitalis Major/Capitalis-Major": {
         "Bounty Hunter": true
@@ -94,9 +141,33 @@
       "Lost In Midnight/Lost-in-Midnight": {
         "Pirate": true,
         "Storm Seekers": true,
-        "Hai (Unfettered)": true
+        "Hai (Unfettered)": true,
+        "Independent": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Planets": [
@@ -112,6 +183,21 @@
           "Shield Beetle (Ionic)",
           "Shield Beetle (Jump, Ionic)",
           "Solifuge (Ionic)"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Mah Duum\" via event \"midnight bloodstone portal\" (rate 4800)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\"",
+          "Removes fleet in \"Chy'chra\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Ehma Ti\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Prakacha'a\" via event \"wanderer / unfettered peace\""
         ]
       },
       "official-game/endless-sky": {
@@ -159,15 +245,36 @@
     "afterburner heat": 7.2,
     "afterburner effect": "afterburner",
     "description": "Considered nothing more than a relic from the past among many Hai, this afterburner is one of their most ancient designs and that has received very small modifications in the last centuries. Only a small part of the Hai still use them.",
-    "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::\"Babreii\" Afterburner",
     "governments": {
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Hai (Unfettered)": true,
+        "Hai": true
+      },
       "official-game/endless-sky": {
+        "Hai": true,
+        "Hai (Unfettered)": true
+      },
+      "Midnight Expansion/Midnight-Expansion": {
         "Hai (Unfettered)": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
         "Hai (Unfettered)": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Planets": [
@@ -181,6 +288,25 @@
           "Grasshopper (Afterburner)",
           "Lightning Bug (Afterburner)",
           "Modified Shield Beetle"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 1000)",
+          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 2000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\"",
+          "Removes fleet in \"Imo Dep\" via event \"millipede clear imo dep\""
+        ]
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Mah Duum\" via event \"midnight bloodstone portal\" (rate 4800)"
         ]
       }
     },
@@ -195,10 +321,11 @@
     "capture defense": 1.5,
     "unplunderable": 1,
     "description": "After the end of the Korath raids, most of the Hai stopped designing new weapons, included those intended to harm other Hai. The Unfettered instead projected this new rifle, with the capacity of shooting ionized shots in fast succession with a higher charge than the ones fired by the older Pulse Rifle.",
-    "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Ionic Rifle",
     "governments": {
       "official-game/endless-sky": {
-        "Hai (Unfettered)": true
+        "Hai (Unfettered)": true,
+        "Hai": true,
+        "Merchant": true
       },
       "Capitalis Major/Capitalis-Major": {
         "Hai (Unfettered)": true,
@@ -206,13 +333,42 @@
       },
       "Lost In Midnight/Lost-in-Midnight": {
         "Storm Seekers": true,
+        "Hai (Unfettered)": true,
         "Pirate": true,
-        "Hai (Unfettered)": true
+        "Independent": true,
+        "Hai": true
+      },
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Hai (Unfettered)": true,
+        "Hai (Unfettered Wanderer Tribute)": true
       },
       "Better Vanilla Pirates/BetterVanillaPirates": {
         "Bounty Hunter": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Planets": [
@@ -234,11 +390,57 @@
           "Solifuge (Tracker)",
           "Water Bug (Ionic)",
           "Water Bug (Jump, Ionic)"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Chy'chra\" via event \"wanderer / unfettered peace\" (rate 2000)",
+          "Adds fleet in \"Ehma Ti\" via event \"wanderer / unfettered peace\" (rate 1000)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Mah Duum\" via event \"midnight bloodstone portal\" (rate 4800)",
+          "Adds fleet in \"Prakacha'a\" via event \"wanderer / unfettered peace\" (rate 2000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\"",
+          "Removes fleet in \"Chy'chra\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Ehma Ti\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Ehma Ti\" via event \"wanderers: unfettered invasion starts\"",
+          "Removes fleet in \"Prakacha'a\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Prakacha'a\" via event \"wanderers: first tech increase\""
         ]
       },
       "official-game/endless-sky": {
-        "ShipyardPlanets": [
-          "Darkcloak"
+        "Systems": [
+          "Ehma Ti",
+          "Hi Yahr",
+          "Wah Yoot"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
+        ]
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
         ]
       }
     },
@@ -254,23 +456,46 @@
     "capture defense": 3.1,
     "unplunderable": 1,
     "description": "This special barrier was first built just after the Raiders started attacking the Hai, but they never became popular because back then it was just a way to slow down the enemy boarders. Later on a Pulse Rifle was added to the base model making it much more useful, but they never gained success since the outfit space they take, even if it's not much, prevents a pilot from installing a large number on a ship without removing some components.",
-    "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Protection Station",
     "governments": {
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Hai (Unfettered)": true,
+        "Hai (Unfettered Wanderer Tribute)": true,
+        "Hai": true
+      },
       "official-game/endless-sky": {
         "Hai": true,
         "Hai Merchant": true,
         "Hai Merchant (Sympathizers)": true,
+        "Merchant": true,
         "Hai (Wormhole Access)": true,
         "Hai Merchant (Human)": true,
         "Hai (Unfettered Civilians)": true,
         "Hai (Unfettered)": true,
         "Hai (Unfettered Wanderer Tribute)": true
       },
+      "Better Vanilla Hai/BetterVanillaHai": {
+        "Merchant": true,
+        "Pirate": true,
+        "Free Worlds": true,
+        "Deep Security": true
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "Hai (Friendly Unfettered)": true,
+        "Hai (Unfettered)": true
+      },
       "Lost In Midnight/Lost-in-Midnight": {
         "Hai (Friendly Unfettered)": true,
+        "Hai": true,
         "Hai (Unfettered)": true,
         "Pirate": true,
-        "Storm Seekers": true
+        "Storm Seekers": true,
+        "Independent": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Hai (Unfettered)": true
       },
       "Capitalis Major/Capitalis-Major": {
         "Bounty Hunter": true,
@@ -278,9 +503,47 @@
       },
       "Better Vanilla Pirates/BetterVanillaPirates": {
         "Bounty Hunter": true,
+        "Pirate": true,
         "Merchant": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Planets": [
@@ -318,20 +581,56 @@
           "Water Bug (Jump)",
           "Water Bug (Jump, Ionic)",
           "Water Bug (Pulse)"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Chy'chra\" via event \"wanderer / unfettered peace\" (rate 2000)",
+          "Adds fleet in \"Ehma Ti\" via event \"wanderer / unfettered peace\" (rate 1000)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 1000)",
+          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 2000)",
+          "Adds fleet in \"Mah Duum\" via event \"midnight bloodstone portal\" (rate 4800)",
+          "Adds fleet in \"Prakacha'a\" via event \"wanderer / unfettered peace\" (rate 2000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\"",
+          "Removes fleet in \"Chy'chra\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Ehma Ti\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Ehma Ti\" via event \"wanderers: unfettered invasion starts\"",
+          "Removes fleet in \"Imo Dep\" via event \"millipede clear imo dep\"",
+          "Removes fleet in \"Prakacha'a\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Prakacha'a\" via event \"wanderers: first tech increase\""
+        ]
+      },
+      "POOT/poot-senza-solaria": {
+        "ShipyardPlanets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ]
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "ShipyardPlanets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
         ]
       },
       "official-game/endless-sky": {
-        "ShipyardPlanets": [
-          "Cloudfire",
-          "Darkcloak",
-          "Giverstone",
-          "Greenwater",
-          "Hai-home",
-          "Heartvalley",
-          "Icelake",
-          "Makerplace",
-          "Stonebreak"
-        ],
         "Systems": [
           "Bore Fah",
           "Bote Asu",
@@ -360,35 +659,183 @@
           "Waypoint",
           "Ya Hai",
           "Zuba Zub"
-        ]
-      },
-      "POOT/poot-senza-solaria": {
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Chy'chra\" via event \"wanderer / unfettered peace\" (rate 2000)",
+          "Adds fleet in \"Ehma Ti\" via event \"wanderer / unfettered peace\" (rate 1000)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 1000)",
+          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 10000)",
+          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 14000)",
+          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 2000)",
+          "Adds fleet in \"Mah Duum\" via event \"midnight bloodstone portal\" (rate 4800)",
+          "Adds fleet in \"Mah Duum\" via event \"midnight bloodstone portal\" (rate 6450)",
+          "Adds fleet in \"Prakacha'a\" via event \"wanderer / unfettered peace\" (rate 2000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\"",
+          "Removes fleet in \"Chy'chra\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Ehma Ti\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Ehma Ti\" via event \"wanderers: unfettered invasion starts\"",
+          "Removes fleet in \"Imo Dep\" via event \"millipede clear imo dep\"",
+          "Removes fleet in \"Prakacha'a\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Prakacha'a\" via event \"wanderers: first tech increase\""
+        ],
         "ShipyardPlanets": [
-          "Daemonium Solaria Station",
-          "Delva Solaris Station",
-          "Everything ",
-          "Poot ",
-          "Ragnarok Solaris Station",
-          "Senza Solaria",
-          "Ursa Polaris Station II",
-          "Valkirus Solaris Station"
-        ]
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "ShipyardPlanets": [
-          "Daemonium Solaria Station",
-          "Delva Solaris Station",
-          "Everything ",
-          "Poot ",
-          "Ragnarok Solaris Station",
-          "Senza Solaria",
-          "Ursa Polaris Station II",
-          "Valkirus Solaris Station"
+          "Cloudfire",
+          "Darkcloak",
+          "Giverstone",
+          "Greenwater",
+          "Hai-home",
+          "Heartvalley",
+          "Icelake",
+          "Makerplace",
+          "Stonebreak"
         ]
       },
       "Lost In Midnight/Lost-in-Midnight": {
         "ShipyardPlanets": [
           "Oldhome"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"Ancestral Unfettered Miners Patch\" (rate 8000)",
+          "Adds fleet in \"Ehmahai\" via event \"Completed Journey to the Southwest\" (rate 6000)",
+          "Adds fleet in \"Ehmahai\" via event \"Completed Journey to the Southwest\" (rate 8000)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Ehmahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 3000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the desert...\" (rate 3000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"Unfettered Expand in Ancestral Lands Patch\" (rate 8000)",
+          "Adds fleet in \"Heiahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 8000)",
+          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 10000)",
+          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 2000)",
+          "Adds fleet in \"Mah Duum\" via event \"midnight bloodstone portal\" (rate 4800)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the desert...\" (rate 3000)",
+          "Adds fleet in \"Zubahai\" via event \"Unfettered Expand in Ancestral Lands Patch\" (rate 8000)",
+          "Adds fleet in \"Zubahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 6000)",
+          "Adds fleet in \"Zubahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 8000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\"",
+          "Removes fleet in \"Chy'chra\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Ehma Ti\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Imo Dep\" via event \"millipede clear imo dep\"",
+          "Removes fleet in \"Prakacha'a\" via event \"wanderer / unfettered peace\""
+        ],
+        "Systems": [
+          "Mah Duum"
+        ]
+      },
+      "Better Vanilla Hai/BetterVanillaHai": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 400)",
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 15000)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 5000)",
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 500)",
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 800)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\" (rate 9600)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\" (rate 19200)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach\" (rate 4800)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 4000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 4000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 500)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 5000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 7000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 800)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 1500)",
+          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 3000)",
+          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 500)",
+          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 5000)",
+          "Removes fleet in \"Algenib\" via event \"ScS empty algenib\"",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Ildaria\" via event \"remove pirates from Ildaria\"",
+          "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
+          "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\"",
+          "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\"",
+          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
+          "Removes fleet in \"Sheratan\" via event \"ScS korath fight ready\"",
+          "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+        ]
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Ehmahai\" via event \"Completed Journey to the Southwest\" (rate 6000)",
+          "Adds fleet in \"Ehmahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 3000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the desert...\" (rate 3000)",
+          "Adds fleet in \"Heiahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 6000)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the desert...\" (rate 3000)",
+          "Adds fleet in \"Zubahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 6000)",
+          "Removes fleet in \"Chy'chra\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Ehma Ti\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Prakacha'a\" via event \"wanderer / unfettered peace\""
+        ]
+      },
+      "Kai's list/KGS": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 2000)",
+          "Adds fleet in \"Mah Duum\" via event \"midnight bloodstone portal\" (rate 4800)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\"",
+          "Removes fleet in \"Imo Dep\" via event \"millipede clear imo dep\""
+        ]
+      },
+      "Rumskib/rumskib": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 2000)",
+          "Removes fleet in \"Imo Dep\" via event \"millipede clear imo dep\""
+        ]
+      },
+      "Mega Freight/Mega-Freight": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 14000)",
+          "Removes fleet in \"Chy'chra\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Ehma Ti\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Imo Dep\" via event \"millipede clear imo dep\"",
+          "Removes fleet in \"Prakacha'a\" via event \"wanderer / unfettered peace\""
+        ]
+      },
+      "Better Vanilla Pirates/BetterVanillaPirates": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
+          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 14000)",
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 800)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 7000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 800)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 5000)",
+          "Removes fleet in \"Algenib\" via event \"ScS empty algenib\"",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Ildaria\" via event \"remove pirates from Ildaria\"",
+          "Removes fleet in \"Imo Dep\" via event \"millipede clear imo dep\"",
+          "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
+          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
+          "Removes fleet in \"Sheratan\" via event \"ScS korath fight ready\"",
+          "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
         ]
       }
     },
@@ -403,16 +850,19 @@
     "capture defense": 1.4,
     "unplunderable": 1,
     "description": "The Heavy Laser Rifle is a recent invention of Kraz Cybernetics, an upgrade from the outdated weapon so common on many ships. While it is substantially better in than its base model, the cost is also much higher due to the materials used in its construction.",
-    "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Heavy Laser Rifle",
     "governments": {
       "Beccas-Endless-Expansion": {
         "Beccas-Endless-Expansion": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Missions": [
           "Kraz Hand To Hand 2"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Kraz Hand To Hand 2\" → event \"heavy hand to hand available\""
         ]
       }
     },
@@ -428,12 +878,12 @@
     "capture defense": 6.3,
     "unplunderable": 1,
     "description": "This defensive barrier is based on the original Security Station, but is much more recent. It has two blast doors in case the boarders can blow up one and features a turret connected to a computer placed on the other side of the barricade, where a crew member can safely control it.",
-    "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Professional Security Station",
     "governments": {
       "Beccas-Endless-Expansion": {
         "Beccas-Endless-Expansion": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "_deprecated/unused": true
@@ -451,14 +901,18 @@
     "energy generation": 6.1,
     "heat generation": 27,
     "description": "A few hundreds of years ago, the northern anarchists didn't have access to any heavy generator except the RTI-I model, but with the increase of the ship systems power need they were starting to suffer of low energy more and more often. Their situation got better when one of the few manufacturers on their worlds developed a larger and more space efficent version, but they soon found out it creates more heat than the previus model.",
-    "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::RT-II Radiothermal",
     "governments": {
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Pirate": true
+      },
       "official-game/endless-sky": {
         "Pirate": true,
         "Alpha": true,
         "Merchant (Hostile)": true,
         "Merchant": true,
-        "Republic": true
+        "Republic": true,
+        "Bounty Hunter": true,
+        "Deep Security": true
       },
       "Blended Ships/blended-ships": {
         "Pirate": true
@@ -477,17 +931,60 @@
         "Republic": true,
         "Bounty": true
       },
+      "Mega Freight/Mega-Freight": {
+        "Pirate": true,
+        "Bounty (Disguised)": true,
+        "Scar's Legion": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true
+      },
       "Crisis In Management/endless-sky-syndicate": {
         "Militia (Rogue)": true,
         "Merchant": true
-      },
-      "Mega Freight/Mega-Freight": {
-        "Scar's Legion": true
       },
       "Tugderic's Addons/Tugderics-Addons": {
         "Ancient Travelers": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Scar's Legion → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Planets": [
@@ -500,6 +997,15 @@
           "Firebird (Radiothermal)",
           "Headhunter (Radiothermal)",
           "Leviathan (Radiothermal)"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
         ]
       }
     },
@@ -517,7 +1023,6 @@
     "outfit space": -31,
     "cooling": 57,
     "description": "When they started producing reactors so large that a simple Heat Sink wasn't enough anymore, the Wanderers understood that a new cooling system was necessary. The result is better than its predecessor, but it's still quite inefficent.",
-    "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Wanderer Large Heat Sink",
     "governments": {
       "official-game/endless-sky": {
         "Wanderer": true
@@ -527,12 +1032,55 @@
         "Wanderer (Hostile)": true
       }
     },
+    "governmentEvents": [
+      "Event \"battle for ap'arak ends\": Wanderer attitude toward Pug (Wanderer) → 0.01",
+      "Event \"pug defend wanderers\": Pug (Wanderer) attitude toward Wanderer → 0.01",
+      "Event \"pug defend wanderers\": Pug attitude toward Wanderer → 0.01",
+      "Event \"wanderers: kor mereti friendly\": Kor Mereti attitude toward Wanderer → 1",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Ships": [
           "Hurricane",
           "Hurricane (Tough)",
           "Hurricane (Turret)"
+        ]
+      },
+      "official-game/endless-sky": {
+        "ShipyardPlanets": [
+          "Var' Kayi",
+          "Vara K'chrai",
+          "Varu Mer'ek"
+        ],
+        "Systems": [
+          "Ap'arak",
+          "Aya'k'k",
+          "Chirr'ay'akai",
+          "Chy'chra",
+          "Ek'kek'ru",
+          "Es'sprak'ai",
+          "Ik'kara'ka",
+          "Iyech'yek",
+          "Ka'ch'chrai",
+          "Ka'pru",
+          "Kiro'ku",
+          "Kiru'kichi",
+          "Pik'ro'iyak",
+          "Prakacha'a",
+          "Si'yak'ku",
+          "Sich'ka'ara",
+          "Sko'karak"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 600)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 500)",
+          "Adds fleet in \"Kaliptari\" via event \"wanderers: kaliptari battle ends\" (rate 1000)",
+          "Adds fleet in \"Sabriset\" via event \"wanderers: the eye opens\" (rate 1200)",
+          "Adds fleet in \"Sepriaptu\" via event \"wanderers: the eye opens\" (rate 1600)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"Sich'ka'ara restored\" (rate 2000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 500)"
         ]
       },
       "POOT/poot-senza-solaria": {
@@ -559,25 +1107,28 @@
           "Valkirus Solaris Station"
         ]
       },
-      "official-game/endless-sky": {
-        "Systems": [
-          "Ap'arak",
-          "Aya'k'k",
-          "Chirr'ay'akai",
-          "Chy'chra",
-          "Ek'kek'ru",
-          "Es'sprak'ai",
-          "Ik'kara'ka",
-          "Iyech'yek",
-          "Ka'ch'chrai",
-          "Ka'pru",
-          "Kiro'ku",
-          "Kiru'kichi",
-          "Pik'ro'iyak",
-          "Prakacha'a",
-          "Si'yak'ku",
-          "Sich'ka'ara",
-          "Sko'karak"
+      "Kai's list/buyable_wanderer_ships": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 600)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 500)",
+          "Adds fleet in \"Kaliptari\" via event \"wanderers: kaliptari battle ends\" (rate 1000)",
+          "Adds fleet in \"Sabriset\" via event \"wanderers: the eye opens\" (rate 1200)",
+          "Adds fleet in \"Sepriaptu\" via event \"wanderers: the eye opens\" (rate 1600)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"Sich'ka'ara restored\" (rate 2000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 500)"
+        ]
+      },
+      "Rumskib/rumskib": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 600)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 500)",
+          "Adds fleet in \"Kaliptari\" via event \"wanderers: kaliptari battle ends\" (rate 1000)",
+          "Adds fleet in \"Sabriset\" via event \"wanderers: the eye opens\" (rate 1200)",
+          "Adds fleet in \"Sepriaptu\" via event \"wanderers: the eye opens\" (rate 1600)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"Sich'ka'ara restored\" (rate 2000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 500)"
         ]
       }
     },
@@ -607,7 +1158,6 @@
       "firing heat": 17
     },
     "description": "This anti-missile system is more powerful and a bit faster than the previous version, while also requiring more energy and creating more heat.",
-    "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Wanderer Heavy Anti-Missile",
     "governments": {
       "official-game/endless-sky": {
         "Wanderer": true
@@ -617,11 +1167,54 @@
         "Wanderer (Hostile)": true
       }
     },
+    "governmentEvents": [
+      "Event \"battle for ap'arak ends\": Wanderer attitude toward Pug (Wanderer) → 0.01",
+      "Event \"pug defend wanderers\": Pug (Wanderer) attitude toward Wanderer → 0.01",
+      "Event \"pug defend wanderers\": Pug attitude toward Wanderer → 0.01",
+      "Event \"wanderers: kor mereti friendly\": Kor Mereti attitude toward Wanderer → 1",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Ships": [
           "Hurricane",
           "Hurricane (Tough)"
+        ]
+      },
+      "official-game/endless-sky": {
+        "ShipyardPlanets": [
+          "Var' Kayi",
+          "Vara K'chrai",
+          "Varu Mer'ek"
+        ],
+        "Systems": [
+          "Ap'arak",
+          "Aya'k'k",
+          "Chirr'ay'akai",
+          "Chy'chra",
+          "Ek'kek'ru",
+          "Es'sprak'ai",
+          "Ik'kara'ka",
+          "Iyech'yek",
+          "Ka'ch'chrai",
+          "Ka'pru",
+          "Kiro'ku",
+          "Kiru'kichi",
+          "Pik'ro'iyak",
+          "Prakacha'a",
+          "Si'yak'ku",
+          "Sich'ka'ara",
+          "Sko'karak"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 600)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 500)",
+          "Adds fleet in \"Kaliptari\" via event \"wanderers: kaliptari battle ends\" (rate 1000)",
+          "Adds fleet in \"Sabriset\" via event \"wanderers: the eye opens\" (rate 1200)",
+          "Adds fleet in \"Sepriaptu\" via event \"wanderers: the eye opens\" (rate 1600)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"Sich'ka'ara restored\" (rate 2000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 500)"
         ]
       },
       "POOT/poot-senza-solaria": {
@@ -648,25 +1241,28 @@
           "Valkirus Solaris Station"
         ]
       },
-      "official-game/endless-sky": {
-        "Systems": [
-          "Ap'arak",
-          "Aya'k'k",
-          "Chirr'ay'akai",
-          "Chy'chra",
-          "Ek'kek'ru",
-          "Es'sprak'ai",
-          "Ik'kara'ka",
-          "Iyech'yek",
-          "Ka'ch'chrai",
-          "Ka'pru",
-          "Kiro'ku",
-          "Kiru'kichi",
-          "Pik'ro'iyak",
-          "Prakacha'a",
-          "Si'yak'ku",
-          "Sich'ka'ara",
-          "Sko'karak"
+      "Kai's list/buyable_wanderer_ships": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 600)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 500)",
+          "Adds fleet in \"Kaliptari\" via event \"wanderers: kaliptari battle ends\" (rate 1000)",
+          "Adds fleet in \"Sabriset\" via event \"wanderers: the eye opens\" (rate 1200)",
+          "Adds fleet in \"Sepriaptu\" via event \"wanderers: the eye opens\" (rate 1600)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"Sich'ka'ara restored\" (rate 2000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 500)"
+        ]
+      },
+      "Rumskib/rumskib": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 600)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 500)",
+          "Adds fleet in \"Kaliptari\" via event \"wanderers: kaliptari battle ends\" (rate 1000)",
+          "Adds fleet in \"Sabriset\" via event \"wanderers: the eye opens\" (rate 1200)",
+          "Adds fleet in \"Sepriaptu\" via event \"wanderers: the eye opens\" (rate 1600)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"Sich'ka'ara restored\" (rate 2000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 500)"
         ]
       }
     },
@@ -683,7 +1279,6 @@
     "heat generation": 3,
     "fuel capacity": 400,
     "description": "Long ago, when a captain could refuel only on a handful, distant systems, running out of fuel was a serious risk: in addition to ramscoops, large fuel centrifuges were installed in most ships. They are able to contain hyperspace fuel in a few pods, but in the process that makes it possible it also becomes less stable and to avoid starting dangerous reactions the containers need to keep rotating at a very high speed. All of this requires energy, and creates a considerable amount of heat.",
-    "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Fuel Centrifuge",
     "governments": {
       "official-game/endless-sky": {
         "Republic": true,
@@ -692,9 +1287,49 @@
       },
       "Lost In Midnight/Lost-in-Midnight": {
         "Republic": true,
-        "Pirate": true
+        "Pirate": true,
+        "Oathbreaker": true,
+        "Navy (Oathkeeper)": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Planets": [
@@ -751,12 +1386,12 @@
       ]
     },
     "description": "Many decades ago, Kraz Cybernetics started a project to upgrade the ancient Gatling Gun design with newer designing technics. While they actually could increase its accuracy and make it maintain substained fire for a longer time, their weapon, the so-called Accurate Gatling Blaster, also requires more energy and more time to completely cool down, not to mention the higher cost and the bullets capacity reduced to little more than half.",
-    "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Accurate Gatling Blaster",
     "governments": {
       "Beccas-Endless-Expansion": {
         "Beccas-Endless-Expansion": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "_deprecated/unused": true
@@ -793,10 +1428,15 @@
       "ion damage": 1.6
     },
     "description": "Since the Unfettered started their perennial war against the rest of the Hai, they tried to determinate which weapon they should produce the most. They preferred to focus on the Ion Cannon, but the largest downside was its huge size; because of that, it was impossible to mount many of them on a Shield Beetle. After dozens of years of research, a team finally developed a less bulky version, small enough to be installed in large numbers and more focused on normal damage to be also effective once the target's power sources became ineffective.",
-    "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Ionic Blaster",
     "governments": {
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Hai (Unfettered)": true,
+        "Hai (Unfettered Wanderer Tribute)": true
+      },
       "official-game/endless-sky": {
-        "Hai (Unfettered)": true
+        "Hai (Unfettered)": true,
+        "Hai": true,
+        "Merchant": true
       },
       "Capitalis Major/Capitalis-Major": {
         "Bounty Hunter": true
@@ -804,9 +1444,34 @@
       "Lost In Midnight/Lost-in-Midnight": {
         "Pirate": true,
         "Storm Seekers": true,
-        "Hai (Unfettered)": true
+        "Hai (Unfettered)": true,
+        "Independent": true,
+        "Hai": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Planets": [
@@ -823,6 +1488,26 @@
           "Solifuge (Ionic)",
           "Water Bug (Ionic)",
           "Water Bug (Jump, Ionic)"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Chy'chra\" via event \"wanderer / unfettered peace\" (rate 2000)",
+          "Adds fleet in \"Ehma Ti\" via event \"wanderer / unfettered peace\" (rate 1000)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Mah Duum\" via event \"midnight bloodstone portal\" (rate 4800)",
+          "Adds fleet in \"Prakacha'a\" via event \"wanderer / unfettered peace\" (rate 2000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\"",
+          "Removes fleet in \"Chy'chra\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Ehma Ti\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Ehma Ti\" via event \"wanderers: unfettered invasion starts\"",
+          "Removes fleet in \"Prakacha'a\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Prakacha'a\" via event \"wanderers: first tech increase\""
         ]
       }
     },
@@ -859,10 +1544,15 @@
       "ion damage": 3.2
     },
     "description": "This is a dual turret version of the Ionic Blaster, the first weapon that the Unfetttered developed completely on their own.",
-    "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Ionic Turret",
     "governments": {
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Hai (Unfettered)": true,
+        "Hai (Unfettered Wanderer Tribute)": true
+      },
       "official-game/endless-sky": {
-        "Hai (Unfettered)": true
+        "Hai (Unfettered)": true,
+        "Hai": true,
+        "Merchant": true
       },
       "Capitalis Major/Capitalis-Major": {
         "Bounty Hunter": true
@@ -870,9 +1560,34 @@
       "Lost In Midnight/Lost-in-Midnight": {
         "Pirate": true,
         "Storm Seekers": true,
-        "Hai (Unfettered)": true
+        "Hai (Unfettered)": true,
+        "Independent": true,
+        "Hai": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Planets": [
@@ -889,6 +1604,26 @@
           "Solifuge (Ionic)",
           "Water Bug (Ionic)",
           "Water Bug (Jump, Ionic)"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Chy'chra\" via event \"wanderer / unfettered peace\" (rate 2000)",
+          "Adds fleet in \"Ehma Ti\" via event \"wanderer / unfettered peace\" (rate 1000)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Mah Duum\" via event \"midnight bloodstone portal\" (rate 4800)",
+          "Adds fleet in \"Prakacha'a\" via event \"wanderer / unfettered peace\" (rate 2000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\"",
+          "Removes fleet in \"Chy'chra\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Ehma Ti\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Ehma Ti\" via event \"wanderers: unfettered invasion starts\"",
+          "Removes fleet in \"Prakacha'a\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Prakacha'a\" via event \"wanderers: first tech increase\""
         ]
       }
     },

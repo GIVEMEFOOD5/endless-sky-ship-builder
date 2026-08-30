@@ -16,14 +16,14 @@
       "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h",
       "tooltips": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/data/_ui/tooltips.txt"
     },
-    "generatedAt": "2026-08-29T22:17:34.497Z",
+    "generatedAt": "2026-08-30T09:05:10.665Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "FnName() calls refer to other ship functions.",
       "Multi-branch functions have one formula entry per return statement."
     ],
     "discovery": {
-      "scannedAt": "2026-08-29T22:17:32.050Z",
+      "scannedAt": "2026-08-30T09:05:05.291Z",
       "totalCandidatesScanned": 468,
       "relevantFilesFound": 26,
       "relevantFilePaths": [
@@ -32,8 +32,8 @@
         "source/BoardingPanel.cpp",
         "source/DamageProfile.cpp",
         "source/Depreciation.cpp",
-        "source/Engine.cpp",
         "source/Entity.cpp",
+        "source/Engine.cpp",
         "source/FleetCargo.cpp",
         "source/GameAction.cpp",
         "source/Government.cpp",
@@ -47,8 +47,8 @@
         "source/Minable.cpp",
         "source/OutfitterPanel.cpp",
         "source/Planet.cpp",
-        "source/PlayerInfo.cpp",
         "source/Politics.cpp",
+        "source/PlayerInfo.cpp",
         "source/PrintData.cpp",
         "source/ShopPanel.cpp",
         "source/TradingPanel.cpp",
@@ -129,7 +129,7 @@
       "note": "isMovementRelevant on each attribute (below) is derived structurally from the ship-function call graph, seeded only from InertialMass/Drag/DragForce — see movementSystem at the bottom of this file for the full function/attribute lists and rationale."
     },
     "dataUsage": {
-      "scannedAt": "2026-08-29T22:17:34.492Z",
+      "scannedAt": "2026-08-30T09:05:10.653Z",
       "filesScanned": 199,
       "attributeKeysObserved": 274,
       "dataOnlyAttributeKeys": [
@@ -1132,10 +1132,10 @@
       },
       "dataSampleValues": [
         5,
-        0.3,
+        3,
+        3,
         0.25,
-        -0.025,
-        0.72
+        -0.025
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -1929,8 +1929,8 @@
         0.3,
         2.4,
         6,
-        6,
-        15
+        24,
+        24
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -3202,10 +3202,10 @@
         "max": 1
       },
       "dataSampleValues": [
+        1,
         0.15,
         0.15,
         0.12,
-        1,
         0.08
       ],
       "dataOnShip": true,
@@ -7233,8 +7233,8 @@
         90,
         72,
         36,
-        36,
-        18
+        18,
+        36
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -7852,7 +7852,7 @@
       },
       "dataSampleValues": [
         90,
-        36,
+        1,
         1,
         1,
         1
@@ -8623,8 +8623,8 @@
         -1,
         1,
         1,
-        -1,
-        1
+        1,
+        -1
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -8686,25 +8686,6 @@
       "dataSampleValues": [],
       "dataOnShip": false,
       "dataOnOutfit": true,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
-    "hull repair energy": {
-      "key": "hull repair energy",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Utility"
-      ],
-      "dataUsageCount": 1,
-      "dataValueRange": {
-        "min": 3,
-        "max": 3
-      },
-      "dataSampleValues": [
-        3
-      ],
-      "dataOnShip": true,
-      "dataOnOutfit": false,
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
@@ -8826,6 +8807,35 @@
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
+    "flotsam chance": {
+      "key": "flotsam chance",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Guns",
+        "Minerals",
+        "Power",
+        "Special",
+        "Systems",
+        "Turrets",
+        "Unique"
+      ],
+      "dataUsageCount": 8,
+      "dataValueRange": {
+        "min": 0.05,
+        "max": 0.6
+      },
+      "dataSampleValues": [
+        0.6,
+        0.3,
+        0.1,
+        0.1,
+        0.05
+      ],
+      "dataOnShip": false,
+      "dataOnOutfit": true,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
     "relay upgrades": {
       "key": "relay upgrades",
       "dataOnly": true,
@@ -8913,32 +8923,22 @@
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
-    "flotsam chance": {
-      "key": "flotsam chance",
+    "hull repair energy": {
+      "key": "hull repair energy",
       "dataOnly": true,
       "usedInDataCategories": [
-        "Guns",
-        "Minerals",
-        "Power",
-        "Special",
-        "Systems",
-        "Turrets",
-        "Unique"
+        "Utility"
       ],
-      "dataUsageCount": 8,
+      "dataUsageCount": 1,
       "dataValueRange": {
-        "min": 0.05,
-        "max": 0.6
+        "min": 3,
+        "max": 3
       },
       "dataSampleValues": [
-        0.6,
-        0.3,
-        0.1,
-        0.1,
-        0.05
+        3
       ],
-      "dataOnShip": false,
-      "dataOnOutfit": true,
+      "dataOnShip": true,
+      "dataOnOutfit": false,
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
@@ -9530,30 +9530,6 @@
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
-    "emp torpedo capacity": {
-      "key": "emp torpedo capacity",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Ammunition",
-        "Secondary Weapons"
-      ],
-      "dataUsageCount": 6,
-      "dataValueRange": {
-        "min": -1,
-        "max": 27
-      },
-      "dataSampleValues": [
-        27,
-        -1,
-        12,
-        15,
-        20
-      ],
-      "dataOnShip": false,
-      "dataOnOutfit": true,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
     "asteroid mount jd": {
       "key": "asteroid mount jd",
       "dataOnly": true,
@@ -9730,6 +9706,30 @@
         "max": null
       },
       "dataSampleValues": [],
+      "dataOnShip": false,
+      "dataOnOutfit": true,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
+    "emp torpedo capacity": {
+      "key": "emp torpedo capacity",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Ammunition",
+        "Secondary Weapons"
+      ],
+      "dataUsageCount": 6,
+      "dataValueRange": {
+        "min": -1,
+        "max": 27
+      },
+      "dataSampleValues": [
+        27,
+        -1,
+        12,
+        15,
+        20
+      ],
       "dataOnShip": false,
       "dataOnOutfit": true,
       "area": "Custom / Modder-Defined",
@@ -13646,58 +13646,6 @@
         ]
       }
     },
-    "Engine": {
-      "Step": {
-        "returnType": "void",
-        "params": "bool isActive",
-        "isConst": false,
-        "sourceFile": "source/Engine.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "player.HasSeen(*system)",
-            "formula": "player.HasSeen(*system)"
-          },
-          {
-            "rawReturn": "projectile.GetWeapon().TriggersNukeAlert() && projectile.GetGovernment()->IsEnemy()",
-            "formula": "projectile.GetWeapon().TriggersNukeAlert() && projectile.GetGovernment()->IsEnemy()"
-          }
-        ]
-      },
-      "IsPaused": {
-        "returnType": "bool",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Engine.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "timePaused",
-            "formula": "timePaused"
-          }
-        ]
-      },
-      "Draw": {
-        "returnType": "void",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Engine.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "max(0., 1. - pow((age - animationDuration) / animationDuration, 2))",
-            "formula": "max(0., 1. - pow((age - animationDuration) / animationDuration, 2))"
-          },
-          {
-            "rawReturn": "(1000 + animationDuration - age) * .001f",
-            "formula": "(1000 + animationDuration - age) * .001f"
-          }
-        ]
-      }
-    },
     "Entity": {
       "EntityType": {
         "returnType": "Entity::Type",
@@ -14065,6 +14013,58 @@
         ],
         "attributesSet": [],
         "formulas": []
+      }
+    },
+    "Engine": {
+      "Step": {
+        "returnType": "void",
+        "params": "bool isActive",
+        "isConst": false,
+        "sourceFile": "source/Engine.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "player.HasSeen(*system)",
+            "formula": "player.HasSeen(*system)"
+          },
+          {
+            "rawReturn": "projectile.GetWeapon().TriggersNukeAlert() && projectile.GetGovernment()->IsEnemy()",
+            "formula": "projectile.GetWeapon().TriggersNukeAlert() && projectile.GetGovernment()->IsEnemy()"
+          }
+        ]
+      },
+      "IsPaused": {
+        "returnType": "bool",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Engine.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "timePaused",
+            "formula": "timePaused"
+          }
+        ]
+      },
+      "Draw": {
+        "returnType": "void",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Engine.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "max(0., 1. - pow((age - animationDuration) / animationDuration, 2))",
+            "formula": "max(0., 1. - pow((age - animationDuration) / animationDuration, 2))"
+          },
+          {
+            "rawReturn": "(1000 + animationDuration - age) * .001f",
+            "formula": "(1000 + animationDuration - age) * .001f"
+          }
+        ]
       }
     },
     "FleetCargo": {
@@ -15830,6 +15830,100 @@
         ]
       }
     },
+    "Politics": {
+      "IsEnemy": {
+        "returnType": "bool",
+        "params": "const Government *first, const Government *second",
+        "isConst": true,
+        "sourceFile": "source/Politics.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "(it != reputationWith.end() && it->second < 0.)",
+            "formula": "(it != reputationWith.end() && it->second < 0.)"
+          },
+          {
+            "rawReturn": "(first->AttitudeToward(second) < 0. || second->AttitudeToward(first) < 0.)",
+            "formula": "(first->AttitudeToward(second) < 0. || second->AttitudeToward(first) < 0.)"
+          }
+        ]
+      },
+      "CanLand": {
+        "returnType": "bool",
+        "params": "const Planet *planet",
+        "isConst": true,
+        "sourceFile": "source/Politics.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()",
+            "formula": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()"
+          }
+        ]
+      },
+      "HasClearance": {
+        "returnType": "bool",
+        "params": "const Planet *planet",
+        "isConst": true,
+        "sourceFile": "source/Politics.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "dominatedPlanets.contains(planet) || bribedPlanets.contains(planet)",
+            "formula": "dominatedPlanets.contains(planet) || bribedPlanets.contains(planet)"
+          }
+        ]
+      },
+      "CanUseServices": {
+        "returnType": "bool",
+        "params": "const Planet *planet",
+        "isConst": true,
+        "sourceFile": "source/Politics.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "it->second",
+            "formula": "it->second"
+          },
+          {
+            "rawReturn": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()",
+            "formula": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()"
+          }
+        ]
+      },
+      "HasDominated": {
+        "returnType": "bool",
+        "params": "const Planet *planet",
+        "isConst": true,
+        "sourceFile": "source/Politics.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "dominatedPlanets.contains(planet)",
+            "formula": "dominatedPlanets.contains(planet)"
+          }
+        ]
+      },
+      "Reputation": {
+        "returnType": "double",
+        "params": "const Government *gov",
+        "isConst": true,
+        "sourceFile": "source/Politics.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "(it == reputationWith.end() ? 0. : it->second)",
+            "formula": "(it == reputationWith.end() ? 0. : it->second)"
+          }
+        ]
+      }
+    },
     "PlayerInfo": {
       "IsLoaded": {
         "returnType": "bool",
@@ -17184,100 +17278,6 @@
           {
             "rawReturn": "any_of(missions.begin(), missions.end(), [this](const Mission &mission) -> bool { return mission.HasClearance(planet); })",
             "formula": "any_of(missions.begin(), missions.end(), [this](const Mission &mission) -> bool { return mission.HasClearance(planet); })"
-          }
-        ]
-      }
-    },
-    "Politics": {
-      "IsEnemy": {
-        "returnType": "bool",
-        "params": "const Government *first, const Government *second",
-        "isConst": true,
-        "sourceFile": "source/Politics.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "(it != reputationWith.end() && it->second < 0.)",
-            "formula": "(it != reputationWith.end() && it->second < 0.)"
-          },
-          {
-            "rawReturn": "(first->AttitudeToward(second) < 0. || second->AttitudeToward(first) < 0.)",
-            "formula": "(first->AttitudeToward(second) < 0. || second->AttitudeToward(first) < 0.)"
-          }
-        ]
-      },
-      "CanLand": {
-        "returnType": "bool",
-        "params": "const Planet *planet",
-        "isConst": true,
-        "sourceFile": "source/Politics.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()",
-            "formula": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()"
-          }
-        ]
-      },
-      "HasClearance": {
-        "returnType": "bool",
-        "params": "const Planet *planet",
-        "isConst": true,
-        "sourceFile": "source/Politics.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "dominatedPlanets.contains(planet) || bribedPlanets.contains(planet)",
-            "formula": "dominatedPlanets.contains(planet) || bribedPlanets.contains(planet)"
-          }
-        ]
-      },
-      "CanUseServices": {
-        "returnType": "bool",
-        "params": "const Planet *planet",
-        "isConst": true,
-        "sourceFile": "source/Politics.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "it->second",
-            "formula": "it->second"
-          },
-          {
-            "rawReturn": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()",
-            "formula": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()"
-          }
-        ]
-      },
-      "HasDominated": {
-        "returnType": "bool",
-        "params": "const Planet *planet",
-        "isConst": true,
-        "sourceFile": "source/Politics.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "dominatedPlanets.contains(planet)",
-            "formula": "dominatedPlanets.contains(planet)"
-          }
-        ]
-      },
-      "Reputation": {
-        "returnType": "double",
-        "params": "const Government *gov",
-        "isConst": true,
-        "sourceFile": "source/Politics.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "(it == reputationWith.end() ? 0. : it->second)",
-            "formula": "(it == reputationWith.end() ? 0. : it->second)"
           }
         ]
       }

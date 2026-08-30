@@ -33,13 +33,37 @@
       "ion damage": 0.1
     },
     "description": "These immensely powerful beam weapons are used by Quarg warships to strike fear into the hearts of all who dare oppose them. After the disappearance of several SPA agents equipped with Skylances after landing on a Quarg ringworld, the SPA created a slightly different version of the Skylance, which would hopefully be undetectable.",
-    "_internalId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff::SPA Skylance",
     "governments": {
       "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
         "Sayari Plushie": true,
         "Republic": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
         "Planets": [
@@ -75,7 +99,6 @@
     "outfit space": -8,
     "scan interference": 2,
     "description": "The Sayari Plushie Authority uses this Scan Blocker to block incoming CSSF scans and allow their plushie transports to pass by undetected. Combined with false flag Merchant-colored transports, plushies can be transported to any world in human space with minimal fuss.",
-    "_internalId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff::SPA Scan Blocker",
     "governments": {
       "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
         "Sayari Plushie": true,
@@ -83,6 +106,31 @@
         "Arena": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
         "Planets": [
@@ -153,12 +201,12 @@
       "hull damage": 6000
     },
     "description": "The Ship Sniper is a prototype weapon capable of dealing immense damage to any ship unlucky enough to be hit by a Ship Sniper. It has a long reload time and uses up energy and emits immense heat every time it is fired.",
-    "_internalId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff::Ship Sniper",
     "governments": {
       "Lemurias-Extra-ES-Stuff": {
         "Lemurias-Extra-ES-Stuff": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
         "_deprecated/unused": true

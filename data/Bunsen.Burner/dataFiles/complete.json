@@ -89,147 +89,32 @@
       "variant": "Clipper (Flamethrower)",
       "baseShip": "Clipper",
       "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
-      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
-        "official-game/endless-sky": {
-          "Merchant": true,
-          "Pirate": true,
-          "Independent": true,
-          "Lunarium (Hidden)": true,
-          "Free Worlds": true,
-          "Bounty Hunter": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Sayari Plushie": true
-        },
-        "Rumskib/rumskib": {
+        "LixiChronikouOrious list/Bunsen.Burner": {
           "Pirate": true
-        },
-        "SpaceCrate/SpaceCrate": {
-          "SpaceCrate": true
-        },
-        "Tugderic's Addons/Tugderics-Addons": {
-          "Smuggler": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Pirate (Rivals)": true,
-          "Creature Hunter": true,
-          "Merchant": true,
-          "Independent": true,
-          "Pirate": true
-        },
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
         }
       },
+      "governmentEvents": [
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+        "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+        "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+        "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+        "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+      ],
       "locations": {
         "LixiChronikouOrious list/Bunsen.Burner": {
-          "_deprecated/unused": true
-        }
-      },
-      "outfits": {
-        "Javelin Pod": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "nGVF-BB Fuel Cell": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "LP072a Battery Pack": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "D67-TM Shield Generator": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Fuel Pod": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Javelin Storage Crate": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Outfits Expansion": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Greyhound Plasma Thruster": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Chipmunk Plasma Thruster": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Greyhound Plasma Steering": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        }
-      }
-    },
-    {
-      "name": "Clipper (Flamethrower)",
-      "engines": [],
-      "reverseEngines": [],
-      "steeringEngines": [],
-      "guns": [],
-      "turrets": [],
-      "bays": [],
-      "leaks": [],
-      "attributes": {
-        "required crew": 1
-      },
-      "_internalId": "Nova1422s list/1requiredcrew::Clipper",
-      "_pluginId": "Nova1422s list/1requiredcrew",
-      "_hash": "5267fa0abcbe",
-      "variant": "Clipper (Flamethrower)",
-      "baseShip": "Clipper",
-      "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
-      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-      "governments": {
-        "official-game/endless-sky": {
-          "Merchant": true,
-          "Pirate": true,
-          "Independent": true,
-          "Lunarium (Hidden)": true,
-          "Free Worlds": true,
-          "Bounty Hunter": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Sayari Plushie": true
-        },
-        "Rumskib/rumskib": {
-          "Pirate": true
-        },
-        "SpaceCrate/SpaceCrate": {
-          "SpaceCrate": true
-        },
-        "Tugderic's Addons/Tugderics-Addons": {
-          "Smuggler": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Pirate (Rivals)": true,
-          "Creature Hunter": true,
-          "Merchant": true,
-          "Independent": true,
-          "Pirate": true
-        },
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        }
-      },
-      "locations": {
-        "LixiChronikouOrious list/Bunsen.Burner": {
-          "_deprecated/unused": true
+          "EventFleetChanges": [
+            "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 500)",
+            "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 800)",
+            "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 3000)",
+            "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 5000)",
+            "Removes fleet in \"Ildaria\" via event \"remove pirates from Ildaria\"",
+            "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
+            "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+          ]
         }
       },
       "outfits": {
@@ -388,189 +273,39 @@
       "variant": "Falcon (Flamethrower)",
       "baseShip": "Falcon",
       "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
-      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
-        "official-game/endless-sky": {
-          "Free Worlds": true,
-          "Militia": true,
-          "Pirate": true,
-          "Independent": true,
-          "Merchant": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Yuyuko Saigyouji": true,
-          "Sayari Plushie": true,
-          "Hidalgo Shrine": true,
-          "Yuyuko Saigyouji (Hostile)": true,
-          "Republic": true
-        },
-        "Mega Freight/Mega-Freight": {
-          "MGF: NBSL": true,
-          "MGF: Crossguard Patrol": true,
-          "MGF: NGK Security": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Pirate (Rivals)": true,
-          "Merchant": true,
-          "Oathbreaker": true,
-          "Escort": true,
-          "Bounty (Disguised)": true,
-          "Pirate": true,
-          "Pirate (Rival)": true,
-          "Republic": true,
-          "Scar's Legion": true,
+        "LixiChronikouOrious list/Bunsen.Burner": {
           "Free Worlds": true
-        },
-        "Blended Ships/blended-ships": {
-          "Free Worlds": true
-        },
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
         }
       },
+      "governmentEvents": [
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+        "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
+        "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+        "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
+        "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+        "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+        "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
+        "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
+        "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+        "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+        "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+        "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+        "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+        "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+      ],
       "locations": {
         "LixiChronikouOrious list/Bunsen.Burner": {
-          "_deprecated/unused": true
-        }
-      },
-      "outfits": {
-        "Plasma Cannon": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Anti-Missile Turret": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Quad Blaster Turret": {
-          "count": 3,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Breeder Reactor": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "LP036a Battery Pack": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "LP072a Battery Pack": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "D14-RN Shield Generator": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "D67-TM Shield Generator": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Liquid Nitrogen Cooler": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Water Coolant System": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Catalytic Ramscoop": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Fuel Pod": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Laser Rifle": {
-          "count": 15,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Small Radar Jammer": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Impala Plasma Thruster": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "X1700 Ion Thruster": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Orca Plasma Steering": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        }
-      }
-    },
-    {
-      "name": "Falcon (Flamethrower)",
-      "engines": [],
-      "reverseEngines": [],
-      "steeringEngines": [],
-      "guns": [],
-      "turrets": [],
-      "bays": [],
-      "leaks": [],
-      "attributes": {
-        "required crew": 1
-      },
-      "_internalId": "Nova1422s list/1requiredcrew::Falcon",
-      "_pluginId": "Nova1422s list/1requiredcrew",
-      "_hash": "5267fa0abcbe",
-      "variant": "Falcon (Flamethrower)",
-      "baseShip": "Falcon",
-      "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
-      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-      "governments": {
-        "official-game/endless-sky": {
-          "Free Worlds": true,
-          "Militia": true,
-          "Pirate": true,
-          "Independent": true,
-          "Merchant": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Yuyuko Saigyouji": true,
-          "Sayari Plushie": true,
-          "Hidalgo Shrine": true,
-          "Yuyuko Saigyouji (Hostile)": true,
-          "Republic": true
-        },
-        "Mega Freight/Mega-Freight": {
-          "MGF: NBSL": true,
-          "MGF: Crossguard Patrol": true,
-          "MGF: NGK Security": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Pirate (Rivals)": true,
-          "Merchant": true,
-          "Oathbreaker": true,
-          "Escort": true,
-          "Bounty (Disguised)": true,
-          "Pirate": true,
-          "Pirate (Rival)": true,
-          "Republic": true,
-          "Scar's Legion": true,
-          "Free Worlds": true
-        },
-        "Blended Ships/blended-ships": {
-          "Free Worlds": true
-        },
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        }
-      },
-      "locations": {
-        "LixiChronikouOrious list/Bunsen.Burner": {
-          "_deprecated/unused": true
+          "EventFleetChanges": [
+            "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\" (rate 9600)",
+            "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\" (rate 19200)",
+            "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach\" (rate 4800)",
+            "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+            "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\"",
+            "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\"",
+            "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
+          ]
         }
       },
       "outfits": {
@@ -757,189 +492,30 @@
       "variant": "Falcon (Flamethrower Pirate)",
       "baseShip": "Falcon",
       "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
-      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
-        "official-game/endless-sky": {
-          "Free Worlds": true,
-          "Militia": true,
-          "Pirate": true,
-          "Independent": true,
-          "Merchant": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Yuyuko Saigyouji": true,
-          "Sayari Plushie": true,
-          "Hidalgo Shrine": true,
-          "Yuyuko Saigyouji (Hostile)": true,
-          "Republic": true
-        },
-        "Mega Freight/Mega-Freight": {
-          "MGF: NBSL": true,
-          "MGF: Crossguard Patrol": true,
-          "MGF: NGK Security": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Pirate (Rivals)": true,
-          "Merchant": true,
-          "Oathbreaker": true,
-          "Escort": true,
-          "Bounty (Disguised)": true,
-          "Pirate": true,
-          "Pirate (Rival)": true,
-          "Republic": true,
-          "Scar's Legion": true,
-          "Free Worlds": true
-        },
-        "Blended Ships/blended-ships": {
-          "Free Worlds": true
-        },
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
+        "LixiChronikouOrious list/Bunsen.Burner": {
+          "Pirate": true
         }
       },
+      "governmentEvents": [
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+        "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+        "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+        "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+        "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+      ],
       "locations": {
         "LixiChronikouOrious list/Bunsen.Burner": {
-          "_deprecated/unused": true
-        }
-      },
-      "outfits": {
-        "Plasma Cannon": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Anti-Missile Turret": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Gatling Turret": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Javelin Turret": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Breeder Reactor": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "LP036a Battery Pack": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "D41-HY Shield Generator": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "D67-TM Shield Generator": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Liquid Nitrogen Cooler": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Fuel Pod": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Gatling Gun Ammo": {
-          "count": 12000,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Javelin Storage Crate": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Laser Rifle": {
-          "count": 15,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Small Radar Jammer": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Impala Plasma Thruster": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "X1700 Ion Thruster": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Orca Plasma Steering": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        }
-      }
-    },
-    {
-      "name": "Falcon (Flamethrower Pirate)",
-      "engines": [],
-      "reverseEngines": [],
-      "steeringEngines": [],
-      "guns": [],
-      "turrets": [],
-      "bays": [],
-      "leaks": [],
-      "attributes": {
-        "required crew": 1
-      },
-      "_internalId": "Nova1422s list/1requiredcrew::Falcon",
-      "_pluginId": "Nova1422s list/1requiredcrew",
-      "_hash": "5267fa0abcbe",
-      "variant": "Falcon (Flamethrower Pirate)",
-      "baseShip": "Falcon",
-      "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
-      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-      "governments": {
-        "official-game/endless-sky": {
-          "Free Worlds": true,
-          "Militia": true,
-          "Pirate": true,
-          "Independent": true,
-          "Merchant": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Yuyuko Saigyouji": true,
-          "Sayari Plushie": true,
-          "Hidalgo Shrine": true,
-          "Yuyuko Saigyouji (Hostile)": true,
-          "Republic": true
-        },
-        "Mega Freight/Mega-Freight": {
-          "MGF: NBSL": true,
-          "MGF: Crossguard Patrol": true,
-          "MGF: NGK Security": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Pirate (Rivals)": true,
-          "Merchant": true,
-          "Oathbreaker": true,
-          "Escort": true,
-          "Bounty (Disguised)": true,
-          "Pirate": true,
-          "Pirate (Rival)": true,
-          "Republic": true,
-          "Scar's Legion": true,
-          "Free Worlds": true
-        },
-        "Blended Ships/blended-ships": {
-          "Free Worlds": true
-        },
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        }
-      },
-      "locations": {
-        "LixiChronikouOrious list/Bunsen.Burner": {
-          "_deprecated/unused": true
+          "EventFleetChanges": [
+            "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 800)",
+            "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 5000)",
+            "Removes fleet in \"Ildaria\" via event \"remove pirates from Ildaria\"",
+            "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
+            "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+          ]
         }
       },
       "outfits": {
@@ -1115,249 +691,42 @@
       "variant": "Fury (Flamethrower Blaster)",
       "baseShip": "Fury",
       "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
-      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
-        "official-game/endless-sky": {
-          "Merchant": true,
-          "Free Worlds": true,
-          "Militia": true,
-          "Pirate": true,
-          "Independent": true,
-          "Bounty Hunter": true
-        },
-        "Mega Freight/Mega-Freight": {
-          "MGF: Solacer Group": true,
-          "MGF: Black Death": true
-        },
-        "Rumskib/rumskib": {
-          "Pirate": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Pirate (Rivals)": true,
-          "Merchant": true,
-          "Bounty": true,
-          "Republic": true,
-          "Independent (Killable)": true,
-          "Pirate": true,
+        "LixiChronikouOrious list/Bunsen.Burner": {
           "Free Worlds": true
-        },
-        "Blended Ships/blended-ships": {
-          "Pirate": true
-        },
-        "Crisis In Management/endless-sky-syndicate": {
-          "Militia (Rogue)": true,
-          "Pirate": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Yuyuko Saigyouji": true,
-          "Yuyuko Saigyouji (Hostile)": true
-        },
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
         }
       },
+      "governmentEvents": [
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+        "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
+        "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+        "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
+        "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+        "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+        "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
+        "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
+        "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+        "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+        "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+        "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+        "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+        "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+      ],
       "locations": {
         "LixiChronikouOrious list/Bunsen.Burner": {
-          "_deprecated/unused": true
-        }
-      },
-      "outfits": {
-        "Energy Blaster": {
-          "count": 4,
-          "pluginId": "official-game/endless-sky"
-        },
-        "nGVF-AA Fuel Cell": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "LP036a Battery Pack": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "D14-RN Shield Generator": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Fuel Pod": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "X2700 Ion Thruster": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "X2200 Ion Steering": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        }
-      }
-    },
-    {
-      "name": "Fury (Flamethrower Blaster)",
-      "engines": [],
-      "reverseEngines": [],
-      "steeringEngines": [],
-      "guns": [],
-      "turrets": [],
-      "bays": [],
-      "leaks": [],
-      "attributes": {
-        "cost": 424000
-      },
-      "_internalId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion::Fury",
-      "_pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-      "_hash": "1890d486bb5b",
-      "variant": "Fury (Flamethrower Blaster)",
-      "baseShip": "Fury",
-      "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
-      "_baseShipPluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-      "governments": {
-        "official-game/endless-sky": {
-          "Merchant": true,
-          "Free Worlds": true,
-          "Militia": true,
-          "Pirate": true,
-          "Independent": true,
-          "Bounty Hunter": true
-        },
-        "Mega Freight/Mega-Freight": {
-          "MGF: Solacer Group": true,
-          "MGF: Black Death": true
-        },
-        "Rumskib/rumskib": {
-          "Pirate": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Pirate (Rivals)": true,
-          "Merchant": true,
-          "Bounty": true,
-          "Republic": true,
-          "Independent (Killable)": true,
-          "Pirate": true,
-          "Free Worlds": true
-        },
-        "Blended Ships/blended-ships": {
-          "Pirate": true
-        },
-        "Crisis In Management/endless-sky-syndicate": {
-          "Militia (Rogue)": true,
-          "Pirate": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Yuyuko Saigyouji": true,
-          "Yuyuko Saigyouji (Hostile)": true
-        },
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        }
-      },
-      "locations": {
-        "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
-          "_deprecated/unused": true
-        }
-      },
-      "outfits": {
-        "Energy Blaster": {
-          "count": 4,
-          "pluginId": "official-game/endless-sky"
-        },
-        "nGVF-AA Fuel Cell": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "LP036a Battery Pack": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "D14-RN Shield Generator": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Fuel Pod": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "X2700 Ion Thruster": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "X2200 Ion Steering": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        }
-      }
-    },
-    {
-      "name": "Fury (Flamethrower Blaster)",
-      "engines": [],
-      "reverseEngines": [],
-      "steeringEngines": [],
-      "guns": [],
-      "turrets": [],
-      "bays": [],
-      "leaks": [],
-      "attributes": {
-        "cost": 441000
-      },
-      "_internalId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards::Fury",
-      "_pluginId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
-      "_hash": "fba5a6a45882",
-      "variant": "Fury (Flamethrower Blaster)",
-      "baseShip": "Fury",
-      "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
-      "_baseShipPluginId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
-      "governments": {
-        "official-game/endless-sky": {
-          "Merchant": true,
-          "Free Worlds": true,
-          "Militia": true,
-          "Pirate": true,
-          "Independent": true,
-          "Bounty Hunter": true
-        },
-        "Mega Freight/Mega-Freight": {
-          "MGF: Solacer Group": true,
-          "MGF: Black Death": true
-        },
-        "Rumskib/rumskib": {
-          "Pirate": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Pirate (Rivals)": true,
-          "Merchant": true,
-          "Bounty": true,
-          "Republic": true,
-          "Independent (Killable)": true,
-          "Pirate": true,
-          "Free Worlds": true
-        },
-        "Blended Ships/blended-ships": {
-          "Pirate": true
-        },
-        "Crisis In Management/endless-sky-syndicate": {
-          "Militia (Rogue)": true,
-          "Pirate": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Yuyuko Saigyouji": true,
-          "Yuyuko Saigyouji (Hostile)": true
-        },
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        }
-      },
-      "locations": {
-        "LixiChronikouOrious list/Louise.Conglomerate.Shipyards": {
-          "_deprecated/unused": true
+          "EventFleetChanges": [
+            "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\" (rate 8000)",
+            "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\" (rate 9600)",
+            "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\" (rate 16000)",
+            "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\" (rate 19200)",
+            "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach\" (rate 4000)",
+            "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach\" (rate 4800)",
+            "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+            "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\"",
+            "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\"",
+            "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
+          ]
         }
       },
       "outfits": {
@@ -1493,265 +862,32 @@
       "variant": "Fury (Flamethrower Pirate)",
       "baseShip": "Fury",
       "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
-      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
-        "official-game/endless-sky": {
-          "Merchant": true,
-          "Free Worlds": true,
-          "Militia": true,
-          "Pirate": true,
-          "Independent": true,
-          "Bounty Hunter": true
-        },
-        "Mega Freight/Mega-Freight": {
-          "MGF: Solacer Group": true,
-          "MGF: Black Death": true
-        },
-        "Rumskib/rumskib": {
+        "LixiChronikouOrious list/Bunsen.Burner": {
           "Pirate": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Pirate (Rivals)": true,
-          "Merchant": true,
-          "Bounty": true,
-          "Republic": true,
-          "Independent (Killable)": true,
-          "Pirate": true,
-          "Free Worlds": true
-        },
-        "Blended Ships/blended-ships": {
-          "Pirate": true
-        },
-        "Crisis In Management/endless-sky-syndicate": {
-          "Militia (Rogue)": true,
-          "Pirate": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Yuyuko Saigyouji": true,
-          "Yuyuko Saigyouji (Hostile)": true
-        },
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
         }
       },
+      "governmentEvents": [
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+        "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+        "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+        "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+        "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+      ],
       "locations": {
         "LixiChronikouOrious list/Bunsen.Burner": {
-          "_deprecated/unused": true
-        }
-      },
-      "outfits": {
-        "Gatling Gun": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "nGVF-AA Fuel Cell": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "LP036a Battery Pack": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "D14-RN Shield Generator": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Fuel Pod": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Gatling Gun Ammo": {
-          "count": 6000,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Small Radar Jammer": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "X2700 Ion Thruster": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "X2200 Ion Steering": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        }
-      }
-    },
-    {
-      "name": "Fury (Flamethrower Pirate)",
-      "engines": [],
-      "reverseEngines": [],
-      "steeringEngines": [],
-      "guns": [],
-      "turrets": [],
-      "bays": [],
-      "leaks": [],
-      "attributes": {
-        "cost": 424000
-      },
-      "_internalId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion::Fury",
-      "_pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-      "_hash": "1890d486bb5b",
-      "variant": "Fury (Flamethrower Pirate)",
-      "baseShip": "Fury",
-      "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
-      "_baseShipPluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-      "governments": {
-        "official-game/endless-sky": {
-          "Merchant": true,
-          "Free Worlds": true,
-          "Militia": true,
-          "Pirate": true,
-          "Independent": true,
-          "Bounty Hunter": true
-        },
-        "Mega Freight/Mega-Freight": {
-          "MGF: Solacer Group": true,
-          "MGF: Black Death": true
-        },
-        "Rumskib/rumskib": {
-          "Pirate": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Pirate (Rivals)": true,
-          "Merchant": true,
-          "Bounty": true,
-          "Republic": true,
-          "Independent (Killable)": true,
-          "Pirate": true,
-          "Free Worlds": true
-        },
-        "Blended Ships/blended-ships": {
-          "Pirate": true
-        },
-        "Crisis In Management/endless-sky-syndicate": {
-          "Militia (Rogue)": true,
-          "Pirate": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Yuyuko Saigyouji": true,
-          "Yuyuko Saigyouji (Hostile)": true
-        },
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        }
-      },
-      "locations": {
-        "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
-          "_deprecated/unused": true
-        }
-      },
-      "outfits": {
-        "Gatling Gun": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "nGVF-AA Fuel Cell": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "LP036a Battery Pack": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "D14-RN Shield Generator": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Fuel Pod": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Gatling Gun Ammo": {
-          "count": 6000,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Small Radar Jammer": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "X2700 Ion Thruster": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "X2200 Ion Steering": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        }
-      }
-    },
-    {
-      "name": "Fury (Flamethrower Pirate)",
-      "engines": [],
-      "reverseEngines": [],
-      "steeringEngines": [],
-      "guns": [],
-      "turrets": [],
-      "bays": [],
-      "leaks": [],
-      "attributes": {
-        "cost": 441000
-      },
-      "_internalId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards::Fury",
-      "_pluginId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
-      "_hash": "fba5a6a45882",
-      "variant": "Fury (Flamethrower Pirate)",
-      "baseShip": "Fury",
-      "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
-      "_baseShipPluginId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
-      "governments": {
-        "official-game/endless-sky": {
-          "Merchant": true,
-          "Free Worlds": true,
-          "Militia": true,
-          "Pirate": true,
-          "Independent": true,
-          "Bounty Hunter": true
-        },
-        "Mega Freight/Mega-Freight": {
-          "MGF: Solacer Group": true,
-          "MGF: Black Death": true
-        },
-        "Rumskib/rumskib": {
-          "Pirate": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Pirate (Rivals)": true,
-          "Merchant": true,
-          "Bounty": true,
-          "Republic": true,
-          "Independent (Killable)": true,
-          "Pirate": true,
-          "Free Worlds": true
-        },
-        "Blended Ships/blended-ships": {
-          "Pirate": true
-        },
-        "Crisis In Management/endless-sky-syndicate": {
-          "Militia (Rogue)": true,
-          "Pirate": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "Yuyuko Saigyouji": true,
-          "Yuyuko Saigyouji (Hostile)": true
-        },
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        }
-      },
-      "locations": {
-        "LixiChronikouOrious list/Louise.Conglomerate.Shipyards": {
-          "_deprecated/unused": true
+          "EventFleetChanges": [
+            "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 500)",
+            "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 800)",
+            "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 3000)",
+            "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 5000)",
+            "Removes fleet in \"Ildaria\" via event \"remove pirates from Ildaria\"",
+            "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
+            "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+          ]
         }
       },
       "outfits": {
@@ -1908,165 +1044,42 @@
       "variant": "Osprey (Flamethrower)",
       "baseShip": "Osprey",
       "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
-      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
-        "official-game/endless-sky": {
-          "Free Worlds": true,
-          "Militia": true,
-          "Pirate": true,
-          "Bounty Hunter": true,
-          "Merchant": true
-        },
-        "Mega Freight/Mega-Freight": {
-          "MGF: Crossguard Patrol": true,
-          "Escort": true
-        },
-        "Rumskib/rumskib": {
-          "Pirate": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Oathbreaker": true,
-          "Escort": true,
-          "Bounty (Disguised)": true,
-          "Republic": true,
-          "Pirate": true,
-          "Free Worlds": true,
-          "Militia": true
-        },
-        "Blended Ships/blended-ships": {
+        "LixiChronikouOrious list/Bunsen.Burner": {
           "Free Worlds": true
-        },
-        "Tugderic's Addons/Tugderics-Addons": {
-          "Ancient Travelers": true
-        },
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
         }
       },
+      "governmentEvents": [
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+        "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
+        "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+        "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
+        "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+        "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+        "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
+        "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
+        "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+        "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+        "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+        "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+        "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+        "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+      ],
       "locations": {
         "LixiChronikouOrious list/Bunsen.Burner": {
-          "_deprecated/unused": true
-        }
-      },
-      "outfits": {
-        "Plasma Cannon": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Heavy Anti-Missile Turret": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Quad Blaster Turret": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Breeder Reactor": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "D14-RN Shield Generator": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "D67-TM Shield Generator": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Liquid Nitrogen Cooler": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Catalytic Ramscoop": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Fuel Pod": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Large Radar Jammer": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Laser Rifle": {
-          "count": 3,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Impala Plasma Thruster": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Impala Plasma Steering": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        }
-      }
-    },
-    {
-      "name": "Osprey (Flamethrower)",
-      "engines": [],
-      "reverseEngines": [],
-      "steeringEngines": [],
-      "guns": [],
-      "turrets": [],
-      "bays": [],
-      "leaks": [],
-      "attributes": {
-        "required crew": 1
-      },
-      "_internalId": "Nova1422s list/1requiredcrew::Osprey",
-      "_pluginId": "Nova1422s list/1requiredcrew",
-      "_hash": "5267fa0abcbe",
-      "variant": "Osprey (Flamethrower)",
-      "baseShip": "Osprey",
-      "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
-      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-      "governments": {
-        "official-game/endless-sky": {
-          "Free Worlds": true,
-          "Militia": true,
-          "Pirate": true,
-          "Bounty Hunter": true,
-          "Merchant": true
-        },
-        "Mega Freight/Mega-Freight": {
-          "MGF: Crossguard Patrol": true,
-          "Escort": true
-        },
-        "Rumskib/rumskib": {
-          "Pirate": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Oathbreaker": true,
-          "Escort": true,
-          "Bounty (Disguised)": true,
-          "Republic": true,
-          "Pirate": true,
-          "Free Worlds": true,
-          "Militia": true
-        },
-        "Blended Ships/blended-ships": {
-          "Free Worlds": true
-        },
-        "Tugderic's Addons/Tugderics-Addons": {
-          "Ancient Travelers": true
-        },
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        }
-      },
-      "locations": {
-        "LixiChronikouOrious list/Bunsen.Burner": {
-          "_deprecated/unused": true
+          "EventFleetChanges": [
+            "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\" (rate 8000)",
+            "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\" (rate 9600)",
+            "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\" (rate 16000)",
+            "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\" (rate 19200)",
+            "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach\" (rate 4000)",
+            "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach\" (rate 4800)",
+            "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+            "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\"",
+            "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\"",
+            "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
+          ]
         }
       },
       "outfits": {
@@ -2239,165 +1252,30 @@
       "variant": "Osprey (Flamethrower Pirate)",
       "baseShip": "Osprey",
       "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
-      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
-        "official-game/endless-sky": {
-          "Free Worlds": true,
-          "Militia": true,
-          "Pirate": true,
-          "Bounty Hunter": true,
-          "Merchant": true
-        },
-        "Mega Freight/Mega-Freight": {
-          "MGF: Crossguard Patrol": true,
-          "Escort": true
-        },
-        "Rumskib/rumskib": {
+        "LixiChronikouOrious list/Bunsen.Burner": {
           "Pirate": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Oathbreaker": true,
-          "Escort": true,
-          "Bounty (Disguised)": true,
-          "Republic": true,
-          "Pirate": true,
-          "Free Worlds": true,
-          "Militia": true
-        },
-        "Blended Ships/blended-ships": {
-          "Free Worlds": true
-        },
-        "Tugderic's Addons/Tugderics-Addons": {
-          "Ancient Travelers": true
-        },
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
         }
       },
+      "governmentEvents": [
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+        "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+        "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+        "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+        "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+      ],
       "locations": {
         "LixiChronikouOrious list/Bunsen.Burner": {
-          "_deprecated/unused": true
-        }
-      },
-      "outfits": {
-        "Plasma Cannon": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Anti-Missile Turret": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Javelin Turret": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Breeder Reactor": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "D23-QP Shield Generator": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "D67-TM Shield Generator": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Liquid Nitrogen Cooler": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Fuel Pod": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Javelin Storage Crate": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Laser Rifle": {
-          "count": 3,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Small Radar Jammer": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Impala Plasma Thruster": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Impala Plasma Steering": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        }
-      }
-    },
-    {
-      "name": "Osprey (Flamethrower Pirate)",
-      "engines": [],
-      "reverseEngines": [],
-      "steeringEngines": [],
-      "guns": [],
-      "turrets": [],
-      "bays": [],
-      "leaks": [],
-      "attributes": {
-        "required crew": 1
-      },
-      "_internalId": "Nova1422s list/1requiredcrew::Osprey",
-      "_pluginId": "Nova1422s list/1requiredcrew",
-      "_hash": "5267fa0abcbe",
-      "variant": "Osprey (Flamethrower Pirate)",
-      "baseShip": "Osprey",
-      "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
-      "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-      "governments": {
-        "official-game/endless-sky": {
-          "Free Worlds": true,
-          "Militia": true,
-          "Pirate": true,
-          "Bounty Hunter": true,
-          "Merchant": true
-        },
-        "Mega Freight/Mega-Freight": {
-          "MGF: Crossguard Patrol": true,
-          "Escort": true
-        },
-        "Rumskib/rumskib": {
-          "Pirate": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Oathbreaker": true,
-          "Escort": true,
-          "Bounty (Disguised)": true,
-          "Republic": true,
-          "Pirate": true,
-          "Free Worlds": true,
-          "Militia": true
-        },
-        "Blended Ships/blended-ships": {
-          "Free Worlds": true
-        },
-        "Tugderic's Addons/Tugderics-Addons": {
-          "Ancient Travelers": true
-        },
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        }
-      },
-      "locations": {
-        "LixiChronikouOrious list/Bunsen.Burner": {
-          "_deprecated/unused": true
+          "EventFleetChanges": [
+            "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 800)",
+            "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 5000)",
+            "Removes fleet in \"Ildaria\" via event \"remove pirates from Ildaria\"",
+            "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
+            "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+          ]
         }
       },
       "outfits": {
@@ -2472,12 +1350,12 @@
       "capture defense": 0.3,
       "unplunderable": 1,
       "description": "Though heavily debated, the more militant factions in the Senate could push through that licensed captains are allowed to equip their boarding crews with these advanced flamethrowers to break the resistance of enemy crews. However, most people would consider this weapon to be inhumane.",
-      "_internalId": "LixiChronikouOrious list/Bunsen.Burner::Bunsen Torch",
       "governments": {
         "Bunsen.Burner": {
           "Bunsen.Burner": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "LixiChronikouOrious list/Bunsen.Burner": {
           "_deprecated/unused": true
@@ -2499,12 +1377,12 @@
       "illegal": 800000,
       "unplunderable": 1,
       "description": "Right when the war ended, the Bunsen Torch was banned not only in the territories of the Free Worlds, but by the peace agreement also everywhere else. As to be expected, the Pirates didn't care and recognized a business opportunity. \tHowever, torches bought legally during the war still won't be fined because of exception rules in the corresponding paragraphs.",
-      "_internalId": "LixiChronikouOrious list/Bunsen.Burner::Bunsen_Torch",
       "governments": {
         "Bunsen.Burner": {
           "Bunsen.Burner": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "LixiChronikouOrious list/Bunsen.Burner": {
           "_deprecated/unused": true
@@ -2547,12 +1425,12 @@
         ]
       },
       "description": "Being a more sophisticated version of the flamethrower, the Bunsen Burner represents the epitome of Free Worlds creative extravagance. The fuel requirements are so significant that it comes with a pre-installed fuel pod. Nevertheless its usage became feasible only with the introduction of the catalytic ramscoop.",
-      "_internalId": "LixiChronikouOrious list/Bunsen.Burner::Bunsen Burner",
       "governments": {
         "Bunsen.Burner": {
           "Bunsen.Burner": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "LixiChronikouOrious list/Bunsen.Burner": {
           "_deprecated/unused": true
@@ -2599,12 +1477,12 @@
         ]
       },
       "description": "Being a more sophisticated version of the flamethrower, the Bunsen Burner represents the epitome of Free Worlds creative extravagance. The fuel requirements are so significant that it comes with a pre-installed fuel pod. Nevertheless its usage became feasible only with the introduction of the catalytic ramscoop. \tOne of the disadvantages of the flamethrower turned out to be that it's only effective when employed on ships which are big enough to be equipped with ramscoops and several fuel pods. As such ships are often slower in turning, the Bunsen Burner comes also in a turret version with high turning rate.",
-      "_internalId": "LixiChronikouOrious list/Bunsen.Burner::Bunsen Burner Turret",
       "governments": {
         "Bunsen.Burner": {
           "Bunsen.Burner": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "LixiChronikouOrious list/Bunsen.Burner": {
           "_deprecated/unused": true
@@ -2634,12 +1512,12 @@
         "hull damage": 0.9,
         "heat damage": 256
       },
-      "_internalId": "LixiChronikouOrious list/Bunsen.Burner::Bunsen Projectile",
       "governments": {
         "Bunsen.Burner": {
           "Bunsen.Burner": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "LixiChronikouOrious list/Bunsen.Burner": {
           "_deprecated/unused": true
@@ -2652,7 +1530,6 @@
       "weapon": {
         "firing fuel": 0.15
       },
-      "_internalId": "LixiChronikouOrious list/Bunsen.Burner::Flamethrower",
       "governments": {
         "POOT/poot-senza-solaria": {
           "Syndicate": true
@@ -2663,6 +1540,8 @@
         "official-game/endless-sky": {
           "Free Worlds": true,
           "Pirate": true,
+          "Bounty Hunter": true,
+          "Militia": true,
           "Merchant": true,
           "Kor Sestor": true,
           "Alpha": true,
@@ -2693,17 +1572,27 @@
           "Bounty (Disguised)": true,
           "Pirate (Rival)": true,
           "Scar's Legion": true,
+          "Oathbreaker": true,
+          "Pirate (Rivals)": true,
           "Militia": true,
           "Kor Sestor": true,
           "Korath": true,
-          "Oathbreaker": true,
           "Bounty Hunter": true,
           "Independent": true,
           "Alpha": true,
-          "Storm Seekers": true
+          "Storm Seekers": true,
+          "Navy (Oathkeeper)": true
+        },
+        "Rumskib/rumskib": {
+          "Pirate": true
+        },
+        "LixiChronikouOrious list/Bunsen.Burner": {
+          "Free Worlds": true
         },
         "Mega Freight/Mega-Freight": {
-          "Escort": true
+          "Escort": true,
+          "Pirate": true,
+          "MGF: Espion Mining Co.": true
         },
         "Tugderic's Addons/Tugderics-Addons": {
           "Ancient Travelers": true
@@ -2718,9 +1607,67 @@
         },
         "Midnight Scrapyard/Midnight-Scrapyard": {
           "Kor Scrappers": true,
-          "Kor Scrappers (Hostile)": true
+          "Kor Scrappers (Hostile)": true,
+          "Scrapyard Derelict": true
         }
       },
+      "governmentEvents": [
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+        "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
+        "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
+        "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+        "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+        "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
+        "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+        "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+        "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+        "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+        "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+        "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+        "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+        "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+        "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+        "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+        "Event \"fwc battle for rasalhague\": Pug attitude toward Navy (Oathkeeper) → -0.01",
+        "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+        "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
+        "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+        "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+        "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+        "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+        "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
+        "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
+        "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
+        "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
+        "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1",
+        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Scar's Legion → -0.1",
+        "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+        "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+        "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+        "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+        "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+        "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+        "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+        "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+        "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+        "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
+        "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+        "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+      ],
       "locations": {
         "official-game/endless-sky": {
           "Planets": [
@@ -2750,6 +1697,9 @@
           "Outfitters": [
             "Senza Solaria Plugin Outfits",
             "Senza Solaria Unlockall Outfits Plugin"
+          ],
+          "EventOutfitterChanges": [
+            "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
           ]
         },
         "POOT/endless_sky_senza_solaria": {
@@ -2766,6 +1716,9 @@
           "Outfitters": [
             "Senza Solaria Plugin Outfits",
             "Senza Solaria Unlockall Outfits Plugin"
+          ],
+          "EventOutfitterChanges": [
+            "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
           ]
         }
       },
@@ -2793,12 +1746,12 @@
         "hull damage": 0.7,
         "heat damage": 160
       },
-      "_internalId": "LixiChronikouOrious list/Bunsen.Burner::Flamethrower Projectile",
       "governments": {
         "Bunsen.Burner": {
           "Bunsen.Burner": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "LixiChronikouOrious list/Bunsen.Burner": {
           "_deprecated/unused": true
@@ -2808,5 +1761,5 @@
     }
   ],
   "effects": [],
-  "parsedAt": "2026-08-29T22:17:26.051Z"
+  "parsedAt": "2026-08-30T09:04:52.854Z"
 }

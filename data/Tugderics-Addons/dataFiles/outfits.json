@@ -15,7 +15,6 @@
     "hull heat": 1.2,
     "heat generation": 12,
     "description": "This systems core runs way hotter than it should.",
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::Systems Core (Overheated)",
     "governments": {
       "official-game/endless-sky": {
         "Korath": true
@@ -24,6 +23,12 @@
         "Korath": true
       }
     },
+    "governmentEvents": [
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
+      "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ships": [
@@ -48,7 +53,6 @@
     "ion resistance": 0.27,
     "scramble resistance": 0.27,
     "description": "This enormous cell is capable of providing enough energy for any remnant ship capable of fitting it. \tThe ion resistance on all Remnant generators not only allows them to bounce back from ion storms more quickly, but also gives their ships a window of time when an ion storm starts where they are not affected, giving them a chance to escape before becoming debilitated by the storm.",
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::Pulsar Cell",
     "governments": {
       "official-game/endless-sky": {
         "Remnant": true
@@ -57,9 +61,11 @@
         "Remnant": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
-        "Storm Seekers": true
+        "Storm Seekers": true,
+        "Remnant": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ships": [
@@ -79,11 +85,12 @@
     "energy generation": 3.7,
     "heat generation": 12.5,
     "description": "The Gremlin core is a modified version of the dwarf core, modified by pirates, making it way smaller but less heat efficient.",
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::Gremlin Core",
     "governments": {
       "official-game/endless-sky": {
         "Pirate": true,
-        "Republic": true
+        "Republic": true,
+        "Merchant": true,
+        "Deep Security": true
       },
       "Crisis In Management/endless-sky-syndicate": {
         "Pirate": true,
@@ -106,12 +113,71 @@
         "Pirate": true,
         "Oathbreaker": true,
         "Pirate (Rivals)": true,
+        "Merchant": true,
         "Bounty Hunter": true,
         "Republic": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true
+      },
+      "SpaceCrate/SpaceCrate": {
+        "SpaceCrate": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Independent": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
+        "Planets": [
+          "Haven"
+        ],
+        "Outfitters": [
+          "Haven Arsenal Basics"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Haven\" via event \"Haven Arsenal 1\""
+        ],
         "Ships": [
           "Berserker (Gremlin Core)",
           "Enforcer (assembly)",
@@ -134,7 +200,6 @@
     "energy generation": 20.8,
     "heat generation": 48,
     "description": "Pirates created the Troll Reactor as a way to outmatch heavy merchant warship, while a little bigger and less heat efficient, it can be a good alternative to the fusion reactor for power-hungry warships.",
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::Troll Reactor",
     "governments": {
       "official-game/endless-sky": {
         "Pirate": true,
@@ -161,10 +226,58 @@
         "Pirate (Rival)": true,
         "Pirate (Rivals)": true,
         "Hai (Unfettered)": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Pirate": true,
+        "Bounty (Disguised)": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
+        "Planets": [
+          "Haven"
+        ],
+        "Outfitters": [
+          "Haven Arsenal Advanced"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Haven\" via event \"Haven Arsenal 2\""
+        ],
         "Ships": [
           "Leviathan (Blaster Gatling)",
           "Sea Scorpion (assembly)"
@@ -183,7 +296,6 @@
     "energy generation": 28.6,
     "heat generation": 68,
     "description": "a reactor made by pirates warlords for their biggest ships, it produces an absurd amount of energy.",
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::Ogre Reactor",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "The Assembly": true,
@@ -197,12 +309,57 @@
       "Lost In Midnight/Lost-in-Midnight": {
         "Republic": true,
         "Pirate": true,
+        "Oathbreaker": true,
+        "Navy (Oathkeeper)": true,
         "Free Worlds": true
       },
       "Blended Ships/blended-ships": {
         "Free Worlds": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ships": [
@@ -229,17 +386,44 @@
     "energy consumption": 0.2,
     "ion resistance": 0.05,
     "description": "These shield generators are much faster than the classic ones, can't generate shield during a fight.",
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::P14-RN Shield Generator",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ancient Travelers": true,
         "The Assembly": true
       },
+      "official-game/endless-sky": {
+        "Pirate": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Independent": true
+      },
       "Lost In Midnight/Lost-in-Midnight": {
         "Pirate": true,
         "Oathbreaker": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ships": [
@@ -264,17 +448,50 @@
     "energy consumption": 0.32,
     "ion resistance": 0.08,
     "description": "These shield generators are much faster than the classic ones, can't generate shield during a fight.",
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::P23-QP Shield Generator",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "The Assembly": true,
         "Ancient Travelers": true
       },
+      "official-game/endless-sky": {
+        "Merchant": true,
+        "Pirate": true
+      },
       "Lost In Midnight/Lost-in-Midnight": {
         "Pirate": true,
         "Oathbreaker": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Independent": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ships": [
@@ -299,12 +516,12 @@
     "energy consumption": 0.51,
     "ion resistance": 0.14,
     "description": "These shield generators are much faster than the classic ones, can't generate shield during a fight.",
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::P41-HY Shield Generator",
     "governments": {
       "Tugderics-Addons": {
         "Tugderics-Addons": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "_deprecated/unused": true
@@ -326,15 +543,25 @@
     "energy consumption": 0.82,
     "ion resistance": 0.22,
     "description": "These shield generators are much faster than the classic ones, can't generate shield during a fight.",
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::P67-TM Shield Generator",
     "governments": {
       "Lost In Midnight/Lost-in-Midnight": {
         "Hai (Unfettered)": true
       },
       "Tugderic's Addons/Tugderics-Addons": {
         "The Assembly": true
+      },
+      "official-game/endless-sky": {
+        "Merchant": true
       }
     },
+    "governmentEvents": [
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ships": [
@@ -359,7 +586,6 @@
     "energy consumption": 1.31,
     "ion resistance": 0.35,
     "description": "These shield generators are much faster than the classic ones, can't generate shield during a fight.",
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::P94-YV Shield Generator",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "The Assembly": true,
@@ -369,6 +595,9 @@
         "Hai (Unfettered)": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ships": [
@@ -408,12 +637,13 @@
       "heat damage": 750
     },
     "description": "This version of the Plasma Cannon takes more space but shoots way hotter projectiles.",
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::Overheated Plasma Cannon",
     "governments": {
       "official-game/endless-sky": {
         "Pirate": true,
         "Free Worlds": true,
-        "Merchant": true
+        "Merchant": true,
+        "Bounty Hunter": true,
+        "Militia": true
       },
       "Blended Ships/blended-ships": {
         "Free Worlds": true,
@@ -434,8 +664,12 @@
         "Pirate": true,
         "Free Worlds": true,
         "Militia": true,
+        "Oathbreaker": true,
         "Bounty": true,
         "Independent (Killable)": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true
       },
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Free Worlds": true
@@ -444,8 +678,60 @@
         "Merchant": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
+        "Planets": [
+          "Rust"
+        ],
+        "Outfitters": [
+          "Overheated Plasma Cannon Outfitter"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Rust\" via event \"Overheated Plasma Cannon On Sale\""
+        ],
         "Ships": [
           "Hawk (Overheated Plasma)",
           "Osprey (Overheated Plasma)"
@@ -481,13 +767,18 @@
       "hull damage": 112
     },
     "description": "This Cannon, based on the small energy blaster, is way stronger and have a longer range.",
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::(TA) Energy Cannon",
     "governments": {
+      "Tugderic's Addons/Tugderics-Addons": {
+        "Merchant": true,
+        "Pirate": true,
+        "Ancient Travelers": true
+      },
       "official-game/endless-sky": {
         "Pirate": true,
         "Merchant": true,
         "Alpha": true,
         "Republic": true,
+        "Bounty Hunter": true,
         "Merchant (Hostile)": true
       },
       "Crisis In Management/endless-sky-syndicate": {
@@ -497,10 +788,9 @@
         "Yuyuko Saigyouji (Hostile)": true
       },
       "Mega Freight/Mega-Freight": {
-        "Scar's Legion": true
-      },
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true
+        "Scar's Legion": true,
+        "Bounty (Disguised)": true,
+        "Pirate": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
         "Merchant": true,
@@ -510,15 +800,65 @@
         "Merchant (Hostile)": true,
         "Pirate (Rival)": true
       },
+      "Rumskib/rumskib": {
+        "Pirate": true
+      },
       "Blended Ships/blended-ships": {
         "Pirate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Scar's Legion → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ships": [
           "Firebird (Energy Cannon)",
           "Leviathan (Energy Cannon)"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 800)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
+          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
         ]
       }
     },
@@ -553,13 +893,18 @@
       "hull damage": 112
     },
     "description": "This is a turret version of the energy cannon.",
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::(TA) Energy Cannon Turret",
     "governments": {
+      "Tugderic's Addons/Tugderics-Addons": {
+        "Merchant": true,
+        "Pirate": true,
+        "Ancient Travelers": true
+      },
       "official-game/endless-sky": {
         "Pirate": true,
         "Merchant": true,
         "Alpha": true,
         "Republic": true,
+        "Bounty Hunter": true,
         "Merchant (Hostile)": true
       },
       "Crisis In Management/endless-sky-syndicate": {
@@ -569,10 +914,9 @@
         "Yuyuko Saigyouji (Hostile)": true
       },
       "Mega Freight/Mega-Freight": {
-        "Scar's Legion": true
-      },
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true
+        "Scar's Legion": true,
+        "Bounty (Disguised)": true,
+        "Pirate": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
         "Merchant": true,
@@ -582,15 +926,65 @@
         "Merchant (Hostile)": true,
         "Pirate (Rival)": true
       },
+      "Rumskib/rumskib": {
+        "Pirate": true
+      },
       "Blended Ships/blended-ships": {
         "Pirate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Scar's Legion → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ships": [
           "Firebird (Energy Cannon)",
           "Leviathan (Energy Cannon)"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 800)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
+          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
         ]
       }
     },
@@ -621,7 +1015,6 @@
       "firing heat": 19
     },
     "description": "The Blaster gatling is a weapon made by hidden pirates in the north, it shots bursts of projectiles.",
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::Blaster Gatling",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "The Assembly": true,
@@ -635,7 +1028,9 @@
         "Pirate": true,
         "Alpha": true,
         "Republic": true,
+        "Bounty Hunter": true,
         "Merchant (Hostile)": true,
+        "Deep Security": true,
         "Navy (Oathkeeper)": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
@@ -648,7 +1043,17 @@
         "Pirate (Rival)": true,
         "Bounty Hunter": true,
         "Republic": true,
-        "Bounty": true
+        "Bounty": true,
+        "Navy (Oathkeeper)": true
+      },
+      "Blended Ships/blended-ships": {
+        "Pirate": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Bounty (Disguised)": true,
+        "Scar's Legion": true,
+        "Pirate": true,
+        "Independent": true
       },
       "Crisis In Management/endless-sky-syndicate": {
         "Militia (Rogue)": true,
@@ -657,15 +1062,68 @@
       "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
         "Yuyuko Saigyouji (Hostile)": true
       },
-      "Mega Freight/Mega-Freight": {
-        "Scar's Legion": true
-      },
-      "Blended Ships/blended-ships": {
+      "Rumskib/rumskib": {
         "Pirate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Scar's Legion → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
+        "Planets": [
+          "Haven"
+        ],
+        "Outfitters": [
+          "Haven Arsenal Basics"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Haven\" via event \"Haven Arsenal 1\""
+        ],
         "Ships": [
           "Behemoth (Blaster Gatling)",
           "Carrier (Pirate Warlord)",
@@ -710,13 +1168,13 @@
       "firing heat": 15.6
     },
     "description": "The Fuel Laser is made by pirates in the north, it fires a laser made with your fuel.",
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::Fuel Laser",
     "governments": {
       "official-game/endless-sky": {
         "Merchant": true,
         "Republic": true,
         "Pirate": true,
         "Deep Security": true,
+        "Bounty Hunter": true,
         "Navy (Oathkeeper)": true,
         "Free Worlds": true
       },
@@ -744,14 +1202,83 @@
         "Alpha": true,
         "Oathbreaker": true,
         "Storm Seekers": true,
+        "Independent": true,
         "Free Worlds": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Pirate": true,
+        "Independent": true
       },
       "Blended Ships/blended-ships": {
         "Free Worlds": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Scar's Legion → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
+        "Planets": [
+          "Haven"
+        ],
+        "Outfitters": [
+          "Haven Arsenal Advanced"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Haven\" via event \"Haven Arsenal 2\""
+        ],
         "Ships": [
           "Aerie (Fuel Laser)",
           "Dagger (Fuel Laser)",
@@ -797,25 +1324,28 @@
       ]
     },
     "description": "Two energy cannons bolted together.",
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::(TA) Twin Energy Cannon",
     "governments": {
+      "Tugderic's Addons/Tugderics-Addons": {
+        "Republic": true,
+        "Ancient Travelers": true,
+        "Pirate": true
+      },
       "official-game/endless-sky": {
         "Republic": true,
         "Navy (Oathkeeper)": true,
         "Pirate": true,
         "Merchant": true,
-        "Alpha": true
+        "Alpha": true,
+        "Bounty Hunter": true
       },
       "Blended Ships/blended-ships": {
         "Republic": true
-      },
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
         "Republic": true,
         "Oathbreaker": true,
         "Pirate": true,
+        "Navy (Oathkeeper)": true,
         "Merchant": true,
         "Pirate (Rivals)": true
       },
@@ -826,14 +1356,82 @@
         "Yuyuko Saigyouji (Hostile)": true
       },
       "Mega Freight/Mega-Freight": {
-        "Scar's Legion": true
+        "Scar's Legion": true,
+        "Bounty (Disguised)": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Scar's Legion → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ships": [
           "Firebird (Twin Energy Cannon)",
           "Gunboat (Energy Cannon)"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 15000)",
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
+          "Adds fleet in \"Arneb\" via event \"battle in arneb\" (rate 10000)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 30000)",
+          "Adds fleet in \"Eteron\" via event \"titania station construction a\" (rate 6000)",
+          "Adds fleet in \"Eteron\" via event \"titania station construction b\" (rate 12000)",
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 2000)",
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 800)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Adds fleet in \"Wei\" via event \"normal in Alnasl\" (rate 700)",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb end\"",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Eteron\" via event \"titania station construction a\"",
+          "Removes fleet in \"Eteron\" via event \"titania station construction b\"",
+          "Removes fleet in \"Eteron\" via event \"titania station construction d\"",
+          "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
+          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
+          "Removes fleet in \"Wei\" via event \"gunboats in Alnasl\""
         ]
       }
     },
@@ -849,12 +1447,12 @@
       "shield damage": 185,
       "hull damage": 112
     },
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::(TA) Energy Cannon Submunition",
     "governments": {
       "Tugderics-Addons": {
         "Tugderics-Addons": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "_deprecated/unused": true
@@ -902,16 +1500,45 @@
       ]
     },
     "description": "Four energy cannons bolted together.",
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::(TA) Quadruple Energy Cannon",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
+        "Pirate": true,
         "Ancient Travelers": true
+      },
+      "official-game/endless-sky": {
+        "Pirate": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Independent": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ships": [
           "Monitor (Energy Cannon)"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
         ]
       }
     },
@@ -946,12 +1573,12 @@
       "hull damage": 6.6
     },
     "description": "this version of the turret has a long range.",
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::Defense Post Blaster Turret",
     "governments": {
       "Tugderics-Addons": {
         "Tugderics-Addons": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ships": [
@@ -967,6 +1594,29 @@
           "Archipelago",
           "Chasm",
           "Diyu"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Almaaz\" via event \"midnight independent fleet expansion\" (rate 600)",
+          "Adds fleet in \"Alnasl\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
+          "Adds fleet in \"Alnilam\" via event \"midnight independent fleet expansion\" (rate 1500)",
+          "Adds fleet in \"Alpha Arae\" via event \"midnight restore dirt belt pirates\" (rate 36000)",
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
+          "Adds fleet in \"Arneb\" via event \"midnight independent fleet expansion\" (rate 3000)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
+          "Adds fleet in \"Eber\" via event \"midnight restore dirt belt pirates\" (rate 8000)",
+          "Adds fleet in \"Fala\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
+          "Adds fleet in \"Gacrux\" via event \"midnight restore dirt belt pirates\" (rate 12000)",
+          "Adds fleet in \"Ipsing\" via event \"midnight restore dirt belt pirates\" (rate 12000)",
+          "Adds fleet in \"Minkar\" via event \"midnight restore dirt belt pirates\" (rate 48000)",
+          "Adds fleet in \"Mizar\" via event \"midnight restore dirt belt pirates\" (rate 24000)",
+          "Adds fleet in \"Mora\" via event \"midnight restore dirt belt pirates\" (rate 12000)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
+          "Adds fleet in \"Sargas\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Adds fleet in \"Wei\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
         ]
       }
     },
@@ -1001,12 +1651,12 @@
       "hull damage": 6.6
     },
     "description": "this version of the turret has a long range.",
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::Defense Post Quad Blaster Turret",
     "governments": {
       "Tugderics-Addons": {
         "Tugderics-Addons": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "_deprecated/unused": true
@@ -1042,12 +1692,12 @@
       "hull damage": 103
     },
     "description": "This Particle Cannon has a very big range, but can only be mounted on a defense post",
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::Defense Post Particle Cannon",
     "governments": {
       "Tugderics-Addons": {
         "Tugderics-Addons": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ships": [
@@ -1063,6 +1713,29 @@
           "Archipelago",
           "Chasm",
           "Diyu"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Almaaz\" via event \"midnight independent fleet expansion\" (rate 600)",
+          "Adds fleet in \"Alnasl\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
+          "Adds fleet in \"Alnilam\" via event \"midnight independent fleet expansion\" (rate 1500)",
+          "Adds fleet in \"Alpha Arae\" via event \"midnight restore dirt belt pirates\" (rate 36000)",
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
+          "Adds fleet in \"Arneb\" via event \"midnight independent fleet expansion\" (rate 3000)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
+          "Adds fleet in \"Eber\" via event \"midnight restore dirt belt pirates\" (rate 8000)",
+          "Adds fleet in \"Fala\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
+          "Adds fleet in \"Gacrux\" via event \"midnight restore dirt belt pirates\" (rate 12000)",
+          "Adds fleet in \"Ipsing\" via event \"midnight restore dirt belt pirates\" (rate 12000)",
+          "Adds fleet in \"Minkar\" via event \"midnight restore dirt belt pirates\" (rate 48000)",
+          "Adds fleet in \"Mizar\" via event \"midnight restore dirt belt pirates\" (rate 24000)",
+          "Adds fleet in \"Mora\" via event \"midnight restore dirt belt pirates\" (rate 12000)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
+          "Adds fleet in \"Sargas\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Adds fleet in \"Wei\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
         ]
       }
     },
@@ -1098,12 +1771,12 @@
       "hull damage": 112
     },
     "description": "larger range.",
-    "_internalId": "Tugderic's Addons/Tugderics-Addons::(TA) Defense Point Energy Cannon Turret",
     "governments": {
       "Tugderics-Addons": {
         "Tugderics-Addons": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "_deprecated/unused": true

@@ -1,5 +1,1316 @@
 [
   {
+    "name": "Sea Scorpion (Tracker)",
+    "engines": [
+      {
+        "x": -23.5,
+        "y": 68.5
+      },
+      {
+        "x": 23.5,
+        "y": 68.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -13,
+        "y": -77.5,
+        "gun": ""
+      },
+      {
+        "x": 13,
+        "y": -77.5,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -56,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -56,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -35.5,
+        "y": 24.5,
+        "turret": ""
+      },
+      {
+        "x": 35.5,
+        "y": 24.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/hai sea scorpion",
+    "thumbnail": "thumbnail/hai sea scorpion",
+    "administrative cost": 4,
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 5450000,
+      "shields": 15500,
+      "hull": 4900,
+      "required crew": 14,
+      "bunks": 36,
+      "mass": 735,
+      "drag": 7.8,
+      "heat dissipation": 0.47,
+      "fuel capacity": 500,
+      "cargo space": 45,
+      "outfit space": 510,
+      "weapon capacity": 188,
+      "engine capacity": 117,
+      "weapon": {
+        "blast radius": 84,
+        "shield damage": 840,
+        "hull damage": 420,
+        "hit force": 1260
+      }
+    },
+    "tiny explosion": 24,
+    "small explosion": 50,
+    "medium explosion": 30,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "The Sea Scorpion was designed several decades ago to serve as a mobile platform to launch Trackers. However, it is only recently that the Unfettered have been able to mass-produce them. While individually vulnerable, the reduced cost of manufacturing compared to Shield Beetles allow the materially inferior Unfettered to gain a numerical advantage against their brethren.",
+    "_internalId": "official-game/endless-sky::Sea Scorpion",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "2c283bbc69d3",
+    "variant": "Sea Scorpion (Tracker)",
+    "baseShip": "Sea Scorpion",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "official-game/endless-sky": {
+        "Hai (Unfettered Civilians)": true,
+        "Hai (Unfettered)": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Ehma Ti",
+          "Hi Yahr",
+          "Wah Ki",
+          "Wah Yoot"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Mah Duum\" via event \"midnight bloodstone portal\" (rate 4800)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
+        ]
+      }
+    },
+    "outfits": {
+      "Hai Tracker Pod": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Chameleon Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tracker Storage Pod": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Tracker": {
+        "count": 336,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Williwaw Cooling": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Octopus Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Boulder Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Ravine Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Diamond Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Bondir\" Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Bondir\" Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Value Detector": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Sea Scorpion (Pulse)",
+    "engines": [
+      {
+        "x": -23.5,
+        "y": 68.5
+      },
+      {
+        "x": 23.5,
+        "y": 68.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -13,
+        "y": -77.5,
+        "gun": ""
+      },
+      {
+        "x": 13,
+        "y": -77.5,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -56,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -56,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -35.5,
+        "y": 24.5,
+        "turret": ""
+      },
+      {
+        "x": 35.5,
+        "y": 24.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/hai sea scorpion",
+    "thumbnail": "thumbnail/hai sea scorpion",
+    "administrative cost": 4,
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 5450000,
+      "shields": 15500,
+      "hull": 4900,
+      "required crew": 14,
+      "bunks": 36,
+      "mass": 735,
+      "drag": 7.8,
+      "heat dissipation": 0.47,
+      "fuel capacity": 500,
+      "cargo space": 45,
+      "outfit space": 510,
+      "weapon capacity": 188,
+      "engine capacity": 117,
+      "weapon": {
+        "blast radius": 84,
+        "shield damage": 840,
+        "hull damage": 420,
+        "hit force": 1260
+      }
+    },
+    "tiny explosion": 24,
+    "small explosion": 50,
+    "medium explosion": 30,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "The Sea Scorpion was designed several decades ago to serve as a mobile platform to launch Trackers. However, it is only recently that the Unfettered have been able to mass-produce them. While individually vulnerable, the reduced cost of manufacturing compared to Shield Beetles allow the materially inferior Unfettered to gain a numerical advantage against their brethren.",
+    "_internalId": "official-game/endless-sky::Sea Scorpion",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "2c283bbc69d3",
+    "variant": "Sea Scorpion (Pulse)",
+    "baseShip": "Sea Scorpion",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "official-game/endless-sky": {
+        "Hai (Unfettered Civilians)": true,
+        "Hai (Unfettered)": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Ehma Ti",
+          "Hi Yahr",
+          "Wah Ki",
+          "Wah Yoot"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Mah Duum\" via event \"midnight bloodstone portal\" (rate 4800)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
+        ]
+      }
+    },
+    "outfits": {
+      "Pulse Cannon": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Boulder Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Williwaw Cooling": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Ravine Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Supercapacitor": {
+        "count": 5,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Diamond Regenerator": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Biroo\" Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Bondir\" Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Value Detector": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Rifle": {
+        "count": 15,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Sea Scorpion (Ion)",
+    "engines": [
+      {
+        "x": -23.5,
+        "y": 68.5
+      },
+      {
+        "x": 23.5,
+        "y": 68.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -13,
+        "y": -77.5,
+        "gun": ""
+      },
+      {
+        "x": 13,
+        "y": -77.5,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -56,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -56,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -35.5,
+        "y": 24.5,
+        "turret": ""
+      },
+      {
+        "x": 35.5,
+        "y": 24.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/hai sea scorpion",
+    "thumbnail": "thumbnail/hai sea scorpion",
+    "administrative cost": 4,
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 5450000,
+      "shields": 15500,
+      "hull": 4900,
+      "required crew": 14,
+      "bunks": 36,
+      "mass": 735,
+      "drag": 7.8,
+      "heat dissipation": 0.47,
+      "fuel capacity": 500,
+      "cargo space": 45,
+      "outfit space": 510,
+      "weapon capacity": 188,
+      "engine capacity": 117,
+      "weapon": {
+        "blast radius": 84,
+        "shield damage": 840,
+        "hull damage": 420,
+        "hit force": 1260
+      }
+    },
+    "tiny explosion": 24,
+    "small explosion": 50,
+    "medium explosion": 30,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "The Sea Scorpion was designed several decades ago to serve as a mobile platform to launch Trackers. However, it is only recently that the Unfettered have been able to mass-produce them. While individually vulnerable, the reduced cost of manufacturing compared to Shield Beetles allow the materially inferior Unfettered to gain a numerical advantage against their brethren.",
+    "_internalId": "official-game/endless-sky::Sea Scorpion",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "2c283bbc69d3",
+    "variant": "Sea Scorpion (Ion)",
+    "baseShip": "Sea Scorpion",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "official-game/endless-sky": {
+        "Hai (Unfettered Civilians)": true,
+        "Hai (Unfettered)": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
+    "locations": {
+      "official-game/endless-sky": {
+        "Systems": [
+          "Ehma Ti",
+          "Hi Yahr",
+          "Wah Ki",
+          "Wah Yoot"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Mah Duum\" via event \"midnight bloodstone portal\" (rate 4800)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
+        ]
+      }
+    },
+    "outfits": {
+      "Ion Cannon": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Tracker Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tracker Storage Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Tracker": {
+        "count": 84,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Boulder Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Fissure Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Diamond Regenerator": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Bondir\" Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Bondir\" Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Value Detector": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Rifle": {
+        "count": 15,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Sea Scorpion (Ionic Blasters)",
+    "engines": [
+      {
+        "x": -23.5,
+        "y": 68.5
+      },
+      {
+        "x": 23.5,
+        "y": 68.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -13,
+        "y": -77.5,
+        "gun": ""
+      },
+      {
+        "x": 13,
+        "y": -77.5,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -56,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -56,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -35.5,
+        "y": 24.5,
+        "turret": ""
+      },
+      {
+        "x": 35.5,
+        "y": 24.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/hai sea scorpion",
+    "thumbnail": "thumbnail/hai sea scorpion",
+    "administrative cost": 4,
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 5450000,
+      "shields": 15500,
+      "hull": 4900,
+      "required crew": 14,
+      "bunks": 36,
+      "mass": 735,
+      "drag": 7.8,
+      "heat dissipation": 0.47,
+      "fuel capacity": 500,
+      "cargo space": 45,
+      "outfit space": 510,
+      "weapon capacity": 188,
+      "engine capacity": 117,
+      "weapon": {
+        "blast radius": 84,
+        "shield damage": 840,
+        "hull damage": 420,
+        "hit force": 1260
+      }
+    },
+    "tiny explosion": 24,
+    "small explosion": 50,
+    "medium explosion": 30,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "The Sea Scorpion was designed several decades ago to serve as a mobile platform to launch Trackers. However, it is only recently that the Unfettered have been able to mass-produce them. While individually vulnerable, the reduced cost of manufacturing compared to Shield Beetles allow the materially inferior Unfettered to gain a numerical advantage against their brethren.",
+    "_internalId": "official-game/endless-sky::Sea Scorpion",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "2c283bbc69d3",
+    "variant": "Sea Scorpion (Ionic Blasters)",
+    "baseShip": "Sea Scorpion",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "official-game/endless-sky": {
+        "Hai (Unfettered Challenger)": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "official-game/endless-sky": {
+        "Missions": [
+          "Hai Legacy 3"
+        ]
+      }
+    },
+    "outfits": {
+      "\"Bondir\" Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Bondir\" Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Chameleon Anti-Missile": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Geode Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Diamond Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Ravine Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Tracker": {
+        "count": 336,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Tracker Pod": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Williwaw Cooling": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Rifle": {
+        "count": 15,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tracker Storage Pod": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Value Detector": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Sea Scorpion (Shredder)",
+    "engines": [
+      {
+        "x": -23.5,
+        "y": 68.5
+      },
+      {
+        "x": 23.5,
+        "y": 68.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -13,
+        "y": -77.5,
+        "gun": ""
+      },
+      {
+        "x": 13,
+        "y": -77.5,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -56,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -56,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -35.5,
+        "y": 24.5,
+        "turret": ""
+      },
+      {
+        "x": 35.5,
+        "y": 24.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/hai sea scorpion",
+    "thumbnail": "thumbnail/hai sea scorpion",
+    "administrative cost": 4,
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 5450000,
+      "shields": 15500,
+      "hull": 4900,
+      "required crew": 14,
+      "bunks": 36,
+      "mass": 735,
+      "drag": 7.8,
+      "heat dissipation": 0.47,
+      "fuel capacity": 500,
+      "cargo space": 45,
+      "outfit space": 510,
+      "weapon capacity": 188,
+      "engine capacity": 117,
+      "weapon": {
+        "blast radius": 84,
+        "shield damage": 840,
+        "hull damage": 420,
+        "hit force": 1260
+      }
+    },
+    "tiny explosion": 24,
+    "small explosion": 50,
+    "medium explosion": 30,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "The Sea Scorpion was designed several decades ago to serve as a mobile platform to launch Trackers. However, it is only recently that the Unfettered have been able to mass-produce them. While individually vulnerable, the reduced cost of manufacturing compared to Shield Beetles allow the materially inferior Unfettered to gain a numerical advantage against their brethren.",
+    "_internalId": "official-game/endless-sky::Sea Scorpion",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "2c283bbc69d3",
+    "variant": "Sea Scorpion (Shredder)",
+    "baseShip": "Sea Scorpion",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "official-game/endless-sky": {
+        "Hai (Unfettered)": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
+    "locations": {
+      "official-game/endless-sky": {
+        "Missions": [
+          "Hai Legacy 3"
+        ]
+      }
+    },
+    "outfits": {
+      "\"Biroo\" Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Biroo\" Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Boulder Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Bullfrog Anti-Missile": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Diamond Regenerator": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Gorge Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Williwaw Cooling": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Cannon": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Rifle": {
+        "count": 36,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Tripulse Shredder": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Swan (Jump)",
+    "engines": [
+      {
+        "x": 0,
+        "y": 190,
+        "zoom": 1
+      },
+      {
+        "x": -27,
+        "y": 181.5,
+        "zoom": 0.7
+      },
+      {
+        "x": 27,
+        "y": 181.5,
+        "zoom": 0.7
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -195,
+        "gun": "Teciimach Bay"
+      },
+      {
+        "x": -12,
+        "y": -178,
+        "gun": "Inhibitor Cannon"
+      },
+      {
+        "x": 12,
+        "y": -178,
+        "gun": "Inhibitor Cannon"
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -27.5,
+        "turret": "Inhibitor Turret"
+      },
+      {
+        "x": 0,
+        "y": 158.5,
+        "turret": "Inhibitor Turret"
+      },
+      {
+        "x": 0,
+        "y": -74.5,
+        "turret": "Inhibitor Turret"
+      },
+      {
+        "x": -116,
+        "y": 70.5,
+        "turret": "Point Defense Turret"
+      },
+      {
+        "x": 116,
+        "y": 70.5,
+        "turret": "Point Defense Turret"
+      }
+    ],
+    "bays": [
+      {
+        "type": "Drone",
+        "x": -66.5,
+        "y": 71.5,
+        "position": "under",
+        "launch effect": "remnant external"
+      },
+      {
+        "type": "Drone",
+        "x": 66.5,
+        "y": 71.5,
+        "position": "under",
+        "launch effect": "remnant external"
+      },
+      {
+        "type": "Drone",
+        "x": -106.5,
+        "y": 63.5,
+        "position": "under",
+        "launch effect": "remnant external"
+      },
+      {
+        "type": "Drone",
+        "x": 106.5,
+        "y": 63.5,
+        "position": "under",
+        "launch effect": "remnant external"
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "remnant leak",
+        "openChance": 40,
+        "spreadChance": 10
+      },
+      {
+        "effect": "remnant leak sparkle",
+        "openChance": 60,
+        "spreadChance": 20
+      }
+    ],
+    "sprite": "ship/swan/swan",
+    "sprite data": {
+      "frame rate": 3,
+      "rewind": true
+    },
+    "thumbnail": "thumbnail/swan",
+    "administrative cost": 7,
+    "attributes": {
+      "category": "Utility",
+      "licenses": {
+        "Remnant Capital": true
+      },
+      "cost": 29660000,
+      "shields": 30700,
+      "hull": 13100,
+      "required crew": 38,
+      "bunks": 68,
+      "cargo space": 106,
+      "mass": 1813,
+      "drag": 15.1,
+      "heat dissipation": 0.32,
+      "fuel capacity": 6400,
+      "ramscoop": 6.5,
+      "outfit space": 678,
+      "weapon capacity": 242,
+      "engine capacity": 157,
+      "shield generation": 4.8,
+      "shield energy": 3.9,
+      "hull repair rate": 1.3,
+      "hull energy": 0.8,
+      "outfit scan power": 15,
+      "outfit scan efficiency": 16,
+      "tactical scan power": 32,
+      "ion resistance": 0.15,
+      "scrambling resistance": 0.15,
+      "weapon": {
+        "blast radius": 430,
+        "shield damage": 4300,
+        "hull damage": 2150,
+        "hit force": 6450
+      }
+    },
+    "small explosion": 20,
+    "medium explosion": 50,
+    "large explosion": 50,
+    "huge explosion": 15,
+    "final explode": "final explosion large",
+    "description": "With the advent of more powerful ramscoops, the need for extensive propellant logistics networks all but disappeared. The Swan had the misfortune of being born as a tanker; as such, it had to survive as nothing more than a set of detailed drawings inside some dusty folders. Eventually, decades after its conception, the need for such a vehicle became apparent and production could finally begin. \tOn top of its fuel-storage capabilities, the Swan makes for an interesting warship in its own right. Four drone bays have been added below its fuel-bearing wings, each a fair bit larger than the Terns they tend to carry. On top of this, despite not being nearly as well-shielded, its weapons complement nears that of the Albatross: in essence, the largest support ship the Remnant have built.",
+    "_internalId": "official-game/endless-sky::Swan",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "c8f094d7a7c5",
+    "variant": "Swan (Jump)",
+    "baseShip": "Swan",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "official-game/endless-sky": {
+        "Remnant": true,
+        "Remnant (Postverta)": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "official-game/endless-sky": {
+        "Missions": [
+          "Ka'het: Patir Mystery 32",
+          "Ka'het: Patir Mystery 35"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Ka'het: Patir Mystery 32\" → event \"Patir moves\"",
+          "\"Ka'het: Patir Mystery 32\" → event \"Patir returns\"",
+          "\"Ka'het: Patir Mystery 35\" → event \"patir mystery 3 timer\""
+        ]
+      }
+    },
+    "outfits": {
+      "Inhibitor Cannon": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Teciimach Bay": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Inhibitor Turret": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Point Defense Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "EMP Torpedo": {
+        "count": 20,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Aeon Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Epoch Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Crystal Capacitor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Key Stone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thermoelectric Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Smelter-Class Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Smelter-Class Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Sea Scorpion (KGS Bipulse Ripper)",
+    "engines": [
+      {
+        "x": -23.5,
+        "y": 68.5
+      },
+      {
+        "x": 23.5,
+        "y": 68.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -13,
+        "y": -77.5,
+        "gun": ""
+      },
+      {
+        "x": 13,
+        "y": -77.5,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -56,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -56,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -35.5,
+        "y": 24.5,
+        "turret": ""
+      },
+      {
+        "x": 35.5,
+        "y": 24.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 40,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/hai sea scorpion",
+    "thumbnail": "thumbnail/hai sea scorpion",
+    "administrative cost": 4,
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 5450000,
+      "shields": 15500,
+      "hull": 4900,
+      "required crew": 14,
+      "bunks": 36,
+      "mass": 735,
+      "drag": 7.8,
+      "heat dissipation": 0.47,
+      "fuel capacity": 500,
+      "cargo space": 45,
+      "outfit space": 510,
+      "weapon capacity": 188,
+      "engine capacity": 117,
+      "weapon": {
+        "blast radius": 84,
+        "shield damage": 840,
+        "hull damage": 420,
+        "hit force": 1260
+      }
+    },
+    "tiny explosion": 24,
+    "small explosion": 50,
+    "medium explosion": 30,
+    "large explosion": 14,
+    "final explode": "final explosion medium",
+    "description": "The Sea Scorpion was designed several decades ago to serve as a mobile platform to launch Trackers. However, it is only recently that the Unfettered have been able to mass-produce them. While individually vulnerable, the reduced cost of manufacturing compared to Shield Beetles allow the materially inferior Unfettered to gain a numerical advantage against their brethren.",
+    "_internalId": "official-game/endless-sky::Sea Scorpion",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "2c283bbc69d3",
+    "variant": "Sea Scorpion (KGS Bipulse Ripper)",
+    "baseShip": "Sea Scorpion",
+    "_variantPluginId": "Kai's list/KGS",
+    "governments": {
+      "Kai's list/KGS": {
+        "Hai (Unfettered Civilians)": true,
+        "Hai (Unfettered)": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
+    "locations": {
+      "Kai's list/KGS": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Mah Duum\" via event \"midnight bloodstone portal\" (rate 4800)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
+        ],
+        "Planets": [
+          "KGS"
+        ]
+      }
+    },
+    "outfits": {
+      "KGS Bipulse Ripper": {
+        "count": 4,
+        "pluginId": "Kai's list/KGS"
+      },
+      "Chameleon Anti-Missile": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Diamond Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Williwaw Cooling": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quantum Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Value Detector": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Geode Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Fissure Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hai Ravine Batteries": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Bondir\" Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "\"Bondir\" Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Pulse Rifle": {
+        "count": 15,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
     "name": "Shield Beetle (Ionic)",
     "engines": [],
     "reverseEngines": [],
@@ -14,37 +1325,27 @@
     "variant": "Shield Beetle (Ionic)",
     "baseShip": "Shield Beetle",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
-      "official-game/endless-sky": {
-        "Hai": true,
-        "Hai Merchant": true,
-        "Hai Merchant (Sympathizers)": true,
-        "Hai Merchant (Human)": true,
-        "Hai (Unfettered)": true,
-        "Merchant": true
-      },
-      "Rumskib/rumskib": {
-        "Pirate": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Independent": true,
-        "Pirate": true,
-        "Storm Seekers": true
-      },
-      "Capitalis Major/Capitalis-Major": {
-        "Bounty Hunter": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Hai (Unfettered)": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
+        ]
       }
     },
     "outfits": {
@@ -121,37 +1422,21 @@
     "variant": "Shield Beetle (Jump, Ionic)",
     "baseShip": "Shield Beetle",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
-      "official-game/endless-sky": {
-        "Hai": true,
-        "Hai Merchant": true,
-        "Hai Merchant (Sympathizers)": true,
-        "Hai Merchant (Human)": true,
-        "Hai (Unfettered)": true,
-        "Merchant": true
-      },
-      "Rumskib/rumskib": {
-        "Pirate": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Independent": true,
-        "Pirate": true,
-        "Storm Seekers": true
-      },
-      "Capitalis Major/Capitalis-Major": {
-        "Bounty Hunter": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Hai (Unfettered)": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Removes fleet in \"Chy'chra\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Ehma Ti\" via event \"wanderer / unfettered peace\"",
+          "Removes fleet in \"Prakacha'a\" via event \"wanderer / unfettered peace\""
+        ]
       }
     },
     "outfits": {
@@ -232,7 +1517,6 @@
     "variant": "Water Bug (Ionic)",
     "baseShip": "Water Bug",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
       "official-game/endless-sky": {
         "Hai": true,
@@ -241,6 +1525,18 @@
         "Hai Merchant (Human)": true,
         "Merchant": true,
         "Hai (Unfettered)": true
+      },
+      "Better Vanilla Hai/BetterVanillaHai": {
+        "Merchant": true
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "Hai (Friendly Unfettered)": true
+      },
+      "Rumskib/rumskib": {
+        "Hai": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Hai": true
       },
       "Capitalis Major/Capitalis-Major": {
         "Bounty Hunter": true
@@ -252,6 +1548,25 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "_deprecated/unused": true
@@ -327,32 +1642,28 @@
     "variant": "Lightning Bug (Ionic)",
     "baseShip": "Lightning Bug",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
-      "official-game/endless-sky": {
-        "Hai": true,
-        "Hai Merchant": true,
-        "Hai Merchant (Sympathizers)": true,
-        "Hai Merchant (Human)": true,
-        "Hai (Unfettered Civilians)": true,
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Hai (Unfettered)": true
-      },
-      "Rumskib/rumskib": {
-        "Pirate": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Hai (Unfettered)": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Mah Duum\" via event \"midnight bloodstone portal\" (rate 4800)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
+        ]
       }
     },
     "outfits": {
@@ -425,24 +1736,27 @@
     "variant": "Solifuge (Ionic)",
     "baseShip": "Solifuge",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
-      "official-game/endless-sky": {
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Hai (Unfettered)": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Storm Seekers": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
+        ]
       }
     },
     "outfits": {
@@ -527,9 +1841,11 @@
     "variant": "Solifuge (Jump)",
     "baseShip": "Solifuge",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
       "official-game/endless-sky": {
+        "Hai (Unfettered)": true
+      },
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Hai (Unfettered)": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
@@ -542,6 +1858,20 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "_deprecated/unused": true
@@ -633,9 +1963,11 @@
     "variant": "Solifuge (Jump, Pulse)",
     "baseShip": "Solifuge",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
       "official-game/endless-sky": {
+        "Hai (Unfettered)": true
+      },
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Hai (Unfettered)": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
@@ -648,6 +1980,20 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "_deprecated/unused": true
@@ -727,9 +2073,11 @@
     "variant": "Solifuge (Jump, Tracker)",
     "baseShip": "Solifuge",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
       "official-game/endless-sky": {
+        "Hai (Unfettered)": true
+      },
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Hai (Unfettered)": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
@@ -742,6 +2090,20 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "_deprecated/unused": true
@@ -829,24 +2191,27 @@
     "variant": "Solifuge (Pulse)",
     "baseShip": "Solifuge",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
-      "official-game/endless-sky": {
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Hai (Unfettered)": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Storm Seekers": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
+        ]
       }
     },
     "outfits": {
@@ -923,24 +2288,27 @@
     "variant": "Solifuge (Tracker)",
     "baseShip": "Solifuge",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
-      "official-game/endless-sky": {
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Hai (Unfettered)": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Storm Seekers": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
+        ]
       }
     },
     "outfits": {
@@ -1029,23 +2397,18 @@
     "variant": "Centipede (Afterburner)",
     "baseShip": "Centipede",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
-      "official-game/endless-sky": {
-        "Hai": true,
-        "Hai Merchant": true,
-        "Hai Merchant (Sympathizers)": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Hai": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 2000)",
+          "Removes fleet in \"Imo Dep\" via event \"millipede clear imo dep\""
+        ]
       }
     },
     "outfits": {
@@ -1122,32 +2485,19 @@
     "variant": "Lightning Bug (Afterburner)",
     "baseShip": "Lightning Bug",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
-      "official-game/endless-sky": {
-        "Hai": true,
-        "Hai Merchant": true,
-        "Hai Merchant (Sympathizers)": true,
-        "Hai Merchant (Human)": true,
-        "Hai (Unfettered Civilians)": true,
-        "Hai (Unfettered)": true
-      },
-      "Rumskib/rumskib": {
-        "Pirate": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Hai (Unfettered)": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Hai": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 1000)",
+          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 2000)",
+          "Removes fleet in \"Imo Dep\" via event \"millipede clear imo dep\""
+        ]
       }
     },
     "outfits": {
@@ -1272,24 +2622,19 @@
     "variant": "Grasshopper (Afterburner)",
     "baseShip": "Grasshopper",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
-      "official-game/endless-sky": {
-        "Hai": true,
-        "Hai Merchant": true,
-        "Hai Merchant (Sympathizers)": true,
-        "Hai Merchant (Human)": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Hai": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 1000)",
+          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 2000)",
+          "Removes fleet in \"Imo Dep\" via event \"millipede clear imo dep\""
+        ]
       }
     },
     "outfits": {
@@ -1358,12 +2703,24 @@
     "variant": "Aphid (Armed)",
     "baseShip": "Aphid",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
       "official-game/endless-sky": {
         "Hai": true,
         "Hai Merchant": true,
         "Hai Merchant (Human)": true,
+        "Merchant": true
+      },
+      "Better Vanilla Hai/BetterVanillaHai": {
+        "Merchant": true
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "Hai (Friendly Unfettered)": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Hai Merchant": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Hai": true,
         "Merchant": true
       },
       "POOT/poot-senza-solaria": {
@@ -1373,6 +2730,24 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "_deprecated/unused": true
@@ -1440,12 +2815,14 @@
     "variant": "Centipede (Pulse)",
     "baseShip": "Centipede",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
       "official-game/endless-sky": {
         "Hai": true,
         "Hai Merchant": true,
         "Hai Merchant (Sympathizers)": true
+      },
+      "Better Vanilla Hai/BetterVanillaHai": {
+        "Merchant": true
       },
       "POOT/poot-senza-solaria": {
         "Syndicate": true
@@ -1454,6 +2831,24 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "_deprecated/unused": true
@@ -1533,7 +2928,6 @@
     "variant": "Geocoris (Tracker)",
     "baseShip": "Geocoris",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
       "official-game/endless-sky": {
         "Hai": true,
@@ -1541,8 +2935,14 @@
         "Hai Merchant (Human)": true,
         "Hai (Wormhole Access)": true
       },
+      "Kai's list/KGS": {
+        "Hai": true
+      },
       "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
         "Sayari Plushie": true
+      },
+      "Rumskib/rumskib": {
+        "Hai": true
       },
       "POOT/poot-senza-solaria": {
         "Syndicate": true
@@ -1551,6 +2951,19 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "_deprecated/unused": true
@@ -1690,13 +3103,22 @@
     "variant": "Grasshopper (Tracker)",
     "baseShip": "Grasshopper",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "official-game/endless-sky": {
         "Hai": true,
         "Hai Merchant": true,
         "Hai Merchant (Sympathizers)": true,
         "Hai Merchant (Human)": true
+      },
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Hai": true
+      },
+      "Better Vanilla Hai/BetterVanillaHai": {
+        "Merchant": true,
+        "Pirate": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Merchant": true
       },
       "POOT/poot-senza-solaria": {
         "Syndicate": true
@@ -1705,6 +3127,31 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "_deprecated/unused": true
@@ -1772,32 +3219,27 @@
     "variant": "Lightning Bug (Pulse)",
     "baseShip": "Lightning Bug",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
-      "official-game/endless-sky": {
-        "Hai": true,
-        "Hai Merchant": true,
-        "Hai Merchant (Sympathizers)": true,
-        "Hai Merchant (Human)": true,
-        "Hai (Unfettered Civilians)": true,
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Hai (Unfettered)": true
-      },
-      "Rumskib/rumskib": {
-        "Pirate": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Hai (Unfettered)": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
+        ]
       }
     },
     "outfits": {
@@ -1862,7 +3304,6 @@
     "variant": "Shield Beetle (Jump)",
     "baseShip": "Shield Beetle",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
       "official-game/endless-sky": {
         "Hai": true,
@@ -1872,10 +3313,25 @@
         "Hai (Unfettered)": true,
         "Merchant": true
       },
-      "Rumskib/rumskib": {
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Hai (Unfettered)": true
+      },
+      "Better Vanilla Hai/BetterVanillaHai": {
+        "Free Worlds": true,
         "Pirate": true
       },
+      "Mega Freight/Mega-Freight": {
+        "Hai Merchant": true,
+        "Hai Merchant (Sympathizers)": true,
+        "Hai (Unfettered)": true,
+        "Hai Merchant (Human)": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true,
+        "Hai": true
+      },
       "Lost In Midnight/Lost-in-Midnight": {
+        "Hai (Unfettered)": true,
         "Independent": true,
         "Pirate": true,
         "Storm Seekers": true
@@ -1890,6 +3346,50 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "_deprecated/unused": true
@@ -1981,37 +3481,27 @@
     "variant": "Shield Beetle (Tracker)",
     "baseShip": "Shield Beetle",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
-      "official-game/endless-sky": {
-        "Hai": true,
-        "Hai Merchant": true,
-        "Hai Merchant (Sympathizers)": true,
-        "Hai Merchant (Human)": true,
-        "Hai (Unfettered)": true,
-        "Merchant": true
-      },
-      "Rumskib/rumskib": {
-        "Pirate": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Independent": true,
-        "Pirate": true,
-        "Storm Seekers": true
-      },
-      "Capitalis Major/Capitalis-Major": {
-        "Bounty Hunter": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Hai (Unfettered)": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
+        ]
       }
     },
     "outfits": {
@@ -2092,27 +3582,27 @@
     "variant": "Violin Spider (Pulse)",
     "baseShip": "Violin Spider",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
-      "official-game/endless-sky": {
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Hai (Unfettered)": true
-      },
-      "Better Vanilla Pirates/BetterVanillaPirates": {
-        "Bounty Hunter": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Hai (Unfettered)": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
+        ]
       }
     },
     "outfits": {
@@ -2169,7 +3659,6 @@
     "variant": "Water Bug (Jump)",
     "baseShip": "Water Bug",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
       "official-game/endless-sky": {
         "Hai": true,
@@ -2178,6 +3667,18 @@
         "Hai Merchant (Human)": true,
         "Merchant": true,
         "Hai (Unfettered)": true
+      },
+      "Better Vanilla Hai/BetterVanillaHai": {
+        "Merchant": true
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "Hai (Friendly Unfettered)": true
+      },
+      "Rumskib/rumskib": {
+        "Hai": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Hai": true
       },
       "Capitalis Major/Capitalis-Major": {
         "Bounty Hunter": true
@@ -2189,6 +3690,25 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "_deprecated/unused": true
@@ -2272,7 +3792,6 @@
     "variant": "Water Bug (Pulse)",
     "baseShip": "Water Bug",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
       "official-game/endless-sky": {
         "Hai": true,
@@ -2281,6 +3800,18 @@
         "Hai Merchant (Human)": true,
         "Merchant": true,
         "Hai (Unfettered)": true
+      },
+      "Better Vanilla Hai/BetterVanillaHai": {
+        "Merchant": true
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "Hai (Friendly Unfettered)": true
+      },
+      "Rumskib/rumskib": {
+        "Hai": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Hai": true
       },
       "Capitalis Major/Capitalis-Major": {
         "Bounty Hunter": true
@@ -2292,6 +3823,25 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "_deprecated/unused": true
@@ -2465,51 +4015,32 @@
     "variant": "Leviathan (Radiothermal)",
     "baseShip": "Leviathan",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
-      "official-game/endless-sky": {
-        "Merchant": true,
-        "Pirate": true,
-        "Syndicate (Extremist)": true,
-        "Alpha": true,
-        "Merchant (Hostile)": true,
-        "Republic": true
-      },
-      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-        "Yuyuko Saigyouji": true,
-        "Sayari Plushie": true,
-        "Hidalgo Shrine": true,
-        "Yuyuko Saigyouji (Hostile)": true
-      },
-      "Mega Freight/Mega-Freight": {
-        "Bounty (Disguised)": true,
-        "MGF: NGK Security": true
-      },
-      "Rumskib/rumskib": {
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Pirate": true
-      },
-      "SpaceCrate/SpaceCrate": {
-        "SpaceCrate": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Pirate (Rivals)": true,
-        "Merchant": true,
-        "Merchant (Hostile)": true,
-        "Pirate (Rival)": true
-      },
-      "Blended Ships/blended-ships": {
-        "Pirate": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
+        ]
       }
     },
     "outfits": {
@@ -2657,55 +4188,32 @@
     "variant": "Firebird (Radiothermal)",
     "baseShip": "Firebird",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
-      "official-game/endless-sky": {
-        "Merchant": true,
-        "Pirate": true,
-        "Syndicate (Extremist)": true,
-        "Bounty Hunter": true,
-        "Alpha": true,
-        "Republic": true
-      },
-      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-        "Yuyuko Saigyouji": true,
-        "Sayari Plushie": true,
-        "Merchant": true,
-        "Yuyuko Saigyouji (Hostile)": true
-      },
-      "Mega Freight/Mega-Freight": {
-        "Bounty (Disguised)": true,
-        "Scar's Legion": true,
-        "MGF: NGK Security": true
-      },
-      "Rumskib/rumskib": {
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Pirate": true
-      },
-      "SpaceCrate/SpaceCrate": {
-        "SpaceCrate": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Pirate (Rivals)": true,
-        "Merchant": true,
-        "Pirate": true,
-        "Oathbreaker": true
-      },
-      "Crisis In Management/endless-sky-syndicate": {
-        "Militia (Rogue)": true
-      },
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
+        ]
       }
     },
     "outfits": {
@@ -2855,49 +4363,32 @@
     "variant": "Headhunter (Radiothermal)",
     "baseShip": "Headhunter",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
-      "official-game/endless-sky": {
-        "Merchant": true,
-        "Deep Security": true,
-        "Pirate": true,
-        "Republic": true
-      },
-      "Blended Ships/blended-ships": {
-        "Merchant": true
-      },
-      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-        "Anime Organization": true,
-        "Yuyuko Saigyouji (Hostile)": true
-      },
-      "Mega Freight/Mega-Freight": {
-        "MGF: Luna Winery": true
-      },
-      "Rumskib/rumskib": {
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Pirate": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Merchant": true,
-        "Independent": true,
-        "Bounty Hunter": true,
-        "Republic": true,
-        "Bounty": true,
-        "Pirate (Rivals)": true
-      },
-      "Crisis In Management/endless-sky-syndicate": {
-        "Militia (Rogue)": true,
-        "Merchant": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
+        ]
       }
     },
     "outfits": {
@@ -2974,9 +4465,14 @@
     "variant": "Hurricane (Turret)",
     "baseShip": "Hurricane",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
       "official-game/endless-sky": {
+        "Wanderer": true
+      },
+      "Kai's list/buyable_wanderer_ships": {
+        "Wanderer": true
+      },
+      "Rumskib/rumskib": {
         "Wanderer": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
@@ -2990,6 +4486,24 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle for ap'arak ends\": Wanderer attitude toward Pug (Wanderer) → 0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"pug defend wanderers\": Pug (Wanderer) attitude toward Wanderer → 0.01",
+      "Event \"pug defend wanderers\": Pug attitude toward Wanderer → 0.01",
+      "Event \"wanderers: kor mereti friendly\": Kor Mereti attitude toward Wanderer → 1",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "_deprecated/unused": true
@@ -3053,9 +4567,14 @@
     "variant": "Hurricane (Tough)",
     "baseShip": "Hurricane",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
       "official-game/endless-sky": {
+        "Wanderer": true
+      },
+      "Kai's list/buyable_wanderer_ships": {
+        "Wanderer": true
+      },
+      "Rumskib/rumskib": {
         "Wanderer": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
@@ -3069,6 +4588,24 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle for ap'arak ends\": Wanderer attitude toward Pug (Wanderer) → 0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"pug defend wanderers\": Pug (Wanderer) attitude toward Wanderer → 0.01",
+      "Event \"pug defend wanderers\": Pug attitude toward Wanderer → 0.01",
+      "Event \"wanderers: kor mereti friendly\": Kor Mereti attitude toward Wanderer → 1",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "_deprecated/unused": true
@@ -3249,16 +4786,18 @@
     "variant": "Swan (Sniper)",
     "baseShip": "Swan",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
-      "official-game/endless-sky": {
-        "Remnant": true,
-        "Remnant (Postverta)": true
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Remnant": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arculus\" via event \"deep: arculus restored\" (rate 2200)",
+          "Removes fleet in \"Arculus\" via event \"deep: arculus empty\""
+        ]
       }
     },
     "outfits": {
@@ -3424,16 +4963,18 @@
     "variant": "Swan (Cargo)",
     "baseShip": "Swan",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
-      "official-game/endless-sky": {
-        "Remnant": true,
-        "Remnant (Postverta)": true
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Remnant": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arculus\" via event \"deep: arculus restored\" (rate 2200)",
+          "Removes fleet in \"Arculus\" via event \"deep: arculus empty\""
+        ]
       }
     },
     "outfits": {
@@ -3547,15 +5088,18 @@
     "variant": "Robin (Cargo)",
     "baseShip": "Robin",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
-      "Beccas-Endless-Expansion": {
-        "Beccas-Endless-Expansion": true
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Remnant": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arculus\" via event \"deep: arculus restored\" (rate 2200)",
+          "Removes fleet in \"Arculus\" via event \"deep: arculus empty\""
+        ]
       }
     },
     "outfits": {
@@ -3657,15 +5201,18 @@
     "variant": "Robin (Thrusters)",
     "baseShip": "Robin",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
-      "Beccas-Endless-Expansion": {
-        "Beccas-Endless-Expansion": true
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Remnant": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arculus\" via event \"deep: arculus restored\" (rate 2200)",
+          "Removes fleet in \"Arculus\" via event \"deep: arculus empty\""
+        ]
       }
     },
     "outfits": {
@@ -3863,7 +5410,6 @@
     "variant": "Cruiser (Jump)",
     "baseShip": "Cruiser",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "official-game/endless-sky": {
         "Republic": true,
@@ -3873,12 +5419,32 @@
       "Nova1422s list/navypirates": {
         "Pirate": true
       },
+      "Better Vanilla Pirates/BetterVanillaPirates": {
+        "Pirate": true
+      },
+      "Better Vanilla Hai/BetterVanillaHai": {
+        "Republic": true
+      },
+      "Blended Ships/blended-ships": {
+        "Republic": true
+      },
+      "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
+        "Navy (Oathkeeper)": true,
+        "Republic": true
+      },
       "Mega Freight/Mega-Freight": {
         "Republic": true
       },
+      "Rumskib/rumskib": {
+        "Republic": true
+      },
+      "Tugderic's Addons/Tugderics-Addons": {
+        "Republic": true
+      },
       "Lost In Midnight/Lost-in-Midnight": {
-        "Oathbreaker": true,
         "Republic": true,
+        "Navy (Oathkeeper)": true,
+        "Oathbreaker": true,
         "Pirate": true
       },
       "POOT/poot-senza-solaria": {
@@ -3888,6 +5454,49 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "_deprecated/unused": true
@@ -4070,15 +5679,53 @@
     "variant": "Far Ek Tek 243 (Missile)",
     "baseShip": "Far Ek Tek 243",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
-      "Beccas-Endless-Expansion": {
-        "Beccas-Endless-Expansion": true
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Korath": true
       }
     },
+    "governmentEvents": [
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
+      "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Coluber\" via event \"ember korbatar makwar begin\" (rate 15000)",
+          "Adds fleet in \"Coluber\" via event \"ember world crafter begin\" (rate 15000)",
+          "Adds fleet in \"Coluber\" via event \"ember world forger begin\" (rate 15000)",
+          "Adds fleet in \"Coluber\" via event \"ember world shaper begin\" (rate 15000)",
+          "Adds fleet in \"Levana\" via event \"ember korbatar makwar begin\" (rate 15000)",
+          "Adds fleet in \"Levana\" via event \"ember world crafter begin\" (rate 15000)",
+          "Adds fleet in \"Levana\" via event \"ember world forger begin\" (rate 15000)",
+          "Adds fleet in \"Levana\" via event \"ember world shaper begin\" (rate 15000)",
+          "Adds fleet in \"Lucina\" via event \"ember korbatar makwar begin\" (rate 25000)",
+          "Adds fleet in \"Lucina\" via event \"ember world crafter begin\" (rate 25000)",
+          "Adds fleet in \"Lucina\" via event \"ember world forger begin\" (rate 25000)",
+          "Adds fleet in \"Lucina\" via event \"ember world shaper begin\" (rate 25000)",
+          "Adds fleet in \"Parca\" via event \"ember korbatar makwar begin\" (rate 15000)",
+          "Adds fleet in \"Parca\" via event \"ember world crafter begin\" (rate 15000)",
+          "Adds fleet in \"Parca\" via event \"ember world forger begin\" (rate 15000)",
+          "Adds fleet in \"Parca\" via event \"ember world shaper begin\" (rate 15000)",
+          "Removes fleet in \"Coluber\" via event \"ember korbatar makwar end\"",
+          "Removes fleet in \"Coluber\" via event \"ember world crafter end\"",
+          "Removes fleet in \"Coluber\" via event \"ember world forger end\"",
+          "Removes fleet in \"Coluber\" via event \"ember world shaper end\"",
+          "Removes fleet in \"Levana\" via event \"ember korbatar makwar end\"",
+          "Removes fleet in \"Levana\" via event \"ember world crafter end\"",
+          "Removes fleet in \"Levana\" via event \"ember world forger end\"",
+          "Removes fleet in \"Levana\" via event \"ember world shaper end\"",
+          "Removes fleet in \"Lucina\" via event \"ember korbatar makwar end\"",
+          "Removes fleet in \"Lucina\" via event \"ember world crafter end\"",
+          "Removes fleet in \"Lucina\" via event \"ember world forger end\"",
+          "Removes fleet in \"Lucina\" via event \"ember world shaper end\"",
+          "Removes fleet in \"Parca\" via event \"ember korbatar makwar end\"",
+          "Removes fleet in \"Parca\" via event \"ember world crafter end\"",
+          "Removes fleet in \"Parca\" via event \"ember world forger end\"",
+          "Removes fleet in \"Parca\" via event \"ember world shaper end\""
+        ]
       }
     },
     "outfits": {
@@ -4246,15 +5893,53 @@
     "variant": "Far Ek Tek 243 (Mereti)",
     "baseShip": "Far Ek Tek 243",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
-      "Beccas-Endless-Expansion": {
-        "Beccas-Endless-Expansion": true
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Korath": true
       }
     },
+    "governmentEvents": [
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
+      "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Coluber\" via event \"ember korbatar makwar begin\" (rate 15000)",
+          "Adds fleet in \"Coluber\" via event \"ember world crafter begin\" (rate 15000)",
+          "Adds fleet in \"Coluber\" via event \"ember world forger begin\" (rate 15000)",
+          "Adds fleet in \"Coluber\" via event \"ember world shaper begin\" (rate 15000)",
+          "Adds fleet in \"Levana\" via event \"ember korbatar makwar begin\" (rate 15000)",
+          "Adds fleet in \"Levana\" via event \"ember world crafter begin\" (rate 15000)",
+          "Adds fleet in \"Levana\" via event \"ember world forger begin\" (rate 15000)",
+          "Adds fleet in \"Levana\" via event \"ember world shaper begin\" (rate 15000)",
+          "Adds fleet in \"Lucina\" via event \"ember korbatar makwar begin\" (rate 25000)",
+          "Adds fleet in \"Lucina\" via event \"ember world crafter begin\" (rate 25000)",
+          "Adds fleet in \"Lucina\" via event \"ember world forger begin\" (rate 25000)",
+          "Adds fleet in \"Lucina\" via event \"ember world shaper begin\" (rate 25000)",
+          "Adds fleet in \"Parca\" via event \"ember korbatar makwar begin\" (rate 15000)",
+          "Adds fleet in \"Parca\" via event \"ember world crafter begin\" (rate 15000)",
+          "Adds fleet in \"Parca\" via event \"ember world forger begin\" (rate 15000)",
+          "Adds fleet in \"Parca\" via event \"ember world shaper begin\" (rate 15000)",
+          "Removes fleet in \"Coluber\" via event \"ember korbatar makwar end\"",
+          "Removes fleet in \"Coluber\" via event \"ember world crafter end\"",
+          "Removes fleet in \"Coluber\" via event \"ember world forger end\"",
+          "Removes fleet in \"Coluber\" via event \"ember world shaper end\"",
+          "Removes fleet in \"Levana\" via event \"ember korbatar makwar end\"",
+          "Removes fleet in \"Levana\" via event \"ember world crafter end\"",
+          "Removes fleet in \"Levana\" via event \"ember world forger end\"",
+          "Removes fleet in \"Levana\" via event \"ember world shaper end\"",
+          "Removes fleet in \"Lucina\" via event \"ember korbatar makwar end\"",
+          "Removes fleet in \"Lucina\" via event \"ember world crafter end\"",
+          "Removes fleet in \"Lucina\" via event \"ember world forger end\"",
+          "Removes fleet in \"Lucina\" via event \"ember world shaper end\"",
+          "Removes fleet in \"Parca\" via event \"ember korbatar makwar end\"",
+          "Removes fleet in \"Parca\" via event \"ember world crafter end\"",
+          "Removes fleet in \"Parca\" via event \"ember world forger end\"",
+          "Removes fleet in \"Parca\" via event \"ember world shaper end\""
+        ]
       }
     },
     "outfits": {
@@ -4406,15 +6091,25 @@
     "variant": "Far Ek Tek 243 (Ember)",
     "baseShip": "Far Ek Tek 243",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
-      "Beccas-Endless-Expansion": {
-        "Beccas-Endless-Expansion": true
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Korath": true
       }
     },
+    "governmentEvents": [
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
+      "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arculus\" via event \"deep: arculus restored\" (rate 40000)",
+          "Adds fleet in \"Parca\" via event \"remnant: surveillance end\" (rate 10000)",
+          "Removes fleet in \"Arculus\" via event \"deep: arculus empty\"",
+          "Removes fleet in \"Parca\" via event \"remnant: surveillance begin\""
+        ]
       }
     },
     "outfits": {
@@ -4586,15 +6281,25 @@
     "variant": "Far Ek Tek 243 (Ember, Mereti)",
     "baseShip": "Far Ek Tek 243",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
-      "Beccas-Endless-Expansion": {
-        "Beccas-Endless-Expansion": true
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Korath": true
       }
     },
+    "governmentEvents": [
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
+      "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arculus\" via event \"deep: arculus restored\" (rate 40000)",
+          "Adds fleet in \"Parca\" via event \"remnant: surveillance end\" (rate 10000)",
+          "Removes fleet in \"Arculus\" via event \"deep: arculus empty\"",
+          "Removes fleet in \"Parca\" via event \"remnant: surveillance begin\""
+        ]
       }
     },
     "outfits": {
@@ -4771,18 +6476,53 @@
     "variant": "Korath Raider (Sestor)",
     "baseShip": "Korath Raider",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Korath": true
       }
     },
+    "governmentEvents": [
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
+      "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Coluber\" via event \"ember korbatar makwar begin\" (rate 15000)",
+          "Adds fleet in \"Coluber\" via event \"ember world crafter begin\" (rate 15000)",
+          "Adds fleet in \"Coluber\" via event \"ember world forger begin\" (rate 15000)",
+          "Adds fleet in \"Coluber\" via event \"ember world shaper begin\" (rate 15000)",
+          "Adds fleet in \"Levana\" via event \"ember korbatar makwar begin\" (rate 15000)",
+          "Adds fleet in \"Levana\" via event \"ember world crafter begin\" (rate 15000)",
+          "Adds fleet in \"Levana\" via event \"ember world forger begin\" (rate 15000)",
+          "Adds fleet in \"Levana\" via event \"ember world shaper begin\" (rate 15000)",
+          "Adds fleet in \"Lucina\" via event \"ember korbatar makwar begin\" (rate 25000)",
+          "Adds fleet in \"Lucina\" via event \"ember world crafter begin\" (rate 25000)",
+          "Adds fleet in \"Lucina\" via event \"ember world forger begin\" (rate 25000)",
+          "Adds fleet in \"Lucina\" via event \"ember world shaper begin\" (rate 25000)",
+          "Adds fleet in \"Parca\" via event \"ember korbatar makwar begin\" (rate 15000)",
+          "Adds fleet in \"Parca\" via event \"ember world crafter begin\" (rate 15000)",
+          "Adds fleet in \"Parca\" via event \"ember world forger begin\" (rate 15000)",
+          "Adds fleet in \"Parca\" via event \"ember world shaper begin\" (rate 15000)",
+          "Removes fleet in \"Coluber\" via event \"ember korbatar makwar end\"",
+          "Removes fleet in \"Coluber\" via event \"ember world crafter end\"",
+          "Removes fleet in \"Coluber\" via event \"ember world forger end\"",
+          "Removes fleet in \"Coluber\" via event \"ember world shaper end\"",
+          "Removes fleet in \"Levana\" via event \"ember korbatar makwar end\"",
+          "Removes fleet in \"Levana\" via event \"ember world crafter end\"",
+          "Removes fleet in \"Levana\" via event \"ember world forger end\"",
+          "Removes fleet in \"Levana\" via event \"ember world shaper end\"",
+          "Removes fleet in \"Lucina\" via event \"ember korbatar makwar end\"",
+          "Removes fleet in \"Lucina\" via event \"ember world crafter end\"",
+          "Removes fleet in \"Lucina\" via event \"ember world forger end\"",
+          "Removes fleet in \"Lucina\" via event \"ember world shaper end\"",
+          "Removes fleet in \"Parca\" via event \"ember korbatar makwar end\"",
+          "Removes fleet in \"Parca\" via event \"ember world crafter end\"",
+          "Removes fleet in \"Parca\" via event \"ember world forger end\"",
+          "Removes fleet in \"Parca\" via event \"ember world shaper end\""
+        ]
       }
     },
     "outfits": {
@@ -4979,18 +6719,25 @@
     "variant": "Korath Raider (Sestor, Ember)",
     "baseShip": "Korath Raider",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Korath": true
       }
     },
+    "governmentEvents": [
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
+      "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arculus\" via event \"deep: arculus restored\" (rate 40000)",
+          "Adds fleet in \"Parca\" via event \"remnant: surveillance end\" (rate 10000)",
+          "Removes fleet in \"Arculus\" via event \"deep: arculus empty\"",
+          "Removes fleet in \"Parca\" via event \"remnant: surveillance begin\""
+        ]
       }
     },
     "outfits": {
@@ -5187,18 +6934,53 @@
     "variant": "Korath Raider (Mereti)",
     "baseShip": "Korath Raider",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Korath": true
       }
     },
+    "governmentEvents": [
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
+      "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Coluber\" via event \"ember korbatar makwar begin\" (rate 15000)",
+          "Adds fleet in \"Coluber\" via event \"ember world crafter begin\" (rate 15000)",
+          "Adds fleet in \"Coluber\" via event \"ember world forger begin\" (rate 15000)",
+          "Adds fleet in \"Coluber\" via event \"ember world shaper begin\" (rate 15000)",
+          "Adds fleet in \"Levana\" via event \"ember korbatar makwar begin\" (rate 15000)",
+          "Adds fleet in \"Levana\" via event \"ember world crafter begin\" (rate 15000)",
+          "Adds fleet in \"Levana\" via event \"ember world forger begin\" (rate 15000)",
+          "Adds fleet in \"Levana\" via event \"ember world shaper begin\" (rate 15000)",
+          "Adds fleet in \"Lucina\" via event \"ember korbatar makwar begin\" (rate 25000)",
+          "Adds fleet in \"Lucina\" via event \"ember world crafter begin\" (rate 25000)",
+          "Adds fleet in \"Lucina\" via event \"ember world forger begin\" (rate 25000)",
+          "Adds fleet in \"Lucina\" via event \"ember world shaper begin\" (rate 25000)",
+          "Adds fleet in \"Parca\" via event \"ember korbatar makwar begin\" (rate 15000)",
+          "Adds fleet in \"Parca\" via event \"ember world crafter begin\" (rate 15000)",
+          "Adds fleet in \"Parca\" via event \"ember world forger begin\" (rate 15000)",
+          "Adds fleet in \"Parca\" via event \"ember world shaper begin\" (rate 15000)",
+          "Removes fleet in \"Coluber\" via event \"ember korbatar makwar end\"",
+          "Removes fleet in \"Coluber\" via event \"ember world crafter end\"",
+          "Removes fleet in \"Coluber\" via event \"ember world forger end\"",
+          "Removes fleet in \"Coluber\" via event \"ember world shaper end\"",
+          "Removes fleet in \"Levana\" via event \"ember korbatar makwar end\"",
+          "Removes fleet in \"Levana\" via event \"ember world crafter end\"",
+          "Removes fleet in \"Levana\" via event \"ember world forger end\"",
+          "Removes fleet in \"Levana\" via event \"ember world shaper end\"",
+          "Removes fleet in \"Lucina\" via event \"ember korbatar makwar end\"",
+          "Removes fleet in \"Lucina\" via event \"ember world crafter end\"",
+          "Removes fleet in \"Lucina\" via event \"ember world forger end\"",
+          "Removes fleet in \"Lucina\" via event \"ember world shaper end\"",
+          "Removes fleet in \"Parca\" via event \"ember korbatar makwar end\"",
+          "Removes fleet in \"Parca\" via event \"ember world crafter end\"",
+          "Removes fleet in \"Parca\" via event \"ember world forger end\"",
+          "Removes fleet in \"Parca\" via event \"ember world shaper end\""
+        ]
       }
     },
     "outfits": {
@@ -5375,18 +7157,25 @@
     "variant": "Korath Raider (Mereti, Ember)",
     "baseShip": "Korath Raider",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Korath": true
       }
     },
+    "governmentEvents": [
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
+      "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arculus\" via event \"deep: arculus restored\" (rate 40000)",
+          "Adds fleet in \"Parca\" via event \"remnant: surveillance end\" (rate 10000)",
+          "Removes fleet in \"Arculus\" via event \"deep: arculus empty\"",
+          "Removes fleet in \"Parca\" via event \"remnant: surveillance begin\""
+        ]
       }
     },
     "outfits": {
@@ -5519,15 +7308,19 @@
     "variant": "Korath Courier (Empty)",
     "baseShip": "Korath Courier",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "governments": {
-      "Beccas-Endless-Expansion": {
-        "Beccas-Endless-Expansion": true
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Kor Efret": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)"
+        ]
       }
     },
     "outfits": {
@@ -5645,14 +7438,28 @@
     "variant": "Star Barge (Armed)",
     "baseShip": "Star Barge",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "official-game/endless-sky": {
         "Hai Merchant (Human)": true,
         "Merchant": true
       },
+      "Better Vanilla Pirates/BetterVanillaPirates": {
+        "Merchant": true
+      },
+      "Blended Ships/blended-ships": {
+        "Merchant": true
+      },
+      "LixiChronikouOrious list/Louise.Conglomerate.Shipyards": {
+        "Merchant": true
+      },
+      "Fire Corporation/Fire-Corporation": {
+        "Merchant": true
+      },
       "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
         "Anime Organization": true
+      },
+      "Rumskib/rumskib": {
+        "Merchant": true
       },
       "SpaceCrate/SpaceCrate": {
         "SpaceCrate": true
@@ -5670,6 +7477,24 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "_deprecated/unused": true
@@ -5791,12 +7616,18 @@
     "variant": "Freighter (Heavy)",
     "baseShip": "Freighter",
     "_variantPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Merchant": true
       }
     },
+    "governmentEvents": [
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
         "Missions": [

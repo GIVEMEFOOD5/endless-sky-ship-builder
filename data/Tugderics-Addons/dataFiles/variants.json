@@ -102,12 +102,12 @@
     "variant": "Runner (Javelin)",
     "baseShip": "Runner",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Tugderic's Addons/Tugderics-Addons",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Smuggler": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "_deprecated/unused": true
@@ -275,12 +275,12 @@
     "variant": "Runner II (Javelin)",
     "baseShip": "Runner II",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Tugderic's Addons/Tugderics-Addons",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Smuggler": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "_deprecated/unused": true
@@ -452,12 +452,12 @@
     "variant": "Runner III (Javelin)",
     "baseShip": "Runner III",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Tugderic's Addons/Tugderics-Addons",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Smuggler": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "_deprecated/unused": true
@@ -629,12 +629,12 @@
     "variant": "Runner (Gatling)",
     "baseShip": "Runner",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Tugderic's Addons/Tugderics-Addons",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Smuggler": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "_deprecated/unused": true
@@ -802,12 +802,12 @@
     "variant": "Runner II (Gatling)",
     "baseShip": "Runner II",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Tugderic's Addons/Tugderics-Addons",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Smuggler": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "_deprecated/unused": true
@@ -979,12 +979,12 @@
     "variant": "Runner III (Gatling)",
     "baseShip": "Runner III",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Tugderic's Addons/Tugderics-Addons",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Smuggler": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "_deprecated/unused": true
@@ -1168,100 +1168,20 @@
     "variant": "Osprey (Overheated Plasma)",
     "baseShip": "Osprey",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ancient Travelers": true,
         "Bounty": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
           "Bounty Troubling Experimental Osprey"
-        ]
-      }
-    },
-    "outfits": {
-      "Overheated Plasma Cannon": {
-        "count": 4,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Quad Blaster Turret": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Anti-Missile Turret": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Breeder Reactor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP036a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D41-HY Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Outfits Expansion": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Liquid Helium Cooler": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Laser Rifle": {
-        "count": 6,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Impala Plasma Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Impala Plasma Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Osprey (Overheated Plasma)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Osprey",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Osprey (Overheated Plasma)",
-    "baseShip": "Osprey",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true,
-        "Bounty": true
-      }
-    },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Bounty Troubling Experimental Osprey"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Bounty Troubling Experimental Osprey\" → event \"Overheated Plasma Cannon On Sale\""
         ]
       }
     },
@@ -1386,160 +1306,12 @@
     "variant": "Hawk (Overheated Plasma)",
     "baseShip": "Hawk",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Bounty": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Bounty Troubling Hawks"
-        ]
-      }
-    },
-    "outfits": {
-      "Overheated Plasma Cannon": {
-        "count": 2,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Dwarf Core": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Cooling Ducts": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D14-RN Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Outfits Expansion": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Water Coolant System": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Supercapacitor": {
-        "count": 3,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X2700 Ion Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Greyhound Plasma Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Hawk (Overheated Plasma)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "cost": 559000
-    },
-    "_internalId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion::Hawk",
-    "_pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "_hash": "2a226a656357",
-    "variant": "Hawk (Overheated Plasma)",
-    "baseShip": "Hawk",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Bounty": true
-      }
-    },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Bounty Troubling Hawks"
-        ]
-      }
-    },
-    "outfits": {
-      "Overheated Plasma Cannon": {
-        "count": 2,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Dwarf Core": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Cooling Ducts": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D14-RN Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Outfits Expansion": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Water Coolant System": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Supercapacitor": {
-        "count": 3,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X2700 Ion Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Greyhound Plasma Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Hawk (Overheated Plasma)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "cost": 640000
-    },
-    "_internalId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards::Hawk",
-    "_pluginId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
-    "_hash": "1f4a439438fd",
-    "variant": "Hawk (Overheated Plasma)",
-    "baseShip": "Hawk",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Bounty": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -1688,131 +1460,41 @@
     "variant": "Firebird (Energy Cannon)",
     "baseShip": "Firebird",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
+        "Merchant": true,
+        "Pirate": true,
         "Ancient Travelers": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "(TA) Energy Cannon": {
-        "count": 2,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Sidewinder Missile Launcher": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Sidewinder Missile": {
-        "count": 90,
-        "pluginId": "official-game/endless-sky"
-      },
-      "(TA) Energy Cannon Turret": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Heavy Anti-Missile Turret": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Fission Reactor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Cooling Ducts": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D41-HY Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Liquid Nitrogen Cooler": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP144a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X3700 Ion Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X3200 Ion Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Firebird (Energy Cannon)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": -27,
-        "y": -28,
-        "gun": "Energy Cannon"
-      },
-      {
-        "x": 27,
-        "y": -28,
-        "gun": "Energy Cannon"
-      },
-      {
-        "x": -38,
-        "y": -13,
-        "gun": "Sidewinder Missile Launcher"
-      },
-      {
-        "x": 38,
-        "y": -13,
-        "gun": "Sidewinder Missile Launcher"
-      }
-    ],
-    "turrets": [
-      {
-        "x": 0,
-        "y": -38,
-        "turret": "Energy Cannon Turret"
-      },
-      {
-        "x": 0,
-        "y": 3,
-        "turret": "Heavy Anti-Missile Turret"
-      }
-    ],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Firebird",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Firebird (Energy Cannon)",
-    "baseShip": "Firebird",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true
-      }
-    },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 800)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
+          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
+        ]
       }
     },
     "outfits": {
@@ -1983,217 +1665,40 @@
     "variant": "Leviathan (Energy Cannon)",
     "baseShip": "Leviathan",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
-      "official-game/endless-sky": {
+      "Tugderic's Addons/Tugderics-Addons": {
         "Merchant": true,
-        "Pirate": true,
-        "Syndicate (Extremist)": true,
-        "Alpha": true,
-        "Merchant (Hostile)": true,
-        "Republic": true
-      },
-      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-        "Yuyuko Saigyouji": true,
-        "Sayari Plushie": true,
-        "Hidalgo Shrine": true,
-        "Yuyuko Saigyouji (Hostile)": true
-      },
-      "Mega Freight/Mega-Freight": {
-        "Bounty (Disguised)": true,
-        "MGF: NGK Security": true
-      },
-      "Rumskib/rumskib": {
         "Pirate": true
-      },
-      "SpaceCrate/SpaceCrate": {
-        "SpaceCrate": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Pirate (Rivals)": true,
-        "Merchant": true,
-        "Merchant (Hostile)": true,
-        "Pirate (Rival)": true
-      },
-      "Blended Ships/blended-ships": {
-        "Pirate": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "Torpedo Launcher": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "(TA) Energy Cannon": {
-        "count": 2,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Heavy Anti-Missile Turret": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "(TA) Energy Cannon Turret": {
-        "count": 2,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Fusion Reactor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Torpedo": {
-        "count": 120,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Torpedo Storage Rack": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP144a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D94-YV Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Liquid Helium Cooler": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Laser Rifle": {
-        "count": 25,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X3700 Ion Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X4200 Ion Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Leviathan (Energy Cannon)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": -37.5,
-        "y": -31.5,
-        "gun": "Energy Cannon"
-      },
-      {
-        "x": 37.5,
-        "y": -31.5,
-        "gun": "Energy Cannon"
-      },
-      {
-        "x": -49,
-        "y": -19.5,
-        "gun": "Torpedo Launcher"
-      },
-      {
-        "x": 49,
-        "y": -19.5,
-        "gun": "Torpedo Launcher"
-      }
-    ],
-    "turrets": [
-      {
-        "x": -14,
-        "y": -10,
-        "turret": "Energy Cannon Turret"
-      },
-      {
-        "x": 14,
-        "y": -10,
-        "turret": "Energy Cannon Turret"
-      },
-      {
-        "x": -25.5,
-        "y": 12.5,
-        "turret": "Heavy Anti-Missile Turret"
-      },
-      {
-        "x": 25.5,
-        "y": 12.5,
-        "turret": "Heavy Anti-Missile Turret"
-      }
-    ],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Leviathan",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Leviathan (Energy Cannon)",
-    "baseShip": "Leviathan",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "official-game/endless-sky": {
-        "Merchant": true,
-        "Pirate": true,
-        "Syndicate (Extremist)": true,
-        "Alpha": true,
-        "Merchant (Hostile)": true,
-        "Republic": true
-      },
-      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-        "Yuyuko Saigyouji": true,
-        "Sayari Plushie": true,
-        "Hidalgo Shrine": true,
-        "Yuyuko Saigyouji (Hostile)": true
-      },
-      "Mega Freight/Mega-Freight": {
-        "Bounty (Disguised)": true,
-        "MGF: NGK Security": true
-      },
-      "Rumskib/rumskib": {
-        "Pirate": true
-      },
-      "SpaceCrate/SpaceCrate": {
-        "SpaceCrate": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Pirate (Rivals)": true,
-        "Merchant": true,
-        "Merchant (Hostile)": true,
-        "Pirate (Rival)": true
-      },
-      "Blended Ships/blended-ships": {
-        "Pirate": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
-      }
-    },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 800)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
+          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
+        ]
       }
     },
     "outfits": {
@@ -2454,159 +1959,12 @@
     "variant": "Carrier (Truthseekers)",
     "baseShip": "Carrier",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Truthseekers": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Truthseekers In Orbona"
-        ]
-      }
-    },
-    "outfits": {
-      "A520 Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "A865 Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Armageddon Core": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Brig": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Electron Turret": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Fragmentation Grenades": {
-        "count": 60,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Anti-Missile Turret": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP576a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Laser Rifle": {
-        "count": 60,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Liquid Helium Cooler": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Meteor Missile": {
-        "count": 120,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Meteor Missile Box": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Meteor Missile Launcher": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Particle Cannon": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "S-970 Regenerator": {
-        "count": 3,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Security Station": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Tactical Scanner": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Water Coolant System": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Carrier (Truthseekers)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": -17.5,
-        "y": -176.5,
-        "gun": "Particle Cannon"
-      },
-      {
-        "x": 17.5,
-        "y": -176.5,
-        "gun": "Particle Cannon"
-      },
-      {
-        "x": -26,
-        "y": -167.5,
-        "gun": "Meteor Missile Launcher"
-      },
-      {
-        "x": 26,
-        "y": -167.5,
-        "gun": "Meteor Missile Launcher"
-      }
-    ],
-    "turrets": [
-      {
-        "x": 0,
-        "y": -49,
-        "turret": "Heavy Anti-Missile Turret"
-      },
-      {
-        "x": -22,
-        "y": 22,
-        "turret": "Electron Turret"
-      },
-      {
-        "x": 22,
-        "y": 22,
-        "turret": "Electron Turret"
-      }
-    ],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Carrier",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Carrier (Truthseekers)",
-    "baseShip": "Carrier",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Truthseekers": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -2759,90 +2117,12 @@
     "variant": "Lance (Truthseekers)",
     "baseShip": "Lance",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Truthseekers": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Truthseekers In Orbona"
-        ]
-      }
-    },
-    "outfits": {
-      "Laser Rifle": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "S-270 Regenerator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Sidewinder Missile": {
-        "count": 31,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Sidewinder Missile Pod": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Sidewinder Missile Rack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Typhoon Pod": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Typhoon Storage Tube": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Typhoon Torpedo": {
-        "count": 17,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X1200 Ion Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X1700 Ion Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "nGVF-AA Fuel Cell": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Lance (Truthseekers)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "cost": 106000
-    },
-    "_internalId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion::Lance",
-    "_pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "_hash": "d61e0151926e",
-    "variant": "Lance (Truthseekers)",
-    "baseShip": "Lance",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Truthseekers": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -2965,82 +2245,12 @@
     "variant": "Combat Drone (Truthseekers)",
     "baseShip": "Combat Drone",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Truthseekers": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Truthseekers In Orbona"
-        ]
-      }
-    },
-    "outfits": {
-      "Sidewinder Missile": {
-        "count": 27,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Sidewinder Missile Pod": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Sidewinder Missile Rack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X1050 Ion Engines": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "nGVF-AA Fuel Cell": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Combat Drone (Truthseekers)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": 0,
-        "y": -34,
-        "gun": "Typhoon Pod"
-      },
-      {
-        "x": -13.5,
-        "y": -6.5,
-        "gun": "Sidewinder Missile Pod"
-      },
-      {
-        "x": 13.5,
-        "y": -6.5,
-        "gun": "Sidewinder Missile Pod"
-      }
-    ],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "cost": 37000
-    },
-    "_internalId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion::Combat Drone",
-    "_pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "_hash": "caea6624741a",
-    "variant": "Combat Drone (Truthseekers)",
-    "baseShip": "Combat Drone",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Truthseekers": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -3172,135 +2382,13 @@
     "variant": "Frigate (Truthseekers)",
     "baseShip": "Frigate",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ancient Travelers": true,
         "Truthseekers": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Truthseekers In Orbona"
-        ]
-      }
-    },
-    "outfits": {
-      "A250 Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "A375 Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Fragmentation Grenades": {
-        "count": 10,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Anti-Missile Turret": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP072a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Laser Rifle": {
-        "count": 10,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Liquid Nitrogen Cooler": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "NT-200 Nucleovoltaic": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Particle Cannon": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "S-270 Regenerator": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Security Station": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Tactical Scanner": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Typhoon Launcher": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Typhoon Storage Tube": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Typhoon Torpedo": {
-        "count": 67,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Frigate (Truthseekers)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": -11,
-        "y": -84.5,
-        "gun": "Particle Cannon"
-      },
-      {
-        "x": 11,
-        "y": -84.5,
-        "gun": "Particle Cannon"
-      },
-      {
-        "x": -11,
-        "y": -84.5,
-        "gun": "Typhoon Launcher"
-      },
-      {
-        "x": 11,
-        "y": -84.5,
-        "gun": "Typhoon Launcher"
-      }
-    ],
-    "turrets": [
-      {
-        "x": 0,
-        "y": -37.5,
-        "turret": "Heavy Anti-Missile Turret"
-      }
-    ],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Frigate",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Frigate (Truthseekers)",
-    "baseShip": "Frigate",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true,
-        "Truthseekers": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -3458,100 +2546,13 @@
     "variant": "Gunboat (Truthseekers)",
     "baseShip": "Gunboat",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ancient Travelers": true,
         "Truthseekers": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Truthseekers In Orbona"
-        ]
-      }
-    },
-    "outfits": {
-      "A250 Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "A255 Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Cooling Ducts": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Electron Beam": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Electron Turret": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Fission Reactor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Fragmentation Grenades": {
-        "count": 3,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP036a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Laser Rifle": {
-        "count": 3,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Outfits Expansion": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "S-270 Regenerator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Tactical Scanner": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Water Coolant System": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Gunboat (Truthseekers)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Gunboat",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Gunboat (Truthseekers)",
-    "baseShip": "Gunboat",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true,
-        "Truthseekers": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -3700,121 +2701,13 @@
     "variant": "Rainmaker (Truthseekers)",
     "baseShip": "Rainmaker",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ancient Travelers": true,
         "Truthseekers": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Truthseekers In Orbona"
-        ]
-      }
-    },
-    "outfits": {
-      "A120 Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "A255 Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Cargo Scanner": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP036a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Laser Rifle": {
-        "count": 3,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Outfit Scanner": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "S-270 Regenerator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Tactical Scanner": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Typhoon Pod": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Typhoon Storage Tube": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Typhoon Torpedo": {
-        "count": 26,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Water Coolant System": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "nGVF-DD Fuel Cell": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Rainmaker (Truthseekers)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": -27,
-        "y": 8,
-        "gun": "Typhoon Pod"
-      },
-      {
-        "x": 27,
-        "y": 8,
-        "gun": "Typhoon Pod"
-      },
-      {
-        "x": -22,
-        "y": 8,
-        "gun": "Typhoon Pod"
-      },
-      {
-        "x": 22,
-        "y": 8,
-        "gun": "Typhoon Pod"
-      }
-    ],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Rainmaker",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Rainmaker (Truthseekers)",
-    "baseShip": "Rainmaker",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true,
-        "Truthseekers": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -4081,98 +2974,17 @@
     "variant": "Tubfalet (Overheated Syscore)",
     "baseShip": "Tubfalet",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Korath": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Overheated Tubaflet"
-        ]
-      }
-    },
-    "outfits": {
-      "Banisher Grav-Turret": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Firelight Missile": {
-        "count": 40,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Firelight Missile Bank": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Grab-Strike Turret": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Large Heat Shunt": {
-        "count": 3,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Steering (Planetary Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Systems Core (Overheated)": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Thermal Repeater Rifle": {
-        "count": 196,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Thruster (Lunar Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Thruster (Planetary Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Triple Plasma Core": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Warder Anti-Missile": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Tubfalet (Overheated Syscore)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Tubfalet",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Tubfalet (Overheated Syscore)",
-    "baseShip": "Tubfalet",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Korath": true
-      }
-    },
+    "governmentEvents": [
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
+      "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -4317,12 +3129,12 @@
     "variant": "Scout (Fuel Laser)",
     "baseShip": "Scout",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Pirate (Haven Engineers)": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -4460,84 +3272,12 @@
     "variant": "Raven (Fuel Laser)",
     "baseShip": "Raven",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ancient Travelers": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Cooling Ducts": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Fuel Pod": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D23-QP Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Water Coolant System": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP072a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "RT-I Radiothermal": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X2700 Ion Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X3200 Ion Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Fuel Laser": {
-        "count": 4,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      }
-    }
-  },
-  {
-    "name": "Raven (Fuel Laser)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Raven",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Raven (Fuel Laser)",
-    "baseShip": "Raven",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "_deprecated/unused": true
@@ -4709,92 +3449,13 @@
     "variant": "Aerie (Fuel Laser)",
     "baseShip": "Aerie",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ancient Travelers": true,
         "Bounty": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Northern Pirate Warlord Bounty"
-        ]
-      }
-    },
-    "outfits": {
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Ramscoop": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D41-HY Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Water Coolant System": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP072a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "NT-200 Nucleovoltaic": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X3700 Ion Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X3200 Ion Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Anti-Missile Turret": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Laser Turret": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Fuel Laser": {
-        "count": 2,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      }
-    }
-  },
-  {
-    "name": "Aerie (Fuel Laser)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Aerie",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Aerie (Fuel Laser)",
-    "baseShip": "Aerie",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true,
-        "Bounty": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -4921,7 +3582,6 @@
     "variant": "Dagger (Fuel Laser)",
     "baseShip": "Dagger",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Black Beards": true,
@@ -4930,72 +3590,7 @@
         "Bounty": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Assembly Defense Fleet",
-          "Northern Pirate Warlord Bounty"
-        ]
-      }
-    },
-    "outfits": {
-      "Fuel Pod": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D14-RN Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Supercapacitor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "nGVF-AA Fuel Cell": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X1050 Ion Engine": {
-        "count": 1,
-        "pluginId": null
-      },
-      "Fuel Laser": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Small Radar Jammer": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Dagger (Fuel Laser)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "cost": 117000
-    },
-    "_internalId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion::Dagger",
-    "_pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "_hash": "58e6f840f5df",
-    "variant": "Dagger (Fuel Laser)",
-    "baseShip": "Dagger",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Black Beards": true,
-        "Ancient Travelers": true,
-        "The Assembly": true,
-        "Bounty": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -5160,7 +3755,6 @@
     "variant": "Behemoth (Blaster Gatling)",
     "baseShip": "Behemoth",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "The Assembly": true,
@@ -5168,6 +3762,7 @@
         "Bounty": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -5177,91 +3772,9 @@
           "Haven Freighter Escort 2",
           "Northern Pirate Warlord Bounty",
           "Pirate Weapon Testing"
-        ]
-      }
-    },
-    "outfits": {
-      "Blaster Gatling": {
-        "count": 2,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D41-HY Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "A125 Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "A250 Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "A375 Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Quad Blaster Turret": {
-        "count": 6,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Liquid Helium Cooler": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Breeder Reactor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP036a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP144a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Behemoth (Blaster Gatling)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Behemoth",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Behemoth (Blaster Gatling)",
-    "baseShip": "Behemoth",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "The Assembly": true,
-        "Pirate (Haven Engineers)": true,
-        "Bounty": true
-      }
-    },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Assembly Defense Fleet",
-          "Haven Freighter Escort 1A",
-          "Haven Freighter Escort 1B",
-          "Haven Freighter Escort 2",
-          "Northern Pirate Warlord Bounty",
-          "Pirate Weapon Testing"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Pirate Weapon Testing\" → event \"Haven Arsenal 1\""
         ]
       }
     },
@@ -5410,7 +3923,6 @@
     "variant": "Firebird (Blaster Gatling)",
     "baseShip": "Firebird",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ancient Travelers": true,
@@ -5419,91 +3931,16 @@
         "Bounty": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
           "Assembly Defense Fleet",
           "Northern Pirate Warlord Bounty",
           "Pirate Weapon Testing"
-        ]
-      }
-    },
-    "outfits": {
-      "Blaster Gatling": {
-        "count": 4,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D23-QP Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "A370 Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "A375 Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Anti-Missile Turret": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Liquid Nitrogen Cooler": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Water Coolant System": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "NT-200 Nucleovoltaic": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP144a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Firebird (Blaster Gatling)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Firebird",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Firebird (Blaster Gatling)",
-    "baseShip": "Firebird",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true,
-        "The Assembly": true,
-        "Pirate (Haven Engineers)": true,
-        "Bounty": true
-      }
-    },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Assembly Defense Fleet",
-          "Northern Pirate Warlord Bounty",
-          "Pirate Weapon Testing"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Pirate Weapon Testing\" → event \"Haven Arsenal 1\""
         ]
       }
     },
@@ -5663,7 +4100,6 @@
     "variant": "Leviathan (Blaster Gatling)",
     "baseShip": "Leviathan",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "The Assembly": true,
@@ -5672,6 +4108,16 @@
         "Bounty": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -5679,86 +4125,9 @@
           "Haven Bounty",
           "Haven Freighter Escort 2",
           "Northern Pirate Warlord Bounty"
-        ]
-      }
-    },
-    "outfits": {
-      "Blaster Gatling": {
-        "count": 4,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D94-YV Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "A370 Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "A525 Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Anti-Missile Turret": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Quad Blaster Turret": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Liquid Helium Cooler": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Troll Reactor": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "LP288a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Leviathan (Blaster Gatling)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Leviathan",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Leviathan (Blaster Gatling)",
-    "baseShip": "Leviathan",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "The Assembly": true,
-        "Pirate (Haven Engineers)": true,
-        "Pirate": true,
-        "Bounty": true
-      }
-    },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Assembly Avengers",
-          "Haven Bounty",
-          "Haven Freighter Escort 2",
-          "Northern Pirate Warlord Bounty"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Haven Bounty\" → event \"Haven Arsenal 2\""
         ]
       }
     },
@@ -5890,7 +4259,6 @@
     "variant": "Berserker (Gremlin Core)",
     "baseShip": "Berserker",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ancient Travelers": true,
@@ -5898,178 +4266,23 @@
         "Pirate (Haven Engineers)": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
           "Pirate Weapon Testing"
-        ]
-      }
-    },
-    "outfits": {
-      "Javelin Pod": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Javelin Mini Pod": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D23-QP Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "A120 Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "A255 Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Javelin Storage Crate": {
-        "count": 3,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Javelin": {
-        "count": 760,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Gremlin Core": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "LP072a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Small Radar Jammer": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Water Coolant System": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Berserker (Gremlin Core)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "cost": 528000
-    },
-    "_internalId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion::Berserker",
-    "_pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "_hash": "1700f0d1a1fc",
-    "variant": "Berserker (Gremlin Core)",
-    "baseShip": "Berserker",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true,
-        "Pirate": true,
-        "Pirate (Haven Engineers)": true
-      }
-    },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Pirate Weapon Testing"
-        ]
-      }
-    },
-    "outfits": {
-      "Javelin Pod": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Javelin Mini Pod": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D23-QP Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "A120 Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "A255 Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Javelin Storage Crate": {
-        "count": 3,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Javelin": {
-        "count": 760,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Gremlin Core": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "LP072a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Small Radar Jammer": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Water Coolant System": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Berserker (Gremlin Core)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "cost": 429000
-    },
-    "_internalId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards::Berserker",
-    "_pluginId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
-    "_hash": "bcea748770db",
-    "variant": "Berserker (Gremlin Core)",
-    "baseShip": "Berserker",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true,
-        "Pirate": true,
-        "Pirate (Haven Engineers)": true
-      }
-    },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Pirate Weapon Testing"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Pirate Weapon Testing\" → event \"Haven Arsenal 1\""
         ]
       }
     },
@@ -6216,13 +4429,13 @@
     "variant": "Headhunter (Blaster Gatling)",
     "baseShip": "Headhunter",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Pirate (Haven Engineers)": true,
         "Bounty": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -6230,76 +4443,9 @@
           "Haven Freighter Escort 1B",
           "Northern Pirate Warlord Bounty",
           "Pirate Weapon Testing"
-        ]
-      }
-    },
-    "outfits": {
-      "Blaster Gatling": {
-        "count": 2,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D23-QP Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Greyhound Plasma Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Greyhound Plasma Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Gremlin Core": {
-        "count": 2,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "LP072a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Liquid Nitrogen Cooler": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Headhunter (Blaster Gatling)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Headhunter",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Headhunter (Blaster Gatling)",
-    "baseShip": "Headhunter",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Pirate (Haven Engineers)": true,
-        "Bounty": true
-      }
-    },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Haven Freighter Escort 1A",
-          "Haven Freighter Escort 1B",
-          "Northern Pirate Warlord Bounty",
-          "Pirate Weapon Testing"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Pirate Weapon Testing\" → event \"Haven Arsenal 1\""
         ]
       }
     },
@@ -6537,110 +4683,12 @@
     "variant": "Carrier (Pirate Warlord)",
     "baseShip": "Carrier",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Bounty": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Northern Pirate Warlord Bounty"
-        ]
-      }
-    },
-    "outfits": {
-      "A520 Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "A865 Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Blaster Gatling": {
-        "count": 4,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Brig": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Fragmentation Grenades": {
-        "count": 50,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Fuel Pod": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Laser Turret": {
-        "count": 3,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP288a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Laser Rifle": {
-        "count": 70,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Liquid Helium Cooler": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Liquid Nitrogen Cooler": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Ogre Reactor": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "S-970 Regenerator": {
-        "count": 3,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Security Station": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Tactical Scanner": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Carrier (Pirate Warlord)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Carrier",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Carrier (Pirate Warlord)",
-    "baseShip": "Carrier",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Bounty": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -6787,7 +4835,6 @@
     "variant": "Dagger (Pirate Warlord)",
     "baseShip": "Dagger",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Black Beards": true,
@@ -6795,66 +4842,7 @@
         "Bounty": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Northern Pirate Warlord Bounty"
-        ]
-      }
-    },
-    "outfits": {
-      "Fuel Laser": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "S-270 Regenerator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X1050 Ion Engines": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "nGVF-AA Fuel Cell": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Supercapacitor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Fuel Pod": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Dagger (Pirate Warlord)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "cost": 117000
-    },
-    "_internalId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion::Dagger",
-    "_pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "_hash": "58e6f840f5df",
-    "variant": "Dagger (Pirate Warlord)",
-    "baseShip": "Dagger",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Black Beards": true,
-        "Ancient Travelers": true,
-        "Bounty": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -6939,125 +4927,12 @@
     "variant": "Mining Drone (Pirate Warlord)",
     "baseShip": "Mining Drone",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Bounty": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Northern Pirate Warlord Bounty"
-        ]
-      }
-    },
-    "outfits": {
-      "Torpedo Pod": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Torpedo Storage Rack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X1050 Ion Engines": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "nGVF-AA Fuel Cell": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Supercapacitor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Torpedo": {
-        "count": 18,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Mining Drone (Pirate Warlord)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "cost": 44000
-    },
-    "_internalId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion::Mining Drone",
-    "_pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "_hash": "83b375597d05",
-    "variant": "Mining Drone (Pirate Warlord)",
-    "baseShip": "Mining Drone",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Bounty": true
-      }
-    },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Northern Pirate Warlord Bounty"
-        ]
-      }
-    },
-    "outfits": {
-      "Torpedo Pod": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Torpedo Storage Rack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X1050 Ion Engines": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "nGVF-AA Fuel Cell": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Supercapacitor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Torpedo": {
-        "count": 18,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Mining Drone (Pirate Warlord)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "_internalId": "Rumskib/rumskib::Mining Drone",
-    "_pluginId": "Rumskib/rumskib",
-    "_hash": "4d3f05236597",
-    "variant": "Mining Drone (Pirate Warlord)",
-    "baseShip": "Mining Drone",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Rumskib/rumskib",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Bounty": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -7214,110 +5089,12 @@
     "variant": "Dreadnought (Pirate Warlord)",
     "baseShip": "Dreadnought",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Bounty": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Northern Pirate Warlord Bounty (Dreadnought)"
-        ]
-      }
-    },
-    "outfits": {
-      "Fuel Laser": {
-        "count": 4,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Outfits Expansion": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Ramscoop": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Tactical Scanner": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Cooling Ducts": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Laser Rifle": {
-        "count": 80,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Anti-Missile Turret": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Plasma Turret": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "S-970 Regenerator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "A520 Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "A865 Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Ogre Reactor": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "LP072a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP036a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Liquid Helium Cooler": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Dreadnought (Pirate Warlord)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Dreadnought",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Dreadnought (Pirate Warlord)",
-    "baseShip": "Dreadnought",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Bounty": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -7539,98 +5316,12 @@
     "variant": "Albatross (Pulsar Cell)",
     "baseShip": "Albatross",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Remnant": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Remnant Pulsar Cell Explorer"
-        ]
-      }
-    },
-    "outfits": {
-      "Crystal Capacitor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Inhibitor Cannon": {
-        "count": 6,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Jump Drive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Large Heat Shunt": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Point Defense Turret": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Pulsar Cell": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Quantum Key Stone": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Smelter-Class Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Smelter-Class Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Systems Core (Small)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Thrasher Turret": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Tuning Rifle": {
-        "count": 45,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Void Rifle": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Albatross (Pulsar Cell)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Albatross",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Albatross (Pulsar Cell)",
-    "baseShip": "Albatross",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Remnant": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -7801,119 +5492,22 @@
     "variant": "Protector (Korath Killer)",
     "baseShip": "Protector",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ancient Travelers": true,
         "Pirate": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Korath Killers"
-        ]
-      }
-    },
-    "outfits": {
-      "Double Plasma Core": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Large Heat Shunt": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Laser Rifle": {
-        "count": 6,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Shunt-Strike Turret": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Small Heat Shunt": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Steering (Lunar Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Systems Core (Large)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Systems Core (Small)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Thruster (Planetary Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Warder Anti-Missile": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Protector (Korath Killer)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [
-      {
-        "x": -48.5,
-        "y": -48.5,
-        "turret": "Shunt-Strike Turret"
-      },
-      {
-        "x": 48.5,
-        "y": -48.5,
-        "turret": "Shunt-Strike Turret"
-      },
-      {
-        "x": -68.5,
-        "y": 0,
-        "turret": "Warder Anti-Missile"
-      },
-      {
-        "x": 68.5,
-        "y": 0,
-        "turret": "Warder Anti-Missile"
-      },
-      {
-        "x": -48.5,
-        "y": 48.5,
-        "turret": "Shunt-Strike Turret"
-      },
-      {
-        "x": 48.5,
-        "y": 48.5,
-        "turret": "Shunt-Strike Turret"
-      }
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
     ],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Protector",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Protector (Korath Killer)",
-    "baseShip": "Protector",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true,
-        "Pirate": true
-      }
-    },
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -8079,90 +5673,21 @@
     "variant": "Vanguard (Korath Killer)",
     "baseShip": "Vanguard",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Pirate": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Korath Killers"
-        ]
-      }
-    },
-    "outfits": {
-      "Firelight Missile": {
-        "count": 160,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Firelight Missile Bank": {
-        "count": 7,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Firelight Storage Rack": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Generator (Candle Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Large Heat Shunt": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Laser Rifle": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Plasma Core": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Steering (Planetary Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Systems Core (Large)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Systems Core (Tiny)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Thruster (Planetary Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Vanguard (Korath Killer)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Vanguard",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Vanguard (Korath Killer)",
-    "baseShip": "Vanguard",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Pirate": true
-      }
-    },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -8330,90 +5855,21 @@
     "variant": "Falcon (Korath Killer)",
     "baseShip": "Falcon",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Pirate": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Korath Killers"
-        ]
-      }
-    },
-    "outfits": {
-      "Afterburner (Planetary Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Double Plasma Core": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Fuel Processor": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Grab-Strike Turret": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Large Heat Shunt": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Laser Rifle": {
-        "count": 15,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Outfits Expansion": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Steering (Planetary Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Systems Core (Medium)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Systems Core (Tiny)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Thruster (Lunar Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Falcon (Korath Killer)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Falcon",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Falcon (Korath Killer)",
-    "baseShip": "Falcon",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Pirate": true
-      }
-    },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -8581,86 +6037,21 @@
     "variant": "Leviathan (Korath Killer)",
     "baseShip": "Leviathan",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Pirate": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Korath Killers"
-        ]
-      }
-    },
-    "outfits": {
-      "Digger Mining Beam": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Digger Mining Turret": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Double Plasma Core": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Large Heat Shunt": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Laser Rifle": {
-        "count": 15,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Steering (Planetary Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Systems Core (Large)": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Systems Core (Medium)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Thruster (Planetary Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Warder Anti-Missile": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Leviathan (Korath Killer)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Leviathan",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Leviathan (Korath Killer)",
-    "baseShip": "Leviathan",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Pirate": true
-      }
-    },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -8836,82 +6227,21 @@
     "variant": "Behemoth (Korath Killer)",
     "baseShip": "Behemoth",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Pirate": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Korath Killers"
-        ]
-      }
-    },
-    "outfits": {
-      "Banisher Grav-Turret": {
-        "count": 6,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Generator (Candle Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Generator (Inferno Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Small Heat Shunt": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Steering (Asteroid Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Steering (Lunar Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Systems Core (Medium)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Thermal Repeater Rifle": {
-        "count": 12,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Thruster (Lunar Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Behemoth (Korath Killer)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Behemoth",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Behemoth (Korath Killer)",
-    "baseShip": "Behemoth",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Pirate": true
-      }
-    },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -9056,8 +6386,10 @@
     "variant": "Sea Scorpion (assembly)",
     "baseShip": "Sea Scorpion",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Hai (Unfettered)": true
+      },
       "Lost In Midnight/Lost-in-Midnight": {
         "Hai (Unfettered)": true
       },
@@ -9068,266 +6400,20 @@
         "Syndicate": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "A250 Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "A375 Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Cooling Ducts": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Electron Turret": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Blaster": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP072a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Outfits Expansion": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "P67-TM Shield Generator": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "P94-YV Shield Generator": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Troll Reactor": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Water Coolant System": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Sea Scorpion (assembly)",
-    "engines": [
-      {
-        "x": -34.5,
-        "y": 60.5,
-        "zoom": 0.6
-      },
-      {
-        "x": 34.5,
-        "y": 60.5,
-        "zoom": 0.6
-      },
-      {
-        "x": -15,
-        "y": 70,
-        "zoom": 0.8
-      },
-      {
-        "x": 15,
-        "y": 70,
-        "zoom": 0.8
-      }
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
     ],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": -23,
-        "y": -48.5,
-        "gun": ""
-      },
-      {
-        "x": 23,
-        "y": -48.5,
-        "gun": ""
-      },
-      {
-        "x": -13,
-        "y": -60.5,
-        "gun": ""
-      },
-      {
-        "x": 13,
-        "y": -60.5,
-        "gun": ""
-      },
-      {
-        "x": 0,
-        "y": -71,
-        "gun": ""
-      }
-    ],
-    "turrets": [
-      {
-        "x": -17.5,
-        "y": -14.5,
-        "turret": ""
-      },
-      {
-        "x": 17.5,
-        "y": -14.5,
-        "turret": ""
-      }
-    ],
-    "bays": [],
-    "leaks": [
-      {
-        "effect": "leak",
-        "openChance": 40,
-        "spreadChance": 50
-      },
-      {
-        "effect": "flame",
-        "openChance": 40,
-        "spreadChance": 30
-      }
-    ],
-    "sprite": "ship/hai sea scorpion",
-    "thumbnail": "thumbnail/hai sea scorpion",
-    "attributes": {
-      "category": "Medium Warship",
-      "cost": 2950000,
-      "shields": 10700,
-      "hull": 4100,
-      "required crew": 15,
-      "bunks": 31,
-      "mass": 340,
-      "drag": 4.7,
-      "heat dissipation": 0.8,
-      "fuel capacity": 500,
-      "cargo space": 31,
-      "outfit space": 523,
-      "weapon capacity": 158,
-      "engine capacity": 104,
-      "weapon": {
-        "blast radius": 84,
-        "shield damage": 840,
-        "hull damage": 420,
-        "hit force": 1260
-      }
-    },
-    "tiny explosion": 24,
-    "small explosion": 50,
-    "medium explosion": 30,
-    "large explosion": 14,
-    "final explode": "final explosion medium",
-    "description": "Most of the ships the Unfettered had back when they splitted from the rest of the Hai weren't usable as missile boats, and for a while they had to rely heavily on pulse weapons instead. Only after some decades of hard work they were able to take the Sea Scorpion into mass production, but it was worth it: its low price and high number of gun ports make it perfect for its role, at the cost of a weak hull and shielding.",
-    "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Sea Scorpion",
-    "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_hash": "b72b3762b1e6",
-    "variant": "Sea Scorpion (assembly)",
-    "baseShip": "Sea Scorpion",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "governments": {
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Hai (Unfettered)": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
-      }
-    },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "A250 Atomic Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "A375 Atomic Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Cooling Ducts": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Electron Turret": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Blaster": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP072a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Outfits Expansion": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "P67-TM Shield Generator": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "P94-YV Shield Generator": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Troll Reactor": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Water Coolant System": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Sea Scorpion (assembly)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Sea Scorpion",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Sea Scorpion (assembly)",
-    "baseShip": "Sea Scorpion",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Hai (Unfettered)": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
-      }
-    },
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "_deprecated/unused": true
@@ -9465,173 +6551,13 @@
     "variant": "Jackal (assembly)",
     "baseShip": "Jackal",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ancient Travelers": true,
         "The Assembly": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Assembly Avengers",
-          "Assembly Backlines 1",
-          "Assembly Scouts 4",
-          "Assembly Scouts 5",
-          "Assembly Scouts 6",
-          "Assembly Scouts 7"
-        ]
-      }
-    },
-    "outfits": {
-      "Gremlin Core": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Heavy Rocket": {
-        "count": 18,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Rocket Pod": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Rocket Rack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP036a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "P14-RN Shield Generator": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Volcano Afterburner": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Water Coolant System": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X1200 Ion Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X1700 Ion Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Jackal (assembly)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "cost": 276000
-    },
-    "_internalId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion::Jackal",
-    "_pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "_hash": "216286fc9fde",
-    "variant": "Jackal (assembly)",
-    "baseShip": "Jackal",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true,
-        "The Assembly": true
-      }
-    },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Assembly Avengers",
-          "Assembly Backlines 1",
-          "Assembly Scouts 4",
-          "Assembly Scouts 5",
-          "Assembly Scouts 6",
-          "Assembly Scouts 7"
-        ]
-      }
-    },
-    "outfits": {
-      "Gremlin Core": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Heavy Rocket": {
-        "count": 18,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Rocket Pod": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Rocket Rack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP036a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "P14-RN Shield Generator": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Volcano Afterburner": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Water Coolant System": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X1200 Ion Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X1700 Ion Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Jackal (assembly)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "cost": 284000
-    },
-    "_internalId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards::Jackal",
-    "_pluginId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
-    "_hash": "814a527eb73c",
-    "variant": "Jackal (assembly)",
-    "baseShip": "Jackal",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true,
-        "The Assembly": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -9775,88 +6701,12 @@
     "variant": "Hogshead (assembly)",
     "baseShip": "Hogshead",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "The Assembly": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Assembly Backlines 1",
-          "Assembly Backlines 2",
-          "Assembly Backlines 3"
-        ]
-      }
-    },
-    "outfits": {
-      "Gremlin Core": {
-        "count": 2,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Greyhound Plasma Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Greyhound Plasma Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Anti-Missile Turret": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Blaster": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP072a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Laser Rifle": {
-        "count": 30,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Liquid Nitrogen Cooler": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "P23-QP Shield Generator": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "P67-TM Shield Generator": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      }
-    }
-  },
-  {
-    "name": "Hogshead (assembly)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Hogshead",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Hogshead (assembly)",
-    "baseShip": "Hogshead",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "The Assembly": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -10008,86 +6858,13 @@
     "variant": "Saber (assembly)",
     "baseShip": "Saber",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ancient Travelers": true,
         "The Assembly": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Assembly Avengers",
-          "Assembly Backlines 2",
-          "Assembly Backlines 3",
-          "Assembly Fleet 3",
-          "Assembly Fleet 4",
-          "Assembly Fleet 5",
-          "Assembly Scouts 6"
-        ]
-      }
-    },
-    "outfits": {
-      "Fuel Laser": {
-        "count": 5,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Fuel Pod": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Gremlin Core": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "LP072a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Outfits Expansion": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "P23-QP Shield Generator": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "X3200 Ion Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X3700 Ion Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Saber (assembly)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Saber",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Saber (assembly)",
-    "baseShip": "Saber",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true,
-        "The Assembly": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -10223,93 +7000,13 @@
     "variant": "Enforcer (assembly)",
     "baseShip": "Enforcer",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Ancient Travelers": true,
         "The Assembly": true
       }
     },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Missions": [
-          "Assembly Avengers",
-          "Assembly Fleet 3",
-          "Assembly Fleet 4",
-          "Assembly Fleet 5",
-          "Assembly Scouts 4",
-          "Assembly Scouts 7"
-        ]
-      }
-    },
-    "outfits": {
-      "Blaster Gatling": {
-        "count": 2,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Fuel Pod": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Gremlin Core": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "LP036a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Laser Rifle": {
-        "count": 3,
-        "pluginId": "official-game/endless-sky"
-      },
-      "P14-RN Shield Generator": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Volcano Afterburner": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Water Coolant System": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X2200 Ion Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X2700 Ion Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Enforcer (assembly)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Enforcer",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Enforcer (assembly)",
-    "baseShip": "Enforcer",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true,
-        "The Assembly": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "Missions": [
@@ -10516,7 +7213,6 @@
     "variant": "Dromedary",
     "baseShip": "Modified Dromedary",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "POOT/poot-senza-solaria": {
         "Syndicate": true
@@ -10525,6 +7221,19 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
         "_deprecated/unused": true
@@ -10580,121 +7289,6 @@
         "pluginId": "official-game/endless-sky"
       }
     }
-  },
-  {
-    "name": "Modified Dromedary (Dromedary)",
-    "engines": [
-      {
-        "x": 32.5,
-        "y": 207
-      },
-      {
-        "x": 3,
-        "y": 207
-      },
-      {
-        "x": -27.5,
-        "y": 207
-      }
-    ],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [
-      {
-        "x": 65,
-        "y": -111,
-        "gun": "Torpedo Launcher",
-        "angle": 40
-      },
-      {
-        "x": -72,
-        "y": -97.5,
-        "gun": "Torpedo Launcher",
-        "angle": 320
-      },
-      {
-        "x": -66.5,
-        "y": 61,
-        "gun": "Sidewinder Missile Launcher",
-        "angle": 270
-      },
-      {
-        "x": 78,
-        "y": 64,
-        "gun": "Sidewinder Missile Launcher",
-        "angle": 90
-      }
-    ],
-    "turrets": [
-      {
-        "x": 10,
-        "y": -136.5,
-        "turret": "Heavy Anti-Missile Turret"
-      },
-      {
-        "x": -21.5,
-        "y": -57.5,
-        "turret": "Heavy Laser Turret"
-      },
-      {
-        "x": 51,
-        "y": 101,
-        "turret": "Heavy Anti-Missile Turret"
-      },
-      {
-        "x": -63.5,
-        "y": 120,
-        "turret": "Heavy Anti-Missile Turret"
-      },
-      {
-        "x": 52.5,
-        "y": 143,
-        "turret": "Heavy Laser Turret"
-      }
-    ],
-    "bays": [
-      {
-        "type": "Fighter",
-        "x": -51,
-        "y": -54,
-        "position": "under",
-        "launch effect": "human internal"
-      },
-      {
-        "type": "Fighter",
-        "x": 47,
-        "y": -40,
-        "position": "under",
-        "launch effect": "human internal"
-      }
-    ],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Modified Dromedary",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Dromedary",
-    "baseShip": "Modified Dromedary",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "sprite": "ship/modified dromedary",
-    "thumbnail": "thumbnail/modified dromedary",
-    "governments": {
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
-      }
-    },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {}
   },
   {
     "name": "Gunboat (Energy Cannon)",
@@ -10783,91 +7377,56 @@
     "variant": "Gunboat (Energy Cannon)",
     "baseShip": "Gunboat",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
+        "Republic": true,
         "Ancient Travelers": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "(TA) Twin Energy Cannon": {
-        "count": 2,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Anti-Missile Turret": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Cargo Scanner": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Cooling Ducts": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D14-RN Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP072a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Outfit Scanner": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "RT-I Radiothermal": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Tactical Scanner": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X2200 Ion Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X3700 Ion Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Gunboat (Energy Cannon)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Gunboat",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Gunboat (Energy Cannon)",
-    "baseShip": "Gunboat",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true
-      }
-    },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 15000)",
+          "Adds fleet in \"Arneb\" via event \"battle in arneb\" (rate 10000)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 30000)",
+          "Adds fleet in \"Eteron\" via event \"titania station construction a\" (rate 6000)",
+          "Adds fleet in \"Eteron\" via event \"titania station construction b\" (rate 12000)",
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 2000)",
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 800)",
+          "Adds fleet in \"Wei\" via event \"normal in Alnasl\" (rate 700)",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb end\"",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Eteron\" via event \"titania station construction a\"",
+          "Removes fleet in \"Eteron\" via event \"titania station construction b\"",
+          "Removes fleet in \"Eteron\" via event \"titania station construction d\"",
+          "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
+          "Removes fleet in \"Wei\" via event \"gunboats in Alnasl\""
+        ]
       }
     },
     "outfits": {
@@ -11020,91 +7579,33 @@
     "variant": "Monitor (Energy Cannon)",
     "baseShip": "Monitor",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
+        "Pirate": true,
         "Ancient Travelers": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "(TA) Quadruple Energy Cannon": {
-        "count": 1,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "Anti-Missile Turret": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Blaster Turret": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D23-QP Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Dwarf Core": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Fragmentation Grenades": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "KP-6 Photovoltaic Array": {
-        "count": 3,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP036a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Laser Rifle": {
-        "count": 6,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X3200 Ion Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X3700 Ion Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Monitor (Energy Cannon)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Monitor",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Monitor (Energy Cannon)",
-    "baseShip": "Monitor",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true
-      }
-    },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
+        ]
       }
     },
     "outfits": {
@@ -11252,79 +7753,33 @@
     "variant": "Firebird (Twin Energy Cannon)",
     "baseShip": "Firebird",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Tugderic's Addons/Tugderics-Addons": {
+        "Pirate": true,
         "Ancient Travelers": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Tugderic's Addons/Tugderics-Addons": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "(TA) Twin Energy Cannon": {
-        "count": 4,
-        "pluginId": "Tugderic's Addons/Tugderics-Addons"
-      },
-      "D41-HY Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP144a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Laser Rifle": {
-        "count": 3,
-        "pluginId": "official-game/endless-sky"
-      },
-      "RT-I Radiothermal": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X3200 Ion Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X3700 Ion Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "nGVF-AA Fuel Cell": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Firebird (Twin Energy Cannon)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Firebird",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Firebird (Twin Energy Cannon)",
-    "baseShip": "Firebird",
-    "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true
-      }
-    },
-    "locations": {
-      "Tugderic's Addons/Tugderics-Addons": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
+        ]
       }
     },
     "outfits": {

@@ -8,7 +8,6 @@
       "firing heat": 0,
       "firing force": 0
     },
-    "_internalId": "Nova1422s list/unlimited.dfc::Dragonflame Cannon",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Sheragi (Rebirth)": true,
@@ -30,6 +29,19 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+    ],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Planets": [
@@ -63,6 +75,9 @@
         "Outfitters": [
           "Senza Solaria Plugin Outfits",
           "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
         ]
       },
       "POOT/endless_sky_senza_solaria": {
@@ -79,6 +94,9 @@
         "Outfitters": [
           "Senza Solaria Plugin Outfits",
           "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
         ]
       }
     },

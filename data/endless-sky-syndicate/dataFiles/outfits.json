@@ -31,7 +31,6 @@
       "burn damage": 0.45
     },
     "description": "The seeming reverence the Korath have for fire appears embodied in this weapon. This pair of Fire-Lances mounted together in a turret do not merely create twin lances of fire: Rather, they begin to form a gestalt - a single, longer, hotter, and almost hypnotic column of fire. This turret has been modified to sit mostly outside of the ship, meaning it uses less outfit space, but at the expense of some efficiency and stability.",
-    "_internalId": "Crisis In Management/endless-sky-syndicate::Blaze-Pike Turret (modified)",
     "governments": {
       "official-game/endless-sky": {
         "Merchant": true,
@@ -50,6 +49,26 @@
         "Scar's Legion": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Scar's Legion → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "Crisis In Management/endless-sky-syndicate": {
         "Ships": [

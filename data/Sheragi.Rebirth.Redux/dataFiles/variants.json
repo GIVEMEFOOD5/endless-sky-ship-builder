@@ -81,12 +81,12 @@
     "variant": "Scout (Shio)",
     "baseShip": "Scout",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Sheragi (Rebirth)": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Planets": [
@@ -227,12 +227,18 @@
     "variant": "Scout (Eden)",
     "baseShip": "Scout",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Merchant": true
       }
     },
+    "governmentEvents": [
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Systems": [
@@ -384,152 +390,12 @@
     "variant": "Berserker (Shio)",
     "baseShip": "Berserker",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Sheragi (Rebirth)": true
       }
     },
-    "locations": {
-      "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
-        "Planets": [
-          "Shio"
-        ]
-      }
-    },
-    "outfits": {
-      "Gatling Gun": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Gatling Gun Ammo": {
-        "count": 12000,
-        "pluginId": "official-game/endless-sky"
-      },
-      "nGVF-CC Fuel Cell": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP072a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D23-QP Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Small Radar Jammer": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Greyhound Plasma Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Greyhound Plasma Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Berserker (Shio)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "cost": 528000
-    },
-    "_internalId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion::Berserker",
-    "_pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "_hash": "1700f0d1a1fc",
-    "variant": "Berserker (Shio)",
-    "baseShip": "Berserker",
-    "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "governments": {
-      "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
-        "Sheragi (Rebirth)": true
-      }
-    },
-    "locations": {
-      "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
-        "Planets": [
-          "Shio"
-        ]
-      }
-    },
-    "outfits": {
-      "Gatling Gun": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Gatling Gun Ammo": {
-        "count": 12000,
-        "pluginId": "official-game/endless-sky"
-      },
-      "nGVF-CC Fuel Cell": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP072a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D23-QP Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Small Radar Jammer": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Greyhound Plasma Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Greyhound Plasma Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Berserker (Shio)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "cost": 429000
-    },
-    "_internalId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards::Berserker",
-    "_pluginId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
-    "_hash": "bcea748770db",
-    "variant": "Berserker (Shio)",
-    "baseShip": "Berserker",
-    "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
-    "governments": {
-      "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
-        "Sheragi (Rebirth)": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Planets": [
@@ -661,160 +527,18 @@
     "variant": "Berserker (Eden)",
     "baseShip": "Berserker",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Merchant": true
       }
     },
-    "locations": {
-      "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
-        "Systems": [
-          "Adun",
-          "Bevnol",
-          "Eavak",
-          "Elbakiw",
-          "Eligne",
-          "Khazayob",
-          "Okraz",
-          "Sini",
-          "Ssifisv",
-          "Sulta",
-          "Tobor",
-          "Xiekivi",
-          "Xiilek"
-        ]
-      }
-    },
-    "outfits": {
-      "Shard Fabricator": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Small EM Battery": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D23-QP Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Sheragi Solar Intake": {
-        "count": 1,
-        "pluginId": null
-      },
-      "Fission Drive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Chipmunk Plasma Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Berserker (Eden)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "cost": 528000
-    },
-    "_internalId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion::Berserker",
-    "_pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "_hash": "1700f0d1a1fc",
-    "variant": "Berserker (Eden)",
-    "baseShip": "Berserker",
-    "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "governments": {
-      "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
-        "Merchant": true
-      }
-    },
-    "locations": {
-      "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
-        "Systems": [
-          "Adun",
-          "Bevnol",
-          "Eavak",
-          "Elbakiw",
-          "Eligne",
-          "Khazayob",
-          "Okraz",
-          "Sini",
-          "Ssifisv",
-          "Sulta",
-          "Tobor",
-          "Xiekivi",
-          "Xiilek"
-        ]
-      }
-    },
-    "outfits": {
-      "Shard Fabricator": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Small EM Battery": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D23-QP Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Sheragi Solar Intake": {
-        "count": 1,
-        "pluginId": null
-      },
-      "Fission Drive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Chipmunk Plasma Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Berserker (Eden)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "cost": 429000
-    },
-    "_internalId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards::Berserker",
-    "_pluginId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
-    "_hash": "bcea748770db",
-    "variant": "Berserker (Eden)",
-    "baseShip": "Berserker",
-    "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
-    "governments": {
-      "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
-        "Merchant": true
-      }
-    },
+    "governmentEvents": [
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Systems": [
@@ -988,94 +712,12 @@
     "variant": "Aerie (Shio)",
     "baseShip": "Aerie",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Sheragi (Rebirth)": true
       }
     },
-    "locations": {
-      "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
-        "Planets": [
-          "Shio"
-        ]
-      }
-    },
-    "outfits": {
-      "Plasma Cannon": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Fission Reactor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Small EM Battery": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D41-HY Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Small Hybrid Cooling": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Small Radar Jammer": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Sheragi Solar Intake": {
-        "count": 1,
-        "pluginId": null
-      },
-      "Greyhound Plasma Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Greyhound Plasma Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Chipmunk Plasma Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Chipmunk Plasma Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Aerie (Shio)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Aerie",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Aerie (Shio)",
-    "baseShip": "Aerie",
-    "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
-        "Sheragi (Rebirth)": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Planets": [
@@ -1257,106 +899,18 @@
     "variant": "Aerie (Eden)",
     "baseShip": "Aerie",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Merchant": true
       }
     },
-    "locations": {
-      "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
-        "Systems": [
-          "Adun",
-          "Bevnol",
-          "Eavak",
-          "Elbakiw",
-          "Eligne",
-          "Khazayob",
-          "Okraz",
-          "Sini",
-          "Ssifisv",
-          "Sulta",
-          "Tobor",
-          "Xiekivi",
-          "Xiilek"
-        ]
-      }
-    },
-    "outfits": {
-      "Particle Waveform Turret": {
-        "count": 3,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Small EM Battery": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Supercapacitor": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D41-HY Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Small Hybrid Cooling": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Small Radar Jammer": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Sheragi Solar Intake": {
-        "count": 1,
-        "pluginId": null
-      },
-      "Outfits Expansion": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Laser Rifle": {
-        "count": 15,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Fission Drive": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Chipmunk Plasma Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Aerie (Eden)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Aerie",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Aerie (Eden)",
-    "baseShip": "Aerie",
-    "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
-        "Merchant": true
-      }
-    },
+    "governmentEvents": [
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Systems": [
@@ -1536,106 +1090,12 @@
     "variant": "Mule (Shio)",
     "baseShip": "Mule",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Sheragi (Rebirth)": true
       }
     },
-    "locations": {
-      "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
-        "Planets": [
-          "Shio"
-        ]
-      }
-    },
-    "outfits": {
-      "Plasma Cannon": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Anti-Missile Turret": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP072a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D41-HY Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Cooling Ducts": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Water Coolant System": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Large Radar Jammer": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "nGVF-AA Fuel Cell": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "nGVF-CC Fuel Cell": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "KP-6 Photovoltaic Array": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Ramscoop": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Laser Rifle": {
-        "count": 10,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Greyhound Plasma Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Greyhound Plasma Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Mule (Shio)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Mule",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Mule (Shio)",
-    "baseShip": "Mule",
-    "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
-        "Sheragi (Rebirth)": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Planets": [
@@ -1815,126 +1275,18 @@
     "variant": "Mule (Eden)",
     "baseShip": "Mule",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Merchant": true
       }
     },
-    "locations": {
-      "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
-        "Systems": [
-          "Adun",
-          "Bevnol",
-          "Eavak",
-          "Elbakiw",
-          "Eligne",
-          "Khazayob",
-          "Okraz",
-          "Sini",
-          "Ssifisv",
-          "Sulta",
-          "Tobor",
-          "Xiekivi",
-          "Xiilek"
-        ]
-      }
-    },
-    "outfits": {
-      "Plasma Cannon": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Particle Waveform Turret": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Anti-Missile Turret": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP072a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D41-HY Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Cooling Ducts": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Small Hybrid Cooling": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Large Radar Jammer": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "nGVF-BB Fuel Cell": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "KP-6 Photovoltaic Array": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Ramscoop": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Outfits Expansion": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Laser Rifle": {
-        "count": 20,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Fission Drive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Greyhound Plasma Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Greyhound Plasma Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Mule (Eden)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Mule",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Mule (Eden)",
-    "baseShip": "Mule",
-    "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
-        "Merchant": true
-      }
-    },
+    "governmentEvents": [
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Systems": [
@@ -2170,132 +1522,18 @@
     "variant": "Bactrian (Eden)",
     "baseShip": "Bactrian",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Merchant": true
       }
     },
-    "locations": {
-      "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
-        "Systems": [
-          "Adun",
-          "Bevnol",
-          "Eavak",
-          "Eligne",
-          "Khazayob",
-          "Okraz",
-          "Sini",
-          "Ssifisv",
-          "Tobor",
-          "Xiekivi",
-          "Xiilek"
-        ]
-      }
-    },
-    "outfits": {
-      "Plasma Cannon": {
-        "count": 4,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Anti-Missile Turret": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Particle Waveform Turret": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Sheragi Anti-Missile": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D67-TM Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Light Particle Shielding": {
-        "count": 1,
-        "pluginId": null
-      },
-      "Electronic Warfare System": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Large Radar Jammer": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Liquid Nitrogen Cooler": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Outfits Expansion": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Small Hybrid Cooling": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Breeder Reactor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Fission Core": {
-        "count": 1,
-        "pluginId": null
-      },
-      "LP144a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Laser Rifle": {
-        "count": 175,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Security Station": {
-        "count": 6,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Orca Plasma Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Orca Plasma Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Bactrian (Eden)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Bactrian",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Bactrian (Eden)",
-    "baseShip": "Bactrian",
-    "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
-        "Merchant": true
-      }
-    },
+    "governmentEvents": [
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Systems": [
@@ -2500,13 +1738,13 @@
     "variant": "Lleisgarir Hardri",
     "baseShip": "Bronze Edge :SRR",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Sheragi (Rebirth)": true,
         "Sheragi (Dishonoured)": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "_deprecated/unused": true
@@ -2659,13 +1897,13 @@
     "variant": "Bronze Edge (Pulse)",
     "baseShip": "Bronze Edge :SRR",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Sheragi (Rebirth)": true,
         "Sheragi (Dishonoured)": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "_deprecated/unused": true
@@ -2822,13 +2060,13 @@
     "variant": "Bronze Edge (PWave)",
     "baseShip": "Bronze Edge :SRR",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Sheragi (Rebirth)": true,
         "Sheragi (Dishonoured)": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "_deprecated/unused": true
@@ -2977,13 +2215,13 @@
     "variant": "Bronze Edge (Cyclotron)",
     "baseShip": "Bronze Edge :SRR",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Sheragi (Rebirth)": true,
         "Sheragi (Dishonoured)": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "_deprecated/unused": true
@@ -3157,13 +2395,13 @@
     "variant": "Ruby Hammer (Pulse)",
     "baseShip": "Ruby Hammer :SRR",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Sheragi (Rebirth)": true,
         "Sheragi (Dishonoured)": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "_deprecated/unused": true
@@ -3333,13 +2571,13 @@
     "variant": "Ruby Hammer (PWave)",
     "baseShip": "Ruby Hammer :SRR",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Sheragi (Rebirth)": true,
         "Sheragi (Dishonoured)": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "_deprecated/unused": true
@@ -3589,13 +2827,13 @@
     "variant": "Platinum Spear (Pulse)",
     "baseShip": "Platinum Spear :SRR",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Sheragi (Rebirth)": true,
         "Sheragi (Dishonoured)": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "_deprecated/unused": true
@@ -3845,13 +3083,13 @@
     "variant": "Platinum Spear (PWave)",
     "baseShip": "Platinum Spear :SRR",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Sheragi (Rebirth)": true,
         "Sheragi (Dishonoured)": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "_deprecated/unused": true
@@ -4105,13 +3343,13 @@
     "variant": "Platinum Spear (Shields)",
     "baseShip": "Platinum Spear :SRR",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Sheragi (Rebirth)": true,
         "Sheragi (Dishonoured)": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "_deprecated/unused": true
@@ -4390,13 +3628,13 @@
     "variant": "Gold Shield (Pulse)",
     "baseShip": "Gold Shield :SRR",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Sheragi (Rebirth)": true,
         "Sheragi (Dishonoured)": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "_deprecated/unused": true
@@ -4675,13 +3913,13 @@
     "variant": "Gold Shield (Pwave)",
     "baseShip": "Gold Shield :SRR",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Sheragi (Rebirth)": true,
         "Sheragi (Dishonoured)": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "_deprecated/unused": true
@@ -4960,13 +4198,13 @@
     "variant": "Gold Shield (Cyclotron)",
     "baseShip": "Gold Shield :SRR",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Sheragi (Rebirth)": true,
         "Sheragi (Dishonoured)": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "_deprecated/unused": true
@@ -5171,13 +4409,13 @@
     "variant": "White Brand (Pulse)",
     "baseShip": "White Brand :SRR",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Sheragi (Rebirth)": true,
         "Sheragi (Dishonoured)": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "_deprecated/unused": true
@@ -5468,112 +4706,12 @@
     "variant": "Emerald Sword (Modern) :SRR",
     "baseShip": "Emerald Sword",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Sheragi (Rebirth)": true
       }
     },
-    "locations": {
-      "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
-        "Systems": [
-          "Adun",
-          "Bevnol",
-          "Cotuir",
-          "Crayiss",
-          "Eavak",
-          "Elbakiw",
-          "Eligne",
-          "I'gra",
-          "Khazayob",
-          "Lyrik",
-          "Myink",
-          "Okraz",
-          "Sini",
-          "Ssifisv",
-          "Sulta",
-          "Tobor",
-          "Utih",
-          "Xiekivi",
-          "Xiilek"
-        ]
-      }
-    },
-    "outfits": {
-      "Dragonflame Cannon": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Particle Waveform Turret": {
-        "count": 6,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Sheragi Anti-Missile": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Large EM Battery": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Large Hybrid Cooling": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Small Hybrid Cooling": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Electronic Warfare System": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Dense Particle Shielding": {
-        "count": 2,
-        "pluginId": null
-      },
-      "Fission Core": {
-        "count": 3,
-        "pluginId": null
-      },
-      "Sheragi Solar Intake": {
-        "count": 2,
-        "pluginId": null
-      },
-      "Fusion Drive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Emerald Sword (Modern) :SRR",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1,
-      "shields": 25500,
-      "hull": 15000,
-      "self destruct": 1,
-      "outfit space": 310
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Emerald Sword",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Emerald Sword (Modern) :SRR",
-    "baseShip": "Emerald Sword",
-    "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
-        "Sheragi (Rebirth)": true
-      }
-    },
+    "governmentEvents": [],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Systems": [
@@ -5841,12 +4979,12 @@
     "variant": "Opal Glaive (Light) :SRR",
     "baseShip": "Opal Glaive :SRR",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
     "governments": {
       "Sheragi.Rebirth.Redux": {
         "Sheragi.Rebirth.Redux": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "_deprecated/unused": true
@@ -6078,12 +5216,12 @@
     "variant": "Opal Glaive (Shadow) :SRR",
     "baseShip": "Opal Glaive :SRR",
     "_variantPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
-    "_baseShipPluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
     "governments": {
       "Sheragi.Rebirth.Redux": {
         "Sheragi.Rebirth.Redux": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "_deprecated/unused": true

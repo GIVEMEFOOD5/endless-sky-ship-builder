@@ -69,37 +69,50 @@
       "variant": "FiFc: Custom Fighter 1",
       "baseShip": "Lance",
       "_variantPluginId": "Fighter Factory/Fighter-Factory",
-      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Merchant": true,
+          "Pirate": true,
           "Republic": true,
           "Navy (Oathkeeper)": true,
-          "Pirate": true,
           "Bounty Hunter": true
+        },
+        "Kai's list/KGS": {
+          "Republic": true
         },
         "Nova1422s list/navypirates": {
           "Pirate": true
+        },
+        "Better Vanilla Pirates/BetterVanillaPirates": {
+          "Pirate": true
+        },
+        "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
+          "Navy (Oathkeeper)": true,
+          "Republic": true
         },
         "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
           "SPA: Republic Livery": true
         },
         "Mega Freight/Mega-Freight": {
+          "Merchant": true,
+          "Republic": true,
+          "Pirate": true,
           "MGF: Maryhal Logistic": true,
           "MGF: Crossguard Patrol": true,
           "MGF: Black Death": true,
-          "Republic": true,
-          "Navy (Oathkeeper)": true,
-          "MGF: NGK Security": true
+          "MGF: NBSL": true,
+          "Navy (Oathkeeper)": true
         },
         "Rumskib/rumskib": {
+          "Republic": true,
           "Pirate": true
         },
         "Lost In Midnight/Lost-in-Midnight": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true,
+          "Pirate": true,
           "Scar's Legion": true,
           "Oathbreaker": true,
-          "Republic": true,
-          "Pirate": true,
           "Oathbreaker Expeditionary": true
         },
         "Blended Ships/blended-ships": {
@@ -112,115 +125,57 @@
           "Syndicate": true
         }
       },
-      "locations": {
-        "Fighter Factory/Fighter-Factory": {
-          "_deprecated/unused": true
-        }
-      },
-      "outfits": {
-        "Torpedo Pod": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Torpedo": {
-          "count": 3,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Sidewinder Missile Pod": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Sidewinder Missile": {
-          "count": 4,
-          "pluginId": "official-game/endless-sky"
-        },
-        "nGVF-AA Fuel Cell": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "LP036a Battery Pack": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "D14-RN Shield Generator": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Small Radar Jammer": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "X1700 Ion Thruster": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "X1200 Ion Steering": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        }
-      }
-    },
-    {
-      "name": "Lance (FiFc: Custom Fighter 1)",
-      "engines": [],
-      "reverseEngines": [],
-      "steeringEngines": [],
-      "guns": [],
-      "turrets": [],
-      "bays": [],
-      "leaks": [],
-      "attributes": {
-        "cost": 106000
-      },
-      "_internalId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion::Lance",
-      "_pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-      "_hash": "d61e0151926e",
-      "variant": "FiFc: Custom Fighter 1",
-      "baseShip": "Lance",
-      "_variantPluginId": "Fighter Factory/Fighter-Factory",
-      "_baseShipPluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-      "governments": {
-        "official-game/endless-sky": {
-          "Merchant": true,
-          "Republic": true,
-          "Navy (Oathkeeper)": true,
-          "Pirate": true,
-          "Bounty Hunter": true
-        },
-        "Nova1422s list/navypirates": {
-          "Pirate": true
-        },
-        "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-          "SPA: Republic Livery": true
-        },
-        "Mega Freight/Mega-Freight": {
-          "MGF: Maryhal Logistic": true,
-          "MGF: Crossguard Patrol": true,
-          "MGF: Black Death": true,
-          "Republic": true,
-          "Navy (Oathkeeper)": true,
-          "MGF: NGK Security": true
-        },
-        "Rumskib/rumskib": {
-          "Pirate": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Scar's Legion": true,
-          "Oathbreaker": true,
-          "Republic": true,
-          "Pirate": true,
-          "Oathbreaker Expeditionary": true
-        },
-        "Blended Ships/blended-ships": {
-          "Republic": true
-        },
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
-        }
-      },
+      "governmentEvents": [
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+        "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+        "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+        "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
+        "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+        "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+        "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+        "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+        "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+        "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+        "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+        "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+        "Event \"fwc battle for rasalhague\": Pug attitude toward Navy (Oathkeeper) → -0.01",
+        "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+        "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+        "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+        "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+        "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+        "Event \"mgf: mhl deal with black death\": MGF: Black Death attitude toward MGF: Bounty Hunter (AntiMHL) → -0.01",
+        "Event \"mgf: mhl deal with black death\": MGF: Black Death attitude toward MGF: Maryhal Defense → 0",
+        "Event \"mgf: mhl deal with black death\": MGF: Black Death attitude toward MGF: Maryhal Logistic → 0",
+        "Event \"mgf: mhl deal with black death\": MGF: Maryhal Defense attitude toward MGF: Black Death → 0",
+        "Event \"mgf: mhl deal with black death\": MGF: Maryhal Logistic attitude toward MGF: Black Death → 0",
+        "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward MGF: Black Death → -0.2",
+        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Scar's Legion → -0.1",
+        "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+        "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+        "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+        "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+        "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+        "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+        "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+        "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+        "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+        "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+      ],
       "locations": {
         "Fighter Factory/Fighter-Factory": {
           "_deprecated/unused": true
@@ -335,37 +290,50 @@
       "variant": "FiFc: Outfitting Variant Example",
       "baseShip": "Lance",
       "_variantPluginId": "Fighter Factory/Fighter-Factory",
-      "_baseShipPluginId": "official-game/endless-sky",
       "governments": {
         "official-game/endless-sky": {
           "Merchant": true,
+          "Pirate": true,
           "Republic": true,
           "Navy (Oathkeeper)": true,
-          "Pirate": true,
           "Bounty Hunter": true
+        },
+        "Kai's list/KGS": {
+          "Republic": true
         },
         "Nova1422s list/navypirates": {
           "Pirate": true
+        },
+        "Better Vanilla Pirates/BetterVanillaPirates": {
+          "Pirate": true
+        },
+        "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
+          "Navy (Oathkeeper)": true,
+          "Republic": true
         },
         "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
           "SPA: Republic Livery": true
         },
         "Mega Freight/Mega-Freight": {
+          "Merchant": true,
+          "Republic": true,
+          "Pirate": true,
           "MGF: Maryhal Logistic": true,
           "MGF: Crossguard Patrol": true,
           "MGF: Black Death": true,
-          "Republic": true,
-          "Navy (Oathkeeper)": true,
-          "MGF: NGK Security": true
+          "MGF: NBSL": true,
+          "Navy (Oathkeeper)": true
         },
         "Rumskib/rumskib": {
+          "Republic": true,
           "Pirate": true
         },
         "Lost In Midnight/Lost-in-Midnight": {
+          "Republic": true,
+          "Navy (Oathkeeper)": true,
+          "Pirate": true,
           "Scar's Legion": true,
           "Oathbreaker": true,
-          "Republic": true,
-          "Pirate": true,
           "Oathbreaker Expeditionary": true
         },
         "Blended Ships/blended-ships": {
@@ -378,6 +346,57 @@
           "Syndicate": true
         }
       },
+      "governmentEvents": [
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+        "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+        "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+        "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
+        "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+        "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+        "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+        "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+        "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+        "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+        "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+        "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+        "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+        "Event \"fwc battle for rasalhague\": Pug attitude toward Navy (Oathkeeper) → -0.01",
+        "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+        "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+        "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+        "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+        "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+        "Event \"mgf: mhl deal with black death\": MGF: Black Death attitude toward MGF: Bounty Hunter (AntiMHL) → -0.01",
+        "Event \"mgf: mhl deal with black death\": MGF: Black Death attitude toward MGF: Maryhal Defense → 0",
+        "Event \"mgf: mhl deal with black death\": MGF: Black Death attitude toward MGF: Maryhal Logistic → 0",
+        "Event \"mgf: mhl deal with black death\": MGF: Maryhal Defense attitude toward MGF: Black Death → 0",
+        "Event \"mgf: mhl deal with black death\": MGF: Maryhal Logistic attitude toward MGF: Black Death → 0",
+        "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward MGF: Black Death → -0.2",
+        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Scar's Legion → -0.1",
+        "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+        "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+        "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+        "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+        "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+        "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+        "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+        "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+        "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+        "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+      ],
       "locations": {
         "Fighter Factory/Fighter-Factory": {
           "_deprecated/unused": true
@@ -470,13 +489,13 @@
       "variant": "FiFc: Custom Ship Example",
       "baseShip": "A-14Fc Rondel",
       "_variantPluginId": "Fighter Factory/Fighter-Factory",
-      "_baseShipPluginId": "Fighter Factory/Fighter-Factory",
       "sprite": "ship/fifc rondel",
       "governments": {
         "Fighter-Factory": {
           "Fighter-Factory": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "Fighter Factory/Fighter-Factory": {
           "_deprecated/unused": true
@@ -499,12 +518,12 @@
       "factory upgrade slot": 1,
       "unplunderable": 1,
       "description": "Experimental ship-board fighter assembly machine for assembling a fighter daily from parts based on a blueprint installed on the machine which can be bought separately. Once bought, depart and land then go to job board and record the current number of fighter. If fighters were loss the machine will produce new fighter based on blueprint to replace it upon landing. Can stack up to two Assembler. MUST be installed on flagship to work.",
-      "_internalId": "Fighter Factory/Fighter-Factory::XMA03 Fighter Assembler",
       "governments": {
         "Fighter-Factory": {
           "Fighter-Factory": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "Fighter Factory/Fighter-Factory": {
           "_deprecated/unused": true
@@ -526,12 +545,12 @@
       "factory upgrade slot": -1,
       "remnant blueprint slot": 1,
       "description": "Upgrade which allow factories to manufacture Remnant technologies.",
-      "_internalId": "Fighter Factory/Fighter-Factory::Remnant Manufactory Upgrade",
       "governments": {
         "Fighter-Factory": {
           "Fighter-Factory": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "Fighter Factory/Fighter-Factory": {
           "_deprecated/unused": true
@@ -549,12 +568,12 @@
       "fighter part capacity": 20,
       "unplunderable": 1,
       "description": "Storage for fighter parts.",
-      "_internalId": "Fighter Factory/Fighter-Factory::XSU01-1 Part Storage",
       "governments": {
         "Fighter-Factory": {
           "Fighter-Factory": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "Fighter Factory/Fighter-Factory": {
           "_deprecated/unused": true
@@ -572,12 +591,12 @@
       "fighter part capacity": 50,
       "unplunderable": 1,
       "description": "Storage for fighter parts.",
-      "_internalId": "Fighter Factory/Fighter-Factory::XSU01-2 Part Storage",
       "governments": {
         "Fighter-Factory": {
           "Fighter-Factory": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "Fighter Factory/Fighter-Factory": {
           "_deprecated/unused": true
@@ -594,12 +613,12 @@
       "fighter part capacity": -1,
       "unplunderable": 1,
       "description": "Basic parts for constructing a fighter.",
-      "_internalId": "Fighter Factory/Fighter-Factory::Universal Fighter Parts",
       "governments": {
         "Fighter-Factory": {
           "Fighter-Factory": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "Fighter Factory/Fighter-Factory": {
           "_deprecated/unused": true
@@ -615,12 +634,12 @@
       "e1 fighter blueprint slot": -1,
       "unplunderable": 1,
       "description": "Blueprint for standard Lance fighter made to E1 standard.",
-      "_internalId": "Fighter Factory/Fighter-Factory::E1-a Lance Blueprint",
       "governments": {
         "Fighter-Factory": {
           "Fighter-Factory": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "Fighter Factory/Fighter-Factory": {
           "_deprecated/unused": true
@@ -636,12 +655,12 @@
       "e1 fighter blueprint slot": -1,
       "unplunderable": 1,
       "description": "Blueprint for custom fighter fighter made to E1 standard. [Default is Torp-equipped Lance. Customize in plugin data by editing ffcustomfighter.txt]",
-      "_internalId": "Fighter Factory/Fighter-Factory::E1-a Custom Blueprint 1",
       "governments": {
         "Fighter-Factory": {
           "Fighter-Factory": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "Fighter Factory/Fighter-Factory": {
           "_deprecated/unused": true
@@ -657,12 +676,12 @@
       "e1 fighter blueprint slot": -1,
       "unplunderable": 1,
       "description": "Blueprint for standard Dagger fighter made to E1 standard.",
-      "_internalId": "Fighter Factory/Fighter-Factory::E1-a Dagger Blueprint",
       "governments": {
         "Fighter-Factory": {
           "Fighter-Factory": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "Fighter Factory/Fighter-Factory": {
           "_deprecated/unused": true
@@ -678,12 +697,12 @@
       "e1 fighter blueprint slot": -1,
       "unplunderable": 1,
       "description": "Blueprint for standard Finch fighter made to E1 standard.",
-      "_internalId": "Fighter Factory/Fighter-Factory::E1-a Finch Blueprint",
       "governments": {
         "Fighter-Factory": {
           "Fighter-Factory": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "Fighter Factory/Fighter-Factory": {
           "_deprecated/unused": true
@@ -699,12 +718,12 @@
       "e1 fighter blueprint slot": -1,
       "unplunderable": 1,
       "description": "Blueprint for standard Barb fighter made to E1 standard.",
-      "_internalId": "Fighter Factory/Fighter-Factory::E1-a Barb Blueprint",
       "governments": {
         "Fighter-Factory": {
           "Fighter-Factory": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "Fighter Factory/Fighter-Factory": {
           "_deprecated/unused": true
@@ -720,12 +739,12 @@
       "e1 fighter blueprint slot": -1,
       "unplunderable": 1,
       "description": "Blueprint for Proton Barb fighter made to E1 standard.",
-      "_internalId": "Fighter Factory/Fighter-Factory::E1-a Barb-P Blueprint",
       "governments": {
         "Fighter-Factory": {
           "Fighter-Factory": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "Fighter Factory/Fighter-Factory": {
           "_deprecated/unused": true
@@ -744,12 +763,12 @@
       "e1 fighter blueprint slot": -1,
       "unplunderable": 1,
       "description": "Blueprint for standard Combat Drone made to E1 standard.",
-      "_internalId": "Fighter Factory/Fighter-Factory::E1-a Combat Drone Blueprint",
       "governments": {
         "Fighter-Factory": {
           "Fighter-Factory": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "Fighter Factory/Fighter-Factory": {
           "_deprecated/unused": true
@@ -768,12 +787,12 @@
       "e1 fighter blueprint slot": -1,
       "unplunderable": 1,
       "description": "Blueprint for standard Surveillance Drone made to E1 standard.",
-      "_internalId": "Fighter Factory/Fighter-Factory::E1-a Surveillance Drone Blueprint",
       "governments": {
         "Fighter-Factory": {
           "Fighter-Factory": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "Fighter Factory/Fighter-Factory": {
           "_deprecated/unused": true
@@ -792,12 +811,12 @@
       "e1 fighter blueprint slot": -1,
       "unplunderable": 1,
       "description": "Blueprint for standard Petrel fighter made to E1 standard.",
-      "_internalId": "Fighter Factory/Fighter-Factory::E1-a Petrel Blueprint",
       "governments": {
         "Fighter-Factory": {
           "Fighter-Factory": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "Fighter Factory/Fighter-Factory": {
           "_deprecated/unused": true
@@ -816,12 +835,12 @@
       "e1 fighter blueprint slot": -1,
       "unplunderable": 1,
       "description": "Blueprint for standard Smew fighter made to E1 standard.",
-      "_internalId": "Fighter Factory/Fighter-Factory::E1-a Smew Blueprint",
       "governments": {
         "Fighter-Factory": {
           "Fighter-Factory": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "Fighter Factory/Fighter-Factory": {
           "_deprecated/unused": true
@@ -840,12 +859,12 @@
       "e1 fighter blueprint slot": -1,
       "unplunderable": 1,
       "description": "Blueprint for standard Tern fighter made to E1 standard.",
-      "_internalId": "Fighter Factory/Fighter-Factory::E1-a Tern Blueprint",
       "governments": {
         "Fighter-Factory": {
           "Fighter-Factory": true
         }
       },
+      "governmentEvents": [],
       "locations": {
         "Fighter Factory/Fighter-Factory": {
           "_deprecated/unused": true
@@ -855,5 +874,5 @@
     }
   ],
   "effects": [],
-  "parsedAt": "2026-08-29T22:17:26.096Z"
+  "parsedAt": "2026-08-30T09:04:52.893Z"
 }

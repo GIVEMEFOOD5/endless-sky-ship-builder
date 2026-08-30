@@ -12,12 +12,12 @@
     "factory upgrade slot": 1,
     "unplunderable": 1,
     "description": "Experimental ship-board fighter assembly machine for assembling a fighter daily from parts based on a blueprint installed on the machine which can be bought separately. Once bought, depart and land then go to job board and record the current number of fighter. If fighters were loss the machine will produce new fighter based on blueprint to replace it upon landing. Can stack up to two Assembler. MUST be installed on flagship to work.",
-    "_internalId": "Fighter Factory/Fighter-Factory::XMA03 Fighter Assembler",
     "governments": {
       "Fighter-Factory": {
         "Fighter-Factory": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Fighter Factory/Fighter-Factory": {
         "_deprecated/unused": true
@@ -39,12 +39,12 @@
     "factory upgrade slot": -1,
     "remnant blueprint slot": 1,
     "description": "Upgrade which allow factories to manufacture Remnant technologies.",
-    "_internalId": "Fighter Factory/Fighter-Factory::Remnant Manufactory Upgrade",
     "governments": {
       "Fighter-Factory": {
         "Fighter-Factory": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Fighter Factory/Fighter-Factory": {
         "_deprecated/unused": true
@@ -62,12 +62,12 @@
     "fighter part capacity": 20,
     "unplunderable": 1,
     "description": "Storage for fighter parts.",
-    "_internalId": "Fighter Factory/Fighter-Factory::XSU01-1 Part Storage",
     "governments": {
       "Fighter-Factory": {
         "Fighter-Factory": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Fighter Factory/Fighter-Factory": {
         "_deprecated/unused": true
@@ -85,12 +85,12 @@
     "fighter part capacity": 50,
     "unplunderable": 1,
     "description": "Storage for fighter parts.",
-    "_internalId": "Fighter Factory/Fighter-Factory::XSU01-2 Part Storage",
     "governments": {
       "Fighter-Factory": {
         "Fighter-Factory": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Fighter Factory/Fighter-Factory": {
         "_deprecated/unused": true
@@ -107,12 +107,12 @@
     "fighter part capacity": -1,
     "unplunderable": 1,
     "description": "Basic parts for constructing a fighter.",
-    "_internalId": "Fighter Factory/Fighter-Factory::Universal Fighter Parts",
     "governments": {
       "Fighter-Factory": {
         "Fighter-Factory": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Fighter Factory/Fighter-Factory": {
         "_deprecated/unused": true
@@ -128,12 +128,12 @@
     "e1 fighter blueprint slot": -1,
     "unplunderable": 1,
     "description": "Blueprint for standard Lance fighter made to E1 standard.",
-    "_internalId": "Fighter Factory/Fighter-Factory::E1-a Lance Blueprint",
     "governments": {
       "Fighter-Factory": {
         "Fighter-Factory": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Fighter Factory/Fighter-Factory": {
         "_deprecated/unused": true
@@ -149,12 +149,12 @@
     "e1 fighter blueprint slot": -1,
     "unplunderable": 1,
     "description": "Blueprint for custom fighter fighter made to E1 standard. [Default is Torp-equipped Lance. Customize in plugin data by editing ffcustomfighter.txt]",
-    "_internalId": "Fighter Factory/Fighter-Factory::E1-a Custom Blueprint 1",
     "governments": {
       "Fighter-Factory": {
         "Fighter-Factory": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Fighter Factory/Fighter-Factory": {
         "_deprecated/unused": true
@@ -170,12 +170,12 @@
     "e1 fighter blueprint slot": -1,
     "unplunderable": 1,
     "description": "Blueprint for standard Dagger fighter made to E1 standard.",
-    "_internalId": "Fighter Factory/Fighter-Factory::E1-a Dagger Blueprint",
     "governments": {
       "Fighter-Factory": {
         "Fighter-Factory": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Fighter Factory/Fighter-Factory": {
         "_deprecated/unused": true
@@ -191,12 +191,12 @@
     "e1 fighter blueprint slot": -1,
     "unplunderable": 1,
     "description": "Blueprint for standard Finch fighter made to E1 standard.",
-    "_internalId": "Fighter Factory/Fighter-Factory::E1-a Finch Blueprint",
     "governments": {
       "Fighter-Factory": {
         "Fighter-Factory": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Fighter Factory/Fighter-Factory": {
         "_deprecated/unused": true
@@ -212,12 +212,12 @@
     "e1 fighter blueprint slot": -1,
     "unplunderable": 1,
     "description": "Blueprint for standard Barb fighter made to E1 standard.",
-    "_internalId": "Fighter Factory/Fighter-Factory::E1-a Barb Blueprint",
     "governments": {
       "Fighter-Factory": {
         "Fighter-Factory": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Fighter Factory/Fighter-Factory": {
         "_deprecated/unused": true
@@ -233,12 +233,12 @@
     "e1 fighter blueprint slot": -1,
     "unplunderable": 1,
     "description": "Blueprint for Proton Barb fighter made to E1 standard.",
-    "_internalId": "Fighter Factory/Fighter-Factory::E1-a Barb-P Blueprint",
     "governments": {
       "Fighter-Factory": {
         "Fighter-Factory": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Fighter Factory/Fighter-Factory": {
         "_deprecated/unused": true
@@ -257,12 +257,12 @@
     "e1 fighter blueprint slot": -1,
     "unplunderable": 1,
     "description": "Blueprint for standard Combat Drone made to E1 standard.",
-    "_internalId": "Fighter Factory/Fighter-Factory::E1-a Combat Drone Blueprint",
     "governments": {
       "Fighter-Factory": {
         "Fighter-Factory": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Fighter Factory/Fighter-Factory": {
         "_deprecated/unused": true
@@ -281,12 +281,12 @@
     "e1 fighter blueprint slot": -1,
     "unplunderable": 1,
     "description": "Blueprint for standard Surveillance Drone made to E1 standard.",
-    "_internalId": "Fighter Factory/Fighter-Factory::E1-a Surveillance Drone Blueprint",
     "governments": {
       "Fighter-Factory": {
         "Fighter-Factory": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Fighter Factory/Fighter-Factory": {
         "_deprecated/unused": true
@@ -305,12 +305,12 @@
     "e1 fighter blueprint slot": -1,
     "unplunderable": 1,
     "description": "Blueprint for standard Petrel fighter made to E1 standard.",
-    "_internalId": "Fighter Factory/Fighter-Factory::E1-a Petrel Blueprint",
     "governments": {
       "Fighter-Factory": {
         "Fighter-Factory": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Fighter Factory/Fighter-Factory": {
         "_deprecated/unused": true
@@ -329,12 +329,12 @@
     "e1 fighter blueprint slot": -1,
     "unplunderable": 1,
     "description": "Blueprint for standard Smew fighter made to E1 standard.",
-    "_internalId": "Fighter Factory/Fighter-Factory::E1-a Smew Blueprint",
     "governments": {
       "Fighter-Factory": {
         "Fighter-Factory": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Fighter Factory/Fighter-Factory": {
         "_deprecated/unused": true
@@ -353,12 +353,12 @@
     "e1 fighter blueprint slot": -1,
     "unplunderable": 1,
     "description": "Blueprint for standard Tern fighter made to E1 standard.",
-    "_internalId": "Fighter Factory/Fighter-Factory::E1-a Tern Blueprint",
     "governments": {
       "Fighter-Factory": {
         "Fighter-Factory": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Fighter Factory/Fighter-Factory": {
         "_deprecated/unused": true

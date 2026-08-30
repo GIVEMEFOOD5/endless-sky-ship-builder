@@ -187,12 +187,12 @@
     "variant": "Barquentine (Nuke)",
     "baseShip": "Barquentine",
     "_variantPluginId": "Blended Ships/blended-ships",
-    "_baseShipPluginId": "Blended Ships/blended-ships",
     "governments": {
       "blended-ships": {
         "blended-ships": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Blended Ships/blended-ships": {
         "_deprecated/unused": true
@@ -450,12 +450,12 @@
     "variant": "Barquentine 🇲 (Nuke)",
     "baseShip": "Barquentine 🇲",
     "_variantPluginId": "Blended Ships/blended-ships",
-    "_baseShipPluginId": "Blended Ships/blended-ships",
     "governments": {
       "Blended Ships/blended-ships": {
         "Arena": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Blended Ships/blended-ships": {
         "Planets": [
@@ -464,6 +464,11 @@
         ],
         "Missions": [
           "FWC Checkmate 1 (Barquentine)"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"FWC Checkmate 1 (Barquentine)\" → event \"fwc defend cebalrai\"",
+          "\"FWC Checkmate 1 (Barquentine)\" → event \"fwc defended cebalrai\"",
+          "\"FWC Checkmate 1 (Barquentine)\" → event \"fwc solace has nukes\""
         ]
       }
     },
@@ -622,15 +627,29 @@
     "variant": "Hare 🇲 (Miner)",
     "baseShip": "Hare 🇲",
     "_variantPluginId": "Blended Ships/blended-ships",
-    "_baseShipPluginId": "Blended Ships/blended-ships",
     "governments": {
       "Blended Ships/blended-ships": {
-        "Arena": true
+        "Merchant": true
       }
     },
+    "governmentEvents": [
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "Blended Ships/blended-ships": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 1600)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\" (rate 6400)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\" (rate 12800)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach\" (rate 3200)",
+          "Adds fleet in \"Sol\" via event \"mgf: canaveral naval yard expansion 3 done\" (rate 1800)",
+          "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\"",
+          "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\""
+        ]
       }
     },
     "outfits": {
@@ -768,15 +787,25 @@
     "variant": "Hare 🇲 (Long Haul)",
     "baseShip": "Hare 🇲",
     "_variantPluginId": "Blended Ships/blended-ships",
-    "_baseShipPluginId": "Blended Ships/blended-ships",
     "governments": {
       "Blended Ships/blended-ships": {
-        "Arena": true
+        "Merchant": true
       }
     },
+    "governmentEvents": [
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "Blended Ships/blended-ships": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 15000)",
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 500)",
+          "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\""
+        ]
       }
     },
     "outfits": {
@@ -924,135 +953,21 @@
     "variant": "Sunder (Patrol)",
     "baseShip": "Sunder",
     "_variantPluginId": "Blended Ships/blended-ships",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
-      "official-game/endless-sky": {
-        "Merchant": true
-      },
-      "Mega Freight/Mega-Freight": {
-        "MGF: Espion Mining Co.": true,
-        "MGF: Shadow Rakin": true
-      },
-      "Rumskib/rumskib": {
-        "Pirate": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Independent (Killable)": true,
-        "Scar's Legion": true,
-        "Merchant": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+      "Blended Ships/blended-ships": {
+        "Militia": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04"
+    ],
     "locations": {
       "Blended Ships/blended-ships": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "Meteor Missile Launcher": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Meteor Missile Box": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Meteor Missile": {
-        "count": 75,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Anti-Missile Turret": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Outfit Scanner": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Cargo Scanner": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Tactical Scanner": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "nGVF-CC Fuel Cell": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP036a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D23-QP Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X3700 Ion Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X3200 Ion Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Sunder (Patrol)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Sunder",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Sunder (Patrol)",
-    "baseShip": "Sunder",
-    "_variantPluginId": "Blended Ships/blended-ships",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "official-game/endless-sky": {
-        "Merchant": true
-      },
-      "Mega Freight/Mega-Freight": {
-        "MGF: Espion Mining Co.": true,
-        "MGF: Shadow Rakin": true
-      },
-      "Rumskib/rumskib": {
-        "Pirate": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Independent (Killable)": true,
-        "Scar's Legion": true,
-        "Merchant": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
-      }
-    },
-    "locations": {
-      "Blended Ships/blended-ships": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 3000)",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
+          "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+        ]
       }
     },
     "outfits": {

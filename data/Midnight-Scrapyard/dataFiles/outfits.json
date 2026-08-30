@@ -8,12 +8,12 @@
     "mass": 1,
     "installable": -1,
     "description": "Twisted wreckage from a destroyed spacecraft or other artificial object.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Scrap Metal",
     "governments": {
       "Midnight-Scrapyard": {
         "Midnight-Scrapyard": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Ships": [
@@ -51,13 +51,13 @@
       "disruption damage": 0.12,
       "discharge damage": 0.24
     },
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Energy Absorber?",
     "governments": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Invasive Predator": true,
         "Escort": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Ships": [
@@ -65,6 +65,344 @@
           "Blight Horror",
           "Blight Shadow",
           "Blight Terror"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Acapella\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Acapella\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Aileron\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Aileron\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Algieba\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Alnasl\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Alpha Arae\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Apeiron\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Apeiron\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Ar-40\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Ar-40\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"As-75\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"As-75\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Asikafarnut\" via event \"Blight Shadow Infestation\" (rate 1000)",
+          "Adds fleet in \"Asikafarnut\" via event \"Blight Shadow Infestation\" (rate 800)",
+          "Adds fleet in \"Asikafarnut\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Asikafarnut\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Asikafarnut\" via event \"scrapyard blight mutation\" (rate 800)",
+          "Adds fleet in \"Atik\" via event \"Shadowblight Human Addon\" (rate 50000)",
+          "Adds fleet in \"Avasaa-Novaa\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Axiom\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Axiom\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"B-11\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"B-11\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Ballad\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Ballad\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Be-9\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Be-9\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Beta Lupi\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Billow\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Billow\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Boral\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Bote Asu\" via event \"Shadowblight Hai\" (rate 50000)",
+          "Adds fleet in \"Br-80\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Br-80\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"C-12\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"C-12\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Ca-40\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Ca-40\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Caesura\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Caesura\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Cantata\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Cantata\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Cardax\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Celeborim\" via event \"Blight Shadow Infestation\" (rate 1000)",
+          "Adds fleet in \"Celeborim\" via event \"Blight Shadow Infestation\" (rate 800)",
+          "Adds fleet in \"Celeborim\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Celeborim\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Celeborim\" via event \"scrapyard blight mutation\" (rate 800)",
+          "Adds fleet in \"Chimitarp\" via event \"Blight Shadows vs Mereti\" (rate 10000)",
+          "Adds fleet in \"Chimitarp\" via event \"Blight Shadows vs Mereti\" (rate 2500)",
+          "Adds fleet in \"Chorale\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Chorale\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Cl-35\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Cl-35\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Corporeal\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Corporeal\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Current\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Current\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Cusp\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Cusp\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Danoa\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Durax\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Eber\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Eltanin\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Empyrean\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Empyrean\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Eneremprukt\" via event \"Blight Shadow Infestation\" (rate 10000)",
+          "Adds fleet in \"Eneremprukt\" via event \"Blight Shadow Infestation\" (rate 2500)",
+          "Adds fleet in \"Eneremprukt\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Eneremprukt\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Eneremprukt\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Eneva Katta\" via event \"Shadowblight Bunrodea\" (rate 50000)",
+          "Adds fleet in \"Era Natta\" via event \"Shadowblight Bunrodea\" (rate 50000)",
+          "Adds fleet in \"Eshkoshtar\" via event \"Blight Shadows vs Mereti\" (rate 10000)",
+          "Adds fleet in \"Eshkoshtar\" via event \"Blight Shadows vs Mereti\" (rate 2500)",
+          "Adds fleet in \"Eta Carinae\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Eteron\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Eteron\" via event \"midnight titania docking bay 13\" (rate 50000)",
+          "Adds fleet in \"Evanescence\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Evanescence\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"F-19\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"F-19\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Fah Root\" via event \"Adjust Shadowblight Hai\" (rate 50000)",
+          "Adds fleet in \"Fala\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Farbutero\" via event \"Blight Shadows vs Mereti\" (rate 10000)",
+          "Adds fleet in \"Farbutero\" via event \"Blight Shadows vs Mereti\" (rate 2500)",
+          "Adds fleet in \"Faronektu\" via event \"Blight Shadows Nest In Persitar\" (rate 2500)",
+          "Adds fleet in \"Faronektu\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Faronektu\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Feroteri\" via event \"Blight Shadows vs Mereti\" (rate 2500)",
+          "Adds fleet in \"Ferukistek\" via event \"Blight Shadow Infestation\" (rate 10000)",
+          "Adds fleet in \"Ferukistek\" via event \"Blight Shadow Infestation\" (rate 2500)",
+          "Adds fleet in \"Ferukistek\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Ferukistek\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Ferukistek\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Fingol\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Firmament\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Firmament\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Flutter\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Flutter\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Fornarep\" via event \"Blight Shadows vs Mereti\" (rate 1000)",
+          "Adds fleet in \"Fornarep\" via event \"Blight Shadows vs Mereti\" (rate 800)",
+          "Adds fleet in \"Fornarep\" via event \"Node 8 Processor Returned\" (rate 2500)",
+          "Adds fleet in \"Gacrux\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Gale\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Gale\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Gamma Cassiopeiae\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Ge-73\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Ge-73\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Genta Bo\" via event \"Shadowblight Bunrodea\" (rate 50000)",
+          "Adds fleet in \"Gento Ah\" via event \"Shadowblight Bunrodea\" (rate 50000)",
+          "Adds fleet in \"Glide\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Glide\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Gorvi\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Gossamer\" via event \"Shadowblight Gossamer Patch\" (rate 50000)",
+          "Adds fleet in \"Gossamer\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Gust\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Gust\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"H-1\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"H-1\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Hassaleh\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Hatysa\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"He-4\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"He-4\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Hintar\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Holeb\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Host\" via event \"Blight Shadow Infestation\" (rate 50000)",
+          "Adds fleet in \"Host\" via event \"scrapper world forger begin\" (rate 20000)",
+          "Adds fleet in \"Host\" via event \"scrapper world forger end\" (rate 20000)",
+          "Adds fleet in \"Ildaria\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Ipsing\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"K-39\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"K-39\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Kasi-Vasa-Novaa\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Kasii-Cavaasa\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Kasii-Sola\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Khasola-Ryuit\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Khosa-Kaska\" via event \"Shadowblight Twilight\" (rate 80000)",
+          "Adds fleet in \"Kiiraj-Luue\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Korsmanath\" via event \"Blight Shadows vs Mereti\" (rate 10000)",
+          "Adds fleet in \"Korsmanath\" via event \"Blight Shadows vs Mereti\" (rate 2500)",
+          "Adds fleet in \"Kr-84\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Kr-84\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Kugel\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Lesath\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Li-7\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Li-7\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Lift\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Lift\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Limen\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Lom Tahr\" via event \"Adjust Shadowblight Hai\" (rate 50000)",
+          "Adds fleet in \"Lumine\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Lumine\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Lurata\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Luue-Saqru\" via event \"Shadowblight Twilight\" (rate 80000)",
+          "Adds fleet in \"Madrigal\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Madrigal\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Makferuti\" via event \"Blight Shadow Infestation\" (rate 1000)",
+          "Adds fleet in \"Makferuti\" via event \"Blight Shadow Infestation\" (rate 800)",
+          "Adds fleet in \"Makferuti\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Makferuti\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Makferuti\" via event \"scrapyard blight mutation\" (rate 800)",
+          "Adds fleet in \"Maspa-Mavra\" via event \"Shadowblight Twilight\" (rate 80000)",
+          "Adds fleet in \"Maspa-Raaqa\" via event \"Shadowblight Twilight\" (rate 80000)",
+          "Adds fleet in \"Mavra-Ijsola\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Meftarkata\" via event \"Blight Shadows vs Mereti\" (rate 1000)",
+          "Adds fleet in \"Meftarkata\" via event \"Blight Shadows vs Mereti\" (rate 800)",
+          "Adds fleet in \"Meftarkata\" via event \"Node 8 Processor Returned\" (rate 10000)",
+          "Adds fleet in \"Meftarkata\" via event \"Node 8 Processor Returned\" (rate 2500)",
+          "Adds fleet in \"Mekislepti\" via event \"Blight Shadows vs Mereti\" (rate 2500)",
+          "Adds fleet in \"Mesuket\" via event \"Blight Shadow Infestation\" (rate 2500)",
+          "Adds fleet in \"Mesuket\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Mesuket\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Mesuket\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Mg-24\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Mg-24\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Minkar\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Mintaka\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Mirzam\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Mizar\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Moktar\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Mora\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Mote\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Mote\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Muphrid\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Murk\" via event \"Shadowblight Murk\" (rate 50000)",
+          "Adds fleet in \"Myruet-Kvelq\" via event \"Shadowblight Twilight\" (rate 80000)",
+          "Adds fleet in \"N-14\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"N-14\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Na-23\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Na-23\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Naper\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Ne-20\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Ne-20\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Nocte\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"O-16\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"O-16\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Oblate\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Opera\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Opera\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Orbona\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Orvala\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Osolaa-Uuoru\" via event \"Shadowblight Twilight\" (rate 80000)",
+          "Adds fleet in \"Oublaa-Khora\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"P-31\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"P-31\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Paru Paru\" via event \"Shadowblight Bunrodea\" (rate 50000)",
+          "Adds fleet in \"Peak\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Peak\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Pearl\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Pearl\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Persian\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Persitar\" via event \"Blight Shadows Nest In Persitar\" (rate 800)",
+          "Adds fleet in \"Persitar\" via event \"scrapper world shaper begin\" (rate 20000)",
+          "Adds fleet in \"Persitar\" via event \"scrapper world shaper end\" (rate 1600)",
+          "Adds fleet in \"Persitar\" via event \"scrapper world shaper end\" (rate 3200)",
+          "Adds fleet in \"Persitar\" via event \"scrapper world shaper end\" (rate 6400)",
+          "Adds fleet in \"Persitar\" via event \"scrapyard blight horrors\" (rate 1000)",
+          "Adds fleet in \"Persitar\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Persitar\" via event \"scrapyard blight mutation\" (rate 1000)",
+          "Adds fleet in \"Pinnacle\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Pinnacle\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Postlude\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Prakacha'a\" via event \"Shadowblight Wanderer\" (rate 50000)",
+          "Adds fleet in \"Quintessence\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Quintessence\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Rajak\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Regulus\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Rhapsody\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Rhapsody\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Rigel\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Rivulet\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Rivulet\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"S-32\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"S-32\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Sadr\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Salipastart\" via event \"Blight Shadows Nest In Persitar\" (rate 10000)",
+          "Adds fleet in \"Salipastart\" via event \"Blight Shadows Nest In Persitar\" (rate 2500)",
+          "Adds fleet in \"Saquergen\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Sayaiban\" via event \"blight terrors in sayaiban\" (rate 20000)",
+          "Adds fleet in \"Sayaiban\" via event \"blight terrors in sayaiban\" (rate 30000)",
+          "Adds fleet in \"Sepetrosk\" via event \"Blight Shadows vs Mereti\" (rate 10000)",
+          "Adds fleet in \"Sepetrosk\" via event \"Blight Shadows vs Mereti\" (rate 2500)",
+          "Adds fleet in \"Sera Natta\" via event \"Shadowblight Bunrodea\" (rate 50000)",
+          "Adds fleet in \"Serenade\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Serenade\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Si-28\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Si-28\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Silikatakfar\" via event \"Blight Shadow Infestation\" (rate 10000)",
+          "Adds fleet in \"Silikatakfar\" via event \"Blight Shadow Infestation\" (rate 2500)",
+          "Adds fleet in \"Silikatakfar\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Silikatakfar\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Silikatakfar\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Similisti\" via event \"Blight Shadows Nest In Persitar\" (rate 2500)",
+          "Adds fleet in \"Similisti\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Similisti\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Sobarati\" via event \"Blight Shadow Infestation\" (rate 1000)",
+          "Adds fleet in \"Sobarati\" via event \"Blight Shadow Infestation\" (rate 800)",
+          "Adds fleet in \"Sobarati\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Sobarati\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Sobarati\" via event \"scrapyard blight mutation\" (rate 800)",
+          "Adds fleet in \"Sonata\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Sonata\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Sospi\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Span\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Span\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Stream\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Stream\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Sumar\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Tailwind\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Tailwind\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Tais\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Tap\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Tap\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Terminus\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Tide\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Tide\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Torrent\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Torrent\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Tortor\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Tumble\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Tumble\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Twirl\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Twirl\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Ultima Thule\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Umbral\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Unagi\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Uuoru-Sossa\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Vasa-Oorua\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Vivace\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Vivace\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Volax\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Vorpal\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Vorpal\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Wave\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Wave\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Wei\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Whirlwind\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Whirlwind\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Xutluno Fali\" via event \"Shadowblight Bunrodea\" (rate 50000)",
+          "Adds fleet in \"Xutluno Rees\" via event \"Shadowblight Bunrodea\" (rate 50000)",
+          "Adds fleet in \"Zubenelgenubi\" via event \"Shadowblight Human\" (rate 50000)",
+          "Removes fleet in \"Asikafarnut\" via event \"scrapyard blight horrors\"",
+          "Removes fleet in \"Bote Asu\" via event \"Adjust Shadowblight Hai\"",
+          "Removes fleet in \"Celeborim\" via event \"scrapyard blight mutation\"",
+          "Removes fleet in \"Chimitarp\" via event \"Node 8 Processor Returned\"",
+          "Removes fleet in \"Eshkoshtar\" via event \"Adjust Shadowblight Wanderer\"",
+          "Removes fleet in \"Eshkoshtar\" via event \"Node 8 Processor Returned\"",
+          "Removes fleet in \"Eteron\" via event \"Shadowblight Cancel Eteron\"",
+          "Removes fleet in \"Farbutero\" via event \"Node 8 Processor Returned\"",
+          "Removes fleet in \"Fornarep\" via event \"Node 8 Processor Returned\"",
+          "Removes fleet in \"Gossamer\" via event \"Shadowblight Gossamer Patch\"",
+          "Removes fleet in \"Host\" via event \"scrapper world forger begin\"",
+          "Removes fleet in \"Host\" via event \"scrapper world forger end\"",
+          "Removes fleet in \"Korsmanath\" via event \"Node 8 Processor Returned\"",
+          "Removes fleet in \"Makferuti\" via event \"scrapyard blight mutation\"",
+          "Removes fleet in \"Meftarkata\" via event \"Node 8 Processor Returned\"",
+          "Removes fleet in \"Persitar\" via event \"Patch: Blight Shadows Nest In Persitar\"",
+          "Removes fleet in \"Persitar\" via event \"scrapper world shaper begin\"",
+          "Removes fleet in \"Persitar\" via event \"scrapper world shaper end\"",
+          "Removes fleet in \"Salipastart\" via event \"Adjust Shadowblight Wanderer\"",
+          "Removes fleet in \"Sepetrosk\" via event \"Node 8 Processor Returned\"",
+          "Removes fleet in \"Sobarati\" via event \"scrapyard blight mutation\""
+        ]
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Asikafarnut\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Celeborim\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Eneremprukt\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Ferukistek\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Makferuti\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Mesuket\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Silikatakfar\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Sobarati\" via event \"Infested Scrap\" (rate 10000)"
         ]
       }
     },
@@ -91,12 +429,12 @@
         }
       ]
     },
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Festering Boil",
     "governments": {
       "Midnight-Scrapyard": {
         "Midnight-Scrapyard": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "_deprecated/unused": true
@@ -113,12 +451,12 @@
       "hull damage": 0.15,
       "no damage scaling": true
     },
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Festering Boil Submunition",
     "governments": {
       "Midnight-Scrapyard": {
         "Midnight-Scrapyard": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "_deprecated/unused": true
@@ -141,15 +479,16 @@
       "reload": 2,
       "stream": true
     },
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Blight Leak",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Scrappers": true
       },
       "Midnight Scrapyard/Midnight-Scrapyard": {
-        "Kor Scrappers (Hostile)": true
+        "Kor Scrappers (Hostile)": true,
+        "Kor Scrappers": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Ships": [
@@ -174,15 +513,16 @@
       "reload": 2,
       "stream": true
     },
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Flame Leak",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Scrappers": true
       },
       "Midnight Scrapyard/Midnight-Scrapyard": {
-        "Kor Scrappers (Hostile)": true
+        "Kor Scrappers (Hostile)": true,
+        "Kor Scrappers": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Ships": [
@@ -206,12 +546,12 @@
     "unplunderable": 1,
     "heat capacity": 1.718,
     "description": "Trace amounts of dessicated biological residue are attached to this mass of glassy material. It appears to be well suited for absorbing heat, but otherwise does not appear to possess be any unusual physical properties.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Anomalous Husk",
     "governments": {
       "Midnight-Scrapyard": {
         "Midnight-Scrapyard": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "_deprecated/unused": true
@@ -247,18 +587,60 @@
       "disruption damage": 0.36,
       "discharge damage": 0.72
     },
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Energy Drainer?",
     "governments": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Invasive Predator": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Ships": [
           "Blight Horror",
           "Blight Mutation",
           "Blight Terror"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Asikafarnut\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Asikafarnut\" via event \"scrapyard blight mutation\" (rate 800)",
+          "Adds fleet in \"Celeborim\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Celeborim\" via event \"scrapyard blight mutation\" (rate 800)",
+          "Adds fleet in \"Eneremprukt\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Eneremprukt\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Faronektu\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Faronektu\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Ferukistek\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Ferukistek\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Makferuti\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Makferuti\" via event \"scrapyard blight mutation\" (rate 800)",
+          "Adds fleet in \"Mesuket\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Mesuket\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Persitar\" via event \"scrapper world shaper end\" (rate 3200)",
+          "Adds fleet in \"Persitar\" via event \"scrapper world shaper end\" (rate 6400)",
+          "Adds fleet in \"Persitar\" via event \"scrapyard blight horrors\" (rate 1000)",
+          "Adds fleet in \"Persitar\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Persitar\" via event \"scrapyard blight mutation\" (rate 1000)",
+          "Adds fleet in \"Sayaiban\" via event \"blight terrors in sayaiban\" (rate 20000)",
+          "Adds fleet in \"Sayaiban\" via event \"blight terrors in sayaiban\" (rate 30000)",
+          "Adds fleet in \"Silikatakfar\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Silikatakfar\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Similisti\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Similisti\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Sobarati\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Sobarati\" via event \"scrapyard blight mutation\" (rate 800)",
+          "Removes fleet in \"Persitar\" via event \"scrapper world shaper begin\""
+        ]
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Asikafarnut\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Celeborim\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Eneremprukt\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Ferukistek\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Makferuti\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Mesuket\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Silikatakfar\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Sobarati\" via event \"Infested Scrap\" (rate 10000)"
         ]
       }
     },
@@ -280,17 +662,46 @@
       "reload": 5,
       "firing energy": 24
     },
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Blight Defense?",
     "governments": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Invasive Predator": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Ships": [
           "Blight Horror",
           "Blight Mutation"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Asikafarnut\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Asikafarnut\" via event \"scrapyard blight mutation\" (rate 800)",
+          "Adds fleet in \"Celeborim\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Celeborim\" via event \"scrapyard blight mutation\" (rate 800)",
+          "Adds fleet in \"Eneremprukt\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Eneremprukt\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Faronektu\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Faronektu\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Ferukistek\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Ferukistek\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Makferuti\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Makferuti\" via event \"scrapyard blight mutation\" (rate 800)",
+          "Adds fleet in \"Mesuket\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Mesuket\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Persitar\" via event \"scrapper world shaper end\" (rate 3200)",
+          "Adds fleet in \"Persitar\" via event \"scrapper world shaper end\" (rate 6400)",
+          "Adds fleet in \"Persitar\" via event \"scrapyard blight horrors\" (rate 1000)",
+          "Adds fleet in \"Persitar\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Persitar\" via event \"scrapyard blight mutation\" (rate 1000)",
+          "Adds fleet in \"Sayaiban\" via event \"blight terrors in sayaiban\" (rate 30000)",
+          "Adds fleet in \"Silikatakfar\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Silikatakfar\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Similisti\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Similisti\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Sobarati\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Sobarati\" via event \"scrapyard blight mutation\" (rate 800)",
+          "Removes fleet in \"Persitar\" via event \"scrapper world shaper begin\""
         ]
       }
     },
@@ -327,16 +738,32 @@
       "scrambling damage": 0.2
     },
     "description": "The red lightning generated from this organ will slightly recharge the batteries of a ship struck by it. This is accompanied by a weapon jamming effect similar to, but different from, ionization.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Blood Lightning?",
     "governments": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Invasive Predator": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Ships": [
           "Blight Horror"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Asikafarnut\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Celeborim\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Eneremprukt\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Faronektu\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Ferukistek\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Makferuti\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Mesuket\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Persitar\" via event \"scrapper world shaper end\" (rate 6400)",
+          "Adds fleet in \"Persitar\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Sayaiban\" via event \"blight terrors in sayaiban\" (rate 30000)",
+          "Adds fleet in \"Silikatakfar\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Similisti\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Sobarati\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Removes fleet in \"Persitar\" via event \"scrapper world shaper begin\""
         ]
       }
     },
@@ -362,12 +789,12 @@
     "requires Research Data (Chem)": 1,
     "requires Research Data (Phys)": 1,
     "description": "This technical manual details how to manufacture Fireswarm Missiles. Having this makes it possible for any outfitter to offer Fireswarm Missiles even if it is normally not stocked there. \tThe version available for purchase is written in an alien language you don't understand... \tThis tech can be researched instead of purchased. (Hover/Tap the attributes below for more details.) \tAfter this is acquired it can be found in the Licenses area in future visits to the outfitter.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Korath Fireswarm Access Temporary License",
     "governments": {
       "Midnight-Scrapyard": {
         "Midnight-Scrapyard": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "_deprecated/unused": true
@@ -395,12 +822,12 @@
     "requires Research Data (Chem)": 1,
     "requires Research Data (Phys)": 1,
     "description": "This technical manual details how to manufacture Korath Fireswarms. Having this makes it possible for any outfitter to offer Korath Fireswarms even if it is normally not stocked there.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Korath Fireswarm Tech License",
     "governments": {
       "Midnight-Scrapyard": {
         "Midnight-Scrapyard": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "_deprecated/unused": true
@@ -462,16 +889,92 @@
       ]
     },
     "description": "A newly developed Mereti weapon, the Automine Deployer forgoes the need to carry ammunition. Instead, the mines are constructed using Korath nanomachine technology. These weapons were developed exclusively for use by the Mechanized Mine automata.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Automine Deployer",
     "governments": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Kor Mereti": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0",
+      "Event \"wanderers: kor mereti friendly\": Kor Mereti attitude toward Wanderer → 1",
+      "Event \"wanderers: kor mereti friendly\": Quarg (Kor Efret) attitude toward Kor Mereti → 0",
+      "Event \"wanderers: kor mereti friendly\": Quarg attitude toward Kor Mereti → 0"
+    ],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Ships": [
           "Mechanized Mine"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Asikafarnut\" via event \"Mereti Automines Set\" (rate 1500)",
+          "Adds fleet in \"Asikafarnut\" via event \"Node 8 Processor Returned\" (rate 3600)",
+          "Adds fleet in \"Celeborim\" via event \"Mereti Automines Set\" (rate 2000)",
+          "Adds fleet in \"Celeborim\" via event \"Node 8 Processor Returned\" (rate 10000)",
+          "Adds fleet in \"Chimitarp\" via event \"Node 8 Processor Returned\" (rate 1000)",
+          "Adds fleet in \"Chimitarp\" via event \"Node 8 Processor Returned\" (rate 250)",
+          "Adds fleet in \"Chimitarp\" via event \"Node 8 Processor Returned\" (rate 3600)",
+          "Adds fleet in \"Chimitarp\" via event \"Node 8 Processor Returned\" (rate 450)",
+          "Adds fleet in \"Chimitarp\" via event \"wanderers: kor mereti transformation\" (rate 250)",
+          "Adds fleet in \"Chimitarp\" via event \"wanderers: kor mereti transformation\" (rate 450)",
+          "Adds fleet in \"Eneremprukt\" via event \"Mereti Automines Set\" (rate 3000)",
+          "Adds fleet in \"Eneremprukt\" via event \"Node 8 Processor Returned\" (rate 2000)",
+          "Adds fleet in \"Eshkoshtar\" via event \"Node 8 Processor Returned\" (rate 1600)",
+          "Adds fleet in \"Eshkoshtar\" via event \"Node 8 Processor Returned\" (rate 800)",
+          "Adds fleet in \"Farbutero\" via event \"Node 8 Processor Returned\" (rate 5000)",
+          "Adds fleet in \"Farbutero\" via event \"Node 8 Processor Returned\" (rate 9400)",
+          "Adds fleet in \"Faronektu\" via event \"Node 8 Processor Returned\" (rate 1200)",
+          "Adds fleet in \"Faronektu\" via event \"Node 8 Processor Returned\" (rate 2000)",
+          "Adds fleet in \"Feroteri\" via event \"Node 8 Processor Returned\" (rate 12000)",
+          "Adds fleet in \"Feroteri\" via event \"Node 8 Processor Returned\" (rate 6400)",
+          "Adds fleet in \"Ferukistek\" via event \"Mereti Automines Set\" (rate 3000)",
+          "Adds fleet in \"Ferukistek\" via event \"Node 8 Processor Returned\" (rate 2400)",
+          "Adds fleet in \"Fornarep\" via event \"Node 8 Processor Returned\" (rate 5800)",
+          "Adds fleet in \"Fornarep\" via event \"Node 8 Processor Returned\" (rate 9000)",
+          "Adds fleet in \"Kaliptari\" via event \"Node 8 Processor Returned\" (rate 10000)",
+          "Adds fleet in \"Kaliptari\" via event \"Node 8 Processor Returned\" (rate 3600)",
+          "Adds fleet in \"Kaliptari\" via event \"Node 8 Processor Returned\" (rate 4800)",
+          "Adds fleet in \"Kaliptari\" via event \"Node 8 Processor Returned\" (rate 8000)",
+          "Adds fleet in \"Kaliptari\" via event \"wanderers: kaliptari battle ends\" (rate 3600)",
+          "Adds fleet in \"Kaliptari\" via event \"wanderers: kaliptari battle ends\" (rate 8000)",
+          "Adds fleet in \"Korsmanath\" via event \"Node 8 Processor Returned\" (rate 8000)",
+          "Adds fleet in \"Makferuti\" via event \"Mereti Automines Set\" (rate 2000)",
+          "Adds fleet in \"Makferuti\" via event \"Node 8 Processor Returned\" (rate 10000)",
+          "Adds fleet in \"Mekislepti\" via event \"Node 8 Processor Returned\" (rate 1000)",
+          "Adds fleet in \"Mekislepti\" via event \"Node 8 Processor Returned\" (rate 3000)",
+          "Adds fleet in \"Mekislepti\" via event \"wanderers: the eye opens\" (rate 12000)",
+          "Adds fleet in \"Mekislepti\" via event \"wanderers: the eye opens\" (rate 4000)",
+          "Adds fleet in \"Mesuket\" via event \"Mereti Automines Set\" (rate 3500)",
+          "Adds fleet in \"Mesuket\" via event \"Node 8 Processor Returned\" (rate 900)",
+          "Adds fleet in \"Salipastart\" via event \"Node 8 Processor Returned\" (rate 1600)",
+          "Adds fleet in \"Salipastart\" via event \"Node 8 Processor Returned\" (rate 800)",
+          "Adds fleet in \"Sepetrosk\" via event \"Node 8 Processor Returned\" (rate 1200)",
+          "Adds fleet in \"Sepetrosk\" via event \"Node 8 Processor Returned\" (rate 4800)",
+          "Adds fleet in \"Silikatakfar\" via event \"Mereti Automines Set\" (rate 2500)",
+          "Adds fleet in \"Silikatakfar\" via event \"Node 8 Processor Returned\" (rate 1600)",
+          "Adds fleet in \"Similisti\" via event \"Node 8 Processor Returned\" (rate 1600)",
+          "Adds fleet in \"Similisti\" via event \"Node 8 Processor Returned\" (rate 600)",
+          "Adds fleet in \"Sobarati\" via event \"Mereti Automines Set\" (rate 2000)",
+          "Adds fleet in \"Sobarati\" via event \"Node 8 Processor Returned\" (rate 10000)",
+          "Removes fleet in \"Asikafarnut\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Celeborim\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Chimitarp\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Eneremprukt\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Eshkoshtar\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Farbutero\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Faronektu\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Feroteri\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Ferukistek\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Fornarep\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Kaliptari\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Korsmanath\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Makferuti\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Mekislepti\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Mesuket\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Salipastart\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Sepetrosk\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Silikatakfar\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Similisti\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Sobarati\" via event \"Mereti Fall Silent\""
         ]
       }
     },
@@ -508,19 +1011,47 @@
       "prospecting": 7.9
     },
     "description": "This classic Korath mining laser lacks the shield disruption effect found in its modern counterpart, but is more effective for its intended purpose.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Burrower Mining Beam",
     "governments": {
-      "Midnight-Scrapyard": {
-        "Midnight-Scrapyard": true
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Efret": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
+    ],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Planets": [
+          "Laki Nemparu"
+        ],
+        "Outfitters": [
+          "Korath Basics"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Laki Nemparu\" via event \"laki nemparu bullies defeated\"",
+          "Removes from \"Laki Nemparu\" via event \"laki nemparu bullies\""
+        ],
         "Ships": [
           "Shelf-Sloop"
         ],
         "ShipyardPlanets": [
           "Laki Nemparu"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Chornifath\" via event \"kor efret miners scrapyard\" (rate 7200)",
+          "Adds fleet in \"Dokdobaru\" via event \"kor efret miners scrapyard\" (rate 10800)",
+          "Adds fleet in \"Farbutero\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Feroteri\" via event \"kor efret forager sales\" (rate 16000)",
+          "Adds fleet in \"Fornarep\" via event \"kor efret forager sales\" (rate 12000)",
+          "Adds fleet in \"Furmeliki\" via event \"kor efret miners scrapyard\" (rate 10800)",
+          "Adds fleet in \"Kaliptari\" via event \"kor efret forager sales\" (rate 12000)",
+          "Adds fleet in \"Korsmanath\" via event \"kor efret forager sales\" (rate 16000)",
+          "Adds fleet in \"Mekislepti\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Sabriset\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Seketra\" via event \"kor efret forager sales\" (rate 12000)",
+          "Adds fleet in \"Sepriaptu\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Skeruto\" via event \"kor efret miners scrapyard\" (rate 10800)",
+          "Adds fleet in \"Solifar\" via event \"kor efret forager sales\" (rate 14000)"
         ]
       }
     },
@@ -562,12 +1093,14 @@
       "penetration count": 20
     },
     "description": "The World Slicer is an orbital strike weapon that can carve deep into a planet's crust. Many worlds were destroyed in the Korath civil war by these tools of destruction.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Korath Eliminator",
     "governments": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Kor Sestor": true
       }
     },
+    "governmentEvents": [
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Ships": [
@@ -592,25 +1125,35 @@
     "energy generation": 0.2,
     "heat generation": 1,
     "description": "These storage shells hold additional Fireswarm Missiles for the Fireswarm Launcher. \tEach Fireswarm Nest includes a power charger to keep stored Fireswarms ready for launch. They also plug into your ship's power systems, allowing surplus energy to be used elsewhere.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Korath Fireswarm Nest",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Efret": true
       },
-      "official-game/endless-sky": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
         "Kor Efret": true
       },
-      "Midnight Scrapyard/Midnight-Scrapyard": {
+      "official-game/endless-sky": {
         "Kor Efret": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
+    ],
     "locations": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "Ships": [
-          "Tevah-Ark Coracle"
-        ]
-      },
       "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Planets": [
+          "Laki Nemparu"
+        ],
+        "Outfitters": [
+          "Efret Salvage",
+          "Korath Fireswarm"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Laki Nemparu\" via event \"access efret salvage\"",
+          "Adds to \"Laki Nemparu\" via event \"add kor efret fireswarms\"",
+          "Adds to \"Laki Nemparu\" via event \"laki nemparu bullies defeated\"",
+          "Removes from \"Laki Nemparu\" via event \"laki nemparu bullies\""
+        ],
         "Ships": [
           "Arch-Carrack (Fireswarm)",
           "Bravo-Monitor",
@@ -622,6 +1165,28 @@
         ],
         "ShipyardPlanets": [
           "Laki Nemparu"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Chornifath\" via event \"kor efret miners scrapyard\" (rate 7200)",
+          "Adds fleet in \"Dokdobaru\" via event \"kor efret miners scrapyard\" (rate 10800)",
+          "Adds fleet in \"Farbutero\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Feroteri\" via event \"kor efret forager sales\" (rate 16000)",
+          "Adds fleet in \"Fornarep\" via event \"kor efret forager sales\" (rate 12000)",
+          "Adds fleet in \"Furmeliki\" via event \"kor efret miners scrapyard\" (rate 10800)",
+          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)",
+          "Adds fleet in \"Kaliptari\" via event \"kor efret forager sales\" (rate 12000)",
+          "Adds fleet in \"Korsmanath\" via event \"kor efret forager sales\" (rate 16000)",
+          "Adds fleet in \"Mekislepti\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Sabriset\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Seketra\" via event \"kor efret forager sales\" (rate 12000)",
+          "Adds fleet in \"Sepriaptu\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Skeruto\" via event \"kor efret miners scrapyard\" (rate 10800)",
+          "Adds fleet in \"Solifar\" via event \"kor efret forager sales\" (rate 14000)"
+        ]
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Tevah-Ark Coracle"
         ]
       }
     },
@@ -643,7 +1208,6 @@
     "ammo": "Korath Fireswarm",
     "required crew": 1,
     "description": "The Fireswarm Depot stages extra ammunition in your cargo bay for weapons that use Fireswarm Missiles. The ammunition is ready to be withdrawn for use. Storing it this way uses more cargo space than if it were packed away in sealed crates. An extra crewmember is required to oversee maintenance of the ammunition.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Korath Fireswarm Depot",
     "governments": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Kor Efret": true
@@ -652,16 +1216,32 @@
         "Kor Efret": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
+    ],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Planets": [
+          "Laki Nemparu"
+        ],
+        "Outfitters": [
+          "Efret Salvage",
+          "Korath Fireswarm"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Laki Nemparu\" via event \"access efret salvage\"",
+          "Adds to \"Laki Nemparu\" via event \"add kor efret fireswarms\"",
+          "Adds to \"Laki Nemparu\" via event \"laki nemparu bullies defeated\"",
+          "Removes from \"Laki Nemparu\" via event \"laki nemparu bullies\""
+        ],
         "Ships": [
           "Echo-Galleon (Fireswarm)",
           "Korath World-Ship (Fireswarm)",
           "Korath World-Ship B (Fireswarm)",
           "Korath World-Ship C (Fireswarm)"
         ],
-        "ShipyardPlanets": [
-          "Laki Nemparu"
+        "EventFleetChanges": [
+          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)"
         ]
       }
     },
@@ -679,7 +1259,6 @@
     "fireswarm capacity": -1,
     "energy capacity": 35,
     "description": "Each Fireswarm Missile carries ten smaller missiles. When not being fired as weapons, they add to the energy storage capacity of your ship.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Korath Fireswarm",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Efret": true
@@ -691,13 +1270,24 @@
         "Kor Efret": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
+    ],
     "locations": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "Ships": [
-          "Tevah-Ark Coracle"
-        ]
-      },
       "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Planets": [
+          "Laki Nemparu"
+        ],
+        "Outfitters": [
+          "Efret Salvage",
+          "Korath Fireswarm"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Laki Nemparu\" via event \"access efret salvage\"",
+          "Adds to \"Laki Nemparu\" via event \"add kor efret fireswarms\"",
+          "Adds to \"Laki Nemparu\" via event \"laki nemparu bullies defeated\"",
+          "Removes from \"Laki Nemparu\" via event \"laki nemparu bullies\""
+        ],
         "Ships": [
           "Arch-Carrack (Fireswarm)",
           "Bravo-Monitor",
@@ -712,6 +1302,28 @@
         ],
         "ShipyardPlanets": [
           "Laki Nemparu"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Chornifath\" via event \"kor efret miners scrapyard\" (rate 7200)",
+          "Adds fleet in \"Dokdobaru\" via event \"kor efret miners scrapyard\" (rate 10800)",
+          "Adds fleet in \"Farbutero\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Feroteri\" via event \"kor efret forager sales\" (rate 16000)",
+          "Adds fleet in \"Fornarep\" via event \"kor efret forager sales\" (rate 12000)",
+          "Adds fleet in \"Furmeliki\" via event \"kor efret miners scrapyard\" (rate 10800)",
+          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)",
+          "Adds fleet in \"Kaliptari\" via event \"kor efret forager sales\" (rate 12000)",
+          "Adds fleet in \"Korsmanath\" via event \"kor efret forager sales\" (rate 16000)",
+          "Adds fleet in \"Mekislepti\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Sabriset\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Seketra\" via event \"kor efret forager sales\" (rate 12000)",
+          "Adds fleet in \"Sepriaptu\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Skeruto\" via event \"kor efret miners scrapyard\" (rate 10800)",
+          "Adds fleet in \"Solifar\" via event \"kor efret forager sales\" (rate 14000)"
+        ]
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Tevah-Ark Coracle"
         ]
       }
     },
@@ -810,7 +1422,6 @@
       ]
     },
     "description": "The Fireswarm Missile is a cluster munition that carries a swarm of smaller missiles which can overwhelm slow defense systems. \tIf multiple Fireswarm Launchers are installed, they will all fire simultaneously.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Korath Fireswarm Launcher",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Efret": true
@@ -822,13 +1433,24 @@
         "Kor Efret": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
+    ],
     "locations": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "Ships": [
-          "Tevah-Ark Coracle"
-        ]
-      },
       "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Planets": [
+          "Laki Nemparu"
+        ],
+        "Outfitters": [
+          "Efret Salvage",
+          "Korath Fireswarm"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Laki Nemparu\" via event \"access efret salvage\"",
+          "Adds to \"Laki Nemparu\" via event \"add kor efret fireswarms\"",
+          "Adds to \"Laki Nemparu\" via event \"laki nemparu bullies defeated\"",
+          "Removes from \"Laki Nemparu\" via event \"laki nemparu bullies\""
+        ],
         "Ships": [
           "Arch-Carrack (Fireswarm)",
           "Bravo-Monitor",
@@ -843,6 +1465,28 @@
         ],
         "ShipyardPlanets": [
           "Laki Nemparu"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Chornifath\" via event \"kor efret miners scrapyard\" (rate 7200)",
+          "Adds fleet in \"Dokdobaru\" via event \"kor efret miners scrapyard\" (rate 10800)",
+          "Adds fleet in \"Farbutero\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Feroteri\" via event \"kor efret forager sales\" (rate 16000)",
+          "Adds fleet in \"Fornarep\" via event \"kor efret forager sales\" (rate 12000)",
+          "Adds fleet in \"Furmeliki\" via event \"kor efret miners scrapyard\" (rate 10800)",
+          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)",
+          "Adds fleet in \"Kaliptari\" via event \"kor efret forager sales\" (rate 12000)",
+          "Adds fleet in \"Korsmanath\" via event \"kor efret forager sales\" (rate 16000)",
+          "Adds fleet in \"Mekislepti\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Sabriset\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Seketra\" via event \"kor efret forager sales\" (rate 12000)",
+          "Adds fleet in \"Sepriaptu\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Skeruto\" via event \"kor efret miners scrapyard\" (rate 10800)",
+          "Adds fleet in \"Solifar\" via event \"kor efret forager sales\" (rate 14000)"
+        ]
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Tevah-Ark Coracle"
         ]
       }
     },
@@ -877,12 +1521,12 @@
       "hit force": 60,
       "missile strength": 3
     },
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Fireswarm Submunition",
     "governments": {
       "Midnight-Scrapyard": {
         "Midnight-Scrapyard": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "_deprecated/unused": true
@@ -931,16 +1575,20 @@
       "hit force": -240
     },
     "description": "Grappler Gun projectiles are designed to pull a target closer to the Korath ship, to keep it from escaping.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Korath Grappler",
     "governments": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
-        "Kor Sestor": true
+        "Kor Sestor": true,
+        "Kor Efret": true
       },
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Sestor": true,
         "Kor Efret": true
       }
     },
+    "governmentEvents": [
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
+    ],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Ships": [
@@ -949,6 +1597,23 @@
           "Skoretak 13",
           "Tercheldar 150",
           "Tercheldar 150 (Tormentor)"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Bore Fah\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Chy'chra\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Ehma Ti\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)",
+          "Adds fleet in \"Hi Yahr\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Host\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Persitar\" via event \"Blight Shadows Nest In Persitar\" (rate 80000)",
+          "Adds fleet in \"Sera Natta\" via event \"scrapyard sestor expeditionary fleets bunrodea update\" (rate 80000)",
+          "Adds fleet in \"Uwa Fahn\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Wah Yoot\" via event \"Sestor Expeditionary Fleets\" (rate 80000)"
+        ]
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)"
         ]
       }
     },
@@ -991,13 +1656,13 @@
       "prospecting": 4200
     },
     "description": "A giant smelter built into the Devar'ur's forward section. Ships and asteroids go in. Melted metal comes out. The inner surface of the chamber reflects and concentrates the heat, magnifying it to be more intense than it would be if allowed to disperse outside.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Korath Incinerator",
     "governments": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Kor Scrappers": true,
         "Kor Scrappers (Hostile)": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Ships": [
@@ -1055,12 +1720,12 @@
       ]
     },
     "description": "The Scattermine Deployer is a crude device for deploying a cloud of stationary mines along the ship's wake. One drawback of deploying the mines in this manner is that premature detonation can damage the ship dropping the mines.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Korath Scattermine",
     "governments": {
       "Midnight-Scrapyard": {
         "Midnight-Scrapyard": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "_deprecated/unused": true
@@ -1100,12 +1765,12 @@
       "hit force": -30
     },
     "description": "The Salvager Turret is used to tow derelict ships away from dangerous battlefields.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Korath Tractor",
     "governments": {
       "Midnight-Scrapyard": {
         "Midnight-Scrapyard": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Missions": [
@@ -1146,25 +1811,56 @@
       "heat damage": 33
     },
     "description": "An ancient Korath design, the Tormentor lacks the burst fire and synchronization features which were later implemented in the Repeater.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Korath Tormentor",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
-        "Kor Sestor": true
+        "Kor Sestor": true,
+        "Kor Efret": true
       },
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Kor Sestor": true
       }
     },
+    "governmentEvents": [
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
+    ],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "Ships": [
           "Ekfar Tek 23",
           "Korath Forager (Tormentor)"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Chornifath\" via event \"kor efret miners scrapyard\" (rate 7200)",
+          "Adds fleet in \"Dokdobaru\" via event \"kor efret miners scrapyard\" (rate 10800)",
+          "Adds fleet in \"Farbutero\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Feroteri\" via event \"kor efret forager sales\" (rate 16000)",
+          "Adds fleet in \"Fornarep\" via event \"kor efret forager sales\" (rate 12000)",
+          "Adds fleet in \"Furmeliki\" via event \"kor efret miners scrapyard\" (rate 10800)",
+          "Adds fleet in \"Kaliptari\" via event \"kor efret forager sales\" (rate 12000)",
+          "Adds fleet in \"Korsmanath\" via event \"kor efret forager sales\" (rate 16000)",
+          "Adds fleet in \"Mekislepti\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Sabriset\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Seketra\" via event \"kor efret forager sales\" (rate 12000)",
+          "Adds fleet in \"Sepriaptu\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Skeruto\" via event \"kor efret miners scrapyard\" (rate 10800)",
+          "Adds fleet in \"Solifar\" via event \"kor efret forager sales\" (rate 14000)"
         ]
       },
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Ships": [
           "Skoretak 13"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Bore Fah\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Chy'chra\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Ehma Ti\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Hi Yahr\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Host\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Persitar\" via event \"Blight Shadows Nest In Persitar\" (rate 80000)",
+          "Adds fleet in \"Sera Natta\" via event \"scrapyard sestor expeditionary fleets bunrodea update\" (rate 80000)",
+          "Adds fleet in \"Uwa Fahn\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Wah Yoot\" via event \"Sestor Expeditionary Fleets\" (rate 80000)"
         ]
       }
     },
@@ -1204,7 +1900,6 @@
       "heat damage": 33
     },
     "description": "Tormentor Turrets only have a single Tormentor mounted on their base, but have low space requirements for installation.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Tormentor Turret",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Sestor": true
@@ -1213,6 +1908,9 @@
         "Kor Sestor": true
       }
     },
+    "governmentEvents": [
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "Ships": [
@@ -1242,15 +1940,16 @@
     "fused circuits": 1,
     "unplunderable": 1,
     "description": "A malfunction is causing this hyperdrive to consume triple the amount of fuel that a normal hyperdrive would.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Hyperdrive (Damaged)",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Scrappers": true
       },
       "Midnight Scrapyard/Midnight-Scrapyard": {
-        "Kor Scrappers (Hostile)": true
+        "Kor Scrappers (Hostile)": true,
+        "Kor Scrappers": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Ships": [
@@ -1272,7 +1971,6 @@
     "mass": 1,
     "outfit space": -1,
     "description": "This is a miniaturized communication device, which can be connected to all the major systems of a Kor Sestor automaton, apparently as a way of controlling them remotely. This appears to be an older model transceiver incompatible with the encryption and authentication methods utilized by modern Kor Sestor.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Obsolete Transceiver",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Sestor": true
@@ -1281,6 +1979,9 @@
         "Kor Sestor": true
       }
     },
+    "governmentEvents": [
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "Ships": [
@@ -1296,8 +1997,22 @@
           "Tercheldar 150",
           "Tercheldar 150 (Tormentor)"
         ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Bore Fah\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Chy'chra\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Ehma Ti\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Hi Yahr\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Host\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Persitar\" via event \"Blight Shadows Nest In Persitar\" (rate 80000)",
+          "Adds fleet in \"Sera Natta\" via event \"scrapyard sestor expeditionary fleets bunrodea update\" (rate 80000)",
+          "Adds fleet in \"Uwa Fahn\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Wah Yoot\" via event \"Sestor Expeditionary Fleets\" (rate 80000)"
+        ],
         "Missions": [
           "Scrapyard Exploring the Persitar Wreck"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Scrapyard Exploring the Persitar Wreck\" → event \"Blight Shadows Nest In Persitar\""
         ]
       }
     },
@@ -1313,16 +2028,29 @@
     "mass": 2,
     "outfit space": -2,
     "description": "This is some sort of advanced, miniature computer combined with various sensor inputs. Presumably, in some way it controls nearby Sestor automata when communications over a hyperspace communications network are unavailable. This device is designed to interface with older model transceivers and is incompatible with the encryption and authentication methods utilized by modern Kor Sestor.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Obsolete Transmitter",
     "governments": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Kor Sestor": true
       }
     },
+    "governmentEvents": [
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Ships": [
           "Grakerat 572"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Bore Fah\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Chy'chra\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Ehma Ti\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Hi Yahr\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Host\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Persitar\" via event \"Blight Shadows Nest In Persitar\" (rate 80000)",
+          "Adds fleet in \"Sera Natta\" via event \"scrapyard sestor expeditionary fleets bunrodea update\" (rate 80000)",
+          "Adds fleet in \"Uwa Fahn\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Wah Yoot\" via event \"Sestor Expeditionary Fleets\" (rate 80000)"
         ]
       }
     },
@@ -1342,15 +2070,16 @@
     "fused circuits": 1,
     "unplunderable": 1,
     "description": "While there is no visible damage, you are certain this unit is malfunctioning. The power output is no better than a Double Plasma Core.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Triple Plasma Core (Damaged)",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Scrappers": true
       },
       "Midnight Scrapyard/Midnight-Scrapyard": {
-        "Kor Scrappers (Hostile)": true
+        "Kor Scrappers (Hostile)": true,
+        "Kor Scrappers": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Ships": [
@@ -1381,18 +2110,32 @@
     "afterburner fuel": 0.1876,
     "afterburner effect": "korath afterburner small",
     "description": "This older afterburner design was once a common sight in Korath space. \tKorath afterburners pump super-heated hyperspace fuel directly into a thruster's plasma stream, resulting in a phenomenal explosion that nearly melts the thruster.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Afterburner (Meteor Class)",
     "governments": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Kor Scrappers (Hostile)": true,
-        "Kor Scrappers": true
+        "Kor Scrappers": true,
+        "Kor Efret": true
       },
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Efret": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
+    ],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Planets": [
+          "Laki Nemparu"
+        ],
+        "Outfitters": [
+          "Efret Salvage"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Laki Nemparu\" via event \"access efret salvage\"",
+          "Adds to \"Laki Nemparu\" via event \"laki nemparu bullies defeated\"",
+          "Removes from \"Laki Nemparu\" via event \"laki nemparu bullies\""
+        ],
         "Ships": [
           "Korath Devourer",
           "Korath Ranger",
@@ -1402,8 +2145,24 @@
           "Korath Ranger (Korath Warmonger (Grappler))",
           "Rano'erek Tek"
         ],
-        "ShipyardPlanets": [
-          "Laki Nemparu"
+        "EventFleetChanges": [
+          "Adds fleet in \"Celeborim\" via event \"Blight Shadow Infestation\" (rate 20000)",
+          "Adds fleet in \"Eneremprukt\" via event \"Blight Shadow Infestation\" (rate 7200)",
+          "Adds fleet in \"Ferukistek\" via event \"Blight Shadow Infestation\" (rate 7200)",
+          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)",
+          "Adds fleet in \"Host\" via event \"scrapper world forger begin\" (rate 15000)",
+          "Adds fleet in \"Makferuti\" via event \"Blight Shadow Infestation\" (rate 20000)",
+          "Adds fleet in \"Mesuket\" via event \"Blight Shadow Infestation\" (rate 7200)",
+          "Adds fleet in \"Persitar\" via event \"scrapper world shaper begin\" (rate 15000)",
+          "Adds fleet in \"Silikatakfar\" via event \"Blight Shadow Infestation\" (rate 7200)",
+          "Adds fleet in \"Sobarati\" via event \"Blight Shadow Infestation\" (rate 20000)",
+          "Removes fleet in \"Host\" via event \"scrapper world forger end\"",
+          "Removes fleet in \"Persitar\" via event \"scrapper world shaper end\""
+        ]
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)"
         ]
       }
     },
@@ -1429,8 +2188,10 @@
     },
     "reverse flare sound": "ion tiny",
     "description": "Efreti engineers have adapted their smallest gravitoplasma-based thrusters into this reverser. \tThis Korath engine has been modified to be partially installed in a ship's weapon space, allowing it to push the ship in reverse.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Arkrof GP Hybrid Reverser",
     "governments": {
+      "Midnight Expansion/Midnight-Expansion": {
+        "Kor Efret": true
+      },
       "official-game/endless-sky": {
         "Kor Efret": true
       },
@@ -1438,22 +2199,56 @@
         "Kor Efret": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
+    ],
     "locations": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "Ships": [
-          "Arch-Carrack (Shocker)",
-          "Korath World-Ship (Shocker)",
-          "Korath World-Ship B (Shocker)",
-          "Korath World-Ship C (Shocker)"
-        ]
-      },
       "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Planets": [
+          "Laki Nemparu"
+        ],
+        "Outfitters": [
+          "Efret Salvage"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Laki Nemparu\" via event \"access efret salvage\"",
+          "Adds to \"Laki Nemparu\" via event \"laki nemparu bullies defeated\"",
+          "Removes from \"Laki Nemparu\" via event \"laki nemparu bullies\""
+        ],
         "Ships": [
           "Charm-Shallop (Scanner)",
           "Delta-Ferry"
         ],
         "ShipyardPlanets": [
           "Laki Nemparu"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Chornifath\" via event \"kor efret miners scrapyard\" (rate 7200)",
+          "Adds fleet in \"Dokdobaru\" via event \"kor efret miners scrapyard\" (rate 10800)",
+          "Adds fleet in \"Farbutero\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Feroteri\" via event \"kor efret forager sales\" (rate 16000)",
+          "Adds fleet in \"Fornarep\" via event \"kor efret forager sales\" (rate 12000)",
+          "Adds fleet in \"Furmeliki\" via event \"kor efret miners scrapyard\" (rate 10800)",
+          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)",
+          "Adds fleet in \"Kaliptari\" via event \"kor efret forager sales\" (rate 12000)",
+          "Adds fleet in \"Korsmanath\" via event \"kor efret forager sales\" (rate 16000)",
+          "Adds fleet in \"Mekislepti\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Sabriset\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Seketra\" via event \"kor efret forager sales\" (rate 12000)",
+          "Adds fleet in \"Sepriaptu\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Skeruto\" via event \"kor efret miners scrapyard\" (rate 10800)",
+          "Adds fleet in \"Solifar\" via event \"kor efret forager sales\" (rate 14000)"
+        ]
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "Ships": [
+          "Arch-Carrack (Shocker)",
+          "Korath World-Ship (Shocker)",
+          "Korath World-Ship B (Shocker)",
+          "Korath World-Ship C (Shocker)"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)"
         ]
       }
     },
@@ -1479,15 +2274,25 @@
     },
     "reverse flare sound": "ion small",
     "description": "Reversers aren't particularly popular among the Kor Efret, yet Efreti factories still produce them for a niche market. \tThis Korath engine has been modified to be partially installed in a ship's weapon space, allowing it to push the ship in reverse.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Farves GP Hybrid Reverser",
     "governments": {
       "Midnight-Scrapyard": {
         "Midnight-Scrapyard": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
-        "_deprecated/unused": true
+        "Planets": [
+          "Laki Nemparu"
+        ],
+        "Outfitters": [
+          "Efret Salvage"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Laki Nemparu\" via event \"access efret salvage\"",
+          "Adds to \"Laki Nemparu\" via event \"laki nemparu bullies defeated\"",
+          "Removes from \"Laki Nemparu\" via event \"laki nemparu bullies\""
+        ]
       }
     },
     "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
@@ -1512,14 +2317,27 @@
     },
     "reverse flare sound": "ion medium",
     "description": "Efreti reverse thrusters are just as powerful as their normal gravitoplasma thrusters. \tThis Korath engine has been modified to be partially installed in a ship's weapon space, allowing it to push the ship in reverse.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Gaktem GP Hybrid Reverser",
     "governments": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Kor Efret": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
+    ],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Planets": [
+          "Laki Nemparu"
+        ],
+        "Outfitters": [
+          "Efret Salvage"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Laki Nemparu\" via event \"access efret salvage\"",
+          "Adds to \"Laki Nemparu\" via event \"laki nemparu bullies defeated\"",
+          "Removes from \"Laki Nemparu\" via event \"laki nemparu bullies\""
+        ],
         "Ships": [
           "Mereti Efret"
         ]
@@ -1547,13 +2365,28 @@
     },
     "reverse flare sound": "ion large",
     "description": "These are the largest gravitoplasma reversers that the Efreti have to offer. \tThis Korath engine has been modified to be partially installed in a ship's weapon space, allowing it to push the ship in reverse.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Nelmeb GP Hybrid Reverser",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Efret": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
+    ],
     "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Planets": [
+          "Laki Nemparu"
+        ],
+        "Outfitters": [
+          "Efret Salvage Advanced"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Laki Nemparu\" via event \"access efret salvage\"",
+          "Adds to \"Laki Nemparu\" via event \"laki nemparu bullies defeated\"",
+          "Removes from \"Laki Nemparu\" via event \"laki nemparu bullies\""
+        ]
+      },
       "Midnight Expansion/Midnight-Expansion": {
         "Ships": [
           "Tevah-Ark Coracle"
@@ -1584,12 +2417,12 @@
     "steering flare sound": "plasma medium",
     "unplunderable": 1,
     "description": "A malfunction in the steering system has reduced its effectiveness significantly.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Steering (Planetary Class)(Damaged)",
     "governments": {
       "Midnight-Scrapyard": {
         "Midnight-Scrapyard": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Ships": [
@@ -1622,12 +2455,12 @@
     "flare sound": "plasma medium",
     "unplunderable": 1,
     "description": "Damage to the thrusters has reduced output by half.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Thruster (Planetary Class)(Damaged)",
     "governments": {
       "Midnight-Scrapyard": {
         "Midnight-Scrapyard": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Ships": [
@@ -1653,17 +2486,20 @@
     "unplunderable": 1,
     "unique": 1,
     "description": "A prototype the Remnant created using Blight Shadow eggs. This weapon drains energy from whatever it is used on. This can disrupt electronic door locks and reduces living creatures into withered husks. This effect also replenishes its own energy, making it an exceptional weapon for long sieges. Death from this weapon appears to be cruel and painful. If the governments back home knew of its existence, it would probably be banned.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Blight Rifle",
     "governments": {
       "Midnight-Scrapyard": {
         "Midnight-Scrapyard": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Missions": [
           "Scrapyard Blight Rifle 2",
           "Scrapyard Eggs Remnant 2"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Scrapyard Eggs Remnant 2\" → event \"Blight Rifle Testing\""
         ]
       }
     },
@@ -1681,7 +2517,6 @@
     "capture defense": 9.6,
     "unplunderable": 1,
     "description": "A semi autonomous robot assembled with Sestor technology, these defense droids patrol high security areas on the ships of Kor scrapper crews.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Korath Sentinel",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Kor Scrappers": true
@@ -1691,6 +2526,7 @@
         "Kor Scrappers (Hostile)": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "Ships": [
@@ -1702,6 +2538,29 @@
         "Ships": [
           "Palavret Tek",
           "Rano'erek Tek"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Asikafarnut\" via event \"Scrapyard Develops\" (rate 10000)",
+          "Adds fleet in \"Celeborim\" via event \"Blight Shadow Infestation\" (rate 20000)",
+          "Adds fleet in \"Celeborim\" via event \"Scrapyard Develops\" (rate 6400)",
+          "Adds fleet in \"Eneremprukt\" via event \"Blight Shadow Infestation\" (rate 7200)",
+          "Adds fleet in \"Eneremprukt\" via event \"Scrapyard Develops\" (rate 10000)",
+          "Adds fleet in \"Ferukistek\" via event \"Blight Shadow Infestation\" (rate 7200)",
+          "Adds fleet in \"Ferukistek\" via event \"Scrapyard Develops\" (rate 10000)",
+          "Adds fleet in \"Host\" via event \"scrapper world forger begin\" (rate 15000)",
+          "Adds fleet in \"Makferuti\" via event \"Blight Shadow Infestation\" (rate 20000)",
+          "Adds fleet in \"Makferuti\" via event \"Scrapyard Develops\" (rate 6400)",
+          "Adds fleet in \"Mesuket\" via event \"Blight Shadow Infestation\" (rate 7200)",
+          "Adds fleet in \"Persitar\" via event \"scrapper world shaper begin\" (rate 15000)",
+          "Adds fleet in \"Silikatakfar\" via event \"Blight Shadow Infestation\" (rate 7200)",
+          "Adds fleet in \"Silikatakfar\" via event \"Scrapyard Develops\" (rate 10000)",
+          "Adds fleet in \"Sobarati\" via event \"Blight Shadow Infestation\" (rate 20000)",
+          "Adds fleet in \"Sobarati\" via event \"Scrapyard Develops\" (rate 6400)",
+          "Removes fleet in \"Eneremprukt\" via event \"Blight Shadow Infestation\"",
+          "Removes fleet in \"Ferukistek\" via event \"Blight Shadow Infestation\"",
+          "Removes fleet in \"Host\" via event \"scrapper world forger end\"",
+          "Removes fleet in \"Persitar\" via event \"scrapper world shaper end\"",
+          "Removes fleet in \"Silikatakfar\" via event \"Blight Shadow Infestation\""
         ]
       }
     },
@@ -1722,12 +2581,12 @@
     "unplunderable": 1,
     "unique": 1,
     "description": "An improvised weapon made by a Scrapyard hermit. It easily and quickly cuts through ship bulkheads, making it an ideal tool for raiding ships. It can also be used to make emergency escape routes when one is seemingly trapped in a dead end. This weapon can get incredibly hot after prolonged use, so it may be unwise to use it for defending against extended sieges.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Slicer Torch",
     "governments": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Kor Scrappers (Hostile)": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Ships": [
@@ -1745,17 +2604,21 @@
     "thumbnail": "outfit/blight egg",
     "unplunderable": 1,
     "description": "Alien eggs found in a derelict space station. Might be worth something to the right person.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Blight Shadow Eggs",
     "governments": {
       "Midnight-Scrapyard": {
         "Midnight-Scrapyard": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Missions": [
           "Scrapyard Eggs Pirate 1",
           "Scrapyard Eggs Remnant 1"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Scrapyard Eggs Pirate 1\" → event \"Pirate Egg timer\"",
+          "\"Scrapyard Eggs Remnant 1\" → event \"Remnant Egg timer\""
         ]
       }
     },
@@ -1771,16 +2634,19 @@
     "illegal": 1000000,
     "unique": 1,
     "description": "This resembles a clump of Kor Mereti Reasoning Nodes, but is an obvious fake when compared to the real thing. Despite this, it's a sophisticated piece of technology with the ability to disrupt communications on a network it's installed on.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Node 8 Jammer",
     "governments": {
       "Midnight-Scrapyard": {
         "Midnight-Scrapyard": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Missions": [
           "Scrapyard Damnation 4"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Scrapyard Damnation 4\" → event \"Node 8 Processor Returned\""
         ]
       }
     },
@@ -1795,12 +2661,12 @@
     "mass": 9,
     "unique": 1,
     "description": "This resembles a clump of Kor Mereti Reasoning Nodes. It must be related to the Mereti communications network somehow.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Node 8 Processor",
     "governments": {
       "Midnight-Scrapyard": {
         "Midnight-Scrapyard": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "Missions": [
@@ -1817,12 +2683,12 @@
     "index": 4000,
     "thumbnail": "outfit/efret salvage license",
     "description": "Gives you access to salvaged outfits from the Kor Efret. You're not sure if this is a formal license or simply a means to communicate to the outfitter that you're looking for used parts...",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Efret Salvage License",
     "governments": {
       "Midnight-Scrapyard": {
         "Midnight-Scrapyard": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "_deprecated/unused": true
@@ -1846,12 +2712,12 @@
     "afterburner fuel": 0.0938,
     "afterburner effect": "korath afterburner small",
     "description": "Korath Scrappers recovered his small afterburner from the ruins of their ancestral space. \tKorath afterburners pump super-heated hyperspace fuel directly into a thruster's plasma stream, resulting in a phenomenal explosion that nearly melts the thruster.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Korath Afterburner",
     "governments": {
       "Midnight-Scrapyard": {
         "Midnight-Scrapyard": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "_deprecated/unused": true
@@ -1893,12 +2759,12 @@
       "heat damage": 200
     },
     "description": "A giant smelter. Ships go in. Melted metal comes out.",
-    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Korath Smelter",
     "governments": {
       "Midnight-Scrapyard": {
         "Midnight-Scrapyard": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Midnight Scrapyard/Midnight-Scrapyard": {
         "_deprecated/unused": true

@@ -33,7 +33,6 @@
       "scrambling damage": 4.2
     },
     "description": "A heavily modified alien turret.",
-    "_internalId": "POOT/poot-senza-solaria_senza_solaria::Solarian Particle Waveform Turret",
     "governments": {
       "POOT/poot-senza-solaria": {
         "Syndicate": true
@@ -42,6 +41,19 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+    ],
     "locations": {
       "POOT/poot-senza-solaria": {
         "Planets": [
@@ -57,6 +69,9 @@
         "Outfitters": [
           "Senza Solaria Plugin Outfits",
           "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
         ]
       },
       "POOT/poot-senza-solaria_senza_solaria": {
@@ -73,6 +88,9 @@
         "Outfitters": [
           "Senza Solaria Plugin Outfits",
           "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
         ]
       }
     },
@@ -111,7 +129,6 @@
       "scrambling damage": 4.2
     },
     "description": "A heavily modified alien turret.",
-    "_internalId": "POOT/poot-senza-solaria_senza_solaria::Solarian Particle Waveform Cannon",
     "governments": {
       "POOT/poot-senza-solaria": {
         "Syndicate": true
@@ -120,6 +137,19 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+    ],
     "locations": {
       "POOT/poot-senza-solaria": {
         "Planets": [
@@ -135,6 +165,9 @@
         "Outfitters": [
           "Senza Solaria Plugin Outfits",
           "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
         ]
       },
       "POOT/poot-senza-solaria_senza_solaria": {
@@ -151,6 +184,9 @@
         "Outfitters": [
           "Senza Solaria Plugin Outfits",
           "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
         ]
       }
     },
@@ -186,7 +222,6 @@
       "hull damage": 17
     },
     "description": "A heavily modified alien turret.",
-    "_internalId": "POOT/poot-senza-solaria_senza_solaria::Solarian Zapper Turret",
     "governments": {
       "POOT/poot-senza-solaria": {
         "Syndicate": true
@@ -195,6 +230,19 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+    ],
     "locations": {
       "POOT/poot-senza-solaria": {
         "Planets": [
@@ -210,6 +258,9 @@
         "Outfitters": [
           "Senza Solaria Plugin Outfits",
           "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
         ]
       },
       "POOT/poot-senza-solaria_senza_solaria": {
@@ -226,6 +277,9 @@
         "Outfitters": [
           "Senza Solaria Plugin Outfits",
           "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
         ]
       }
     },
@@ -261,7 +315,6 @@
       "hull damage": 17
     },
     "description": "A heavily modified alien turret.",
-    "_internalId": "POOT/poot-senza-solaria_senza_solaria::Solarian Zapper",
     "governments": {
       "POOT/poot-senza-solaria": {
         "Syndicate": true
@@ -270,6 +323,19 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+    ],
     "locations": {
       "POOT/poot-senza-solaria": {
         "Planets": [
@@ -285,6 +351,9 @@
         "Outfitters": [
           "Senza Solaria Plugin Outfits",
           "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
         ]
       },
       "POOT/poot-senza-solaria_senza_solaria": {
@@ -301,6 +370,9 @@
         "Outfitters": [
           "Senza Solaria Plugin Outfits",
           "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
         ]
       }
     },

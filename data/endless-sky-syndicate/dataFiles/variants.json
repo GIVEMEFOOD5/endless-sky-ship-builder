@@ -103,82 +103,18 @@
     "variant": "Star Queen (Discount)",
     "baseShip": "Star Queen",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Crisis In Management/endless-sky-syndicate": {
         "Independent": true,
         "Independent (Killable)": true
       }
     },
-    "locations": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "Sidewinder Missile Launcher": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Sidewinder Missile": {
-        "count": 90,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Anti-Missile Turret": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP036a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D41-HY Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Small Radar Jammer": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X1700 Ion Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X1200 Ion Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Star Queen (Discount)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Star Queen",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Star Queen (Discount)",
-    "baseShip": "Star Queen",
-    "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "Independent": true,
-        "Independent (Killable)": true
-      }
-    },
+    "governmentEvents": [
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01"
+    ],
     "locations": {
       "Crisis In Management/endless-sky-syndicate": {
         "_deprecated/unused": true
@@ -327,13 +263,18 @@
     "variant": "Star Queen (Fake Discount)",
     "baseShip": "Star Queen",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Crisis In Management/endless-sky-syndicate": {
         "Independent": true,
         "Independent (Killable)": true
       }
     },
+    "governmentEvents": [
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01"
+    ],
     "locations": {
       "Crisis In Management/endless-sky-syndicate": {
         "_deprecated/unused": true
@@ -385,88 +326,6 @@
         "pluginId": "official-game/endless-sky"
       },
       "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Star Queen (Fake Discount)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1,
-      "outfit space": 10
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Star Queen",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Star Queen (Fake Discount)",
-    "baseShip": "Star Queen",
-    "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "Independent": true,
-        "Independent (Killable)": true
-      }
-    },
-    "locations": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "AR120 Reverse Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Antimatter Core": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Crystal Capacitor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Scram Drive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Large Heat Shunt": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Luxury Accommodations": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Point Defense Turret": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Quarg Skylance": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Small Thrust Module": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Steering (Comet Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Steering (Lunar Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Thruster (Lunar Class)": {
         "count": 1,
         "pluginId": "official-game/endless-sky"
       }
@@ -541,66 +400,17 @@
     "variant": "Flivver (Runaway)",
     "baseShip": "Flivver",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Crisis In Management/endless-sky-syndicate": {
         "Independent (Killable)": true
       }
     },
-    "locations": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "Missions": [
-          "Sc Bootstrap 3a"
-        ]
-      }
-    },
-    "outfits": {
-      "Meteor Missile Pod": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Meteor Missile": {
-        "count": 6,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D14-RN Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "KP-6 Photovoltaic Panel": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X1050 Ion Engines": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Flivver (Runaway)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "cost": 236000
-    },
-    "_internalId": "LixiChronikouOrious list/Solar.Sails::Flivver",
-    "_pluginId": "LixiChronikouOrious list/Solar.Sails",
-    "_hash": "2c20e38af42c",
-    "variant": "Flivver (Runaway)",
-    "baseShip": "Flivver",
-    "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "LixiChronikouOrious list/Solar.Sails",
-    "governments": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "Independent (Killable)": true
-      }
-    },
+    "governmentEvents": [
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01"
+    ],
     "locations": {
       "Crisis In Management/endless-sky-syndicate": {
         "Missions": [
@@ -701,80 +511,25 @@
     "variant": "Quicksilver (no particle cannon)",
     "baseShip": "Quicksilver",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Crisis In Management/endless-sky-syndicate": {
         "Bounty Hunter": true,
         "Syndicate": true
       }
     },
-    "locations": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "Missions": [
-          "Sc Bootstrap 3b"
-        ]
-      }
-    },
-    "outfits": {
-      "Energy Blaster": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "RT-I Radiothermal": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP036a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D23-QP Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Cooling Ducts": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Greyhound Plasma Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Greyhound Plasma Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Hyperdrive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Quicksilver (no particle cannon)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Quicksilver",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Quicksilver (no particle cannon)",
-    "baseShip": "Quicksilver",
-    "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "Bounty Hunter": true,
-        "Syndicate": true
-      }
-    },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+    ],
     "locations": {
       "Crisis In Management/endless-sky-syndicate": {
         "Missions": [
@@ -945,7 +700,6 @@
     "variant": "Korath Raider (no pilfering)",
     "baseShip": "Palavret",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "official-game/endless-sky": {
         "Korath": true,
@@ -953,6 +707,7 @@
       },
       "Lost In Midnight/Lost-in-Midnight": {
         "Independent": true,
+        "Korath (Civilian)": true,
         "Korath": true
       },
       "Midnight Expansion/Midnight-Expansion": {
@@ -965,6 +720,26 @@
         "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
+      "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01"
+    ],
     "locations": {
       "Crisis In Management/endless-sky-syndicate": {
         "_deprecated/unused": true
@@ -1040,54 +815,6 @@
         "pluginId": "official-game/endless-sky"
       }
     }
-  },
-  {
-    "name": "Palavret (Korath Raider (no pilfering))",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1,
-      "self destruct": 1,
-      "hull": 2000,
-      "absolute threshold": 3500
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Palavret",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Korath Raider (no pilfering)",
-    "baseShip": "Palavret",
-    "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "official-game/endless-sky": {
-        "Korath": true,
-        "Korath (Civilian)": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Independent": true,
-        "Korath": true
-      },
-      "Midnight Expansion/Midnight-Expansion": {
-        "Korath": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
-      }
-    },
-    "locations": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {}
   },
   {
     "name": "Marauder Manta (Range)",
@@ -1185,7 +912,6 @@
     "variant": "Marauder Manta (Range)",
     "baseShip": "Marauder Manta",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "official-game/endless-sky": {
         "Pirate": true
@@ -1194,8 +920,9 @@
         "Pirate": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
-        "Independent": true,
         "Pirate": true,
+        "Pirate (Rivals)": true,
+        "Independent": true,
         "Syndicate (Extremist)": true,
         "Independent (Killable)": true
       },
@@ -1209,71 +936,33 @@
         "Syndicate": true
       }
     },
-    "locations": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {}
-  },
-  {
-    "name": "Marauder Manta (Range)",
-    "engines": [
-      {
-        "x": -33.5,
-        "y": 38
-      },
-      {
-        "x": 0,
-        "y": 76
-      },
-      {
-        "x": 33.5,
-        "y": 38
-      }
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate (Extremist) → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01"
     ],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1,
-      "engine capacity": 20
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Marauder Manta",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Marauder Manta (Range)",
-    "baseShip": "Marauder Manta",
-    "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "sprite": "ship/mmantae",
-    "thumbnail": "thumbnail/mmantae",
-    "governments": {
-      "official-game/endless-sky": {
-        "Pirate": true
-      },
-      "Better Vanilla Pirates/BetterVanillaPirates": {
-        "Pirate": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Independent": true,
-        "Pirate": true,
-        "Syndicate (Extremist)": true,
-        "Independent (Killable)": true
-      },
-      "Capitalis Major/Capitalis-Major": {
-        "Bounty Hunter": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
-      }
-    },
     "locations": {
       "Crisis In Management/endless-sky-syndicate": {
         "_deprecated/unused": true
@@ -1391,71 +1080,21 @@
     "variant": "Mule (rubbish)",
     "baseShip": "Mule",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Crisis In Management/endless-sky-syndicate": {
         "Pirate": true
       }
     },
-    "locations": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "Missions": [
-          "ScS Fight Club 2"
-        ]
-      }
-    },
-    "outfits": {
-      "Beam Laser": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D41-HY Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "KP-6 Photovoltaic Array": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP072a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X1050 Ion Engines": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X2700 Ion Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Mule (rubbish)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1,
-      "threshold percentage": 0.5
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Mule",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Mule (rubbish)",
-    "baseShip": "Mule",
-    "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "Pirate": true
-      }
-    },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Crisis In Management/endless-sky-syndicate": {
         "Missions": [
@@ -1578,80 +1217,21 @@
     "variant": "Raven (rubbish)",
     "baseShip": "Raven",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Crisis In Management/endless-sky-syndicate": {
         "Pirate": true
       }
     },
-    "locations": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "Missions": [
-          "ScS Fight Club 2"
-        ]
-      }
-    },
-    "outfits": {
-      "Beam Laser": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Cooling Ducts": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D14-RN Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Energy Blaster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Greyhound Plasma Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP072a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "RT-I Radiothermal": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "S3 Thermionic": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Raven (rubbish)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1,
-      "drag": 15,
-      "threshold percentage": 0.5
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Raven",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Raven (rubbish)",
-    "baseShip": "Raven",
-    "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "Pirate": true
-      }
-    },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Crisis In Management/endless-sky-syndicate": {
         "Missions": [
@@ -1803,85 +1383,22 @@
     "variant": "Bastion (rubbish)",
     "baseShip": "Bastion",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Crisis In Management/endless-sky-syndicate": {
         "Pirate": true,
         "Militia (Rogue)": true
       }
     },
-    "locations": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "Missions": [
-          "ScS Fight Club 2"
-        ]
-      }
-    },
-    "outfits": {
-      "Anti-Missile Turret": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Blaster Turret": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D23-QP Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP144a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Meteor Missile": {
-        "count": 30,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Meteor Missile Launcher": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "S3 Thermionic": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X2200 Ion Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "X2700 Ion Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Bastion (rubbish)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1,
-      "threshold percentage": 0.5
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Bastion",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Bastion (rubbish)",
-    "baseShip": "Bastion",
-    "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "Pirate": true,
-        "Militia (Rogue)": true
-      }
-    },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Crisis In Management/endless-sky-syndicate": {
         "Missions": [
@@ -2031,133 +1548,22 @@
     "variant": "Fury (rubbish)",
     "baseShip": "Fury",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Crisis In Management/endless-sky-syndicate": {
         "Pirate": true,
         "Militia (Rogue)": true
       }
     },
-    "locations": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "Missions": [
-          "ScS Fight Club 2"
-        ]
-      }
-    },
-    "outfits": {
-      "Chipmunk Plasma Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Chipmunk Plasma Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D14-RN Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Energy Blaster": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "KP-6 Photovoltaic Panel": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP036a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Fury (rubbish)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "cost": 424000,
-      "threshold percentage": 0.6
-    },
-    "_internalId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion::Fury",
-    "_pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "_hash": "1890d486bb5b",
-    "variant": "Fury (rubbish)",
-    "baseShip": "Fury",
-    "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-    "governments": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "Pirate": true,
-        "Militia (Rogue)": true
-      }
-    },
-    "locations": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "Missions": [
-          "ScS Fight Club 2"
-        ]
-      }
-    },
-    "outfits": {
-      "Chipmunk Plasma Steering": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Chipmunk Plasma Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "D14-RN Shield Generator": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Energy Blaster": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "KP-6 Photovoltaic Panel": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "LP036a Battery Pack": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Fury (rubbish)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "cost": 441000,
-      "threshold percentage": 0.6
-    },
-    "_internalId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards::Fury",
-    "_pluginId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
-    "_hash": "fba5a6a45882",
-    "variant": "Fury (rubbish)",
-    "baseShip": "Fury",
-    "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
-    "governments": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "Pirate": true,
-        "Militia (Rogue)": true
-      }
-    },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Crisis In Management/endless-sky-syndicate": {
         "Missions": [
@@ -2303,13 +1709,22 @@
     "variant": "Modified Argosy (fuelled)",
     "baseShip": "Modified Argosy",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Crisis In Management/endless-sky-syndicate": {
         "Militia (Rogue)": true,
         "Pirate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Crisis In Management/endless-sky-syndicate": {
         "Missions": [
@@ -2375,41 +1790,6 @@
         "pluginId": "official-game/endless-sky"
       }
     }
-  },
-  {
-    "name": "Modified Argosy (fuelled)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1,
-      "fuel capacity": 1000
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Modified Argosy",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Modified Argosy (fuelled)",
-    "baseShip": "Modified Argosy",
-    "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "Militia (Rogue)": true,
-        "Pirate": true
-      }
-    },
-    "locations": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "Missions": [
-          "ScS Armchair Rights 3"
-        ]
-      }
-    },
-    "outfits": {}
   },
   {
     "name": "Sparrow (fuelled)",
@@ -2490,12 +1870,18 @@
     "variant": "Sparrow (fuelled)",
     "baseShip": "Sparrow",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Crisis In Management/endless-sky-syndicate": {
         "Merchant": true
       }
     },
+    "governmentEvents": [
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "Crisis In Management/endless-sky-syndicate": {
         "Missions": [
@@ -2610,13 +1996,19 @@
     "variant": "Bounder (alpha)",
     "baseShip": "Bounder",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Crisis In Management/endless-sky-syndicate": {
         "Merchant": true,
         "Sawyer Escape": true
       }
     },
+    "governmentEvents": [
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "Crisis In Management/endless-sky-syndicate": {
         "_deprecated/unused": true
@@ -2739,7 +2131,6 @@
     "variant": "Bounder (fleeing alpha)",
     "baseShip": "Bounder",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "Crisis In Management/endless-sky-syndicate": {
         "Merchant": true,
@@ -2747,6 +2138,14 @@
         "Alpha": true
       }
     },
+    "governmentEvents": [
+      "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "Crisis In Management/endless-sky-syndicate": {
         "Missions": [
@@ -2903,9 +2302,14 @@
     "variant": "Gull (Analogue)",
     "baseShip": "Gull",
     "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "official-game/endless-sky",
     "governments": {
       "official-game/endless-sky": {
+        "Remnant": true
+      },
+      "Rumskib/rumskib": {
+        "Remnant": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
         "Remnant": true
       },
       "POOT/poot-senza-solaria": {
@@ -2915,92 +2319,19 @@
         "Syndicate": true
       }
     },
-    "locations": {
-      "Crisis In Management/endless-sky-syndicate": {
-        "_deprecated/unused": true
-      }
-    },
-    "outfits": {
-      "Bellows-Class Afterburner": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Crystal Capacitor": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Forge-Class Thruster": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Fuel Processor": {
-        "count": 2,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Heavy Ion Cyclotron": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Jump Drive": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Ka'het Primary Cooling": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Plasma Core": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Point Defense Turret": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Quantum Key Stone": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Steering (Planetary Class)": {
-        "count": 1,
-        "pluginId": "official-game/endless-sky"
-      },
-      "Tuning Rifle": {
-        "count": 3,
-        "pluginId": "official-game/endless-sky"
-      }
-    }
-  },
-  {
-    "name": "Gull (Analogue)",
-    "engines": [],
-    "reverseEngines": [],
-    "steeringEngines": [],
-    "guns": [],
-    "turrets": [],
-    "bays": [],
-    "leaks": [],
-    "attributes": {
-      "required crew": 1
-    },
-    "_internalId": "Nova1422s list/1requiredcrew::Gull",
-    "_pluginId": "Nova1422s list/1requiredcrew",
-    "_hash": "5267fa0abcbe",
-    "variant": "Gull (Analogue)",
-    "baseShip": "Gull",
-    "_variantPluginId": "Crisis In Management/endless-sky-syndicate",
-    "_baseShipPluginId": "Nova1422s list/1requiredcrew",
-    "governments": {
-      "official-game/endless-sky": {
-        "Remnant": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
-      }
-    },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+    ],
     "locations": {
       "Crisis In Management/endless-sky-syndicate": {
         "_deprecated/unused": true

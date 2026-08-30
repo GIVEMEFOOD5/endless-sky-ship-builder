@@ -72,13 +72,26 @@
     "_pluginId": "Rumskib/rumskib",
     "_hash": "23d61a733f0f",
     "governments": {
-      "rumskib": {
-        "rumskib": true
+      "Rumskib/rumskib": {
+        "Merchant": true
       }
     },
+    "governmentEvents": [
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "Rumskib/rumskib": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 15000)",
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 500)",
+          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 500)",
+          "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
+          "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+        ]
       }
     },
     "outfits": {
@@ -249,8 +262,24 @@
         "Merchant": true
       }
     },
+    "governmentEvents": [
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "Rumskib/rumskib": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 1600)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\" (rate 6400)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\" (rate 12800)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach\" (rate 3200)",
+          "Adds fleet in \"Sol\" via event \"mgf: canaveral naval yard expansion 3 done\" (rate 1800)",
+          "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\"",
+          "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\""
+        ],
         "Planets": [
           "Ada",
           "Shroud",
@@ -390,12 +419,46 @@
     "_hash": "eba8b1878b7e",
     "governments": {
       "Rumskib/rumskib": {
-        "Pirate": true
+        "Pirate": true,
+        "Merchant": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Rumskib/rumskib": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 400)",
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 15000)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 5000)",
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 500)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 4000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 5000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
+          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
+        ],
+        "Missions": [
+          "Rumskib: Large Pirate Fleet Elimination"
+        ]
       }
     },
     "outfits": {
@@ -531,13 +594,48 @@
     "_hash": "0543a005801d",
     "governments": {
       "Rumskib/rumskib": {
-        "Syndicate": true
+        "Merchant": true,
+        "Syndicate": true,
+        "Pirate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Rumskib/rumskib": {
         "Systems": [
           "Nashira"
+        ],
+        "EventFleetChanges": [
+          "Adds fleet in \"Eteron\" via event \"titania syndicate enters eteron\" (rate 4000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 4000)",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
+        ],
+        "Missions": [
+          "Rumskib: Syndicate: Pirate Invasion"
         ]
       }
     },
@@ -680,13 +778,54 @@
     "_pluginId": "Rumskib/rumskib",
     "_hash": "f82186ea07ac",
     "governments": {
-      "rumskib": {
-        "rumskib": true
+      "Rumskib/rumskib": {
+        "Republic": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "Rumskib/rumskib": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 15000)",
+          "Adds fleet in \"Arneb\" via event \"battle in arneb\" (rate 10000)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 30000)",
+          "Adds fleet in \"Eteron\" via event \"titania station construction a\" (rate 6000)",
+          "Adds fleet in \"Eteron\" via event \"titania station construction b\" (rate 12000)",
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 2000)",
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 800)",
+          "Adds fleet in \"Wei\" via event \"normal in Alnasl\" (rate 700)",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb end\"",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Eteron\" via event \"titania station construction a\"",
+          "Removes fleet in \"Eteron\" via event \"titania station construction b\"",
+          "Removes fleet in \"Eteron\" via event \"titania station construction d\"",
+          "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
+          "Removes fleet in \"Wei\" via event \"gunboats in Alnasl\""
+        ]
       }
     },
     "outfits": {
@@ -814,13 +953,44 @@
     "_pluginId": "Rumskib/rumskib",
     "_hash": "f63a7e621055",
     "governments": {
-      "rumskib": {
-        "rumskib": true
+      "Rumskib/rumskib": {
+        "Merchant": true,
+        "Pirate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Rumskib/rumskib": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 1600)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\" (rate 6400)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\" (rate 12800)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach\" (rate 3200)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Adds fleet in \"Sol\" via event \"mgf: canaveral naval yard expansion 3 done\" (rate 1800)",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\"",
+          "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\"",
+          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
+        ]
       }
     },
     "outfits": {
@@ -897,12 +1067,56 @@
     "governments": {
       "Rumskib/rumskib": {
         "Pirate": true,
-        "Syndicate": true
+        "Syndicate": true,
+        "Merchant": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Rumskib/rumskib": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 1600)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\" (rate 6400)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\" (rate 12800)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach\" (rate 3200)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 800)",
+          "Adds fleet in \"Sol\" via event \"mgf: canaveral naval yard expansion 3 done\" (rate 1800)",
+          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 5000)",
+          "Removes fleet in \"Ildaria\" via event \"remove pirates from Ildaria\"",
+          "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\"",
+          "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
+          "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+        ],
+        "Missions": [
+          "Rumskib: Free Worlds: Pirate Invasion",
+          "Rumskib: Republic: Pirate Invasion",
+          "Rumskib: Syndicate: Pirate Invasion"
+        ]
       }
     },
     "outfits": {
@@ -1081,6 +1295,16 @@
         "Pirate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Rumskib/rumskib": {
         "Missions": [
@@ -1227,13 +1451,23 @@
     "_pluginId": "Rumskib/rumskib",
     "_hash": "ef243a588632",
     "governments": {
-      "rumskib": {
-        "rumskib": true
+      "Rumskib/rumskib": {
+        "Merchant": true
       }
     },
+    "governmentEvents": [
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "Rumskib/rumskib": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 800)",
+          "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\""
+        ]
       }
     },
     "outfits": {
@@ -1393,13 +1627,58 @@
     "_pluginId": "Rumskib/rumskib",
     "_hash": "db23e6f9313e",
     "governments": {
-      "rumskib": {
-        "rumskib": true
+      "Rumskib/rumskib": {
+        "Republic": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "Rumskib/rumskib": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 15000)",
+          "Adds fleet in \"Arneb\" via event \"battle in arneb\" (rate 10000)",
+          "Adds fleet in \"Cebalrai\" via event \"fw southern expansion\" (rate 3500)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 30000)",
+          "Adds fleet in \"Eteron\" via event \"titania station construction b\" (rate 12000)",
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 2000)",
+          "Adds fleet in \"Menkent\" via event \"fw southern expansion\" (rate 3000)",
+          "Adds fleet in \"Vega\" via event \"fw southern expansion\" (rate 2500)",
+          "Adds fleet in \"Wei\" via event \"normal in Alnasl\" (rate 700)",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb end\"",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Cebalrai\" via event \"fw southern expansion\"",
+          "Removes fleet in \"Eteron\" via event \"titania station construction b\"",
+          "Removes fleet in \"Eteron\" via event \"titania station construction d\"",
+          "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
+          "Removes fleet in \"Menkent\" via event \"fw southern expansion\"",
+          "Removes fleet in \"Menkent\" via event \"pug invasion 2\"",
+          "Removes fleet in \"Vega\" via event \"fw southern expansion\"",
+          "Removes fleet in \"Wei\" via event \"gunboats in Alnasl\""
+        ]
       }
     },
     "outfits": {
@@ -1619,9 +1898,31 @@
         "Pirate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Rumskib/rumskib": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 800)",
+          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 5000)",
+          "Removes fleet in \"Ildaria\" via event \"remove pirates from Ildaria\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
+          "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+        ],
+        "Missions": [
+          "Rumskib: Free Worlds: Pirate Invasion",
+          "Rumskib: Large Pirate Fleet Elimination",
+          "Rumskib: Republic: Pirate Invasion",
+          "Rumskib: Syndicate: Pirate Invasion"
+        ]
       }
     },
     "outfits": {
@@ -1752,13 +2053,23 @@
     "_pluginId": "Rumskib/rumskib",
     "_hash": "cbd4033eb54a",
     "governments": {
-      "rumskib": {
-        "rumskib": true
+      "Rumskib/rumskib": {
+        "Merchant": true
       }
     },
+    "governmentEvents": [
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "Rumskib/rumskib": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 500)",
+          "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+        ]
       }
     },
     "outfits": {
@@ -1861,13 +2172,29 @@
     "_pluginId": "Rumskib/rumskib",
     "_hash": "324476990a83",
     "governments": {
-      "rumskib": {
-        "rumskib": true
+      "Rumskib/rumskib": {
+        "Wanderer": true
       }
     },
+    "governmentEvents": [
+      "Event \"battle for ap'arak ends\": Wanderer attitude toward Pug (Wanderer) → 0.01",
+      "Event \"pug defend wanderers\": Pug (Wanderer) attitude toward Wanderer → 0.01",
+      "Event \"pug defend wanderers\": Pug attitude toward Wanderer → 0.01",
+      "Event \"wanderers: kor mereti friendly\": Kor Mereti attitude toward Wanderer → 1",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Rumskib/rumskib": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 600)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 500)",
+          "Adds fleet in \"Kaliptari\" via event \"wanderers: kaliptari battle ends\" (rate 1000)",
+          "Adds fleet in \"Sabriset\" via event \"wanderers: the eye opens\" (rate 1200)",
+          "Adds fleet in \"Sepriaptu\" via event \"wanderers: the eye opens\" (rate 1600)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"Sich'ka'ara restored\" (rate 2000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 500)"
+        ]
       }
     },
     "outfits": {
@@ -2029,13 +2356,29 @@
     "_pluginId": "Rumskib/rumskib",
     "_hash": "79e29933e2d8",
     "governments": {
-      "rumskib": {
-        "rumskib": true
+      "Rumskib/rumskib": {
+        "Wanderer": true
       }
     },
+    "governmentEvents": [
+      "Event \"battle for ap'arak ends\": Wanderer attitude toward Pug (Wanderer) → 0.01",
+      "Event \"pug defend wanderers\": Pug (Wanderer) attitude toward Wanderer → 0.01",
+      "Event \"pug defend wanderers\": Pug attitude toward Wanderer → 0.01",
+      "Event \"wanderers: kor mereti friendly\": Kor Mereti attitude toward Wanderer → 1",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Rumskib/rumskib": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 600)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 500)",
+          "Adds fleet in \"Kaliptari\" via event \"wanderers: kaliptari battle ends\" (rate 1000)",
+          "Adds fleet in \"Sabriset\" via event \"wanderers: the eye opens\" (rate 1200)",
+          "Adds fleet in \"Sepriaptu\" via event \"wanderers: the eye opens\" (rate 1600)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"Sich'ka'ara restored\" (rate 2000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 500)"
+        ]
       }
     },
     "outfits": {
@@ -2341,9 +2684,14 @@
         "Remnant": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Rumskib/rumskib": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arculus\" via event \"deep: arculus restored\" (rate 2200)",
+          "Adds fleet in \"Arculus\" via event \"deep: arculus restored\" (rate 3000)",
+          "Removes fleet in \"Arculus\" via event \"deep: arculus empty\""
+        ]
       }
     },
     "outfits": {
@@ -2484,6 +2832,7 @@
         "rumskib": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Rumskib/rumskib": {
         "_deprecated/unused": true
@@ -2559,9 +2908,35 @@
     "governments": {
       "Rumskib/rumskib": {
         "Pirate": true,
-        "Merchant": true
+        "Merchant": true,
+        "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Rumskib/rumskib": {
         "_deprecated/unused": true

@@ -10,19 +10,24 @@
     "outfit space": 7,
     "cargo space": -10,
     "description": "The smaller outfit expansion allows you to sacrifice that last corner of cargo space in order to perhaps make room for one more outfit, in those situations where you need just seven more tons to install that last system. \tUnfortunately, rearranging the interior of your ship in such a fundamental way tends to interfere with its cooling systems.",
-    "_internalId": "Quality of Life Outfits/QOL-Outfits::Outfit Expansion (Small)",
     "governments": {
+      "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
+        "Free Worlds": true,
+        "Republic": true,
+        "Syndicate": true
+      },
       "official-game/endless-sky": {
         "Free Worlds": true,
         "Bounty": true,
         "Pirate": true,
         "Merchant": true,
+        "Bounty Hunter": true,
+        "Militia": true,
         "Lunarium (Hidden)": true,
         "Republic": true,
         "Navy (Oathkeeper)": true,
         "Syndicate (Extremist)": true,
         "Syndicate": true,
-        "Bounty Hunter": true,
         "Independent (Killable)": true
       },
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
@@ -47,25 +52,31 @@
       },
       "Mega Freight/Mega-Freight": {
         "MGF: Espion Mining Co.": true,
+        "Bounty (Disguised)": true,
         "MGF: Core Nuclear Transport": true,
         "MGF: Core Food Corp": true,
-        "Bounty": true
+        "Bounty": true,
+        "Pirate": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
         "Bounty": true,
         "Independent (Killable)": true,
         "Free Worlds": true,
+        "Merchant": true,
+        "Scar's Legion": true,
         "Republic": true,
         "Pirate": true,
-        "Merchant": true,
         "Escort": true,
         "Independent": true,
+        "Oathbreaker": true,
         "Bounty (Disguised)": true,
         "Pirate (Rival)": true,
-        "Scar's Legion": true,
-        "Oathbreaker": true,
+        "Navy (Oathkeeper)": true,
         "Syndicate": true,
         "Syndicate (Extremist)": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true
       },
       "Tugderic's Addons/Tugderics-Addons": {
         "Ancient Travelers": true
@@ -73,13 +84,65 @@
       "DAIS/DAIS": {
         "Syndicate": true
       },
-      "Rumskib/rumskib": {
-        "Pirate": true
-      },
       "Midnight Expansion/Midnight-Expansion": {
         "Merchant": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate (Extremist) → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Scar's Legion → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "Quality of Life Outfits/QOL-Outfits": {
         "_deprecated/unused": true
@@ -100,12 +163,12 @@
     "fuel capacity": 50,
     "fuel consumption": 0.005,
     "description": "A small fuel pod that is placed outside of the hull. Unfortunately hyperspace fuel tends to slowly leak into space from these modules. Attempts to combat this led to drastic increases in mass and cost and were deemed unmarketable. Captains are cautioned to always install ramscoops alongside external pods. While safety mechanisms ensure the pod will never detonate in flight, a small amount of hull integrity and a handful of heat vents must be sacrificed to install the pod.",
-    "_internalId": "Quality of Life Outfits/QOL-Outfits::External Fuel Pod",
     "governments": {
       "QOL-Outfits": {
         "QOL-Outfits": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Quality of Life Outfits/QOL-Outfits": {
         "_deprecated/unused": true
@@ -125,12 +188,12 @@
     "heat dissipation": -0.001,
     "unplunderable": 1,
     "description": "Living Space Removal just gains back space occupied by Living Quarters. Crew generally despise captains using this for obvious reason. It also increases loading & unloading times with the location not being always optimal.",
-    "_internalId": "Quality of Life Outfits/QOL-Outfits::Living Space Removal",
     "governments": {
       "QOL-Outfits": {
         "QOL-Outfits": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Quality of Life Outfits/QOL-Outfits": {
         "_deprecated/unused": true
@@ -149,12 +212,12 @@
     "heat generation": 3.6,
     "energy capacity": 600,
     "description": "The hybrid fuel cell line combines energy generation with storage capacity in one efficient unit. This small model is designed specifically for interceptor class ships.",
-    "_internalId": "Quality of Life Outfits/QOL-Outfits::nGVF-BI Hybrid Fuel Cell",
     "governments": {
       "QOL-Outfits": {
         "QOL-Outfits": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Quality of Life Outfits/QOL-Outfits": {
         "_deprecated/unused": true
@@ -173,12 +236,12 @@
     "heat generation": 5.1,
     "energy capacity": 1200,
     "description": "The hybrid fuel cell line combines energy generation with storage capacity in one efficient unit. This larger model increases both energy generation and storage.",
-    "_internalId": "Quality of Life Outfits/QOL-Outfits::nGVF-CI Hybrid Fuel Cell",
     "governments": {
       "QOL-Outfits": {
         "QOL-Outfits": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Quality of Life Outfits/QOL-Outfits": {
         "_deprecated/unused": true
@@ -198,8 +261,10 @@
     "capture defense": 1.2,
     "unplunderable": 1,
     "description": "Everything a space marine needs to perform his duty.",
-    "_internalId": "Quality of Life Outfits/QOL-Outfits::Marine Gear",
     "governments": {
+      "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
+        "Republic": true
+      },
       "official-game/endless-sky": {
         "Republic": true,
         "Navy (Oathkeeper)": true,
@@ -208,7 +273,8 @@
       "Lost In Midnight/Lost-in-Midnight": {
         "Republic": true,
         "Pirate": true,
-        "Oathbreaker": true
+        "Oathbreaker": true,
+        "Navy (Oathkeeper)": true
       },
       "Tugderic's Addons/Tugderics-Addons": {
         "Ancient Travelers": true
@@ -217,6 +283,44 @@
         "Republic": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "Quality of Life Outfits/QOL-Outfits": {
         "_deprecated/unused": true
@@ -236,13 +340,17 @@
     "capture defense": 1.5,
     "unplunderable": 1,
     "description": "Everything a space ranger needs to fight for freedom.",
-    "_internalId": "Quality of Life Outfits/QOL-Outfits::Ranger Gear",
     "governments": {
+      "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
+        "Free Worlds": true
+      },
       "official-game/endless-sky": {
         "Free Worlds": true,
         "Bounty": true,
         "Pirate": true,
         "Merchant": true,
+        "Bounty Hunter": true,
+        "Militia": true,
         "Lunarium (Hidden)": true,
         "Escort": true
       },
@@ -264,26 +372,75 @@
       },
       "Mega Freight/Mega-Freight": {
         "MGF: Espion Mining Co.": true,
-        "Escort": true
+        "Escort": true,
+        "Bounty (Disguised)": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
         "Bounty": true,
         "Independent (Killable)": true,
         "Free Worlds": true,
         "Merchant": true,
+        "Scar's Legion": true,
         "Pirate": true,
         "Republic": true,
         "Escort": true,
         "Bounty (Disguised)": true,
         "Militia": true,
+        "Oathbreaker": true,
         "Independent": true,
-        "Pirate (Rival)": true,
-        "Scar's Legion": true
+        "Pirate (Rival)": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true
       },
       "Tugderic's Addons/Tugderics-Addons": {
         "Ancient Travelers": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Scar's Legion → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "Quality of Life Outfits/QOL-Outfits": {
         "_deprecated/unused": true
@@ -300,8 +457,10 @@
     "capture defense": 2.1,
     "unplunderable": 1,
     "description": "Everything space troopers need to protect the property of their employer.",
-    "_internalId": "Quality of Life Outfits/QOL-Outfits::Trooper Gear",
     "governments": {
+      "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
+        "Syndicate": true
+      },
       "official-game/endless-sky": {
         "Syndicate (Extremist)": true,
         "Pirate": true,
@@ -327,16 +486,20 @@
       "Mega Freight/Mega-Freight": {
         "MGF: Core Nuclear Transport": true,
         "MGF: Core Food Corp": true,
-        "Bounty": true
+        "Bounty": true,
+        "Bounty (Disguised)": true,
+        "Pirate": true,
+        "MGF: Espion Mining Co.": true
       },
       "Rumskib/rumskib": {
         "Pirate": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
-        "Bounty (Disguised)": true,
         "Merchant": true,
-        "Independent (Killable)": true,
         "Syndicate": true,
+        "Bounty (Disguised)": true,
+        "Pirate": true,
+        "Independent (Killable)": true,
         "Pirate (Rival)": true,
         "Syndicate (Extremist)": true
       },
@@ -347,6 +510,52 @@
         "Ancient Travelers": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate (Extremist) → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "Quality of Life Outfits/QOL-Outfits": {
         "_deprecated/unused": true
@@ -364,8 +573,10 @@
     "outfit space": -28,
     "unplunderable": 1,
     "description": "Increases the space a normal bunk room would give by half, at the cost of a higher mass and more outfit space taken up.",
-    "_internalId": "Quality of Life Outfits/QOL-Outfits::Extended Bunk Room",
     "governments": {
+      "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
+        "Syndicate": true
+      },
       "official-game/endless-sky": {
         "Syndicate (Extremist)": true,
         "Pirate": true,
@@ -381,16 +592,49 @@
         "Yuyuko Saigyouji (Hostile)": true
       },
       "Mega Freight/Mega-Freight": {
-        "Bounty": true
+        "Bounty": true,
+        "Bounty (Disguised)": true,
+        "MGF: Core Nuclear Transport": true
       },
       "Rumskib/rumskib": {
         "Pirate": true
       },
       "Lost In Midnight/Lost-in-Midnight": {
         "Bounty (Disguised)": true,
-        "Merchant": true
+        "Merchant": true,
+        "Pirate": true,
+        "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate (Extremist) → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "Quality of Life Outfits/QOL-Outfits": {
         "_deprecated/unused": true
@@ -409,12 +653,12 @@
     "unplunderable": 1,
     "armory capacity": -8,
     "description": "A very strong mortar designed for ship boarding, not great if you wish to avoid collatoral damage. Stored in the Ships Armory.",
-    "_internalId": "Quality of Life Outfits/QOL-Outfits::Boarding Cannon",
     "governments": {
       "QOL-Outfits": {
         "QOL-Outfits": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Quality of Life Outfits/QOL-Outfits": {
         "Planets": [
@@ -436,13 +680,42 @@
     "thumbnail": "outfit/map",
     "map": 100,
     "description": "This data chip contains complete information on 100 systems in proximity to the system you are currently in.",
-    "_internalId": "Quality of Life Outfits/QOL-Outfits::Sizeable Map",
     "governments": {
       "QOL-Outfits": {
         "QOL-Outfits": true
       }
     },
+    "governmentEvents": [],
     "locations": {
+      "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
+        "Planets": [
+          "Ahr",
+          "Bourne",
+          "Earth",
+          "Foundry",
+          "Hai-home",
+          "Hephaestus",
+          "Ki",
+          "Saros",
+          "Valhalla",
+          "Vara"
+        ],
+        "Outfitters": [
+          "Capital Planet"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Ahr\" via event \"null\"",
+          "Adds to \"Bourne\" via event \"null\"",
+          "Adds to \"Earth\" via event \"null\"",
+          "Adds to \"Foundry\" via event \"null\"",
+          "Adds to \"Hai-home\" via event \"null\"",
+          "Adds to \"Hephaestus\" via event \"null\"",
+          "Adds to \"Ki\" via event \"null\"",
+          "Adds to \"Saros\" via event \"null\"",
+          "Adds to \"Valhalla\" via event \"null\"",
+          "Adds to \"Vara\" via event \"null\""
+        ]
+      },
       "Quality of Life Outfits/QOL-Outfits": {
         "Planets": [
           "Ahr",
@@ -475,12 +748,12 @@
     "shield energy": 0.1,
     "energy capacity": 400,
     "description": "A very handy multi-purpose outfit commonly found on smaller sized ships like interceptors.",
-    "_internalId": "Quality of Life Outfits/QOL-Outfits::XF-111 Ship Core",
     "governments": {
       "QOL-Outfits": {
         "QOL-Outfits": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Quality of Life Outfits/QOL-Outfits": {
         "_deprecated/unused": true
@@ -499,12 +772,12 @@
     "outfit space": -8,
     "armory capacity": 30,
     "description": "For the captains who need a bit more bite when boarding, this room on the ship allows you to use some of the stronger boarding weapons. Requires a crewmate specialised in the care of the many advanced weapons the armoury contains.",
-    "_internalId": "Quality of Life Outfits/QOL-Outfits::Ship Weapon Rack",
     "governments": {
       "QOL-Outfits": {
         "QOL-Outfits": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Quality of Life Outfits/QOL-Outfits": {
         "_deprecated/unused": true
@@ -523,12 +796,12 @@
     "outfit space": -26,
     "armory capacity": 130,
     "description": "For the captains who make their money by boarding, this section of the ship allows you to use more advanced and stronger boarding weapons.  Requires a team of crewmates specialised in the care of the many advanced weapons the armoury contains.",
-    "_internalId": "Quality of Life Outfits/QOL-Outfits::Ship Armory",
     "governments": {
       "QOL-Outfits": {
         "QOL-Outfits": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Quality of Life Outfits/QOL-Outfits": {
         "_deprecated/unused": true
@@ -547,12 +820,12 @@
     "outfit space": -56,
     "armory capacity": 320,
     "description": "For the captains who make their money by boarding, this deck replacement allows vast amounts of weaponry to be stored on a ship.  Requires an entire department of crewmates specialised in the care of the many advanced weapons the armoury contains.",
-    "_internalId": "Quality of Life Outfits/QOL-Outfits::Ship Armory Deck",
     "governments": {
       "QOL-Outfits": {
         "QOL-Outfits": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Quality of Life Outfits/QOL-Outfits": {
         "_deprecated/unused": true
@@ -578,12 +851,12 @@
     "operating costs": 300,
     "unplunderable": 1,
     "description": "For the captain who needs more outfit space and does not particularily care about their ships mass, heat dissipation, or hull integrity. One other benefit is that additional shield emitters come built into the hull, though they tend to generate large amounts of heat due to their janky installation. The Pillager Bolt-on Cockpit is a used Heavy Shuttle renovated and modified to be bolted onto a ship. Security systems installed make it so that it has less outfit space than the Heavy Shuttle itself. Such an invasive modification requires constant maintenance to stay operable.",
-    "_internalId": "Quality of Life Outfits/QOL-Outfits::Pillager Bolt-on Cockpit",
     "governments": {
       "QOL-Outfits": {
         "QOL-Outfits": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Quality of Life Outfits/QOL-Outfits": {
         "Planets": [
@@ -610,12 +883,12 @@
     "capture attack": 28,
     "capture defense": 19,
     "description": "While this war machine is slightly too big to fit through most ship portholes, it is more than capable of making it's own holes in ships with it's drilling equipment and advanced anti-personnel weaponry.  It's heavy armor and internal air supply make most ship boarding countermeasures useless.  Unfortunatly it requires contstant maintenance to run without faults due to the experimental nature of some of it's components. Originally designed by Lovelace as a new piece of advanced boarding tech for the Navy, it was quickly abandoned in the prototype stage as far too costly to produce and maintain for far too little benefit. This problem was less important to blood thirsty pirate warlords, who saw a massive intimidating mech-suit as worth all the costs involved. Stored in the Ships Armory.",
-    "_internalId": "Quality of Life Outfits/QOL-Outfits::Terror Mech",
     "governments": {
       "QOL-Outfits": {
         "QOL-Outfits": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "Quality of Life Outfits/QOL-Outfits": {
         "_deprecated/unused": true

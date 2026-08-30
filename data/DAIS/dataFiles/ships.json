@@ -103,13 +103,44 @@
     "_pluginId": "DAIS/DAIS",
     "_hash": "b13f3580e5b9",
     "governments": {
-      "DAIS": {
-        "DAIS": true
+      "DAIS/DAIS": {
+        "Merchant": true,
+        "Deep Security": true,
+        "Pirate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "DAIS/DAIS": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
+          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 14000)",
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 800)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Imo Dep\" via event \"millipede clear imo dep\"",
+          "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
+          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
+        ]
       }
     },
     "outfits": {
@@ -273,6 +304,7 @@
         "DAIS": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "DAIS/DAIS": {
         "Missions": [
@@ -458,13 +490,38 @@
     "_pluginId": "DAIS/DAIS",
     "_hash": "7a907339036b",
     "governments": {
-      "DAIS": {
-        "DAIS": true
+      "DAIS/DAIS": {
+        "Free Worlds": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "DAIS/DAIS": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\" (rate 9600)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\" (rate 19200)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach\" (rate 4800)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\"",
+          "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
+        ]
       }
     },
     "outfits": {
@@ -608,13 +665,48 @@
     "_pluginId": "DAIS/DAIS",
     "_hash": "7da67afffc49",
     "governments": {
-      "DAIS": {
-        "DAIS": true
+      "DAIS/DAIS": {
+        "Pirate": true,
+        "Merchant": true,
+        "Syndicate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "DAIS/DAIS": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Eteron\" via event \"titania station construction c\" (rate 8000)",
+          "Adds fleet in \"Eteron\" via event \"titania syndicate enters eteron\" (rate 4000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 4000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 7000)",
+          "Removes fleet in \"Algenib\" via event \"ScS empty algenib\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
+          "Removes fleet in \"Sheratan\" via event \"ScS korath fight ready\""
+        ]
       }
     },
     "outfits": {
@@ -747,13 +839,48 @@
     "_pluginId": "DAIS/DAIS",
     "_hash": "3c1ce88e4c88",
     "governments": {
-      "DAIS": {
-        "DAIS": true
+      "DAIS/DAIS": {
+        "Merchant": true,
+        "Deep Security": true,
+        "Pirate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "DAIS/DAIS": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 400)",
+          "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 5000)",
+          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 14000)",
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 800)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
+          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 4000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 5000)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
+          "Removes fleet in \"Imo Dep\" via event \"millipede clear imo dep\"",
+          "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
+          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
+        ]
       }
     },
     "outfits": {
@@ -923,6 +1050,7 @@
         "DAIS": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "DAIS/DAIS": {
         "Planets": [
@@ -1100,11 +1228,29 @@
     "_hash": "94ef4af516ba",
     "governments": {
       "DAIS/DAIS": {
+        "Pirate": true,
         "Serrated Blades": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "DAIS/DAIS": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 800)",
+          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 5000)",
+          "Removes fleet in \"Ildaria\" via event \"remove pirates from Ildaria\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
+          "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+        ],
         "Planets": [
           "Thule"
         ],
@@ -1320,10 +1466,20 @@
     "_pluginId": "DAIS/DAIS",
     "_hash": "136487bfc5d9",
     "governments": {
-      "DAIS": {
-        "DAIS": true
+      "DAIS/DAIS": {
+        "Pirate": true
       }
     },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
     "locations": {
       "DAIS/DAIS": {
         "_deprecated/unused": true
@@ -1537,6 +1693,7 @@
         "DAIS": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "DAIS/DAIS": {
         "Missions": [
@@ -1725,13 +1882,23 @@
     "_pluginId": "DAIS/DAIS",
     "_hash": "03a65d633430",
     "governments": {
-      "DAIS": {
-        "DAIS": true
+      "DAIS/DAIS": {
+        "Merchant": true
       }
     },
+    "governmentEvents": [
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "DAIS/DAIS": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 800)",
+          "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\""
+        ]
       }
     },
     "outfits": {
@@ -1926,6 +2093,7 @@
         "Bounty": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "DAIS/DAIS": {
         "Missions": [
@@ -2096,13 +2264,29 @@
     "_pluginId": "DAIS/DAIS",
     "_hash": "b04c0dda2ce8",
     "governments": {
-      "DAIS": {
-        "DAIS": true
+      "DAIS/DAIS": {
+        "Wanderer": true
       }
     },
+    "governmentEvents": [
+      "Event \"battle for ap'arak ends\": Wanderer attitude toward Pug (Wanderer) → 0.01",
+      "Event \"pug defend wanderers\": Pug (Wanderer) attitude toward Wanderer → 0.01",
+      "Event \"pug defend wanderers\": Pug attitude toward Wanderer → 0.01",
+      "Event \"wanderers: kor mereti friendly\": Kor Mereti attitude toward Wanderer → 1",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "DAIS/DAIS": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 600)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 500)",
+          "Adds fleet in \"Kaliptari\" via event \"wanderers: kaliptari battle ends\" (rate 1000)",
+          "Adds fleet in \"Sabriset\" via event \"wanderers: the eye opens\" (rate 1200)",
+          "Adds fleet in \"Sepriaptu\" via event \"wanderers: the eye opens\" (rate 1600)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"Sich'ka'ara restored\" (rate 2000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 500)"
+        ]
       }
     },
     "outfits": {
@@ -2269,13 +2453,29 @@
     "_pluginId": "DAIS/DAIS",
     "_hash": "bdc7e79ffe4d",
     "governments": {
-      "DAIS": {
-        "DAIS": true
+      "DAIS/DAIS": {
+        "Wanderer": true
       }
     },
+    "governmentEvents": [
+      "Event \"battle for ap'arak ends\": Wanderer attitude toward Pug (Wanderer) → 0.01",
+      "Event \"pug defend wanderers\": Pug (Wanderer) attitude toward Wanderer → 0.01",
+      "Event \"pug defend wanderers\": Pug attitude toward Wanderer → 0.01",
+      "Event \"wanderers: kor mereti friendly\": Kor Mereti attitude toward Wanderer → 1",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "DAIS/DAIS": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 600)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 500)",
+          "Adds fleet in \"Kaliptari\" via event \"wanderers: kaliptari battle ends\" (rate 1000)",
+          "Adds fleet in \"Sabriset\" via event \"wanderers: the eye opens\" (rate 1200)",
+          "Adds fleet in \"Sepriaptu\" via event \"wanderers: the eye opens\" (rate 1600)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"Sich'ka'ara restored\" (rate 2000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 500)"
+        ]
       }
     },
     "outfits": {

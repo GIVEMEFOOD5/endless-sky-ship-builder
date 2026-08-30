@@ -252,10 +252,18 @@
         "Heliarch": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Heliarch Southern Wormhole\" via event \"new ACAW ships\" (rate 2400)"
+        ],
         "Missions": [
           "Observe the Heliarch's New Prototype"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Observe the Heliarch's New Prototype\" → event \"heliarch prototype\"",
+          "\"Observe the Heliarch's New Prototype\" → event \"new ACAW ships\""
         ]
       }
     },
@@ -369,10 +377,15 @@
         "A-Coalition-At-War": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
         "Missions": [
           "Looting a Jump Drive (The First Time)"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Looting a Jump Drive (The First Time)\" → event \"new ACAW ships\"",
+          "\"Looting a Jump Drive (The First Time)\" → event \"quarg ships looted\""
         ]
       }
     },
@@ -531,10 +544,20 @@
         "Quarg": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Quarg attitude toward Kor Mereti → 0"
+    ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Quarg Southern Wormhole\" via event \"new ACAW ships\" (rate 600)"
+        ],
         "Missions": [
           "Observe the Heliarch's New Prototype"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Observe the Heliarch's New Prototype\" → event \"heliarch prototype\"",
+          "\"Observe the Heliarch's New Prototype\" → event \"new ACAW ships\""
         ]
       }
     },
@@ -658,10 +681,17 @@
         "Quarg": true
       }
     },
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Quarg attitude toward Kor Mereti → 0"
+    ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
         "Missions": [
           "Looting a Jump Drive (The First Time)"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Looting a Jump Drive (The First Time)\" → event \"new ACAW ships\"",
+          "\"Looting a Jump Drive (The First Time)\" → event \"quarg ships looted\""
         ]
       }
     },
@@ -800,6 +830,7 @@
         "A-Coalition-At-War": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
         "_deprecated/unused": true
@@ -1032,6 +1063,7 @@
         "A-Coalition-At-War": true
       }
     },
+    "governmentEvents": [],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
         "_deprecated/unused": true
