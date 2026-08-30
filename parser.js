@@ -216,16 +216,26 @@ function hashShip(ship) {
 // ---------------------------------------------------------------------------
 // Convert the internal outfitMap { name: { count, pluginId } | count }
 // into the array format expected by shipBuilder.js:
-//   { "Blaster": { count: 2, pluginId: "Endless Sky/Endless Sky" }, ... }
+//   { "Blaster": { count: 2, pluginId: "Endless Sky/Endless Sky", internalId: "Endless Sky/Endless Sky::Blaster" }, ... }
+//
+// NEW (internal-ID pass): `internalId` is the same `pluginId::name`
+// compound key EndlessSkyParser._registerOutfit() stamps on the outfit's
+// own `_internalId` field, precomputed here so frontend lookup code (e.g.
+// shipBuilder.js sbFindOutfit, battleSim.js _lookupOutfit) can key straight
+// off `internalId` without reconstructing the string itself in five
+// different places. `internalId` is null when `pluginId` is null (e.g. an
+// outfit whose owning plugin couldn't be resolved) — callers should fall
+// back to name-only lookup in that case, same as before this pass.
 // ---------------------------------------------------------------------------
 function outfitMapToOutputFormat(outfitMap) {
   if (!outfitMap || typeof outfitMap !== 'object') return {};
   const result = {};
   for (const [name, val] of Object.entries(outfitMap)) {
     if (typeof val === 'object' && val !== null) {
-      result[name] = { count: val.count ?? 1, pluginId: val.pluginId ?? null };
+      const pluginId = val.pluginId ?? null;
+      result[name] = { count: val.count ?? 1, pluginId, internalId: pluginId != null ? `${pluginId}::${name}` : null };
     } else {
-      result[name] = { count: Number(val) || 1, pluginId: null };
+      result[name] = { count: Number(val) || 1, pluginId: null, internalId: null };
     }
   }
   return result;
@@ -467,7 +477,19 @@ class EndlessSkyParser {
     return internalId;
   }
 
+  /**
+   * NEW (internal-ID pass). Outfits previously only got `_pluginId` stamped
+   * on them — no equivalent to the `_internalId` (`pluginId::name`) that
+   * `_registerShip` already stamps on every ship. That gap is exactly what
+   * let frontend code (shipBuilder.js, battleSim.js, etc.) fall back to
+   * ambiguous name-only outfit lookups even in places where the owning
+   * plugin was already known — the same class of collision this session's
+   * earlier fixes addressed on the parser side. Stamping `_internalId`
+   * here means every outfit is uniquely addressable by the same
+   * `pluginId::name` convention ships already use, with zero guessing.
+   */
   _registerOutfit(outfit, pluginId) {
+    outfit._internalId = `${pluginId}::${outfit.name}`;
     outfit._pluginId = pluginId;
     const name = outfit.name;
     if (!this.outfitsByName.has(name)) this.outfitsByName.set(name, []);
@@ -501,7 +523,18 @@ class EndlessSkyParser {
     const hashes = new Set(candidates.map(s => s._hash));
     if (hashes.size === 1) return { baseShip: candidates[0], error: null };
 
-    const variantOverrides = this._overrides.get(variantPluginId);
+    // FIXED: `this._overrides` is keyed by the bare SOURCE name (plugins.json
+    // entry's `name` field — see setOverrides()), e.g. "Lemurias Extra ES
+    // Stuff". `variantPluginId` here is the full COMPOUND pluginId, e.g.
+    // "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff" (sourceName +
+    // "/" + plugin-folder-name — see the `pluginId = \`${sourceName}/...\``
+    // construction in parseRepository/parseArchiveSource). Looking the
+    // compound string up directly against a bare-source-name-keyed map
+    // NEVER matched, for any plugin, ever — the "overrides" feature this
+    // warning tells you to use was silently non-functional. Derive the
+    // bare source name (everything before the first "/") before looking up.
+    const variantSourceName = variantPluginId ? variantPluginId.split('/')[0] : null;
+    const variantOverrides = this._overrides.get(variantSourceName);
     if (variantOverrides?.size) {
       const overriddenCandidates = candidates.filter(s => variantOverrides.has(s._pluginId));
       if (overriddenCandidates.length === 1) {
@@ -2848,7 +2881,7 @@ async function main() {
         ...v, outfits: outfitMapToOutputFormat(v.outfitMap), outfitMap: undefined,
       }));
       const outfitsOut = plugin.outfits.map(o => ({
-        ...o, pluginId: o._pluginId ?? null, _pluginId: undefined,
+        ...o, pluginId: o._pluginId ?? null, internalId: o._internalId ?? null, _pluginId: undefined, _internalId: undefined,
       }));
       const effectsOut = plugin.effects.map(e => ({
         ...e, pluginId: e._pluginId ?? null, _pluginId: undefined,
