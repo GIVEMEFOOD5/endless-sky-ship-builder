@@ -19,6 +19,14 @@
 //     event-driven attitude changes affecting a government that entity
 //     belongs to. Empty array when there are none — doesn't change the
 //     shape or meaning of the existing `governments` field.
+//   - NEW (person-block pass): collectPerson — records that a `person "X"`
+//     block (persons.txt-style unique/named ships) directly assigns a
+//     government to one or more specific ship names. Unlike fleets/NPCs,
+//     a person's government is authoritative on its own — it isn't looked
+//     up via a shipyard/planet chain, it's stated right there in the block.
+//     Feeds the SAME `npcRefs` list collectNpcRef already populates (so
+//     _governmentsForShip resolves it with zero new lookup logic), plus a
+//     dedicated `persons` array for traceability/debugging.
 // ─────────────────────────────────────────────────────────────────────────
 
 class SpeciesResolver {
@@ -33,12 +41,20 @@ class SpeciesResolver {
     this.npcRefs          = [];   // { government, shipName,  pluginId }
     this.shipyards        = {};   // name → [{ shipName, pluginId }]
     this.outfitters       = {};   // name → [{ outfitName, pluginId }]
-    this.planets          = [];   // { name, government, shipyards, outfitters, pluginId }
+    this.planets           = [];   // { name, government, shipyards, outfitters, pluginId }
     this.shipOutfits      = {};   // shipName → [{ outfitName, pluginId }]  (pluginId = owner of the SHIP)
     this.knownGovernments = new Set();
 
     // NEW — { eventName, government, towardGovernment, value, pluginId }
     this.eventGovernmentAttitudeChanges = [];
+
+    // NEW — { personName, government, shipName, pluginId }
+    // One entry per (person, ship) pair — a person block can name more
+    // than one ship. Kept purely for traceability/debugging; the actual
+    // government resolution for these ships happens via the matching
+    // collectNpcRef() call made alongside every collectPerson() call (see
+    // parser.js parsePersonBlock), so _governmentsForShip needs no changes.
+    this.persons = [];
   }
 
   // ── Collectors (accept pluginId) ─────────────────────────────────────────────
@@ -115,6 +131,25 @@ class SpeciesResolver {
       government,
       towardGovernment,
       value: value ?? null,
+      pluginId: pluginId ?? null,
+    });
+  }
+
+  /**
+   * NEW. Records that a `person "X"` block assigns `government` directly
+   * to `shipName`. Called once per ship in the person block (see parser.js
+   * parsePersonBlock), alongside a matching collectNpcRef() call so the
+   * existing _governmentsForShip() npcRefs scan picks it up with no
+   * further changes needed here. This method only exists to keep a
+   * separate, traceable record of which person block was responsible.
+   */
+  collectPerson(personName, government, shipName, pluginId) {
+    if (!personName || !shipName) return;
+    if (government) this.knownGovernments.add(government);
+    this.persons.push({
+      personName,
+      government: government ?? null,
+      shipName,
       pluginId: pluginId ?? null,
     });
   }
@@ -209,6 +244,9 @@ class SpeciesResolver {
     }
 
     // NPC refs: match exact name OR base name, same scoping rule.
+    // (This is also where `person` block government assignments resolve —
+    // parser.js's parsePersonBlock feeds them into npcRefs via
+    // collectNpcRef() so they're picked up by this exact same loop.)
     for (const ref of this.npcRefs) {
       if (!ref.government) continue;
       if (ref.shipName !== shipName && ref.shipName !== baseName) continue;
@@ -294,9 +332,9 @@ class SpeciesResolver {
 
   /**
    * Drop any government name that was never actually declared anywhere
-   * (e.g. via a `fleet`, `npc`, or `planet` block) — guards against typos
-   * or partial-data artifacts surviving into the output. Mutates and
-   * returns `byPlugin` in place.
+   * (e.g. via a `fleet`, `npc`, `person`, or `planet` block) — guards
+   * against typos or partial-data artifacts surviving into the output.
+   * Mutates and returns `byPlugin` in place.
    */
   _filterToKnownGovernments(byPlugin) {
     for (const [pluginId, govts] of byPlugin) {
