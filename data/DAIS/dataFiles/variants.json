@@ -85,8 +85,6 @@
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -224,10 +222,7 @@
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
       "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
@@ -246,8 +241,6 @@
     "locations": {
       "DAIS/DAIS": {
         "EventFleetChanges": [
-          "Adds fleet in \"Eteron\" via event \"titania station construction c\" (rate 8000)",
-          "Adds fleet in \"Eteron\" via event \"titania syndicate enters eteron\" (rate 4000)",
           "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 4000)",
           "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 7000)",
           "Removes fleet in \"Algenib\" via event \"ScS empty algenib\"",
@@ -399,8 +392,6 @@
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
       "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
@@ -414,11 +405,8 @@
       "DAIS/DAIS": {
         "EventFleetChanges": [
           "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 400)",
-          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 5000)",
-          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 4000)",
           "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 5000)",
           "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
-          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
           "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
         ]
       }
@@ -571,8 +559,6 @@
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
@@ -591,15 +577,8 @@
       "DAIS/DAIS": {
         "EventFleetChanges": [
           "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 400)",
-          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 5000)",
-          "Adds fleet in \"Imo Dep\" via event \"millipede restore imo dep\" (rate 14000)",
-          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 800)",
-          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 4000)",
           "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 5000)",
           "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
-          "Removes fleet in \"Imo Dep\" via event \"millipede clear imo dep\"",
-          "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
-          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
           "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
         ]
       }
@@ -810,8 +789,6 @@
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -1006,8 +983,6 @@
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -1019,10 +994,8 @@
       "DAIS/DAIS": {
         "EventFleetChanges": [
           "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 800)",
-          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 5000)",
           "Removes fleet in \"Ildaria\" via event \"remove pirates from Ildaria\"",
-          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
-          "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
         ]
       }
     },
@@ -1202,8 +1175,6 @@
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -1215,11 +1186,8 @@
       "DAIS/DAIS": {
         "EventFleetChanges": [
           "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
-          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
-          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
           "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
           "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
-          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
           "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
         ]
       }
@@ -1335,8 +1303,6 @@
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -1348,10 +1314,8 @@
       "DAIS/DAIS": {
         "EventFleetChanges": [
           "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 800)",
-          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 5000)",
           "Removes fleet in \"Ildaria\" via event \"remove pirates from Ildaria\"",
-          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
-          "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
         ]
       }
     },
@@ -1488,88 +1452,73 @@
     "description": "Bristling with weapons hardpoints and humming with electrifying potential, the Catatumbo completes the Wanderers' heavy warship trifecta. Where the Derecho emphasizes speed and the Hurricane durability, this warship has instead experienced an aggressive metamorphosis from its original, ancient form, now reintroduced to the modern era like a virulent and invasive predator.",
     "_internalId": "DAIS/DAIS::Catatumbo",
     "_pluginId": "DAIS/DAIS",
-    "_hash": "b04c0dda2ce8",
+    "_hash": "bd41fe430a75",
     "variant": "Catatumbo (Beam)",
     "baseShip": "Catatumbo",
     "_variantPluginId": "DAIS/DAIS",
     "governments": {
-      "DAIS/DAIS": {
-        "Wanderer": true
+      "DAIS": {
+        "DAIS": true
       }
     },
-    "governmentEvents": [
-      "Event \"battle for ap'arak ends\": Wanderer attitude toward Pug (Wanderer) → 0.01",
-      "Event \"pug defend wanderers\": Pug (Wanderer) attitude toward Wanderer → 0.01",
-      "Event \"pug defend wanderers\": Pug attitude toward Wanderer → 0.01",
-      "Event \"wanderers: kor mereti friendly\": Kor Mereti attitude toward Wanderer → 1",
-      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
-    ],
+    "governmentEvents": [],
     "locations": {
       "DAIS/DAIS": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 600)",
-          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 500)",
-          "Adds fleet in \"Kaliptari\" via event \"wanderers: kaliptari battle ends\" (rate 1000)",
-          "Adds fleet in \"Sabriset\" via event \"wanderers: the eye opens\" (rate 1200)",
-          "Adds fleet in \"Sepriaptu\" via event \"wanderers: the eye opens\" (rate 1600)",
-          "Adds fleet in \"Sich'ka'ara\" via event \"Sich'ka'ara restored\" (rate 2000)",
-          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
-          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 500)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
       "Thunderhead Launcher": {
         "count": 2,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion"
       },
       "Thunderhead Missile": {
         "count": 80,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Dual Sunbeam Turret": {
         "count": 2,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Sunbeam": {
         "count": 4,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Wanderer Anti-Missile": {
         "count": 1,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Blue Sun Reactor": {
         "count": 1,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Yellow Sun Reactor": {
         "count": 1,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Dark Storm Shielding": {
         "count": 1,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Wanderer Heat Sink": {
         "count": 1,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Wanderer Ramscoop": {
         "count": 1,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Type 4 Radiant Thruster": {
         "count": 1,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Type 1 Radiant Thruster": {
         "count": 1,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Type 4 Radiant Steering": {
         "count": 1,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Hyperdrive": {
         "count": 1,
@@ -1691,8 +1640,6 @@
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
@@ -1711,13 +1658,8 @@
       "DAIS/DAIS": {
         "EventFleetChanges": [
           "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
-          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
-          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 800)",
-          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
           "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
           "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
-          "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
-          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
           "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
         ]
       }

@@ -409,8 +409,6 @@
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
       "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
       "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
@@ -429,15 +427,8 @@
     "locations": {
       "Capitalis Major/Capitalis-Major": {
         "EventFleetChanges": [
-          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\" (rate 9600)",
-          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\" (rate 19200)",
-          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach\" (rate 4800)",
           "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
-          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 3000)",
-          "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\"",
-          "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\"",
-          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
-          "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
         ]
       }
     },
@@ -639,9 +630,6 @@
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
       "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
       "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
@@ -661,23 +649,12 @@
     "locations": {
       "Capitalis Major/Capitalis-Major": {
         "EventFleetChanges": [
-          "Adds fleet in \"Alpherg\" via event \"midnight independent fleet expansion\" (rate 3000)",
-          "Adds fleet in \"Antares\" via event \"midnight independent fleet expansion\" (rate 1500)",
-          "Adds fleet in \"Belenos\" via event \"midnight independent fleet expansion\" (rate 3000)",
-          "Adds fleet in \"Citadelle\" via event \"midnight independent fleet expansion\" (rate 3000)",
-          "Adds fleet in \"Men\" via event \"midnight independent fleet expansion\" (rate 600)",
-          "Adds fleet in \"Nunki\" via event \"midnight independent fleet expansion\" (rate 1500)",
           "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 7000)",
           "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 800)",
-          "Adds fleet in \"Shaula\" via event \"midnight independent fleet expansion\" (rate 3000)",
-          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 1500)",
-          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 3000)",
-          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 5000)",
           "Removes fleet in \"Algenib\" via event \"ScS empty algenib\"",
           "Removes fleet in \"Ildaria\" via event \"remove pirates from Ildaria\"",
           "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
-          "Removes fleet in \"Sheratan\" via event \"ScS korath fight ready\"",
-          "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+          "Removes fleet in \"Sheratan\" via event \"ScS korath fight ready\""
         ]
       }
     },
@@ -946,9 +923,7 @@
         "Kor Sestor": true
       }
     },
-    "governmentEvents": [
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Capitalis Major/Capitalis-Major": {
         "Missions": [

@@ -163,8 +163,6 @@
     },
     "governmentEvents": [
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
-      "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
-      "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
       "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1"
     ],
     "locations": {
@@ -407,14 +405,10 @@
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
-      "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
-      "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
       "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1",
       "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
       "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
@@ -566,12 +560,7 @@
         "Kor Mereti": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0",
-      "Event \"wanderers: kor mereti friendly\": Kor Mereti attitude toward Wanderer → 1",
-      "Event \"wanderers: kor mereti friendly\": Quarg (Kor Efret) attitude toward Kor Mereti → 0",
-      "Event \"wanderers: kor mereti friendly\": Quarg attitude toward Kor Mereti → 0"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "EventFleetChanges": [
@@ -584,8 +573,6 @@
           "Adds fleet in \"Chimitarp\" via event \"Node 8 Processor Returned\" (rate 250)",
           "Adds fleet in \"Chimitarp\" via event \"Node 8 Processor Returned\" (rate 3600)",
           "Adds fleet in \"Chimitarp\" via event \"Node 8 Processor Returned\" (rate 450)",
-          "Adds fleet in \"Chimitarp\" via event \"wanderers: kor mereti transformation\" (rate 250)",
-          "Adds fleet in \"Chimitarp\" via event \"wanderers: kor mereti transformation\" (rate 450)",
           "Adds fleet in \"Eneremprukt\" via event \"Blight Shadow Infestation\" (rate 7200)",
           "Adds fleet in \"Eneremprukt\" via event \"Node 8 Processor Returned\" (rate 2000)",
           "Adds fleet in \"Eneremprukt\" via event \"Scrapyard Develops\" (rate 10000)",
@@ -607,16 +594,12 @@
           "Adds fleet in \"Kaliptari\" via event \"Node 8 Processor Returned\" (rate 3600)",
           "Adds fleet in \"Kaliptari\" via event \"Node 8 Processor Returned\" (rate 4800)",
           "Adds fleet in \"Kaliptari\" via event \"Node 8 Processor Returned\" (rate 8000)",
-          "Adds fleet in \"Kaliptari\" via event \"wanderers: kaliptari battle ends\" (rate 3600)",
-          "Adds fleet in \"Kaliptari\" via event \"wanderers: kaliptari battle ends\" (rate 8000)",
           "Adds fleet in \"Korsmanath\" via event \"Node 8 Processor Returned\" (rate 8000)",
           "Adds fleet in \"Makferuti\" via event \"Node 8 Processor Returned\" (rate 10000)",
           "Adds fleet in \"Makferuti\" via event \"Scrapyard Develops\" (rate 6400)",
           "Adds fleet in \"Mekislepti\" via event \"Mereti deploy 1024 Greenhouse\" (rate 20000)",
           "Adds fleet in \"Mekislepti\" via event \"Node 8 Processor Returned\" (rate 1000)",
           "Adds fleet in \"Mekislepti\" via event \"Node 8 Processor Returned\" (rate 3000)",
-          "Adds fleet in \"Mekislepti\" via event \"wanderers: the eye opens\" (rate 12000)",
-          "Adds fleet in \"Mekislepti\" via event \"wanderers: the eye opens\" (rate 4000)",
           "Adds fleet in \"Mesuket\" via event \"Blight Shadow Infestation\" (rate 7200)",
           "Adds fleet in \"Mesuket\" via event \"Node 8 Processor Returned\" (rate 900)",
           "Adds fleet in \"Salipastart\" via event \"Node 8 Processor Returned\" (rate 1600)",
@@ -764,19 +747,13 @@
         "Kor Scrappers": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0",
-      "Event \"wanderers: kor mereti friendly\": Kor Mereti attitude toward Wanderer → 1",
-      "Event \"wanderers: kor mereti friendly\": Quarg (Kor Efret) attitude toward Kor Mereti → 0",
-      "Event \"wanderers: kor mereti friendly\": Quarg attitude toward Kor Mereti → 0"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "EventFleetChanges": [
           "Adds fleet in \"Celeborim\" via event \"Node 8 Processor Returned\" (rate 10000)",
           "Adds fleet in \"Chimitarp\" via event \"Node 8 Processor Returned\" (rate 1000)",
           "Adds fleet in \"Chimitarp\" via event \"Node 8 Processor Returned\" (rate 250)",
-          "Adds fleet in \"Chimitarp\" via event \"wanderers: kor mereti transformation\" (rate 250)",
           "Adds fleet in \"Eshkoshtar\" via event \"Node 8 Processor Returned\" (rate 800)",
           "Adds fleet in \"Farbutero\" via event \"Node 8 Processor Returned\" (rate 9400)",
           "Adds fleet in \"Faronektu\" via event \"Node 8 Processor Returned\" (rate 1200)",
@@ -784,11 +761,9 @@
           "Adds fleet in \"Fornarep\" via event \"Node 8 Processor Returned\" (rate 9000)",
           "Adds fleet in \"Kaliptari\" via event \"Node 8 Processor Returned\" (rate 10000)",
           "Adds fleet in \"Kaliptari\" via event \"Node 8 Processor Returned\" (rate 8000)",
-          "Adds fleet in \"Kaliptari\" via event \"wanderers: kaliptari battle ends\" (rate 8000)",
           "Adds fleet in \"Korsmanath\" via event \"Node 8 Processor Returned\" (rate 8000)",
           "Adds fleet in \"Makferuti\" via event \"Node 8 Processor Returned\" (rate 10000)",
           "Adds fleet in \"Mekislepti\" via event \"Node 8 Processor Returned\" (rate 1000)",
-          "Adds fleet in \"Mekislepti\" via event \"wanderers: the eye opens\" (rate 4000)",
           "Adds fleet in \"Salipastart\" via event \"Node 8 Processor Returned\" (rate 800)",
           "Adds fleet in \"Sepetrosk\" via event \"Node 8 Processor Returned\" (rate 1200)",
           "Adds fleet in \"Similisti\" via event \"Node 8 Processor Returned\" (rate 600)",
@@ -1016,14 +991,10 @@
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
-      "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
-      "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
       "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1",
       "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
       "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
@@ -1195,12 +1166,7 @@
         "Kor Scrappers": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0",
-      "Event \"wanderers: kor mereti friendly\": Kor Mereti attitude toward Wanderer → 1",
-      "Event \"wanderers: kor mereti friendly\": Quarg (Kor Efret) attitude toward Kor Mereti → 0",
-      "Event \"wanderers: kor mereti friendly\": Quarg attitude toward Kor Mereti → 0"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "EventFleetChanges": [
@@ -1238,7 +1204,7 @@
       },
       "Botanical Garden": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Cargo Expansion": {
         "count": 1,
@@ -1254,7 +1220,7 @@
       },
       "Security Node": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Steering (Stellar Class)": {
         "count": 1,
@@ -1462,12 +1428,7 @@
         "Kor Scrappers": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0",
-      "Event \"wanderers: kor mereti friendly\": Kor Mereti attitude toward Wanderer → 1",
-      "Event \"wanderers: kor mereti friendly\": Quarg (Kor Efret) attitude toward Kor Mereti → 0",
-      "Event \"wanderers: kor mereti friendly\": Quarg attitude toward Kor Mereti → 0"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "EventFleetChanges": [
@@ -1556,9 +1517,7 @@
         "Kor Efret": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "EventFleetChanges": [
@@ -1727,10 +1686,16 @@
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
-        "Bounty (Disguised)": true
+        "Merchant": true
       }
     },
-    "governmentEvents": [],
+    "governmentEvents": [
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "_deprecated/unused": true
@@ -1739,7 +1704,7 @@
     "outfits": {
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Cargo Expansion": {
         "count": 2,
@@ -1767,15 +1732,15 @@
       },
       "Plunder Catapult": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Plunder Depot": {
         "count": 6,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Plunder Mine": {
         "count": 96,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Quad Blaster Turret": {
         "count": 2,
@@ -1795,7 +1760,7 @@
       },
       "Smuggler's Hideaway": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Tractor Beam": {
         "count": 1,
@@ -1940,16 +1905,13 @@
     ],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 1500)",
-          "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Cargo Expansion": {
         "count": 1,
@@ -1989,7 +1951,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Quad Blaster Turret": {
         "count": 3,
@@ -2135,15 +2097,12 @@
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Pirate": true,
-        "Pirate (Rivals)": true,
         "Independent": true,
         "Bounty": true,
         "Bounty (Disguised)": true
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
       "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
@@ -2157,30 +2116,6 @@
     ],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Alcyone\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Algenib\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Almaaz\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Almach\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Alnilam\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Alpherg\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Alpherg\" via event \"midnight independent fleet expansion\" (rate 3000)",
-          "Adds fleet in \"Antares\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Antares\" via event \"midnight independent fleet expansion\" (rate 1500)",
-          "Adds fleet in \"Arneb\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Belenos\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Belenos\" via event \"midnight independent fleet expansion\" (rate 3000)",
-          "Adds fleet in \"Citadelle\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Citadelle\" via event \"midnight independent fleet expansion\" (rate 3000)",
-          "Adds fleet in \"Gienah\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Men\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Men\" via event \"midnight independent fleet expansion\" (rate 600)",
-          "Adds fleet in \"Misam\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Nunki\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Nunki\" via event \"midnight independent fleet expansion\" (rate 1500)",
-          "Adds fleet in \"Shaula\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Shaula\" via event \"midnight independent fleet expansion\" (rate 3000)"
-        ],
         "Missions": [
           "Midnight Expansion: Bounty Hunting (Boarding, Stinger Missile)",
           "Midnight Expansion: Bounty Hunting (Smuggler, Disguised)",
@@ -2195,7 +2130,7 @@
     "outfits": {
       "Energy Cannon Turret": {
         "count": 3,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Tractor Beam": {
         "count": 1,
@@ -2203,15 +2138,15 @@
       },
       "Stinger Missile Launcher": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile": {
         "count": 120,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile Rack": {
         "count": 4,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Fission Reactor": {
         "count": 1,
@@ -2227,7 +2162,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Radiological Containment": {
         "count": 1,
@@ -2243,7 +2178,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -2380,8 +2315,6 @@
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -2391,19 +2324,6 @@
     ],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Alnasl\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
-          "Adds fleet in \"Alpha Arae\" via event \"midnight restore dirt belt pirates\" (rate 36000)",
-          "Adds fleet in \"Eber\" via event \"midnight restore dirt belt pirates\" (rate 8000)",
-          "Adds fleet in \"Fala\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
-          "Adds fleet in \"Gacrux\" via event \"midnight restore dirt belt pirates\" (rate 12000)",
-          "Adds fleet in \"Ipsing\" via event \"midnight restore dirt belt pirates\" (rate 12000)",
-          "Adds fleet in \"Minkar\" via event \"midnight restore dirt belt pirates\" (rate 48000)",
-          "Adds fleet in \"Mizar\" via event \"midnight restore dirt belt pirates\" (rate 24000)",
-          "Adds fleet in \"Mora\" via event \"midnight restore dirt belt pirates\" (rate 12000)",
-          "Adds fleet in \"Sargas\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
-          "Adds fleet in \"Wei\" via event \"midnight restore dirt belt pirates\" (rate 16000)"
-        ],
         "Missions": [
           "Midnight Expansion: FW Prisoner Parole Add On",
           "Midnight Expansion: Waste Disposal"
@@ -2417,7 +2337,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Fission Reactor": {
         "count": 1,
@@ -2433,11 +2353,11 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Quad Turbo Blaster Turret": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Radiological Containment": {
         "count": 1,
@@ -2449,15 +2369,15 @@
       },
       "Stinger Missile": {
         "count": 90,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile Launcher": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile Rack": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Tractor Beam": {
         "count": 1,
@@ -2599,8 +2519,6 @@
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -2612,11 +2530,8 @@
       "Midnight Expansion/Midnight-Expansion": {
         "EventFleetChanges": [
           "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
-          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
-          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
           "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
           "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
-          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
           "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
         ],
         "Missions": [
@@ -2640,15 +2555,15 @@
       },
       "Stinger Missile Launcher": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile": {
         "count": 90,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile Rack": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Fission Reactor": {
         "count": 1,
@@ -2660,7 +2575,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Radiological Containment": {
         "count": 1,
@@ -2672,7 +2587,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -2809,8 +2724,6 @@
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -2846,15 +2759,15 @@
       },
       "Stinger Missile Launcher": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile": {
         "count": 90,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile Rack": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Fission Reactor": {
         "count": 1,
@@ -2866,7 +2779,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Brig": {
         "count": 1,
@@ -2886,7 +2799,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -3023,8 +2936,6 @@
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -3036,17 +2947,15 @@
       "Midnight Expansion/Midnight-Expansion": {
         "EventFleetChanges": [
           "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 800)",
-          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 5000)",
           "Removes fleet in \"Ildaria\" via event \"remove pirates from Ildaria\"",
-          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
-          "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
         ]
       }
     },
     "outfits": {
       "Quad Mod Blaster Turret": {
         "count": 3,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Tractor Beam": {
         "count": 1,
@@ -3054,15 +2963,15 @@
       },
       "Stinger Missile Launcher": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile": {
         "count": 90,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile Rack": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Fission Reactor": {
         "count": 1,
@@ -3074,7 +2983,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Radiological Containment": {
         "count": 1,
@@ -3090,7 +2999,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -3227,8 +3136,6 @@
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -3240,11 +3147,8 @@
       "Midnight Expansion/Midnight-Expansion": {
         "EventFleetChanges": [
           "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
-          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
-          "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
           "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
           "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
-          "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
           "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
         ]
       }
@@ -3260,11 +3164,11 @@
       },
       "Stinger Missile Launcher": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile": {
         "count": 60,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Fission Reactor": {
         "count": 1,
@@ -3276,7 +3180,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Water Coolant System": {
         "count": 2,
@@ -3292,7 +3196,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -3429,8 +3333,6 @@
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -3459,15 +3361,15 @@
       },
       "Stinger Missile Launcher": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile": {
         "count": 90,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile Rack": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Fission Reactor": {
         "count": 1,
@@ -3479,7 +3381,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Water Coolant System": {
         "count": 2,
@@ -3495,7 +3397,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -3628,13 +3530,10 @@
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
-        "Pirate": true,
-        "Pirate (Rivals)": true
+        "Pirate": true
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -3645,33 +3544,16 @@
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "EventFleetChanges": [
-          "Adds fleet in \"Alcyone\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Algenib\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Almaaz\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Almach\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Alnilam\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Alpherg\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Antares\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Arneb\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Belenos\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Citadelle\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Gienah\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Men\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Misam\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Nunki\" via event \"midnight independent fleet expansion\" (rate 12000)",
           "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 800)",
-          "Adds fleet in \"Shaula\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 5000)",
           "Removes fleet in \"Ildaria\" via event \"remove pirates from Ildaria\"",
-          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
-          "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
         ]
       }
     },
     "outfits": {
       "Quad Mod Blaster Turret": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Modified Blaster Turret": {
         "count": 2,
@@ -3679,15 +3561,15 @@
       },
       "Stinger Missile": {
         "count": 44,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile Pod": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Stinger Missile Rack": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Fission Reactor": {
         "count": 1,
@@ -3699,7 +3581,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Large Radar Jammer": {
         "count": 1,
@@ -3719,7 +3601,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -3855,13 +3737,10 @@
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
         "Pirate": true,
-        "Pirate (Rivals)": true,
         "Bounty Hunter": true
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -3871,34 +3750,6 @@
     ],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Alcyone\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Algenib\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Almaaz\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Almach\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Alnasl\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
-          "Adds fleet in \"Alnilam\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Alpha Arae\" via event \"midnight restore dirt belt pirates\" (rate 36000)",
-          "Adds fleet in \"Alpherg\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Antares\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Arneb\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Belenos\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Citadelle\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Eber\" via event \"midnight restore dirt belt pirates\" (rate 8000)",
-          "Adds fleet in \"Fala\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
-          "Adds fleet in \"Gacrux\" via event \"midnight restore dirt belt pirates\" (rate 12000)",
-          "Adds fleet in \"Gienah\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Ipsing\" via event \"midnight restore dirt belt pirates\" (rate 12000)",
-          "Adds fleet in \"Men\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Minkar\" via event \"midnight restore dirt belt pirates\" (rate 48000)",
-          "Adds fleet in \"Misam\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Mizar\" via event \"midnight restore dirt belt pirates\" (rate 24000)",
-          "Adds fleet in \"Mora\" via event \"midnight restore dirt belt pirates\" (rate 12000)",
-          "Adds fleet in \"Nunki\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Sargas\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
-          "Adds fleet in \"Shaula\" via event \"midnight independent fleet expansion\" (rate 12000)",
-          "Adds fleet in \"Wei\" via event \"midnight restore dirt belt pirates\" (rate 16000)"
-        ],
         "Missions": [
           "Midnight Expansion: FW Prisoner Parole Add On",
           "Midnight Expansion: Rukh Blueprints",
@@ -3913,11 +3764,11 @@
     "outfits": {
       "Energy Cannon": {
         "count": 6,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Energy Cannon Turret": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Anti-Missile Turret": {
         "count": 1,
@@ -3937,7 +3788,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Large Radar Jammer": {
         "count": 1,
@@ -3961,7 +3812,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -4100,8 +3951,6 @@
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -4111,19 +3960,6 @@
     ],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Alnasl\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
-          "Adds fleet in \"Alpha Arae\" via event \"midnight restore dirt belt pirates\" (rate 36000)",
-          "Adds fleet in \"Eber\" via event \"midnight restore dirt belt pirates\" (rate 8000)",
-          "Adds fleet in \"Fala\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
-          "Adds fleet in \"Gacrux\" via event \"midnight restore dirt belt pirates\" (rate 12000)",
-          "Adds fleet in \"Ipsing\" via event \"midnight restore dirt belt pirates\" (rate 12000)",
-          "Adds fleet in \"Minkar\" via event \"midnight restore dirt belt pirates\" (rate 48000)",
-          "Adds fleet in \"Mizar\" via event \"midnight restore dirt belt pirates\" (rate 24000)",
-          "Adds fleet in \"Mora\" via event \"midnight restore dirt belt pirates\" (rate 12000)",
-          "Adds fleet in \"Sargas\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
-          "Adds fleet in \"Wei\" via event \"midnight restore dirt belt pirates\" (rate 16000)"
-        ],
         "Missions": [
           "Midnight Expansion: FW Prisoner Parole Add On"
         ]
@@ -4132,11 +3968,11 @@
     "outfits": {
       "Twin Turbo Blaster": {
         "count": 4,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Quad Turbo Blaster Turret": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Anti-Missile Turret": {
         "count": 1,
@@ -4164,7 +4000,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Liquid Nitrogen Cooler": {
         "count": 1,
@@ -4180,7 +4016,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -4319,8 +4155,6 @@
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -4338,11 +4172,11 @@
     "outfits": {
       "Turbo Blaster": {
         "count": 6,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Quad Turbo Blaster Turret": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Anti-Missile Turret": {
         "count": 1,
@@ -4362,7 +4196,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Liquid Nitrogen Cooler": {
         "count": 1,
@@ -4374,7 +4208,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Laser Rifle": {
         "count": 6,
@@ -4574,7 +4408,7 @@
       },
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -4709,43 +4543,20 @@
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
-        "Independent": true,
         "Pirate": true
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
-      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
-      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
       "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
       "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
-      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
-      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
-      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01"
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
     ],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Alcyone\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Algenib\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Almaaz\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Almach\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Alnilam\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Alpherg\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Antares\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Arneb\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Belenos\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Citadelle\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Gienah\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Men\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Misam\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Nunki\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Shaula\" via event \"midnight independent fleet expansion\" (rate 6000)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -4755,23 +4566,23 @@
       },
       "Quad Turbo Blaster Turret": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Inferno Rocket Launcher": {
         "count": 4,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Inferno Rocket Pod": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Inferno Rocket": {
         "count": 164,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Inferno Rocket Rack": {
         "count": 8,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Fission Reactor": {
         "count": 1,
@@ -4783,11 +4594,11 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Modified D67-TM Shielding": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Liquid Nitrogen Cooler": {
         "count": 1,
@@ -4803,7 +4614,7 @@
       },
       "Sniper Rifle": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -4938,43 +4749,20 @@
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
-        "Independent": true,
         "Pirate": true
       }
     },
     "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
-      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
-      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
       "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
       "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
       "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
       "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
-      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
-      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
-      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01"
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
     ],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Alcyone\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Algenib\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Almaaz\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Almach\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Alnilam\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Alpherg\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Antares\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Arneb\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Belenos\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Citadelle\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Gienah\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Men\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Misam\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Nunki\" via event \"midnight independent fleet expansion\" (rate 6000)",
-          "Adds fleet in \"Shaula\" via event \"midnight independent fleet expansion\" (rate 6000)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -5000,7 +4788,7 @@
       },
       "Modified D67-TM Shielding": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "D94-YV Shield Generator": {
         "count": 1,
@@ -5020,7 +4808,7 @@
       },
       "Sniper Rifle": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X3700 Ion Thruster": {
         "count": 1,
@@ -5151,8 +4939,8 @@
     "baseShip": "Water Scorpion",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "Hai (Friendly Unfettered)": true
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
       }
     },
     "governmentEvents": [],
@@ -5164,7 +4952,7 @@
     "outfits": {
       "Heavy Pulse Cannon": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Cannon": {
         "count": 4,
@@ -5339,8 +5127,8 @@
     "baseShip": "Water Scorpion",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "Hai (Friendly Unfettered)": true
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
       }
     },
     "governmentEvents": [],
@@ -5535,24 +5323,14 @@
     "baseShip": "Water Scorpion",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "Hai (Friendly Unfettered)": true,
-        "Hai (Unfettered)": true
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Ehmahai\" via event \"Completed Journey to the Southwest\" (rate 6000)",
-          "Adds fleet in \"Ehmahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 3000)",
-          "Adds fleet in \"Heiahai\" via event \"It came from the desert...\" (rate 3000)",
-          "Adds fleet in \"Heiahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 6000)",
-          "Adds fleet in \"Zubahai\" via event \"It came from the desert...\" (rate 3000)",
-          "Adds fleet in \"Zubahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 6000)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -5602,7 +5380,7 @@
       },
       "Modified Hyperdrive (Hai)": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pebble Core": {
         "count": 1,
@@ -5831,7 +5609,7 @@
       },
       "Systems Core (Huge)": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Systems Core (Medium)": {
         "count": 1,
@@ -5847,7 +5625,7 @@
       },
       "Korath Scanner": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Fuel Refiner": {
         "count": 1,
@@ -5863,7 +5641,7 @@
       },
       "Medical Bay": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Afterburner (Comet Class)": {
         "count": 1,
@@ -5996,21 +5774,14 @@
     "baseShip": "Anomalocaris",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "Hai (Friendly Unfettered)": true
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
       }
     },
     "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Ehmahai\" via event \"Completed Journey to the Southwest\" (rate 6000)",
-          "Adds fleet in \"Ehmahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 3000)",
-          "Adds fleet in \"Heiahai\" via event \"It came from the desert...\" (rate 3000)",
-          "Adds fleet in \"Heiahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 6000)",
-          "Adds fleet in \"Zubahai\" via event \"It came from the desert...\" (rate 3000)",
-          "Adds fleet in \"Zubahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 6000)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -6044,7 +5815,7 @@
       },
       "Modified Hyperdrive (Hai)": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Rifle": {
         "count": 20,
@@ -6163,21 +5934,15 @@
     "baseShip": "Cicada",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "Hai (Friendly Unfettered)": true
+      "official-game/endless-sky": {
+        "Hai Merchant": true,
+        "Hai Merchant (Sympathizers)": true
       }
     },
     "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Ehmahai\" via event \"Completed Journey to the Southwest\" (rate 6000)",
-          "Adds fleet in \"Ehmahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 3000)",
-          "Adds fleet in \"Heiahai\" via event \"It came from the desert...\" (rate 3000)",
-          "Adds fleet in \"Heiahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 6000)",
-          "Adds fleet in \"Zubahai\" via event \"It came from the desert...\" (rate 3000)",
-          "Adds fleet in \"Zubahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 6000)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -6219,7 +5984,7 @@
       },
       "Modified Hyperdrive (Hai)": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Shock Wave Blaster Turret": {
         "count": 2,
@@ -6329,21 +6094,14 @@
     "baseShip": "Ladybug",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "Hai (Friendly Unfettered)": true
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
       }
     },
     "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Ehmahai\" via event \"Completed Journey to the Southwest\" (rate 6000)",
-          "Adds fleet in \"Ehmahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 3000)",
-          "Adds fleet in \"Heiahai\" via event \"It came from the desert...\" (rate 3000)",
-          "Adds fleet in \"Heiahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 6000)",
-          "Adds fleet in \"Zubahai\" via event \"It came from the desert...\" (rate 3000)",
-          "Adds fleet in \"Zubahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 6000)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -6389,7 +6147,7 @@
       },
       "Modified Nugget Finder": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Rifle": {
         "count": 7,
@@ -6501,14 +6259,10 @@
         "Hai (Unfettered)": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Mah Duum\" via event \"midnight bloodstone portal\" (rate 4800)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -6550,7 +6304,7 @@
       },
       "Ion Flash Bang": {
         "count": 3,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "\"Biri Biri\" Afterburner": {
         "count": 1,
@@ -6658,14 +6412,10 @@
         "Hai (Unfettered)": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Mah Duum\" via event \"midnight bloodstone portal\" (rate 4800)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -6715,7 +6465,7 @@
       },
       "Ion Flash Bang": {
         "count": 3,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Quantum Keystone": {
         "count": 1,
@@ -6834,9 +6584,7 @@
         "Hai (Unfettered)": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "_deprecated/unused": true
@@ -6865,7 +6613,7 @@
       },
       "Dual Pulse Pistols": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Corundum Regenerator": {
         "count": 1,
@@ -6873,11 +6621,11 @@
       },
       "Hai Heliotrope Regenerator": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Mistral Cooling": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Octopus Jammer": {
         "count": 1,
@@ -6889,15 +6637,15 @@
       },
       "Ion Flash Bang": {
         "count": 7,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Repeater": {
         "count": 4,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Repeater Turret": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Rifle": {
         "count": 15,
@@ -7012,9 +6760,7 @@
         "Hai (Unfettered)": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "_deprecated/unused": true
@@ -7043,7 +6789,7 @@
       },
       "Dual Pulse Pistols": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Corundum Regenerator": {
         "count": 1,
@@ -7051,11 +6797,11 @@
       },
       "Hai Heliotrope Regenerator": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Mistral Cooling": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Octopus Jammer": {
         "count": 1,
@@ -7067,7 +6813,7 @@
       },
       "Ion Flash Bang": {
         "count": 7,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Cannon": {
         "count": 4,
@@ -7190,14 +6936,10 @@
         "Hai (Unfettered)": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Mah Duum\" via event \"midnight bloodstone portal\" (rate 4800)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -7406,18 +7148,65 @@
     "baseShip": "Shield Beetle",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "Hai (Unfettered Civilians)": true
+      "official-game/endless-sky": {
+        "Hai": true,
+        "Hai Merchant": true,
+        "Hai Merchant (Sympathizers)": true,
+        "Hai Merchant (Human)": true,
+        "Hai (Unfettered)": true,
+        "Merchant": true
+      },
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Hai (Unfettered)": true
+      },
+      "Better Vanilla Hai/BetterVanillaHai": {
+        "Free Worlds": true,
+        "Pirate": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Hai Merchant": true,
+        "Hai Merchant (Sympathizers)": true,
+        "Hai (Unfettered)": true,
+        "Hai Merchant (Human)": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true,
+        "Hai": true
+      },
+      "Capitalis Major/Capitalis-Major": {
+        "Bounty Hunter": true
       }
     },
-    "governmentEvents": [],
+    "governmentEvents": [
+      "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Ehma Ti\" via event \"unfettered weapon collectors\" (rate 20000)",
-          "Adds fleet in \"Hi Yahr\" via event \"unfettered weapon collectors\" (rate 20000)",
-          "Adds fleet in \"Wah Yoot\" via event \"unfettered weapon collectors\" (rate 20000)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -7443,7 +7232,7 @@
       },
       "Dual Pulse Pistols": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Enforcer Confrontation Gear": {
         "count": 1,
@@ -7463,7 +7252,7 @@
       },
       "Hai Mistral Cooling": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Octopus Jammer": {
         "count": 2,
@@ -7487,7 +7276,7 @@
       },
       "Ion Flash Bang": {
         "count": 13,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Laser Rifle": {
         "count": 1,
@@ -7495,7 +7284,7 @@
       },
       "Phantom Tracker (Turret)": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Rifle": {
         "count": 27,
@@ -7511,7 +7300,7 @@
       },
       "Tuning Rifle": {
         "count": 1,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Value Detector": {
         "count": 2,
@@ -7658,22 +7447,10 @@
         "Hai (Unfettered)": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
-          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
-          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
-          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
-          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
-          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
-          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
-          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
-          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -7715,7 +7492,7 @@
       },
       "Ion Flash Bang": {
         "count": 27,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "\"Biri Biri\" Afterburner": {
         "count": 1,
@@ -7874,16 +7651,10 @@
         "Hai (Unfettered)": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Removes fleet in \"Chy'chra\" via event \"wanderer / unfettered peace\"",
-          "Removes fleet in \"Ehma Ti\" via event \"wanderer / unfettered peace\"",
-          "Removes fleet in \"Prakacha'a\" via event \"wanderer / unfettered peace\""
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -7909,7 +7680,7 @@
       },
       "Dual Pulse Pistols": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Geode Reactor": {
         "count": 1,
@@ -7921,11 +7692,11 @@
       },
       "Hai Heliotrope Regenerator": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Mistral Cooling": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Octopus Jammer": {
         "count": 2,
@@ -7945,7 +7716,7 @@
       },
       "Ion Flash Bang": {
         "count": 27,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Jump Drive": {
         "count": 1,
@@ -7953,11 +7724,11 @@
       },
       "Pulse Repeater": {
         "count": 6,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Repeater Turret": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Rifle": {
         "count": 55,
@@ -8104,22 +7875,10 @@
         "Hai (Unfettered)": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
-          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
-          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
-          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
-          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
-          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
-          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
-          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
-          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -8145,7 +7904,7 @@
       },
       "Dual Pulse Pistols": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Geode Reactor": {
         "count": 1,
@@ -8157,11 +7916,11 @@
       },
       "Hai Heliotrope Regenerator": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Mistral Cooling": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Octopus Jammer": {
         "count": 2,
@@ -8181,15 +7940,15 @@
       },
       "Ion Flash Bang": {
         "count": 27,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Repeater": {
         "count": 6,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Repeater Turret": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Rifle": {
         "count": 55,
@@ -8333,32 +8092,13 @@
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
-        "Hai (Friendly Unfettered)": true,
         "Hai (Unfettered)": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
-          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
-          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
-          "Adds fleet in \"Ehmahai\" via event \"Completed Journey to the Southwest\" (rate 6000)",
-          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
-          "Adds fleet in \"Ehmahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 3000)",
-          "Adds fleet in \"Heiahai\" via event \"It came from the desert...\" (rate 3000)",
-          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
-          "Adds fleet in \"Heiahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 6000)",
-          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
-          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
-          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
-          "Adds fleet in \"Zubahai\" via event \"It came from the desert...\" (rate 3000)",
-          "Adds fleet in \"Zubahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 6000)",
-          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -8388,11 +8128,11 @@
       },
       "Hai Heliotrope Regenerator": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Mistral Cooling": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Octopus Jammer": {
         "count": 3,
@@ -8568,20 +8308,13 @@
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
-        "Hai (Friendly Unfettered)": true,
         "Hai (Unfettered)": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Removes fleet in \"Chy'chra\" via event \"wanderer / unfettered peace\"",
-          "Removes fleet in \"Ehma Ti\" via event \"wanderer / unfettered peace\"",
-          "Removes fleet in \"Prakacha'a\" via event \"wanderer / unfettered peace\""
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -8795,32 +8528,13 @@
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
-        "Hai (Friendly Unfettered)": true,
         "Hai (Unfettered)": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
-          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
-          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
-          "Adds fleet in \"Ehmahai\" via event \"Completed Journey to the Southwest\" (rate 6000)",
-          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
-          "Adds fleet in \"Ehmahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 3000)",
-          "Adds fleet in \"Heiahai\" via event \"It came from the desert...\" (rate 3000)",
-          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
-          "Adds fleet in \"Heiahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 6000)",
-          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
-          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
-          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
-          "Adds fleet in \"Zubahai\" via event \"It came from the desert...\" (rate 3000)",
-          "Adds fleet in \"Zubahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 6000)",
-          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -9034,32 +8748,13 @@
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
-        "Hai (Friendly Unfettered)": true,
         "Hai (Unfettered)": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
-          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
-          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
-          "Adds fleet in \"Ehmahai\" via event \"Completed Journey to the Southwest\" (rate 6000)",
-          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
-          "Adds fleet in \"Ehmahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 3000)",
-          "Adds fleet in \"Heiahai\" via event \"It came from the desert...\" (rate 3000)",
-          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
-          "Adds fleet in \"Heiahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 6000)",
-          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
-          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
-          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
-          "Adds fleet in \"Zubahai\" via event \"It came from the desert...\" (rate 3000)",
-          "Adds fleet in \"Zubahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 6000)",
-          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -9093,7 +8788,7 @@
       },
       "Hai Mistral Cooling": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Octopus Jammer": {
         "count": 3,
@@ -9322,22 +9017,10 @@
         "Hai (Unfettered)": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
-          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
-          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
-          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
-          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
-          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
-          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
-          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
-          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -9371,11 +9054,11 @@
       },
       "Hai Heliotrope Regenerator": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Mistral Cooling": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Hai Tracker": {
         "count": 112,
@@ -9480,22 +9163,10 @@
         "Hai (Unfettered)": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
-          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
-          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
-          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
-          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
-          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
-          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
-          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
-          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -9624,21 +9295,33 @@
     "baseShip": "Water Bug",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
-      "Midnight Expansion/Midnight-Expansion": {
-        "Hai (Friendly Unfettered)": true
+      "official-game/endless-sky": {
+        "Hai": true,
+        "Hai Merchant": true,
+        "Hai Merchant (Sympathizers)": true,
+        "Hai Merchant (Human)": true,
+        "Merchant": true
+      },
+      "Better Vanilla Hai/BetterVanillaHai": {
+        "Merchant": true
+      },
+      "Rumskib/rumskib": {
+        "Hai": true
+      },
+      "Capitalis Major/Capitalis-Major": {
+        "Bounty Hunter": true
       }
     },
-    "governmentEvents": [],
+    "governmentEvents": [
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Ehmahai\" via event \"Completed Journey to the Southwest\" (rate 6000)",
-          "Adds fleet in \"Ehmahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 3000)",
-          "Adds fleet in \"Heiahai\" via event \"It came from the desert...\" (rate 3000)",
-          "Adds fleet in \"Heiahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 6000)",
-          "Adds fleet in \"Zubahai\" via event \"It came from the desert...\" (rate 3000)",
-          "Adds fleet in \"Zubahai\" via event \"Unfettered Expand in Ancestral Lands\" (rate 6000)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -9676,7 +9359,7 @@
       },
       "Ion Flash Bang": {
         "count": 4,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Pulse Rifle": {
         "count": 2,
@@ -9806,14 +9489,10 @@
         "Kor Efret": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -9966,14 +9645,10 @@
         "Kor Efret": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -10148,14 +9823,10 @@
         "Kor Efret": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -10350,14 +10021,10 @@
         "Kor Efret": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -10540,14 +10207,10 @@
         "Kor Efret": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -10730,14 +10393,10 @@
         "Kor Efret": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)"
-        ]
+        "_deprecated/unused": true
       }
     },
     "outfits": {
@@ -10905,8 +10564,6 @@
     },
     "governmentEvents": [
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
-      "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
-      "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
       "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1"
     ],
     "locations": {
@@ -10939,7 +10596,7 @@
       },
       "Korath Scanner": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Thermal Repeater Rifle": {
         "count": 98,
@@ -11075,8 +10732,6 @@
     },
     "governmentEvents": [
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
-      "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
-      "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
       "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1"
     ],
     "locations": {
@@ -11130,7 +10785,7 @@
       },
       "Korath Scanner": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Thermal Repeater Rifle": {
         "count": 98,
@@ -11264,8 +10919,6 @@
     },
     "governmentEvents": [
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
-      "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
-      "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
       "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1"
     ],
     "locations": {
@@ -11315,7 +10968,7 @@
       },
       "Korath Scanner": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Thermal Repeater Rifle": {
         "count": 36,
@@ -11851,30 +11504,9 @@
     "governments": {
       "official-game/endless-sky": {
         "Korath (Civilian)": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Korath (Civilian)": true
-      },
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
       }
     },
-    "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
-      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
-      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
-      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
-      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
-      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "_deprecated/unused": true
@@ -11891,7 +11523,7 @@
       },
       "Botanical Garden": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Cargo Expansion": {
         "count": 1,
@@ -11927,7 +11559,7 @@
       },
       "Korath Scanner": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Langrage Hyper-Heaver": {
         "count": 3,
@@ -11943,7 +11575,7 @@
       },
       "Microbot Fabricator": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Reverser (Stellar Class)": {
         "count": 1,
@@ -11955,7 +11587,7 @@
       },
       "Shock-Strike Turret": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Steering (Planetary Class)": {
         "count": 1,
@@ -11967,7 +11599,7 @@
       },
       "Systems Core (Huge)": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Thermal Repeater Rifle": {
         "count": 1982,
@@ -12112,26 +11744,11 @@
     "baseShip": "Korath World-Ship",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
       }
     },
-    "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
-      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
-      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
-      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
-      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
-      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "_deprecated/unused": true
@@ -12305,26 +11922,11 @@
     "baseShip": "Korath World-Ship",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
       }
     },
-    "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
-      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
-      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
-      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
-      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
-      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "_deprecated/unused": true
@@ -12498,26 +12100,11 @@
     "baseShip": "Korath World-Ship",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
-      "POOT/poot-senza-solaria": {
-        "Syndicate": true
-      },
-      "POOT/endless_sky_senza_solaria": {
-        "Syndicate": true
+      "Midnight-Expansion": {
+        "Midnight-Expansion": true
       }
     },
-    "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
-      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
-      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
-      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
-      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
-      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "_deprecated/unused": true
@@ -12703,7 +12290,7 @@
     "description": "The Avialae is an early example of Remnant ship development. Its design function still has traces of principles from ancestral human space. As they acclimated to life in the Ember Wastes many Prefects determined that mass production of big Utility ships was a waste of resources. Instead they chose to focus on filling their fleets with smaller, more specialized, models.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Avialae",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "c818bfe38446",
+    "_hash": "c8b2fb8575a7",
     "variant": "Avialae (Disarmed)",
     "baseShip": "Avialae",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
@@ -12723,27 +12310,27 @@
     "outfits": {
       "Aeon Cell": {
         "count": 1,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Crystal Capacitor": {
         "count": 1,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Quantum Key Stone": {
         "count": 1,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Smelter-Class Steering": {
         "count": 1,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Smelter-Class Thruster": {
         "count": 1,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Thermoelectric Cooler": {
         "count": 3,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       }
     }
   },
@@ -12840,9 +12427,7 @@
         "Kor Sestor": true
       }
     },
-    "governmentEvents": [
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "Missions": [
@@ -13237,8 +12822,6 @@
     },
     "governmentEvents": [
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
-      "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
-      "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
       "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1"
     ],
     "locations": {
@@ -13295,7 +12878,7 @@
       },
       "Korath Scanner": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Langrage Hyper-Heaver": {
         "count": 1,
@@ -13311,19 +12894,19 @@
       },
       "Magnetic Mine": {
         "count": 520,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Magnetic Mine Deployer": {
         "count": 10,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Magnetic Mine Rack": {
         "count": 10,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Magnetic Mine Depot": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Microbot Defense Station": {
         "count": 105,
@@ -13347,7 +12930,7 @@
       },
       "Shock-Strike Turret": {
         "count": 6,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Steering (Lunar Class)": {
         "count": 1,
@@ -13359,7 +12942,7 @@
       },
       "Systems Core (Huge)": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Systems Core (Large)": {
         "count": 1,
@@ -13737,9 +13320,7 @@
         "Kor Efret": true
       }
     },
-    "governmentEvents": [
-      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Midnight Expansion/Midnight-Expansion": {
         "Missions": [
@@ -13798,7 +13379,7 @@
       },
       "Korath Scanner": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Langrage Hyper-Heaver": {
         "count": 1,
@@ -13838,7 +13419,7 @@
       },
       "Systems Core (Huge)": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Systems Core (Large)": {
         "count": 1,
@@ -13854,11 +13435,11 @@
       },
       "Thermal Scorcher": {
         "count": 6,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Thermal Scorcher Turret": {
         "count": 6,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Thruster (Lunar Class)": {
         "count": 1,
@@ -14002,15 +13583,15 @@
     "outfits": {
       "Antique Rifle": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Energy Cannon": {
         "count": 2,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Energy Cannon Turret": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "Heavy Anti-Missile Turret": {
         "count": 1,
@@ -14046,7 +13627,7 @@
       },
       "Modified D41-HY Shielding": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "RT-I Radiothermal": {
         "count": 1,
@@ -14058,7 +13639,7 @@
       },
       "Smuggler's Hideaway": {
         "count": 1,
-        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+        "pluginId": null
       },
       "X1100 Ion Reverse Thruster": {
         "count": 1,
@@ -14187,13 +13768,14 @@
     "description": "Shortly after development of the Starling, Remnant ship crafters attempted to apply the design principles they learned towards a medium warship. The Magpie was one functional result of this endeavor. \tThere was an unforeseen problem with trying to apply the alien cloaking technology they had access to with a bigger ship: a noticeable increase in consumption of energy and fuel. Until the shipyards solve this problem, larger ships with cloaking will remain a rare sight in Remnant fleets. \tThe cloaking technology is built into the Magpie's hull; it cannot be removed or transferred to another ship.",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Magpie",
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
-    "_hash": "059abd521648",
+    "_hash": "877f6115530e",
     "variant": "Magpie (Grave Digger)",
     "baseShip": "Magpie",
     "_variantPluginId": "Midnight Expansion/Midnight-Expansion",
     "governments": {
       "Midnight Expansion/Midnight-Expansion": {
-        "Grave Diggers": true
+        "Grave Diggers": true,
+        "Remnant": true
       }
     },
     "governmentEvents": [],
@@ -14208,7 +13790,7 @@
     "outfits": {
       "Emergency Ramscoop": {
         "count": 1,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Jump Drive": {
         "count": 1,
@@ -14248,19 +13830,19 @@
       },
       "Quantum Key Stone": {
         "count": 1,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Salvage Scanner": {
         "count": 1,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Thermoelectric Cooler": {
         "count": 1,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       },
       "Tuning Rifle": {
         "count": 32,
-        "pluginId": "official-game/endless-sky"
+        "pluginId": null
       }
     }
   }

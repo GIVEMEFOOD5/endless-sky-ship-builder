@@ -2873,8 +2873,6 @@
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
@@ -2891,13 +2889,8 @@
         "Tugderic's Addons/Tugderics-Addons": {
           "EventFleetChanges": [
             "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
-            "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
-            "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 800)",
-            "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
             "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
             "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
-            "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
-            "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
             "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
           ]
         }
@@ -3077,8 +3070,6 @@
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
@@ -3095,13 +3086,8 @@
         "Tugderic's Addons/Tugderics-Addons": {
           "EventFleetChanges": [
             "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
-            "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
-            "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 800)",
-            "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
             "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
             "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
-            "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
-            "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
             "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
           ]
         }
@@ -4386,8 +4372,6 @@
       },
       "governmentEvents": [
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
-        "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
-        "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
         "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1"
       ],
       "locations": {
@@ -5514,8 +5498,6 @@
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
         "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -5672,8 +5654,6 @@
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
         "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -6576,148 +6556,19 @@
     },
     {
       "name": "Albatross (Pulsar Cell)",
-      "engines": [
-        {
-          "x": -28,
-          "y": 155,
-          "zoom": 0.8
-        },
-        {
-          "x": 28,
-          "y": 155,
-          "zoom": 0.8
-        },
-        {
-          "x": 0,
-          "y": 184,
-          "zoom": 0.9
-        }
-      ],
+      "engines": [],
       "reverseEngines": [],
       "steeringEngines": [],
-      "guns": [
-        {
-          "x": 0,
-          "y": -190,
-          "gun": ""
-        },
-        {
-          "x": -9,
-          "y": -177,
-          "gun": "Inhibitor Cannon"
-        },
-        {
-          "x": 9,
-          "y": -177,
-          "gun": "Inhibitor Cannon"
-        },
-        {
-          "x": -14,
-          "y": -162,
-          "gun": "Inhibitor Cannon"
-        },
-        {
-          "x": 14,
-          "y": -162,
-          "gun": "Inhibitor Cannon"
-        },
-        {
-          "x": -18,
-          "y": -144,
-          "gun": "Inhibitor Cannon"
-        },
-        {
-          "x": 18,
-          "y": -144,
-          "gun": "Inhibitor Cannon"
-        }
-      ],
-      "turrets": [
-        {
-          "x": -23,
-          "y": -34,
-          "turret": "Thrasher Turret"
-        },
-        {
-          "x": 23,
-          "y": -34,
-          "turret": "Thrasher Turret"
-        },
-        {
-          "x": -74,
-          "y": 62,
-          "turret": ""
-        },
-        {
-          "x": 74,
-          "y": 62,
-          "turret": ""
-        },
-        {
-          "x": 0,
-          "y": 77,
-          "turret": "Point Defense Turret"
-        }
-      ],
+      "guns": [],
+      "turrets": [],
       "bays": [],
-      "leaks": [
-        {
-          "effect": "remnant leak",
-          "openChance": 30,
-          "spreadChance": 10
-        },
-        {
-          "effect": "remnant leak sparkle",
-          "openChance": 30,
-          "spreadChance": 10
-        }
-      ],
-      "plural": "Albatrosses",
-      "sprite": "ship/albatross",
-      "thumbnail": "thumbnail/albatross",
-      "administrative cost": 7,
+      "leaks": [],
       "attributes": {
-        "category": "Heavy Warship",
-        "licenses": {
-          "Remnant Capital": true
-        },
-        "cost": 20250000,
-        "shields": 34200,
-        "hull": 12600,
-        "required crew": 44,
-        "bunks": 75,
-        "cargo space": 124,
-        "mass": 1443,
-        "drag": 14.2,
-        "heat dissipation": 0.37,
-        "fuel capacity": 600,
-        "ramscoop": 2.75,
-        "outfit space": 672,
-        "weapon capacity": 236,
-        "engine capacity": 142,
-        "shield generation": 5.2,
-        "shield energy": 4.6,
-        "hull repair rate": 1.5,
-        "hull energy": 1.2,
-        "outfit scan power": 18,
-        "outfit scan efficiency": 24,
-        "tactical scan power": 39,
-        "weapon": {
-          "blast radius": 360,
-          "shield damage": 3600,
-          "hull damage": 1800,
-          "hit force": 5400
-        }
+        "required crew": 1
       },
-      "small explosion": 30,
-      "medium explosion": 60,
-      "large explosion": 40,
-      "huge explosion": 10,
-      "final explode": "final explosion large",
-      "description": "Once they left human space, it became apparent to the Remnant that they would need to build their own shipyards in order to defend themselves if they were discovered by the Alphas or any other unfriendly faction. Using new composite materials that they discovered, they built ships very different from anything seen in human space.",
-      "_internalId": "official-game/endless-sky::Albatross",
-      "_pluginId": "official-game/endless-sky",
-      "_hash": "4452d3566eb3",
+      "_internalId": "Nova1422s list/1requiredcrew::Albatross",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
       "variant": "Albatross (Pulsar Cell)",
       "baseShip": "Albatross",
       "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
@@ -6737,11 +6588,11 @@
       "outfits": {
         "Crystal Capacitor": {
           "count": 1,
-          "pluginId": "official-game/endless-sky"
+          "pluginId": null
         },
         "Inhibitor Cannon": {
           "count": 6,
-          "pluginId": "official-game/endless-sky"
+          "pluginId": null
         },
         "Jump Drive": {
           "count": 1,
@@ -6753,7 +6604,7 @@
         },
         "Point Defense Turret": {
           "count": 1,
-          "pluginId": "official-game/endless-sky"
+          "pluginId": null
         },
         "Pulsar Cell": {
           "count": 1,
@@ -6761,15 +6612,15 @@
         },
         "Quantum Key Stone": {
           "count": 1,
-          "pluginId": "official-game/endless-sky"
+          "pluginId": null
         },
         "Smelter-Class Steering": {
           "count": 1,
-          "pluginId": "official-game/endless-sky"
+          "pluginId": null
         },
         "Smelter-Class Thruster": {
           "count": 1,
-          "pluginId": "official-game/endless-sky"
+          "pluginId": null
         },
         "Systems Core (Small)": {
           "count": 1,
@@ -6777,15 +6628,15 @@
         },
         "Thrasher Turret": {
           "count": 2,
-          "pluginId": "official-game/endless-sky"
+          "pluginId": null
         },
         "Tuning Rifle": {
           "count": 45,
-          "pluginId": "official-game/endless-sky"
+          "pluginId": null
         },
         "Void Rifle": {
           "count": 1,
-          "pluginId": "official-game/endless-sky"
+          "pluginId": null
         }
       }
     },
@@ -6904,8 +6755,6 @@
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
         "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -7084,8 +6933,6 @@
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
         "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -7266,8 +7113,6 @@
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
         "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -7448,8 +7293,6 @@
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
         "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -7638,8 +7481,6 @@
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
         "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -7794,31 +7635,9 @@
       "governments": {
         "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
           "Hai (Unfettered)": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Hai (Unfettered)": true
-        },
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
         }
       },
-      "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
-        "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
-        "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
-        "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
-        "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
-        "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-        "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
-        "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
-        "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-        "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-        "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
-        "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
-      ],
+      "governmentEvents": [],
       "locations": {
         "Tugderic's Addons/Tugderics-Addons": {
           "_deprecated/unused": true
@@ -8554,146 +8373,30 @@
           "launch effect": "human internal"
         }
       ],
-      "leaks": [
-        {
-          "effect": "leak",
-          "openChance": 30,
-          "spreadChance": 50
-        },
-        {
-          "effect": "flame",
-          "openChance": 30,
-          "spreadChance": 80
-        },
-        {
-          "effect": "big leak",
-          "openChance": 50,
-          "spreadChance": 30
-        }
-      ],
-      "plural": "Modified Dromedaries",
-      "sprite": "ship/modified dromedary",
-      "thumbnail": "thumbnail/modified dromedary",
-      "administrative cost": 7,
+      "leaks": [],
       "attributes": {
-        "licenses": {
-          "Remnant Capital": true
-        },
-        "category": "Utility",
-        "cost": 57600000,
-        "shields": 15100,
-        "hull": 9600,
-        "required crew": 95,
-        "bunks": 300,
-        "mass": 2366,
-        "drag": 28.7,
-        "heat dissipation": 0.22,
-        "fuel capacity": 900,
-        "cargo space": 550,
-        "outfit space": 740,
-        "weapon capacity": 270,
-        "engine capacity": 195,
-        "solar collection": 1.1,
-        "outfit scan power": 18,
-        "outfit scan efficiency": 48,
-        "tactical scan power": 39,
-        "asteroid scan power": 42,
-        "atmosphere scan": 100,
-        "weapon": {
-          "blast radius": 260,
-          "shield damage": 2600,
-          "hull damage": 1300,
-          "hit force": 3900
-        }
+        "required crew": 1
       },
-      "small explosion": 25,
-      "medium explosion": 35,
-      "large explosion": 45,
-      "huge explosion": 30,
-      "final explode": "final explosion large",
-      "description": "The Tycho Crater Cooperative's Dromedary was one of the foremost colonization ships during the early era before piracy became rampant and triggered the necessity for city-ships to be more combat-oriented. These ships incorporate extensive hydroponics, large construction equipment installations, and hundreds of densely packed \"dream cells\" built to transport people in bulk. \tSince the Remnant do not have schematics for the Dromedary, just the highly-modified example of the Shattered Light, this ship is actually a commemorative replica of that specific ship. As such, it combines the original's odd mix of eclectic modifications with new Remnant systems. \tUnfortunately, since they lack the manufacturing facilities that would normally support a large construction project, it will cost massively more than it would have originally back on Luna.",
-      "_internalId": "official-game/endless-sky::Modified Dromedary",
-      "_pluginId": "official-game/endless-sky",
-      "_hash": "eeeef7c251ee",
+      "_internalId": "Nova1422s list/1requiredcrew::Modified Dromedary",
+      "_pluginId": "Nova1422s list/1requiredcrew",
+      "_hash": "5267fa0abcbe",
       "variant": "Dromedary",
       "baseShip": "Modified Dromedary",
       "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
+      "sprite": "ship/modified dromedary",
+      "thumbnail": "thumbnail/modified dromedary",
       "governments": {
-        "POOT/poot-senza-solaria": {
-          "Syndicate": true
-        },
-        "POOT/endless_sky_senza_solaria": {
-          "Syndicate": true
+        "Tugderics-Addons": {
+          "Tugderics-Addons": true
         }
       },
-      "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
-        "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
-        "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
-        "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
-        "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
-        "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-        "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
-        "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
-        "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-        "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-        "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
-      ],
+      "governmentEvents": [],
       "locations": {
         "Tugderic's Addons/Tugderics-Addons": {
           "_deprecated/unused": true
         }
       },
-      "outfits": {
-        "Thrasher Turret": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Point Defense Turret": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Aeon Cell": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Crystal Capacitor": {
-          "count": 2,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Thermoelectric Cooler": {
-          "count": 3,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Quantum Key Stone": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Salvage Scanner": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Tuning Rifle": {
-          "count": 95,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Smelter-Class Thruster": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Smelter-Class Steering": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Hyperdrive": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        },
-        "Scram Drive": {
-          "count": 1,
-          "pluginId": "official-game/endless-sky"
-        }
-      }
+      "outfits": {}
     },
     {
       "name": "Gunboat (Energy Cannon)",
@@ -8789,7 +8492,6 @@
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
         "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
         "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
         "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
@@ -8818,18 +8520,9 @@
           "EventFleetChanges": [
             "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 15000)",
             "Adds fleet in \"Arneb\" via event \"battle in arneb\" (rate 10000)",
-            "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 30000)",
-            "Adds fleet in \"Eteron\" via event \"titania station construction a\" (rate 6000)",
-            "Adds fleet in \"Eteron\" via event \"titania station construction b\" (rate 12000)",
-            "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 2000)",
-            "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 800)",
             "Adds fleet in \"Wei\" via event \"normal in Alnasl\" (rate 700)",
             "Removes fleet in \"Arneb\" via event \"battle in arneb end\"",
             "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
-            "Removes fleet in \"Eteron\" via event \"titania station construction a\"",
-            "Removes fleet in \"Eteron\" via event \"titania station construction b\"",
-            "Removes fleet in \"Eteron\" via event \"titania station construction d\"",
-            "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
             "Removes fleet in \"Wei\" via event \"gunboats in Alnasl\""
           ]
         }
@@ -8991,8 +8684,6 @@
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
         "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -9004,11 +8695,8 @@
         "Tugderic's Addons/Tugderics-Addons": {
           "EventFleetChanges": [
             "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
-            "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
-            "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
             "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
             "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
-            "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
             "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
           ]
         }
@@ -9165,8 +8853,6 @@
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
         "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
@@ -9178,11 +8864,8 @@
         "Tugderic's Addons/Tugderics-Addons": {
           "EventFleetChanges": [
             "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
-            "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
-            "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
             "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
             "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
-            "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
             "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
           ]
         }
@@ -9241,17 +8924,12 @@
       "heat generation": 12,
       "description": "This systems core runs way hotter than it should.",
       "governments": {
-        "official-game/endless-sky": {
-          "Korath": true
-        },
         "Tugderic's Addons/Tugderics-Addons": {
           "Korath": true
         }
       },
       "governmentEvents": [
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
-        "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
-        "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
         "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1"
       ],
       "locations": {
@@ -9283,10 +8961,6 @@
           "Remnant": true
         },
         "Tugderic's Addons/Tugderics-Addons": {
-          "Remnant": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Storm Seekers": true,
           "Remnant": true
         }
       },
@@ -9333,35 +9007,16 @@
           "Bounty": true,
           "The Assembly": true
         },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Bounty": true,
-          "Pirate": true,
-          "Oathbreaker": true,
-          "Pirate (Rivals)": true,
-          "Merchant": true,
-          "Bounty Hunter": true,
-          "Republic": true
-        },
         "Rumskib/rumskib": {
           "Pirate": true
-        },
-        "SpaceCrate/SpaceCrate": {
-          "SpaceCrate": true
         },
         "Mega Freight/Mega-Freight": {
           "Independent": true
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
         "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
         "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
         "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
         "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
@@ -9445,13 +9100,6 @@
           "Pirate": true,
           "Bounty": true
         },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Merchant (Hostile)": true,
-          "Merchant": true,
-          "Pirate (Rival)": true,
-          "Pirate (Rivals)": true,
-          "Hai (Unfettered)": true
-        },
         "Mega Freight/Mega-Freight": {
           "Pirate": true,
           "Bounty (Disguised)": true
@@ -9461,12 +9109,9 @@
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
         "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
         "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
         "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
@@ -9489,8 +9134,7 @@
         "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
         "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
         "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
-        "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0",
-        "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+        "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
       ],
       "locations": {
         "Tugderic's Addons/Tugderics-Addons": {
@@ -9531,29 +9175,15 @@
           "Navy (Oathkeeper)": true,
           "Free Worlds": true
         },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Republic": true,
-          "Pirate": true,
-          "Oathbreaker": true,
-          "Navy (Oathkeeper)": true,
-          "Free Worlds": true
-        },
         "Blended Ships/blended-ships": {
           "Free Worlds": true
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
         "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
         "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
         "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
         "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
@@ -9561,7 +9191,6 @@
         "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-        "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
         "Event \"fwc battle for rasalhague\": Pug attitude toward Navy (Oathkeeper) → -0.01",
         "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
@@ -9573,7 +9202,6 @@
         "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
         "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
         "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
-        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
         "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
         "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
         "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
@@ -9622,22 +9250,11 @@
         "Mega Freight/Mega-Freight": {
           "Independent": true
         },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Pirate": true,
-          "Oathbreaker": true
-        },
         "Rumskib/rumskib": {
           "Pirate": true
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
         "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
@@ -9682,10 +9299,6 @@
           "Merchant": true,
           "Pirate": true
         },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Pirate": true,
-          "Oathbreaker": true
-        },
         "Mega Freight/Mega-Freight": {
           "Independent": true
         },
@@ -9694,13 +9307,6 @@
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
         "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
@@ -9769,9 +9375,6 @@
       "ion resistance": 0.22,
       "description": "These shield generators are much faster than the classic ones, can't generate shield during a fight.",
       "governments": {
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Hai (Unfettered)": true
-        },
         "Tugderic's Addons/Tugderics-Addons": {
           "The Assembly": true
         },
@@ -9784,8 +9387,7 @@
         "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
         "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
         "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
-        "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
-        "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+        "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
       ],
       "locations": {
         "Tugderic's Addons/Tugderics-Addons": {
@@ -9815,14 +9417,9 @@
         "Tugderic's Addons/Tugderics-Addons": {
           "The Assembly": true,
           "Bounty": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Hai (Unfettered)": true
         }
       },
-      "governmentEvents": [
-        "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
-      ],
+      "governmentEvents": [],
       "locations": {
         "Tugderic's Addons/Tugderics-Addons": {
           "Ships": [
@@ -9881,18 +9478,6 @@
           "Ancient Travelers": true,
           "Bounty": true
         },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Escort": true,
-          "Bounty (Disguised)": true,
-          "Republic": true,
-          "Pirate": true,
-          "Free Worlds": true,
-          "Militia": true,
-          "Oathbreaker": true,
-          "Bounty": true,
-          "Independent (Killable)": true
-        },
         "Rumskib/rumskib": {
           "Pirate": true
         },
@@ -9904,25 +9489,12 @@
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
         "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
-        "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
-        "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
-        "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
-        "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
         "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-        "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
-        "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
         "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
         "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
         "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
@@ -9930,7 +9502,6 @@
         "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
         "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
         "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
-        "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
         "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
         "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
         "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
@@ -9941,8 +9512,6 @@
         "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
         "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
         "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
-        "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
-        "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
         "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
         "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
       ],
@@ -10017,14 +9586,6 @@
           "Bounty (Disguised)": true,
           "Pirate": true
         },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Pirate": true,
-          "Oathbreaker": true,
-          "Pirate (Rivals)": true,
-          "Merchant (Hostile)": true,
-          "Pirate (Rival)": true
-        },
         "Rumskib/rumskib": {
           "Pirate": true
         },
@@ -10033,16 +9594,9 @@
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
         "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
         "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
         "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
@@ -10076,13 +9630,8 @@
           ],
           "EventFleetChanges": [
             "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
-            "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
-            "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 800)",
-            "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
             "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
             "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
-            "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
-            "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
             "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
           ]
         }
@@ -10143,14 +9692,6 @@
           "Bounty (Disguised)": true,
           "Pirate": true
         },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Pirate": true,
-          "Oathbreaker": true,
-          "Pirate (Rivals)": true,
-          "Merchant (Hostile)": true,
-          "Pirate (Rival)": true
-        },
         "Rumskib/rumskib": {
           "Pirate": true
         },
@@ -10159,16 +9700,9 @@
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
         "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
         "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
         "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
@@ -10202,13 +9736,8 @@
           ],
           "EventFleetChanges": [
             "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
-            "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
-            "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 800)",
-            "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
             "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
             "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
-            "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
-            "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
             "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
           ]
         }
@@ -10258,19 +9787,6 @@
           "Deep Security": true,
           "Navy (Oathkeeper)": true
         },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Merchant": true,
-          "Scar's Legion": true,
-          "Pirate": true,
-          "Oathbreaker": true,
-          "Pirate (Rivals)": true,
-          "Merchant (Hostile)": true,
-          "Pirate (Rival)": true,
-          "Bounty Hunter": true,
-          "Republic": true,
-          "Bounty": true,
-          "Navy (Oathkeeper)": true
-        },
         "Blended Ships/blended-ships": {
           "Pirate": true
         },
@@ -10292,17 +9808,10 @@
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
         "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
         "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
         "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
         "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
         "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
         "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
@@ -10414,22 +9923,6 @@
           "Black Beards": true,
           "The Assembly": true
         },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Scar's Legion": true,
-          "Merchant": true,
-          "Deep": true,
-          "Pirate (Rivals)": true,
-          "Pirate (Rival)": true,
-          "Scar's Legion (Killable)": true,
-          "Pirate": true,
-          "Bounty": true,
-          "Bounty Hunter": true,
-          "Alpha": true,
-          "Oathbreaker": true,
-          "Storm Seekers": true,
-          "Independent": true,
-          "Free Worlds": true
-        },
         "Rumskib/rumskib": {
           "Pirate": true
         },
@@ -10442,18 +9935,11 @@
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
         "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
         "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
         "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
         "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
         "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
         "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
         "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
@@ -10479,7 +9965,6 @@
         "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
         "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
         "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
-        "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Scar's Legion → -0.1",
         "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
         "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
         "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
@@ -10557,7 +10042,6 @@
         },
         "official-game/endless-sky": {
           "Republic": true,
-          "Navy (Oathkeeper)": true,
           "Pirate": true,
           "Merchant": true,
           "Alpha": true,
@@ -10565,14 +10049,6 @@
         },
         "Blended Ships/blended-ships": {
           "Republic": true
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "Republic": true,
-          "Oathbreaker": true,
-          "Pirate": true,
-          "Navy (Oathkeeper)": true,
-          "Merchant": true,
-          "Pirate (Rivals)": true
         },
         "Crisis In Management/endless-sky-syndicate": {
           "Militia (Rogue)": true
@@ -10589,26 +10065,14 @@
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
         "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
         "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
-        "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
         "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
         "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
-        "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
-        "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-        "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
         "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
-        "Event \"fwc battle for rasalhague\": Pug attitude toward Navy (Oathkeeper) → -0.01",
         "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
         "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
         "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
@@ -10639,22 +10103,10 @@
             "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 15000)",
             "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
             "Adds fleet in \"Arneb\" via event \"battle in arneb\" (rate 10000)",
-            "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
-            "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 30000)",
-            "Adds fleet in \"Eteron\" via event \"titania station construction a\" (rate 6000)",
-            "Adds fleet in \"Eteron\" via event \"titania station construction b\" (rate 12000)",
-            "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 2000)",
-            "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 800)",
-            "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
             "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
             "Adds fleet in \"Wei\" via event \"normal in Alnasl\" (rate 700)",
             "Removes fleet in \"Arneb\" via event \"battle in arneb end\"",
             "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
-            "Removes fleet in \"Eteron\" via event \"titania station construction a\"",
-            "Removes fleet in \"Eteron\" via event \"titania station construction b\"",
-            "Removes fleet in \"Eteron\" via event \"titania station construction d\"",
-            "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
-            "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
             "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
             "Removes fleet in \"Wei\" via event \"gunboats in Alnasl\""
           ]
@@ -10738,8 +10190,6 @@
         }
       },
       "governmentEvents": [
-        "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-        "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
         "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
         "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
         "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
@@ -10758,11 +10208,8 @@
           ],
           "EventFleetChanges": [
             "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
-            "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
-            "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
             "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
             "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
-            "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
             "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
           ]
         }
@@ -10808,40 +10255,6 @@
         "Tugderic's Addons/Tugderics-Addons": {
           "Ships": [
             "Buckler"
-          ]
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "ShipyardPlanets": [
-            "Smuggler's Den",
-            "Wang Xiang Tai"
-          ],
-          "Systems": [
-            "Archipelago",
-            "Chasm",
-            "Diyu"
-          ],
-          "EventFleetChanges": [
-            "Adds fleet in \"Almaaz\" via event \"midnight independent fleet expansion\" (rate 600)",
-            "Adds fleet in \"Alnasl\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
-            "Adds fleet in \"Alnilam\" via event \"midnight independent fleet expansion\" (rate 1500)",
-            "Adds fleet in \"Alpha Arae\" via event \"midnight restore dirt belt pirates\" (rate 36000)",
-            "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
-            "Adds fleet in \"Arneb\" via event \"midnight independent fleet expansion\" (rate 3000)",
-            "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
-            "Adds fleet in \"Eber\" via event \"midnight restore dirt belt pirates\" (rate 8000)",
-            "Adds fleet in \"Fala\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
-            "Adds fleet in \"Gacrux\" via event \"midnight restore dirt belt pirates\" (rate 12000)",
-            "Adds fleet in \"Ipsing\" via event \"midnight restore dirt belt pirates\" (rate 12000)",
-            "Adds fleet in \"Minkar\" via event \"midnight restore dirt belt pirates\" (rate 48000)",
-            "Adds fleet in \"Mizar\" via event \"midnight restore dirt belt pirates\" (rate 24000)",
-            "Adds fleet in \"Mora\" via event \"midnight restore dirt belt pirates\" (rate 12000)",
-            "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
-            "Adds fleet in \"Sargas\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
-            "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
-            "Adds fleet in \"Wei\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
-            "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
-            "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
-            "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
           ]
         }
       },
@@ -10928,40 +10341,6 @@
           "Ships": [
             "Buckler"
           ]
-        },
-        "Lost In Midnight/Lost-in-Midnight": {
-          "ShipyardPlanets": [
-            "Smuggler's Den",
-            "Wang Xiang Tai"
-          ],
-          "Systems": [
-            "Archipelago",
-            "Chasm",
-            "Diyu"
-          ],
-          "EventFleetChanges": [
-            "Adds fleet in \"Almaaz\" via event \"midnight independent fleet expansion\" (rate 600)",
-            "Adds fleet in \"Alnasl\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
-            "Adds fleet in \"Alnilam\" via event \"midnight independent fleet expansion\" (rate 1500)",
-            "Adds fleet in \"Alpha Arae\" via event \"midnight restore dirt belt pirates\" (rate 36000)",
-            "Adds fleet in \"Arneb\" via event \"battle in arneb end\" (rate 500)",
-            "Adds fleet in \"Arneb\" via event \"midnight independent fleet expansion\" (rate 3000)",
-            "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 16000)",
-            "Adds fleet in \"Eber\" via event \"midnight restore dirt belt pirates\" (rate 8000)",
-            "Adds fleet in \"Fala\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
-            "Adds fleet in \"Gacrux\" via event \"midnight restore dirt belt pirates\" (rate 12000)",
-            "Adds fleet in \"Ipsing\" via event \"midnight restore dirt belt pirates\" (rate 12000)",
-            "Adds fleet in \"Minkar\" via event \"midnight restore dirt belt pirates\" (rate 48000)",
-            "Adds fleet in \"Mizar\" via event \"midnight restore dirt belt pirates\" (rate 24000)",
-            "Adds fleet in \"Mora\" via event \"midnight restore dirt belt pirates\" (rate 12000)",
-            "Adds fleet in \"Rajak\" via event \"Dire Omen Restore Rajak\" (rate 10000)",
-            "Adds fleet in \"Sargas\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
-            "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
-            "Adds fleet in \"Wei\" via event \"midnight restore dirt belt pirates\" (rate 16000)",
-            "Removes fleet in \"Arneb\" via event \"battle in arneb\"",
-            "Removes fleet in \"Rajak\" via event \"Dire Omen Clear Rajak\"",
-            "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
-          ]
         }
       },
       "pluginId": "Tugderic's Addons/Tugderics-Addons"
@@ -11011,5 +10390,5 @@
     }
   ],
   "effects": [],
-  "parsedAt": "2026-08-30T09:04:53.036Z"
+  "parsedAt": "2026-08-30T09:50:54.219Z"
 }

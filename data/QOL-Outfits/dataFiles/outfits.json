@@ -11,138 +11,11 @@
     "cargo space": -10,
     "description": "The smaller outfit expansion allows you to sacrifice that last corner of cargo space in order to perhaps make room for one more outfit, in those situations where you need just seven more tons to install that last system. \tUnfortunately, rearranging the interior of your ship in such a fundamental way tends to interfere with its cooling systems.",
     "governments": {
-      "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
-        "Free Worlds": true,
-        "Republic": true,
-        "Syndicate": true
-      },
-      "official-game/endless-sky": {
-        "Free Worlds": true,
-        "Bounty": true,
-        "Pirate": true,
-        "Merchant": true,
-        "Bounty Hunter": true,
-        "Militia": true,
-        "Lunarium (Hidden)": true,
-        "Republic": true,
-        "Navy (Oathkeeper)": true,
-        "Syndicate (Extremist)": true,
-        "Syndicate": true,
-        "Independent (Killable)": true
-      },
-      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "Free Worlds": true
-      },
-      "Blended Ships/blended-ships": {
-        "Pirate": true,
-        "Free Worlds": true,
-        "Republic": true
-      },
-      "Crisis In Management/endless-sky-syndicate": {
-        "Merchant": true,
-        "Militia (Rogue)": true,
-        "Pirate": true,
-        "Syndicate": true,
-        "Alpha": true,
-        "Syndicate (Extremist)": true
-      },
-      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-        "Yuyuko Saigyouji": true,
-        "Yuyuko Saigyouji (Hostile)": true
-      },
-      "Mega Freight/Mega-Freight": {
-        "MGF: Espion Mining Co.": true,
-        "Bounty (Disguised)": true,
-        "MGF: Core Nuclear Transport": true,
-        "MGF: Core Food Corp": true,
-        "Bounty": true,
-        "Pirate": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Bounty": true,
-        "Independent (Killable)": true,
-        "Free Worlds": true,
-        "Merchant": true,
-        "Scar's Legion": true,
-        "Republic": true,
-        "Pirate": true,
-        "Escort": true,
-        "Independent": true,
-        "Oathbreaker": true,
-        "Bounty (Disguised)": true,
-        "Pirate (Rival)": true,
-        "Navy (Oathkeeper)": true,
-        "Syndicate": true,
-        "Syndicate (Extremist)": true
-      },
-      "Rumskib/rumskib": {
-        "Pirate": true
-      },
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true
-      },
-      "DAIS/DAIS": {
-        "Syndicate": true
-      },
-      "Midnight Expansion/Midnight-Expansion": {
-        "Merchant": true
+      "QOL-Outfits": {
+        "QOL-Outfits": true
       }
     },
-    "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
-      "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
-      "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
-      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
-      "Event \"at war with the pug\": Pug attitude toward Syndicate (Extremist) → -0.01",
-      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
-      "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
-      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
-      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
-      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
-      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
-      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
-      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
-      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
-      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
-      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
-      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
-      "Event \"fwc battle for rasalhague\": Pug attitude toward Navy (Oathkeeper) → -0.01",
-      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
-      "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
-      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
-      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
-      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
-      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
-      "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
-      "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
-      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
-      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
-      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
-      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Scar's Legion → -0.1",
-      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
-      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
-      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
-      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
-      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
-      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
-      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
-      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
-      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
-      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
-      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
-      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Quality of Life Outfits/QOL-Outfits": {
         "_deprecated/unused": true
@@ -262,65 +135,11 @@
     "unplunderable": 1,
     "description": "Everything a space marine needs to perform his duty.",
     "governments": {
-      "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
-        "Republic": true
-      },
-      "official-game/endless-sky": {
-        "Republic": true,
-        "Navy (Oathkeeper)": true,
-        "Pirate": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Republic": true,
-        "Pirate": true,
-        "Oathbreaker": true,
-        "Navy (Oathkeeper)": true
-      },
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true
-      },
-      "Blended Ships/blended-ships": {
-        "Republic": true
+      "QOL-Outfits": {
+        "QOL-Outfits": true
       }
     },
-    "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
-      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
-      "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
-      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
-      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
-      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
-      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
-      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
-      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
-      "Event \"fwc battle for rasalhague\": Pug attitude toward Navy (Oathkeeper) → -0.01",
-      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
-      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
-      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
-      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
-      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
-      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
-      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
-      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
-      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
-      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
-      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
-      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
-      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
-      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
-      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
-      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
-      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Quality of Life Outfits/QOL-Outfits": {
         "_deprecated/unused": true
@@ -341,106 +160,11 @@
     "unplunderable": 1,
     "description": "Everything a space ranger needs to fight for freedom.",
     "governments": {
-      "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
-        "Free Worlds": true
-      },
-      "official-game/endless-sky": {
-        "Free Worlds": true,
-        "Bounty": true,
-        "Pirate": true,
-        "Merchant": true,
-        "Bounty Hunter": true,
-        "Militia": true,
-        "Lunarium (Hidden)": true,
-        "Escort": true
-      },
-      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "Free Worlds": true
-      },
-      "Blended Ships/blended-ships": {
-        "Pirate": true,
-        "Free Worlds": true
-      },
-      "Crisis In Management/endless-sky-syndicate": {
-        "Merchant": true,
-        "Militia (Rogue)": true,
-        "Pirate": true
-      },
-      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-        "Yuyuko Saigyouji": true,
-        "Yuyuko Saigyouji (Hostile)": true
-      },
-      "Mega Freight/Mega-Freight": {
-        "MGF: Espion Mining Co.": true,
-        "Escort": true,
-        "Bounty (Disguised)": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Bounty": true,
-        "Independent (Killable)": true,
-        "Free Worlds": true,
-        "Merchant": true,
-        "Scar's Legion": true,
-        "Pirate": true,
-        "Republic": true,
-        "Escort": true,
-        "Bounty (Disguised)": true,
-        "Militia": true,
-        "Oathbreaker": true,
-        "Independent": true,
-        "Pirate (Rival)": true
-      },
-      "Rumskib/rumskib": {
-        "Pirate": true
-      },
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true
+      "QOL-Outfits": {
+        "QOL-Outfits": true
       }
     },
-    "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Navy (Oathkeeper) → -0.01",
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
-      "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
-      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
-      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
-      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
-      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
-      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
-      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
-      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
-      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
-      "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
-      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
-      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
-      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
-      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
-      "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
-      "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
-      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
-      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
-      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
-      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Scar's Legion → -0.1",
-      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
-      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
-      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
-      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
-      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
-      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
-      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
-      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
-      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
-      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
-      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
-      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Quality of Life Outfits/QOL-Outfits": {
         "_deprecated/unused": true
@@ -458,104 +182,11 @@
     "unplunderable": 1,
     "description": "Everything space troopers need to protect the property of their employer.",
     "governments": {
-      "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
-        "Syndicate": true
-      },
-      "official-game/endless-sky": {
-        "Syndicate (Extremist)": true,
-        "Pirate": true,
-        "Merchant": true,
-        "Syndicate": true,
-        "Bounty Hunter": true,
-        "Independent (Killable)": true,
-        "Republic": true
-      },
-      "Crisis In Management/endless-sky-syndicate": {
-        "Syndicate": true,
-        "Alpha": true,
-        "Pirate": true,
-        "Syndicate (Extremist)": true,
-        "Merchant": true
-      },
-      "DAIS/DAIS": {
-        "Syndicate": true
-      },
-      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-        "Yuyuko Saigyouji (Hostile)": true
-      },
-      "Mega Freight/Mega-Freight": {
-        "MGF: Core Nuclear Transport": true,
-        "MGF: Core Food Corp": true,
-        "Bounty": true,
-        "Bounty (Disguised)": true,
-        "Pirate": true,
-        "MGF: Espion Mining Co.": true
-      },
-      "Rumskib/rumskib": {
-        "Pirate": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Merchant": true,
-        "Syndicate": true,
-        "Bounty (Disguised)": true,
-        "Pirate": true,
-        "Independent (Killable)": true,
-        "Pirate (Rival)": true,
-        "Syndicate (Extremist)": true
-      },
-      "Midnight Expansion/Midnight-Expansion": {
-        "Merchant": true
-      },
-      "Tugderic's Addons/Tugderics-Addons": {
-        "Ancient Travelers": true
+      "QOL-Outfits": {
+        "QOL-Outfits": true
       }
     },
-    "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
-      "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
-      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
-      "Event \"at war with the pug\": Pug attitude toward Syndicate (Extremist) → -0.01",
-      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
-      "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
-      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
-      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
-      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
-      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
-      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
-      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
-      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
-      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
-      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
-      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
-      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
-      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
-      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
-      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
-      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
-      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
-      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
-      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
-      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
-      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
-      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
-      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
-      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
-      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
-      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
-      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
-      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
-      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
-      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
-      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Quality of Life Outfits/QOL-Outfits": {
         "_deprecated/unused": true
@@ -574,67 +205,11 @@
     "unplunderable": 1,
     "description": "Increases the space a normal bunk room would give by half, at the cost of a higher mass and more outfit space taken up.",
     "governments": {
-      "LixiChronikouOrious list/Fundamental.Outfit.Expansion": {
-        "Syndicate": true
-      },
-      "official-game/endless-sky": {
-        "Syndicate (Extremist)": true,
-        "Pirate": true,
-        "Merchant": true,
-        "Syndicate": true,
-        "Bounty Hunter": true
-      },
-      "Crisis In Management/endless-sky-syndicate": {
-        "Alpha": true,
-        "Syndicate": true
-      },
-      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-        "Yuyuko Saigyouji (Hostile)": true
-      },
-      "Mega Freight/Mega-Freight": {
-        "Bounty": true,
-        "Bounty (Disguised)": true,
-        "MGF: Core Nuclear Transport": true
-      },
-      "Rumskib/rumskib": {
-        "Pirate": true
-      },
-      "Lost In Midnight/Lost-in-Midnight": {
-        "Bounty (Disguised)": true,
-        "Merchant": true,
-        "Pirate": true,
-        "Syndicate": true
+      "QOL-Outfits": {
+        "QOL-Outfits": true
       }
     },
-    "governmentEvents": [
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
-      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
-      "Event \"ScS alpha relations\": Pug attitude toward Alpha → -0.01",
-      "Event \"at war with the pug\": Pug attitude toward Syndicate (Extremist) → -0.01",
-      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
-      "Event \"battle of algenib\": Navy (Oathkeeper) attitude toward Syndicate (Extremist) → -0.1",
-      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
-      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
-      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
-      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
-      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
-      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
-      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
-      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
-      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
-      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
-      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
-      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
-      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
-      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
-      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
-      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
-      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
-    ],
+    "governmentEvents": [],
     "locations": {
       "Quality of Life Outfits/QOL-Outfits": {
         "_deprecated/unused": true

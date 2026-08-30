@@ -16,14 +16,14 @@
       "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h",
       "tooltips": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/data/_ui/tooltips.txt"
     },
-    "generatedAt": "2026-08-30T09:05:10.665Z",
+    "generatedAt": "2026-08-30T09:51:08.115Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "FnName() calls refer to other ship functions.",
       "Multi-branch functions have one formula entry per return statement."
     ],
     "discovery": {
-      "scannedAt": "2026-08-30T09:05:05.291Z",
+      "scannedAt": "2026-08-30T09:51:04.141Z",
       "totalCandidatesScanned": 468,
       "relevantFilesFound": 26,
       "relevantFilePaths": [
@@ -32,13 +32,13 @@
         "source/BoardingPanel.cpp",
         "source/DamageProfile.cpp",
         "source/Depreciation.cpp",
-        "source/Entity.cpp",
         "source/Engine.cpp",
+        "source/Entity.cpp",
         "source/FleetCargo.cpp",
         "source/GameAction.cpp",
         "source/Government.cpp",
-        "source/HailPanel.cpp",
         "source/Hardpoint.cpp",
+        "source/HailPanel.cpp",
         "source/HiringPanel.cpp",
         "source/LocationFilter.cpp",
         "source/MainPanel.cpp",
@@ -47,8 +47,8 @@
         "source/Minable.cpp",
         "source/OutfitterPanel.cpp",
         "source/Planet.cpp",
-        "source/Politics.cpp",
         "source/PlayerInfo.cpp",
+        "source/Politics.cpp",
         "source/PrintData.cpp",
         "source/ShopPanel.cpp",
         "source/TradingPanel.cpp",
@@ -129,7 +129,7 @@
       "note": "isMovementRelevant on each attribute (below) is derived structurally from the ship-function call graph, seeded only from InertialMass/Drag/DragForce — see movementSystem at the bottom of this file for the full function/attribute lists and rationale."
     },
     "dataUsage": {
-      "scannedAt": "2026-08-30T09:05:10.653Z",
+      "scannedAt": "2026-08-30T09:51:08.111Z",
       "filesScanned": 199,
       "attributeKeysObserved": 274,
       "dataOnlyAttributeKeys": [
@@ -1132,10 +1132,10 @@
       },
       "dataSampleValues": [
         5,
+        0.3,
         3,
         3,
-        0.25,
-        -0.025
+        0.25
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -1926,11 +1926,11 @@
         "max": 200
       },
       "dataSampleValues": [
-        0.3,
-        2.4,
         6,
-        24,
-        24
+        15,
+        6,
+        15,
+        18
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -1967,11 +1967,11 @@
         "max": 60
       },
       "dataSampleValues": [
-        3,
-        6,
         2.4,
-        9,
-        0.12
+        6.9,
+        2.4,
+        6.9,
+        2.7
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -3202,10 +3202,10 @@
         "max": 1
       },
       "dataSampleValues": [
-        1,
         0.15,
         0.15,
         0.12,
+        1,
         0.08
       ],
       "dataOnShip": true,
@@ -4484,11 +4484,11 @@
         "max": 56100
       },
       "dataSampleValues": [
-        108,
-        2.8,
-        3.5,
-        26,
-        26
+        4600,
+        3600,
+        320,
+        8000,
+        1000
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -4526,11 +4526,11 @@
         "max": 79999
       },
       "dataSampleValues": [
-        32,
-        0.9,
-        1.5,
-        22,
-        22
+        2300,
+        1800,
+        160,
+        4000,
+        500
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -4665,8 +4665,8 @@
         0.1,
         0.3,
         0.2,
-        0.5,
-        1
+        2,
+        0.5
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -5511,11 +5511,11 @@
         "max": 3180
       },
       "dataSampleValues": [
-        -25,
-        -140,
-        -52,
-        -34,
-        -17
+        763,
+        777,
+        92,
+        839,
+        600
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -5559,11 +5559,11 @@
         "max": 1148
       },
       "dataSampleValues": [
-        -22,
-        -10,
-        -22,
-        -52,
-        -41
+        276,
+        339,
+        25,
+        314,
+        200
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -5605,11 +5605,11 @@
         "max": 1000
       },
       "dataSampleValues": [
-        -17,
-        -12,
-        -89,
-        -67,
-        -10
+        206,
+        159,
+        30,
+        165,
+        120
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -5825,11 +5825,11 @@
         "max": 1864
       },
       "dataSampleValues": [
-        -20,
         675,
         175,
         264,
-        200
+        200,
+        -20
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -6087,11 +6087,11 @@
         "max": 3040
       },
       "dataSampleValues": [
-        0.1,
-        0.03,
-        0.04,
         25.6,
-        18
+        18,
+        1.35,
+        31.5,
+        18.5
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -6306,11 +6306,11 @@
         "max": 30000
       },
       "dataSampleValues": [
-        -240,
-        60,
-        450,
-        -225,
-        5900
+        5900,
+        5400,
+        480,
+        12000,
+        1500
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -7111,10 +7111,10 @@
         "max": 30
       },
       "dataSampleValues": [
-        12,
         6,
         6,
         3,
+        12,
         5
       ],
       "dataOnShip": true,
@@ -7230,11 +7230,11 @@
         "max": 100
       },
       "dataSampleValues": [
-        90,
         72,
         36,
-        18,
-        36
+        90,
+        36,
+        18
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -7262,8 +7262,8 @@
         "max": 18
       },
       "dataSampleValues": [
-        18,
         12,
+        18,
         18,
         2,
         2
@@ -7294,8 +7294,8 @@
         "max": 75
       },
       "dataSampleValues": [
-        72,
         42,
+        72,
         25,
         6,
         6
@@ -7369,8 +7369,8 @@
         "max": 120
       },
       "dataSampleValues": [
-        18,
         12,
+        18,
         18,
         25,
         8
@@ -7408,8 +7408,8 @@
         "max": 186
       },
       "dataSampleValues": [
-        72,
         42,
+        72,
         25,
         12,
         18
@@ -7464,8 +7464,8 @@
         "max": 350
       },
       "dataSampleValues": [
-        144,
         72,
+        144,
         144,
         25,
         169
@@ -7610,11 +7610,11 @@
         "max": 1940
       },
       "dataSampleValues": [
+        137,
+        145,
         1,
-        1,
-        1,
-        1,
-        1
+        794,
+        120
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -7851,8 +7851,8 @@
         "max": 1000
       },
       "dataSampleValues": [
+        36,
         90,
-        1,
         1,
         1,
         1
@@ -8006,14 +8006,87 @@
         "max": 1861000000
       },
       "dataSampleValues": [
-        1200000,
-        14000000,
-        1700000,
-        450000,
-        40000
+        29370000,
+        16570000,
+        671000,
+        27690000,
+        5900000
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
+    "shields": {
+      "key": "shields",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Drone",
+        "Fighter",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Space Liner",
+        "Superheavy",
+        "Transport",
+        "Unclassified",
+        "Unclassified Minor",
+        "Utility"
+      ],
+      "dataUsageCount": 304,
+      "dataValueRange": {
+        "min": 0,
+        "max": 4000000
+      },
+      "dataSampleValues": [
+        32500,
+        27000,
+        2300,
+        47000,
+        120000
+      ],
+      "dataOnShip": true,
+      "dataOnOutfit": false,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
+    "hull": {
+      "key": "hull",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Drone",
+        "Fighter",
+        "Game Mechanics",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Space Liner",
+        "Superheavy",
+        "Transport",
+        "Unclassified",
+        "Unclassified Minor",
+        "Utility"
+      ],
+      "dataUsageCount": 350,
+      "dataValueRange": {
+        "min": 1,
+        "max": 86135672193
+      },
+      "dataSampleValues": [
+        16500,
+        9000,
+        900,
+        34000,
+        70000
+      ],
+      "dataOnShip": true,
+      "dataOnOutfit": false,
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
@@ -8054,11 +8127,50 @@
         "max": 67400
       },
       "dataSampleValues": [
-        25,
-        140,
-        52,
-        34,
-        17
+        2636,
+        1468,
+        106,
+        3022,
+        990
+      ],
+      "dataOnShip": true,
+      "dataOnOutfit": true,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
+    "fuel capacity": {
+      "key": "fuel capacity",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Drone",
+        "Engines",
+        "Fighter",
+        "Heavy Freighter",
+        "Heavy Warship",
+        "Interceptor",
+        "Light Freighter",
+        "Light Warship",
+        "Medium Warship",
+        "Secondary Weapons",
+        "Space Liner",
+        "Superheavy",
+        "Systems",
+        "Transport",
+        "Unclassified",
+        "Unclassified Minor",
+        "Utility"
+      ],
+      "dataUsageCount": 320,
+      "dataValueRange": {
+        "min": -100,
+        "max": 100000
+      },
+      "dataSampleValues": [
+        900,
+        600,
+        1000,
+        1000,
+        900
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -8294,10 +8406,10 @@
       },
       "dataSampleValues": [
         -1,
-        -1,
-        -1,
-        -1,
-        -1
+        1,
+        1,
+        1,
+        1
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -8434,118 +8546,6 @@
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
-    "shields": {
-      "key": "shields",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Drone",
-        "Fighter",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Space Liner",
-        "Superheavy",
-        "Transport",
-        "Unclassified",
-        "Unclassified Minor",
-        "Utility"
-      ],
-      "dataUsageCount": 304,
-      "dataValueRange": {
-        "min": 0,
-        "max": 4000000
-      },
-      "dataSampleValues": [
-        32500,
-        27000,
-        2300,
-        47000,
-        120000
-      ],
-      "dataOnShip": true,
-      "dataOnOutfit": false,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
-    "hull": {
-      "key": "hull",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Drone",
-        "Fighter",
-        "Game Mechanics",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Space Liner",
-        "Superheavy",
-        "Transport",
-        "Unclassified",
-        "Unclassified Minor",
-        "Utility"
-      ],
-      "dataUsageCount": 350,
-      "dataValueRange": {
-        "min": 1,
-        "max": 86135672193
-      },
-      "dataSampleValues": [
-        16500,
-        9000,
-        900,
-        34000,
-        70000
-      ],
-      "dataOnShip": true,
-      "dataOnOutfit": false,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
-    "fuel capacity": {
-      "key": "fuel capacity",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Drone",
-        "Engines",
-        "Fighter",
-        "Heavy Freighter",
-        "Heavy Warship",
-        "Interceptor",
-        "Light Freighter",
-        "Light Warship",
-        "Medium Warship",
-        "Secondary Weapons",
-        "Space Liner",
-        "Superheavy",
-        "Systems",
-        "Transport",
-        "Unclassified",
-        "Unclassified Minor",
-        "Utility"
-      ],
-      "dataUsageCount": 320,
-      "dataValueRange": {
-        "min": -100,
-        "max": 100000
-      },
-      "dataSampleValues": [
-        900,
-        600,
-        1000,
-        1000,
-        300
-      ],
-      "dataOnShip": true,
-      "dataOnOutfit": true,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
     "anchor point": {
       "key": "anchor point",
       "dataOnly": true,
@@ -8568,14 +8568,61 @@
         "max": 3
       },
       "dataSampleValues": [
-        -1,
-        -1,
-        -1,
+        1,
+        1,
+        1,
         1,
         1
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
+    "spinal mount": {
+      "key": "spinal mount",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Guns",
+        "Heavy Warship",
+        "Secondary Weapons",
+        "Superheavy",
+        "Systems",
+        "Utility"
+      ],
+      "dataUsageCount": 13,
+      "dataValueRange": {
+        "min": -1,
+        "max": 1
+      },
+      "dataSampleValues": [
+        1,
+        1,
+        -1,
+        1,
+        -1
+      ],
+      "dataOnShip": true,
+      "dataOnOutfit": true,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
+    "hull repair energy": {
+      "key": "hull repair energy",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Utility"
+      ],
+      "dataUsageCount": 1,
+      "dataValueRange": {
+        "min": 3,
+        "max": 3
+      },
+      "dataSampleValues": [
+        3
+      ],
+      "dataOnShip": true,
+      "dataOnOutfit": false,
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
@@ -8601,34 +8648,6 @@
       "dataOnShip": true,
       "dataOnOutfit": true,
       "area": "Scanners & Detection",
-      "areaBadges": []
-    },
-    "spinal mount": {
-      "key": "spinal mount",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Guns",
-        "Heavy Warship",
-        "Secondary Weapons",
-        "Superheavy",
-        "Systems",
-        "Utility"
-      ],
-      "dataUsageCount": 13,
-      "dataValueRange": {
-        "min": -1,
-        "max": 1
-      },
-      "dataSampleValues": [
-        -1,
-        1,
-        1,
-        1,
-        -1
-      ],
-      "dataOnShip": true,
-      "dataOnOutfit": true,
-      "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
     "reverse flare sprite": {
@@ -8836,6 +8855,28 @@
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
+    "swarm capacity": {
+      "key": "swarm capacity",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Ammunition",
+        "Secondary Weapons"
+      ],
+      "dataUsageCount": 3,
+      "dataValueRange": {
+        "min": -1,
+        "max": 400
+      },
+      "dataSampleValues": [
+        200,
+        -1,
+        400
+      ],
+      "dataOnShip": false,
+      "dataOnOutfit": true,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
     "relay upgrades": {
       "key": "relay upgrades",
       "dataOnly": true,
@@ -8917,47 +8958,6 @@
         6,
         18,
         30
-      ],
-      "dataOnShip": false,
-      "dataOnOutfit": true,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
-    "hull repair energy": {
-      "key": "hull repair energy",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Utility"
-      ],
-      "dataUsageCount": 1,
-      "dataValueRange": {
-        "min": 3,
-        "max": 3
-      },
-      "dataSampleValues": [
-        3
-      ],
-      "dataOnShip": true,
-      "dataOnOutfit": false,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
-    "swarm capacity": {
-      "key": "swarm capacity",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Ammunition",
-        "Secondary Weapons"
-      ],
-      "dataUsageCount": 3,
-      "dataValueRange": {
-        "min": -1,
-        "max": 400
-      },
-      "dataSampleValues": [
-        200,
-        -1,
-        400
       ],
       "dataOnShip": false,
       "dataOnOutfit": true,
@@ -9270,57 +9270,6 @@
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
-    "hyperdrive sound": {
-      "key": "hyperdrive sound",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Unclassified"
-      ],
-      "dataUsageCount": 2,
-      "dataValueRange": {
-        "min": null,
-        "max": null
-      },
-      "dataSampleValues": [],
-      "dataOnShip": true,
-      "dataOnOutfit": false,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
-    "hyperdrive out sound": {
-      "key": "hyperdrive out sound",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Unclassified"
-      ],
-      "dataUsageCount": 2,
-      "dataValueRange": {
-        "min": null,
-        "max": null
-      },
-      "dataSampleValues": [],
-      "dataOnShip": true,
-      "dataOnOutfit": false,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
-    "hyperdrive in sound": {
-      "key": "hyperdrive in sound",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Unclassified"
-      ],
-      "dataUsageCount": 2,
-      "dataValueRange": {
-        "min": null,
-        "max": null
-      },
-      "dataSampleValues": [],
-      "dataOnShip": true,
-      "dataOnOutfit": false,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
     "meteor capacity": {
       "key": "meteor capacity",
       "dataOnly": true,
@@ -9480,6 +9429,57 @@
       ],
       "dataOnShip": false,
       "dataOnOutfit": true,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
+    "hyperdrive sound": {
+      "key": "hyperdrive sound",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Unclassified"
+      ],
+      "dataUsageCount": 2,
+      "dataValueRange": {
+        "min": null,
+        "max": null
+      },
+      "dataSampleValues": [],
+      "dataOnShip": true,
+      "dataOnOutfit": false,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
+    "hyperdrive out sound": {
+      "key": "hyperdrive out sound",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Unclassified"
+      ],
+      "dataUsageCount": 2,
+      "dataValueRange": {
+        "min": null,
+        "max": null
+      },
+      "dataSampleValues": [],
+      "dataOnShip": true,
+      "dataOnOutfit": false,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
+    "hyperdrive in sound": {
+      "key": "hyperdrive in sound",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Unclassified"
+      ],
+      "dataUsageCount": 2,
+      "dataValueRange": {
+        "min": null,
+        "max": null
+      },
+      "dataSampleValues": [],
+      "dataOnShip": true,
+      "dataOnOutfit": false,
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
@@ -9926,29 +9926,6 @@
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
-    "shield connection point": {
-      "key": "shield connection point",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Systems"
-      ],
-      "dataUsageCount": 5,
-      "dataValueRange": {
-        "min": -2,
-        "max": 1
-      },
-      "dataSampleValues": [
-        1,
-        1,
-        1,
-        1,
-        -2
-      ],
-      "dataOnShip": false,
-      "dataOnOutfit": true,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
     "waterlining": {
       "key": "waterlining",
       "dataOnly": true,
@@ -10003,6 +9980,29 @@
         20,
         -1,
         16
+      ],
+      "dataOnShip": false,
+      "dataOnOutfit": true,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
+    "shield connection point": {
+      "key": "shield connection point",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Systems"
+      ],
+      "dataUsageCount": 5,
+      "dataValueRange": {
+        "min": -2,
+        "max": 1
+      },
+      "dataSampleValues": [
+        1,
+        1,
+        1,
+        1,
+        -2
       ],
       "dataOnShip": false,
       "dataOnOutfit": true,
@@ -13646,6 +13646,58 @@
         ]
       }
     },
+    "Engine": {
+      "Step": {
+        "returnType": "void",
+        "params": "bool isActive",
+        "isConst": false,
+        "sourceFile": "source/Engine.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "player.HasSeen(*system)",
+            "formula": "player.HasSeen(*system)"
+          },
+          {
+            "rawReturn": "projectile.GetWeapon().TriggersNukeAlert() && projectile.GetGovernment()->IsEnemy()",
+            "formula": "projectile.GetWeapon().TriggersNukeAlert() && projectile.GetGovernment()->IsEnemy()"
+          }
+        ]
+      },
+      "IsPaused": {
+        "returnType": "bool",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Engine.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "timePaused",
+            "formula": "timePaused"
+          }
+        ]
+      },
+      "Draw": {
+        "returnType": "void",
+        "params": "",
+        "isConst": true,
+        "sourceFile": "source/Engine.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "max(0., 1. - pow((age - animationDuration) / animationDuration, 2))",
+            "formula": "max(0., 1. - pow((age - animationDuration) / animationDuration, 2))"
+          },
+          {
+            "rawReturn": "(1000 + animationDuration - age) * .001f",
+            "formula": "(1000 + animationDuration - age) * .001f"
+          }
+        ]
+      }
+    },
     "Entity": {
       "EntityType": {
         "returnType": "Entity::Type",
@@ -14013,58 +14065,6 @@
         ],
         "attributesSet": [],
         "formulas": []
-      }
-    },
-    "Engine": {
-      "Step": {
-        "returnType": "void",
-        "params": "bool isActive",
-        "isConst": false,
-        "sourceFile": "source/Engine.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "player.HasSeen(*system)",
-            "formula": "player.HasSeen(*system)"
-          },
-          {
-            "rawReturn": "projectile.GetWeapon().TriggersNukeAlert() && projectile.GetGovernment()->IsEnemy()",
-            "formula": "projectile.GetWeapon().TriggersNukeAlert() && projectile.GetGovernment()->IsEnemy()"
-          }
-        ]
-      },
-      "IsPaused": {
-        "returnType": "bool",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Engine.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "timePaused",
-            "formula": "timePaused"
-          }
-        ]
-      },
-      "Draw": {
-        "returnType": "void",
-        "params": "",
-        "isConst": true,
-        "sourceFile": "source/Engine.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "max(0., 1. - pow((age - animationDuration) / animationDuration, 2))",
-            "formula": "max(0., 1. - pow((age - animationDuration) / animationDuration, 2))"
-          },
-          {
-            "rawReturn": "(1000 + animationDuration - age) * .001f",
-            "formula": "(1000 + animationDuration - age) * .001f"
-          }
-        ]
       }
     },
     "FleetCargo": {
@@ -15830,100 +15830,6 @@
         ]
       }
     },
-    "Politics": {
-      "IsEnemy": {
-        "returnType": "bool",
-        "params": "const Government *first, const Government *second",
-        "isConst": true,
-        "sourceFile": "source/Politics.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "(it != reputationWith.end() && it->second < 0.)",
-            "formula": "(it != reputationWith.end() && it->second < 0.)"
-          },
-          {
-            "rawReturn": "(first->AttitudeToward(second) < 0. || second->AttitudeToward(first) < 0.)",
-            "formula": "(first->AttitudeToward(second) < 0. || second->AttitudeToward(first) < 0.)"
-          }
-        ]
-      },
-      "CanLand": {
-        "returnType": "bool",
-        "params": "const Planet *planet",
-        "isConst": true,
-        "sourceFile": "source/Politics.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()",
-            "formula": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()"
-          }
-        ]
-      },
-      "HasClearance": {
-        "returnType": "bool",
-        "params": "const Planet *planet",
-        "isConst": true,
-        "sourceFile": "source/Politics.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "dominatedPlanets.contains(planet) || bribedPlanets.contains(planet)",
-            "formula": "dominatedPlanets.contains(planet) || bribedPlanets.contains(planet)"
-          }
-        ]
-      },
-      "CanUseServices": {
-        "returnType": "bool",
-        "params": "const Planet *planet",
-        "isConst": true,
-        "sourceFile": "source/Politics.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "it->second",
-            "formula": "it->second"
-          },
-          {
-            "rawReturn": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()",
-            "formula": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()"
-          }
-        ]
-      },
-      "HasDominated": {
-        "returnType": "bool",
-        "params": "const Planet *planet",
-        "isConst": true,
-        "sourceFile": "source/Politics.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "dominatedPlanets.contains(planet)",
-            "formula": "dominatedPlanets.contains(planet)"
-          }
-        ]
-      },
-      "Reputation": {
-        "returnType": "double",
-        "params": "const Government *gov",
-        "isConst": true,
-        "sourceFile": "source/Politics.cpp",
-        "attributesRead": [],
-        "attributesSet": [],
-        "formulas": [
-          {
-            "rawReturn": "(it == reputationWith.end() ? 0. : it->second)",
-            "formula": "(it == reputationWith.end() ? 0. : it->second)"
-          }
-        ]
-      }
-    },
     "PlayerInfo": {
       "IsLoaded": {
         "returnType": "bool",
@@ -17278,6 +17184,100 @@
           {
             "rawReturn": "any_of(missions.begin(), missions.end(), [this](const Mission &mission) -> bool { return mission.HasClearance(planet); })",
             "formula": "any_of(missions.begin(), missions.end(), [this](const Mission &mission) -> bool { return mission.HasClearance(planet); })"
+          }
+        ]
+      }
+    },
+    "Politics": {
+      "IsEnemy": {
+        "returnType": "bool",
+        "params": "const Government *first, const Government *second",
+        "isConst": true,
+        "sourceFile": "source/Politics.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "(it != reputationWith.end() && it->second < 0.)",
+            "formula": "(it != reputationWith.end() && it->second < 0.)"
+          },
+          {
+            "rawReturn": "(first->AttitudeToward(second) < 0. || second->AttitudeToward(first) < 0.)",
+            "formula": "(first->AttitudeToward(second) < 0. || second->AttitudeToward(first) < 0.)"
+          }
+        ]
+      },
+      "CanLand": {
+        "returnType": "bool",
+        "params": "const Planet *planet",
+        "isConst": true,
+        "sourceFile": "source/Politics.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()",
+            "formula": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()"
+          }
+        ]
+      },
+      "HasClearance": {
+        "returnType": "bool",
+        "params": "const Planet *planet",
+        "isConst": true,
+        "sourceFile": "source/Politics.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "dominatedPlanets.contains(planet) || bribedPlanets.contains(planet)",
+            "formula": "dominatedPlanets.contains(planet) || bribedPlanets.contains(planet)"
+          }
+        ]
+      },
+      "CanUseServices": {
+        "returnType": "bool",
+        "params": "const Planet *planet",
+        "isConst": true,
+        "sourceFile": "source/Politics.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "it->second",
+            "formula": "it->second"
+          },
+          {
+            "rawReturn": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()",
+            "formula": "Reputation(planet->GetGovernment()) >= planet->RequiredReputation()"
+          }
+        ]
+      },
+      "HasDominated": {
+        "returnType": "bool",
+        "params": "const Planet *planet",
+        "isConst": true,
+        "sourceFile": "source/Politics.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "dominatedPlanets.contains(planet)",
+            "formula": "dominatedPlanets.contains(planet)"
+          }
+        ]
+      },
+      "Reputation": {
+        "returnType": "double",
+        "params": "const Government *gov",
+        "isConst": true,
+        "sourceFile": "source/Politics.cpp",
+        "attributesRead": [],
+        "attributesSet": [],
+        "formulas": [
+          {
+            "rawReturn": "(it == reputationWith.end() ? 0. : it->second)",
+            "formula": "(it == reputationWith.end() ? 0. : it->second)"
           }
         ]
       }
