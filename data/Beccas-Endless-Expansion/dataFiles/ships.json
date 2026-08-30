@@ -132,10 +132,22 @@
         "Hai (Unfettered)": true
       }
     },
-    "governmentEvents": [],
+    "governmentEvents": [
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
+        ]
       }
     },
     "outfits": {
@@ -321,10 +333,10 @@
     "description": "Compared to the other freighter used by the Remnant the Swan is an old and outdated design: developed at the same time as the agile Starling, but without any integrated cloaking technology. Its main purpose is hauling large quantities of goods between planets, where, if needed, it can land to repair the hull or use its firepower to join the defense fleets.",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Swan",
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_hash": "a123586810df",
+    "_hash": "1f6ceb628a1d",
     "governments": {
-      "Beccas-Endless-Expansion": {
-        "Beccas-Endless-Expansion": true
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Remnant": true
       }
     },
     "governmentEvents": [],
@@ -339,43 +351,43 @@
     "outfits": {
       "Thrasher Cannon": {
         "count": 3,
-        "pluginId": null
+        "pluginId": "official-game/endless-sky"
       },
       "Thrasher Turret": {
         "count": 1,
-        "pluginId": null
+        "pluginId": "official-game/endless-sky"
       },
       "Point Defense Turret": {
         "count": 1,
-        "pluginId": null
+        "pluginId": "official-game/endless-sky"
       },
       "EMP Torpedo Bay": {
         "count": 1,
-        "pluginId": null
+        "pluginId": "official-game/endless-sky"
       },
       "EMP Torpedo": {
         "count": 9,
-        "pluginId": null
+        "pluginId": "official-game/endless-sky"
       },
       "Aeon Cell": {
         "count": 1,
-        "pluginId": null
+        "pluginId": "official-game/endless-sky"
       },
       "Crystal Capacitor": {
         "count": 2,
-        "pluginId": null
+        "pluginId": "official-game/endless-sky"
       },
       "Thermoelectric Cooler": {
         "count": 1,
-        "pluginId": null
+        "pluginId": "official-game/endless-sky"
       },
       "Emergency Ramscoop": {
         "count": 1,
-        "pluginId": null
+        "pluginId": "official-game/endless-sky"
       },
       "Quantum Key Stone": {
         "count": 1,
-        "pluginId": null
+        "pluginId": "official-game/endless-sky"
       },
       "Cargo Expansion": {
         "count": 1,
@@ -383,23 +395,23 @@
       },
       "Salvage Scanner": {
         "count": 1,
-        "pluginId": null
+        "pluginId": "official-game/endless-sky"
       },
       "Tuning Rifle": {
         "count": 23,
-        "pluginId": null
+        "pluginId": "official-game/endless-sky"
       },
       "Crucible-Class Steering": {
         "count": 1,
-        "pluginId": null
+        "pluginId": "official-game/endless-sky"
       },
       "Forge-Class Thruster": {
         "count": 1,
-        "pluginId": null
+        "pluginId": "official-game/endless-sky"
       },
       "Forge-Class Steering": {
         "count": 1,
-        "pluginId": null
+        "pluginId": "official-game/endless-sky"
       },
       "Hyperdrive": {
         "count": 1,
@@ -467,10 +479,10 @@
     "description": "Since the beginning of the renewed safety of the contacts with the Void Sprites, the Remnant have tried to improve the Gascraft's basic design. The Robin has better capabilities than its predecessor, but still lacks the armament to be of any use during a fight.",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Robin",
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
-    "_hash": "4fc58f8de639",
+    "_hash": "cbc89a347919",
     "governments": {
-      "Beccas-Endless-Expansion": {
-        "Beccas-Endless-Expansion": true
+      "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
+        "Remnant": true
       }
     },
     "governmentEvents": [],
@@ -485,27 +497,27 @@
     "outfits": {
       "Millennium Cell": {
         "count": 2,
-        "pluginId": null
+        "pluginId": "official-game/endless-sky"
       },
       "Emergency Ramscoop": {
         "count": 1,
-        "pluginId": null
+        "pluginId": "official-game/endless-sky"
       },
       "Thermoelectric Cooler": {
         "count": 1,
-        "pluginId": null
+        "pluginId": "official-game/endless-sky"
       },
       "Quantum Key Stone": {
         "count": 1,
-        "pluginId": null
+        "pluginId": "official-game/endless-sky"
       },
       "Crucible-Class Thruster": {
         "count": 1,
-        "pluginId": null
+        "pluginId": "official-game/endless-sky"
       },
       "Forge-Class Steering": {
         "count": 1,
-        "pluginId": null
+        "pluginId": "official-game/endless-sky"
       },
       "Hyperdrive": {
         "count": 1,
@@ -615,6 +627,8 @@
     },
     "governmentEvents": [
       "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"korath hunting\": Korath attitude toward Ember Waste → -0.01",
+      "Event \"korath hunting\": Korath attitude toward Indigenous Lifeform → -0.01",
       "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Korath → -0.1"
     ],
     "locations": {
@@ -799,10 +813,14 @@
         "Kor Efret": true
       }
     },
-    "governmentEvents": [],
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)"
+        ]
       }
     },
     "outfits": {
@@ -920,10 +938,14 @@
         "Kor Efret": true
       }
     },
-    "governmentEvents": [],
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)"
+        ]
       }
     },
     "outfits": {
@@ -1077,10 +1099,23 @@
         "Hai (Unfettered)": true
       }
     },
-    "governmentEvents": [],
+    "governmentEvents": [
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "Beccas-Endless-Expansion/Beccas-Endless-Expansion": {
-        "_deprecated/unused": true
+        "EventFleetChanges": [
+          "Adds fleet in \"Ap'arak\" via event \"battle for ap'arak ends\" (rate 700)",
+          "Adds fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\" (rate 8000)",
+          "Adds fleet in \"Chirr'ay'akai\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Ehmahai\" via event \"It came from the desert...\" (rate 6000)",
+          "Adds fleet in \"Heiahai\" via event \"It came from the ocean...\" (rate 6000)",
+          "Adds fleet in \"Mah Duum\" via event \"midnight bloodstone portal\" (rate 4800)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"battle for sich'ka'ara ends\" (rate 400)",
+          "Adds fleet in \"Sich'ka'ara\" via event \"wanderers: unfettered invasion starts\" (rate 1200)",
+          "Adds fleet in \"Zubahai\" via event \"It came from the canyon...\" (rate 6000)",
+          "Removes fleet in \"Ap'arak\" via event \"wanderers: spera anatrusk colony\""
+        ]
       }
     },
     "outfits": {

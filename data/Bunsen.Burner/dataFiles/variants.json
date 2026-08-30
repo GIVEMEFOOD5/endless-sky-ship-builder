@@ -1,0 +1,1332 @@
+[
+  {
+    "name": "Clipper (Flamethrower)",
+    "engines": [
+      {
+        "x": -22,
+        "y": 47
+      },
+      {
+        "x": 22,
+        "y": 47
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -21.5,
+        "y": -18,
+        "gun": "Javelin Mini Pod"
+      },
+      {
+        "x": 21.5,
+        "y": -18,
+        "gun": "Javelin Mini Pod"
+      },
+      {
+        "x": -11,
+        "y": -8.5,
+        "gun": "Beam Laser"
+      },
+      {
+        "x": 11,
+        "y": -8.5,
+        "gun": "Beam Laser"
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      }
+    ],
+    "sprite": "ship/clipper",
+    "thumbnail": "thumbnail/clipper",
+    "administrative cost": 1,
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 900000,
+      "shields": 2700,
+      "hull": 800,
+      "required crew": 3,
+      "bunks": 9,
+      "mass": 210,
+      "drag": 4.3,
+      "heat dissipation": 0.7,
+      "fuel capacity": 500,
+      "cargo space": 70,
+      "outfit space": 260,
+      "weapon capacity": 60,
+      "engine capacity": 80,
+      "weapon": {
+        "blast radius": 36,
+        "shield damage": 360,
+        "hull damage": 180,
+        "hit force": 540
+      }
+    },
+    "tiny explosion": 15,
+    "small explosion": 20,
+    "medium explosion": 10,
+    "final explode": "final explosion small",
+    "description": "The Clipper is the smaller sister ship to the popular Southbound Shipyards Argosy. Although not able to carry as much cargo, Clippers are versatile ships that can be used as passenger transports, couriers, or even warships in a pinch, and they come with enough free space to be customized based on an individual captain's needs.",
+    "_internalId": "official-game/endless-sky::Clipper",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "2a84f8d6c7f5",
+    "variant": "Clipper (Flamethrower)",
+    "baseShip": "Clipper",
+    "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
+    "governments": {
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "Pirate": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
+    "locations": {
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 500)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 800)",
+          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 3000)",
+          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 5000)",
+          "Removes fleet in \"Ildaria\" via event \"remove pirates from Ildaria\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
+          "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+        ]
+      }
+    },
+    "outfits": {
+      "Javelin Pod": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-BB Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Javelin Storage Crate": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Outfits Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Greyhound Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Chipmunk Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Greyhound Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Falcon (Flamethrower)",
+    "engines": [
+      {
+        "x": -16.5,
+        "y": 143
+      },
+      {
+        "x": 16.5,
+        "y": 143
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -16,
+        "y": -86.5,
+        "gun": "Plasma Cannon"
+      },
+      {
+        "x": 16,
+        "y": -86.5,
+        "gun": "Plasma Cannon"
+      },
+      {
+        "x": -19,
+        "y": -76.5,
+        "gun": "Torpedo Launcher"
+      },
+      {
+        "x": 19,
+        "y": -76.5,
+        "gun": "Torpedo Launcher"
+      }
+    ],
+    "turrets": [
+      {
+        "x": -16,
+        "y": -29,
+        "turret": "Heavy Anti-Missile Turret"
+      },
+      {
+        "x": 16,
+        "y": -29,
+        "turret": "Quad Blaster Turret"
+      },
+      {
+        "x": -50,
+        "y": 39.5,
+        "turret": "Quad Blaster Turret"
+      },
+      {
+        "x": 50,
+        "y": 39.5,
+        "turret": "Quad Blaster Turret"
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 30,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 60,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/falcon",
+    "thumbnail": "thumbnail/falcon",
+    "administrative cost": 5,
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 10900000,
+      "shields": 12800,
+      "hull": 3700,
+      "required crew": 52,
+      "bunks": 91,
+      "mass": 1260,
+      "drag": 11.4,
+      "heat dissipation": 0.42,
+      "fuel capacity": 600,
+      "cargo space": 130,
+      "outfit space": 560,
+      "weapon capacity": 250,
+      "engine capacity": 150,
+      "weapon": {
+        "blast radius": 160,
+        "shield damage": 1600,
+        "hull damage": 800,
+        "hit force": 2400
+      }
+    },
+    "tiny explosion": 40,
+    "small explosion": 55,
+    "medium explosion": 60,
+    "large explosion": 40,
+    "final explode": "final explosion medium",
+    "description": "The Tarazed Falcon is one of the most powerful warships that civilians can buy, a sleeker and more maneuverable alternative to the venerable and somewhat outdated Leviathan.",
+    "_internalId": "official-game/endless-sky::Falcon",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "f0758a29149b",
+    "variant": "Falcon (Flamethrower)",
+    "baseShip": "Falcon",
+    "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
+    "governments": {
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "Free Worlds": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
+    "locations": {
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\" (rate 9600)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\" (rate 19200)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach\" (rate 4800)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\"",
+          "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
+        ]
+      }
+    },
+    "outfits": {
+      "Plasma Cannon": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Breeder Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D14-RN Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Nitrogen Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Water Coolant System": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Catalytic Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 15,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Radar Jammer": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X1700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Orca Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Falcon (Flamethrower Pirate)",
+    "engines": [
+      {
+        "x": -16.5,
+        "y": 143
+      },
+      {
+        "x": 16.5,
+        "y": 143
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -16,
+        "y": -86.5,
+        "gun": "Plasma Cannon"
+      },
+      {
+        "x": 16,
+        "y": -86.5,
+        "gun": "Plasma Cannon"
+      },
+      {
+        "x": -19,
+        "y": -76.5,
+        "gun": "Torpedo Launcher"
+      },
+      {
+        "x": 19,
+        "y": -76.5,
+        "gun": "Torpedo Launcher"
+      }
+    ],
+    "turrets": [
+      {
+        "x": -16,
+        "y": -29,
+        "turret": "Heavy Anti-Missile Turret"
+      },
+      {
+        "x": 16,
+        "y": -29,
+        "turret": "Quad Blaster Turret"
+      },
+      {
+        "x": -50,
+        "y": 39.5,
+        "turret": "Quad Blaster Turret"
+      },
+      {
+        "x": 50,
+        "y": 39.5,
+        "turret": "Quad Blaster Turret"
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 30,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 60,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/falcon",
+    "thumbnail": "thumbnail/falcon",
+    "administrative cost": 5,
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 10900000,
+      "shields": 12800,
+      "hull": 3700,
+      "required crew": 52,
+      "bunks": 91,
+      "mass": 1260,
+      "drag": 11.4,
+      "heat dissipation": 0.42,
+      "fuel capacity": 600,
+      "cargo space": 130,
+      "outfit space": 560,
+      "weapon capacity": 250,
+      "engine capacity": 150,
+      "weapon": {
+        "blast radius": 160,
+        "shield damage": 1600,
+        "hull damage": 800,
+        "hit force": 2400
+      }
+    },
+    "tiny explosion": 40,
+    "small explosion": 55,
+    "medium explosion": 60,
+    "large explosion": 40,
+    "final explode": "final explosion medium",
+    "description": "The Tarazed Falcon is one of the most powerful warships that civilians can buy, a sleeker and more maneuverable alternative to the venerable and somewhat outdated Leviathan.",
+    "_internalId": "official-game/endless-sky::Falcon",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "f0758a29149b",
+    "variant": "Falcon (Flamethrower Pirate)",
+    "baseShip": "Falcon",
+    "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
+    "governments": {
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "Pirate": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
+    "locations": {
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 800)",
+          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 5000)",
+          "Removes fleet in \"Ildaria\" via event \"remove pirates from Ildaria\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
+          "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+        ]
+      }
+    },
+    "outfits": {
+      "Plasma Cannon": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Gatling Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Javelin Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Breeder Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D41-HY Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Nitrogen Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Gatling Gun Ammo": {
+        "count": 12000,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Javelin Storage Crate": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 15,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Radar Jammer": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X1700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Orca Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Fury (Flamethrower Blaster)",
+    "engines": [
+      {
+        "x": -11,
+        "y": 35,
+        "zoom": 0.8
+      },
+      {
+        "x": 11,
+        "y": 35,
+        "zoom": 0.8
+      },
+      {
+        "x": -18,
+        "y": 37,
+        "zoom": 0.6
+      },
+      {
+        "x": 18,
+        "y": 37,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -11,
+        "y": -28,
+        "gun": ""
+      },
+      {
+        "x": 11,
+        "y": -28,
+        "gun": ""
+      },
+      {
+        "x": -17,
+        "y": -19.5,
+        "gun": ""
+      },
+      {
+        "x": 17,
+        "y": -19.5,
+        "gun": ""
+      },
+      {
+        "x": -5.5,
+        "y": -33,
+        "gun": ""
+      },
+      {
+        "x": 5.5,
+        "y": -33,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      }
+    ],
+    "plural": "Furies",
+    "sprite": "ship/fury",
+    "thumbnail": "thumbnail/fury",
+    "administrative cost": 1,
+    "attributes": {
+      "category": "Interceptor",
+      "cost": 490000,
+      "shields": 2000,
+      "hull": 400,
+      "required crew": 1,
+      "bunks": 3,
+      "mass": 105,
+      "drag": 1.8,
+      "heat dissipation": 0.79,
+      "fuel capacity": 600,
+      "cargo space": 15,
+      "outfit space": 160,
+      "weapon capacity": 40,
+      "engine capacity": 60,
+      "weapon": {
+        "blast radius": 24,
+        "shield damage": 240,
+        "hull damage": 120,
+        "hit force": 360
+      }
+    },
+    "tiny explosion": 10,
+    "small explosion": 20,
+    "description": "The Fury is Southbound Shipyards' most popular design of escort ship. They have greater firepower than any other interceptor-class vessel, meaning that any pirate flying solo will think twice before attacking a convoy that is accompanied by a Fury. However, Furies are also much less maneuverable than other small ships.",
+    "_internalId": "official-game/endless-sky::Fury",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "ee3e284b79c2",
+    "variant": "Fury (Flamethrower Blaster)",
+    "baseShip": "Fury",
+    "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
+    "governments": {
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "Free Worlds": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
+    "locations": {
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\" (rate 8000)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\" (rate 9600)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\" (rate 16000)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\" (rate 19200)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach\" (rate 4000)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach\" (rate 4800)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\"",
+          "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
+        ]
+      }
+    },
+    "outfits": {
+      "Energy Blaster": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-AA Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D14-RN Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X2700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X2200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Fury (Flamethrower Pirate)",
+    "engines": [
+      {
+        "x": -11,
+        "y": 35,
+        "zoom": 0.8
+      },
+      {
+        "x": 11,
+        "y": 35,
+        "zoom": 0.8
+      },
+      {
+        "x": -18,
+        "y": 37,
+        "zoom": 0.6
+      },
+      {
+        "x": 18,
+        "y": 37,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -11,
+        "y": -28,
+        "gun": ""
+      },
+      {
+        "x": 11,
+        "y": -28,
+        "gun": ""
+      },
+      {
+        "x": -17,
+        "y": -19.5,
+        "gun": ""
+      },
+      {
+        "x": 17,
+        "y": -19.5,
+        "gun": ""
+      },
+      {
+        "x": -5.5,
+        "y": -33,
+        "gun": ""
+      },
+      {
+        "x": 5.5,
+        "y": -33,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      }
+    ],
+    "plural": "Furies",
+    "sprite": "ship/fury",
+    "thumbnail": "thumbnail/fury",
+    "administrative cost": 1,
+    "attributes": {
+      "category": "Interceptor",
+      "cost": 490000,
+      "shields": 2000,
+      "hull": 400,
+      "required crew": 1,
+      "bunks": 3,
+      "mass": 105,
+      "drag": 1.8,
+      "heat dissipation": 0.79,
+      "fuel capacity": 600,
+      "cargo space": 15,
+      "outfit space": 160,
+      "weapon capacity": 40,
+      "engine capacity": 60,
+      "weapon": {
+        "blast radius": 24,
+        "shield damage": 240,
+        "hull damage": 120,
+        "hit force": 360
+      }
+    },
+    "tiny explosion": 10,
+    "small explosion": 20,
+    "description": "The Fury is Southbound Shipyards' most popular design of escort ship. They have greater firepower than any other interceptor-class vessel, meaning that any pirate flying solo will think twice before attacking a convoy that is accompanied by a Fury. However, Furies are also much less maneuverable than other small ships.",
+    "_internalId": "official-game/endless-sky::Fury",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "ee3e284b79c2",
+    "variant": "Fury (Flamethrower Pirate)",
+    "baseShip": "Fury",
+    "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
+    "governments": {
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "Pirate": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
+    "locations": {
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 500)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 800)",
+          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 3000)",
+          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 5000)",
+          "Removes fleet in \"Ildaria\" via event \"remove pirates from Ildaria\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
+          "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+        ]
+      }
+    },
+    "outfits": {
+      "Gatling Gun": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "nGVF-AA Fuel Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D14-RN Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Gatling Gun Ammo": {
+        "count": 6000,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X2700 Ion Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "X2200 Ion Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Osprey (Flamethrower)",
+    "engines": [
+      {
+        "x": -42.5,
+        "y": 62.5,
+        "zoom": 0.8
+      },
+      {
+        "x": 42.5,
+        "y": 62.5,
+        "zoom": 0.8
+      },
+      {
+        "x": -16.5,
+        "y": 105,
+        "zoom": 0.6
+      },
+      {
+        "x": 16.5,
+        "y": 105,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -9.5,
+        "y": -95.5,
+        "gun": "Plasma Cannon"
+      },
+      {
+        "x": 9.5,
+        "y": -95.5,
+        "gun": "Plasma Cannon"
+      },
+      {
+        "x": -25,
+        "y": -49.5,
+        "gun": "Plasma Cannon"
+      },
+      {
+        "x": 25,
+        "y": -49.5,
+        "gun": "Plasma Cannon"
+      }
+    ],
+    "turrets": [
+      {
+        "x": -15.5,
+        "y": -12,
+        "turret": "Quad Blaster Turret"
+      },
+      {
+        "x": 15.5,
+        "y": -12,
+        "turret": "Heavy Anti-Missile Turret"
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 80,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/osprey",
+    "thumbnail": "thumbnail/osprey",
+    "administrative cost": 3,
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 4200000,
+      "shields": 7200,
+      "hull": 1600,
+      "required crew": 9,
+      "bunks": 24,
+      "mass": 630,
+      "drag": 8.9,
+      "heat dissipation": 0.54,
+      "fuel capacity": 600,
+      "cargo space": 40,
+      "outfit space": 450,
+      "weapon capacity": 180,
+      "engine capacity": 130,
+      "weapon": {
+        "blast radius": 80,
+        "shield damage": 800,
+        "hull damage": 400,
+        "hit force": 1200
+      }
+    },
+    "medium explosion": 24,
+    "large explosion": 16,
+    "small explosion": 40,
+    "tiny explosion": 28,
+    "final explode": "final explosion medium",
+    "description": "After the Blackbird gained surprising popularity as an agile light warship despite its original design as a transport, Tarazed decided to produce a new design specifically intended as a warship. The Osprey was the result. Although it is considered overpriced by most savvy pilots, it is nevertheless a perennial favorite among those who have the extra cash to spend on it.",
+    "_internalId": "official-game/endless-sky::Osprey",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "758f015166e0",
+    "variant": "Osprey (Flamethrower)",
+    "baseShip": "Osprey",
+    "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
+    "governments": {
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "Free Worlds": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
+    "locations": {
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\" (rate 8000)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\" (rate 9600)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\" (rate 16000)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\" (rate 19200)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach\" (rate 4000)",
+          "Adds fleet in \"Pebble Beach\" via event \"Mining Pebble Beach\" (rate 4800)",
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 9000)",
+          "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 2\"",
+          "Removes fleet in \"Pebble Beach\" via event \"Mining Pebble Beach 3\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\""
+        ]
+      }
+    },
+    "outfits": {
+      "Plasma Cannon": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Breeder Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D14-RN Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Nitrogen Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Catalytic Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Osprey (Flamethrower Pirate)",
+    "engines": [
+      {
+        "x": -42.5,
+        "y": 62.5,
+        "zoom": 0.8
+      },
+      {
+        "x": 42.5,
+        "y": 62.5,
+        "zoom": 0.8
+      },
+      {
+        "x": -16.5,
+        "y": 105,
+        "zoom": 0.6
+      },
+      {
+        "x": 16.5,
+        "y": 105,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -9.5,
+        "y": -95.5,
+        "gun": "Plasma Cannon"
+      },
+      {
+        "x": 9.5,
+        "y": -95.5,
+        "gun": "Plasma Cannon"
+      },
+      {
+        "x": -25,
+        "y": -49.5,
+        "gun": "Plasma Cannon"
+      },
+      {
+        "x": 25,
+        "y": -49.5,
+        "gun": "Plasma Cannon"
+      }
+    ],
+    "turrets": [
+      {
+        "x": -15.5,
+        "y": -12,
+        "turret": "Quad Blaster Turret"
+      },
+      {
+        "x": 15.5,
+        "y": -12,
+        "turret": "Heavy Anti-Missile Turret"
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 40,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 80,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 80,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/osprey",
+    "thumbnail": "thumbnail/osprey",
+    "administrative cost": 3,
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 4200000,
+      "shields": 7200,
+      "hull": 1600,
+      "required crew": 9,
+      "bunks": 24,
+      "mass": 630,
+      "drag": 8.9,
+      "heat dissipation": 0.54,
+      "fuel capacity": 600,
+      "cargo space": 40,
+      "outfit space": 450,
+      "weapon capacity": 180,
+      "engine capacity": 130,
+      "weapon": {
+        "blast radius": 80,
+        "shield damage": 800,
+        "hull damage": 400,
+        "hit force": 1200
+      }
+    },
+    "medium explosion": 24,
+    "large explosion": 16,
+    "small explosion": 40,
+    "tiny explosion": 28,
+    "final explode": "final explosion medium",
+    "description": "After the Blackbird gained surprising popularity as an agile light warship despite its original design as a transport, Tarazed decided to produce a new design specifically intended as a warship. The Osprey was the result. Although it is considered overpriced by most savvy pilots, it is nevertheless a perennial favorite among those who have the extra cash to spend on it.",
+    "_internalId": "official-game/endless-sky::Osprey",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "758f015166e0",
+    "variant": "Osprey (Flamethrower Pirate)",
+    "baseShip": "Osprey",
+    "_variantPluginId": "LixiChronikouOrious list/Bunsen.Burner",
+    "governments": {
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "Pirate": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01"
+    ],
+    "locations": {
+      "LixiChronikouOrious list/Bunsen.Burner": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Shaula\" via event \"lunarium training: shaula back to normal\" (rate 800)",
+          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 5000)",
+          "Removes fleet in \"Ildaria\" via event \"remove pirates from Ildaria\"",
+          "Removes fleet in \"Shaula\" via event \"lunarium training: shaula empty\"",
+          "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+        ]
+      }
+    },
+    "outfits": {
+      "Plasma Cannon": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Javelin Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Breeder Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D23-QP Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Nitrogen Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Pod": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Javelin Storage Crate": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Radar Jammer": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Impala Plasma Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  }
+]

@@ -1,0 +1,2265 @@
+[
+  {
+    "name": "quantum jump drive",
+    "sprite": "poot-exp/effect/quantum jump drive",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 12
+    },
+    "lifetime": 10,
+    "random angle": 180,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "scram jump drive",
+    "sprite": "poot-exp/effect/scram jump drive",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 12
+    },
+    "lifetime": 10,
+    "random angle": 180,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "horizon jump drive",
+    "sprite": "poot-exp/effect/horizon jump drive",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 12
+    },
+    "lifetime": 10,
+    "random angle": 180,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "tectonic afterburner (POOT)",
+    "sprite": "effect/afterburner",
+    "sprite data": {
+      "scale": 1.75,
+      "no repeat": true,
+      "frame rate": 20
+    },
+    "sound": "afterburner",
+    "sound category": "afterburner",
+    "lifetime": 14,
+    "random angle": 1,
+    "random spin": 1,
+    "random velocity": -8,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "heavy tectonic afterburner (POOT)",
+    "sprite": "effect/afterburner",
+    "sprite data": {
+      "scale": 1.9,
+      "no repeat": true,
+      "frame rate": 20
+    },
+    "sound": "afterburner",
+    "sound category": "afterburner",
+    "lifetime": 14,
+    "random angle": 1,
+    "random spin": 1,
+    "random velocity": -25,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "combustion afterburner OLD (POOT)",
+    "sprite": "poot-exp/effect/heavy_afterburner",
+    "sprite data": {
+      "scale": 2,
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "sound": "poot-exp/combustion_afterburner",
+    "sound category": "afterburner",
+    "lifetime": 20,
+    "random angle": 15,
+    "random spin": 10,
+    "random velocity": -40,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "combustion afterburner (POOT)",
+    "sprite": "poot-exp/effect/heavy_afterburner",
+    "sprite data": {
+      "scale": 2,
+      "no repeat": true,
+      "frame rate": 7
+    },
+    "sound": "poot-exp/combustion_afterburner",
+    "sound category": "afterburner",
+    "lifetime": 70,
+    "random angle": 15,
+    "random spin": 10,
+    "random velocity": -10,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "plasma infused afterburner (POOT)",
+    "sprite": "poot-exp/effect/plasma_infused_afterburner",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 20
+    },
+    "sound": "poot-exp/plasma_afterburner",
+    "sound category": "afterburner",
+    "lifetime": 18,
+    "random angle": 45,
+    "random spin": 30,
+    "random velocity": -4,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "small atomic afterburner (POOT)",
+    "sprite": "poot-exp/effect/atomic_afterburner",
+    "sprite data": {
+      "scale": 0.28,
+      "no repeat": true,
+      "frame rate": 60
+    },
+    "sound": "poot-exp/atomic_afterburner",
+    "sound category": "afterburner",
+    "lifetime": 15,
+    "random angle": 7,
+    "random spin": 1,
+    "random velocity": -15,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "atomic afterburner (POOT)",
+    "sprite": "poot-exp/effect/atomic_afterburner",
+    "sprite data": {
+      "scale": 0.4,
+      "no repeat": true,
+      "frame rate": 60
+    },
+    "sound": "poot-exp/atomic_afterburner",
+    "sound category": "afterburner",
+    "lifetime": 15,
+    "random angle": 7,
+    "random spin": 1,
+    "random velocity": -22,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "huge atomic afterburner (POOT)",
+    "sprite": "poot-exp/effect/atomic_afterburner",
+    "sprite data": {
+      "scale": 0.7,
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "sound": "poot-exp/atomic_afterburner",
+    "sound category": "afterburner",
+    "lifetime": 25,
+    "random angle": 7,
+    "random spin": 1,
+    "random velocity": -25,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "korath afterburner colossal",
+    "sprite": "poot-exp/effect/korath_capital_afterburner/korath_capital_afterburner",
+    "sprite data": {
+      "scale": 2,
+      "no repeat": true,
+      "frame rate": 20
+    },
+    "sound": "korath afterburner",
+    "sound category": "afterburner",
+    "lifetime": 32,
+    "random angle": 15,
+    "random spin": 360,
+    "random frame rate": 5,
+    "random velocity": 1,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "korath afterburner capital",
+    "sprite": "poot-exp/effect/korath_capital_afterburner/korath_capital_afterburner",
+    "sprite data": {
+      "scale": 2.2,
+      "no repeat": true,
+      "frame rate": 20
+    },
+    "sound": "korath afterburner",
+    "sound category": "afterburner",
+    "lifetime": 32,
+    "random angle": 15,
+    "random spin": 360,
+    "random frame rate": 5,
+    "random velocity": 1,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "red laser glare",
+    "sprite": "poot-exp/effect/avgi_lasers/red optical laser glare",
+    "sprite data": {
+      "frame rate": 3,
+      "random start frame": true,
+      "rewind": true
+    },
+    "lifetime": 1,
+    "absolute angle": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "red laser reflection",
+    "sprite": "poot-exp/effect/skylance_colors/red skylance impact",
+    "sprite data": {
+      "random start frame": true,
+      "scale": 0.125
+    },
+    "lifetime": 1,
+    "random lifetime": 3,
+    "random velocity": -90,
+    "velocity scale": -0.0003,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "red laser scattering",
+    "sprite": "poot-exp/effect/skylance_colors/red skylance impact",
+    "sprite data": {
+      "frame rate": 3,
+      "scale": 0.5
+    },
+    "lifetime": 3,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "purple laser glare",
+    "sprite": "poot-exp/effect/avgi_lasers/purple optical laser glare",
+    "sprite data": {
+      "frame rate": 3,
+      "random start frame": true,
+      "rewind": true
+    },
+    "lifetime": 1,
+    "absolute angle": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "purple laser reflection",
+    "sprite": "poot-exp/effect/skylance_colors/purple skylance impact",
+    "sprite data": {
+      "random start frame": true,
+      "scale": 0.125
+    },
+    "lifetime": 1,
+    "random lifetime": 3,
+    "random velocity": -90,
+    "velocity scale": -0.0003,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "purple laser scattering",
+    "sprite": "poot-exp/effect/skylance_colors/purple skylance impact",
+    "sprite data": {
+      "frame rate": 3,
+      "scale": 0.5
+    },
+    "lifetime": 3,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "orange laser glare",
+    "sprite": "poot-exp/effect/avgi_lasers/orange optical laser glare",
+    "sprite data": {
+      "frame rate": 3,
+      "random start frame": true,
+      "rewind": true
+    },
+    "lifetime": 1,
+    "absolute angle": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "orange laser reflection",
+    "sprite": "poot-exp/effect/skylance_colors/orange skylance impact",
+    "sprite data": {
+      "random start frame": true,
+      "scale": 0.125
+    },
+    "lifetime": 1,
+    "random lifetime": 3,
+    "random velocity": -90,
+    "velocity scale": -0.0003,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "orange laser scattering",
+    "sprite": "poot-exp/effect/skylance_colors/orange skylance impact",
+    "sprite data": {
+      "frame rate": 3,
+      "scale": 0.5
+    },
+    "lifetime": 3,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "white laser glare",
+    "sprite": "poot-exp/effect/avgi_lasers/white optical laser glare",
+    "sprite data": {
+      "frame rate": 3,
+      "random start frame": true,
+      "rewind": true
+    },
+    "lifetime": 1,
+    "absolute angle": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "white laser reflection",
+    "sprite": "poot-exp/effect/skylance_colors/white skylance impact",
+    "sprite data": {
+      "random start frame": true,
+      "scale": 0.125
+    },
+    "lifetime": 1,
+    "random lifetime": 3,
+    "random velocity": -90,
+    "velocity scale": -0.0003,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "white laser scattering",
+    "sprite": "poot-exp/effect/skylance_colors/white skylance impact",
+    "sprite data": {
+      "frame rate": 3,
+      "scale": 0.5
+    },
+    "lifetime": 3,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "green-p laser glare",
+    "sprite": "poot-exp/effect/avgi_lasers/green-p optical laser glare",
+    "sprite data": {
+      "frame rate": 3,
+      "random start frame": true,
+      "rewind": true
+    },
+    "lifetime": 1,
+    "absolute angle": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "green-p laser reflection",
+    "sprite": "poot-exp/effect/skylance_colors/green skylance impact",
+    "sprite data": {
+      "random start frame": true,
+      "scale": 0.125
+    },
+    "lifetime": 1,
+    "random lifetime": 3,
+    "random velocity": -90,
+    "velocity scale": -0.0003,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "green-p laser scattering",
+    "sprite": "poot-exp/effect/skylance_colors/green skylance impact",
+    "sprite data": {
+      "frame rate": 3,
+      "scale": 0.5
+    },
+    "lifetime": 3,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "blue-p laser glare",
+    "sprite": "poot-exp/effect/avgi_lasers/blue-p optical laser glare",
+    "sprite data": {
+      "frame rate": 3,
+      "random start frame": true,
+      "rewind": true
+    },
+    "lifetime": 1,
+    "absolute angle": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "blue-p laser reflection",
+    "sprite": "poot-exp/effect/skylance_colors/blue skylance impact",
+    "sprite data": {
+      "random start frame": true,
+      "scale": 0.125
+    },
+    "lifetime": 1,
+    "random lifetime": 3,
+    "random velocity": -90,
+    "velocity scale": -0.0003,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "blue-p laser scattering",
+    "sprite": "poot-exp/effect/skylance_colors/blue skylance impact",
+    "sprite data": {
+      "frame rate": 3,
+      "scale": 0.5
+    },
+    "lifetime": 3,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "cyan laser glare",
+    "sprite": "poot-exp/effect/avgi_lasers/cyan optical laser glare",
+    "sprite data": {
+      "frame rate": 3,
+      "random start frame": true,
+      "rewind": true
+    },
+    "lifetime": 1,
+    "absolute angle": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "cyan laser reflection",
+    "sprite": "poot-exp/effect/skylance_colors/cyan skylance impact",
+    "sprite data": {
+      "random start frame": true,
+      "scale": 0.125
+    },
+    "lifetime": 1,
+    "random lifetime": 3,
+    "random velocity": -90,
+    "velocity scale": -0.0003,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "cyan laser scattering",
+    "sprite": "poot-exp/effect/skylance_colors/cyan skylance impact",
+    "sprite data": {
+      "frame rate": 3,
+      "scale": 0.5
+    },
+    "lifetime": 3,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "yellow laser glare",
+    "sprite": "poot-exp/effect/avgi_lasers/yellow optical laser glare",
+    "sprite data": {
+      "frame rate": 3,
+      "random start frame": true,
+      "rewind": true
+    },
+    "lifetime": 1,
+    "absolute angle": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "yellow laser reflection",
+    "sprite": "poot-exp/effect/skylance_colors/yellow skylance impact",
+    "sprite data": {
+      "random start frame": true,
+      "scale": 0.125
+    },
+    "lifetime": 1,
+    "random lifetime": 3,
+    "random velocity": -90,
+    "velocity scale": -0.0003,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "yellow laser scattering",
+    "sprite": "poot-exp/effect/skylance_colors/yellow skylance impact",
+    "sprite data": {
+      "frame rate": 3,
+      "scale": 0.5
+    },
+    "lifetime": 3,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "magenta laser glare",
+    "sprite": "poot-exp/effect/avgi_lasers/magenta optical laser glare",
+    "sprite data": {
+      "frame rate": 3,
+      "random start frame": true,
+      "rewind": true
+    },
+    "lifetime": 1,
+    "absolute angle": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "magenta laser reflection",
+    "sprite": "poot-exp/effect/skylance_colors/magenta skylance impact",
+    "sprite data": {
+      "random start frame": true,
+      "scale": 0.125
+    },
+    "lifetime": 1,
+    "random lifetime": 3,
+    "random velocity": -90,
+    "velocity scale": -0.0003,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "magenta laser scattering",
+    "sprite": "poot-exp/effect/skylance_colors/magenta skylance impact",
+    "sprite data": {
+      "frame rate": 3,
+      "scale": 0.5
+    },
+    "lifetime": 3,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "dark laser glare",
+    "sprite": "poot-exp/effect/avgi_lasers/dark optical laser glare",
+    "sprite data": {
+      "frame rate": 3,
+      "random start frame": true,
+      "rewind": true
+    },
+    "lifetime": 1,
+    "absolute angle": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "dark laser reflection",
+    "sprite": "poot-exp/effect/skylance_colors/dark skylance impact",
+    "sprite data": {
+      "random start frame": true,
+      "scale": 0.125
+    },
+    "lifetime": 6,
+    "random lifetime": 3,
+    "random velocity": -15,
+    "velocity scale": -0.0006,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "heavy dark laser reflection",
+    "sprite": "poot-exp/effect/skylance_colors/dark skylance impact",
+    "sprite data": {
+      "random start frame": true,
+      "scale": 0.125
+    },
+    "lifetime": 18,
+    "random lifetime": 3,
+    "random velocity": -15,
+    "random angle": 3,
+    "velocity scale": -0.0006,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "dark laser scattering",
+    "sprite": "poot-exp/effect/skylance_colors/dark skylance impact",
+    "sprite data": {
+      "frame rate": 3,
+      "scale": 1
+    },
+    "lifetime": 3,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "heavy dark laser scattering",
+    "sprite": "poot-exp/effect/skylance_colors/dark skylance impact",
+    "sprite data": {
+      "frame rate": 5,
+      "scale": 2
+    },
+    "lifetime": 3,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "rainbow laser glare",
+    "sprite": "poot-exp/effect/avgi_rainbow/rainbow optical laser glare",
+    "sprite data": {
+      "scale": 1.5,
+      "frame rate": 15
+    },
+    "lifetime": 1,
+    "absolute angle": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "rainbow laser reflection",
+    "sprite": "poot-exp/effect/skylance_rainbow/rainbow skylance impact",
+    "sprite data": {
+      "frame rate": 10,
+      "scale": 0.17
+    },
+    "lifetime": 8,
+    "random lifetime": 3,
+    "random velocity": -45,
+    "random angle": 7,
+    "velocity scale": -0.0003,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "rainbow laser scattering",
+    "sprite": "poot-exp/effect/skylance_rainbow/rainbow skylance impact",
+    "sprite data": {
+      "frame rate": 10,
+      "scale": 0.5
+    },
+    "lifetime": 3,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "mini rainbow laser reflection",
+    "sprite": "poot-exp/effect/skylance_rainbow/rainbow skylance impact",
+    "sprite data": {
+      "frame rate": 10,
+      "scale": 0.125
+    },
+    "lifetime": 8,
+    "random lifetime": 3,
+    "random velocity": -25,
+    "random angle": 5,
+    "velocity scale": -0.0003,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "mini rainbow laser glare",
+    "sprite": "poot-exp/effect/avgi_rainbow/rainbow optical laser glare",
+    "sprite data": {
+      "frame rate": 15
+    },
+    "lifetime": 1,
+    "absolute angle": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "bremsstrahlung (POOT)",
+    "sprite": "effect/skylance impact",
+    "sprite data": {
+      "frame rate": 60,
+      "no repeat": true,
+      "scale": 0.5
+    },
+    "random lifetime": 3,
+    "velocity scale": 0.3,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "nuclear spallation (POOT)",
+    "sprite": "effect/detainer sparks",
+    "sprite data": {
+      "frame rate": 120,
+      "no repeat": true,
+      "scale": 0.5
+    },
+    "random angle": 15,
+    "random spin": 15,
+    "random lifetime": 6,
+    "random velocity": -6,
+    "velocity scale": -0.03,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "electron flare (POOT)",
+    "sprite": "effect/pwaveflare",
+    "sprite data": {
+      "frame rate": 60,
+      "random start frame": true
+    },
+    "lifetime": 1,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "bombardment heavy explosion (POOT)",
+    "sprite": "effect/explosion/small",
+    "sprite data": {
+      "no repeat": true,
+      "scale": 1.3,
+      "frame rate": 30
+    },
+    "sound": "explosion small",
+    "lifetime": 12,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 3,
+    "random velocity": 0.6,
+    "velocity scale": 0.02,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "ionic railgun impact (POOT)",
+    "sprite": "poot-exp/effect/ionic_railgun_spark",
+    "sprite data": {
+      "random start frame": true,
+      "frame rate": 60,
+      "scale": 0.5,
+      "no repeat": true
+    },
+    "lifetime": 3,
+    "random lifetime": 6,
+    "random angle": 90,
+    "random velocity": 5,
+    "velocity scale": 0.05,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "ion infusion impact 1 (POOT)",
+    "sprite": "poot-exp/effect/ion_infusion_cannon_hit",
+    "sprite data": {
+      "no repeat": true,
+      "scale": 2,
+      "frame rate": 15
+    },
+    "sound": "ion impact",
+    "lifetime": 18,
+    "random angle": 360,
+    "random spin": 30,
+    "random velocity": 1,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "ion infusion impact 2 (POOT)",
+    "sprite": "poot-exp/effect/ion_infusion_cannon_hit",
+    "sprite data": {
+      "no repeat": true,
+      "scale": 2,
+      "frame rate": 15
+    },
+    "sound": "explosion large",
+    "lifetime": 18,
+    "random angle": 360,
+    "random spin": 30,
+    "random velocity": 1,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "ion infusion spark (POOT)",
+    "sprite": "poot-exp/effect/pug_revenant_impact",
+    "sprite data": {
+      "scale": 0.75,
+      "frame rate": 15,
+      "random start frame": true,
+      "no repeat": true
+    },
+    "lifetime": 8,
+    "random lifetime": 7,
+    "random angle": 360,
+    "random velocity": 15,
+    "random spin": 1,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "ion infusion spark 2 (POOT)",
+    "sprite": "poot-exp/effect/pug_revenant_impact",
+    "sprite data": {
+      "scale": 0.4,
+      "frame rate": 15,
+      "random start frame": true,
+      "no repeat": true
+    },
+    "lifetime": 8,
+    "random lifetime": 4,
+    "random angle": 360,
+    "random velocity": 15,
+    "random spin": 1,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "ion infusion spark 3 (POOT)",
+    "sprite": "poot-exp/effect/ionic_railgun_spark",
+    "sprite data": {
+      "random start frame": true,
+      "frame rate": 10,
+      "scale": 1.5,
+      "no repeat": true
+    },
+    "lifetime": 18,
+    "random lifetime": 4,
+    "random angle": 360,
+    "random velocity": 17,
+    "velocity scale": 0.05,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "plasma flamethrower die",
+    "sprite": "poot-exp/effect/explosion/neutron_small",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 15,
+      "random start frame": true
+    },
+    "lifetime": 24,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 2,
+    "random velocity": 0.4,
+    "velocity scale": 0.8,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "plasma flamethrower hit",
+    "sprite": "poot-exp/effect/explosion/neutron_medium",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 15,
+      "random start frame": true
+    },
+    "lifetime": 28,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 3,
+    "random velocity": 0.6,
+    "velocity scale": 0.8,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "mini fusion cannon fire",
+    "sprite": "effect/plasma fire",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 20,
+      "scale": 0.7
+    },
+    "lifetime": 12,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "mini fusion cannon impact",
+    "sprite": "effect/plasma impact",
+    "sprite data": {
+      "frame rate": 20,
+      "start frame": 0,
+      "no repeat": true,
+      "scale": 0.7
+    },
+    "lifetime": 30,
+    "random frame rate": 15,
+    "random velocity": 15,
+    "velocity scale": 0,
+    "random angle": 360,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "mini fusion cannon explosion 1",
+    "sprite": "effect/explosion/huge",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 20,
+      "scale": 0.7
+    },
+    "lifetime": 28,
+    "random angle": 360,
+    "random velocity": 7,
+    "random spin": 3,
+    "random frame rate": 10,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "mini fusion cannon explosion 2",
+    "sprite": "effect/explosion/large",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 20,
+      "scale": 0.7
+    },
+    "lifetime": 28,
+    "random angle": 360,
+    "random velocity": 10,
+    "random spin": 3,
+    "random frame rate": 10,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "mini fusion cannon explosion 3",
+    "sprite": "effect/explosion/medium",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 20,
+      "scale": 0.7
+    },
+    "lifetime": 28,
+    "random angle": 360,
+    "random velocity": 13,
+    "random spin": 3,
+    "random frame rate": 10,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "mini fusion cannon nuke",
+    "sprite": "effect/explosion/huge",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 32,
+      "scale": 0.7
+    },
+    "sound": "explosion huge",
+    "lifetime": 15,
+    "random angle": 360,
+    "random velocity": 1,
+    "random spin": 3,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "mini fusion cannon cloud",
+    "sprite": "effect/plasma cloud",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 15,
+      "scale": 0.7
+    },
+    "lifetime": 20,
+    "random angle": 360,
+    "random velocity": 10,
+    "velocity scale": 0.2,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "proton fusion cannon fire",
+    "sprite": "poot-exp/effect/proton_fusion_fire",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 20,
+      "scale": 0.5
+    },
+    "lifetime": 12,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "proton fusion cannon impact",
+    "sprite": "poot-exp/effect/proton_fusion_impact",
+    "sprite data": {
+      "frame rate": 20,
+      "start frame": 0,
+      "no repeat": true,
+      "scale": 0.5
+    },
+    "lifetime": 30,
+    "random frame rate": 15,
+    "random velocity": 15,
+    "velocity scale": 0,
+    "random angle": 360,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "proton fusion cannon explosion 1",
+    "sprite": "effect/explosion/huge",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 20,
+      "scale": 0.5
+    },
+    "lifetime": 28,
+    "random angle": 360,
+    "random velocity": 7,
+    "random spin": 3,
+    "random frame rate": 10,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "proton fusion cannon explosion 2",
+    "sprite": "effect/explosion/large",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 20,
+      "scale": 0.5
+    },
+    "lifetime": 28,
+    "random angle": 360,
+    "random velocity": 10,
+    "random spin": 3,
+    "random frame rate": 10,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "proton fusion cannon explosion 3",
+    "sprite": "effect/explosion/medium",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 20,
+      "scale": 0.5
+    },
+    "lifetime": 28,
+    "random angle": 360,
+    "random velocity": 13,
+    "random spin": 3,
+    "random frame rate": 10,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "proton fusion cannon nuke",
+    "sprite": "effect/explosion/huge",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 32,
+      "scale": 0.5
+    },
+    "sound": "explosion large",
+    "lifetime": 15,
+    "random angle": 360,
+    "random velocity": 1,
+    "random spin": 3,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "proton fusion cannon cloud",
+    "sprite": "poot-exp/effect/proton_fusion_cloud",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 15,
+      "scale": 0.5
+    },
+    "lifetime": 20,
+    "random angle": 360,
+    "random velocity": 10,
+    "velocity scale": 0.2,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "nuclear fusion cannon fire",
+    "sprite": "poot-exp/effect/nuclear_fusion_fire",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 20,
+      "scale": 0.9
+    },
+    "lifetime": 12,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "nuclear fusion cannon impact",
+    "sprite": "poot-exp/effect/nuclear_fusion_impact",
+    "sprite data": {
+      "frame rate": 20,
+      "start frame": 0,
+      "no repeat": true,
+      "scale": 0.9
+    },
+    "lifetime": 30,
+    "random frame rate": 15,
+    "random velocity": 15,
+    "velocity scale": 0,
+    "random angle": 360,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "nuclear fusion cannon explosion 1",
+    "sprite": "effect/explosion/huge",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 20,
+      "scale": 0.9
+    },
+    "lifetime": 28,
+    "random angle": 360,
+    "random velocity": 7,
+    "random spin": 3,
+    "random frame rate": 10,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "nuclear fusion cannon explosion 2",
+    "sprite": "effect/explosion/large",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 20,
+      "scale": 0.9
+    },
+    "lifetime": 28,
+    "random angle": 360,
+    "random velocity": 10,
+    "random spin": 3,
+    "random frame rate": 10,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "nuclear fusion cannon explosion 3",
+    "sprite": "effect/explosion/medium",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 20,
+      "scale": 0.9
+    },
+    "lifetime": 28,
+    "random angle": 360,
+    "random velocity": 13,
+    "random spin": 3,
+    "random frame rate": 10,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "nuclear fusion cannon nuke",
+    "sprite": "effect/explosion/huge",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 32,
+      "scale": 0.9
+    },
+    "sound": "explosion nuke",
+    "lifetime": 15,
+    "random angle": 360,
+    "random velocity": 1,
+    "random spin": 3,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "nuclear fusion cannon cloud",
+    "sprite": "poot-exp/effect/nuclear_fusion_cloud",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 15,
+      "scale": 0.9
+    },
+    "lifetime": 20,
+    "random angle": 360,
+    "random velocity": 10,
+    "velocity scale": 0.2,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "gatling blaster fire",
+    "sound": "poot-exp/gatling_soft",
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "quad beam laser impact",
+    "sprite": "effect/laser impact",
+    "sprite data": {
+      "scale": 1.5,
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "lifetime": 5,
+    "random angle": 2,
+    "random spin": 1,
+    "velocity scale": -0.005,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "quad heavy laser impact",
+    "sprite": "effect/heavy laser impact",
+    "sprite data": {
+      "scale": 1.5,
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "lifetime": 5,
+    "random angle": 2,
+    "random spin": 1,
+    "random velocity": 1,
+    "velocity scale": -0.007,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "quad electron impact",
+    "sprite": "effect/electron impact",
+    "sprite data": {
+      "scale": 1.5,
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "lifetime": 5,
+    "random angle": 2,
+    "random spin": 1,
+    "velocity scale": -0.003,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "heavy plasma explosion",
+    "sprite": "effect/explosion/pug/large",
+    "sprite data": {
+      "scale": 3,
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "lifetime": 21,
+    "random angle": 360,
+    "random spin": 4,
+    "random velocity": 0.1,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "heavy plasma explosion 2",
+    "sprite": "effect/explosion/nuke",
+    "sprite data": {
+      "scale": 0.5,
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "sound": "explosion huge",
+    "lifetime": 15,
+    "random angle": 360,
+    "random spin": 5,
+    "random velocity": 1,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "medium particle explosion",
+    "sprite": "effect/explosion/medium",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 20
+    },
+    "sound": "explosion medium",
+    "lifetime": 28,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 3,
+    "random velocity": 0.3,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "heavy particle impact",
+    "sprite": "effect/particle impact",
+    "sprite data": {
+      "scale": 3,
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "sound": "explosion medium",
+    "lifetime": 20,
+    "random angle": 2,
+    "random spin": 10,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "neutron impact",
+    "sprite": "poot-exp/effect/neutron_impact",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 12
+    },
+    "lifetime": 10,
+    "random angle": 180,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "superheavy blaster impact",
+    "sprite": "effect/blaster impact",
+    "sprite data": {
+      "scale": 2.5,
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "sound": "explosion small",
+    "lifetime": 7,
+    "random angle": 40,
+    "velocity scale": -0.05,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "reacher tractor beam",
+    "sprite": "poot-exp/projectile/reacher_tractor_beam",
+    "sprite data": {
+      "frame rate": 3.5
+    },
+    "lifetime": 1,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "heavy tractor beam",
+    "sprite": "poot-exp/projectile/heavy_tractor_beam",
+    "sprite data": {
+      "frame rate": 3.5
+    },
+    "lifetime": 1,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "meteor squadron fire",
+    "sprite": "effect/meteor fire",
+    "sprite data": {
+      "scale": 1.5,
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "lifetime": 12,
+    "random velocity": 10,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "neutron torpedo trail",
+    "sprite": "poot-exp/effect/explosion/neutron_tiny",
+    "sprite data": {
+      "scale": 0.6,
+      "no repeat": true,
+      "frame rate": 27
+    },
+    "lifetime": 20,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 1,
+    "random velocity": 0.2,
+    "velocity scale": 0.2,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "neutron torpedo atomic trail",
+    "sprite": "poot-exp/effect/explosion/neutron_tiny",
+    "sprite data": {
+      "scale": 0.8,
+      "no repeat": true,
+      "frame rate": 14
+    },
+    "lifetime": 40,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 1,
+    "random velocity": 0.2,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "neutron torpedo atomic explosion",
+    "sprite": "poot-exp/effect/explosion/neutron_torpedo_atomic",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 15
+    },
+    "sound": "explosion nuke",
+    "lifetime": 20,
+    "random angle": 360,
+    "random spin": 5,
+    "random velocity": 1,
+    "velocity scale": 0.4,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "neutron torpedo explosion",
+    "sprite": "poot-exp/effect/explosion/neutron_large",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 15
+    },
+    "sound": "torpedo hit",
+    "lifetime": 32,
+    "random angle": 360,
+    "random velocity": 0.8,
+    "random spin": 4,
+    "random frame rate": 5,
+    "velocity scale": 0.4,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "neutron torpedo fire",
+    "sprite": "poot-exp/effect/meteor_fire/neutron_torpedo_fire",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "lifetime": 12,
+    "random velocity": 10,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "neutron torpedo residue fast",
+    "sprite": "poot-exp/effect/explosion/neutron_huge",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 15
+    },
+    "lifetime": 36,
+    "random angle": 360,
+    "random spin": 5,
+    "random velocity": 8,
+    "velocity scale": 0.1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "neutron torpedo residue slow",
+    "sprite": "poot-exp/effect/explosion/neutron_huge",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 10
+    },
+    "lifetime": 60,
+    "random angle": 360,
+    "random spin": 5,
+    "random velocity": 5,
+    "velocity scale": 0.1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "triple slicer impact",
+    "sprite": "effect/slicer impact",
+    "sprite data": {
+      "no repeat": true,
+      "scale": 2,
+      "frame rate": 10
+    },
+    "lifetime": 19,
+    "random angle": 360,
+    "random spin": 2,
+    "random velocity": 0.1,
+    "velocity scale": -0.002,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "heavy repeater impact (POOT)",
+    "sprite": "poot-exp/effect/korath_heavy_repeater_impact",
+    "sprite data": {
+      "scale": 3,
+      "no repeat": true,
+      "frame rate": 8
+    },
+    "lifetime": 14,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 100,
+    "random velocity": 0.2,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "heavy repeater trail (POOT)",
+    "sprite": "poot-exp/effect/korath_heavy_repeater_impact",
+    "sprite data": {
+      "scale": 0.42,
+      "no repeat": true,
+      "frame rate": 12
+    },
+    "lifetime": 21,
+    "random angle": 360,
+    "random spin": 100,
+    "random velocity": 0.6,
+    "velocity scale": 0.1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "heavy repeater explosion (POOT)",
+    "sprite": "effect/explosion/huge",
+    "sprite data": {
+      "scale": 1,
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "sound": "explosion large",
+    "lifetime": 18,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 3,
+    "random velocity": 0.2,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "medium navy explosion",
+    "sprite": "effect/explosion/medium",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 20
+    },
+    "sound": "explosion medium",
+    "lifetime": 28,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 3,
+    "random velocity": 0.6,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "large navy explosion",
+    "sprite": "effect/explosion/large",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 20
+    },
+    "sound": "explosion large",
+    "lifetime": 32,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 4,
+    "random velocity": 0.8,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "huge navy explosion",
+    "sprite": "effect/explosion/huge",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 20
+    },
+    "sound": "explosion huge",
+    "lifetime": 36,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 5,
+    "random velocity": 1,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "nuke navy explosion",
+    "sprite": "effect/explosion/nuke",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 30,
+      "scale": 1.8
+    },
+    "sound": "explosion nuke",
+    "lifetime": 15,
+    "random angle": 360,
+    "random spin": 5,
+    "random velocity": 1,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "navy laser hit",
+    "sprite": "effect/explosion/small",
+    "sprite data": {
+      "no repeat": true,
+      "scale": 0.5,
+      "frame rate": 30
+    },
+    "lifetime": 16,
+    "random angle": 30,
+    "random frame rate": 5,
+    "random spin": 4,
+    "random velocity": 1,
+    "velocity scale": 0.0005,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "navy laser empress hit",
+    "sprite": "effect/explosion/large",
+    "sprite data": {
+      "no repeat": true,
+      "scale": 0.75,
+      "frame rate": 30
+    },
+    "lifetime": 16,
+    "random angle": 30,
+    "random frame rate": 5,
+    "random spin": 4,
+    "random velocity": 1,
+    "velocity scale": 0.0005,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "empress laser fire",
+    "sprite": "effect/explosion/pug/tiny",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 60
+    },
+    "lifetime": 10,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 1,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "Naval Class 1 laser fire",
+    "sprite": "effect/electron impact",
+    "sprite data": {
+      "scale": 0.75,
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "lifetime": 5,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 1,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "Naval Class 2 laser fire",
+    "sprite": "effect/heavy laser impact",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "lifetime": 5,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 1,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "Naval Class 3 laser fire",
+    "sprite": "effect/laser impact",
+    "sprite data": {
+      "scale": 1.5,
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "lifetime": 5,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 1,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "navy minigun fire",
+    "sprite": "effect/explosion/tiny",
+    "sprite data": {
+      "scale": 0.6,
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "sound": "gatling",
+    "lifetime": 10,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 1,
+    "random velocity": 0.2,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "navy bullet impact",
+    "sprite": "effect/bullet impact",
+    "sprite data": {
+      "no repeat": true,
+      "scale": 1.5,
+      "frame rate": 60
+    },
+    "lifetime": 8,
+    "random angle": 40,
+    "velocity scale": 0.2,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "mega bullet impact",
+    "sprite": "effect/explosion/small",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 15
+    },
+    "sound": "explosion small",
+    "lifetime": 24,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 2,
+    "random velocity": 0.4,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "navy mega fire",
+    "sprite": "effect/explosion/small",
+    "sprite data": {
+      "scale": 1,
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "sound": "explosion large",
+    "lifetime": 10,
+    "random angle": 360,
+    "random frame rate": 5,
+    "random spin": 1,
+    "random velocity": 0.2,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "pug t3 seeker trail (POOT)",
+    "sprite": "poot-exp/effect/pug_seeker_trail",
+    "sprite data": {
+      "scale": 0.3,
+      "frame rate": 8,
+      "no repeat": true
+    },
+    "lifetime": 64,
+    "random angle": 15,
+    "random velocity": 3,
+    "velocity scale": 0.1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "pug deepspace seeker trail (POOT)",
+    "sprite": "poot-exp/effect/pug_seeker_trail",
+    "sprite data": {
+      "scale": 0.25,
+      "frame rate": 8,
+      "no repeat": true
+    },
+    "lifetime": 64,
+    "random angle": 15,
+    "random velocity": 5,
+    "velocity scale": 0.1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "pug t3 zapper impact (POOT)",
+    "sprite": "poot-exp/effect/pug_revenant_impact",
+    "sprite data": {
+      "scale": 0.5,
+      "frame rate": 60,
+      "random start frame": true,
+      "no repeat": true
+    },
+    "lifetime": 2,
+    "random angle": 55,
+    "random velocity": 15,
+    "random spin": 1,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "pug t5 zapper impact (POOT)",
+    "sprite": "poot-exp/effect/pug_revenant_impact",
+    "sprite data": {
+      "scale": 0.75,
+      "frame rate": 60,
+      "random start frame": true,
+      "no repeat": true
+    },
+    "lifetime": 2,
+    "random lifetime": 2,
+    "random angle": 40,
+    "random velocity": 21,
+    "random spin": 1,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "pug archaic gridfire cloud",
+    "sprite": "effect/gridfire cloud",
+    "sprite data": {
+      "scale": 0.5,
+      "no repeat": true,
+      "frame rate": 4
+    },
+    "lifetime": 31,
+    "random angle": 10,
+    "random spin": 10,
+    "random velocity": 3,
+    "velocity scale": -0.002,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "pug helios fire",
+    "sprite": "effect/gridfire fire",
+    "sprite data": {
+      "scale": 1.25,
+      "no repeat": true,
+      "frame rate": 40
+    },
+    "lifetime": 4,
+    "random angle": 360,
+    "random spin": 20,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "pug helios hit",
+    "sprite": "poot-exp/effect/pug_helios_hit",
+    "sprite data": {
+      "scale": 1.2,
+      "no repeat": true,
+      "frame rate": 10
+    },
+    "lifetime": 25,
+    "random angle": 360,
+    "random velocity": 5,
+    "velocity scale": 0.00001,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "pug helios cloud stationary",
+    "sprite": "effect/gridfire cloud",
+    "sprite data": {
+      "scale": 1.5,
+      "no repeat": true,
+      "frame rate": 4
+    },
+    "lifetime": 31,
+    "random angle": 360,
+    "random spin": 10,
+    "velocity scale": 0.00001,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "pug t5 helios fire",
+    "sprite": "effect/gridfire fire",
+    "sprite data": {
+      "scale": 2,
+      "no repeat": true,
+      "frame rate": 40
+    },
+    "lifetime": 4,
+    "random angle": 360,
+    "random spin": 20,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "pug t5 helios hit",
+    "sprite": "poot-exp/effect/pug_helios_hit",
+    "sprite data": {
+      "scale": 1.75,
+      "no repeat": true,
+      "frame rate": 10
+    },
+    "lifetime": 25,
+    "random angle": 360,
+    "random velocity": 8,
+    "velocity scale": 0.00001,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "pug t5 helios cloud",
+    "sprite": "effect/gridfire cloud",
+    "sprite data": {
+      "scale": 1.5,
+      "no repeat": true,
+      "frame rate": 4
+    },
+    "lifetime": 31,
+    "random angle": 10,
+    "random spin": 10,
+    "random velocity": 3,
+    "velocity scale": -0.003,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "pug t5 helios cloud dynamic",
+    "sprite": "effect/gridfire cloud",
+    "sprite data": {
+      "scale": 1.5,
+      "no repeat": true,
+      "frame rate": 4
+    },
+    "lifetime": 31,
+    "random angle": 360,
+    "random spin": 10,
+    "random velocity": 6,
+    "velocity scale": 0.00001,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "pug t5 helios cloud stationary",
+    "sprite": "effect/gridfire cloud",
+    "sprite data": {
+      "scale": 2,
+      "no repeat": true,
+      "frame rate": 4
+    },
+    "lifetime": 31,
+    "random angle": 360,
+    "random spin": 10,
+    "velocity scale": 0.00001,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "pug revenant impact (POOT)",
+    "sprite": "poot-exp/effect/pug_revenant_impact",
+    "sprite data": {
+      "scale": 1,
+      "frame rate": 15,
+      "random start frame": true,
+      "no repeat": true
+    },
+    "lifetime": 8,
+    "random lifetime": 8,
+    "sound": "explosion huge",
+    "random angle": 25,
+    "random velocity": 30,
+    "random spin": 1,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "pug small revenant impact (POOT)",
+    "sprite": "poot-exp/effect/pug_revenant_impact",
+    "sprite data": {
+      "scale": 0.75,
+      "frame rate": 15,
+      "random start frame": true,
+      "no repeat": true
+    },
+    "lifetime": 8,
+    "random lifetime": 8,
+    "sound": "explosion large",
+    "random angle": 20,
+    "random velocity": 20,
+    "random spin": 1,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "pug small revenant fire (POOT)",
+    "sprite": "poot-exp/effect/explosion/neutron_tiny",
+    "sprite data": {
+      "scale": 1,
+      "frame rate": 60,
+      "no repeat": true
+    },
+    "lifetime": 11,
+    "sound": "explosion tiny",
+    "random spin": 1,
+    "velocity scale": 0.5,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "pug revenant live (POOT)",
+    "sprite": "poot-exp/effect/pug_revenant_impact",
+    "sprite data": {
+      "scale": 0.3,
+      "frame rate": 8,
+      "random start frame": true,
+      "no repeat": true
+    },
+    "lifetime": 16,
+    "random lifetime": 8,
+    "random angle": 35,
+    "random velocity": 10,
+    "random spin": 1,
+    "velocity scale": -0.1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "pug revenant live 2 (POOT)",
+    "sprite": "poot-exp/effect/pug_revenant_impact",
+    "sprite data": {
+      "scale": 0.3,
+      "frame rate": 8,
+      "random start frame": true,
+      "no repeat": true
+    },
+    "lifetime": 16,
+    "random lifetime": 8,
+    "random angle": 35,
+    "random velocity": 10,
+    "random spin": 1,
+    "velocity scale": -0.1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "heavy ribault flare (POOT)",
+    "sprite": "effect/distancer",
+    "sprite data": {
+      "frame rate": 1.2,
+      "scale": 1.5
+    },
+    "lifetime": 0,
+    "velocity scale": 0.1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "heavy ribault impact (POOT)",
+    "sprite": "effect/electron impact",
+    "sprite data": {
+      "scale": 1.5,
+      "no repeat": true,
+      "frame rate": 30
+    },
+    "lifetime": 5,
+    "random angle": 2,
+    "random spin": 1,
+    "velocity scale": -0.003,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "elite ranseur (POOT)",
+    "sprite": "poot-exp/effect/elite_ranseur",
+    "sprite data": {
+      "frame rate": 30,
+      "no repeat": true
+    },
+    "lifetime": 11,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "elite culverin hit sound (POOT)",
+    "sprite": "poot-exp/effect/explosion/neutron_torpedo_atomic",
+    "sprite data": {
+      "frame rate": 20,
+      "no repeat": true,
+      "scale": 0.75
+    },
+    "sound": "explosion large",
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "harbinger hit visual (POOT)",
+    "sprite": "poot-exp/effect/explosion/neutron_small",
+    "sprite data": {
+      "frame rate": 20,
+      "no repeat": true,
+      "scale": 0.75
+    },
+    "sound": "poot-exp/neutron_beam",
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "harbinger live visual (POOT)",
+    "sprite": "poot-exp/effect/skylance_colors/blue skylance impact",
+    "sprite data": {
+      "frame rate": 12,
+      "random start frame": true,
+      "scale": 1
+    },
+    "velocity scale": 0.1,
+    "random velocity": 0.2,
+    "random angle": 360,
+    "lifetime": 75,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "quarg harbinger die (POOT)",
+    "sprite": "poot-exp/effect/explosion/neutron_torpedo_atomic",
+    "sprite data": {
+      "frame rate": 10,
+      "no repeat": true,
+      "scale": 4
+    },
+    "sound": "explosion nuke",
+    "lifetime": 45,
+    "velocity scale": 0.1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "quarg harbinger die 2 (POOT)",
+    "sprite": "poot-exp/effect/explosion/neutron_torpedo_atomic",
+    "sprite data": {
+      "frame rate": 12,
+      "no repeat": true,
+      "scale": 3
+    },
+    "sound": "asteroid crunch large",
+    "lifetime": 40,
+    "velocity scale": 0.1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "quarg harbinger mini blast fast",
+    "sprite": "poot-exp/effect/explosion/neutron_huge",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 5,
+      "scale": 2
+    },
+    "lifetime": 108,
+    "random lifetime": 12,
+    "random angle": 360,
+    "random spin": 5,
+    "random velocity": 12,
+    "velocity scale": 0.1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "quarg harbinger mini blast slow",
+    "sprite": "poot-exp/effect/explosion/neutron_large",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 3,
+      "scale": 2
+    },
+    "lifetime": 180,
+    "random lifetime": 12,
+    "random angle": 360,
+    "random spin": 5,
+    "random velocity": 7,
+    "velocity scale": 0.1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "ember monsoon spark",
+    "sprite": "poot-exp/effect/ember_monsoon/ember_monsoon_spark",
+    "sprite data": {
+      "start frame": 0,
+      "no repeat": true,
+      "scale": 1.25,
+      "frame rate": 30
+    },
+    "lifetime": 10,
+    "velocity scale": 0,
+    "random angle": 360,
+    "random velocity": 10,
+    "random frame rate": 10,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "ember monsoon fire",
+    "sprite": "poot-exp/effect/ember_monsoon/ember_monsoon_fire",
+    "sprite data": {
+      "start frame": 0,
+      "no repeat": true,
+      "frame rate": 60
+    },
+    "lifetime": 3,
+    "velocity scale": 1,
+    "random angle": 360,
+    "random velocity": 3,
+    "random frame rate": 10,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "ember monsoon impact",
+    "sprite": "poot-exp/effect/ember_monsoon/ember_monsoon_impact",
+    "sprite data": {
+      "start frame": 1,
+      "no repeat": true,
+      "scale": 1.25,
+      "frame rate": 60
+    },
+    "lifetime": 3,
+    "velocity scale": 0,
+    "random angle": 360,
+    "random velocity": 10,
+    "random frame rate": 10,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "ember monsoon vortex",
+    "sprite": "poot-exp/effect/ember_monsoon/ember_monsoon_vortex",
+    "sprite data": {
+      "start frame": 0,
+      "no repeat": true,
+      "scale": 1.25,
+      "frame rate": 10
+    },
+    "sound": "ember tear hit",
+    "lifetime": 100,
+    "velocity scale": 0,
+    "random angle": 360,
+    "random velocity": 0,
+    "random frame rate": 30,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "overcharged_dragonflame",
+    "sprite": "poot-exp/effect/overcharged_dragonflame",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 12
+    },
+    "lifetime": 21,
+    "velocity scale": 1,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "overcharged bright hit",
+    "sprite": "effect/explosion/nuke",
+    "sprite data": {
+      "scale": 1.5,
+      "no repeat": true,
+      "frame rate": 60
+    },
+    "sound": "explosion nuke",
+    "lifetime": 7,
+    "random angle": 360,
+    "random spin": 30,
+    "velocity scale": 0.005,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "stellar minitail hit (POOT)",
+    "sprite": "effect/star tail hit",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 40
+    },
+    "sound": "explosion small",
+    "lifetime": 30,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "stellar minitail live (POOT)",
+    "sprite": "effect/star tail live",
+    "sprite data": {
+      "scale": 0.4,
+      "no repeat": true,
+      "frame rate": 14
+    },
+    "lifetime": 30,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "stellar megatail hit (POOT)",
+    "sprite": "poot-exp/effect/stellar_tail/stellar_tail_mega_hit",
+    "sprite data": {
+      "no repeat": true,
+      "frame rate": 40
+    },
+    "sound": "explosion small",
+    "lifetime": 30,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "stellar megatail live (POOT)",
+    "sprite": "poot-exp/effect/stellar_tail/stellar_tail_mega_live",
+    "sprite data": {
+      "scale": 0.4,
+      "no repeat": true,
+      "frame rate": 14
+    },
+    "lifetime": 30,
+    "velocity scale": 0,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "duskbeam fire (POOT)",
+    "sound": "sunbeam",
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  },
+  {
+    "name": "sungod impact (POOT)",
+    "sprite": "poot-exp/effect/sungod_impact",
+    "sprite data": {
+      "frame rate": 30,
+      "random start frame": true,
+      "scale": 2
+    },
+    "lifetime": 3,
+    "random angle": 360,
+    "random spin": 360,
+    "random velocity": 8,
+    "velocity scale": -0.0002,
+    "pluginId": "POOT/peripherals-or-outstanding-trinkets"
+  }
+]

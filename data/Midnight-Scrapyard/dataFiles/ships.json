@@ -1,0 +1,4130 @@
+[
+  {
+    "name": "Blight Shadow",
+    "engines": [],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -22,
+        "gun": "Energy Absorber?"
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "green blood",
+        "openChance": 15,
+        "spreadChance": 25
+      }
+    ],
+    "noun": "creature",
+    "sprite": "ship/blight shadow/blight shadow",
+    "sprite data": {
+      "rewind": true
+    },
+    "never disabled": true,
+    "attributes": {
+      "automaton": 1,
+      "category": "Light Warship",
+      "cost": 50000,
+      "shields": 1800,
+      "hull": 3600,
+      "crew equivalent": 6,
+      "mass": 345,
+      "drag": 6.45,
+      "heat dissipation": 1.3,
+      "cargo space": 0,
+      "thrust": 36,
+      "thrusting energy": 0.1,
+      "reverse thrust": 54,
+      "reverse thrusting energy": 0.1,
+      "turn": 1200,
+      "shield generation": 1,
+      "shield energy": 1,
+      "depleted shield delay": 200,
+      "hull repair rate": 3,
+      "hull protection": 2,
+      "corrosion protection": 3,
+      "corrosion resistance": 1,
+      "heat protection": 1,
+      "heat resistance": 3,
+      "scramble protection": 3,
+      "scramble resistance": 1,
+      "energy capacity": 1000,
+      "fuel capacity": 600,
+      "cloak": 0.01,
+      "cloaking energy": 0.2,
+      "cloaking fuel": 0.1,
+      "inscrutable": 1,
+      "gaslining": 1,
+      "jump drive": 1,
+      "jump speed": 1,
+      "jump effect": "jump drive black",
+      "jump sound": "jump drive red",
+      "jump in sound": "jump in red",
+      "jump out sound": "jump out red",
+      "ramscoop": 1,
+      "solar collection": 2,
+      "active cooling": 0.12,
+      "cooling energy": -1,
+      "weapon": {
+        "blast radius": 50,
+        "discharge damage": 5,
+        "corrosion damage": 2.5,
+        "hit force": -600
+      }
+    },
+    "green blood": 25,
+    "final explode": "green blood",
+    "description": "An invasive species from beyond our galaxy. They primarily survive by absorbing various forms of energy.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Blight Shadow",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "dd35aa5c7bf8",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Invasive Predator": true,
+        "Escort": true,
+        "Invasive Lifeform (Passive)": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Acapella\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Aileron\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Algieba\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Alnasl\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Alpha Arae\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Apeiron\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Ar-40\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"As-75\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Asikafarnut\" via event \"Blight Shadow Infestation\" (rate 1000)",
+          "Adds fleet in \"Asikafarnut\" via event \"Blight Shadow Infestation\" (rate 800)",
+          "Adds fleet in \"Asikafarnut\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Asikafarnut\" via event \"scrapyard blight mutation\" (rate 800)",
+          "Adds fleet in \"Atik\" via event \"Shadowblight Human Addon\" (rate 50000)",
+          "Adds fleet in \"Avasaa-Novaa\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Axiom\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"B-11\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Ballad\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Be-9\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Beta Lupi\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Billow\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Boral\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Bote Asu\" via event \"Shadowblight Hai\" (rate 50000)",
+          "Adds fleet in \"Br-80\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"C-12\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Ca-40\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Caesura\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Cantata\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Cardax\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Celeborim\" via event \"Blight Shadow Infestation\" (rate 1000)",
+          "Adds fleet in \"Celeborim\" via event \"Blight Shadow Infestation\" (rate 800)",
+          "Adds fleet in \"Celeborim\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Celeborim\" via event \"scrapyard blight mutation\" (rate 800)",
+          "Adds fleet in \"Chimitarp\" via event \"Blight Shadows vs Mereti\" (rate 10000)",
+          "Adds fleet in \"Chimitarp\" via event \"Blight Shadows vs Mereti\" (rate 2500)",
+          "Adds fleet in \"Chorale\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Cl-35\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Corporeal\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Current\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Cusp\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Danoa\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Durax\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Eber\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Eltanin\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Empyrean\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Eneremprukt\" via event \"Blight Shadow Infestation\" (rate 10000)",
+          "Adds fleet in \"Eneremprukt\" via event \"Blight Shadow Infestation\" (rate 2500)",
+          "Adds fleet in \"Eneremprukt\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Eneremprukt\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Eneva Katta\" via event \"Shadowblight Bunrodea\" (rate 50000)",
+          "Adds fleet in \"Era Natta\" via event \"Shadowblight Bunrodea\" (rate 50000)",
+          "Adds fleet in \"Eshkoshtar\" via event \"Blight Shadows vs Mereti\" (rate 10000)",
+          "Adds fleet in \"Eshkoshtar\" via event \"Blight Shadows vs Mereti\" (rate 2500)",
+          "Adds fleet in \"Eta Carinae\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Eteron\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Eteron\" via event \"midnight titania docking bay 13\" (rate 50000)",
+          "Adds fleet in \"Evanescence\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"F-19\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Fah Root\" via event \"Adjust Shadowblight Hai\" (rate 50000)",
+          "Adds fleet in \"Fala\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Farbutero\" via event \"Blight Shadows vs Mereti\" (rate 10000)",
+          "Adds fleet in \"Farbutero\" via event \"Blight Shadows vs Mereti\" (rate 2500)",
+          "Adds fleet in \"Faronektu\" via event \"Blight Shadows Nest In Persitar\" (rate 2500)",
+          "Adds fleet in \"Faronektu\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Faronektu\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Feroteri\" via event \"Blight Shadows vs Mereti\" (rate 2500)",
+          "Adds fleet in \"Ferukistek\" via event \"Blight Shadow Infestation\" (rate 10000)",
+          "Adds fleet in \"Ferukistek\" via event \"Blight Shadow Infestation\" (rate 2500)",
+          "Adds fleet in \"Ferukistek\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Ferukistek\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Fingol\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Firmament\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Flutter\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Fornarep\" via event \"Blight Shadows vs Mereti\" (rate 1000)",
+          "Adds fleet in \"Fornarep\" via event \"Blight Shadows vs Mereti\" (rate 800)",
+          "Adds fleet in \"Fornarep\" via event \"Node 8 Processor Returned\" (rate 2500)",
+          "Adds fleet in \"Gacrux\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Gale\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Gamma Cassiopeiae\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Ge-73\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Genta Bo\" via event \"Shadowblight Bunrodea\" (rate 50000)",
+          "Adds fleet in \"Gento Ah\" via event \"Shadowblight Bunrodea\" (rate 50000)",
+          "Adds fleet in \"Glide\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Gorvi\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Gossamer\" via event \"Shadowblight Gossamer Patch\" (rate 50000)",
+          "Adds fleet in \"Gossamer\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Gust\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"H-1\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Hassaleh\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Hatysa\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"He-4\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Hintar\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Holeb\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Host\" via event \"Blight Shadow Infestation\" (rate 50000)",
+          "Adds fleet in \"Host\" via event \"scrapper world forger begin\" (rate 20000)",
+          "Adds fleet in \"Host\" via event \"scrapper world forger end\" (rate 20000)",
+          "Adds fleet in \"Ildaria\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Ipsing\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"K-39\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Kasi-Vasa-Novaa\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Kasii-Cavaasa\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Kasii-Sola\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Khasola-Ryuit\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Khosa-Kaska\" via event \"Shadowblight Twilight\" (rate 80000)",
+          "Adds fleet in \"Kiiraj-Luue\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Korsmanath\" via event \"Blight Shadows vs Mereti\" (rate 10000)",
+          "Adds fleet in \"Korsmanath\" via event \"Blight Shadows vs Mereti\" (rate 2500)",
+          "Adds fleet in \"Kr-84\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Kugel\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Lesath\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Li-7\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Lift\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Limen\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Lom Tahr\" via event \"Adjust Shadowblight Hai\" (rate 50000)",
+          "Adds fleet in \"Lumine\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Lurata\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Luue-Saqru\" via event \"Shadowblight Twilight\" (rate 80000)",
+          "Adds fleet in \"Madrigal\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Makferuti\" via event \"Blight Shadow Infestation\" (rate 1000)",
+          "Adds fleet in \"Makferuti\" via event \"Blight Shadow Infestation\" (rate 800)",
+          "Adds fleet in \"Makferuti\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Makferuti\" via event \"scrapyard blight mutation\" (rate 800)",
+          "Adds fleet in \"Maspa-Mavra\" via event \"Shadowblight Twilight\" (rate 80000)",
+          "Adds fleet in \"Maspa-Raaqa\" via event \"Shadowblight Twilight\" (rate 80000)",
+          "Adds fleet in \"Mavra-Ijsola\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Meftarkata\" via event \"Blight Shadows vs Mereti\" (rate 1000)",
+          "Adds fleet in \"Meftarkata\" via event \"Blight Shadows vs Mereti\" (rate 800)",
+          "Adds fleet in \"Meftarkata\" via event \"Node 8 Processor Returned\" (rate 10000)",
+          "Adds fleet in \"Meftarkata\" via event \"Node 8 Processor Returned\" (rate 2500)",
+          "Adds fleet in \"Mekislepti\" via event \"Blight Shadows vs Mereti\" (rate 2500)",
+          "Adds fleet in \"Mesuket\" via event \"Blight Shadow Infestation\" (rate 2500)",
+          "Adds fleet in \"Mesuket\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Mesuket\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Mg-24\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Minkar\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Mintaka\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Mirzam\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Mizar\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Moktar\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Mora\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Mote\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Muphrid\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Murk\" via event \"Shadowblight Murk\" (rate 50000)",
+          "Adds fleet in \"Myruet-Kvelq\" via event \"Shadowblight Twilight\" (rate 80000)",
+          "Adds fleet in \"N-14\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Na-23\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Naper\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Ne-20\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Nocte\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"O-16\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Oblate\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Opera\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Orbona\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Orvala\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Osolaa-Uuoru\" via event \"Shadowblight Twilight\" (rate 80000)",
+          "Adds fleet in \"Oublaa-Khora\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"P-31\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Paru Paru\" via event \"Shadowblight Bunrodea\" (rate 50000)",
+          "Adds fleet in \"Peak\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Pearl\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Persian\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Persitar\" via event \"Blight Shadows Nest In Persitar\" (rate 800)",
+          "Adds fleet in \"Persitar\" via event \"scrapper world shaper begin\" (rate 20000)",
+          "Adds fleet in \"Persitar\" via event \"scrapper world shaper end\" (rate 1600)",
+          "Adds fleet in \"Persitar\" via event \"scrapper world shaper end\" (rate 3200)",
+          "Adds fleet in \"Persitar\" via event \"scrapper world shaper end\" (rate 6400)",
+          "Adds fleet in \"Persitar\" via event \"scrapyard blight horrors\" (rate 1000)",
+          "Adds fleet in \"Persitar\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Persitar\" via event \"scrapyard blight mutation\" (rate 1000)",
+          "Adds fleet in \"Pinnacle\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Postlude\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Prakacha'a\" via event \"Shadowblight Wanderer\" (rate 50000)",
+          "Adds fleet in \"Quintessence\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Rajak\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Regulus\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Rhapsody\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Rigel\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Rivulet\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"S-32\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Sadr\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Salipastart\" via event \"Blight Shadows Nest In Persitar\" (rate 10000)",
+          "Adds fleet in \"Salipastart\" via event \"Blight Shadows Nest In Persitar\" (rate 2500)",
+          "Adds fleet in \"Saquergen\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Sayaiban\" via event \"blight terrors in sayaiban\" (rate 30000)",
+          "Adds fleet in \"Sepetrosk\" via event \"Blight Shadows vs Mereti\" (rate 10000)",
+          "Adds fleet in \"Sepetrosk\" via event \"Blight Shadows vs Mereti\" (rate 2500)",
+          "Adds fleet in \"Sera Natta\" via event \"Shadowblight Bunrodea\" (rate 50000)",
+          "Adds fleet in \"Serenade\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Si-28\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Silikatakfar\" via event \"Blight Shadow Infestation\" (rate 10000)",
+          "Adds fleet in \"Silikatakfar\" via event \"Blight Shadow Infestation\" (rate 2500)",
+          "Adds fleet in \"Silikatakfar\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Silikatakfar\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Similisti\" via event \"Blight Shadows Nest In Persitar\" (rate 2500)",
+          "Adds fleet in \"Similisti\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Similisti\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Sobarati\" via event \"Blight Shadow Infestation\" (rate 1000)",
+          "Adds fleet in \"Sobarati\" via event \"Blight Shadow Infestation\" (rate 800)",
+          "Adds fleet in \"Sobarati\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Sobarati\" via event \"scrapyard blight mutation\" (rate 800)",
+          "Adds fleet in \"Sonata\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Sospi\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Span\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Stream\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Sumar\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Tailwind\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Tais\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Tap\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Terminus\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Tide\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Torrent\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Tortor\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Tumble\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Twirl\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Ultima Thule\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Umbral\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Unagi\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Uuoru-Sossa\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Vasa-Oorua\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Vivace\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Volax\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Vorpal\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Wave\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Wei\" via event \"Shadowblight Human\" (rate 50000)",
+          "Adds fleet in \"Whirlwind\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Xutluno Fali\" via event \"Shadowblight Bunrodea\" (rate 50000)",
+          "Adds fleet in \"Xutluno Rees\" via event \"Shadowblight Bunrodea\" (rate 50000)",
+          "Adds fleet in \"Zubenelgenubi\" via event \"Shadowblight Human\" (rate 50000)",
+          "Removes fleet in \"Asikafarnut\" via event \"scrapyard blight horrors\"",
+          "Removes fleet in \"Bote Asu\" via event \"Adjust Shadowblight Hai\"",
+          "Removes fleet in \"Celeborim\" via event \"scrapyard blight mutation\"",
+          "Removes fleet in \"Chimitarp\" via event \"Node 8 Processor Returned\"",
+          "Removes fleet in \"Eshkoshtar\" via event \"Adjust Shadowblight Wanderer\"",
+          "Removes fleet in \"Eshkoshtar\" via event \"Node 8 Processor Returned\"",
+          "Removes fleet in \"Eteron\" via event \"Shadowblight Cancel Eteron\"",
+          "Removes fleet in \"Farbutero\" via event \"Node 8 Processor Returned\"",
+          "Removes fleet in \"Fornarep\" via event \"Node 8 Processor Returned\"",
+          "Removes fleet in \"Gossamer\" via event \"Shadowblight Gossamer Patch\"",
+          "Removes fleet in \"Host\" via event \"scrapper world forger begin\"",
+          "Removes fleet in \"Host\" via event \"scrapper world forger end\"",
+          "Removes fleet in \"Korsmanath\" via event \"Node 8 Processor Returned\"",
+          "Removes fleet in \"Makferuti\" via event \"scrapyard blight mutation\"",
+          "Removes fleet in \"Meftarkata\" via event \"Node 8 Processor Returned\"",
+          "Removes fleet in \"Persitar\" via event \"Patch: Blight Shadows Nest In Persitar\"",
+          "Removes fleet in \"Persitar\" via event \"scrapper world shaper begin\"",
+          "Removes fleet in \"Persitar\" via event \"scrapper world shaper end\"",
+          "Removes fleet in \"Salipastart\" via event \"Adjust Shadowblight Wanderer\"",
+          "Removes fleet in \"Sepetrosk\" via event \"Node 8 Processor Returned\"",
+          "Removes fleet in \"Sobarati\" via event \"scrapyard blight mutation\""
+        ],
+        "Missions": [
+          "Ember Blight Hunt A",
+          "Ember Blight Hunt B",
+          "Midnight Docking Bay 13 Investigation",
+          "Midnight Expansion: Heliarch Scouting - Nanotech Battery",
+          "Midnight Expansion: Mereti Trading Copper",
+          "Midnight Expansion: Mereti Trading Gold",
+          "Midnight Expansion: Mereti Trading Platinum",
+          "Midnight Expansion: Mereti Trading Silver",
+          "Midnight Gorgon Heliarch Scouting - Peripheral Repair Hub",
+          "Scrapyard Blight Shadow Defense",
+          "Scrapyard Boarding (Shadow Hunters)",
+          "Scrapyard Boarding (Small Blight Shadows)",
+          "Scrapyard Damnation 3",
+          "Scrapyard Damnation 4",
+          "Scrapyard Damnation Epilogue",
+          "Scrapyard Derelict World Ship",
+          "Scrapyard Eggs Pirate 3",
+          "Scrapyard Exploring the Persitar Wreck",
+          "Scrapyard Quarg Gegno Buffer",
+          "Scrapyard Quarg Incipias Buffer",
+          "Scrapyard Shadowblight Bunrodea",
+          "Scrapyard Shadowblight Coalition",
+          "Scrapyard Shadowblight Hai",
+          "Scrapyard Shadowblight Human",
+          "Scrapyard Shadowblight Remnant",
+          "Scrapyard Shadowblight Twilight",
+          "Scrapyard Shadowblight Wanderer",
+          "Scrapyard Subsidurial",
+          "Scrapyard: Big Game Hunter",
+          "Scrapyard: Efret Salvage License 1",
+          "Scrapyard: Efret Salvage License 2",
+          "Scrapyard: Escort to Wanderer Colony (Big)",
+          "Scrapyard: Escort to Wanderer Colony (Small)",
+          "Scrapyard: Escort to Wanderer Worlds A",
+          "Scrapyard: Escort to Wanderer Worlds B",
+          "Scrapyard: Kor Efret Salvage",
+          "Scrapyard: Quarg Hunter",
+          "Scrapyard: Wanderer Planetary Survey",
+          "Scrapyard: Wanderer Survey Rescue [Asikafarnut]",
+          "Scrapyard: Wanderer Survey Rescue [Celeborim]",
+          "Scrapyard: Wanderer Survey Rescue [Eneremprukt]",
+          "Scrapyard: Wanderer Survey Rescue [Ferukistek]",
+          "Scrapyard: Wanderer Survey Rescue [Makferuti]",
+          "Scrapyard: Wanderer Survey Rescue [Mesuket]",
+          "Scrapyard: Wanderer Survey Rescue [Silikatakfar]",
+          "Scrapyard: Wanderer Survey Rescue [Sobarati]"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Scrapyard Damnation 4\" → event \"Node 8 Processor Returned\"",
+          "\"Scrapyard Exploring the Persitar Wreck\" → event \"Blight Shadows Nest In Persitar\"",
+          "\"Scrapyard Quarg Gegno Buffer\" → event \"scrapyard quarg gegno buffer\"",
+          "\"Scrapyard Quarg Incipias Buffer\" → event \"scrapyard quarg incipias buffer\"",
+          "\"Scrapyard Shadowblight Bunrodea\" → event \"Shadowblight Bunrodea\"",
+          "\"Scrapyard Shadowblight Hai\" → event \"Shadowblight Hai\"",
+          "\"Scrapyard Shadowblight Human\" → event \"Shadowblight Human\"",
+          "\"Scrapyard Shadowblight Twilight\" → event \"Shadowblight Twilight\"",
+          "\"Scrapyard Shadowblight Wanderer\" → event \"Shadowblight Wanderer\"",
+          "\"Scrapyard: Big Game Hunter\" → event \"blight terrors in sayaiban\"",
+          "\"Scrapyard: Efret Salvage License 2\" → event \"access efret salvage\""
+        ],
+        "Persons": [
+          "Midnight Spectator"
+        ]
+      }
+    },
+    "outfits": {
+      "Energy Absorber?": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      }
+    }
+  },
+  {
+    "name": "Blight Hatchling",
+    "engines": [],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -8,
+        "gun": "Energy Absorber?"
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "green blood",
+        "openChance": 10,
+        "spreadChance": 15
+      }
+    ],
+    "noun": "creature",
+    "sprite": "ship/blight shadow/blight shadow",
+    "sprite data": {
+      "rewind": true,
+      "scale": 0.5
+    },
+    "never disabled": true,
+    "attributes": {
+      "automaton": 1,
+      "category": "Fighter",
+      "cost": 50000,
+      "shields": 900,
+      "hull": 1800,
+      "crew equivalent": 3,
+      "mass": 172,
+      "drag": 3.225,
+      "heat dissipation": 1.3,
+      "cargo space": 0,
+      "thrust": 36,
+      "thrusting energy": 0.1,
+      "reverse thrust": 54,
+      "reverse thrusting energy": 0.1,
+      "turn": 1200,
+      "shield generation": 0.5,
+      "shield energy": 1,
+      "depleted shield delay": 200,
+      "hull repair rate": 2,
+      "hull energy": 0.5,
+      "hull protection": 1,
+      "corrosion protection": 3,
+      "corrosion resistance": 1,
+      "heat protection": 1,
+      "heat resistance": 3,
+      "scramble protection": 3,
+      "scramble resistance": 1,
+      "energy capacity": 1000,
+      "fuel capacity": 600,
+      "cloak": 0.01,
+      "cloaking energy": 0.2,
+      "cloaking fuel": 0.1,
+      "inscrutable": 1,
+      "gaslining": 1,
+      "jump drive": 1,
+      "jump speed": 1,
+      "jump effect": "jump drive black",
+      "jump sound": "jump drive red",
+      "jump in sound": "jump in red",
+      "jump out sound": "jump out red",
+      "ramscoop": 1,
+      "solar collection": 2,
+      "active cooling": 0.6,
+      "cooling energy": -0.5,
+      "weapon": {
+        "blast radius": 25,
+        "discharge damage": 2.5,
+        "corrosion damage": 1.25,
+        "hit force": -300
+      }
+    },
+    "green blood": 15,
+    "final explode": "green blood",
+    "description": "A recently hatched Blight Shadow.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Blight Hatchling",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "6432fccce20b",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Invasive Predator": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Acapella\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Aileron\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Apeiron\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Ar-40\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"As-75\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Asikafarnut\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Axiom\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"B-11\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Ballad\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Be-9\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Billow\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Br-80\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"C-12\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Ca-40\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Caesura\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Cantata\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Celeborim\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Chorale\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Cl-35\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Corporeal\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Current\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Cusp\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Empyrean\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Eneremprukt\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Evanescence\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"F-19\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Ferukistek\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Firmament\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Flutter\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Gale\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Ge-73\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Glide\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Gust\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"H-1\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"He-4\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"K-39\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Kr-84\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Li-7\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Lift\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Lumine\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Madrigal\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Makferuti\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Mesuket\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Mg-24\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Mote\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"N-14\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Na-23\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Ne-20\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"O-16\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Opera\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"P-31\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Peak\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Pearl\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Pinnacle\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Quintessence\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Rhapsody\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Rivulet\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"S-32\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Serenade\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Si-28\" via event \"Shadowblight Twilight\" (rate 50000)",
+          "Adds fleet in \"Silikatakfar\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Sobarati\" via event \"Infested Scrap\" (rate 10000)",
+          "Adds fleet in \"Sonata\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Span\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Stream\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Tailwind\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Tap\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Tide\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Torrent\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Tumble\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Twirl\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Vivace\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Vorpal\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Wave\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Adds fleet in \"Whirlwind\" via event \"Shadowblight Twilight\" (rate 70000)",
+          "Removes fleet in \"Gossamer\" via event \"Shadowblight Gossamer Patch\""
+        ],
+        "Missions": [
+          "Midnight Titania Blight Shadow Hatchlings",
+          "Scrapyard Boarding (Infected with Shadowblight)",
+          "Scrapyard Boarding (Thermal Repeater Rifle)",
+          "Scrapyard Bore Fah Attack",
+          "Scrapyard Devourer (Infested) 1",
+          "Scrapyard Korath Tractor 1",
+          "Scrapyard Korath Tractor 2",
+          "Scrapyard Plume's Research",
+          "Scrapyard Random Station Eggs"
+        ]
+      }
+    },
+    "outfits": {
+      "Energy Absorber?": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      }
+    }
+  },
+  {
+    "name": "Blight Mutation",
+    "engines": [],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -42,
+        "gun": "Energy Drainer?"
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 39,
+        "turret": "Blight Defense?"
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "green blood",
+        "openChance": 30,
+        "spreadChance": 50
+      }
+    ],
+    "noun": "creature",
+    "sprite": "ship/blight mutation/blight mutation",
+    "sprite data": {
+      "rewind": true
+    },
+    "never disabled": true,
+    "attributes": {
+      "automaton": 1,
+      "category": "Medium Warship",
+      "cost": 500000,
+      "shields": 3600,
+      "hull": 7200,
+      "crew equivalent": 12,
+      "mass": 690,
+      "drag": 12.9,
+      "heat dissipation": 2.6,
+      "cargo space": 0,
+      "thrust": 36,
+      "thrusting energy": 0.1,
+      "reverse thrust": 54,
+      "reverse thrusting energy": 0.1,
+      "turn": 1200,
+      "shield generation": 2,
+      "shield energy": 2,
+      "depleted shield delay": 200,
+      "hull repair rate": 4,
+      "hull protection": 2,
+      "corrosion protection": 3,
+      "corrosion resistance": 1,
+      "heat protection": 1,
+      "heat resistance": 3,
+      "scramble protection": 3,
+      "scramble resistance": 1,
+      "energy capacity": 1400,
+      "fuel capacity": 800,
+      "cloak": 0.01,
+      "cloaking energy": 0.2,
+      "cloaking fuel": 0.1,
+      "inscrutable": 1,
+      "gaslining": 1,
+      "jump drive": 1,
+      "jump speed": 1,
+      "jump effect": "jump drive black",
+      "jump sound": "jump drive red",
+      "jump in sound": "jump in red",
+      "jump out sound": "jump out red",
+      "ramscoop": 2,
+      "solar collection": 4,
+      "active cooling": 0.24,
+      "cooling energy": -2,
+      "weapon": {
+        "blast radius": 100,
+        "discharge damage": 10,
+        "corrosion damage": 5,
+        "hit force": -1200
+      }
+    },
+    "green blood": 50,
+    "final explode": "green blood",
+    "description": "An invasive species from beyond our galaxy. They primarily survive by absorbing various forms of energy. These Blight Shadows have mutated into a stronger form that includes an organ to protect itself from incoming projectiles.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Blight Mutation",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "ee53fb765df2",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Invasive Predator": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Asikafarnut\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Asikafarnut\" via event \"scrapyard blight mutation\" (rate 800)",
+          "Adds fleet in \"Celeborim\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Celeborim\" via event \"scrapyard blight mutation\" (rate 800)",
+          "Adds fleet in \"Eneremprukt\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Eneremprukt\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Faronektu\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Faronektu\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Ferukistek\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Ferukistek\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Makferuti\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Makferuti\" via event \"scrapyard blight mutation\" (rate 800)",
+          "Adds fleet in \"Mesuket\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Mesuket\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Persitar\" via event \"scrapper world shaper end\" (rate 3200)",
+          "Adds fleet in \"Persitar\" via event \"scrapper world shaper end\" (rate 6400)",
+          "Adds fleet in \"Persitar\" via event \"scrapyard blight horrors\" (rate 1000)",
+          "Adds fleet in \"Persitar\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Persitar\" via event \"scrapyard blight mutation\" (rate 1000)",
+          "Adds fleet in \"Sayaiban\" via event \"blight terrors in sayaiban\" (rate 30000)",
+          "Adds fleet in \"Silikatakfar\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Silikatakfar\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Similisti\" via event \"scrapyard blight horrors\" (rate 5000)",
+          "Adds fleet in \"Similisti\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Sobarati\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Sobarati\" via event \"scrapyard blight mutation\" (rate 800)",
+          "Removes fleet in \"Persitar\" via event \"scrapper world shaper begin\""
+        ],
+        "Missions": [
+          "Scrapyard: Quarg Hunter"
+        ]
+      }
+    },
+    "outfits": {
+      "Energy Drainer?": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Blight Defense?": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      }
+    }
+  },
+  {
+    "name": "Blight Horror",
+    "engines": [],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -10,
+        "y": -97,
+        "gun": "Energy Absorber?"
+      },
+      {
+        "x": 0,
+        "y": -97,
+        "gun": "Energy Drainer?"
+      },
+      {
+        "x": 10,
+        "y": -97,
+        "gun": "Energy Absorber?"
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 9.5,
+        "turret": "Blight Defense?"
+      },
+      {
+        "x": -0.5,
+        "y": 82,
+        "turret": "Blight Defense?"
+      },
+      {
+        "x": 0,
+        "y": 193,
+        "turret": "Blood Lightning?"
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "green blood",
+        "openChance": 60,
+        "spreadChance": 100
+      }
+    ],
+    "noun": "creature",
+    "sprite": "ship/blight horror/blight horror",
+    "sprite data": {
+      "rewind": true
+    },
+    "never disabled": true,
+    "attributes": {
+      "automaton": 1,
+      "category": "Heavy Warship",
+      "cost": 5000000,
+      "shields": 7200,
+      "hull": 14400,
+      "crew equivalent": 24,
+      "mass": 1380,
+      "drag": 19.35,
+      "heat dissipation": 3.9,
+      "cargo space": 0,
+      "thrust": 36,
+      "thrusting energy": 0.1,
+      "reverse thrust": 54,
+      "reverse thrusting energy": 0.1,
+      "turn": 1200,
+      "shield generation": 4,
+      "shield energy": 4,
+      "depleted shield delay": 200,
+      "hull repair rate": 5,
+      "hull protection": 2,
+      "corrosion protection": 3,
+      "corrosion resistance": 1,
+      "heat protection": 1,
+      "heat resistance": 3,
+      "scramble protection": 3,
+      "scramble resistance": 1,
+      "energy capacity": 1800,
+      "fuel capacity": 1000,
+      "cloak": 0.01,
+      "cloaking energy": 0.2,
+      "cloaking fuel": 0.1,
+      "inscrutable": 1,
+      "gaslining": 1,
+      "jump drive": 1,
+      "jump speed": 1,
+      "jump effect": "jump drive black",
+      "jump sound": "jump drive red",
+      "jump in sound": "jump in red",
+      "jump out sound": "jump out red",
+      "ramscoop": 3,
+      "solar collection": 6,
+      "active cooling": 0.48,
+      "cooling energy": -4,
+      "weapon": {
+        "blast radius": 200,
+        "discharge damage": 20,
+        "corrosion damage": 10,
+        "hit force": -2400
+      }
+    },
+    "green blood": 100,
+    "final explode": "green blood",
+    "description": "An invasive species from beyond our galaxy. They primarily survive by absorbing various forms of energy. The Blight Horror has developed a special organ which allows the creature to generate bolts of red lightning that can interfere with mechanical devices. Unlike the energy absorption and draining organs that are used to gain sustenance, the primary purpose of this attack appears to be malicious vindictive destruction.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Blight Horror",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "098b0e95ac75",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Invasive Predator": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Asikafarnut\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Celeborim\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Eneremprukt\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Faronektu\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Ferukistek\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Makferuti\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Mesuket\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Persitar\" via event \"scrapper world shaper end\" (rate 6400)",
+          "Adds fleet in \"Persitar\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Adds fleet in \"Sayaiban\" via event \"blight terrors in sayaiban\" (rate 30000)",
+          "Adds fleet in \"Silikatakfar\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Similisti\" via event \"scrapyard blight horrors\" (rate 8000)",
+          "Adds fleet in \"Sobarati\" via event \"scrapyard blight horrors\" (rate 1200)",
+          "Removes fleet in \"Persitar\" via event \"scrapper world shaper begin\""
+        ],
+        "Missions": [
+          "Scrapyard: Quarg Hunter"
+        ]
+      }
+    },
+    "outfits": {
+      "Energy Absorber?": {
+        "count": 2,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Energy Drainer?": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Blight Defense?": {
+        "count": 2,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Blood Lightning?": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      }
+    }
+  },
+  {
+    "name": "Blight Terror",
+    "engines": [],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -10,
+        "y": -38,
+        "gun": "Energy Absorber?"
+      },
+      {
+        "x": -5,
+        "y": -38,
+        "gun": "Energy Absorber?"
+      },
+      {
+        "x": 0,
+        "y": -38,
+        "gun": "Energy Drainer?"
+      },
+      {
+        "x": 5,
+        "y": -38,
+        "gun": "Energy Absorber?"
+      },
+      {
+        "x": 10,
+        "y": -38,
+        "gun": "Energy Absorber?"
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "green blood",
+        "openChance": 60,
+        "spreadChance": 100
+      }
+    ],
+    "noun": "creature",
+    "sprite": "ship/blight shadow/blight shadow",
+    "sprite data": {
+      "rewind": true,
+      "scale": 2
+    },
+    "never disabled": true,
+    "attributes": {
+      "automaton": 1,
+      "category": "Drone",
+      "cost": 500000,
+      "shields": 14400,
+      "hull": 28800,
+      "crew equivalent": 24,
+      "mass": 2760,
+      "drag": 19.35,
+      "heat dissipation": 3.9,
+      "cargo space": 0,
+      "thrust": 144,
+      "thrusting energy": 0.1,
+      "reverse thrust": 216,
+      "reverse thrusting energy": 0.1,
+      "turn": 4800,
+      "shield generation": 4,
+      "shield energy": 4,
+      "depleted shield delay": 200,
+      "hull repair rate": 5,
+      "hull protection": 2,
+      "corrosion protection": 3,
+      "corrosion resistance": 1,
+      "heat protection": 1,
+      "heat resistance": 3,
+      "scramble protection": 3,
+      "scramble resistance": 1,
+      "energy capacity": 2200,
+      "fuel capacity": 1200,
+      "cloak": 0.01,
+      "cloaking energy": 0.2,
+      "cloaking fuel": 0.1,
+      "inscrutable": 1,
+      "gaslining": 1,
+      "jump drive": 1,
+      "jump speed": 1,
+      "jump effect": "jump drive black",
+      "jump sound": "jump drive red",
+      "jump in sound": "jump in red",
+      "jump out sound": "jump out red",
+      "ramscoop": 3,
+      "solar collection": 6,
+      "active cooling": 0.48,
+      "cooling energy": -4,
+      "weapon": {
+        "blast radius": 430,
+        "discharge damage": 43,
+        "corrosion damage": 21.5,
+        "hit force": -4800
+      }
+    },
+    "green blood": 100,
+    "final explode": "green blood",
+    "description": "An invasive species from beyond our galaxy. They primarily survive by absorbing various forms of energy. A Blight Shadow that has gorged itself on an unusual source of energy can become a Blight Terror, growing to an absurd size.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Blight Terror",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "b0990f83c618",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Invasive Predator": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Sayaiban\" via event \"blight terrors in sayaiban\" (rate 20000)"
+        ],
+        "Missions": [
+          "Scrapyard: Big Game Hunter"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Scrapyard: Big Game Hunter\" → event \"blight terrors in sayaiban\""
+        ]
+      }
+    },
+    "outfits": {
+      "Energy Absorber?": {
+        "count": 4,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Energy Drainer?": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      }
+    }
+  },
+  {
+    "name": "Osk Lek Chaser",
+    "engines": [
+      {
+        "x": -13,
+        "y": 40.5
+      },
+      {
+        "x": 13,
+        "y": 40.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 7.5,
+        "y": -26.5,
+        "gun": "Thermal Repeater"
+      },
+      {
+        "x": 0,
+        "y": -10,
+        "gun": "Fire-Lance"
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [],
+    "display name": "Osk Lek Fez",
+    "plural": "Osk Lek Fezes",
+    "sprite": "ship/osk lek chaser",
+    "thumbnail": "thumbnail/osk lek chaser-thumb",
+    "attributes": {
+      "category": "Fighter",
+      "cost": 671000,
+      "shields": 3050,
+      "hull": 2100,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 70,
+      "drag": 1.1,
+      "heat dissipation": 1.1,
+      "outfit space": 110,
+      "weapon capacity": 36,
+      "engine capacity": 30,
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "tiny explosion": 20,
+    "description": "A heavily modified Korath Chaser used as an escape vehicle by the Scrapyard Hermit.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Osk Lek Chaser",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "63bad3c1d314",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers (Hostile)": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Missions": [
+          "Scrapyard Hermit"
+        ]
+      }
+    },
+    "outfits": {
+      "Fire-Lance": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thermal Repeater": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Generator (Furnace Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Heat Shunt": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Slicer Torch": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Thruster (Asteroid Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Steering (Asteroid Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Palavret Tek",
+    "engines": [
+      {
+        "x": -20,
+        "y": 127
+      },
+      {
+        "x": 20,
+        "y": 127
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -9,
+        "y": -154,
+        "zoom": 0.7
+      },
+      {
+        "x": 9,
+        "y": -154,
+        "zoom": 0.7
+      }
+    ],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 32.5,
+        "y": -1,
+        "gun": "Piercer Missile Launcher",
+        "angle": 60
+      },
+      {
+        "x": -32.5,
+        "y": -1,
+        "gun": "Piercer Missile Launcher",
+        "angle": 300
+      }
+    ],
+    "turrets": [
+      {
+        "x": -10,
+        "y": -143,
+        "turret": ""
+      },
+      {
+        "x": 10,
+        "y": -143,
+        "turret": ""
+      },
+      {
+        "x": -36,
+        "y": -141,
+        "turret": "Grab-Strike Turret"
+      },
+      {
+        "x": 36,
+        "y": -141,
+        "turret": "Grab-Strike Turret"
+      },
+      {
+        "x": 0,
+        "y": 41,
+        "turret": "Banisher Grav-Turret"
+      },
+      {
+        "x": 0,
+        "y": 94,
+        "turret": "Warder Anti-Missile"
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": -80,
+        "y": 151,
+        "position": "back"
+      },
+      {
+        "type": "Fighter",
+        "x": 80,
+        "y": 151,
+        "position": "back"
+      }
+    ],
+    "leaks": [],
+    "sprite": "ship/kor scrapper",
+    "thumbnail": "thumbnail/kor scrapper-thumb",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 16570000,
+      "shields": 27000,
+      "hull": 9000,
+      "required crew": 134,
+      "bunks": 250,
+      "mass": 1770,
+      "drag": 20.4,
+      "heat dissipation": 0.3,
+      "fuel capacity": 600,
+      "cargo space": 175,
+      "outfit space": 777,
+      "weapon capacity": 339,
+      "engine capacity": 159,
+      "self destruct": 0.3,
+      "weapon": {
+        "blast radius": 250,
+        "shield damage": 3600,
+        "hull damage": 1800,
+        "hit force": 5400
+      }
+    },
+    "tiny explosion": 20,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 10,
+    "final explode": "final explosion large",
+    "description": "Korath Scrappers who scavenge in the Scrapyard are using the technology they find to customize their ships.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Palavret Tek",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "46f977f1c4b8",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Asikafarnut\" via event \"Scrapyard Develops\" (rate 10000)",
+          "Adds fleet in \"Celeborim\" via event \"Scrapyard Develops\" (rate 6400)",
+          "Adds fleet in \"Eneremprukt\" via event \"Scrapyard Develops\" (rate 10000)",
+          "Adds fleet in \"Ferukistek\" via event \"Scrapyard Develops\" (rate 10000)",
+          "Adds fleet in \"Makferuti\" via event \"Scrapyard Develops\" (rate 6400)",
+          "Adds fleet in \"Silikatakfar\" via event \"Scrapyard Develops\" (rate 10000)",
+          "Adds fleet in \"Sobarati\" via event \"Scrapyard Develops\" (rate 6400)",
+          "Removes fleet in \"Eneremprukt\" via event \"Blight Shadow Infestation\"",
+          "Removes fleet in \"Ferukistek\" via event \"Blight Shadow Infestation\"",
+          "Removes fleet in \"Silikatakfar\" via event \"Blight Shadow Infestation\""
+        ]
+      }
+    },
+    "outfits": {
+      "Grab-Strike Turret": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scavenger Turret": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Banisher Grav-Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Warder Anti-Missile": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Piercer Missile Launcher": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Piercer Missile": {
+        "count": 392,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Double Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Generator (Inferno Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Medium)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Heat Shunt": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Heat Shunt": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Processor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Scanner": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Thermal Repeater Rifle": {
+        "count": 196,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Sentinel": {
+        "count": 4,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Thruster (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Steering (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Rano'erek Tek",
+    "engines": [
+      {
+        "x": 0,
+        "y": 179
+      },
+      {
+        "x": -32,
+        "y": 164,
+        "zoom": 0.7
+      },
+      {
+        "x": 32,
+        "y": 164,
+        "zoom": 0.7
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -79,
+        "y": 80,
+        "over": true
+      },
+      {
+        "x": 79,
+        "y": 80,
+        "over": true
+      }
+    ],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": -37.5,
+        "y": -152.5,
+        "turret": "Husk-Slice Turret"
+      },
+      {
+        "x": 37.5,
+        "y": -152.5,
+        "turret": "Husk-Slice Turret"
+      },
+      {
+        "x": 0,
+        "y": -153,
+        "turret": "Scavenger Turret"
+      },
+      {
+        "x": -42,
+        "y": -28,
+        "turret": "Shield Disruptor Turret"
+      },
+      {
+        "x": 42,
+        "y": -28,
+        "turret": "Shield Disruptor Turret"
+      },
+      {
+        "x": -86,
+        "y": 128.5,
+        "turret": "Warder Anti-Missile"
+      },
+      {
+        "x": 86,
+        "y": 128.5,
+        "turret": "Warder Anti-Missile"
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": -93.5,
+        "y": -20.5
+      },
+      {
+        "type": "Fighter",
+        "x": 93.5,
+        "y": -20.5
+      },
+      {
+        "type": "Fighter",
+        "x": -87,
+        "y": 128.5
+      },
+      {
+        "type": "Fighter",
+        "x": 87,
+        "y": 128.5
+      }
+    ],
+    "leaks": [],
+    "sprite": "ship/dredger scrapper",
+    "thumbnail": "thumbnail/dredger scrapper-thumb",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 32307000,
+      "shields": 42900,
+      "hull": 17600,
+      "required crew": 137,
+      "bunks": 357,
+      "mass": 3896,
+      "drag": 35.7,
+      "heat dissipation": 0.45,
+      "fuel capacity": 900,
+      "cargo space": 535,
+      "outfit space": 827,
+      "weapon capacity": 297,
+      "engine capacity": 181,
+      "self destruct": 0.3,
+      "weapon": {
+        "blast radius": 300,
+        "shield damage": 4600,
+        "hull damage": 2300,
+        "hit force": 5900
+      }
+    },
+    "tiny explosion": 120,
+    "small explosion": 60,
+    "medium explosion": 70,
+    "large explosion": 50,
+    "huge explosion": 15,
+    "final explode": "final explosion large",
+    "description": "Korath Scrappers who scavenge in the Scrapyard are using the technology they find to customize their ships. \tThis Rano'erek Tek has enhanced shield strength and hull durability. Upgraded automation in its operations keeps the ship's crew requirements low.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Rano'erek Tek",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "b2911499a816",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers (Hostile)": true,
+        "Kor Scrappers": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Celeborim\" via event \"Blight Shadow Infestation\" (rate 20000)",
+          "Adds fleet in \"Eneremprukt\" via event \"Blight Shadow Infestation\" (rate 7200)",
+          "Adds fleet in \"Ferukistek\" via event \"Blight Shadow Infestation\" (rate 7200)",
+          "Adds fleet in \"Host\" via event \"scrapper world forger begin\" (rate 15000)",
+          "Adds fleet in \"Makferuti\" via event \"Blight Shadow Infestation\" (rate 20000)",
+          "Adds fleet in \"Mesuket\" via event \"Blight Shadow Infestation\" (rate 7200)",
+          "Adds fleet in \"Persitar\" via event \"scrapper world shaper begin\" (rate 15000)",
+          "Adds fleet in \"Silikatakfar\" via event \"Blight Shadow Infestation\" (rate 7200)",
+          "Adds fleet in \"Sobarati\" via event \"Blight Shadow Infestation\" (rate 20000)",
+          "Removes fleet in \"Host\" via event \"scrapper world forger end\"",
+          "Removes fleet in \"Persitar\" via event \"scrapper world shaper end\""
+        ],
+        "Missions": [
+          "Scrapyard Boarding (Control Transceiver)",
+          "Scrapyard Boarding (Reasoning Node)",
+          "Scrapyard Boarding (Shadow Hunters)",
+          "Scrapyard Korath Tractor 2",
+          "Scrapyard Random Station Scrappers"
+        ]
+      }
+    },
+    "outfits": {
+      "Scavenger Turret": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Shield Disruptor Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Husk-Slice Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Warder Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Large)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Triple Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Sodium Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Processor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Scanner": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Thermal Repeater Rifle": {
+        "count": 190,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Sentinel": {
+        "count": 2,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Afterburner (Meteor Class)": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Reverser (Lunar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thruster (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Steering (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Rano'erek Ik",
+    "engines": [
+      {
+        "x": 0,
+        "y": 179
+      },
+      {
+        "x": -32,
+        "y": 164,
+        "zoom": 0.7
+      },
+      {
+        "x": 32,
+        "y": 164,
+        "zoom": 0.7
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -93.5,
+        "y": -65
+      },
+      {
+        "x": 93.5,
+        "y": -65
+      },
+      {
+        "x": -79,
+        "y": 80.5,
+        "over": true
+      },
+      {
+        "x": 79,
+        "y": 80.5,
+        "over": true
+      }
+    ],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": -37.5,
+        "y": -152.5,
+        "turret": "Warder Anti-Missile"
+      },
+      {
+        "x": 37.5,
+        "y": -152.5,
+        "turret": "Warder Anti-Missile"
+      },
+      {
+        "x": 0,
+        "y": -153,
+        "turret": "Scavenger Turret"
+      },
+      {
+        "x": -42,
+        "y": -28,
+        "turret": "Banisher Grav-Turret"
+      },
+      {
+        "x": 42,
+        "y": -28,
+        "turret": "Banisher Grav-Turret"
+      },
+      {
+        "x": -86,
+        "y": 128.5,
+        "turret": "Grab-Strike Turret"
+      },
+      {
+        "x": 86,
+        "y": 128.5,
+        "turret": "Grab-Strike Turret"
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": -93.5,
+        "y": -20.5
+      },
+      {
+        "type": "Fighter",
+        "x": 93.5,
+        "y": -20.5
+      },
+      {
+        "type": "Fighter",
+        "x": -87,
+        "y": 128.5
+      },
+      {
+        "type": "Fighter",
+        "x": 87,
+        "y": 128.5
+      }
+    ],
+    "leaks": [],
+    "sprite": "ship/dredger scrapyard",
+    "thumbnail": "thumbnail/dredger scrapyard-thumb",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 29370000,
+      "shields": 39000,
+      "hull": 16000,
+      "required crew": 201,
+      "bunks": 395,
+      "mass": 3896,
+      "drag": 35.7,
+      "heat dissipation": 0.45,
+      "fuel capacity": 900,
+      "cargo space": 605,
+      "outfit space": 827,
+      "weapon capacity": 297,
+      "engine capacity": 181,
+      "weapon": {
+        "blast radius": 300,
+        "shield damage": 4600,
+        "hull damage": 2300,
+        "hit force": 5900
+      }
+    },
+    "tiny explosion": 120,
+    "small explosion": 60,
+    "medium explosion": 70,
+    "large explosion": 50,
+    "huge explosion": 15,
+    "final explode": "final explosion large",
+    "description": "The dangers of scavenging in the Scrapyard has lead the captain of this Rano'erek Ik to make some modifications to its hull with a focus on strengthening the shields and expanding weapons capacity.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Rano'erek Ik",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "b34b7d54119d",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Asikafarnut\" via event \"Scrapyard Develops\" (rate 10000)",
+          "Adds fleet in \"Celeborim\" via event \"Scrapyard Develops\" (rate 6400)",
+          "Adds fleet in \"Eneremprukt\" via event \"Scrapyard Develops\" (rate 10000)",
+          "Adds fleet in \"Ferukistek\" via event \"Scrapyard Develops\" (rate 10000)",
+          "Adds fleet in \"Makferuti\" via event \"Scrapyard Develops\" (rate 6400)",
+          "Adds fleet in \"Silikatakfar\" via event \"Scrapyard Develops\" (rate 10000)",
+          "Adds fleet in \"Sobarati\" via event \"Scrapyard Develops\" (rate 6400)",
+          "Removes fleet in \"Eneremprukt\" via event \"Blight Shadow Infestation\"",
+          "Removes fleet in \"Ferukistek\" via event \"Blight Shadow Infestation\"",
+          "Removes fleet in \"Silikatakfar\" via event \"Blight Shadow Infestation\""
+        ]
+      }
+    },
+    "outfits": {
+      "Banisher Grav-Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Grab-Strike Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scavenger Turret": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Warder Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Large)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Triple Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Cargo Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Sodium Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Processor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Scanner": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Thermal Repeater Rifle": {
+        "count": 206,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Afterburner (Asteroid Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Reverser (Lunar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Steering (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thruster (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Mechanized Mine",
+    "engines": [
+      {
+        "x": 0,
+        "y": 30
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": 0,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/mechanized mine",
+    "thumbnail": "outfit/korath mine",
+    "never disabled": true,
+    "swizzle": 0,
+    "attributes": {
+      "category": "Fighter",
+      "cost": 837000,
+      "shields": 2400,
+      "hull": 3000,
+      "automaton": 1,
+      "mass": 80,
+      "drag": 2.1,
+      "heat dissipation": 1,
+      "outfit space": 135,
+      "weapon capacity": 57,
+      "engine capacity": 24,
+      "integrated systems": -1,
+      "weapon": {
+        "blast radius": 700,
+        "shield damage": 7000,
+        "hull damage": 5600,
+        "hit force": 4000
+      }
+    },
+    "large explosion": 1,
+    "final explode": "final explosion large",
+    "description": "An automated mine designed to create more mines. The Mereti developed this for deployment in distant systems controlled by hostile forces.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Mechanized Mine",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "3b44f4a942bc",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Mereti": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0",
+      "Event \"wanderers: kor mereti friendly\": Kor Mereti attitude toward Wanderer → 1",
+      "Event \"wanderers: kor mereti friendly\": Quarg (Kor Efret) attitude toward Kor Mereti → 0",
+      "Event \"wanderers: kor mereti friendly\": Quarg attitude toward Kor Mereti → 0"
+    ],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Asikafarnut\" via event \"Mereti Automines Set\" (rate 1500)",
+          "Adds fleet in \"Asikafarnut\" via event \"Node 8 Processor Returned\" (rate 3600)",
+          "Adds fleet in \"Celeborim\" via event \"Mereti Automines Set\" (rate 2000)",
+          "Adds fleet in \"Celeborim\" via event \"Node 8 Processor Returned\" (rate 10000)",
+          "Adds fleet in \"Chimitarp\" via event \"Node 8 Processor Returned\" (rate 1000)",
+          "Adds fleet in \"Chimitarp\" via event \"Node 8 Processor Returned\" (rate 250)",
+          "Adds fleet in \"Chimitarp\" via event \"Node 8 Processor Returned\" (rate 3600)",
+          "Adds fleet in \"Chimitarp\" via event \"Node 8 Processor Returned\" (rate 450)",
+          "Adds fleet in \"Chimitarp\" via event \"wanderers: kor mereti transformation\" (rate 250)",
+          "Adds fleet in \"Chimitarp\" via event \"wanderers: kor mereti transformation\" (rate 450)",
+          "Adds fleet in \"Eneremprukt\" via event \"Mereti Automines Set\" (rate 3000)",
+          "Adds fleet in \"Eneremprukt\" via event \"Node 8 Processor Returned\" (rate 2000)",
+          "Adds fleet in \"Eshkoshtar\" via event \"Node 8 Processor Returned\" (rate 1600)",
+          "Adds fleet in \"Eshkoshtar\" via event \"Node 8 Processor Returned\" (rate 800)",
+          "Adds fleet in \"Farbutero\" via event \"Node 8 Processor Returned\" (rate 5000)",
+          "Adds fleet in \"Farbutero\" via event \"Node 8 Processor Returned\" (rate 9400)",
+          "Adds fleet in \"Faronektu\" via event \"Node 8 Processor Returned\" (rate 1200)",
+          "Adds fleet in \"Faronektu\" via event \"Node 8 Processor Returned\" (rate 2000)",
+          "Adds fleet in \"Feroteri\" via event \"Node 8 Processor Returned\" (rate 12000)",
+          "Adds fleet in \"Feroteri\" via event \"Node 8 Processor Returned\" (rate 6400)",
+          "Adds fleet in \"Ferukistek\" via event \"Mereti Automines Set\" (rate 3000)",
+          "Adds fleet in \"Ferukistek\" via event \"Node 8 Processor Returned\" (rate 2400)",
+          "Adds fleet in \"Fornarep\" via event \"Node 8 Processor Returned\" (rate 5800)",
+          "Adds fleet in \"Fornarep\" via event \"Node 8 Processor Returned\" (rate 9000)",
+          "Adds fleet in \"Kaliptari\" via event \"Node 8 Processor Returned\" (rate 10000)",
+          "Adds fleet in \"Kaliptari\" via event \"Node 8 Processor Returned\" (rate 3600)",
+          "Adds fleet in \"Kaliptari\" via event \"Node 8 Processor Returned\" (rate 4800)",
+          "Adds fleet in \"Kaliptari\" via event \"Node 8 Processor Returned\" (rate 8000)",
+          "Adds fleet in \"Kaliptari\" via event \"wanderers: kaliptari battle ends\" (rate 3600)",
+          "Adds fleet in \"Kaliptari\" via event \"wanderers: kaliptari battle ends\" (rate 8000)",
+          "Adds fleet in \"Korsmanath\" via event \"Node 8 Processor Returned\" (rate 8000)",
+          "Adds fleet in \"Makferuti\" via event \"Mereti Automines Set\" (rate 2000)",
+          "Adds fleet in \"Makferuti\" via event \"Node 8 Processor Returned\" (rate 10000)",
+          "Adds fleet in \"Mekislepti\" via event \"Node 8 Processor Returned\" (rate 1000)",
+          "Adds fleet in \"Mekislepti\" via event \"Node 8 Processor Returned\" (rate 3000)",
+          "Adds fleet in \"Mekislepti\" via event \"wanderers: the eye opens\" (rate 12000)",
+          "Adds fleet in \"Mekislepti\" via event \"wanderers: the eye opens\" (rate 4000)",
+          "Adds fleet in \"Mesuket\" via event \"Mereti Automines Set\" (rate 3500)",
+          "Adds fleet in \"Mesuket\" via event \"Node 8 Processor Returned\" (rate 900)",
+          "Adds fleet in \"Salipastart\" via event \"Node 8 Processor Returned\" (rate 1600)",
+          "Adds fleet in \"Salipastart\" via event \"Node 8 Processor Returned\" (rate 800)",
+          "Adds fleet in \"Sepetrosk\" via event \"Node 8 Processor Returned\" (rate 1200)",
+          "Adds fleet in \"Sepetrosk\" via event \"Node 8 Processor Returned\" (rate 4800)",
+          "Adds fleet in \"Silikatakfar\" via event \"Mereti Automines Set\" (rate 2500)",
+          "Adds fleet in \"Silikatakfar\" via event \"Node 8 Processor Returned\" (rate 1600)",
+          "Adds fleet in \"Similisti\" via event \"Node 8 Processor Returned\" (rate 1600)",
+          "Adds fleet in \"Similisti\" via event \"Node 8 Processor Returned\" (rate 600)",
+          "Adds fleet in \"Sobarati\" via event \"Mereti Automines Set\" (rate 2000)",
+          "Adds fleet in \"Sobarati\" via event \"Node 8 Processor Returned\" (rate 10000)",
+          "Removes fleet in \"Asikafarnut\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Celeborim\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Chimitarp\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Eneremprukt\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Eshkoshtar\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Farbutero\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Faronektu\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Feroteri\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Ferukistek\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Fornarep\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Kaliptari\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Korsmanath\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Makferuti\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Mekislepti\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Mesuket\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Salipastart\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Sepetrosk\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Silikatakfar\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Similisti\" via event \"Mereti Fall Silent\"",
+          "Removes fleet in \"Sobarati\" via event \"Mereti Fall Silent\""
+        ]
+      }
+    },
+    "outfits": {
+      "Automine Deployer": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Generator (Furnace Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Heat Shunt": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Reasoning Node": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thruster (Asteroid Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Steering (Asteroid Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Grakerat 572",
+    "engines": [
+      {
+        "x": -38,
+        "y": 208
+      },
+      {
+        "x": 38,
+        "y": 208
+      },
+      {
+        "x": 0,
+        "y": 208
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/grakerat 572",
+    "thumbnail": "thumbnail/grakerat 572-thumb",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 21480000,
+      "shields": 52700,
+      "hull": 54600,
+      "automaton": 1,
+      "mass": 3333,
+      "drag": 25.2,
+      "heat dissipation": 0.25,
+      "fuel capacity": 1000,
+      "cargo space": 264,
+      "outfit space": 710,
+      "weapon capacity": 0,
+      "engine capacity": 165,
+      "ramscoop": 1,
+      "atmosphere scan": 100,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 8000,
+        "hull damage": 4000,
+        "hit force": 12000
+      }
+    },
+    "tiny explosion": 120,
+    "small explosion": 60,
+    "medium explosion": 70,
+    "large explosion": 50,
+    "huge explosion": 15,
+    "final explode": "final explosion large",
+    "description": "The Sestor deployed these expeditionary vessels centuries ago to extend their reach beyond Korath space. If one were to find a suitable planet to establish a base of operations on, the Sestor could rise again.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Grakerat 572",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "8c4f6587b3fa",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Sestor": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01"
+    ],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Bore Fah\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Chy'chra\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Ehma Ti\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Hi Yahr\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Host\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Persitar\" via event \"Blight Shadows Nest In Persitar\" (rate 80000)",
+          "Adds fleet in \"Sera Natta\" via event \"scrapyard sestor expeditionary fleets bunrodea update\" (rate 80000)",
+          "Adds fleet in \"Uwa Fahn\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Wah Yoot\" via event \"Sestor Expeditionary Fleets\" (rate 80000)"
+        ],
+        "Missions": [
+          "Scrapyard Ae Il B-11 Expeditionary Fleet",
+          "Scrapyard Obsolete Transmitter Distress Signal",
+          "Scrapyard Persitar Wreck Distress Signal",
+          "Scrapyard Sera Natta Expeditionary Fleet",
+          "Scrapyard Sestor Expedtionary Fleet",
+          "Scrapyard Stakoshstar 1",
+          "Scrapyard Uwa Fahn Attack"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Scrapyard Sera Natta Expeditionary Fleet\" → event \"scrapyard sestor expeditionary fleets bunrodea update\"",
+          "\"Scrapyard Sestor Expedtionary Fleet\" → event \"Sestor Expeditionary Fleets\"",
+          "\"Scrapyard Stakoshstar 1\" → event \"stakoshtar in prakacha'a\""
+        ],
+        "Persons": [
+          "Harbinger"
+        ]
+      }
+    },
+    "outfits": {
+      "Triple Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Large)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Medium)": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Small)": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Obsolete Transceiver": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Obsolete Transmitter": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Korath Scanner": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Large Heat Shunt": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Processor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thruster (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Steering (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Skoretak 13",
+    "engines": [
+      {
+        "x": -5.5,
+        "y": 41.5
+      },
+      {
+        "x": 6,
+        "y": 40.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -12,
+        "y": -33.5,
+        "gun": "Korath Grappler"
+      },
+      {
+        "x": 12.5,
+        "y": -33.5,
+        "gun": "Korath Grappler"
+      },
+      {
+        "x": 1.5,
+        "y": -33,
+        "gun": "Korath Tormentor"
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/skoretak 13",
+    "thumbnail": "thumbnail/skoretak 13-thumb",
+    "attributes": {
+      "category": "Interceptor",
+      "cost": 7532000,
+      "shields": 3350,
+      "hull": 5420,
+      "automaton": 1,
+      "mass": 190,
+      "drag": 4,
+      "heat dissipation": 1.3,
+      "fuel capacity": 200,
+      "cargo space": 20,
+      "outfit space": 225,
+      "weapon capacity": 49,
+      "engine capacity": 60,
+      "self destruct": 0.15,
+      "ramscoop": 1,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1200,
+        "hull damage": 600,
+        "hit force": 1800
+      }
+    },
+    "tiny explosion": 30,
+    "small explosion": 10,
+    "final explode": "final explosion small",
+    "description": "The Sestor stopped production of these interceptors a century ago. Their primary function was to serve as escorts for freighters.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Skoretak 13",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "3f3f31b925d1",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Sestor": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01"
+    ],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Bore Fah\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Chy'chra\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Ehma Ti\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Hi Yahr\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Host\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Persitar\" via event \"Blight Shadows Nest In Persitar\" (rate 80000)",
+          "Adds fleet in \"Sera Natta\" via event \"scrapyard sestor expeditionary fleets bunrodea update\" (rate 80000)",
+          "Adds fleet in \"Uwa Fahn\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Wah Yoot\" via event \"Sestor Expeditionary Fleets\" (rate 80000)"
+        ],
+        "Missions": [
+          "Scrapyard Ae Il B-11 Expeditionary Fleet",
+          "Scrapyard Forgotten Toys",
+          "Scrapyard Obsolete Transmitter Distress Signal",
+          "Scrapyard Persitar Wreck Distress Signal",
+          "Scrapyard Sera Natta Expeditionary Fleet",
+          "Scrapyard Sestor Expedtionary Fleet",
+          "Scrapyard Stakoshstar 1",
+          "Scrapyard Uwa Fahn Attack"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Scrapyard Sera Natta Expeditionary Fleet\" → event \"scrapyard sestor expeditionary fleets bunrodea update\"",
+          "\"Scrapyard Sestor Expedtionary Fleet\" → event \"Sestor Expeditionary Fleets\"",
+          "\"Scrapyard Stakoshstar 1\" → event \"stakoshtar in prakacha'a\""
+        ]
+      }
+    },
+    "outfits": {
+      "Korath Grappler": {
+        "count": 2,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Korath Tormentor": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Generator (Furnace Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Generator (Candle Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Small)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Heat Shunt": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Obsolete Transceiver": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Thruster (Comet Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Steering (Lunar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Tercheldar 150",
+    "engines": [
+      {
+        "x": -24,
+        "y": 130
+      },
+      {
+        "x": 25.5,
+        "y": 130
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 1.5,
+        "y": -141.5,
+        "gun": "Korath Detainer"
+      },
+      {
+        "x": -64.5,
+        "y": -48,
+        "gun": "Korath Grappler"
+      },
+      {
+        "x": 66,
+        "y": -48,
+        "gun": "Korath Grappler"
+      }
+    ],
+    "turrets": [
+      {
+        "x": -100.5,
+        "y": 82,
+        "turret": ""
+      },
+      {
+        "x": 103.5,
+        "y": 82,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/tercheldar 150",
+    "thumbnail": "thumbnail/tercheldar 150-thumb",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 18290000,
+      "shields": 25400,
+      "hull": 34100,
+      "automaton": 1,
+      "mass": 1207,
+      "drag": 15,
+      "heat dissipation": 0.35,
+      "fuel capacity": 400,
+      "cargo space": 36,
+      "outfit space": 536,
+      "weapon capacity": 252,
+      "engine capacity": 173,
+      "self destruct": 0.25,
+      "ramscoop": 1,
+      "weapon": {
+        "blast radius": 320,
+        "shield damage": 4000,
+        "hull damage": 2000,
+        "hit force": 6000
+      }
+    },
+    "tiny explosion": 80,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 10,
+    "final explode": "final explosion large",
+    "description": "The Tercheldar 150 was a warship designed to fight in Mereti mine fields. It was eventually replaced by the more powerful Kar Ik Vot 349.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Tercheldar 150",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "a3fa0cb3f107",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Sestor": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01"
+    ],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Bore Fah\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Chy'chra\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Ehma Ti\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Hi Yahr\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Host\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Persitar\" via event \"Blight Shadows Nest In Persitar\" (rate 80000)",
+          "Adds fleet in \"Sera Natta\" via event \"scrapyard sestor expeditionary fleets bunrodea update\" (rate 80000)",
+          "Adds fleet in \"Uwa Fahn\" via event \"Sestor Expeditionary Fleets\" (rate 80000)",
+          "Adds fleet in \"Wah Yoot\" via event \"Sestor Expeditionary Fleets\" (rate 80000)"
+        ],
+        "Missions": [
+          "Scrapyard Ae Il B-11 Expeditionary Fleet",
+          "Scrapyard Obsolete Transmitter Distress Signal",
+          "Scrapyard Persitar Wreck Distress Signal",
+          "Scrapyard Sera Natta Expeditionary Fleet",
+          "Scrapyard Sestor Expedtionary Fleet",
+          "Scrapyard Stakoshstar 1",
+          "Scrapyard Uwa Fahn Attack"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Scrapyard Sera Natta Expeditionary Fleet\" → event \"scrapyard sestor expeditionary fleets bunrodea update\"",
+          "\"Scrapyard Sestor Expedtionary Fleet\" → event \"Sestor Expeditionary Fleets\"",
+          "\"Scrapyard Stakoshstar 1\" → event \"stakoshtar in prakacha'a\""
+        ]
+      }
+    },
+    "outfits": {
+      "Korath Detainer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Grappler": {
+        "count": 2,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Korath Warder": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Double Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Generator (Furnace Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Medium)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Heat Shunt": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Heat Shunt": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Obsolete Transceiver": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Thruster (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Steering (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Stakoshtar 187",
+    "engines": [
+      {
+        "x": 0,
+        "y": 224
+      },
+      {
+        "x": -37,
+        "y": 224
+      },
+      {
+        "x": 37,
+        "y": 224
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -219,
+        "gun": "Korath Eliminator"
+      }
+    ],
+    "turrets": [
+      {
+        "x": -34.5,
+        "y": -121,
+        "turret": "Korath Banisher"
+      },
+      {
+        "x": 39.5,
+        "y": -121,
+        "turret": "Korath Warder"
+      },
+      {
+        "x": -36,
+        "y": -98,
+        "turret": "Korath Warder"
+      },
+      {
+        "x": 41,
+        "y": -98,
+        "turret": "Korath Banisher"
+      },
+      {
+        "x": -37.5,
+        "y": -74,
+        "turret": "Korath Banisher"
+      },
+      {
+        "x": 43,
+        "y": -74,
+        "turret": "Korath Warder"
+      },
+      {
+        "x": -39,
+        "y": -51,
+        "turret": "Korath Warder"
+      },
+      {
+        "x": 44.5,
+        "y": -51,
+        "turret": "Korath Banisher"
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/stakoshtar 187/stakoshtar",
+    "sprite data": {
+      "frame rate": 8,
+      "rewind": true
+    },
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 51260000,
+      "shields": 55200,
+      "hull": 68200,
+      "automaton": 1,
+      "mass": 3789,
+      "drag": 40.3,
+      "heat dissipation": 0.25,
+      "fuel capacity": 800,
+      "cargo space": 0,
+      "outfit space": 1200,
+      "weapon capacity": 544,
+      "engine capacity": 234,
+      "ramscoop": 1,
+      "spinal mount": 1,
+      "weapon": {
+        "blast radius": 12340,
+        "shield damage": 1234,
+        "hull damage": 6170,
+        "hit force": 18510
+      }
+    },
+    "tiny explosion": 60,
+    "small explosion": 26,
+    "medium explosion": 47,
+    "large explosion": 39,
+    "huge explosion": 42,
+    "nuke explosion": 2,
+    "final explode": "nuke residue fast",
+    "description": "During their civil war, the Korath used this weapon against planetary targets. Scars from such battles still cover the surface of many of their worlds.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Stakoshtar 187",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "f23ec5767ac3",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Sestor": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01"
+    ],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Missions": [
+          "Scrapyard Stakoshstar 1"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Scrapyard Stakoshstar 1\" → event \"stakoshtar in prakacha'a\""
+        ]
+      }
+    },
+    "outfits": {
+      "Korath Eliminator": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Korath Banisher": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Warder": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Triple Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Large)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Medium)": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Small)": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Heat Shunt": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Processor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Obsolete Transceiver": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Thruster (Stellar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Steering (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Eave-Skiff",
+    "engines": [
+      {
+        "x": -21,
+        "y": 11,
+        "zoom": 0.3
+      },
+      {
+        "x": 21,
+        "y": 11,
+        "zoom": 0.3
+      },
+      {
+        "x": -7,
+        "y": 23,
+        "zoom": 0.7
+      },
+      {
+        "x": 7,
+        "y": 23,
+        "zoom": 0.7
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -28,
+        "gun": "Expeller Grav-Ray"
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/modified chaser",
+    "thumbnail": "thumbnail/modified chaser",
+    "attributes": {
+      "category": "Fighter",
+      "cost": 221000,
+      "shields": 2100,
+      "hull": 800,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 40,
+      "drag": 0.7,
+      "heat dissipation": 0.9,
+      "outfit space": 92,
+      "weapon capacity": 23,
+      "engine capacity": 31,
+      "weapon": {
+        "blast radius": 48,
+        "shield damage": 320,
+        "hull damage": 160,
+        "hit force": 480
+      }
+    },
+    "tiny explosion": 20,
+    "description": "The Eave-Skiff is a fighter carried by Kor Efret capital ships. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Eave-Skiff",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "080a8056e1d7",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Efret": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
+    ],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)"
+        ],
+        "Planets": [
+          "Laki Nemparu"
+        ],
+        "Missions": [
+          "Scrapyard: Escort to Wanderer Colony (Big)"
+        ]
+      }
+    },
+    "outfits": {
+      "Expeller Grav-Ray": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Generator (Candle Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Tiny)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thermal Repeater Rifle": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Arkrof GP Hybrid Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Arkrof GP Hybrid Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Vault-Barge",
+    "engines": [
+      {
+        "x": -40,
+        "y": 187
+      },
+      {
+        "x": -2,
+        "y": 187
+      },
+      {
+        "x": 35,
+        "y": 187
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": -26,
+        "y": -34,
+        "turret": "Banisher Grav-Turret"
+      },
+      {
+        "x": 25,
+        "y": -34,
+        "turret": "Warder Anti-Missile"
+      },
+      {
+        "x": -35,
+        "y": 98,
+        "turret": "Warder Anti-Missile"
+      },
+      {
+        "x": 29.5,
+        "y": 98,
+        "turret": "Banisher Grav-Turret"
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/korath transport a",
+    "thumbnail": "thumbnail/korath transport a-thumb",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 6922500,
+      "shields": 12500,
+      "hull": 8500,
+      "required crew": 80,
+      "bunks": 120,
+      "mass": 710,
+      "drag": 8.4,
+      "heat dissipation": 0.3,
+      "fuel capacity": 400,
+      "cargo space": 270,
+      "outfit space": 420,
+      "weapon capacity": 149,
+      "engine capacity": 81,
+      "weapon": {
+        "blast radius": 300,
+        "shield damage": 4000,
+        "hull damage": 2000,
+        "hit force": 6000
+      }
+    },
+    "tiny explosion": 30,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "final explode": "final explosion large",
+    "description": "A precursor to the Korath World-Ship. As more of their people resettle onto their former worlds, there will be a demand for smaller ships. In anticpation of this, the Kor Efret shipyards have begun reproducing these smaller freighters.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Vault-Barge",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "b70a2f0d4821",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Efret": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
+    ],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)"
+        ],
+        "Planets": [
+          "Laki Nemparu"
+        ],
+        "Missions": [
+          "Scrapyard: Escort to Wanderer Colony (Small)"
+        ]
+      }
+    },
+    "outfits": {
+      "Banisher Grav-Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Warder Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Double Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Medium)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Heat Shunt": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Processor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thermal Repeater Rifle": {
+        "count": 50,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Farves GP Hybrid Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Farves GP Hybrid Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Bravo-Monitor",
+    "engines": [
+      {
+        "x": -37.5,
+        "y": 190
+      },
+      {
+        "x": 0.5,
+        "y": 191
+      },
+      {
+        "x": 38,
+        "y": 192
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -20,
+        "y": -52,
+        "gun": "Korath Fireswarm Launcher"
+      },
+      {
+        "x": 20,
+        "y": -52,
+        "gun": "Korath Fireswarm Launcher"
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -52.5,
+        "turret": "Grab-Strike Turret"
+      },
+      {
+        "x": 0,
+        "y": 35,
+        "turret": "Banisher Grav-Turret"
+      },
+      {
+        "x": -26.5,
+        "y": 120,
+        "turret": "Warder Anti-Missile"
+      },
+      {
+        "x": 26,
+        "y": 120,
+        "turret": "Warder Anti-Missile"
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/korath transport b",
+    "thumbnail": "thumbnail/korath transport b-thumb",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 6922500,
+      "shields": 12000,
+      "hull": 9000,
+      "required crew": 160,
+      "bunks": 240,
+      "mass": 730,
+      "drag": 8.4,
+      "heat dissipation": 0.3,
+      "fuel capacity": 400,
+      "cargo space": 66,
+      "outfit space": 472,
+      "weapon capacity": 205,
+      "engine capacity": 81,
+      "weapon": {
+        "blast radius": 300,
+        "shield damage": 4000,
+        "hull damage": 2000,
+        "hit force": 6000
+      }
+    },
+    "tiny explosion": 30,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "final explode": "final explosion large",
+    "description": "A precursor to the Korath World-Ship. As more of their people resettle onto their former worlds, there will be a demand for smaller ships. In anticpation of this, the Kor Efret shipyards have begun reproducing these smaller patrol ships.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Bravo-Monitor",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "d89932a20b6f",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Efret": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
+    ],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)"
+        ],
+        "Planets": [
+          "Laki Nemparu"
+        ]
+      }
+    },
+    "outfits": {
+      "Banisher Grav-Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Grab-Strike Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Warder Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Fireswarm Launcher": {
+        "count": 2,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Korath Fireswarm": {
+        "count": 50,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Korath Fireswarm Nest": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Double Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Medium)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Heat Shunt": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Processor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thermal Repeater Rifle": {
+        "count": 180,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Farves GP Hybrid Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Farves GP Hybrid Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Delta-Ferry",
+    "engines": [
+      {
+        "x": -39,
+        "y": 183
+      },
+      {
+        "x": -2,
+        "y": 183
+      },
+      {
+        "x": 35.5,
+        "y": 183
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": -16.5,
+        "y": -25,
+        "turret": ""
+      },
+      {
+        "x": 15.5,
+        "y": -25,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": -43,
+        "y": 20.5,
+        "position": "over"
+      },
+      {
+        "type": "Fighter",
+        "x": 43,
+        "y": 20.5,
+        "position": "over"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 20.5,
+        "position": "under"
+      }
+    ],
+    "leaks": [],
+    "sprite": "ship/korath transport c",
+    "thumbnail": "thumbnail/korath transport c-thumb",
+    "attributes": {
+      "category": "Transport",
+      "cost": 6922500,
+      "shields": 11500,
+      "hull": 9500,
+      "required crew": 120,
+      "bunks": 360,
+      "mass": 750,
+      "drag": 8.4,
+      "heat dissipation": 0.3,
+      "fuel capacity": 400,
+      "cargo space": 66,
+      "outfit space": 403,
+      "weapon capacity": 104,
+      "engine capacity": 81,
+      "weapon": {
+        "blast radius": 300,
+        "shield damage": 4000,
+        "hull damage": 2000,
+        "hit force": 6000
+      }
+    },
+    "tiny explosion": 30,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "final explode": "final explosion large",
+    "description": "A precursor to the Korath World-Ship. As more of their people resettle onto their former worlds, there will be a demand for smaller ships. In anticpation of this, the Kor Efret shipyards have begun reproducing these smaller transports.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Delta-Ferry",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "131bb43c20f5",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Efret": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
+    ],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)"
+        ],
+        "Planets": [
+          "Laki Nemparu"
+        ],
+        "Missions": [
+          "Scrapyard: Escort to Wanderer Colony (Small)"
+        ]
+      }
+    },
+    "outfits": {
+      "Warder Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Double Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Large)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Heat Shunt": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Processor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Luxury Accommodations": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thermal Repeater Rifle": {
+        "count": 50,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Arkrof GP Hybrid Reverser": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Farves GP Hybrid Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Farves GP Hybrid Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Korath Ranger",
+    "engines": [
+      {
+        "x": -31.5,
+        "y": 103.5
+      },
+      {
+        "x": 31.5,
+        "y": 103.5
+      },
+      {
+        "x": 0,
+        "y": 114
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -118,
+        "y": -116,
+        "gun": "Piercer Missile Launcher"
+      },
+      {
+        "x": 118,
+        "y": -116,
+        "gun": "Piercer Missile Launcher"
+      },
+      {
+        "x": -79,
+        "y": 24,
+        "gun": "Thermal Repeater"
+      },
+      {
+        "x": 79,
+        "y": 24,
+        "gun": "Thermal Repeater"
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -49,
+        "turret": "Warder Anti-Missile"
+      },
+      {
+        "x": -40,
+        "y": -48.5,
+        "turret": "Thermal Repeater Turret"
+      },
+      {
+        "x": 40,
+        "y": -48.5,
+        "turret": "Thermal Repeater Turret"
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": -94.5,
+        "y": -75
+      },
+      {
+        "type": "Fighter",
+        "x": 94.5,
+        "y": -75
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": -49
+      }
+    ],
+    "leaks": [],
+    "display name": "Threshold-Destroyer",
+    "sprite": "ship/korath ranger",
+    "thumbnail": "thumbnail/korath ranger-thumb",
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 8570000,
+      "shields": 16500,
+      "hull": 8500,
+      "required crew": 75,
+      "bunks": 125,
+      "mass": 720,
+      "drag": 12,
+      "heat dissipation": 0.5,
+      "fuel capacity": 500,
+      "cargo space": 60,
+      "outfit space": 490,
+      "weapon capacity": 165,
+      "engine capacity": 85,
+      "weapon": {
+        "blast radius": 300,
+        "shield damage": 4600,
+        "hull damage": 2300,
+        "hit force": 5900
+      }
+    },
+    "tiny explosion": 60,
+    "small explosion": 30,
+    "medium explosion": 35,
+    "large explosion": 30,
+    "final explode": "final explosion large",
+    "description": "The Threshold-Destroyer was the first warship deployed at the start of the Korath civil war that eventually brought the downfall of their civilization. With the recent Blight Shadow attack on one of their World-ships, the Kor Efret are starting to reproduce these warships as escorts.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Korath Ranger",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "a5ee6f60a6e5",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Efret": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
+    ],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Furmeliki\" via event \"wanderers: sabira eseskrai colony\" (rate 800)"
+        ]
+      }
+    },
+    "outfits": {
+      "Thermal Repeater": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thermal Repeater Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Warder Anti-Missile": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Piercer Missile": {
+        "count": 62,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Piercer Missile Launcher": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Double Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Medium)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Heat Shunt": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Heat Shunt": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Processor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Scanner": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Thermal Repeater Rifle": {
+        "count": 70,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Afterburner (Meteor Class)": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Arkrof GP Hybrid Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Farves GP Hybrid Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Farves GP Hybrid Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Shelf-Sloop",
+    "engines": [
+      {
+        "x": -20,
+        "y": 55.5
+      },
+      {
+        "x": 18.5,
+        "y": 55.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -17.5,
+        "y": -55,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 17.5,
+        "y": 20.5,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/shelf-sloop",
+    "thumbnail": "thumbnail/shelf-sloop-thumb",
+    "attributes": {
+      "category": "Utility",
+      "cost": 4142000,
+      "shields": 6700,
+      "hull": 2300,
+      "required crew": 33,
+      "bunks": 56,
+      "mass": 442,
+      "drag": 5.1,
+      "heat dissipation": 0.6,
+      "fuel capacity": 200,
+      "cargo space": 40,
+      "outfit space": 204,
+      "weapon capacity": 75,
+      "engine capacity": 45,
+      "weapon": {
+        "blast radius": 125,
+        "shield damage": 1800,
+        "hull damage": 900,
+        "hit force": 2700
+      }
+    },
+    "tiny explosion": 5,
+    "small explosion": 10,
+    "medium explosion": 15,
+    "final explode": "final explosion medium",
+    "description": "The Kor Efret have redesigned an old warship for more peaceful pursuits. The Shelf-Sloop is able to install larger engines than its predecessor while also accomodating a turret. Its weapons options, however, are more limited.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Shelf-Sloop",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "fc3c501ea0b5",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Efret": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
+    ],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Chornifath\" via event \"kor efret miners scrapyard\" (rate 7200)",
+          "Adds fleet in \"Dokdobaru\" via event \"kor efret miners scrapyard\" (rate 10800)",
+          "Adds fleet in \"Farbutero\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Feroteri\" via event \"kor efret forager sales\" (rate 16000)",
+          "Adds fleet in \"Fornarep\" via event \"kor efret forager sales\" (rate 12000)",
+          "Adds fleet in \"Furmeliki\" via event \"kor efret miners scrapyard\" (rate 10800)",
+          "Adds fleet in \"Kaliptari\" via event \"kor efret forager sales\" (rate 12000)",
+          "Adds fleet in \"Korsmanath\" via event \"kor efret forager sales\" (rate 16000)",
+          "Adds fleet in \"Mekislepti\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Sabriset\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Seketra\" via event \"kor efret forager sales\" (rate 12000)",
+          "Adds fleet in \"Sepriaptu\" via event \"kor efret forager sales\" (rate 14000)",
+          "Adds fleet in \"Skeruto\" via event \"kor efret miners scrapyard\" (rate 10800)",
+          "Adds fleet in \"Solifar\" via event \"kor efret forager sales\" (rate 14000)"
+        ],
+        "Planets": [
+          "Laki Nemparu"
+        ]
+      }
+    },
+    "outfits": {
+      "Burrower Mining Beam": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Scavenger Turret": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Tiny)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Small Heat Shunt": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Processor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thermal Repeater Rifle": {
+        "count": 36,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Arkrof GP Hybrid Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Farves GP Hybrid Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Mereti Efret",
+    "engines": [
+      {
+        "x": -39.5,
+        "y": 190.5
+      },
+      {
+        "x": 40,
+        "y": 190.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -5,
+        "y": -165,
+        "gun": "Digger Mining Beam"
+      },
+      {
+        "x": 18,
+        "y": -165,
+        "gun": "Digger Mining Beam"
+      }
+    ],
+    "turrets": [
+      {
+        "x": 34.5,
+        "y": -111.5,
+        "turret": "Shield Disruptor Turret"
+      },
+      {
+        "x": -19,
+        "y": -84.5,
+        "turret": "Husk-Slice Turret"
+      },
+      {
+        "x": -31.5,
+        "y": 12.5,
+        "turret": "Warder Anti-Missile"
+      },
+      {
+        "x": 53,
+        "y": 24,
+        "turret": "Warder Anti-Missile"
+      },
+      {
+        "x": -23.5,
+        "y": 98,
+        "turret": "Shield Disruptor Turret"
+      },
+      {
+        "x": 47,
+        "y": 97,
+        "turret": "Husk-Slice Turret"
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/mereti efret",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 34920000,
+      "shields": 57000,
+      "hull": 28700,
+      "required crew": 1,
+      "bunks": 8,
+      "mass": 1601,
+      "drag": 20.5,
+      "heat dissipation": 0.65,
+      "fuel capacity": 400,
+      "cargo space": 78,
+      "outfit space": 752,
+      "weapon capacity": 303,
+      "engine capacity": 130,
+      "self destruct": 0.15,
+      "ramscoop": 3,
+      "weapon": {
+        "blast radius": 320,
+        "shield damage": 4600,
+        "hull damage": 2300,
+        "hit force": 6900
+      }
+    },
+    "tiny explosion": 120,
+    "small explosion": 85,
+    "medium explosion": 60,
+    "large explosion": 25,
+    "final explode": "final explosion large",
+    "description": "Translated to \"Mereti Friend\", this is the first functional Korath spacecraft made entirely from salvaged Mereti parts. While not fully autonomous, it is very nearly so.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Mereti Efret",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "92699458a854",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Efret": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Kor Efret attitude toward Kor Mereti → 0"
+    ],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Missions": [
+          "Scrapyard Mereti Efret Test Flight"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Scrapyard Mereti Efret Test Flight\" → event \"mereti efret added to efret scrapyards\""
+        ]
+      }
+    },
+    "outfits": {
+      "Digger Mining Beam": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Husk-Slice Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Shield Disruptor Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Warder Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Triple Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Large)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Processor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Heat Shunt": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Gaktem GP Hybrid Reverser": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Gaktem GP Hybrid Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Gaktem GP Hybrid Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Korath Devourer",
+    "engines": [
+      {
+        "x": -31,
+        "y": 286
+      },
+      {
+        "x": 31,
+        "y": 286
+      },
+      {
+        "x": 0,
+        "y": 298
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -91,
+        "y": -85
+      },
+      {
+        "x": 91,
+        "y": -85
+      },
+      {
+        "x": -91,
+        "y": 69
+      },
+      {
+        "x": 91,
+        "y": 69
+      },
+      {
+        "x": -80,
+        "y": 212,
+        "over": true
+      },
+      {
+        "x": 80,
+        "y": 212,
+        "over": true
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -58.5,
+        "y": -143.5,
+        "zoom": 0.3,
+        "angle": 60,
+        "right": true
+      },
+      {
+        "x": 58.5,
+        "y": -143.5,
+        "zoom": 0.3,
+        "angle": 300,
+        "left": true
+      },
+      {
+        "x": -44,
+        "y": 209,
+        "zoom": 0.3,
+        "angle": 135,
+        "left": true
+      },
+      {
+        "x": 44,
+        "y": 209,
+        "zoom": 0.3,
+        "angle": 225,
+        "right": true
+      }
+    ],
+    "guns": [
+      {
+        "x": 0,
+        "y": -198,
+        "gun": "Korath Incinerator"
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -181,
+        "turret": "Scavenger Turret"
+      },
+      {
+        "x": -40,
+        "y": -179,
+        "turret": "Shield Disruptor Turret"
+      },
+      {
+        "x": 40,
+        "y": -179,
+        "turret": "Husk-Slice Turret"
+      },
+      {
+        "x": -61,
+        "y": -175,
+        "turret": "Grab-Strike Turret"
+      },
+      {
+        "x": 61,
+        "y": -175,
+        "turret": "Grab-Strike Turret"
+      },
+      {
+        "x": -42,
+        "y": -55,
+        "turret": "Digger Mining Turret"
+      },
+      {
+        "x": 42,
+        "y": -55,
+        "turret": "Warder Anti-Missile"
+      },
+      {
+        "x": -42,
+        "y": 100,
+        "turret": "Warder Anti-Missile"
+      },
+      {
+        "x": 42,
+        "y": 100,
+        "turret": "Digger Mining Turret"
+      },
+      {
+        "x": 0,
+        "y": 247,
+        "turret": "Warder Anti-Missile"
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": -88,
+        "y": -45
+      },
+      {
+        "type": "Fighter",
+        "x": 88,
+        "y": -45
+      },
+      {
+        "type": "Fighter",
+        "x": -88,
+        "y": 108
+      },
+      {
+        "type": "Fighter",
+        "x": 88,
+        "y": 108
+      },
+      {
+        "type": "Fighter",
+        "x": -82,
+        "y": 260
+      },
+      {
+        "type": "Fighter",
+        "x": 82,
+        "y": 260
+      }
+    ],
+    "leaks": [],
+    "display name": "Devar'ur",
+    "sprite": "ship/korath devourer/korath devourer",
+    "thumbnail": "thumbnail/korath devourer-thumb",
+    "attributes": {
+      "category": "Utility",
+      "cost": 39062100,
+      "shields": 52000,
+      "hull": 22000,
+      "required crew": 267,
+      "bunks": 525,
+      "mass": 4710,
+      "drag": 43.2,
+      "heat dissipation": 0.29,
+      "fuel capacity": 1100,
+      "cargo space": 804,
+      "outfit space": 1099,
+      "weapon capacity": 395,
+      "engine capacity": 240,
+      "integrated systems": -1,
+      "weapon": {
+        "blast radius": 731,
+        "shield damage": 7315,
+        "hull damage": 3657,
+        "hit force": 10972
+      }
+    },
+    "tiny explosion": 160,
+    "small explosion": 80,
+    "medium explosion": 90,
+    "large explosion": 70,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "Some Korath scrappers are more interested in harvesting raw materials rather than technology. The Devar'ur is their attempt to streamline the collection process. The Scrap Incinerator is integrated into the ship and cannot be removed.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Korath Devourer",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "27c5d1426c67",
+    "governments": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Kor Scrappers": true,
+        "Kor Scrappers (Hostile)": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Missions": [
+          "Scrapyard Damnation 3",
+          "Scrapyard Devourer (Neutral) 1",
+          "Scrapyard Devourer (Neutral) 2"
+        ]
+      }
+    },
+    "outfits": {
+      "Korath Incinerator": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Grab-Strike Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scavenger Turret": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Shield Disruptor Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Husk-Slice Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Digger Mining Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Warder Anti-Missile": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Triple Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Large)": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Scanner": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Large Heat Shunt": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Liquid Sodium Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Processor": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thermal Repeater Rifle": {
+        "count": 273,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Afterburner (Meteor Class)": {
+        "count": 1,
+        "pluginId": "Midnight Scrapyard/Midnight-Scrapyard"
+      },
+      "Reverser (Comet Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Steering (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thruster (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Korath Explorer",
+    "engines": [
+      {
+        "x": -37,
+        "y": 200
+      },
+      {
+        "x": 37,
+        "y": 200
+      },
+      {
+        "x": 0,
+        "y": 200
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": -58,
+        "y": -107,
+        "turret": "Shield Disruptor Turret"
+      },
+      {
+        "x": 58,
+        "y": -107,
+        "turret": "Husk-Slice Turret"
+      },
+      {
+        "x": -47,
+        "y": 0.5,
+        "turret": "Warder Anti-Missile"
+      },
+      {
+        "x": 47,
+        "y": -0.5,
+        "turret": "Warder Anti-Missile"
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": -45,
+        "y": -21
+      },
+      {
+        "type": "Fighter",
+        "x": 45,
+        "y": -21
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": -21
+      }
+    ],
+    "leaks": [],
+    "sprite": "ship/korath explorer",
+    "attributes": {
+      "category": "Heavy Freighter",
+      "cost": 6922500,
+      "shields": 11750,
+      "hull": 17000,
+      "required crew": 100,
+      "bunks": 112,
+      "mass": 770,
+      "drag": 8.4,
+      "heat dissipation": 0.3,
+      "fuel capacity": 800,
+      "cargo space": 528,
+      "outfit space": 512,
+      "weapon capacity": 186,
+      "engine capacity": 148,
+      "weapon": {
+        "blast radius": 300,
+        "shield damage": 4000,
+        "hull damage": 2000,
+        "hit force": 6000
+      }
+    },
+    "tiny explosion": 30,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "final explode": "final explosion large",
+    "description": "Korath Explorers were originally made to escape the harsh gravitional forces of Sagittarius A*. It is a science vessel designed for gathering data and resources.",
+    "_internalId": "Midnight Scrapyard/Midnight-Scrapyard::Korath Explorer",
+    "_pluginId": "Midnight Scrapyard/Midnight-Scrapyard",
+    "_hash": "1dbf441e9831",
+    "governments": {
+      "Midnight-Scrapyard": {
+        "Midnight-Scrapyard": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Shield Disruptor Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Husk-Slice Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Warder Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Double Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Systems Core (Medium)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Large Heat Shunt": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fuel Processor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Korath Scanner": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight"
+      },
+      "Thermal Repeater Rifle": {
+        "count": 100,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Afterburner (Asteroid Class)": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Steering (Lunar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Thruster (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  }
+]

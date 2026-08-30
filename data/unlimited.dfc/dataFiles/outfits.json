@@ -12,9 +12,43 @@
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Sheragi (Rebirth)": true,
         "Sheragi (Dishonoured)": true
+      },
+      "POOT/poot-senza-solaria": {
+        "Syndicate": true,
+        "Senza Solaria Author": true
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Syndicate": true,
+        "Senza Solaria Author": true
+      },
+      "official-game/endless-sky": {
+        "Sheragi": true
+      },
+      "Blended Ships/blended-ships": {
+        "Arena": true,
+        "Author": true
+      },
+      "POOT/poot-senza-solaria_senza_solaria": {
+        "Senza Solaria Author": true,
+        "Syndicate": true
+      },
+      "Amphibious Ships/Amphibious-Ships": {
+        "Author": true
       }
     },
-    "governmentEvents": [],
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+    ],
     "locations": {
       "LixiChronikouOrious list/Sheragi.Rebirth.Redux": {
         "Planets": [
@@ -32,6 +66,44 @@
         ],
         "Outfitters": [
           "Sheragi Advanced"
+        ]
+      },
+      "POOT/poot-senza-solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ],
+        "Outfitters": [
+          "Senza Solaria Plugin Outfits",
+          "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
+        ]
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ],
+        "Outfitters": [
+          "Senza Solaria Plugin Outfits",
+          "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
         ]
       }
     },

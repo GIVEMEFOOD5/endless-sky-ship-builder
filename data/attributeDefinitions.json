@@ -16,14 +16,14 @@
       "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h",
       "tooltips": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/data/_ui/tooltips.txt"
     },
-    "generatedAt": "2026-08-30T09:51:08.115Z",
+    "generatedAt": "2026-08-30T14:42:08.155Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "FnName() calls refer to other ship functions.",
       "Multi-branch functions have one formula entry per return statement."
     ],
     "discovery": {
-      "scannedAt": "2026-08-30T09:51:04.141Z",
+      "scannedAt": "2026-08-30T14:42:05.741Z",
       "totalCandidatesScanned": 468,
       "relevantFilesFound": 26,
       "relevantFilePaths": [
@@ -36,9 +36,9 @@
         "source/Entity.cpp",
         "source/FleetCargo.cpp",
         "source/GameAction.cpp",
+        "source/HailPanel.cpp",
         "source/Government.cpp",
         "source/Hardpoint.cpp",
-        "source/HailPanel.cpp",
         "source/HiringPanel.cpp",
         "source/LocationFilter.cpp",
         "source/MainPanel.cpp",
@@ -129,7 +129,7 @@
       "note": "isMovementRelevant on each attribute (below) is derived structurally from the ship-function call graph, seeded only from InertialMass/Drag/DragForce — see movementSystem at the bottom of this file for the full function/attribute lists and rationale."
     },
     "dataUsage": {
-      "scannedAt": "2026-08-30T09:51:08.111Z",
+      "scannedAt": "2026-08-30T14:42:08.150Z",
       "filesScanned": 199,
       "attributeKeysObserved": 274,
       "dataOnlyAttributeKeys": [
@@ -4665,8 +4665,8 @@
         0.1,
         0.3,
         0.2,
-        2,
-        0.5
+        0.5,
+        1
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -7661,8 +7661,8 @@
         10,
         6,
         90,
-        5,
-        0.05
+        100,
+        5
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -8406,10 +8406,10 @@
       },
       "dataSampleValues": [
         -1,
-        1,
-        1,
-        1,
-        1
+        -1,
+        -1,
+        -1,
+        -1
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -8599,8 +8599,8 @@
         1,
         1,
         -1,
-        1,
-        -1
+        -1,
+        1
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -8855,28 +8855,6 @@
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
-    "swarm capacity": {
-      "key": "swarm capacity",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Ammunition",
-        "Secondary Weapons"
-      ],
-      "dataUsageCount": 3,
-      "dataValueRange": {
-        "min": -1,
-        "max": 400
-      },
-      "dataSampleValues": [
-        200,
-        -1,
-        400
-      ],
-      "dataOnShip": false,
-      "dataOnOutfit": true,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
     "relay upgrades": {
       "key": "relay upgrades",
       "dataOnly": true,
@@ -8958,6 +8936,28 @@
         6,
         18,
         30
+      ],
+      "dataOnShip": false,
+      "dataOnOutfit": true,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
+    "swarm capacity": {
+      "key": "swarm capacity",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Ammunition",
+        "Secondary Weapons"
+      ],
+      "dataUsageCount": 3,
+      "dataValueRange": {
+        "min": -1,
+        "max": 400
+      },
+      "dataSampleValues": [
+        200,
+        -1,
+        400
       ],
       "dataOnShip": false,
       "dataOnOutfit": true,
@@ -9926,6 +9926,29 @@
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
+    "shield connection point": {
+      "key": "shield connection point",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Systems"
+      ],
+      "dataUsageCount": 5,
+      "dataValueRange": {
+        "min": -2,
+        "max": 1
+      },
+      "dataSampleValues": [
+        1,
+        1,
+        1,
+        1,
+        -2
+      ],
+      "dataOnShip": false,
+      "dataOnOutfit": true,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
     "waterlining": {
       "key": "waterlining",
       "dataOnly": true,
@@ -9980,29 +10003,6 @@
         20,
         -1,
         16
-      ],
-      "dataOnShip": false,
-      "dataOnOutfit": true,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
-    "shield connection point": {
-      "key": "shield connection point",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Systems"
-      ],
-      "dataUsageCount": 5,
-      "dataValueRange": {
-        "min": -2,
-        "max": 1
-      },
-      "dataSampleValues": [
-        1,
-        1,
-        1,
-        1,
-        -2
       ],
       "dataOnShip": false,
       "dataOnOutfit": true,
@@ -10558,6 +10558,7 @@
     "sell outfits without outfitter": "In the Trading panel, controls whether the \"Sell Outfits\" button will allow selling outfits even when there is no outfitter at which to buy them back.",
     "confirm selling outfits": "In the Trading panel, controls whether or not to confirm sales of all outfits in cargo.",
     "confirm selling minables": "In the Trading panel, controls whether or not to confirm sales of minables, specials and other flotsam that may have been picked up.",
+    "sync ff to capslock": "Whether fast-forward should be in sync with the state of CapsLock on the system. The default setting keeps them in sync if the fast-forward key is CapsLock.",
     "landing zoom": "Apply a cinematic zoom in and out when you are landing and taking off.",
     "scroll speed": "The speed of scrolling in panels that can scroll.",
     "tooltip activation time": "For how long you need to hover over an item to show its tooltip.",

@@ -1,0 +1,415 @@
+[
+  {
+    "name": "Freighter DCM (Deep)",
+    "engines": [
+      {
+        "x": -9,
+        "y": 97
+      },
+      {
+        "x": 9,
+        "y": 97
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -52,
+        "turret": "Blaster Turret"
+      },
+      {
+        "x": 0,
+        "y": 6,
+        "turret": "Heavy Anti-Missile Turret"
+      },
+      {
+        "x": 0,
+        "y": 65,
+        "turret": "Blaster Turret"
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      }
+    ],
+    "sprite": "ship/freighter dcm",
+    "thumbnail": "thumbnail/freighter dcm",
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 900000,
+      "shields": 2200,
+      "hull": 2500,
+      "required crew": 4,
+      "bunks": 7,
+      "mass": 465,
+      "drag": 8.5,
+      "heat dissipation": 0.45,
+      "fuel capacity": 600,
+      "cargo space": 105,
+      "outfit space": 270,
+      "weapon capacity": 80,
+      "engine capacity": 80,
+      "drone bays": 2,
+      "weapon": {
+        "blast radius": 40,
+        "shield damage": 400,
+        "hull damage": 200,
+        "hit force": 600
+      }
+    },
+    "drone": 12,
+    "tiny explosion": 10,
+    "small explosion": 30,
+    "medium explosion": 20,
+    "final explode": "final explosion small",
+    "description": "Once the Navy began building cruisers, the demand for a civilian ship that can carry drones quickly became apparent. The Syndicate quickly answered this newly arisen interest in drones with a corresponding carrier modification of the Freighter. Besides having a stronger hull and more weapon space than the standard model, it can also carry a pair of drones, which the captain can choose to sacrifice in order to give the fleet more time to escape the pirates.",
+    "_internalId": "LixiChronikouOrious list/Korunak.Defense.Drones::Freighter DCM",
+    "_pluginId": "LixiChronikouOrious list/Korunak.Defense.Drones",
+    "_hash": "073381e91f28",
+    "variant": "Freighter DCM (Deep)",
+    "baseShip": "Freighter DCM",
+    "_variantPluginId": "LixiChronikouOrious list/Korunak.Defense.Drones",
+    "governments": {
+      "LixiChronikouOrious list/Korunak.Defense.Drones": {
+        "Merchant": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
+    "locations": {
+      "LixiChronikouOrious list/Korunak.Defense.Drones": {
+        "EventFleetChanges": [
+          "Adds fleet in \"Danoa\" via event \"midnight scar's hideout (Hai) patch 2\" (rate 15000)",
+          "Adds fleet in \"Menkalinan\" via event \"Restore Menkalinan\" (rate 500)",
+          "Adds fleet in \"Zubenelgenubi\" via event \"Ghost restore Zubenelgenubi\" (rate 500)",
+          "Removes fleet in \"Menkalinan\" via event \"Clear Menkalinan\"",
+          "Removes fleet in \"Zubenelgenubi\" via event \"Ghost clear Zubenelgenubi\""
+        ]
+      }
+    },
+    "outfits": {
+      "Laser Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "NT-200 Nucleovoltaic": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Supercapacitor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Ramscoop": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A250 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A255 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D41-HY Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  },
+  {
+    "name": "Class Q Freighter (Next Gen Shields)",
+    "engines": [
+      {
+        "x": -20,
+        "y": 195.5
+      },
+      {
+        "x": 20,
+        "y": 195.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -20,
+        "y": -175,
+        "gun": ""
+      },
+      {
+        "x": 20,
+        "y": -175,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -12,
+        "y": -155,
+        "turret": "Quad Blaster Turret"
+      },
+      {
+        "x": 12,
+        "y": -155,
+        "turret": "Heavy Anti-Missile Turret"
+      },
+      {
+        "x": 0,
+        "y": 5,
+        "turret": "Proton Turret"
+      },
+      {
+        "x": 30,
+        "y": 175,
+        "turret": "Quad Blaster Turret"
+      },
+      {
+        "x": -30,
+        "y": 175,
+        "turret": "Heavy Anti-Missile Turret"
+      }
+    ],
+    "bays": [
+      {
+        "type": "Drone",
+        "x": -66,
+        "y": -115,
+        "position": "left",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Drone",
+        "x": -66,
+        "y": -65,
+        "position": "left",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Drone",
+        "x": -66,
+        "y": -15,
+        "position": "left",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Drone",
+        "x": -66,
+        "y": 35,
+        "position": "left",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Drone",
+        "x": -66,
+        "y": 85,
+        "position": "left",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Drone",
+        "x": -66,
+        "y": 135,
+        "position": "left",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Drone",
+        "x": 66,
+        "y": -115,
+        "position": "right",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Drone",
+        "x": 66,
+        "y": -65,
+        "position": "right",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Drone",
+        "x": 66,
+        "y": -15,
+        "position": "right",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Drone",
+        "x": 66,
+        "y": 35,
+        "position": "right",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Drone",
+        "x": 66,
+        "y": 85,
+        "position": "right",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Drone",
+        "x": 66,
+        "y": 135,
+        "position": "right",
+        "launch effect": "human internal"
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 30,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 40,
+        "spreadChance": 30
+      }
+    ],
+    "display name": "Container Transport",
+    "sprite": "ship/container transport",
+    "thumbnail": "thumbnail/container transport",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 13400000,
+      "shields": 13500,
+      "hull": 8000,
+      "required crew": 18,
+      "bunks": 43,
+      "mass": 1525,
+      "drag": 16.8,
+      "heat dissipation": 0.27,
+      "fuel capacity": 900,
+      "cargo space": 20,
+      "outfit space": 410,
+      "weapon capacity": 150,
+      "engine capacity": 85,
+      "weapon": {
+        "blast radius": 200,
+        "shield damage": 2000,
+        "hull damage": 1000,
+        "hit force": 3000
+      }
+    },
+    "small explosion": 15,
+    "medium explosion": 25,
+    "large explosion": 35,
+    "huge explosion": 20,
+    "final explode": "final explosion large",
+    "description": "The Class Q \"Freighter\" is a stealth warship designed by the Syndicate for baiting pirates with the offer of what appears to be a helpless, ordinary Container Transport. \tInside, a layer of Interference Plating hides its military-grade equipment and a dozen combat drones secreted away in its converted cargo containers, while its faux gearing conceals extra shield emitters.",
+    "_internalId": "LixiChronikouOrious list/Korunak.Defense.Drones::Class Q Freighter",
+    "_pluginId": "LixiChronikouOrious list/Korunak.Defense.Drones",
+    "_hash": "4e13f87e353c",
+    "variant": "Class Q Freighter (Next Gen Shields)",
+    "baseShip": "Class Q Freighter",
+    "_variantPluginId": "LixiChronikouOrious list/Korunak.Defense.Drones",
+    "governments": {
+      "LixiChronikouOrious list/Korunak.Defense.Drones": {
+        "Merchant": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01"
+    ],
+    "locations": {
+      "LixiChronikouOrious list/Korunak.Defense.Drones": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Proton Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Quad Blaster Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Heavy Anti-Missile Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Fission Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP036a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "LP072a Battery Pack": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Water Coolant System": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky"
+      },
+      "D67-TM Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Laser Rifle": {
+        "count": 18,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Interference Plating": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A250 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "A375 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky"
+      }
+    }
+  }
+]

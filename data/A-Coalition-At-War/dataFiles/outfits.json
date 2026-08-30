@@ -308,11 +308,69 @@
       "optical tracking": 0.5
     },
     "governments": {
+      "POOT/poot-senza-solaria": {
+        "Syndicate": true
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Syndicate": true
+      },
       "official-game/endless-sky": {
-        "Heliarch": true
+        "Heliarch": true,
+        "Author": true,
+        "Hai (Unfettered)": true,
+        "Hai": true,
+        "Merchant": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Storm Seekers": true,
+        "Heliarch": true,
+        "Pirate": true,
+        "Hai (Unfettered)": true,
+        "Independent": true,
+        "Coalition Bounty (Disguised)": true
+      },
+      "LixiChronikouOrious list/Solar.Sails": {
+        "Author": true
+      },
+      "Rumskib/rumskib": {
+        "Merchant": true,
+        "Azure": true,
+        "Pirate": true
+      },
+      "Capitalis Major/Capitalis-Major": {
+        "Bounty Hunter": true
       }
     },
-    "governmentEvents": [],
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
+      "Event \"wanderers: unfettered invasion starts\": Hai (Unfettered) attitude toward Wanderer → -0.01"
+    ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
         "Planets": [
@@ -333,6 +391,44 @@
           "Heliarch Punisher (Quarg Pure Finishers)"
         ]
       },
+      "POOT/poot-senza-solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ],
+        "Outfitters": [
+          "Senza Solaria Plugin Outfits",
+          "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
+        ]
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ],
+        "Outfitters": [
+          "Senza Solaria Plugin Outfits",
+          "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
+        ]
+      },
       "official-game/endless-sky": {
         "EventFleetChanges": [
           "Adds fleet in \"12 Autumn Above\" via event \"lunarium detained rb\" (rate 800)",
@@ -348,11 +444,32 @@
       "optical tracking": 0.5
     },
     "governments": {
+      "POOT/poot-senza-solaria": {
+        "Syndicate": true
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Syndicate": true
+      },
       "official-game/endless-sky": {
         "Heliarch": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Storm Seekers": true
       }
     },
-    "governmentEvents": [],
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0"
+    ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
         "Planets": [
@@ -367,6 +484,44 @@
         "Ships": [
           "Heliarch Punisher (Burst Fire)",
           "Heliarch Punisher (Jump Burst Fire)"
+        ]
+      },
+      "POOT/poot-senza-solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ],
+        "Outfitters": [
+          "Senza Solaria Plugin Outfits",
+          "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
+        ]
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ],
+        "Outfitters": [
+          "Senza Solaria Plugin Outfits",
+          "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
         ]
       },
       "official-game/endless-sky": {
@@ -392,22 +547,85 @@
     "energy capacity": 60000,
     "description": "Human engineers who first came into contact with the Quarg were astonished by the sheer efficiency of their technology. The energy density of Quarg batteries is unparalleled, storing nearly a third more energy than the best human batteries while being less than a third the size. Purchasing this outfit requires a Quarg License.",
     "governments": {
+      "POOT/poot-senza-solaria": {
+        "Syndicate": true
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Syndicate": true
+      },
+      "official-game/endless-sky": {
+        "Parrot": true,
+        "Heliarch": true,
+        "Quarg": true,
+        "Quarg (Gegno)": true,
+        "Quarg (Kor Efret)": true
+      },
       "A Coalition at War/A-Coalition-At-War": {
         "Quarg": true
       },
-      "official-game/endless-sky": {
-        "Heliarch": true
+      "Better Vanilla Pirates/BetterVanillaPirates": {
+        "Author": true
       },
       "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
         "Sayari Plushie": true,
         "Arena": true,
-        "Author": true
+        "Author": true,
+        "Republic": true
       },
       "Midnight Expansion/Midnight-Expansion": {
+        "Quarg": true,
+        "Quarg (Hai)": true,
+        "Quarg (Kor Efret)": true,
+        "Quarg (Gegno)": true
+      },
+      "Amphibious Ships/Amphibious-Ships": {
+        "Quarg (Automata)": true,
+        "Bounty": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
         "Quarg": true
       }
     },
-    "governmentEvents": [],
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno Scin → 1",
+      "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno Vi → 1",
+      "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno → 1",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0",
+      "Event \"wanderers: kor mereti friendly\": Quarg (Kor Efret) attitude toward Kor Mereti → 0",
+      "Event \"wanderers: kor mereti friendly\": Quarg attitude toward Kor Mereti → 0"
+    ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
         "Planets": [
@@ -435,6 +653,44 @@
         "EventFleetChanges": [
           "Adds fleet in \"Quarg Southern Wormhole\" via event \"new ACAW ships\" (rate 600)"
         ]
+      },
+      "POOT/poot-senza-solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ],
+        "Outfitters": [
+          "Senza Solaria Plugin Outfits",
+          "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
+        ]
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ],
+        "Outfitters": [
+          "Senza Solaria Plugin Outfits",
+          "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
+        ]
       }
     },
     "pluginId": "A Coalition at War/A-Coalition-At-War"
@@ -454,21 +710,131 @@
     "unplunderable": 1,
     "description": "Although humanity is now capable of producing antimatter in relatively significant quantities when compared to a thousand years ago, it is still nothing compared to the Quarg. The Quarg can produce enough antimatter to outfit every ship with an extremely efficient Antimatter Core, producing extreme amounts of energy with surprisingly little waste heat.",
     "governments": {
+      "POOT/poot-senza-solaria": {
+        "Syndicate": true
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Syndicate": true
+      },
+      "official-game/endless-sky": {
+        "Parrot": true,
+        "Quarg": true,
+        "Quarg (Hai)": true,
+        "Quarg (Kor Efret)": true,
+        "Quarg (Gegno)": true,
+        "Heliarch": true,
+        "Merchant": true,
+        "Republic": true
+      },
       "A Coalition at War/A-Coalition-At-War": {
         "Heliarch": true,
         "Quarg": true
       },
-      "official-game/endless-sky": {
-        "Heliarch": true
+      "Better Vanilla Pirates/BetterVanillaPirates": {
+        "Author": true
+      },
+      "Crisis In Management/endless-sky-syndicate": {
+        "Independent": true,
+        "Independent (Killable)": true
       },
       "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Merchant": true,
         "Sayari Plushie": true,
         "Arena": true,
+        "Author": true,
+        "Republic": true
+      },
+      "Tugderic's Addons/Tugderics-Addons": {
+        "Ancient Travelers": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Republic": true,
+        "Scar's Legion": true,
+        "Quarg": true,
+        "Quarg (Gegno)": true,
+        "Quarg (Incipias)": true,
+        "Quarg (Hai)": true,
+        "Quarg (Kor Efret)": true,
+        "Quarg (Cthogha)": true,
+        "Pirate (Rival)": true,
+        "Bounty Hunter": true,
+        "Pirate": true,
+        "Bounty": true
+      },
+      "Blended Ships/blended-ships": {
+        "Pirate": true
+      },
+      "Midnight Scrapyard/Midnight-Scrapyard": {
+        "Quarg (Gegno)": true,
+        "Quarg (Incipias)": true
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "Quarg": true
+      },
+      "Amphibious Ships/Amphibious-Ships": {
+        "Quarg (Automata)": true,
+        "Bounty": true,
         "Author": true
       }
     },
-    "governmentEvents": [],
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno Scin → 1",
+      "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno Vi → 1",
+      "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno → 1",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Scar's Legion → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0",
+      "Event \"wanderers: kor mereti friendly\": Quarg (Kor Efret) attitude toward Kor Mereti → 0",
+      "Event \"wanderers: kor mereti friendly\": Quarg attitude toward Kor Mereti → 0"
+    ],
     "locations": {
+      "Kai's list/KGS": {
+        "Planets": [
+          "KGS"
+        ],
+        "Outfitters": [
+          "KGS_"
+        ]
+      },
       "A Coalition at War/A-Coalition-At-War": {
         "Planets": [
           "Forpelog"
@@ -479,11 +845,7 @@
         "EventOutfitterChanges": [
           "Adds to \"Forpelog\" via event \"heliarch prototype\""
         ],
-        "ShipyardPlanets": [
-          "Forpelog"
-        ],
         "Ships": [
-          "Heliarch Longsword",
           "Heliarch Punisher (Full Quarg Attractor)",
           "Heliarch Punisher (Full Quarg)",
           "Heliarch Punisher (Quarg Pure Finishers)",
@@ -492,7 +854,6 @@
           "Quarg Strikedragon"
         ],
         "EventFleetChanges": [
-          "Adds fleet in \"Heliarch Southern Wormhole\" via event \"new ACAW ships\" (rate 2400)",
           "Adds fleet in \"Quarg Southern Wormhole\" via event \"new ACAW ships\" (rate 600)"
         ]
       },
@@ -506,27 +867,42 @@
           "quarh"
         ]
       },
-      "official-game/endless-sky": {
-        "Ships": [
-          "Quarg Skylark"
-        ]
-      },
-      "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Aleit\" via event \"add quarg ringworld traffic\" (rate 40000)",
-          "Adds fleet in \"Aleit\" via event \"gegno ringworld traffic patch\" (rate 40000)",
-          "Adds fleet in \"Dokdobaru\" via event \"add quarg ringworld traffic\" (rate 40000)",
-          "Adds fleet in \"Enif\" via event \"add quarg ringworld traffic\" (rate 40000)",
-          "Adds fleet in \"Heutesl\" via event \"gegno: unified defense\" (rate 600)",
-          "Adds fleet in \"Hevru Hai\" via event \"add quarg ringworld traffic\" (rate 40000)"
-        ]
-      },
-      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
-        "Ships": [
-          "Amidala"
+      "POOT/poot-senza-solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
         ],
-        "ShipyardPlanets": [
-          "LEEST "
+        "Outfitters": [
+          "Senza Solaria Plugin Outfits",
+          "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
+        ]
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ],
+        "Outfitters": [
+          "Senza Solaria Plugin Outfits",
+          "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
         ]
       }
     },
@@ -568,15 +944,107 @@
     },
     "description": "These immensely powerful beam weapons are used by Quarg warships to strike fear into the hearts of all who dare oppose them. Purchasing this outfit requires a Quarg License.",
     "governments": {
+      "POOT/poot-senza-solaria": {
+        "Syndicate": true,
+        "Senza Solaria Author": true
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Syndicate": true,
+        "Senza Solaria Author": true
+      },
+      "official-game/endless-sky": {
+        "Parrot": true,
+        "Author": true,
+        "Heliarch": true,
+        "Merchant": true,
+        "Republic": true,
+        "Quarg": true,
+        "Quarg (Gegno)": true,
+        "Quarg (Kor Efret)": true
+      },
       "A Coalition at War/A-Coalition-At-War": {
         "Quarg": true,
         "Heliarch": true
       },
-      "official-game/endless-sky": {
-        "Heliarch": true
+      "Crisis In Management/endless-sky-syndicate": {
+        "Independent": true,
+        "Independent (Killable)": true
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Merchant": true
+      },
+      "Tugderic's Addons/Tugderics-Addons": {
+        "Ancient Travelers": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Republic": true,
+        "Scar's Legion": true,
+        "Quarg": true
+      },
+      "Blended Ships/blended-ships": {
+        "Pirate": true
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "Quarg": true
+      },
+      "POOT/poot-senza-solaria_senza_solaria": {
+        "Senza Solaria Author": true,
+        "Syndicate": true
+      },
+      "Amphibious Ships/Amphibious-Ships": {
+        "Quarg (Automata)": true,
+        "Bounty": true
       }
     },
-    "governmentEvents": [],
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno Scin → 1",
+      "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno Vi → 1",
+      "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno → 1",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Scar's Legion → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0",
+      "Event \"wanderers: kor mereti friendly\": Quarg (Kor Efret) attitude toward Kor Mereti → 0",
+      "Event \"wanderers: kor mereti friendly\": Quarg attitude toward Kor Mereti → 0"
+    ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
         "Planets": [
@@ -607,6 +1075,44 @@
           "Adds fleet in \"Heliarch Southern Wormhole\" via event \"new ACAW ships\" (rate 300)",
           "Adds fleet in \"Quarg Southern Wormhole\" via event \"new ACAW ships\" (rate 600)"
         ]
+      },
+      "POOT/poot-senza-solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ],
+        "Outfitters": [
+          "Senza Solaria Plugin Outfits",
+          "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
+        ]
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ],
+        "Outfitters": [
+          "Senza Solaria Plugin Outfits",
+          "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
+        ]
       }
     },
     "pluginId": "A Coalition at War/A-Coalition-At-War"
@@ -635,14 +1141,54 @@
     },
     "description": "Quarg anti-missile defenses can target projectiles from considerable range compared to human technology, ensuring that only the most powerful missiles are capable of even getting near a Quarg ship. Purchasing this outfit requires a Quarg License.",
     "governments": {
+      "POOT/poot-senza-solaria": {
+        "Syndicate": true
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Syndicate": true
+      },
+      "official-game/endless-sky": {
+        "Parrot": true,
+        "Author": true,
+        "Quarg": true,
+        "Quarg (Gegno)": true,
+        "Quarg (Kor Efret)": true
+      },
       "A Coalition at War/A-Coalition-At-War": {
         "Quarg": true
       },
       "Midnight Expansion/Midnight-Expansion": {
+        "Quarg": true,
+        "Quarg (Hai)": true,
+        "Quarg (Kor Efret)": true,
+        "Quarg (Gegno)": true
+      },
+      "Amphibious Ships/Amphibious-Ships": {
+        "Quarg (Automata)": true,
+        "Bounty": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
         "Quarg": true
       }
     },
-    "governmentEvents": [],
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno Scin → 1",
+      "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno Vi → 1",
+      "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno → 1",
+      "Event \"wanderers: kor mereti friendly\": Quarg (Kor Efret) attitude toward Kor Mereti → 0",
+      "Event \"wanderers: kor mereti friendly\": Quarg attitude toward Kor Mereti → 0"
+    ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
         "Planets": [
@@ -666,6 +1212,44 @@
         ],
         "EventFleetChanges": [
           "Adds fleet in \"Quarg Southern Wormhole\" via event \"new ACAW ships\" (rate 600)"
+        ]
+      },
+      "POOT/poot-senza-solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ],
+        "Outfitters": [
+          "Senza Solaria Plugin Outfits",
+          "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
+        ]
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ],
+        "Outfitters": [
+          "Senza Solaria Plugin Outfits",
+          "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
         ]
       }
     },
@@ -690,21 +1274,82 @@
     "flare sprite": "effect/medium graviton flare",
     "description": "Quarg thrusters are quite powerful for their size and produce very little heat, but at the cost of consuming immense amounts of energy. \tThey also have strange capabilities which seem to violate the laws of physics as humanity understands them. Ships with these engines accelerate faster under their own power than one would expect given the thrust of their engines, while also taking less impact from external forces. Purchasing this outfit requires a Quarg License.",
     "governments": {
-      "A Coalition at War/A-Coalition-At-War": {
-        "Quarg": true
+      "POOT/poot-senza-solaria": {
+        "Syndicate": true
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Syndicate": true
       },
       "official-game/endless-sky": {
-        "Heliarch": true
+        "Parrot": true,
+        "Quarg": true,
+        "Quarg (Hai)": true,
+        "Quarg (Gegno)": true,
+        "Quarg (Kor Efret)": true,
+        "Heliarch": true,
+        "Drak": true
+      },
+      "A Coalition at War/A-Coalition-At-War": {
+        "Quarg": true
       },
       "Galactic War/Galactic-War": {
         "arena": true
       },
       "Midnight Expansion/Midnight-Expansion": {
         "Quarg": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Quarg (Gegno)": true,
+        "Quarg (Incipias)": true,
+        "Quarg": true,
+        "Quarg (Hai)": true,
+        "Quarg (Kor Efret)": true,
+        "Pirate (Rival)": true,
+        "Bounty Hunter": true,
+        "Pirate": true,
+        "Bounty": true,
+        "Derelict (Killable)": true,
+        "Quarg (Cthogha)": true
+      },
+      "Amphibious Ships/Amphibious-Ships": {
+        "Quarg (Automata)": true,
+        "Bounty": true
       }
     },
-    "governmentEvents": [],
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno Scin → 1",
+      "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno Vi → 1",
+      "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"wanderers: kor mereti friendly\": Quarg (Kor Efret) attitude toward Kor Mereti → 0",
+      "Event \"wanderers: kor mereti friendly\": Quarg attitude toward Kor Mereti → 0"
+    ],
     "locations": {
+      "Kai's list/KGS": {
+        "Planets": [
+          "KGS"
+        ],
+        "Outfitters": [
+          "KGS_"
+        ]
+      },
       "A Coalition at War/A-Coalition-At-War": {
         "Planets": [
           "Forpelog",
@@ -719,9 +1364,6 @@
           "Adds to \"Forpelog\" via event \"ACAW: quarg branch\"",
           "Adds to \"Forpelog\" via event \"heliarch prototype\"",
           "Adds to \"Ring of Friendship\" via event \"quarg ships looted\""
-        ],
-        "ShipyardPlanets": [
-          "Forpelog"
         ],
         "Ships": [
           "Heliarch Punisher (Full Quarg Attractor)",
@@ -745,34 +1387,42 @@
           "quarh"
         ]
       },
-      "official-game/endless-sky": {
-        "Ships": [
-          "Quarg Skylark"
+      "POOT/poot-senza-solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ],
+        "Outfitters": [
+          "Senza Solaria Plugin Outfits",
+          "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
         ]
       },
-      "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Aleit\" via event \"add quarg ringworld traffic\" (rate 40000)",
-          "Adds fleet in \"Aleit\" via event \"gegno ringworld traffic patch\" (rate 40000)",
-          "Adds fleet in \"Dokdobaru\" via event \"add quarg ringworld traffic\" (rate 40000)",
-          "Adds fleet in \"Enif\" via event \"add quarg ringworld traffic\" (rate 40000)",
-          "Adds fleet in \"Heutesl\" via event \"gegno: unified defense\" (rate 600)",
-          "Adds fleet in \"Hevru Hai\" via event \"add quarg ringworld traffic\" (rate 40000)"
+      "POOT/endless_sky_senza_solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
         ],
-        "Ships": [
-          "Quarg Skyswift",
-          "Quarg Warwyvern"
-        ]
-      },
-      "Galactic War/Galactic-War": {
-        "Ships": [
-          "HD-8426 Tarallion"
+        "Outfitters": [
+          "Senza Solaria Plugin Outfits",
+          "Senza Solaria Unlockall Outfits Plugin"
         ],
-        "ShipyardPlanets": [
-          "GW Default",
-          "GW Plugins",
-          "Galactic War",
-          "Thing"
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
         ]
       }
     },
@@ -797,21 +1447,71 @@
     "steering flare sprite": "effect/medium graviton flare",
     "description": "Quarg steering engines are as similarly impressive as their thrusters in how much energy they consume. The Quarg don't seem to be bothered by this cost though, given the unmatched strength of their reactors. \tThey also have strange capabilities which seem to violate the laws of physics as humanity understands them. Ships with these engines accelerate faster under their own power than one would expect given the thrust of their engines, while also taking less impact from external forces. Purchasing this outfit requires a Quarg License.",
     "governments": {
-      "A Coalition at War/A-Coalition-At-War": {
-        "Quarg": true
+      "POOT/poot-senza-solaria": {
+        "Syndicate": true
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Syndicate": true
       },
       "official-game/endless-sky": {
-        "Heliarch": true
+        "Parrot": true,
+        "Quarg": true,
+        "Quarg (Hai)": true,
+        "Quarg (Kor Efret)": true,
+        "Quarg (Gegno)": true,
+        "Heliarch": true,
+        "Drak": true
+      },
+      "A Coalition at War/A-Coalition-At-War": {
+        "Quarg": true
       },
       "Galactic War/Galactic-War": {
         "arena": true
       },
       "Midnight Expansion/Midnight-Expansion": {
         "Quarg": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Quarg": true,
+        "Quarg (Hai)": true,
+        "Quarg (Gegno)": true,
+        "Quarg (Incipias)": true,
+        "Quarg (Kor Efret)": true,
+        "Derelict (Killable)": true,
+        "Quarg (Cthogha)": true
+      },
+      "Amphibious Ships/Amphibious-Ships": {
+        "Quarg (Automata)": true,
+        "Bounty": true
       }
     },
-    "governmentEvents": [],
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno Scin → 1",
+      "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno Vi → 1",
+      "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno → 1",
+      "Event \"wanderers: kor mereti friendly\": Quarg (Kor Efret) attitude toward Kor Mereti → 0",
+      "Event \"wanderers: kor mereti friendly\": Quarg attitude toward Kor Mereti → 0"
+    ],
     "locations": {
+      "Kai's list/KGS": {
+        "Planets": [
+          "KGS"
+        ],
+        "Outfitters": [
+          "KGS_"
+        ]
+      },
       "A Coalition at War/A-Coalition-At-War": {
         "Planets": [
           "Forpelog",
@@ -826,9 +1526,6 @@
           "Adds to \"Forpelog\" via event \"ACAW: quarg branch\"",
           "Adds to \"Forpelog\" via event \"heliarch prototype\"",
           "Adds to \"Ring of Friendship\" via event \"quarg ships looted\""
-        ],
-        "ShipyardPlanets": [
-          "Forpelog"
         ],
         "Ships": [
           "Heliarch Punisher (Full Quarg Attractor)",
@@ -852,34 +1549,42 @@
           "quarh"
         ]
       },
-      "official-game/endless-sky": {
-        "Ships": [
-          "Quarg Skylark"
+      "POOT/poot-senza-solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ],
+        "Outfitters": [
+          "Senza Solaria Plugin Outfits",
+          "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
         ]
       },
-      "Midnight Expansion/Midnight-Expansion": {
-        "EventFleetChanges": [
-          "Adds fleet in \"Aleit\" via event \"add quarg ringworld traffic\" (rate 40000)",
-          "Adds fleet in \"Aleit\" via event \"gegno ringworld traffic patch\" (rate 40000)",
-          "Adds fleet in \"Dokdobaru\" via event \"add quarg ringworld traffic\" (rate 40000)",
-          "Adds fleet in \"Enif\" via event \"add quarg ringworld traffic\" (rate 40000)",
-          "Adds fleet in \"Heutesl\" via event \"gegno: unified defense\" (rate 600)",
-          "Adds fleet in \"Hevru Hai\" via event \"add quarg ringworld traffic\" (rate 40000)"
+      "POOT/endless_sky_senza_solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
         ],
-        "Ships": [
-          "Quarg Skyswift",
-          "Quarg Warwyvern"
-        ]
-      },
-      "Galactic War/Galactic-War": {
-        "Ships": [
-          "HD-8426 Tarallion"
+        "Outfitters": [
+          "Senza Solaria Plugin Outfits",
+          "Senza Solaria Unlockall Outfits Plugin"
         ],
-        "ShipyardPlanets": [
-          "GW Default",
-          "GW Plugins",
-          "Galactic War",
-          "Thing"
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
         ]
       }
     },
@@ -899,11 +1604,50 @@
     "shield energy": 10,
     "description": "The first humans who met the Quarg thought that their technology worked on magic, and many even think so to this day. The mechanism by which this Quarg shield generator works is completely unknown to humanity, and the Quarg aren't interested in giving up their secrets. Purchasing this outfit requires a Quarg License.",
     "governments": {
+      "POOT/poot-senza-solaria": {
+        "Syndicate": true
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Syndicate": true
+      },
+      "official-game/endless-sky": {
+        "Parrot": true,
+        "Quarg": true,
+        "Quarg (Gegno)": true,
+        "Quarg (Kor Efret)": true
+      },
       "A Coalition at War/A-Coalition-At-War": {
+        "Quarg": true
+      },
+      "Midnight Expansion/Midnight-Expansion": {
+        "Quarg": true
+      },
+      "Amphibious Ships/Amphibious-Ships": {
+        "Quarg (Automata)": true,
+        "Bounty": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
         "Quarg": true
       }
     },
-    "governmentEvents": [],
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno Scin → 1",
+      "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno Vi → 1",
+      "Event \"gegno: unified defense\": Quarg (Gegno) attitude toward Gegno → 1",
+      "Event \"wanderers: kor mereti friendly\": Quarg (Kor Efret) attitude toward Kor Mereti → 0",
+      "Event \"wanderers: kor mereti friendly\": Quarg attitude toward Kor Mereti → 0"
+    ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
         "Planets": [
@@ -927,6 +1671,44 @@
         ],
         "EventFleetChanges": [
           "Adds fleet in \"Quarg Southern Wormhole\" via event \"new ACAW ships\" (rate 600)"
+        ]
+      },
+      "POOT/poot-senza-solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ],
+        "Outfitters": [
+          "Senza Solaria Plugin Outfits",
+          "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
+        ]
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Planets": [
+          "Daemonium Solaria Station",
+          "Delva Solaris Station",
+          "Everything ",
+          "Poot ",
+          "Ragnarok Solaris Station",
+          "Senza Solaria",
+          "Ursa Polaris Station II",
+          "Valkirus Solaris Station"
+        ],
+        "Outfitters": [
+          "Senza Solaria Plugin Outfits",
+          "Senza Solaria Unlockall Outfits Plugin"
+        ],
+        "EventOutfitterChanges": [
+          "Adds to \"Senza Solaria\" via event \"senza solaria unlock all\""
         ]
       }
     },

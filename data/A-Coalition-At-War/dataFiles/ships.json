@@ -246,7 +246,7 @@
     "description": "The Heliarch know their ships are no match for Quarg, so they used the best of Quarg and Sheragi tech combined with their most advanced technologies to create a superweapon. It remains to be seen whether the billions of credits spent in production are worth it.",
     "_internalId": "A Coalition at War/A-Coalition-At-War::Heliarch Longsword",
     "_pluginId": "A Coalition at War/A-Coalition-At-War",
-    "_hash": "c8e46573fac0",
+    "_hash": "8c16a26e746f",
     "governments": {
       "A Coalition at War/A-Coalition-At-War": {
         "Heliarch": true
@@ -270,7 +270,7 @@
     "outfits": {
       "Antimatter Core": {
         "count": 4,
-        "pluginId": "A Coalition at War/A-Coalition-At-War"
+        "pluginId": "official-game/endless-sky"
       }
     }
   },
@@ -544,7 +544,9 @@
         "Quarg": true
       }
     },
-    "governmentEvents": [],
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Quarg attitude toward Kor Mereti → 0"
+    ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
         "EventFleetChanges": [
@@ -679,7 +681,9 @@
         "Quarg": true
       }
     },
-    "governmentEvents": [],
+    "governmentEvents": [
+      "Event \"wanderers: kor mereti friendly\": Quarg attitude toward Kor Mereti → 0"
+    ],
     "locations": {
       "A Coalition at War/A-Coalition-At-War": {
         "Missions": [

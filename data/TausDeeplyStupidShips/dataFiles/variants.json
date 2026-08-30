@@ -1,0 +1,93 @@
+[
+  {
+    "name": "Ultra-Sick Turbo Flivver DEBUG (Anti-Syn)",
+    "engines": [
+      {
+        "x": -16.5,
+        "y": 26
+      },
+      {
+        "x": 16.5,
+        "y": 26
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -6,
+        "y": -35.5,
+        "gun": "Super Shard Fabricator"
+      },
+      {
+        "x": 6,
+        "y": -35.5,
+        "gun": "Super Shard Fabricator"
+      },
+      {
+        "x": 0,
+        "y": -35.5,
+        "gun": "Large Reaction Beam"
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      }
+    ],
+    "sprite": "ship/flivver",
+    "thumbnail": "thumbnail/flivver",
+    "attributes": {
+      "category": "Interceptor",
+      "cost": 180,
+      "shields": 140000,
+      "hull": 50000,
+      "required crew": 1,
+      "bunks": 3,
+      "mass": 90,
+      "drag": 1.05,
+      "heat dissipation": 0.86,
+      "fuel capacity": 500,
+      "cargo space": 15,
+      "outfit space": 1850,
+      "weapon capacity": 600,
+      "engine capacity": 640,
+      "weapon": {
+        "blast radius": 16,
+        "shield damage": 160,
+        "hull damage": 80,
+        "hit force": 240
+      }
+    },
+    "tiny explosion": 10,
+    "small explosion": 10,
+    "description": "For debug and author purposes.",
+    "_internalId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips::Ultra-Sick Turbo Flivver DEBUG",
+    "_pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips",
+    "_hash": "dc465b150310",
+    "variant": "Anti-Syn",
+    "baseShip": "Ultra-Sick Turbo Flivver DEBUG",
+    "_variantPluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips",
+    "governments": {
+      "TausDeeplyStupidShips": {
+        "TausDeeplyStupidShips": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Tau's Deeply Stupid Ships/TausDeeplyStupidShips": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "never disabled": {
+        "count": 1,
+        "pluginId": null
+      }
+    }
+  }
+]
