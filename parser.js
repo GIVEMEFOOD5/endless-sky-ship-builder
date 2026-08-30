@@ -4,6 +4,39 @@
 // which avoids rate limits and the 100k-file tree truncation limit.
 // Also supports "archive" sources: a .zip / .tar / .tar.gz / .tgz uploaded
 // to rawData/ in the repo, which may itself contain one or more plugins.
+//
+// ── CHANGELOG (mission/event parsing pass) ──────────────────────────────────
+//   - Fixed: `give ship`/`ship`/`give outfit`/`outfit` action lines with a
+//     BARE (unquoted) model/outfit name were silently dropped — only the
+//     quoted form matched. e.g. `give ship Peregrine "Shadow Flight"` was
+//     invisible to locationResolver entirely. Both now accept bare or
+//     quoted names.
+//   - Added: `event "X"` action lines inside a mission (e.g. under
+//     `on accept`) are now recorded as a mission → event trigger link, so
+//     "accepting this mission causes event X to fire" is traceable.
+//   - Added: `parseEventBlock` now understands `system "X"` sub-blocks
+//     (`add fleet` / `remove fleet` — how an event changes what spawns in a
+//     region) and `government "X"` sub-blocks (`"attitude toward"` changes).
+//   - Extended: `parsePlanetBlock` now also tracks `add outfitter` /
+//     `remove outfitter` / `remove shipyard` (previously only `add
+//     shipyard` was handled), and threads an optional `eventName` through
+//     so every planet-level change an event causes is traceable back to
+//     that event.
+//   - Added: a named `fleet "X"` reference inside an `npc` block (the
+//     common way to spawn an existing fleet's ships, as opposed to an
+//     inline anonymous fleet body) is now resolved to its actual ship list
+//     via a new post-processing pass, `resolveAllNpcFleetRefs()`, run once
+//     all files/plugins have been parsed — necessary because the
+//     referenced fleet's own definition may live in a file parsed before
+//     OR after the mission/event that references it.
+//
+//   NOT changed in this pass (flagged, not silently skipped):
+//   - Bespoke per-NPC-ship outfit loadouts declared inline under a specific
+//     `ship "X" "Variant"` line inside an `npc` block are still not parsed
+//     into outfit/species data.
+//   - Negative-count `give outfit "X" -N` ("take away") lines are still
+//     matched then discarded rather than recorded anywhere.
+// ─────────────────────────────────────────────────────────────────────────
 
 const https           = require('https');
 const http            = require('http');
@@ -344,6 +377,20 @@ class EndlessSkyParser {
     this._currentRepoShipsBefore = 0;
     this._currentRepoShipsAfter  = 0;
 
+    // Named fleet references found inside `npc` blocks (missions AND
+    // events) — e.g. `fleet "Marauder Raid"`. These can't be resolved to
+    // an actual ship list at the point they're encountered, because the
+    // fleet's own `fleet "Marauder Raid" ... ` definition may live in a
+    // file parsed before OR after this reference (parse order across
+    // files/plugins is not guaranteed to match dependency order). Instead
+    // they're queued here and resolved in one pass, after every file in
+    // every plugin has been parsed, by resolveAllNpcFleetRefs().
+    this._pendingNpcFleetRefs = [];
+
+    // Populated by resolveEventGovernmentImpact() — the joined
+    // event → fleet → government answer. See that method for shape.
+    this.eventGovernmentImpacts = [];
+
     this.speciesResolver  = new SpeciesResolver();
     this.locationResolver = new LocationResolver();
   }
@@ -378,7 +425,6 @@ class EndlessSkyParser {
 
   _registerOutfit(outfit, pluginId) {
     outfit._pluginId = pluginId;
-    outfit._internalId = `${pluginId}::${outfit.name}`;
     const name = outfit.name;
     if (!this.outfitsByName.has(name)) this.outfitsByName.set(name, []);
     this.outfitsByName.get(name).push({ pluginId, outfit });
@@ -399,67 +445,41 @@ class EndlessSkyParser {
     return sorted[0].pluginId;
   }
 
-  /**
-   * Resolve the candidate base ship(s) for a variant declaration.
-   *
-   * Returns { baseShips: Ship[], error }. `baseShips` may contain MORE THAN
-   * ONE entry when the variant's own plugin doesn't define the base ship
-   * itself and multiple OTHER plugins define a structurally different ship
-   * under the same name — a genuine, unresolvable ambiguity (there's no
-   * signal for which one the variant plugin actually intended).
-   *
-   * This used to pick a single "winner" by source-priority order and
-   * silently discard the other candidates (the old log message literally
-   * called this "overridden") — meaning a variant could end up built from
-   * the WRONG plugin's base ship with no trace of that in the output. Now
-   * every distinct candidate is kept and the caller builds one variant per
-   * candidate, each tagged with `_baseShipPluginId`, so nothing is silently
-   * dropped — consumers can disambiguate using the plugin ID instead of
-   * relying on name-based guesswork.
-   *
-   * An explicit "overrides" declaration in plugins.json is still honored,
-   * and narrows the field down when it resolves the ambiguity outright.
-   */
-  _resolveBaseShipCandidates(baseName, variantPluginId) {
+  _resolveBaseShip(baseName, variantPluginId) {
     const localId   = `${variantPluginId}::${baseName}`;
     const localShip = this.shipById.get(localId);
-    if (localShip) return { baseShips: [localShip], error: null };
+    if (localShip) return { baseShip: localShip, error: null };
 
     const candidates = this.shipsByName.get(baseName) ?? [];
-    if (candidates.length === 0) return { baseShips: [], error: `no base ship found for "${baseName}"` };
-    if (candidates.length === 1) return { baseShips: [candidates[0]], error: null };
+    if (candidates.length === 0) return { baseShip: null, error: `no base ship found for "${baseName}"` };
+    if (candidates.length === 1) return { baseShip: candidates[0], error: null };
 
-    // Group by structural hash — multiple plugins defining byte-for-byte
-    // the same ship under this name isn't an ambiguity, it's a duplicate;
-    // any one representative is equally valid to build the variant from.
-    const byHash = new Map();
-    for (const c of candidates) {
-      if (!byHash.has(c._hash)) byHash.set(c._hash, c);
-    }
-    if (byHash.size === 1) return { baseShips: [candidates[0]], error: null };
-
-    const distinctCandidates = [...byHash.values()];
+    const hashes = new Set(candidates.map(s => s._hash));
+    if (hashes.size === 1) return { baseShip: candidates[0], error: null };
 
     const variantOverrides = this._overrides.get(variantPluginId);
     if (variantOverrides?.size) {
-      const overriddenCandidates = distinctCandidates.filter(s => variantOverrides.has(s._pluginId));
-      if (overriddenCandidates.length > 0) {
-        console.log(
-          `    ↳ Collision on "${baseName}" narrowed via override to: ` +
-          `${overriddenCandidates.map(s => s._pluginId).join(', ')}`
-        );
-        return { baseShips: overriddenCandidates, error: null };
+      const overriddenCandidates = candidates.filter(s => variantOverrides.has(s._pluginId));
+      if (overriddenCandidates.length === 1) {
+        console.log(`    ↳ Collision on "${baseName}" resolved via override: using ${overriddenCandidates[0]._pluginId}`);
+        return { baseShip: overriddenCandidates[0], error: null };
       }
     }
 
-    console.log(
-      `    ↳ "${baseName}" is structurally different across plugins ` +
-      `[${distinctCandidates.map(s => s._pluginId).join(', ')}] for a variant in "${variantPluginId}". ` +
-      `No single base ship can be determined, so a separate variant will be built ` +
-      `against each one (tagged with _baseShipPluginId) instead of guessing. ` +
-      `Add an "overrides" declaration to plugins.json to resolve this explicitly.`
+    const ranked = [...candidates].sort((a, b) => {
+      const pa = this._sourcePriority.get(a._pluginId) ?? Infinity;
+      const pb = this._sourcePriority.get(b._pluginId) ?? Infinity;
+      return pa - pb;
+    });
+    const winner = ranked[0];
+    const losers = ranked.slice(1).map(s => s._pluginId).join(', ');
+    console.warn(
+      `    ⚠ Collision on base ship "${baseName}" for variant in "${variantPluginId}". ` +
+      `Plugins with this ship: ${candidates.map(s => s._pluginId).join(', ')}. ` +
+      `Resolved by source order — using "${winner._pluginId}" (overridden: ${losers}). ` +
+      `Add an "overrides" declaration to plugins.json to silence this warning.`
     );
-    return { baseShips: distinctCandidates, error: null };
+    return { baseShip: winner, error: null };
   }
 
   fetchUrl(url) {
@@ -703,16 +723,9 @@ class EndlessSkyParser {
       const pluginOutfits = this.outfits.slice(meta.outfitsBefore, meta.outfitsAfter);
       const pluginEffects = this.effects.slice(meta.effectsBefore, meta.effectsAfter);
 
-      // A variant belongs to a plugin's output either because that plugin
-      // authored the variant declaration itself (_variantPluginId), or
-      // because that plugin owns the specific base-ship copy the variant
-      // was built from (_baseShipPluginId) — e.g. surfacing a mod's variant
-      // of a vanilla ship under vanilla's own list too. This is scoped by
-      // plugin ID rather than by ship-name membership so that a same-named
-      // (but unrelated) ship in another plugin can't pull in variants that
-      // have nothing to do with it.
-      const pluginVariants = this.variants.filter(v =>
-        v._baseShipPluginId === meta.pluginId || v._variantPluginId === meta.pluginId
+      const pluginShipNames = new Set(pluginShips.map(s => s.name));
+      const pluginVariants  = this.variants.filter(v =>
+        pluginShipNames.has(v.baseShip) || (v._variantPluginId === meta.pluginId)
       );
 
       const isEmpty = pluginShips.length === 0 && pluginVariants.length === 0 &&
@@ -937,31 +950,76 @@ class EndlessSkyParser {
     }
   }
 
+  /**
+   * FIXED/EXTENDED:
+   *   - Previously used hardcoded absolute indents (`indent === 1` for
+   *     government, `indent === 2 || indent === 3` for ship names), which
+   *     only happened to be correct when a fleet is defined at the TOP
+   *     LEVEL (fleet header at indent 0). A fleet reopened from inside an
+   *     event (header at indent 1) shifted every child line's indent by
+   *     one, silently breaking both checks. Now computed relative to the
+   *     fleet header's own indent, so it works the same regardless of
+   *     nesting depth.
+   *   - Previously had NO understanding of `variant [<weight>]` /
+   *     `add variant [<weight>]` sub-blocks at all — the standard way a
+   *     fleet groups one or more ship names into a weighted loadout
+   *     option. Ship names inside them were only ever picked up by
+   *     accidental overlap with the flat "quoted name directly under the
+   *     fleet" pattern, which is real syntax on its own but a DIFFERENT
+   *     one. Now explicitly parsed.
+   */
   parseFleetBlock(lines, i) {
     const headerLine = lines[i].trim();
     const nameMatch = headerLine.match(/^fleet\s+"([^"]+)"/) ||
                       headerLine.match(/^fleet\s+`([^`]+)`/);
     const fleetName = nameMatch ? nameMatch[1] : null;
+    const fleetIndent = lines[i].length - lines[i].replace(/^\t+/, '').length;
     let government = null;
     const shipNames = [];
     i++;
     while (i < lines.length) {
       const line   = lines[i];
       const indent = line.length - line.replace(/^\t+/, '').length;
-      if (indent === 0 && line.trim()) break;
+      if (indent <= fleetIndent && line.trim()) break;
       const stripped = line.trim();
-      if (indent === 1) {
-        const govMatch = stripped.match(/^government\s+"([^"]+)"/);
+
+      if (indent === fleetIndent + 1) {
+        const govMatch = stripped.match(/^government\s+"([^"]+)"/) || stripped.match(/^government\s+`([^`]+)`/);
         if (govMatch) { government = govMatch[1]; i++; continue; }
+
+        // NEW: `variant [<weight>]` / `add variant [<weight>]` — a group
+        // of one or more quoted ship names representing one weighted
+        // loadout option. `add` is the merge-patch form used when
+        // reopening an existing fleet (e.g. from inside an event) to add
+        // more options without clearing the ones already there.
+        const variantMatch = stripped.match(/^(?:add\s+)?variant(?:\s+(\d+))?\s*$/);
+        if (variantMatch) {
+          const variantIndent = indent;
+          i++;
+          while (i < lines.length) {
+            const vl = lines[i];
+            const vi = vl.length - vl.replace(/^\t+/, '').length;
+            if (vi <= variantIndent && vl.trim()) break;
+            const vs = vl.trim();
+            const vm = vs.match(/^"([^"]+)"(?:\s+\d+)?$/) || vs.match(/^`([^`]+)`(?:\s+\d+)?$/);
+            if (vm) shipNames.push(vm[1]);
+            i++;
+          }
+          continue;
+        }
       }
-      if (indent === 2 || indent === 3) {
+
+      // Flat form: `"ShipName" [weight]` directly under the fleet, with no
+      // `variant` wrapper — a real, simpler alternative syntax, still
+      // supported here (this was the ONLY form the old code understood).
+      if (indent === fleetIndent + 1 || indent === fleetIndent + 2) {
         const shipMatch = stripped.match(/^"([^"]+)"(?:\s+\d+)?$/) ||
                           stripped.match(/^`([^`]+)`(?:\s+\d+)?$/);
         if (shipMatch) shipNames.push(shipMatch[1]);
       }
       i++;
     }
-    this.speciesResolver.collectFleet(government, shipNames, this._currentPluginId);
+    this.speciesResolver.collectFleet(government, shipNames, this._currentPluginId, fleetName);
     this.locationResolver.collectFleet(fleetName, shipNames, this._currentPluginId);
     return i;
   }
@@ -980,40 +1038,72 @@ class EndlessSkyParser {
       if (stripped === 'npc' || stripped.startsWith('npc ')) {
         i = this._parseMissionNpcBlock(lines, i, missionName); continue;
       }
-      if (missionName && (
-        stripped.startsWith('give outfit "') || stripped.startsWith('give outfit `') ||
-        stripped.startsWith('outfit "')      || stripped.startsWith('outfit `')
-      )) {
+
+      // ── give/outfit — FIXED: previously required a quote immediately
+      //    after "give outfit "/"outfit ", so a bare (unquoted) outfit
+      //    name — just as common as bare ship model names — was silently
+      //    ignored. Now accepts quoted OR bare names.
+      if (missionName) {
         const om =
-          stripped.match(/^give\s+outfit\s+"([^"]+)"(?:\s+(-?\d+))?/) ||
-          stripped.match(/^give\s+outfit\s+`([^`]+)`(?:\s+(-?\d+))?/) ||
-          stripped.match(/^outfit\s+"([^"]+)"(?:\s+(-?\d+))?/)        ||
-          stripped.match(/^outfit\s+`([^`]+)`(?:\s+(-?\d+))?/);
+          stripped.match(/^give\s+outfit\s+(?:"([^"]+)"|`([^`]+)`|(\S+))(?:\s+(-?\d+))?\s*$/) ||
+          stripped.match(/^outfit\s+(?:"([^"]+)"|`([^`]+)`|(\S+))(?:\s+(-?\d+))?\s*$/);
         if (om) {
-          const count = om[2] ? parseInt(om[2], 10) : 1;
-          if (count > 0) {
-            this.locationResolver.collectMissionGiveOutfit(missionName, om[1], count, this._currentPluginId);
+          const outfitName = om[1] ?? om[2] ?? om[3] ?? null;
+          const count = om[4] ? parseInt(om[4], 10) : 1;
+          if (outfitName && count > 0) {
+            this.locationResolver.collectMissionGiveOutfit(missionName, outfitName, count, this._currentPluginId);
           }
+          // NOTE: count <= 0 ("take away") lines are matched but still not
+          // recorded anywhere — unchanged limitation, flagged not silent.
+          i++; continue;
         }
       }
-      if (missionName && (
-        stripped.startsWith('give ship "') || stripped.startsWith('give ship `') ||
-        stripped.startsWith('ship "')      || stripped.startsWith('ship `')
-      )) {
+
+      // ── give/ship — FIXED: this is the bug that dropped
+      //    `give ship Peregrine "Shadow Flight"` entirely, since
+      //    "Peregrine" is a bare model name with only the custom name
+      //    quoted. Now accepts a bare OR quoted model name, with an
+      //    optional bare-or-quoted custom name after it.
+      if (missionName) {
         const sm =
-          stripped.match(/^give\s+ship\s+"([^"]+)"(?:\s+"[^"]*")?/) ||
-          stripped.match(/^give\s+ship\s+`([^`]+)`(?:\s+`[^`]*`)?/) ||
-          stripped.match(/^ship\s+"([^"]+)"(?:\s+"[^"]*")?/)        ||
-          stripped.match(/^ship\s+`([^`]+)`(?:\s+`[^`]*`)?/);
+          stripped.match(/^give\s+ship\s+(?:"([^"]+)"|`([^`]+)`|(\S+))(?:\s+(?:"([^"]*)"|`([^`]*)`|(\S+)))?\s*$/) ||
+          stripped.match(/^ship\s+(?:"([^"]+)"|`([^`]+)`|(\S+))(?:\s+(?:"([^"]*)"|`([^`]*)`|(\S+)))?\s*$/);
         if (sm) {
-          this.locationResolver.collectMissionGiveShip(missionName, sm[1], this._currentPluginId);
+          const shipModel = sm[1] ?? sm[2] ?? sm[3] ?? null;
+          // sm[4..6] would be the custom name — captured for completeness
+          // even though LocationResolver.collectMissionGiveShip doesn't
+          // currently store it separately from the mission name.
+          if (shipModel) {
+            this.locationResolver.collectMissionGiveShip(missionName, shipModel, this._currentPluginId);
+          }
+          i++; continue;
         }
       }
+
+      // ── NEW: `event "X"` action line — records that this mission can
+      //    trigger event X (from any action trigger: on offer/accept/
+      //    complete/etc — we don't currently distinguish which trigger,
+      //    only that the mission and the event are linked).
+      if (missionName) {
+        const evM = stripped.match(/^event\s+"([^"]+)"(?:\s+-?\d+(?:\s+-?\d+)?)?\s*$/) ||
+                    stripped.match(/^event\s+`([^`]+)`(?:\s+-?\d+(?:\s+-?\d+)?)?\s*$/);
+        if (evM) {
+          this.locationResolver.collectMissionEventTrigger(missionName, evM[1], this._currentPluginId);
+          i++; continue;
+        }
+      }
+
       i++;
     }
     return i;
   }
 
+  /**
+   * Parse an `npc` block found inside a MISSION.
+   * `eventName`, if provided, records this npc block's fleet references as
+   * belonging to that event's context (used when this same parsing routine
+   * is reused for npc blocks inside EVENTS instead — see parseNpcBlock).
+   */
   _parseMissionNpcBlock(lines, i, missionName) {
     let government = null;
     const shipNames = [];
@@ -1039,6 +1129,26 @@ class EndlessSkyParser {
         if (shipTwoArg) { shipNames.push(shipTwoArg[1]); i++; continue; }
         if (shipOneArg) { shipNames.push(shipOneArg[1]); i++; continue; }
         if (stripped === 'fleet' || stripped.startsWith('fleet ')) {
+          // ── NEW: named fleet reference, e.g. `fleet "Marauder Raid"` —
+          //    the common way an npc spawns an existing fleet's ships. The
+          //    OLD code here only ever looked for indented child lines
+          //    (the rare inline-anonymous-list form), so this common named
+          //    form silently expanded to zero ships. Queue it for
+          //    resolveAllNpcFleetRefs() to resolve once all fleets across
+          //    all plugins/files have been parsed.
+          const namedMatch = stripped.match(/^fleet\s+"([^"]+)"\s*$/) || stripped.match(/^fleet\s+`([^`]+)`\s*$/);
+          if (namedMatch) {
+            this._pendingNpcFleetRefs.push({
+              fleetName: namedMatch[1],
+              government,             // the npc's own government line, if any — used as a fallback only; the fleet's OWN government (resolved later) takes precedence
+              missionName,
+              eventName: null,
+              pluginId: this._currentPluginId,
+            });
+            i++; continue;
+          }
+          // Anonymous inline fleet — unchanged from before: collect any
+          // indented quoted ship-name children directly.
           const fleetIndent = indent;
           i++;
           while (i < lines.length) {
@@ -1064,7 +1174,14 @@ class EndlessSkyParser {
     return i;
   }
 
-  parseNpcBlock(lines, i) {
+  /**
+   * Parse an `npc` block found inside an EVENT (as opposed to a mission —
+   * see _parseMissionNpcBlock). `eventName`, when known, is threaded
+   * through so a named fleet reference here is traceable back to the
+   * event that spawns it, the same way _parseMissionNpcBlock traces back
+   * to a mission name.
+   */
+  parseNpcBlock(lines, i, eventName = null) {
     let government = null;
     const shipNames = [];
     const npcIndent = lines[i].length - lines[i].replace(/^\t+/, '').length;
@@ -1089,6 +1206,17 @@ class EndlessSkyParser {
         if (shipTwoArg) { shipNames.push(shipTwoArg[1]); i++; continue; }
         if (shipOneArg) { shipNames.push(shipOneArg[1]); i++; continue; }
         if (stripped === 'fleet' || stripped.startsWith('fleet ')) {
+          const namedMatch = stripped.match(/^fleet\s+"([^"]+)"\s*$/) || stripped.match(/^fleet\s+`([^`]+)`\s*$/);
+          if (namedMatch) {
+            this._pendingNpcFleetRefs.push({
+              fleetName: namedMatch[1],
+              government,
+              missionName: null,
+              eventName,
+              pluginId: this._currentPluginId,
+            });
+            i++; continue;
+          }
           const fleetIndent = indent;
           i++;
           while (i < lines.length) {
@@ -1145,6 +1273,15 @@ class EndlessSkyParser {
     return [outfitMap, i];
   }
 
+  /**
+   * FIXED: previously broke out of the loop only on `indent === 0`,
+   * which is correct for a top-level `shipyard "X"` block but wrong when
+   * this same block is reopened from inside an `event "X"` (header at
+   * indent 1) — in that case this would keep consuming lines past the
+   * shipyard's actual end, misreading anything else quoted at indent ≥ 1
+   * before the next TRUE top-level line as one of this shipyard's ships.
+   * Now relative to the shipyard header's own indent.
+   */
   parseShipyardBlock(lines, i) {
     const headerMatch =
       lines[i].trim().match(/^shipyard\s+"([^"]+)"/) ||
@@ -1153,11 +1290,12 @@ class EndlessSkyParser {
     if (!headerMatch) return i + 1;
     const name = headerMatch[1];
     const ships = [];
+    const baseIndent = lines[i].length - lines[i].replace(/^\t+/, '').length;
     i++;
     while (i < lines.length) {
       const line   = lines[i];
       const indent = line.length - line.replace(/^\t+/, '').length;
-      if (indent === 0 && line.trim()) break;
+      if (indent <= baseIndent && line.trim()) break;
       const m = line.trim().match(/^"([^"]+)"/) || line.trim().match(/^`([^`]+)`/);
       if (m) ships.push(m[1]);
       i++;
@@ -1167,6 +1305,10 @@ class EndlessSkyParser {
     return i;
   }
 
+  /**
+   * FIXED: same relative-indent issue as parseShipyardBlock above, for
+   * the same reason (an `outfitter "X"` reopened inside an event).
+   */
   parseOutfitterBlock(lines, i) {
     const headerMatch =
       lines[i].trim().match(/^outfitter\s+"([^"]+)"/) ||
@@ -1175,11 +1317,12 @@ class EndlessSkyParser {
     if (!headerMatch) return i + 1;
     const name = headerMatch[1];
     const outfits = [];
+    const baseIndent = lines[i].length - lines[i].replace(/^\t+/, '').length;
     i++;
     while (i < lines.length) {
       const line   = lines[i];
       const indent = line.length - line.replace(/^\t+/, '').length;
-      if (indent === 0 && line.trim()) break;
+      if (indent <= baseIndent && line.trim()) break;
       const m = line.trim().match(/^"([^"]+)"/) || line.trim().match(/^`([^`]+)`/);
       if (m) outfits.push(m[1]);
       i++;
@@ -1189,7 +1332,15 @@ class EndlessSkyParser {
     return i;
   }
 
-  parsePlanetBlock(lines, i) {
+  /**
+   * `eventName`, when provided (i.e. this planet block was found inside an
+   * `event "X"` block), tags every add/remove change with the event that
+   * caused it, so it's traceable — separately from the unconditional base
+   * `add shipyard` behavior (kept exactly as before: still always merges
+   * into the base "this planet sells here" data, since that's how the
+   * ORIGINAL code already treated it).
+   */
+  parsePlanetBlock(lines, i, eventName = null) {
     const headerMatch =
       lines[i].trim().match(/^(?:"planet"|planet)\s+"([^"]+)"/) ||
       lines[i].trim().match(/^(?:"planet"|planet)\s+`([^`]+)`/) ||
@@ -1209,21 +1360,49 @@ class EndlessSkyParser {
       const syMatch =
         stripped.match(/^shipyard\s+"([^"]+)"/) ||
         stripped.match(/^shipyard\s+`([^`]+)`/) ||
-        stripped.match(/^shipyard\s+(\S+)/);      
+        stripped.match(/^shipyard\s+(\S+)/);
       const addSyMatch =
         stripped.match(/^add\s+shipyard\s+"([^"]+)"/) ||
         stripped.match(/^add\s+shipyard\s+`([^`]+)`/) ||
-        stripped.match(/^add\s+shipyard\s+(\S+)/);      
+        stripped.match(/^add\s+shipyard\s+(\S+)/);
+      // NEW: remove shipyard / add outfitter / remove outfitter — none of
+      // these were previously recognized at all.
+      const removeSyMatch =
+        stripped.match(/^remove\s+shipyard\s+"([^"]+)"/) ||
+        stripped.match(/^remove\s+shipyard\s+`([^`]+)`/) ||
+        stripped.match(/^remove\s+shipyard\s+(\S+)/);
+      const addOfMatch =
+        stripped.match(/^add\s+outfitter\s+"([^"]+)"/) ||
+        stripped.match(/^add\s+outfitter\s+`([^`]+)`/) ||
+        stripped.match(/^add\s+outfitter\s+(\S+)/);
+      const removeOfMatch =
+        stripped.match(/^remove\s+outfitter\s+"([^"]+)"/) ||
+        stripped.match(/^remove\s+outfitter\s+`([^`]+)`/) ||
+        stripped.match(/^remove\s+outfitter\s+(\S+)/);
       const ofMatch =
         stripped.match(/^outfitter\s+"([^"]+)"/) ||
         stripped.match(/^outfitter\s+`([^`]+)`/) ||
         stripped.match(/^outfitter\s+(\S+)/);
+
       if (govMatch)   government = govMatch[1];
       if (syMatch)    shipyards.push(syMatch[1]);
       if (ofMatch)    outfitters.push(ofMatch[1]);
       if (addSyMatch) {
         shipyards.push(addSyMatch[1]);
+        // Unconditional base behavior — unchanged from before.
         this.locationResolver.collectEventPlanetShipyardAdd(planetName, addSyMatch[1], this._currentPluginId);
+        // NEW: also record the traceable, event-tagged version.
+        this.locationResolver.collectEventPlanetShipyardChange(planetName, addSyMatch[1], 'add', eventName, this._currentPluginId);
+      }
+      if (removeSyMatch) {
+        this.locationResolver.collectEventPlanetShipyardChange(planetName, removeSyMatch[1], 'remove', eventName, this._currentPluginId);
+      }
+      if (addOfMatch) {
+        outfitters.push(addOfMatch[1]);
+        this.locationResolver.collectEventPlanetOutfitterChange(planetName, addOfMatch[1], 'add', eventName, this._currentPluginId);
+      }
+      if (removeOfMatch) {
+        this.locationResolver.collectEventPlanetOutfitterChange(planetName, removeOfMatch[1], 'remove', eventName, this._currentPluginId);
       }
       i++;
     }
@@ -1263,7 +1442,20 @@ class EndlessSkyParser {
     return i;
   }
 
+  /**
+   * EXPANDED: previously only recognized fleet/planet/shipyard/outfitter/npc
+   * lines directly inside an event. Now also:
+   *   - extracts the event's own name (needed to tag every change it makes)
+   *   - understands a `system "X"` sub-block's `add fleet` / `remove fleet`
+   *     lines — this is how an event changes what spawns in a region
+   *   - understands a `government "X"` sub-block's `"attitude toward"`
+   *     changes — how an event shifts relations between governments
+   *   - threads the event's name through to parsePlanetBlock/parseNpcBlock
+   *     so every change is traceable back to the event that caused it
+   */
   parseEventBlock(lines, i) {
+    const headerMatch = lines[i].trim().match(/^event\s+"([^"]+)"/) || lines[i].trim().match(/^event\s+`([^`]+)`/);
+    const eventName = headerMatch ? headerMatch[1] : null;
     i++;
     while (i < lines.length) {
       const line   = lines[i];
@@ -1272,10 +1464,69 @@ class EndlessSkyParser {
       const stripped = line.trim();
       if (indent >= 1) {
         if (stripped.startsWith('fleet ') || stripped === 'fleet') { i = this.parseFleetBlock(lines, i); continue; }
-        if (stripped.startsWith('planet ') || stripped.startsWith('"planet"')) { i = this.parsePlanetBlock(lines, i); continue; }
+        if (stripped.startsWith('planet ') || stripped.startsWith('"planet"')) { i = this.parsePlanetBlock(lines, i, eventName); continue; }
         if (stripped.startsWith('shipyard ')) { i = this.parseShipyardBlock(lines, i); continue; }
         if (stripped.startsWith('outfitter ')) { i = this.parseOutfitterBlock(lines, i); continue; }
-        if (stripped === 'npc' || stripped.startsWith('npc ')) { i = this.parseNpcBlock(lines, i); continue; }
+        if (stripped === 'npc' || stripped.startsWith('npc ')) { i = this.parseNpcBlock(lines, i, eventName); continue; }
+
+        // ── NEW: system "X" sub-block — add/remove fleet spawns.
+        const sysMatch = stripped.match(/^system\s+"([^"]+)"/) || stripped.match(/^system\s+`([^`]+)`/) || stripped.match(/^system\s+(\S+)/);
+        if (sysMatch) {
+          const systemName = sysMatch[1];
+          const sysIndent  = indent;
+          i++;
+          while (i < lines.length) {
+            const sl = lines[i];
+            const si = sl.length - sl.replace(/^\t+/, '').length;
+            if (si <= sysIndent && sl.trim()) break;
+            const ss = sl.trim();
+            const addFleetM    = ss.match(/^add\s+fleet\s+"([^"]+)"(?:\s+(\d+))?/) || ss.match(/^add\s+fleet\s+`([^`]+)`(?:\s+(\d+))?/);
+            const removeFleetM = ss.match(/^remove\s+fleet\s+"([^"]+)"/)           || ss.match(/^remove\s+fleet\s+`([^`]+)`/);
+            if (addFleetM) {
+              this.locationResolver.collectEventSystemFleetChange(
+                eventName, systemName, addFleetM[1], 'add',
+                addFleetM[2] ? parseInt(addFleetM[2], 10) : null,
+                this._currentPluginId
+              );
+            } else if (removeFleetM) {
+              this.locationResolver.collectEventSystemFleetChange(
+                eventName, systemName, removeFleetM[1], 'remove', null, this._currentPluginId
+              );
+            }
+            i++;
+          }
+          continue;
+        }
+
+        // ── NEW: government "X" sub-block — "attitude toward" changes.
+        const govBlockM = stripped.match(/^government\s+"([^"]+)"/) || stripped.match(/^government\s+`([^`]+)`/);
+        if (govBlockM) {
+          const govName   = govBlockM[1];
+          const govIndent = indent;
+          this.speciesResolver.knownGovernments.add(govName);
+          i++;
+          let inAttitude = false;
+          while (i < lines.length) {
+            const gl = lines[i];
+            const gi = gl.length - gl.replace(/^\t+/, '').length;
+            if (gi <= govIndent && gl.trim()) break;
+            const gs = gl.trim();
+            if (gs === '"attitude toward"' || gs === 'attitude toward') {
+              inAttitude = true; i++; continue;
+            }
+            if (inAttitude && gi > govIndent + 1) {
+              const atM = gs.match(/^"([^"]+)"\s+(-?[\d.]+)/) || gs.match(/^`([^`]+)`\s+(-?[\d.]+)/);
+              if (atM) {
+                this.speciesResolver.knownGovernments.add(atM[1]);
+                this.speciesResolver.collectEventGovernmentAttitudeChange(
+                  eventName, govName, atM[1], parseFloat(atM[2]), this._currentPluginId
+                );
+              }
+            }
+            i++;
+          }
+          continue;
+        }
       }
       i++;
     }
@@ -1730,7 +1981,7 @@ class EndlessSkyParser {
     const [, baseName, variantName] = match;
     if (startIdx + 1 >= lines.length) return [null, startIdx + 1];
     const nextLine = lines[startIdx + 1];
-    if (nextLine.trim() && (nextLine.length - nextLine.replace(/^\t+/, '')).length === 0) {
+    if (nextLine.trim() && (nextLine.length - nextLine.replace(/^\t+/, '').length) === 0) {
       return [null, startIdx + 1];
     }
     if (variantName) {
@@ -1817,22 +2068,13 @@ class EndlessSkyParser {
   }
 
   parseShipVariant(variantInfo) {
-    const { baseShips, error } = this._resolveBaseShipCandidates(
+    const { baseShip, error } = this._resolveBaseShip(
       variantInfo.baseName, variantInfo.variantPluginId
     );
     if (error) {
       console.warn(`  Skipping variant "${variantInfo.baseName} (${variantInfo.variantName})": ${error}`);
-      return [];
+      return null;
     }
-    const results = [];
-    for (const baseShip of baseShips) {
-      const v = this._buildVariantFromBase(variantInfo, baseShip);
-      if (v) results.push(v);
-    }
-    return results;
-  }
-
-  _buildVariantFromBase(variantInfo, baseShip) {
     const { startIdx, lines } = variantInfo;
     if (startIdx + 1 >= lines.length) return null;
     const nl = lines[startIdx + 1];
@@ -1845,14 +2087,6 @@ class EndlessSkyParser {
     v.variant          = variantInfo.variantName;
     v.baseShip         = variantInfo.baseName;
     v._variantPluginId = variantInfo.variantPluginId;
-    // Which plugin's copy of the base ship this specific variant object was
-    // actually built from. This only ever differs from _variantPluginId
-    // when the base-ship name was structurally ambiguous across plugins
-    // (see _resolveBaseShipCandidates) — in that case the SAME variant
-    // name can legitimately produce more than one output entry here, one
-    // per candidate. Consumers should key/display by plugin ID rather than
-    // by name to tell them apart.
-    v._baseShipPluginId = baseShip._pluginId;
 
     let changed = false;
     let inlineOutfitsStarted = false;
@@ -1966,27 +2200,14 @@ class EndlessSkyParser {
     console.log(`  Processing ${toProcess.length} variants...`);
     let kept = 0, skippedNoChange = 0, skippedDuplicate = 0;
     for (const vi of toProcess) {
-      const built = this.parseShipVariant(vi);
-      if (built.length === 0) { skippedNoChange++; continue; }
-      for (const v of built) {
-        // Duplicate detection is scoped to variants that came from BOTH the
-        // same declaring plugin AND the same base-ship plugin. Two
-        // different plugins independently producing an identical-looking
-        // variant is not the same variant — collapsing them (as this used
-        // to do globally, across all plugins) silently dropped one
-        // plugin's entry from its own output. Since the front end now
-        // keys variants by plugin ID rather than by name, each plugin's
-        // variant list should be complete and self-contained; this only
-        // catches genuine accidental re-declarations within one plugin.
-        const isDuplicate = this.variants.some(existing =>
-          existing._variantPluginId === v._variantPluginId &&
-          existing._baseShipPluginId === v._baseShipPluginId &&
-          this.shipsAreIdentical(existing, v)
-        );
-        if (isDuplicate) { skippedDuplicate++; continue; }
-        this.variants.push(v);
-        kept++;
+      const v = this.parseShipVariant(vi);
+      if (!v) { skippedNoChange++; continue; }
+      const isDuplicate = this.variants.some(existing => this.shipsAreIdentical(existing, v));
+      if (isDuplicate) {
+        skippedDuplicate++; continue;
       }
+      this.variants.push(v);
+      kept++;
     }
     console.log(`  Variants: ${kept} kept, ${skippedNoChange} skipped, ${skippedDuplicate} duplicates removed`);
   }
@@ -2146,6 +2367,141 @@ class EndlessSkyParser {
     console.log(`  Outfit pluginId resolution: ${resolved} resolved, ${stillMissing} still missing`);
   }
 
+  /**
+   * NEW: resolves every named-fleet reference found inside an `npc` block
+   * (queued into `_pendingNpcFleetRefs` by _parseMissionNpcBlock/parseNpcBlock)
+   * to that fleet's actual government + ship list, then feeds those ships
+   * into the resolvers exactly as if they'd been listed inline.
+   *
+   * Must run AFTER every file in every plugin has been parsed (i.e. after
+   * all parseRepository/parseArchiveSource calls, alongside
+   * resolveAllOutfitPluginIds) — a referenced fleet's own `fleet "X" ...`
+   * definition can live in a file parsed before OR after the mission/event
+   * that references it, so this can't be resolved inline during the first
+   * pass.
+   */
+  resolveAllNpcFleetRefs() {
+    let resolved = 0, missing = 0;
+    for (const ref of this._pendingNpcFleetRefs) {
+      // Prefer a fleet defined by the SAME plugin as the reference (a
+      // mission/event referencing a named fleet is almost always
+      // referencing one from its own plugin) — same priority rule as
+      // _resolveOutfitPluginId. Fall back to a cross-plugin search (e.g. a
+      // plugin's mission referencing a vanilla fleet by name) if that fails.
+      let match = this.speciesResolver.fleets.find(
+        f => f.name === ref.fleetName && f.pluginId === ref.pluginId
+      );
+      if (!match) {
+        match = this.speciesResolver.fleets.find(f => f.name === ref.fleetName);
+      }
+      if (!match) {
+        missing++;
+        console.warn(
+          `    ⚠ NPC fleet reference not found: "${ref.fleetName}" ` +
+          `(referenced by ${ref.missionName ? `mission "${ref.missionName}"` : `event "${ref.eventName}"`} ` +
+          `in plugin "${ref.pluginId}")`
+        );
+        continue;
+      }
+      const government = match.government || ref.government || null;
+      const contextLabel = ref.missionName
+        ? ref.missionName
+        : `[event "${ref.eventName}" npc]`;
+      for (const shipName of match.shipNames) {
+        this.speciesResolver.collectNpcRef(government, shipName, match.pluginId);
+        this.locationResolver.collectMissionNpcShip(contextLabel, shipName, match.pluginId);
+      }
+      resolved++;
+    }
+    console.log(`  NPC fleet-reference resolution: ${resolved} resolved, ${missing} missing`);
+  }
+
+  /**
+   * NEW: the actual event → fleet → government join.
+   *
+   * Two things are true separately but were never stitched together:
+   *   - locationResolver.eventSystemFleetChanges records
+   *     "event E adds/removes fleet F in system S" (from a `system "X"` >
+   *     `add/remove fleet "F"` sub-block inside an event).
+   *   - speciesResolver.fleets records "fleet F belongs to government G"
+   *     (from that fleet's own top-level `fleet "F" ... government "G" ...`
+   *     definition — collectFleet() now also stores the fleet's NAME
+   *     specifically so this join is possible).
+   *
+   * This method walks every recorded event/fleet/system change, looks up
+   * that fleet's government, and produces one flat, directly-usable record
+   * per change — "event E gives government G a fleet in system S" — plus,
+   * where a mission is known to trigger that event
+   * (locationResolver.missionEventTriggers), which mission is responsible.
+   *
+   * Must run AFTER parseEventBlock/parseFleetBlock have processed every
+   * file in every plugin (i.e. after resolveAllNpcFleetRefs, in main()) —
+   * same ordering reason as that method: a fleet referenced by an event in
+   * one file may be DEFINED in a file parsed earlier or later, in any plugin.
+   *
+   * Output shape (also stored on this.eventGovernmentImpacts):
+   *   {
+   *     eventName, systemName, fleetName,
+   *     government: string | null,   // null if the fleet's own government couldn't be resolved
+   *     action: 'add' | 'remove',
+   *     rate: number | null,         // spawn rate, only meaningful for 'add'
+   *     pluginId,                    // the plugin that defined this event/system change
+   *     fleetPluginId: string | null,// the plugin that actually defines the fleet (may differ — cross-plugin fleet references are legal)
+   *     triggeringMissions: string[] // mission names known to trigger this event, via locationResolver.missionEventTriggers — [] if none found (e.g. the event fires on its own schedule/date, or via a trigger this parser doesn't track)
+   *   }
+   */
+  resolveEventGovernmentImpact() {
+    this.eventGovernmentImpacts = [];
+    let resolvedGov = 0, unresolvedGov = 0;
+
+    for (const change of this.locationResolver.eventSystemFleetChanges) {
+      const { eventName, systemName, fleetName, action, rate, pluginId } = change;
+
+      // Same plugin-priority rule as resolveAllNpcFleetRefs: prefer a
+      // fleet defined by the same plugin as the event, fall back to a
+      // cross-plugin match (an event legitimately CAN reference another
+      // plugin's — or vanilla's — fleet by name).
+      let fleetMatch = this.speciesResolver.fleets.find(
+        f => f.name === fleetName && f.pluginId === pluginId
+      );
+      if (!fleetMatch) {
+        fleetMatch = this.speciesResolver.fleets.find(f => f.name === fleetName);
+      }
+
+      const government = fleetMatch?.government ?? null;
+      if (government) resolvedGov++; else unresolvedGov++;
+
+      // Which missions (if any) are known to trigger this specific event,
+      // scoped to the same plugin as the event itself — a mission in
+      // Plugin A triggering an event by a name that happens to collide
+      // with an unrelated Plugin B event should not be joined here.
+      const triggeringMissions = this.locationResolver.missionEventTriggers
+        .filter(t => t.eventName === eventName && t.pluginId === pluginId)
+        .map(t => t.missionName);
+
+      this.eventGovernmentImpacts.push({
+        eventName,
+        systemName,
+        fleetName,
+        government,
+        action,
+        rate: rate ?? null,
+        pluginId,
+        fleetPluginId: fleetMatch?.pluginId ?? null,
+        triggeringMissions,
+      });
+    }
+
+    if (unresolvedGov > 0) {
+      console.warn(
+        `    ⚠ ${unresolvedGov} event fleet-spawn change(s) could not be traced to a government ` +
+        `(the referenced fleet's own "fleet ... government ..." definition wasn't found — ` +
+        `check for a typo'd fleet name, or a fleet defined without a government line).`
+      );
+    }
+    console.log(`  Event → fleet → government join: ${resolvedGov} resolved to a government, ${unresolvedGov} unresolved`);
+  }
+
 async readPluginTxt(pluginRootDir) {
   const pluginTxtPath = path.join(pluginRootDir, 'plugin.txt');
   try {
@@ -2235,6 +2591,21 @@ async function main() {
     sharedParser.resolveAllOutfitPluginIds();
 
     console.log(`\n${'='.repeat(60)}`);
+    console.log(`Resolving fleet government gaps (government-less fleet reopenings)...`);
+    console.log('='.repeat(60));
+    sharedParser.speciesResolver.resolveFleetGovernmentGaps();
+
+    console.log(`\n${'='.repeat(60)}`);
+    console.log(`Resolving NPC fleet references across all plugins...`);
+    console.log('='.repeat(60));
+    sharedParser.resolveAllNpcFleetRefs();
+
+    console.log(`\n${'='.repeat(60)}`);
+    console.log(`Joining event → fleet → government data...`);
+    console.log('='.repeat(60));
+    sharedParser.resolveEventGovernmentImpact();
+
+    console.log(`\n${'='.repeat(60)}`);
     console.log(`Resolving governments across all ${allResults.length} plugin(s)...`);
     console.log(`  Known governments: ${sharedParser.speciesResolver.knownGovernments.size}`);
     console.log(`  Fleets: ${sharedParser.speciesResolver.fleets.length}`);
@@ -2304,6 +2675,13 @@ async function main() {
     await fs.mkdir(path.join(process.cwd(), 'data'), { recursive: true });
     await fs.writeFile(indexPath, JSON.stringify(dataIndex, null, 2));
     console.log(`\nWrote data/index.json with ${Object.keys(dataIndex).length} source(s)`);
+
+    // Cross-plugin data, same tier as index.json — not tied to any single
+    // plugin's output folder, since an event in one plugin can reference a
+    // fleet defined in another.
+    const eventGovImpactPath = path.join(process.cwd(), 'data', 'eventGovernmentImpact.json');
+    await fs.writeFile(eventGovImpactPath, JSON.stringify(sharedParser.eventGovernmentImpacts, null, 2));
+    console.log(`Wrote data/eventGovernmentImpact.json with ${sharedParser.eventGovernmentImpacts.length} event→fleet→government record(s)`);
 
     await parseAttributes(path.join(process.cwd(), 'data'));
 

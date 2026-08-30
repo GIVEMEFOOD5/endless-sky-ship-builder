@@ -1,24 +1,82 @@
 'use strict';
+
+// ── CHANGELOG (mission/event parsing pass) ──────────────────────────────────
+//   - Extended: collectFleet(government, shipNames, pluginId, fleetName)
+//     now ALSO stores the fleet's own NAME. Previously only LocationResolver
+//     knew a fleet's name (for spawn-system lookups) and only this file knew
+//     its government — with no single record holding both. That combined
+//     record is what EndlessSkyParser.resolveEventGovernmentImpact() needs
+//     to answer "which government does event X actually affect", so a named
+//     `fleet "X"` reference inside an npc block can be resolved to both a
+//     ship list AND a government in one step (see parser.js
+//     resolveAllNpcFleetRefs()).
+//   - Added: collectEventGovernmentAttitudeChange — records "event X changes
+//     government G's attitude toward government H to value V" (from a
+//     `government "G"` > `"attitude toward"` > `"H" V` sub-block inside an
+//     event). Previously not tracked at all.
+//   - Added: ship/variant/outfit objects now also get a `governmentEvents`
+//     array (sibling to the existing `governments` object) listing any
+//     event-driven attitude changes affecting a government that entity
+//     belongs to. Empty array when there are none — doesn't change the
+//     shape or meaning of the existing `governments` field.
+// ─────────────────────────────────────────────────────────────────────────
+
 class SpeciesResolver {
   constructor() { this.reset(); }
   reset() {
-    this.fleets           = [];   // { government, shipNames, pluginId }
+    // { government, shipNames, pluginId, name }
+    // `name` (the fleet's own name, e.g. "Marauder Raid") is optional and
+    // may be null for callers that don't have/need it — only
+    // resolveAllNpcFleetRefs()'s named-fleet-reference lookup and
+    // resolveEventGovernmentImpact()'s join actually require it to be set.
+    this.fleets           = [];
     this.npcRefs          = [];   // { government, shipName,  pluginId }
     this.shipyards        = {};   // name → [{ shipName, pluginId }]
     this.outfitters       = {};   // name → [{ outfitName, pluginId }]
     this.planets          = [];   // { name, government, shipyards, outfitters, pluginId }
     this.shipOutfits      = {};   // shipName → [{ outfitName, pluginId }]  (pluginId = owner of the SHIP)
     this.knownGovernments = new Set();
+
+    // NEW — { eventName, government, towardGovernment, value, pluginId }
+    this.eventGovernmentAttitudeChanges = [];
   }
 
   // ── Collectors (accept pluginId) ─────────────────────────────────────────────
 
-  collectFleet(government, shipNames, pluginId) {
-    if (!government) return;
-    this.knownGovernments.add(government);
-    if (shipNames.length) {
-      this.fleets.push({ government, shipNames: [...shipNames], pluginId: pluginId ?? null });
-    }
+  /**
+   * `fleetName` is a new, optional 4th parameter (default null so every
+   * existing call site that doesn't pass it keeps working unchanged). When
+   * the caller has it (parser.js's parseFleetBlock always does now), it's
+   * stored alongside government/shipNames so a fleet can later be looked
+   * up by NAME and have both its government and ship list available in one
+   * record — see the changelog note above.
+   */
+  /**
+   * FIXED: previously `if (!government) return;` at the top silently
+   * discarded the ENTIRE call whenever government was missing — which is
+   * exactly what happens when a fleet is REOPENED (e.g. from inside an
+   * event, via `add variant`) without restating its `government` line.
+   * That's valid Endless Sky syntax (a reopening patches/extends the
+   * existing fleet; it doesn't need to repeat every field) but meant every
+   * ship added by such a reopening, and the reopening's contribution to
+   * that fleet's government tagging, vanished entirely with no warning.
+   *
+   * Now: an entry is always recorded as long as there are ship names,
+   * with `government: null` when unknown. resolveFleetGovernmentGaps()
+   * (below) backfills those nulls afterwards by matching against another
+   * entry sharing the same fleet name + plugin (or, failing that, the
+   * same name in any plugin) that DOES have a government — same
+   * plugin-priority pattern already used elsewhere in this file/parser.js.
+   */
+  collectFleet(government, shipNames, pluginId, fleetName = null) {
+    if (!shipNames.length) return;
+    if (government) this.knownGovernments.add(government);
+    this.fleets.push({
+      government: government ?? null,
+      shipNames: [...shipNames],
+      pluginId: pluginId ?? null,
+      name: fleetName ?? null,
+    });
   }
 
   collectNpcRef(government, shipName, pluginId) {
@@ -45,6 +103,23 @@ class SpeciesResolver {
   }
 
   /**
+   * NEW. Records that an event changes one government's attitude toward
+   * another. `value` is the raw attitude number as written in the data
+   * file (typically -1 to 1, but stored as-is without clamping/validation
+   * — this resolver doesn't interpret game balance, only records facts).
+   */
+  collectEventGovernmentAttitudeChange(eventName, government, towardGovernment, value, pluginId) {
+    if (!eventName || !government || !towardGovernment) return;
+    this.eventGovernmentAttitudeChanges.push({
+      eventName,
+      government,
+      towardGovernment,
+      value: value ?? null,
+      pluginId: pluginId ?? null,
+    });
+  }
+
+  /**
    * Record outfits installed on a ship or variant.
    *
    * speciesShipName  — always the base ship name, used for government chain
@@ -66,6 +141,33 @@ class SpeciesResolver {
     if (!this.shipOutfits[storeName]) this.shipOutfits[storeName] = [];
     for (const outfitName of outfitNames)
       this.shipOutfits[storeName].push({ outfitName, pluginId: pluginId ?? null });
+  }
+
+  /**
+   * NEW. Backfills `government: null` fleet entries created by a
+   * government-less REOPENING of an existing fleet (see the changelog
+   * note on collectFleet above). Must run AFTER every file/plugin has
+   * been parsed — same reasoning as parser.js's resolveAllNpcFleetRefs:
+   * a fleet's original, government-bearing definition may be parsed
+   * before OR after a government-less reopening of the same name.
+   */
+  resolveFleetGovernmentGaps() {
+    let resolved = 0, stillUnresolved = 0;
+    for (const entry of this.fleets) {
+      if (entry.government) continue;
+      if (!entry.name) { stillUnresolved++; continue; }
+      let source = this.fleets.find(f => f.name === entry.name && f.pluginId === entry.pluginId && f.government);
+      if (!source) source = this.fleets.find(f => f.name === entry.name && f.government);
+      if (source) {
+        entry.government = source.government;
+        this.knownGovernments.add(source.government);
+        resolved++;
+      } else {
+        stillUnresolved++;
+        console.warn(`    ⚠ Fleet "${entry.name}" (plugin ${entry.pluginId}) has ships but no government could be found in any of its definitions.`);
+      }
+    }
+    console.log(`  Fleet government-gap resolution: ${resolved} resolved, ${stillUnresolved} unresolved`);
   }
 
   // ── Internal lookups ─────────────────────────────────────────────────────────
@@ -206,6 +308,26 @@ class SpeciesResolver {
     return byPlugin;
   }
 
+  /**
+   * NEW. Given a flat set of government names (e.g. the ones already
+   * resolved for a ship/variant/outfit), returns a sorted array of
+   * human-readable strings describing any event-driven attitude change
+   * that involves one of those governments — as either the government
+   * whose attitude changes, or the government it's changing an attitude
+   * toward. Returns [] if there are none.
+   */
+  _eventChangesForGovernments(governmentNames) {
+    if (!governmentNames || governmentNames.size === 0) return [];
+    const lines = new Set();
+    for (const c of this.eventGovernmentAttitudeChanges) {
+      if (!governmentNames.has(c.government) && !governmentNames.has(c.towardGovernment)) continue;
+      lines.add(
+        `Event "${c.eventName}": ${c.government} attitude toward ${c.towardGovernment} → ${c.value}`
+      );
+    }
+    return [...lines].sort();
+  }
+
   // ── Public API ───────────────────────────────────────────────────────────────
 
   /**
@@ -216,6 +338,12 @@ class SpeciesResolver {
    *   "Plugin A": { "Human": true },
    *   "Plugin B": { "Hai": true, "Republic": true }
    * }
+   *
+   * NEW — ship.governmentEvents (sibling field, always an array, [] when
+   * there are no matches):
+   * [
+   *   "Event \"Free Worlds Reveal\": Free Worlds attitude toward Republic → -0.3"
+   * ]
    *
    * pluginName is the last-resort fallback when no government can be determined.
    */
@@ -234,12 +362,23 @@ class SpeciesResolver {
       return obj;
     };
 
+    // NEW: flatten every government name across all plugins in a byPlugin
+    // map into one Set, for the event-change lookup (event attitude
+    // changes aren't plugin-scoped the way ship/outfit ownership is — an
+    // event in any plugin can affect a government however it's declared).
+    const flattenGovs = (byPlugin) => {
+      const flat = new Set();
+      for (const govts of byPlugin.values()) for (const g of govts) flat.add(g);
+      return flat;
+    };
+
     for (const ship of ships) {
       const byPlugin = this._governmentsForShip(ship.name, ship._pluginId ?? null);
       this._filterToKnownGovernments(byPlugin);
       if (byPlugin.size === 0 && pluginName)
         byPlugin.set(pluginName, new Set([pluginName]));
       ship.governments = toObj(byPlugin);
+      ship.governmentEvents = this._eventChangesForGovernments(flattenGovs(byPlugin));
     }
 
     for (const variant of variants) {
@@ -261,6 +400,7 @@ class SpeciesResolver {
       if (byPlugin.size === 0 && pluginName)
         byPlugin.set(pluginName, new Set([pluginName]));
       variant.governments = toObj(byPlugin);
+      variant.governmentEvents = this._eventChangesForGovernments(flattenGovs(byPlugin));
     }
 
     for (const outfit of outfits) {
@@ -268,6 +408,7 @@ class SpeciesResolver {
       if (byPlugin.size === 0 && pluginName)
         byPlugin.set(pluginName, new Set([pluginName]));
       outfit.governments = toObj(byPlugin);
+      outfit.governmentEvents = this._eventChangesForGovernments(flattenGovs(byPlugin));
     }
   }
 }

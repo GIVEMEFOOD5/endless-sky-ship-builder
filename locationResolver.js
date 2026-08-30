@@ -12,7 +12,9 @@
 //   locations: {
 //     "Endless Sky": {
 //       Planets: ["Earth", "Poisonwood"],
-//       Systems: ["Sol", "Betelgeuse"]
+//       Systems: ["Sol", "Betelgeuse"],
+//       EventFleetChanges: ["..."],        ← NEW, see below
+//       TriggeredByMissionEvents: ["..."]  ← NEW, see below
 //     },
 //     "my-plugin": {
 //       Planets: ["New Hope"],
@@ -25,7 +27,28 @@
 //     "my-plugin": { "_deprecated/unused": true }
 //   }
 //
-// ---------------------------------------------------------------------------
+// ── CHANGELOG (mission/event parsing pass) ──────────────────────────────────
+//   - Added: collectMissionEventTrigger — records "mission X can trigger
+//     event Y" (from an `event "Y"` action line inside a mission).
+//   - Added: collectEventSystemFleetChange — records "event X adds/removes
+//     fleet Y in system Z" (from a `system "Z"` > `add/remove fleet "Y"`
+//     sub-block inside an event).
+//   - Added: collectEventPlanetOutfitterChange — the outfitter counterpart
+//     to the existing (now generalized) shipyard-add tracking; previously
+//     there was no tracking at all for `add outfitter`/`remove outfitter`.
+//   - Added: collectEventPlanetShipyardChange — a traceable, event-name +
+//     action-tagged sibling to the existing collectEventPlanetShipyardAdd.
+//     collectEventPlanetShipyardAdd is KEPT EXACTLY AS BEFORE (still
+//     unconditionally merges into the base "this planet sells here" data,
+//     since that's how it already behaved) — the new method is purely
+//     additive, for a new "EventFleetChanges"-style traceability category,
+//     and does not change any existing resolution behavior.
+//   - Added: two new output categories on ship/outfit location results —
+//     "EventFleetChanges" (which events add/remove this ship's fleet from
+//     which systems) and "TriggeredByMissionEvents" (which of the missions
+//     already listed under "Missions" are known to trigger an event, and
+//     which event).
+// ─────────────────────────────────────────────────────────────────────────
 
 class LocationResolver {
   constructor() { this.reset(); }
@@ -65,7 +88,41 @@ class LocationResolver {
 
     // Mission planet-add shipyard refs: { planetName, yardName, pluginId }
     // (events / missions can modify planets to add shipyards)
+    // KEPT AS-IS — still unconditional, still what _buildYardToPlanets
+    // merges into the base "this planet sells here" data. See
+    // collectEventPlanetShipyardChange below for the new, traceable,
+    // NON-merged sibling of this.
     this.eventPlanetShipyardAdds = [];
+
+    // NEW — { planetName, yardName, action: 'add'|'remove', eventName, pluginId }
+    // Traceable version: every shipyard change an event causes, tagged
+    // with WHICH event caused it and whether it's an add or a remove.
+    // Deliberately NOT merged into planetShipyards/yardToPlanets — unlike
+    // eventPlanetShipyardAdds above, these are surfaced as their own
+    // "EventFleetChanges"-style category rather than folded into the
+    // base "always true" location data, since a remove can't be
+    // expressed as a subtraction from a Set built elsewhere without
+    // assuming an application order this resolver has no way to know.
+    this.eventPlanetShipyardChanges = [];
+
+    // NEW — { planetName, outfitterName, action: 'add'|'remove', eventName, pluginId }
+    // Outfitter counterpart to eventPlanetShipyardChanges. 'add' actions
+    // ALSO feed into _buildOutfitterToPlanets (see below) the same way
+    // eventPlanetShipyardAdds feeds _buildYardToPlanets — there was
+    // previously no equivalent tracking for outfitters at all.
+    this.eventPlanetOutfitterChanges = [];
+
+    // NEW — { eventName, systemName, fleetName, action: 'add'|'remove', rate, pluginId }
+    // "Event X adds/removes fleet Y in system Z" — the raw half of the
+    // event → fleet → government join (the other half, fleet → government,
+    // lives in SpeciesResolver.fleets; EndlessSkyParser.
+    // resolveEventGovernmentImpact() does the actual join).
+    this.eventSystemFleetChanges = [];
+
+    // NEW — { missionName, eventName, pluginId }
+    // "Mission X can trigger event Y" (from an `event "Y"` action line
+    // inside the mission's on offer/on accept/on complete/etc body).
+    this.missionEventTriggers = [];
 
     // Ships and their outfit lists: { shipName, outfitName, pluginId, shipPluginId }
     // NOTE: `pluginId` here is the plugin that OWNS the outfit being carried
@@ -135,6 +192,36 @@ class LocationResolver {
     this.eventPlanetShipyardAdds.push({ planetName, yardName, pluginId: pluginId ?? null });
   }
 
+  // NEW
+  collectEventPlanetShipyardChange(planetName, yardName, action, eventName, pluginId) {
+    if (!planetName || !yardName || !action) return;
+    this.eventPlanetShipyardChanges.push({
+      planetName, yardName, action, eventName: eventName ?? null, pluginId: pluginId ?? null,
+    });
+  }
+
+  // NEW
+  collectEventPlanetOutfitterChange(planetName, outfitterName, action, eventName, pluginId) {
+    if (!planetName || !outfitterName || !action) return;
+    this.eventPlanetOutfitterChanges.push({
+      planetName, outfitterName, action, eventName: eventName ?? null, pluginId: pluginId ?? null,
+    });
+  }
+
+  // NEW
+  collectEventSystemFleetChange(eventName, systemName, fleetName, action, rate, pluginId) {
+    if (!eventName || !systemName || !fleetName || !action) return;
+    this.eventSystemFleetChanges.push({
+      eventName, systemName, fleetName, action, rate: rate ?? null, pluginId: pluginId ?? null,
+    });
+  }
+
+  // NEW
+  collectMissionEventTrigger(missionName, eventName, pluginId) {
+    if (!missionName || !eventName) return;
+    this.missionEventTriggers.push({ missionName, eventName, pluginId: pluginId ?? null });
+  }
+
   // `pluginId` = the plugin that owns the OUTFIT being carried.
   // `shipPluginId` = the plugin that owns the SHIP/variant carrying it.
   collectShipOutfit(shipName, outfitName, pluginId, shipPluginId) {
@@ -187,6 +274,7 @@ class LocationResolver {
     for (const { planetName, yardNames, pluginId } of this.planetShipyards)
       for (const y of yardNames) add(y, planetName, pluginId);
 
+    // Unconditional base behavior — unchanged from before this pass.
     for (const { planetName, yardName, pluginId } of this.eventPlanetShipyardAdds)
       add(yardName, planetName, pluginId);
 
@@ -195,15 +283,24 @@ class LocationResolver {
 
   _buildOutfitterToPlanets() {
     const map = new Map();
-    for (const { planetName, outfitterNames, pluginId } of this.planetOutfitters) {
-      for (const o of outfitterNames) {
-        if (!map.has(o)) map.set(o, new Map());
-        const byPlugin = map.get(o);
-        const key = pluginId ?? '__unknown__';
-        if (!byPlugin.has(key)) byPlugin.set(key, new Set());
-        byPlugin.get(key).add(planetName);
-      }
-    }
+
+    const add = (outfitterName, planetName, pluginId) => {
+      if (!map.has(outfitterName)) map.set(outfitterName, new Map());
+      const byPlugin = map.get(outfitterName);
+      const key = pluginId ?? '__unknown__';
+      if (!byPlugin.has(key)) byPlugin.set(key, new Set());
+      byPlugin.get(key).add(planetName);
+    };
+
+    for (const { planetName, outfitterNames, pluginId } of this.planetOutfitters)
+      for (const o of outfitterNames) add(o, planetName, pluginId);
+
+    // NEW — 'add' actions from events feed in the same way
+    // eventPlanetShipyardAdds feeds _buildYardToPlanets. There was
+    // previously no equivalent for outfitters at all.
+    for (const { planetName, outfitterName, action, pluginId } of this.eventPlanetOutfitterChanges)
+      if (action === 'add') add(outfitterName, planetName, pluginId);
+
     return map;
   }
 
@@ -241,6 +338,50 @@ class LocationResolver {
     for (const v of values) result[key][category].add(v);
   }
 
+  /**
+   * NEW helper. Formats event-driven fleet changes for a given fleet name
+   * into human-readable strings, and merges them under `category` for the
+   * fleet's own plugin — matching the string-Set output convention every
+   * other category in this file already uses (Planets/Systems/Missions/...).
+   */
+  _mergeEventFleetChanges(result, fleetName, fleetPluginId, category) {
+    const matches = this.eventSystemFleetChanges.filter(c => c.fleetName === fleetName);
+    if (!matches.length) return;
+    const key = fleetPluginId ?? '__unknown__';
+    for (const c of matches) {
+      if (!result[key]) result[key] = {};
+      if (!result[key][category]) result[key][category] = new Set();
+      const rateStr = c.action === 'add' && c.rate != null ? ` (rate ${c.rate})` : '';
+      result[key][category].add(
+        `${c.action === 'add' ? 'Adds' : 'Removes'} fleet in "${c.systemName}" via event "${c.eventName}"${rateStr}`
+      );
+    }
+  }
+
+  /**
+   * NEW helper. For every mission name already recorded under a "Missions"
+   * category, checks whether that mission is known to trigger an event
+   * (missionEventTriggers) and, if so, records it under a separate
+   * "TriggeredByMissionEvents" category — additive, doesn't change the
+   * existing "Missions" Set's shape.
+   */
+  _mergeMissionEventTriggers(result, missionNamesByPlugin, category) {
+    for (const [pluginId, missionNames] of missionNamesByPlugin) {
+      for (const missionName of missionNames) {
+        const triggers = this.missionEventTriggers.filter(
+          t => t.missionName === missionName && t.pluginId === pluginId
+        );
+        if (!triggers.length) continue;
+        const key = pluginId ?? '__unknown__';
+        if (!result[key]) result[key] = {};
+        if (!result[key][category]) result[key][category] = new Set();
+        for (const t of triggers) {
+          result[key][category].add(`"${missionName}" → event "${t.eventName}"`);
+        }
+      }
+    }
+  }
+
   // ── Ship / variant location resolution ──────────────────────────────────────
 
   /**
@@ -253,12 +394,23 @@ _resolveShipLocations(shipName, ownerPluginId) {
     const yardToPlanets   = this._buildYardToPlanets();
     const planetToSystems = this._buildPlanetToSystems();
 
+    // Track mission names found for this ship, per plugin, so
+    // _mergeMissionEventTriggers can cross-reference them afterwards.
+    const missionNamesByPlugin = new Map();
+    const trackMission = (pluginId, missionName) => {
+      const key = pluginId ?? '__unknown__';
+      if (!missionNamesByPlugin.has(key)) missionNamesByPlugin.set(key, new Set());
+      missionNamesByPlugin.get(key).add(missionName);
+    };
+
     for (const fleet of this.fleets) {
       if (!fleet.shipNames.includes(shipName)) continue;
       if (fleet.pluginId !== ownerPluginId) continue;
       // Only take the Systems this SAME fleet (fleet.pluginId) spawns in —
       // not every plugin's same-named fleet. See _mergeOwnPluginOnly.
       this._mergeOwnPluginOnly(result, fleetToSystems.get(fleet.name), 'Systems', fleet.pluginId);
+      // NEW: event-driven add/remove of this same fleet, anywhere.
+      this._mergeEventFleetChanges(result, fleet.name, fleet.pluginId, 'EventFleetChanges');
     }
 
     for (const yard of this.shipyardEntries) {
@@ -292,6 +444,7 @@ _resolveShipLocations(shipName, ownerPluginId) {
       if (!result[key]) result[key] = {};
       if (!result[key]['Missions']) result[key]['Missions'] = new Set();
       result[key]['Missions'].add(ref.missionName);
+      trackMission(ref.pluginId, ref.missionName);
     }
 
     for (const ref of this.missionGiveShips) {
@@ -301,7 +454,12 @@ _resolveShipLocations(shipName, ownerPluginId) {
       if (!result[key]) result[key] = {};
       if (!result[key]['Missions']) result[key]['Missions'] = new Set();
       result[key]['Missions'].add(ref.missionName);
+      trackMission(ref.pluginId, ref.missionName);
     }
+
+    // NEW: for every mission already found above, note if it's known to
+    // trigger an event.
+    this._mergeMissionEventTriggers(result, missionNamesByPlugin, 'TriggeredByMissionEvents');
 
     return result;
 }
@@ -325,6 +483,13 @@ _resolveShipLocations(shipName, ownerPluginId) {
     const yardToPlanets      = this._buildYardToPlanets();
     const planetToSystems    = this._buildPlanetToSystems();
     const fleetToSystems     = this._buildFleetToSystems();
+
+    const missionNamesByPlugin = new Map();
+    const trackMission = (pluginId, missionName) => {
+      const key = pluginId ?? '__unknown__';
+      if (!missionNamesByPlugin.has(key)) missionNamesByPlugin.set(key, new Set());
+      missionNamesByPlugin.get(key).add(missionName);
+    };
 
     // ── 1. Outfitter listings → planets ─────────────────────────────────────
     // NOTE: intentionally NOT scoped to ownerPluginId — an outfitter block in
@@ -352,6 +517,24 @@ _resolveShipLocations(shipName, ownerPluginId) {
       if (!result[key]['Outfitters']) result[key]['Outfitters'] = new Set();
       result[key]['Outfitters'].add(entry.outfitterName);
       for (const planet of planets) result[key]['Planets'].add(planet);
+    }
+
+    // ── 1b. NEW — event-driven outfitter add/remove for outfitters that
+    //       list this outfit, tagged with the causing event.
+    for (const entry of this.outfitterEntries) {
+      if (!entry.outfitNames.includes(outfitName)) continue;
+      const changes = this.eventPlanetOutfitterChanges.filter(
+        c => c.outfitterName === entry.outfitterName && c.pluginId === entry.pluginId
+      );
+      if (!changes.length) continue;
+      const key = entry.pluginId ?? '__unknown__';
+      if (!result[key]) result[key] = {};
+      if (!result[key]['EventOutfitterChanges']) result[key]['EventOutfitterChanges'] = new Set();
+      for (const c of changes) {
+        result[key]['EventOutfitterChanges'].add(
+          `${c.action === 'add' ? 'Adds to' : 'Removes from'} "${c.planetName}" via event "${c.eventName}"`
+        );
+      }
     }
 
     // ── 2. Ships that carry THIS outfit → shipyards → planets → systems ─────
@@ -400,6 +583,8 @@ _resolveShipLocations(shipName, ownerPluginId) {
       for (const fleet of this.fleets) {
         if (!fleet.shipNames.includes(shipName)) continue;
         this._mergeOwnPluginOnly(result, fleetToSystems.get(fleet.name), 'Systems', fleet.pluginId);
+        // NEW: event-driven add/remove of that fleet.
+        this._mergeEventFleetChanges(result, fleet.name, fleet.pluginId, 'EventFleetChanges');
       }
     }
 
@@ -411,7 +596,12 @@ _resolveShipLocations(shipName, ownerPluginId) {
       if (!result[key]) result[key] = {};
       if (!result[key]['Missions']) result[key]['Missions'] = new Set();
       result[key]['Missions'].add(ref.missionName);
+      trackMission(ref.pluginId, ref.missionName);
     }
+
+    // NEW: for every mission already found above, note if it's known to
+    // trigger an event.
+    this._mergeMissionEventTriggers(result, missionNamesByPlugin, 'TriggeredByMissionEvents');
 
     return result;
   }
