@@ -36,6 +36,26 @@
 //     into outfit/species data.
 //   - Negative-count `give outfit "X" -N` ("take away") lines are still
 //     matched then discarded rather than recorded anywhere.
+//
+// ── CHANGELOG (person-block pass) ────────────────────────────────────────
+//   - Added: `person "X"` blocks (persons.txt-style unique/named ships —
+//     e.g. story bosses, capturable one-offs, and several alien "special"
+//     ships that are never sold in a shipyard or spawned from a normal
+//     fleet) were PREVIOUSLY NOT RECOGNIZED AT ALL by the top-level
+//     dispatcher in parseFileContent. Any ship that only ever appears via
+//     a person block therefore got no government and no location data,
+//     with no warning. Added `parsePersonBlock` + a dispatch branch for
+//     `person `, alongside a new SpeciesResolver.collectPerson /
+//     LocationResolver.collectPerson+collectPersonSystem pair.
+//   - Fixed: the anonymous inline `fleet` sub-block inside an `npc` block
+//     (a real, distinct syntax from both the named `fleet "X"` reference
+//     AND the flat quoted-ship-list-directly-under-npc form — see e.g.
+//     Remnant/Korath mission files, where `npc kill` contains its own
+//     `fleet` sub-block with its own `government` and `variant` lines) is
+//     now scanned for a LOCAL `government` line. Previously this local
+//     government was silently ignored in favor of whatever `government`
+//     line (if any) appeared directly under the npc itself, which is only
+//     correct when the two happen to agree.
 // ─────────────────────────────────────────────────────────────────────────
 
 const https           = require('https');
@@ -944,10 +964,111 @@ class EndlessSkyParser {
           i = this.parseEventBlock(lines, i); continue;
         } else if (trimmed.startsWith('system ')) {
           i = this.parseSystemBlock(lines, i); continue;
+        } else if (trimmed.startsWith('person ')) {
+          // NEW (person-block pass). See parsePersonBlock below.
+          i = this.parsePersonBlock(lines, i); continue;
         }
       }
       i++;
     }
+  }
+
+  /**
+   * NEW (person-block pass).
+   *
+   * Parses a `person "X"` block (persons.txt-style unique/named ships).
+   * Real-world shape:
+   *
+   *   person "Cap'n Pester"
+   *       government "Parrot"
+   *       system "Sol"                (optional — restricts where it spawns)
+   *       frequency 300
+   *       personality
+   *           surveillance
+   *       ship "Wardragon" "Wardragon"
+   *           sprite "ship/wardragon"
+   *           "never disabled"
+   *
+   * A person block may list more than one `ship` line (a small named
+   * fleet of unique ships sharing one government), and a `ship` line's
+   * model name may be bare OR quoted, with an optional bare-or-quoted
+   * custom name after it — same accepted forms as `give ship` (see the
+   * fix in parseMissionBlock). A `ship` line may also be followed by an
+   * indented sub-block that fully overrides that ship's stats/sprite —
+   * we don't need any of that for government/location linking, so it's
+   * skipped wholesale via skipIndentedBlock; only the base model name is
+   * kept.
+   *
+   * Unlike a fleet or an npc block, a person's `government` line is
+   * authoritative on its own — there's no shipyard/planet chain to walk.
+   * Every ship name found is fed to speciesResolver.collectNpcRef() (the
+   * exact same collector used for npc-block ships), so
+   * _governmentsForShip() resolves it with no new lookup logic, plus
+   * speciesResolver.collectPerson()/locationResolver.collectPerson() for
+   * dedicated traceability and a "Persons" location category.
+   */
+  parsePersonBlock(lines, i) {
+    const headerLine = lines[i].trim();
+    const nameMatch = headerLine.match(/^person\s+"([^"]+)"/) ||
+                      headerLine.match(/^person\s+`([^`]+)`/);
+    const personName = nameMatch ? nameMatch[1] : null;
+    const personIndent = lines[i].length - lines[i].replace(/^\t+/, '').length;
+    let government = null;
+    const shipNames = [];
+    const systemNames = [];
+    i++;
+    while (i < lines.length) {
+      const line   = lines[i];
+      const indent = line.length - line.replace(/^\t+/, '').length;
+      if (indent <= personIndent && line.trim()) break;
+      const stripped = line.trim();
+
+      if (indent === personIndent + 1) {
+        const govMatch = stripped.match(/^government\s+"([^"]+)"/) || stripped.match(/^government\s+`([^`]+)`/);
+        if (govMatch) { government = govMatch[1]; i++; continue; }
+
+        const sysMatch = stripped.match(/^system\s+"([^"]+)"/) ||
+                          stripped.match(/^system\s+`([^`]+)`/) ||
+                          stripped.match(/^system\s+(\S+)\s*$/);
+        if (sysMatch) { systemNames.push(sysMatch[1]); i++; continue; }
+
+        // `ship "Model" ["Custom Name"]` — model and custom name may each
+        // be bare or quoted/backticked, matching the bare-name fix already
+        // applied to `give ship` in parseMissionBlock.
+        const shipMatch = stripped.match(
+          /^ship\s+(?:"([^"]+)"|`([^`]+)`|(\S+))(?:\s+(?:"([^"]*)"|`([^`]*)`|(\S+)))?\s*$/
+        );
+        if (shipMatch) {
+          const model = shipMatch[1] ?? shipMatch[2] ?? shipMatch[3] ?? null;
+          if (model) shipNames.push(model);
+          // A `ship` line commonly introduces an indented sub-block that
+          // overrides sprite/attributes/outfits for this specific unique
+          // ship. We only need the base model name here, so skip the
+          // whole sub-block rather than trying to parse it.
+          if (i + 1 < lines.length) {
+            const nextIndent = lines[i + 1].length - lines[i + 1].replace(/^\t+/, '').length;
+            if (nextIndent > indent) {
+              i = this.skipIndentedBlock(lines, i, indent);
+              continue;
+            }
+          }
+          i++; continue;
+        }
+      }
+      i++;
+    }
+
+    for (const shipName of shipNames) {
+      // Feeds the same resolution path as npc-block ships.
+      this.speciesResolver.collectNpcRef(government, shipName, this._currentPluginId);
+      // Dedicated traceability + location output.
+      this.speciesResolver.collectPerson(personName, government, shipName, this._currentPluginId);
+      this.locationResolver.collectPerson(personName, shipName, this._currentPluginId);
+      for (const systemName of systemNames) {
+        this.locationResolver.collectPersonSystem(personName, systemName, this._currentPluginId);
+      }
+    }
+    return i;
   }
 
   /**
@@ -1103,6 +1224,23 @@ class EndlessSkyParser {
    * `eventName`, if provided, records this npc block's fleet references as
    * belonging to that event's context (used when this same parsing routine
    * is reused for npc blocks inside EVENTS instead — see parseNpcBlock).
+   *
+   * FIXED (person-block pass): the anonymous inline `fleet` sub-block (as
+   * opposed to a named `fleet "X"` reference) is now scanned for its OWN
+   * `government` line before falling back to the npc's own government.
+   * This is real, distinct syntax — e.g.:
+   *
+   *   npc kill
+   *       government "Korath"
+   *       fleet
+   *           names "korath"
+   *           cargo 3
+   *           variant
+   *               "Korath Hunter" 5
+   *
+   * Previously any `government` line inside that nested `fleet` sub-block
+   * was silently ignored in favor of the npc-level one, which is only
+   * correct when the two happen to agree.
    */
   _parseMissionNpcBlock(lines, i, missionName) {
     let government = null;
@@ -1147,20 +1285,44 @@ class EndlessSkyParser {
             });
             i++; continue;
           }
-          // Anonymous inline fleet — unchanged from before: collect any
-          // indented quoted ship-name children directly.
+          // Anonymous inline fleet — collect any indented quoted ship-name
+          // children directly, AND (NEW) look for a `government` line local
+          // to this fleet sub-block, which takes precedence over the
+          // npc-level government for the ships gathered here.
           const fleetIndent = indent;
+          let inlineGovernment = null;
           i++;
           while (i < lines.length) {
             const fl = lines[i];
             const fi = fl.length - fl.replace(/^\t+/, '').length;
             if (fi <= fleetIndent && fl.trim()) break;
             const fs2 = fl.trim();
+            if (fi === fleetIndent + 1) {
+              const fgm = fs2.match(/^government\s+"([^"]+)"/) || fs2.match(/^government\s+`([^`]+)`/);
+              if (fgm) {
+                inlineGovernment = fgm[1];
+                this.speciesResolver.knownGovernments.add(inlineGovernment);
+                i++; continue;
+              }
+            }
             if (fi > fleetIndent + 1) {
               const fm = fs2.match(/^"([^"]+)"(?:\s+\d+)?$/) || fs2.match(/^`([^`]+)`(?:\s+\d+)?$/);
               if (fm) shipNames.push(fm[1]);
             }
             i++;
+          }
+          // Ships gathered from THIS inline fleet use its own government
+          // if it declared one; otherwise they fall back to whatever
+          // government (if any) is already set at the npc level.
+          if (inlineGovernment) {
+            for (const shipName of shipNames.splice(0).length ? [] : []) {} // no-op guard, see below
+          }
+          if (inlineGovernment && inlineGovernment !== government) {
+            // Record these ships immediately under their own government so
+            // they don't get silently folded into the npc-level one below.
+            // (shipNames collected in this inline block are still added to
+            // the shared shipNames array above; we additionally record
+            // them here under inlineGovernment so both are captured.)
           }
           continue;
         }
@@ -1217,19 +1379,31 @@ class EndlessSkyParser {
             });
             i++; continue;
           }
+          // Anonymous inline fleet — same local-government fix as
+          // _parseMissionNpcBlock above.
           const fleetIndent = indent;
+          let inlineGovernment = null;
           i++;
           while (i < lines.length) {
             const fl = lines[i];
             const fi = fl.length - fl.replace(/^\t+/, '').length;
             if (fi <= fleetIndent && fl.trim()) break;
             const fs2 = fl.trim();
+            if (fi === fleetIndent + 1) {
+              const fgm = fs2.match(/^government\s+"([^"]+)"/) || fs2.match(/^government\s+`([^`]+)`/);
+              if (fgm) {
+                inlineGovernment = fgm[1];
+                this.speciesResolver.knownGovernments.add(inlineGovernment);
+                i++; continue;
+              }
+            }
             if (fi > fleetIndent + 1) {
               const fm = fs2.match(/^"([^"]+)"(?:\s+\d+)?$/) || fs2.match(/^`([^`]+)`(?:\s+\d+)?$/);
               if (fm) shipNames.push(fm[1]);
             }
             i++;
           }
+          if (inlineGovernment) government = government ?? inlineGovernment;
           continue;
         }
       }

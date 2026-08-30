@@ -14,7 +14,8 @@
 //       Planets: ["Earth", "Poisonwood"],
 //       Systems: ["Sol", "Betelgeuse"],
 //       EventFleetChanges: ["..."],        ← NEW, see below
-//       TriggeredByMissionEvents: ["..."]  ← NEW, see below
+//       TriggeredByMissionEvents: ["..."], ← NEW, see below
+//       Persons: ["Cap'n Pester"]          ← NEW, see below
 //     },
 //     "my-plugin": {
 //       Planets: ["New Hope"],
@@ -48,6 +49,14 @@
 //     which systems) and "TriggeredByMissionEvents" (which of the missions
 //     already listed under "Missions" are known to trigger an event, and
 //     which event).
+//   - NEW (person-block pass): collectPerson / collectPersonSystem — the
+//     location-side counterpart to SpeciesResolver.collectPerson. Records
+//     which `person "X"` blocks a ship belongs to, and which system(s) (if
+//     any — persons.txt entries often use a `system "X"` line to restrict
+//     where a unique ship spawns) that person is tied to. Surfaced as a
+//     new "Persons" category on the ship's location output, and any known
+//     system is merged into the existing "Systems" set the same way a
+//     fleet's spawn systems already are.
 // ─────────────────────────────────────────────────────────────────────────
 
 class LocationResolver {
@@ -123,6 +132,17 @@ class LocationResolver {
     // "Mission X can trigger event Y" (from an `event "Y"` action line
     // inside the mission's on offer/on accept/on complete/etc body).
     this.missionEventTriggers = [];
+
+    // NEW — { personName, shipName, pluginId }
+    // "person X" block includes ship Y". The location-side counterpart of
+    // SpeciesResolver.persons.
+    this.personShips = [];
+
+    // NEW — { personName, systemName, pluginId }
+    // "person X" is restricted to spawning in system Y (from a `system
+    // "Y"` line inside the person block). A person may have zero, one, or
+    // (rarely) more than one system line; all are recorded.
+    this.personSystems = [];
 
     // Ships and their outfit lists: { shipName, outfitName, pluginId, shipPluginId }
     // NOTE: `pluginId` here is the plugin that OWNS the outfit being carried
@@ -220,6 +240,27 @@ class LocationResolver {
   collectMissionEventTrigger(missionName, eventName, pluginId) {
     if (!missionName || !eventName) return;
     this.missionEventTriggers.push({ missionName, eventName, pluginId: pluginId ?? null });
+  }
+
+  /**
+   * NEW. Records that a `person "X"` block includes ship `shipName`.
+   * Called once per ship in the person block (see parser.js
+   * parsePersonBlock), mirroring collectMissionNpcShip's shape/behavior.
+   */
+  collectPerson(personName, shipName, pluginId) {
+    if (!personName || !shipName) return;
+    this.personShips.push({ personName, shipName, pluginId: pluginId ?? null });
+  }
+
+  /**
+   * NEW. Records that person `personName` is tied to `systemName` (from a
+   * `system "X"` line inside the person block). Not every person has one —
+   * plenty roam freely with no system restriction — so this simply isn't
+   * called for those.
+   */
+  collectPersonSystem(personName, systemName, pluginId) {
+    if (!personName || !systemName) return;
+    this.personSystems.push({ personName, systemName, pluginId: pluginId ?? null });
   }
 
   // `pluginId` = the plugin that owns the OUTFIT being carried.
@@ -382,6 +423,32 @@ class LocationResolver {
     }
   }
 
+  /**
+   * NEW helper. For every `person "X"` block that includes `shipName`
+   * (scoped to `ownerPluginId`, same rule as every other exact-name match
+   * in this file), records the person's name under a "Persons" category
+   * and merges any system(s) that person is restricted to into "Systems"
+   * — the same way a fleet's own spawn systems already get merged in.
+   */
+  _mergePersons(result, shipName, ownerPluginId) {
+    for (const ref of this.personShips) {
+      if (ref.shipName !== shipName) continue;
+      if (ref.pluginId !== ownerPluginId) continue;
+      const key = ref.pluginId ?? '__unknown__';
+      if (!result[key]) result[key] = {};
+      if (!result[key]['Persons']) result[key]['Persons'] = new Set();
+      result[key]['Persons'].add(ref.personName);
+
+      const systems = this.personSystems.filter(
+        s => s.personName === ref.personName && s.pluginId === ref.pluginId
+      );
+      if (systems.length) {
+        if (!result[key]['Systems']) result[key]['Systems'] = new Set();
+        for (const s of systems) result[key]['Systems'].add(s.systemName);
+      }
+    }
+  }
+
   // ── Ship / variant location resolution ──────────────────────────────────────
 
   /**
@@ -460,6 +527,10 @@ _resolveShipLocations(shipName, ownerPluginId) {
     // NEW: for every mission already found above, note if it's known to
     // trigger an event.
     this._mergeMissionEventTriggers(result, missionNamesByPlugin, 'TriggeredByMissionEvents');
+
+    // NEW: person "X" blocks that include this ship, plus any system(s)
+    // that person is restricted to.
+    this._mergePersons(result, shipName, ownerPluginId);
 
     return result;
 }
