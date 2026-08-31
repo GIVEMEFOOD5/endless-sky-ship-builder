@@ -18,6 +18,22 @@
 //    sbEditMode === 'save' means we are editing from sbSaveFleet.
 //    saveShip() checks sbEditMode and writes to the correct store.
 //    Duplicating a save ship promotes it into sbFleet.
+//
+//  ── CHANGELOG (internal-ID pass) ──────────────────────────────────────────
+//    Outfit lookups throughout this file previously matched by bare NAME
+//    only (sbGetOutfitLookup built a flat `{ name: outfit }` map, silently
+//    overwritten whenever two loaded plugins defined a same-named outfit —
+//    last one processed wins, with no warning). parser.js now stamps every
+//    outfit with a `pluginId::name` internalId (see outfitMapToOutputFormat
+//    / _registerOutfit), and every outfit reference already carried on a
+//    ship (`ship.outfits[name] = { count, pluginId, internalId }`) carries
+//    that same compound key. sbFindOutfit and everything that calls it now
+//    accept an optional `pluginId` and prefer an exact internalId match,
+//    falling back to the old name-only lookup only when no pluginId is
+//    known (e.g. an outfit typed in manually via the free-text "Add
+//    Outfit" dialog, which has no plugin to attach). Every call site that
+//    already has an outfit entry object (which carries `.pluginId`) now
+//    threads it through instead of discarding it.
 // ═══════════════════════════════════════════════════════════
 
 const SB_STORAGE_KEY      = 'es_ship_builder_v4';
@@ -441,21 +457,36 @@ function _sbNormaliseLeak(raw) {
 // ═══════════════════════════════════════════════════════════
 //  OUTFIT NORMALISATION
 // ═══════════════════════════════════════════════════════════
+//
+// NEW (internal-ID pass): also carries through `internalId` when the
+// source data has it (parser.js now stamps `pluginId::name` on every
+// ship-outfit entry — see outfitMapToOutputFormat). Falls back to
+// deriving it from pluginId+name when the source is older cached data
+// that predates this field, and to null (name-only lookup) when pluginId
+// itself is unknown.
 function _sbNormaliseOutfitsToArray(outfits) {
   if (!outfits) return [];
+  const withId = (name, pluginId, internalId) =>
+    internalId || (pluginId ? `${pluginId}::${name}` : null);
   if (Array.isArray(outfits)) {
-    return outfits.map(o => ({
-      name:     (o.name || '').replace(/^"|"$/g, ''),
-      count:    parseInt(o.count) || 1,
-      pluginId: o.pluginId || null,
-    }));
+    return outfits.map(o => {
+      const name     = (o.name || '').replace(/^"|"$/g, '');
+      const pluginId = o.pluginId || null;
+      return { name, count: parseInt(o.count) || 1, pluginId, internalId: withId(name, pluginId, o.internalId) };
+    });
   }
   if (typeof outfits === 'object') {
-    return Object.entries(outfits).map(([name, val]) => ({
-      name:     name.replace(/^"|"$/g, ''),
-      count:    typeof val === 'object' ? (parseInt(val.count) || 1) : (Number(val) || 1),
-      pluginId: typeof val === 'object' ? (val.pluginId || null) : null,
-    }));
+    return Object.entries(outfits).map(([name, val]) => {
+      const cleanName = name.replace(/^"|"$/g, '');
+      const pluginId  = typeof val === 'object' ? (val.pluginId || null) : null;
+      const internalId = typeof val === 'object' ? val.internalId : null;
+      return {
+        name:     cleanName,
+        count:    typeof val === 'object' ? (parseInt(val.count) || 1) : (Number(val) || 1),
+        pluginId,
+        internalId: withId(cleanName, pluginId, internalId),
+      };
+    });
   }
   return [];
 }
@@ -471,7 +502,7 @@ function sbSave() {
     outfits: Object.fromEntries(
       (ship.outfits || []).map(o => [
         o.name.replace(/^"|"$/g, ''),
-        { count: o.count ?? 1, pluginId: o.pluginId ?? null },
+        { count: o.count ?? 1, pluginId: o.pluginId ?? null, internalId: o.internalId ?? null },
       ])
     ),
   }));
@@ -524,7 +555,7 @@ function sbSaveSaveShips() {
     outfits: Object.fromEntries(
       (ship.outfits || []).map(o => [
         o.name.replace(/^"|"$/g, ''),
-        { count: o.count ?? 1, pluginId: o.pluginId ?? null },
+        { count: o.count ?? 1, pluginId: o.pluginId ?? null, internalId: o.internalId ?? null },
       ])
     ),
   }));
@@ -890,6 +921,9 @@ function sbShipFromParsed(src) {
   if (rawMass != null && rawMass !== '') s.mass = String(rawMass);
   if (rawDrag != null && rawDrag !== '') s.drag = String(rawDrag);
 
+  // NEW (internal-ID pass): thread `internalId` through from whichever
+  // source shape the ship's outfits came in as, deriving it from
+  // pluginId+name when the source predates the internalId field.
   const sourcePluginId = src._pn || src._pluginName || null;
   const outfitSource = src.outfits || src.outfitMap;
   if (outfitSource && typeof outfitSource === 'object' && !Array.isArray(outfitSource)) {
@@ -897,11 +931,17 @@ function sbShipFromParsed(src) {
       const cleanName = n.replace(/^"|"$/g, '');
       const count    = typeof val === 'object' ? (parseInt(val.count) || 1) : (Number(val) || 1);
       const pluginId = (typeof val === 'object' && val.pluginId) ? val.pluginId : sourcePluginId;
-      s.outfits.push({ name: cleanName, count, pluginId });
+      const internalId = (typeof val === 'object' && val.internalId)
+        ? val.internalId
+        : (pluginId ? `${pluginId}::${cleanName}` : null);
+      s.outfits.push({ name: cleanName, count, pluginId, internalId });
     }
   } else if (Array.isArray(outfitSource)) {
     for (const o of outfitSource) {
-      s.outfits.push({ name: (o.name || '').replace(/^"|"$/g, ''), count: parseInt(o.count) || 1, pluginId: o.pluginId || sourcePluginId });
+      const cleanName = (o.name || '').replace(/^"|"$/g, '');
+      const pluginId  = o.pluginId || sourcePluginId;
+      const internalId = o.internalId || (pluginId ? `${pluginId}::${cleanName}` : null);
+      s.outfits.push({ name: cleanName, count: parseInt(o.count) || 1, pluginId, internalId });
     }
   }
 
@@ -1129,25 +1169,51 @@ const SB_CAPACITY_ATTRS = {
   'cargo space':     'cargo space',
 };
 
+// ── NEW (internal-ID pass) ──────────────────────────────────────────────
+// _sbOutfitLookup is now TWO maps in one object:
+//   byId[internalId]   → exact-plugin match, no collision risk at all.
+//   byName[name]        → first-loaded fallback bucket, used ONLY when no
+//                          pluginId/internalId is known for the outfit
+//                          being looked up (e.g. free-typed outfit names).
+// Previously this was a single flat `{ name: outfit }` map that silently
+// overwrote same-named outfits from different plugins — the exact
+// collision class this pass exists to close.
 let _sbOutfitLookup = null;
 function sbGetOutfitLookup() {
   if (_sbOutfitLookup) return _sbOutfitLookup;
-  _sbOutfitLookup = {};
+  const byId = {};
+  const byName = {};
   for (const o of sbAllOutfits) {
     const name = (o.name || o.displayName || '').trim().replace(/^"|"$/g, '');
     if (!name) continue;
-    _sbOutfitLookup[name] = o;
+    const pluginId = o._pn || o._pluginId || null;
+    const internalId = o.internalId || o._internalId || (pluginId ? `${pluginId}::${name}` : null);
+    if (internalId) byId[internalId] = o;
+    if (!(name in byName)) byName[name] = o; // first plugin loaded wins, same as before this pass
   }
+  _sbOutfitLookup = { byId, byName };
   return _sbOutfitLookup;
 }
 
-function sbFindOutfit(outfitName) {
+/**
+ * Look up an outfit by name, preferring an exact `pluginId::name` match
+ * when `pluginId` is provided. Falls back to the old ambiguous name-only
+ * lookup only when no pluginId is known — e.g. an outfit typed manually
+ * into the free-text "Add Outfit" dialog, which was never attached to a
+ * specific plugin in the first place.
+ */
+function sbFindOutfit(outfitName, pluginId) {
   const lookup = sbGetOutfitLookup();
-  return lookup[outfitName.replace(/^"|"$/g, '')] || null;
+  const cleanName = outfitName.replace(/^"|"$/g, '');
+  if (pluginId) {
+    const hit = lookup.byId[`${pluginId}::${cleanName}`];
+    if (hit) return hit;
+  }
+  return lookup.byName[cleanName] || null;
 }
 
-function sbGetOutfitAttrValue(outfitName, attrKey) {
-  const o = sbFindOutfit(outfitName);
+function sbGetOutfitAttrValue(outfitName, attrKey, pluginId) {
+  const o = sbFindOutfit(outfitName, pluginId);
   if (!o) return 0;
   let val = (o.attributes && o.attributes[attrKey] != null) ? o.attributes[attrKey] : o[attrKey];
   if (val == null) return 0;
@@ -1155,14 +1221,14 @@ function sbGetOutfitAttrValue(outfitName, attrKey) {
   return isNaN(n) ? 0 : n;
 }
 
-function sbGetOutfitCapacityEffect(outfitName, capacityKey) { return sbGetOutfitAttrValue(outfitName, capacityKey); }
-function sbGetOutfitCapacityCost(outfitName, capacityKey)   { const e = sbGetOutfitCapacityEffect(outfitName, capacityKey); return e < 0 ? Math.abs(e) : 0; }
-function sbGetOutfitSize(outfitName)    { return sbGetOutfitCapacityCost(outfitName, 'outfit space'); }
+function sbGetOutfitCapacityEffect(outfitName, capacityKey, pluginId) { return sbGetOutfitAttrValue(outfitName, capacityKey, pluginId); }
+function sbGetOutfitCapacityCost(outfitName, capacityKey, pluginId)   { const e = sbGetOutfitCapacityEffect(outfitName, capacityKey, pluginId); return e < 0 ? Math.abs(e) : 0; }
+function sbGetOutfitSize(outfitName, pluginId)    { return sbGetOutfitCapacityCost(outfitName, 'outfit space', pluginId); }
 
 function sbUsedCapacity(capacityKey) {
   if (!sbCurrentShip) return 0;
   const net = (sbCurrentShip.outfits || []).reduce((total, o) => {
-    const effect = sbGetOutfitCapacityEffect(o.name, capacityKey);
+    const effect = sbGetOutfitCapacityEffect(o.name, capacityKey, o.pluginId);
     return total + (-(effect)) * (parseInt(o.count) || 1);
   }, 0);
   return Math.max(0, net);
@@ -1367,6 +1433,22 @@ function sbUpdateQuickStats() {
 
   sbRenderOutfitSpaceBar();
 
+  // ── How this calls into ComputedStats ─────────────────────────────────
+  // getComputedStats() (defined in ComputedStats.js — not included in this
+  // pass) takes the WHOLE ship object plus a pluginId string, then does
+  // its own internal outfit resolution against window.allData for every
+  // outfit on the ship. It is NOT given per-outfit pluginId/internalId
+  // here — only sbCurrentShip and one plugin id (LOCAL_ID, the synthetic
+  // "local builds" plugin, not each individual outfit's real owning
+  // plugin). That means ComputedStats' own outfit resolution is a
+  // SEPARATE code path from sbFindOutfit/sbGetOutfitLookup above, and is
+  // NOT covered by this pass's internalId fix — it can only be fixed
+  // inside ComputedStats.js itself, which wasn't provided. If
+  // ComputedStats.js resolves outfits by name only (the same pattern this
+  // pass just fixed here), it has the same collision exposure and should
+  // get the equivalent fix: accept per-entry pluginId/internalId from
+  // sbCurrentShip.outfits (already present as of this pass) instead of
+  // re-deriving a name-only lookup internally.
   if (typeof getComputedStats === 'function' && sbCurrentShip) {
     const LOCAL_ID = window.DataLoader?.LOCAL_PLUGIN_ID || '__local_builds__';
     const computed = getComputedStats(sbCurrentShip, LOCAL_ID);
@@ -1527,7 +1609,7 @@ function sbRenderOutfitsList() {
       { key: 'cargo space',     label: 'cargo' },
     ];
     const costTags = capDefs.map(c => {
-      const effect = sbGetOutfitCapacityEffect(rawName, c.key);
+      const effect = sbGetOutfitCapacityEffect(rawName, c.key, o.pluginId);
       if (effect === 0) return '';
       const total  = Math.abs(effect) * count;
       const isGrant = effect > 0;
@@ -1563,9 +1645,11 @@ function confirmAddOutfit() {
   const rawName = document.getElementById('new-outfit-name').value.trim().replace(/^"|"$/g, '');
   const count   = parseInt(document.getElementById('new-outfit-count').value) || 1;
   if (!rawName) { sbToast('Please enter an outfit name.', 'danger'); return; }
-  if (!sbCheckOutfitSpace(rawName, count)) return;
-  sbCurrentShip.outfits.push({ name: rawName, count, pluginId: null });
-  const outfitObj = sbFindOutfit(rawName);
+  if (!sbCheckOutfitSpace(rawName, count, null)) return;
+  // Manually-typed outfit — no plugin context available, so pluginId/internalId
+  // stay null and this will always resolve via the ambiguous name-only fallback.
+  sbCurrentShip.outfits.push({ name: rawName, count, pluginId: null, internalId: null });
+  const outfitObj = sbFindOutfit(rawName, null);
   sbAutoSlotWeapons(rawName, count, outfitObj);
   closeModal('modal-add-outfit');
   sbRenderOutfitsList(); sbRenderGunsTurrets(); sbUpdateQuickStats(); sbRenderRaw();
@@ -1576,9 +1660,10 @@ function sbUpdateOutfitCount(i, v) {
   const oldCount = parseInt(sbCurrentShip.outfits[i].count) || 1;
   const diff     = newCount - oldCount;
   const rawName  = sbCurrentShip.outfits[i].name.replace(/^"|"$/g, '');
+  const pluginId = sbCurrentShip.outfits[i].pluginId || null;
   if (diff > 0) {
-    if (!sbCheckOutfitSpace(rawName, diff)) { const inputs = document.querySelectorAll('.outfit-item__count'); if (inputs[i]) inputs[i].value = oldCount; return; }
-    sbAutoSlotWeapons(rawName, diff, sbFindOutfit(rawName));
+    if (!sbCheckOutfitSpace(rawName, diff, pluginId)) { const inputs = document.querySelectorAll('.outfit-item__count'); if (inputs[i]) inputs[i].value = oldCount; return; }
+    sbAutoSlotWeapons(rawName, diff, sbFindOutfit(rawName, pluginId));
   } else if (diff < 0) { _sbUnslotWeapons(rawName, Math.abs(diff)); }
   sbCurrentShip.outfits[i].count = newCount;
   sbRenderOutfitsList(); sbRenderGunsTurrets(); sbUpdateQuickStats(); sbRenderRaw();
@@ -1592,6 +1677,10 @@ function sbRemoveOutfit(i) {
   sbRenderOutfitsList(); sbRenderGunsTurrets(); sbUpdateQuickStats(); sbRenderRaw();
 }
 
+// NOTE: hardpoint `over` matching stays name-only, deliberately — a gun/
+// turret's "over" field in real Endless Sky syntax is just the outfit
+// name (there's no plugin-qualified form in the actual .txt grammar), so
+// there is no internalId to match against here even in principle.
 function _sbUnslotWeapons(outfitName, count) {
   const clean = outfitName.replace(/^"|"$/g, '');
   let remaining = count;
@@ -1606,7 +1695,7 @@ function sbAutoSlotAllOutfits(s) {
   if (!sbAllOutfits.length) return;
   for (const o of (s.outfits || [])) {
     const rawName   = o.name.replace(/^"|"$/g, '');
-    const outfitObj = sbFindOutfit(rawName);
+    const outfitObj = sbFindOutfit(rawName, o.pluginId);
     if (!outfitObj) continue;
     const count      = parseInt(o.count) || 1;
     const gunCost    = _sbGetPortCost(outfitObj, 'gun ports');
@@ -1618,7 +1707,7 @@ function sbAutoSlotAllOutfits(s) {
 
 function _sbEmptyPortCount(hardpoints) { return (hardpoints || []).filter(hp => !hp.over || hp.over.trim() === '').length; }
 
-function sbCheckOutfitSpace(outfitName, count) {
+function sbCheckOutfitSpace(outfitName, count, pluginId) {
   const capacityChecks = [
     { key: 'outfit space',    label: 'Outfit space',    max: sbMaxOutfitSpace(),    used: sbUsedOutfitSpace() },
     { key: 'engine capacity', label: 'Engine capacity', max: sbMaxEngineCapacity(), used: sbUsedEngineCapacity() },
@@ -1627,13 +1716,13 @@ function sbCheckOutfitSpace(outfitName, count) {
   ];
   for (const c of capacityChecks) {
     if (c.max <= 0) continue;
-    const effect = sbGetOutfitCapacityEffect(outfitName, c.key);
+    const effect = sbGetOutfitCapacityEffect(outfitName, c.key, pluginId);
     if (effect >= 0) continue;
     const cost    = Math.abs(effect);
     const newUsed = c.used + cost * count;
     if (newUsed > c.max) { sbToast(`Not enough ${c.label}. Need ${cost * count}, have ${Math.max(0, c.max - c.used)} free.`, 'danger'); return false; }
   }
-  const outfitObj = sbFindOutfit(outfitName);
+  const outfitObj = sbFindOutfit(outfitName, pluginId);
   if (outfitObj) {
     const gunCost    = _sbGetPortCost(outfitObj, 'gun ports');
     const turretCost = _sbGetPortCost(outfitObj, 'turret mounts');
@@ -1688,8 +1777,9 @@ function sbOpenOutfitPicker() {
         const cost = (o.cost || (o.attributes && o.attributes.cost)) ? `${Number(o.cost || o.attributes.cost).toLocaleString()} cr` : '';
         const costBadges = [];
         let wouldBlock = false;
+        const oPluginId = o._pn || o._pluginId || null;
         for (const [capKey, free] of Object.entries(caps)) {
-          const effect = sbGetOutfitCapacityEffect(name, capKey);
+          const effect = sbGetOutfitCapacityEffect(name, capKey, oPluginId);
           if (effect === 0) continue;
           const maxVal = sbShipCapacity(capKey);
           if (maxVal <= 0) continue;
@@ -1707,7 +1797,7 @@ function sbOpenOutfitPicker() {
         const turretCost = _sbGetPortCost(o, 'turret mounts');
         if (gunCost > 0 && hasGunPorts)    { const over = gunCost > freeGunsForPicker;    if (over) wouldBlock = true; costBadges.push(`<span class="sb-picker-size${over ? ' sb-picker-size--over' : ''}">${gunCost} gun${gunCost > 1 ? 's' : ''}</span>`); }
         if (turretCost > 0 && hasTurretPorts) { const over = turretCost > freeTurretsForPicker; if (over) wouldBlock = true; costBadges.push(`<span class="sb-picker-size${over ? ' sb-picker-size--over' : ''}">${turretCost} turret${turretCost > 1 ? 's' : ''}</span>`); }
-        const encoded = btoa(unescape(encodeURIComponent(JSON.stringify({ name, pluginId: o._pn || null }))));
+        const encoded = btoa(unescape(encodeURIComponent(JSON.stringify({ name, pluginId: oPluginId }))));
         return `<div class="sb-picker-row${wouldBlock ? ' sb-picker-row--over' : ''}" onclick="sbAddOutfitFromPicker('${encoded}')">
           <span class="sb-picker-name">${esc(name || 'Unknown')}</span>
           <span class="sb-picker-meta" style="display:flex;align-items:center;gap:4px;flex-shrink:0;">${esc([cat, cost].filter(Boolean).join(' · '))}${costBadges.join('')}</span>
@@ -1734,12 +1824,15 @@ function sbAddOutfitFromPicker(encoded) {
   const payload  = JSON.parse(decodeURIComponent(escape(atob(encoded))));
   const rawName  = payload.name.replace(/^"|"$/g, '');
   const pluginId = payload.pluginId || null;
+  const internalId = pluginId ? `${pluginId}::${rawName}` : null;
   const count    = parseInt(document.getElementById('sb-outfit-count-input').value) || 1;
-  if (!sbCheckOutfitSpace(rawName, count)) return;
-  const existing = sbCurrentShip.outfits.find(o => o.name === rawName);
-  if (existing) { existing.count += count; if (!existing.pluginId && pluginId) existing.pluginId = pluginId; }
-  else { sbCurrentShip.outfits.push({ name: rawName, count, pluginId }); }
-  sbAutoSlotWeapons(rawName, count, sbFindOutfit(rawName));
+  if (!sbCheckOutfitSpace(rawName, count, pluginId)) return;
+  // Match the SAME outfit (same plugin), not just any same-named one, when
+  // merging into an existing stack.
+  const existing = sbCurrentShip.outfits.find(o => o.name === rawName && (o.pluginId || null) === pluginId);
+  if (existing) { existing.count += count; if (!existing.internalId && internalId) existing.internalId = internalId; }
+  else { sbCurrentShip.outfits.push({ name: rawName, count, pluginId, internalId }); }
+  sbAutoSlotWeapons(rawName, count, sbFindOutfit(rawName, pluginId));
   closeModal('modal-sb-outfit-picker');
   sbRenderOutfitsList(); sbRenderGunsTurrets(); sbUpdateQuickStats(); sbRenderRaw();
 }
@@ -2327,7 +2420,7 @@ function sbParseES(text) {
         if (key === 'drag') { cur.drag = val; continue; }
         cur.attributes[key] = val; continue;
       }
-      if (block === 'outfits') { const p = sbTok(t); if (p.length) { const name = p[0].startsWith('"') ? p[0] : `"${p[0]}"`; cur.outfits.push({ name, count: parseInt(p[1])||1, pluginId: null }); } continue; }
+      if (block === 'outfits') { const p = sbTok(t); if (p.length) { const name = p[0].startsWith('"') ? p[0] : `"${p[0]}"`; cur.outfits.push({ name, count: parseInt(p[1])||1, pluginId: null, internalId: null }); } continue; }
       cur.extraLines.push(raw); continue;
     }
     if (indent === 3 && block === 'attributes') {
