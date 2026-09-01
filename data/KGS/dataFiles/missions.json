@@ -1,0 +1,947 @@
+[
+  {
+    "name": "KGS: Navy Mark II Upgrade",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "kgs: navy mark ii upgrade"
+    ],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Navy Mark II Upgrade",
+    "_hash": "18b9b262a611",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: Finch Upgrade",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "kgs: finch upgrade"
+    ],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Finch Upgrade",
+    "_hash": "18b9b262a611",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: Fallcoon Development",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "kgs: fallcoon developed"
+    ],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Fallcoon Development",
+    "_hash": "18b9b262a611",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: Fallcoon Developed",
+    "displayName": null,
+    "locations": [],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Fallcoon Developed",
+    "_hash": "4e03fefa6359",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: Twin Gatling Development",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "kgs: pirates develop twin gatlings"
+    ],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Twin Gatling Development",
+    "_hash": "18b9b262a611",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: Twin Gatlings",
+    "displayName": null,
+    "locations": [
+      "outfitter"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "outfits": "KGS Twin Gatling"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "kgs: pirates use twin gatlings"
+    ],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Twin Gatlings",
+    "_hash": "5ace869f0db8",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: More Gatling Guns",
+    "displayName": "Retrieve Gatling Gun Tech",
+    "locations": [],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": true,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 200000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Skymoot",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Skymoot"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Rust",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Rust"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "kgs: gatling mass production"
+    ],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: More Gatling Guns",
+    "_hash": "14f73c7b764c",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: Gatling Guns Released",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "near": "Kraz 100"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Zug",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Zug"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Gatling Guns Released",
+    "_hash": "06fb67983885",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: Plasma Assault Repeater Development",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "kgs: plasma assault repeater developed"
+    ],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Plasma Assault Repeater Development",
+    "_hash": "18b9b262a611",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: Plasma Assault Repeater Developed",
+    "displayName": null,
+    "locations": [],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Plasma Assault Repeater Developed",
+    "_hash": "4e03fefa6359",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: Raindrop Developed",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "kgs: raindrop developed"
+    ],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Raindrop Developed",
+    "_hash": "18b9b262a611",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: Yestrel Development",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "kgs: yestrel developed"
+    ],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Yestrel Development",
+    "_hash": "18b9b262a611",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: Yestrel Developed",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Yestrel Developed",
+    "_hash": "07461fb9321a",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: Silver Penguin",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "kgs: silver penguin sale"
+    ],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Silver Penguin",
+    "_hash": "18b9b262a611",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: Silver Merganser",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "kgs: silver merganser sale"
+    ],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Silver Merganser",
+    "_hash": "18b9b262a611",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: Silver Merganser Fleet",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "kgs: silver merganser fleet"
+    ],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Silver Merganser Fleet",
+    "_hash": "18b9b262a611",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: Silver Peregrine Fleet",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "kgs: silver peregrine fleet"
+    ],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Silver Peregrine Fleet",
+    "_hash": "18b9b262a611",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: Silver Fleet Teciimach Deployment",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "kgs: silver fleet teciimach deployment"
+    ],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Silver Fleet Teciimach Deployment",
+    "_hash": "18b9b262a611",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: Biolofez Triolofez Yolofez Development",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "kgs: biolofez triolofez yolofez developed"
+    ],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Biolofez Triolofez Yolofez Development",
+    "_hash": "18b9b262a611",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: Biolofez Triolofez Yolofez Developed",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Remnant"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Biolofez Triolofez Yolofez Developed",
+    "_hash": "f7748498f444",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: Twinhibitor Bithrasher Trithrasher Development",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "kgs: twinhibitor bithrasher trithrasher developed"
+    ],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Twinhibitor Bithrasher Trithrasher Development",
+    "_hash": "18b9b262a611",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: Twinhibitor Bithrasher Trithrasher Developed",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Remnant"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Twinhibitor Bithrasher Trithrasher Developed",
+    "_hash": "f7748498f444",
+    "sourcePlugin": "Kai's list/KGS"
+  },
+  {
+    "name": "KGS: Rapid Stream Development",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "kgs: rapid stream developed"
+    ],
+    "_pluginId": "Kai's list/KGS",
+    "_internalId": "Kai's list/KGS::KGS: Rapid Stream Development",
+    "_hash": "18b9b262a611",
+    "sourcePlugin": "Kai's list/KGS"
+  }
+]

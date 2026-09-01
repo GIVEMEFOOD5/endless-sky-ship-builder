@@ -1,0 +1,49 @@
+[
+  {
+    "name": "Celestial Strands Map",
+    "displayName": "Reveal Map",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onAccept": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Hideout",
+        "count": 1,
+        "pluginId": "Celestial Strands/celestial-strands",
+        "internalId": "Celestial Strands/celestial-strands::Hideout"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "revealStrands"
+    ],
+    "_pluginId": "Celestial Strands/celestial-strands",
+    "_internalId": "Celestial Strands/celestial-strands::Celestial Strands Map",
+    "_hash": "f5cf488bf234",
+    "sourcePlugin": "Celestial Strands/celestial-strands"
+  }
+]

@@ -3149,5 +3149,93 @@
   ],
   "outfits": [],
   "effects": [],
-  "parsedAt": "2026-09-01T03:21:59.123Z"
+  "galaxies": [],
+  "systems": [],
+  "planets": [],
+  "wormholes": [],
+  "missions": [
+    {
+      "name": "HumansGetHai",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [
+        "humans know hai"
+      ],
+      "_pluginId": "Better Vanilla Hai/BetterVanillaHai",
+      "_internalId": "Better Vanilla Hai/BetterVanillaHai::HumansGetHai",
+      "_hash": "18b9b262a611",
+      "sourcePlugin": "Better Vanilla Hai/BetterVanillaHai"
+    },
+    {
+      "name": "HumansGotHai",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": false,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": {
+        "type": "filter",
+        "value": {
+          "near": "Tarazed 100",
+          "not": "attributes uninhabited"
+        }
+      },
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [],
+      "_pluginId": "Better Vanilla Hai/BetterVanillaHai",
+      "_internalId": "Better Vanilla Hai/BetterVanillaHai::HumansGotHai",
+      "_hash": "c9c7b94d116a",
+      "sourcePlugin": "Better Vanilla Hai/BetterVanillaHai"
+    }
+  ],
+  "parsedAt": "2026-09-01T13:05:45.495Z"
 }

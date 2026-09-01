@@ -1,0 +1,689 @@
+[
+  {
+    "displayName": null,
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -400,
+      "y": 100
+    },
+    "government": "Republic",
+    "attributes": [
+      "near",
+      "earth"
+    ],
+    "music": null,
+    "arrival": null,
+    "departure": null,
+    "ramscoop": null,
+    "habitable": null,
+    "belts": [
+      {
+        "distance": 1529,
+        "weight": null,
+        "pluginId": "official-game/endless-sky"
+      }
+    ],
+    "invisibleFence": null,
+    "jumpRange": null,
+    "haze": "_menu/haze-67",
+    "links": [],
+    "asteroids": [],
+    "minables": [],
+    "trade": [],
+    "fleets": [],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "star/g0",
+        "spriteScale": null,
+        "distance": null,
+        "period": 10,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "official-game/endless-sky",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/mercury",
+        "spriteScale": null,
+        "distance": 289.647,
+        "period": 60,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "official-game/endless-sky",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/venus",
+        "spriteScale": null,
+        "distance": 533.534,
+        "period": 150,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "official-game/endless-sky",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": "Earth",
+        "isLandable": true,
+        "sprite": "planet/earth",
+        "spriteScale": null,
+        "distance": 965.669,
+        "period": 365.25,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [
+          {
+            "name": "Luna",
+            "isLandable": true,
+            "sprite": "planet/luna",
+            "spriteScale": null,
+            "distance": 201.24,
+            "period": 27.3,
+            "offset": null,
+            "visibility": null,
+            "hazards": [],
+            "children": [],
+            "pluginId": "official-game/endless-sky",
+            "internalId": "official-game/endless-sky::object:Luna",
+            "_planetData": {
+              "displayName": null,
+              "attributes": [
+                "factory",
+                "moon",
+                "near",
+                "earth",
+                "tourism"
+              ],
+              "requires": [],
+              "landscapes": [
+                {
+                  "name": "land/earthrise",
+                  "count": 1,
+                  "pluginId": "official-game/endless-sky",
+                  "internalId": "official-game/endless-sky::landscape:land/earthrise"
+                }
+              ],
+              "music": null,
+              "description": {
+                "text": "\tThe facility is still in operation, although it is now overshadowed by the far more advanced shipbuilding centers like Geminus in the Castor system.",
+                "toDisplay": null
+              },
+              "spaceport": {
+                "text": "\tEverything is so ancient and ramshackle that it feels almost like you have stepped back in time to the early days of human space flight. Perhaps that's what the tourists come here to experience.",
+                "toDisplay": null
+              },
+              "toKnow": null,
+              "toLand": null,
+              "toAccessOutfitter": null,
+              "toAccessShipyard": null,
+              "port": null,
+              "government": "Republic",
+              "governmentInherited": true,
+              "shipyards": [
+                {
+                  "name": "Basic Ships",
+                  "count": 1,
+                  "pluginId": "official-game/endless-sky",
+                  "internalId": "official-game/endless-sky::shipyard:Basic Ships"
+                },
+                {
+                  "name": "Navy Basics",
+                  "count": 1,
+                  "pluginId": "official-game/endless-sky",
+                  "internalId": "official-game/endless-sky::shipyard:Navy Basics"
+                },
+                {
+                  "name": "Betelgeuse Basics",
+                  "count": 1,
+                  "pluginId": "official-game/endless-sky",
+                  "internalId": "official-game/endless-sky::shipyard:Betelgeuse Basics"
+                },
+                {
+                  "name": "Syndicate Basics",
+                  "count": 1,
+                  "pluginId": "official-game/endless-sky",
+                  "internalId": "official-game/endless-sky::shipyard:Syndicate Basics"
+                },
+                {
+                  "name": "Tycho Crater Advanced",
+                  "count": 1,
+                  "pluginId": "official-game/endless-sky",
+                  "internalId": "official-game/endless-sky::shipyard:Tycho Crater Advanced"
+                }
+              ],
+              "outfitters": [
+                {
+                  "name": "Common Outfits",
+                  "count": 1,
+                  "pluginId": "official-game/endless-sky",
+                  "internalId": "official-game/endless-sky::outfitter:Common Outfits"
+                },
+                {
+                  "name": "Lovelace Basics",
+                  "count": 1,
+                  "pluginId": "official-game/endless-sky",
+                  "internalId": "official-game/endless-sky::outfitter:Lovelace Basics"
+                },
+                {
+                  "name": "Syndicate Basics",
+                  "count": 1,
+                  "pluginId": "official-game/endless-sky",
+                  "internalId": "official-game/endless-sky::outfitter:Syndicate Basics"
+                },
+                {
+                  "name": "Ammo North",
+                  "count": 1,
+                  "pluginId": "official-game/endless-sky",
+                  "internalId": "official-game/endless-sky::outfitter:Ammo North"
+                }
+              ],
+              "requiredReputation": null,
+              "bribe": 0.05,
+              "bribeThreshold": null,
+              "bribeFraction": null,
+              "security": 0.2,
+              "wormhole": null,
+              "tribute": {
+                "credits": 2500,
+                "threshold": 7500,
+                "fleets": [
+                  {
+                    "name": "Large Republic",
+                    "count": 10,
+                    "pluginId": "official-game/endless-sky",
+                    "internalId": "official-game/endless-sky::tributeFleet:Large Republic"
+                  }
+                ],
+                "dailyReputationPenalty": null
+              },
+              "tributeHails": {},
+              "systemName": "Sol",
+              "name": "Luna",
+              "_pluginId": "official-game/endless-sky",
+              "_internalId": "official-game/endless-sky::Luna",
+              "_definedBy": [
+                "official-game/endless-sky",
+                "Mega Freight/Mega-Freight"
+              ],
+              "_lastModifiedBy": "Mega Freight/Mega-Freight"
+            }
+          }
+        ],
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::object:Earth",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [
+            "education",
+            "factory",
+            "near",
+            "earth",
+            "research",
+            "tourism",
+            "urban"
+          ],
+          "requires": [],
+          "landscapes": [
+            {
+              "name": "land/city20",
+              "count": 1,
+              "pluginId": "official-game/endless-sky",
+              "internalId": "official-game/endless-sky::landscape:land/city20"
+            }
+          ],
+          "music": null,
+          "description": {
+            "text": "\tEarth is also the capital of the Republic. Representative government becomes complicated when one planet has a greater population than a hundred planets elsewhere. As a result, smaller settlements are grouped together into planetary districts that elect a single representative between them - a source of much frustration in the frontier worlds.",
+            "toDisplay": null
+          },
+          "spaceport": {
+            "text": "\tInside the towers is a warren of dim hallways and dingy shops. Hitchhikers sleep in the corners of unused docking bays under old army blankets, a few uniformed cleaners try to keep the litter and dust in check, and rich tourists from other stars cling tightly to their expensive cameras.",
+            "toDisplay": null
+          },
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": "Republic",
+          "governmentInherited": true,
+          "shipyards": [],
+          "outfitters": [
+            {
+              "name": "Common Outfits",
+              "count": 1,
+              "pluginId": "official-game/endless-sky",
+              "internalId": "official-game/endless-sky::outfitter:Common Outfits"
+            },
+            {
+              "name": "Lovelace Basics",
+              "count": 1,
+              "pluginId": "official-game/endless-sky",
+              "internalId": "official-game/endless-sky::outfitter:Lovelace Basics"
+            },
+            {
+              "name": "Syndicate Basics",
+              "count": 1,
+              "pluginId": "official-game/endless-sky",
+              "internalId": "official-game/endless-sky::outfitter:Syndicate Basics"
+            },
+            {
+              "name": "Ammo North",
+              "count": 1,
+              "pluginId": "official-game/endless-sky",
+              "internalId": "official-game/endless-sky::outfitter:Ammo North"
+            },
+            {
+              "name": "Capital Planet",
+              "count": 1,
+              "pluginId": "Quality of Life Outfits/QOL-Outfits",
+              "internalId": "Quality of Life Outfits/QOL-Outfits::outfitter:Capital Planet"
+            }
+          ],
+          "requiredReputation": 2,
+          "bribe": 0.03,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": 0.3,
+          "wormhole": null,
+          "tribute": {
+            "credits": 10000,
+            "threshold": 20000,
+            "fleets": [
+              {
+                "name": "Large Republic",
+                "count": 50,
+                "pluginId": "official-game/endless-sky",
+                "internalId": "official-game/endless-sky::tributeFleet:Large Republic"
+              }
+            ],
+            "dailyReputationPenalty": null
+          },
+          "tributeHails": {},
+          "systemName": "Sol",
+          "name": "Earth",
+          "_pluginId": "official-game/endless-sky",
+          "_internalId": "official-game/endless-sky::Earth",
+          "_definedBy": [
+            "official-game/endless-sky",
+            "Blended Ships/blended-ships",
+            "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
+            "Mega Freight/Mega-Freight",
+            "Quality of Life Outfits/QOL-Outfits"
+          ],
+          "_lastModifiedBy": "Quality of Life Outfits/QOL-Outfits"
+        }
+      },
+      {
+        "name": "Mars",
+        "isLandable": true,
+        "sprite": "planet/mars",
+        "spriteScale": null,
+        "distance": 1471.43,
+        "period": 687.001,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::object:Mars",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [
+            "farming",
+            "near",
+            "earth",
+            "tourism"
+          ],
+          "requires": [],
+          "landscapes": [
+            {
+              "name": "land/desert0",
+              "count": 1,
+              "pluginId": "official-game/endless-sky",
+              "internalId": "official-game/endless-sky::landscape:land/desert0"
+            }
+          ],
+          "music": null,
+          "description": {
+            "text": "\tBecause far more hospitable planets are available to those with enough money to pay for interstellar travel, the farms and ranches of Mars are run mostly by poorer Earth families who want to escape the pollution and congestion, along with some young adults who do farm work to help finance their once-in-a-lifetime opportunity to stand on another world.",
+            "toDisplay": null
+          },
+          "spaceport": {
+            "text": "The spaceport on Mars is situated next to the northern Polar Basin, one of the few places where, post-terraforming, a natural lake exists. Here, far more trees grow than elsewhere on the planet, and in the few warm months when the lake is not frozen, Mars almost looks like a friendly place.",
+            "toDisplay": null
+          },
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": "Republic",
+          "governmentInherited": true,
+          "shipyards": [],
+          "outfitters": [],
+          "requiredReputation": null,
+          "bribe": null,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": 0.2,
+          "wormhole": null,
+          "tribute": {
+            "credits": 1800,
+            "threshold": 4500,
+            "fleets": [
+              {
+                "name": "Small Republic",
+                "count": 64,
+                "pluginId": "official-game/endless-sky",
+                "internalId": "official-game/endless-sky::tributeFleet:Small Republic"
+              }
+            ],
+            "dailyReputationPenalty": null
+          },
+          "tributeHails": {},
+          "systemName": "Sol",
+          "name": "Mars",
+          "_pluginId": "official-game/endless-sky",
+          "_internalId": "official-game/endless-sky::Mars",
+          "_definedBy": [
+            "official-game/endless-sky",
+            "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
+            "Mega Freight/Mega-Freight"
+          ],
+          "_lastModifiedBy": "Mega Freight/Mega-Freight"
+        }
+      },
+      {
+        "name": "Jupiter",
+        "isLandable": true,
+        "sprite": "planet/jupiter",
+        "spriteScale": null,
+        "distance": 3339,
+        "period": 2348.4,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [
+          {
+            "name": null,
+            "isLandable": false,
+            "sprite": "planet/io",
+            "spriteScale": null,
+            "distance": 238.221,
+            "period": 10.614,
+            "offset": null,
+            "visibility": null,
+            "hazards": [],
+            "children": [],
+            "pluginId": "official-game/endless-sky",
+            "internalId": null,
+            "_planetData": null
+          },
+          {
+            "name": null,
+            "isLandable": false,
+            "sprite": "planet/europa",
+            "spriteScale": null,
+            "distance": 379.078,
+            "period": 21.306,
+            "offset": null,
+            "visibility": null,
+            "hazards": [],
+            "children": [],
+            "pluginId": "official-game/endless-sky",
+            "internalId": null,
+            "_planetData": null
+          },
+          {
+            "name": null,
+            "isLandable": false,
+            "sprite": "planet/ganymede",
+            "spriteScale": null,
+            "distance": 604.739,
+            "period": 42.93,
+            "offset": null,
+            "visibility": null,
+            "hazards": [],
+            "children": [],
+            "pluginId": "official-game/endless-sky",
+            "internalId": null,
+            "_planetData": null
+          },
+          {
+            "name": null,
+            "isLandable": false,
+            "sprite": "planet/callisto",
+            "spriteScale": null,
+            "distance": 811.717,
+            "period": 66.76,
+            "offset": null,
+            "visibility": null,
+            "hazards": [],
+            "children": [],
+            "pluginId": "official-game/endless-sky",
+            "internalId": null,
+            "_planetData": null
+          }
+        ],
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::object:Jupiter",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [
+            "gas",
+            "giant",
+            "gaslining",
+            "uninhabited"
+          ],
+          "requires": [
+            ""
+          ],
+          "landscapes": [
+            {
+              "name": "land/nasa32",
+              "count": 1,
+              "pluginId": "official-game/endless-sky",
+              "internalId": "official-game/endless-sky::landscape:land/nasa32"
+            }
+          ],
+          "music": null,
+          "description": {
+            "text": "\tFrom your vantage point, deep below the furthest excursions of human probes, you can see the glint of a few sensor balloons and floating deuterium collectors high above you.",
+            "toDisplay": null
+          },
+          "spaceport": null,
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": "Uninhabited",
+          "governmentInherited": false,
+          "shipyards": [],
+          "outfitters": [],
+          "requiredReputation": null,
+          "bribe": null,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": null,
+          "wormhole": null,
+          "tribute": null,
+          "tributeHails": {},
+          "systemName": "Sol",
+          "name": "Jupiter",
+          "_pluginId": "official-game/endless-sky",
+          "_internalId": "official-game/endless-sky::Jupiter",
+          "_definedBy": [
+            "official-game/endless-sky"
+          ],
+          "_lastModifiedBy": "official-game/endless-sky"
+        }
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/saturn",
+        "spriteScale": null,
+        "distance": 5562,
+        "period": 5048.87,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [
+          {
+            "name": null,
+            "isLandable": false,
+            "sprite": "planet/tethys",
+            "spriteScale": null,
+            "distance": 590,
+            "period": 1.9,
+            "offset": null,
+            "visibility": null,
+            "hazards": [],
+            "children": [],
+            "pluginId": "official-game/endless-sky",
+            "internalId": null,
+            "_planetData": null
+          },
+          {
+            "name": null,
+            "isLandable": false,
+            "sprite": "planet/rhea",
+            "spriteScale": null,
+            "distance": 791,
+            "period": 4.5,
+            "offset": null,
+            "visibility": null,
+            "hazards": [],
+            "children": [],
+            "pluginId": "official-game/endless-sky",
+            "internalId": null,
+            "_planetData": null
+          },
+          {
+            "name": null,
+            "isLandable": false,
+            "sprite": "planet/titan",
+            "spriteScale": null,
+            "distance": 1222,
+            "period": 16,
+            "offset": null,
+            "visibility": null,
+            "hazards": [],
+            "children": [],
+            "pluginId": "official-game/endless-sky",
+            "internalId": null,
+            "_planetData": null
+          }
+        ],
+        "pluginId": "official-game/endless-sky",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/uranus",
+        "spriteScale": null,
+        "distance": 10373,
+        "period": 12858.9,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [
+          {
+            "name": null,
+            "isLandable": false,
+            "sprite": "planet/miranda",
+            "spriteScale": null,
+            "distance": 195,
+            "period": 1.4,
+            "offset": null,
+            "visibility": null,
+            "hazards": [],
+            "children": [],
+            "pluginId": "official-game/endless-sky",
+            "internalId": null,
+            "_planetData": null
+          },
+          {
+            "name": null,
+            "isLandable": false,
+            "sprite": "planet/oberon",
+            "spriteScale": null,
+            "distance": 584,
+            "period": 13,
+            "offset": null,
+            "visibility": null,
+            "hazards": [],
+            "children": [],
+            "pluginId": "official-game/endless-sky",
+            "internalId": null,
+            "_planetData": null
+          }
+        ],
+        "pluginId": "official-game/endless-sky",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/neptune",
+        "spriteScale": null,
+        "distance": 15730,
+        "period": 24012.7,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "official-game/endless-sky",
+        "internalId": null,
+        "_planetData": null
+      }
+    ],
+    "planets": [],
+    "name": "Sol",
+    "_pluginId": "official-game/endless-sky",
+    "_internalId": "official-game/endless-sky::Sol",
+    "_definedBy": [
+      "official-game/endless-sky",
+      "Asteroid-Expansion/Asteroid-Expansion_EndlessSky",
+      "Blended Ships/blended-ships",
+      "Space Shuttle Start/Space-Shuttle-Start",
+      "Mega Freight/Mega-Freight",
+      "Rumskib/rumskib",
+      "SpaceCrate/SpaceCrate",
+      "Lost In Midnight/Lost-in-Midnight",
+      "POOT/poot-senza-solaria",
+      "POOT/endless_sky_senza_solaria",
+      "POOT/poot-senza-solaria_senza_solaria"
+    ],
+    "_lastModifiedBy": "POOT/poot-senza-solaria_senza_solaria"
+  }
+]

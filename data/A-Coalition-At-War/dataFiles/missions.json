@@ -1,0 +1,643 @@
+[
+  {
+    "name": "Join the Coalition",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onComplete": []
+      }
+    },
+    "source": null,
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Ring of Friendship",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Ring of Friendship"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "ACAW: Heliarch branch"
+    ],
+    "_pluginId": "A Coalition at War/A-Coalition-At-War",
+    "_internalId": "A Coalition at War/A-Coalition-At-War::Join the Coalition",
+    "_hash": "75b4931cc921",
+    "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Looting a Jump Drive (The First Time)",
+    "displayName": null,
+    "locations": [
+      "landing",
+      "job"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onComplete": [
+          {
+            "base": 5000000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": null,
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Ring of Friendship",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Ring of Friendship"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Heliarch Southern Wormhole",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": [
+        {
+          "name": "Kimek Spire Boarder",
+          "count": 1,
+          "pluginId": "A Coalition at War/A-Coalition-At-War",
+          "internalId": "A Coalition at War/A-Coalition-At-War::Kimek Spire Boarder",
+          "grantedIn": "onComplete",
+          "customName": null
+        }
+      ]
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "new ACAW ships",
+      "quarg ships looted"
+    ],
+    "_pluginId": "A Coalition at War/A-Coalition-At-War",
+    "_internalId": "A Coalition at War/A-Coalition-At-War::Looting a Jump Drive (The First Time)",
+    "_hash": "a72eff156b66",
+    "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Looting a Jump Drive",
+    "displayName": null,
+    "locations": [
+      "landing",
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {}
+    },
+    "source": null,
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Ring of Friendship",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Ring of Friendship"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Heliarch Southern Wormhole",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "A Coalition at War/A-Coalition-At-War",
+    "_internalId": "A Coalition at War/A-Coalition-At-War::Looting a Jump Drive",
+    "_hash": "58caf4758655",
+    "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Join the Quarg",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onComplete": []
+      }
+    },
+    "source": null,
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Forpelog",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Forpelog"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "ACAW: quarg branch"
+    ],
+    "_pluginId": "A Coalition at War/A-Coalition-At-War",
+    "_internalId": "A Coalition at War/A-Coalition-At-War::Join the Quarg",
+    "_hash": "3291f459efdf",
+    "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Observe the Heliarch's New Prototype",
+    "displayName": null,
+    "locations": [
+      "job"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onAccept": [],
+        "onEnter": [],
+        "onComplete": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Quarg Southern Wormhole",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "heliarch prototype",
+      "new ACAW ships"
+    ],
+    "_pluginId": "A Coalition at War/A-Coalition-At-War",
+    "_internalId": "A Coalition at War/A-Coalition-At-War::Observe the Heliarch's New Prototype",
+    "_hash": "8a68ddd4a1ed",
+    "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Overcharged Shield Module (The First Time)",
+    "displayName": null,
+    "locations": [
+      "job"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onComplete": [
+          {
+            "base": 2000000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Quarg Southern Wormhole",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": [
+        {
+          "name": "Kimek Spire",
+          "count": 1,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::Kimek Spire",
+          "grantedIn": "onComplete",
+          "customName": "Kimek Spire"
+        }
+      ]
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "heliarch loot"
+    ],
+    "_pluginId": "A Coalition at War/A-Coalition-At-War",
+    "_internalId": "A Coalition at War/A-Coalition-At-War::Overcharged Shield Module (The First Time)",
+    "_hash": "407548d0f499",
+    "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Overcharged Shield Module",
+    "displayName": null,
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {}
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Quarg Southern Wormhole",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "A Coalition at War/A-Coalition-At-War",
+    "_internalId": "A Coalition at War/A-Coalition-At-War::Overcharged Shield Module",
+    "_hash": "c62d23de5742",
+    "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "v0.10.4 Patch",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onComplete": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "remove quarg atrocities"
+    ],
+    "_pluginId": "A Coalition at War/A-Coalition-At-War",
+    "_internalId": "A Coalition at War/A-Coalition-At-War::v0.10.4 Patch",
+    "_hash": "c74615e4ad45",
+    "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Investigate the Anomaly (Coalition Source)",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onEnter": [],
+        "onVisit": [],
+        "onComplete": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Tebuteb's Table",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Tebuteb's Table"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Tebuteb's Table",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Tebuteb's Table"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Heliarch Southern Wormhole",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      },
+      {
+        "name": "Quarg Southern Wormhole",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "bad news"
+    ],
+    "_pluginId": "A Coalition at War/A-Coalition-At-War",
+    "_internalId": "A Coalition at War/A-Coalition-At-War::Investigate the Anomaly (Coalition Source)",
+    "_hash": "ed86ee6350bb",
+    "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Investigate the Anomaly (Quarg Source)",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onEnter": [],
+        "onVisit": [],
+        "onComplete": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Forpelog",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Forpelog"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Forpelog",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Forpelog"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Quarg Southern Wormhole",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      },
+      {
+        "name": "Heliarch Southern Wormhole",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "bad news"
+    ],
+    "_pluginId": "A Coalition at War/A-Coalition-At-War",
+    "_internalId": "A Coalition at War/A-Coalition-At-War::Investigate the Anomaly (Quarg Source)",
+    "_hash": "6cc4d5a5d2c3",
+    "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Choose a Side (Coalition Source)",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Tebuteb's Table",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Tebuteb's Table"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "remove quarg atrocities"
+    ],
+    "_pluginId": "A Coalition at War/A-Coalition-At-War",
+    "_internalId": "A Coalition at War/A-Coalition-At-War::Choose a Side (Coalition Source)",
+    "_hash": "f3a93fa5368b",
+    "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
+  },
+  {
+    "name": "Choose a Side (Quarg Source)",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Forpelog",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Forpelog"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "remove quarg atrocities"
+    ],
+    "_pluginId": "A Coalition at War/A-Coalition-At-War",
+    "_internalId": "A Coalition at War/A-Coalition-At-War::Choose a Side (Quarg Source)",
+    "_hash": "5b647292e5d0",
+    "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
+  }
+]

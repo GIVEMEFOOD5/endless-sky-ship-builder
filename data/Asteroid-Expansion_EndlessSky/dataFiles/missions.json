@@ -1,0 +1,253 @@
+[
+  {
+    "name": "Asteroid 0.1",
+    "displayName": null,
+    "locations": [
+      "outfitter"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onEnter": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "outfits": "Asteroid Scanner Research Laboratory Spectrometer Array Tuur Scanning Suite MCS Extractor"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky",
+    "_internalId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky::Asteroid 0.1",
+    "_hash": "1157730583a9",
+    "sourcePlugin": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky"
+  },
+  {
+    "name": "Mineral Shortages (Osmium)",
+    "displayName": "Harvested osmium to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": {
+      "days": 7,
+      "multiplier": 2
+    },
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 379500,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate Neutral Independent",
+        "attributes": "factory"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky",
+    "_internalId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky::Mineral Shortages (Osmium)",
+    "_hash": "f902a5946310",
+    "sourcePlugin": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky"
+  },
+  {
+    "name": "Mineral Shortages (Iridium)",
+    "displayName": "Harvested iridium to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": {
+      "days": 7,
+      "multiplier": 2
+    },
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 517500,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate Neutral Independent",
+        "attributes": "factory"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky",
+    "_internalId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky::Mineral Shortages (Iridium)",
+    "_hash": "36204a72cdaa",
+    "sourcePlugin": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky"
+  },
+  {
+    "name": "Mineral Shortages (Palladium)",
+    "displayName": "Harvested palladium to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": {
+      "days": 7,
+      "multiplier": 2
+    },
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 483000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate Neutral Independent",
+        "attributes": "factory"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky",
+    "_internalId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky::Mineral Shortages (Palladium)",
+    "_hash": "08d9f6d19f49",
+    "sourcePlugin": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky"
+  },
+  {
+    "name": "Mineral Shortages (Scandium)",
+    "displayName": "Harvested scandium to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": {
+      "days": 7,
+      "multiplier": 2
+    },
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 483000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate Neutral Independent",
+        "attributes": "factory"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky",
+    "_internalId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky::Mineral Shortages (Scandium)",
+    "_hash": "328454575d73",
+    "sourcePlugin": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky"
+  }
+]

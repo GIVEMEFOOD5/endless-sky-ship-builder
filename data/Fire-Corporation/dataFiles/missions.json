@@ -1,0 +1,1576 @@
+[
+  {
+    "name": "Non-Pirate License Trigger",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": true,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Non-Pirate License Trigger",
+    "_hash": "1701083e04ae",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "You are Pirate",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": true,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::You are Pirate",
+    "_hash": "1701083e04ae",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Marauder Sales",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": true,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate Independent Pirate"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "ms_on",
+      "ms_off"
+    ],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Marauder Sales",
+    "_hash": "11930db1726c",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Marauder Closing",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Marauder Closing",
+    "_hash": "826d0762abb9",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Bounty Hunting (Surprise)",
+    "displayName": "Wanted warlord near <system>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": 9,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": {
+      "days": 14,
+      "multiplier": 2
+    },
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {}
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate Neutral Independent",
+        "attributes": "rim south north dirt belt core frontier"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Bounty Hunting (Surprise)",
+    "_hash": "d6db35f42af3",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "New Pirates 1",
+    "displayName": "Investigate pirates in <waypoints>",
+    "locations": [],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onComplete": [
+          {
+            "base": 1200000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Free Worlds"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Antares",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::New Pirates 1",
+    "_hash": "8c4d601c4e97",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "New Pirates 2",
+    "displayName": "Investigate <destination>",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [
+          {
+            "base": 250000,
+            "multiplier": 0
+          }
+        ],
+        "onComplete": []
+      }
+    },
+    "source": null,
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Bloodsea",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Bloodsea"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::New Pirates 2",
+    "_hash": "5f72c1c65e5a",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "New Pirates 2b",
+    "displayName": "Go to the Fire Home in Kornephoros",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {}
+    },
+    "source": null,
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Deep",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Deep"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::New Pirates 2b",
+    "_hash": "53f5878f762f",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "New Pirates 3",
+    "displayName": "Lead an attack on <destination>",
+    "locations": [
+      "assisting",
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [
+          {
+            "base": 300000,
+            "multiplier": 0
+          }
+        ],
+        "onComplete": [
+          {
+            "base": 500000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Fire Corporation # offered on Trinket??"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::New Pirates 3",
+    "_hash": "177474788d8d",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "New Pirates 4",
+    "displayName": "Fend off the pirate attack",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onComplete": [
+          {
+            "base": 500000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Bloodsea",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Bloodsea"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::New Pirates 4",
+    "_hash": "cb5dc193be66",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "New Pirates 5",
+    "displayName": "Go to <destination>\"",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onComplete": []
+      }
+    },
+    "source": null,
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Greenrock",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Greenrock"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::New Pirates 5",
+    "_hash": "4def2ef118f7",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "New Pirates 6",
+    "displayName": "Go to <destination>\"",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onComplete": []
+      }
+    },
+    "source": null,
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Albatross",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Albatross"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::New Pirates 6",
+    "_hash": "7e8e97fe7e3f",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Small fire hunt [0]",
+    "displayName": "Hunt down the <npc>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onComplete": [
+          {
+            "base": 150000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate # no Independent because they are simply retired pirates."
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Small fire hunt [0]",
+    "_hash": "ed9b4936caf4",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Small fire hunt [1]",
+    "displayName": "Hunt down the <npc>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onComplete": [
+          {
+            "base": 150000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate # no Independent because they are simply retired pirates."
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Small fire hunt [1]",
+    "_hash": "ed9b4936caf4",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Small fire hunt [2]",
+    "displayName": "Hunt down the <npc>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onComplete": [
+          {
+            "base": 150000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate # no Independent because they are simply retired pirates."
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Small fire hunt [2]",
+    "_hash": "ed9b4936caf4",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Small fire hunt [3]",
+    "displayName": "Hunt down the <npc>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onComplete": [
+          {
+            "base": 150000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate # no Independent because they are simply retired pirates."
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Small fire hunt [3]",
+    "_hash": "ed9b4936caf4",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Medium fire hunt [0]",
+    "displayName": "Hunt down the <npc>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onComplete": [
+          {
+            "base": 350000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate # no Independent because they are simply retired pirates."
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Medium fire hunt [0]",
+    "_hash": "c5321b489eb3",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Medium fire hunt [1]",
+    "displayName": "Hunt down the <npc>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onComplete": [
+          {
+            "base": 350000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate # no Independent because they are simply retired pirates."
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Medium fire hunt [1]",
+    "_hash": "c5321b489eb3",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Medium fire hunt [2]",
+    "displayName": "Hunt down the <npc>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onComplete": [
+          {
+            "base": 350000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate # no Independent because they are simply retired pirates."
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Medium fire hunt [2]",
+    "_hash": "c5321b489eb3",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Medium fire hunt [3]",
+    "displayName": "Hunt down the <npc>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onComplete": [
+          {
+            "base": 350000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate # no Independent because they are simply retired pirates."
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Medium fire hunt [3]",
+    "_hash": "c5321b489eb3",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Fleet fire hunt [0]",
+    "displayName": "Hunt down fleet led by the <npc>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onComplete": [
+          {
+            "base": 500000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate # no Independent because they are simply retired pirates."
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Fleet fire hunt [0]",
+    "_hash": "4bfeaf96762d",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Fleet fire hunt [1]",
+    "displayName": "Hunt down fleet led by the <npc>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onComplete": [
+          {
+            "base": 500000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate # no Independent because they are simply retired pirates."
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Fleet fire hunt [1]",
+    "_hash": "4bfeaf96762d",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Fleet fire hunt [2]",
+    "displayName": "Hunt down fleet led by the <npc>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onComplete": [
+          {
+            "base": 500000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate # no Independent because they are simply retired pirates."
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Fleet fire hunt [2]",
+    "_hash": "4bfeaf96762d",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Fleet fire hunt [3]",
+    "displayName": "Hunt down fleet led by the <npc>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onComplete": [
+          {
+            "base": 500000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate # no Independent because they are simply retired pirates."
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Fleet fire hunt [3]",
+    "_hash": "4bfeaf96762d",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Hire escorts (FC) [0]",
+    "displayName": "Hire Escorts",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": {
+      "days": 30,
+      "multiplier": 2
+    },
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onFail": [
+          {
+            "base": -300000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate # no Independent because they are simply retired pirates."
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Hire escorts (FC) [0]",
+    "_hash": "656b8f2d0292",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Hire escorts (FC) [1]",
+    "displayName": "Hire Escorts",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": {
+      "days": 30,
+      "multiplier": 2
+    },
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onFail": [
+          {
+            "base": -300000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate # no Independent because they are simply retired pirates."
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Hire escorts (FC) [1]",
+    "_hash": "656b8f2d0292",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Hire escorts (FC) [2]",
+    "displayName": "Hire Escorts",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": {
+      "days": 30,
+      "multiplier": 2
+    },
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onFail": [
+          {
+            "base": -300000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate # no Independent because they are simply retired pirates."
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Hire escorts (FC) [2]",
+    "_hash": "656b8f2d0292",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Hire escorts (FC) [3]",
+    "displayName": "Hire Escorts",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": {
+      "days": 30,
+      "multiplier": 2
+    },
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onFail": [
+          {
+            "base": -300000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate # no Independent because they are simply retired pirates."
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Hire escorts (FC) [3]",
+    "_hash": "656b8f2d0292",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Recruit escorts (Firestorm)",
+    "displayName": "Add a <npc model> to your fleet",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {}
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate # no Independent because they are simply retired pirates."
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Recruit escorts (Firestorm)",
+    "_hash": "f31ede61408a",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Recruit escorts (Knife)",
+    "displayName": "Add a <npc model> to your fleet",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {}
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate # no Independent because they are simply retired pirates."
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Recruit escorts (Knife)",
+    "_hash": "f31ede61408a",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Recruit escorts (Fire Assassin)",
+    "displayName": "Add a <npc model> to your fleet",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {}
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate # no Independent because they are simply retired pirates."
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Recruit escorts (Fire Assassin)",
+    "_hash": "f31ede61408a",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Recruit escorts (Short Sword)",
+    "displayName": "Add a <npc model> to your fleet",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {}
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate # no Independent because they are simply retired pirates."
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Recruit escorts (Short Sword)",
+    "_hash": "f31ede61408a",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Pirate-Marauder Investigation 1",
+    "displayName": "Search for pirates on <destination>.",
+    "locations": [],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onComplete": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Wayfarer",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Wayfarer"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Pirate-Marauder Investigation 1",
+    "_hash": "ee73fded1bad",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  },
+  {
+    "name": "Pirate-Marauder Investigation 2",
+    "displayName": "Report of Fire Corporation",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onComplete": [
+          {
+            "base": 6000000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Wayfarer",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Wayfarer"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Sinter",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Sinter"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Pirate-Marauder Investigation 2",
+    "_hash": "0d5df216a8e6",
+    "sourcePlugin": "Fire Corporation/Fire-Corporation"
+  }
+]

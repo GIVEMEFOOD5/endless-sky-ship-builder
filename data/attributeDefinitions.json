@@ -16,14 +16,14 @@
       "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h",
       "tooltips": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/data/_ui/tooltips.txt"
     },
-    "generatedAt": "2026-09-01T03:22:09.063Z",
+    "generatedAt": "2026-09-01T13:06:04.084Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "FnName() calls refer to other ship functions.",
       "Multi-branch functions have one formula entry per return statement."
     ],
     "discovery": {
-      "scannedAt": "2026-09-01T03:22:06.786Z",
+      "scannedAt": "2026-09-01T13:05:59.107Z",
       "totalCandidatesScanned": 468,
       "relevantFilesFound": 26,
       "relevantFilePaths": [
@@ -129,7 +129,7 @@
       "note": "isMovementRelevant on each attribute (below) is derived structurally from the ship-function call graph, seeded only from InertialMass/Drag/DragForce — see movementSystem at the bottom of this file for the full function/attribute lists and rationale."
     },
     "dataUsage": {
-      "scannedAt": "2026-09-01T03:22:09.058Z",
+      "scannedAt": "2026-09-01T13:06:04.078Z",
       "filesScanned": 199,
       "attributeKeysObserved": 274,
       "dataOnlyAttributeKeys": [
@@ -4665,8 +4665,8 @@
         0.1,
         0.3,
         0.2,
-        2,
-        0.5
+        0.5,
+        1
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -7233,8 +7233,8 @@
         90,
         72,
         36,
-        18,
-        36
+        36,
+        18
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -7661,8 +7661,8 @@
         10,
         6,
         90,
-        5,
-        0.05
+        100,
+        5
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -8406,10 +8406,10 @@
       },
       "dataSampleValues": [
         -1,
-        -1,
-        -1,
-        -1,
-        -1
+        1,
+        1,
+        1,
+        1
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -8753,10 +8753,10 @@
         "max": 135
       },
       "dataSampleValues": [
-        0.0005,
-        1.1,
         50,
-        135
+        135,
+        0.0005,
+        1.1
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -8855,6 +8855,28 @@
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
+    "swarm capacity": {
+      "key": "swarm capacity",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Ammunition",
+        "Secondary Weapons"
+      ],
+      "dataUsageCount": 3,
+      "dataValueRange": {
+        "min": -1,
+        "max": 400
+      },
+      "dataSampleValues": [
+        200,
+        -1,
+        400
+      ],
+      "dataOnShip": false,
+      "dataOnOutfit": true,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
     "relay upgrades": {
       "key": "relay upgrades",
       "dataOnly": true,
@@ -8936,28 +8958,6 @@
         6,
         18,
         30
-      ],
-      "dataOnShip": false,
-      "dataOnOutfit": true,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
-    "swarm capacity": {
-      "key": "swarm capacity",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Ammunition",
-        "Secondary Weapons"
-      ],
-      "dataUsageCount": 3,
-      "dataValueRange": {
-        "min": -1,
-        "max": 400
-      },
-      "dataSampleValues": [
-        200,
-        -1,
-        400
       ],
       "dataOnShip": false,
       "dataOnOutfit": true,
@@ -9926,23 +9926,22 @@
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
-    "shield connection point": {
-      "key": "shield connection point",
+    "spike capacity": {
+      "key": "spike capacity",
       "dataOnly": true,
       "usedInDataCategories": [
-        "Systems"
+        "Ammunition",
+        "Secondary Weapons"
       ],
-      "dataUsageCount": 5,
+      "dataUsageCount": 3,
       "dataValueRange": {
-        "min": -2,
-        "max": 1
+        "min": -1,
+        "max": 20
       },
       "dataSampleValues": [
-        1,
-        1,
-        1,
-        1,
-        -2
+        20,
+        -1,
+        16
       ],
       "dataOnShip": false,
       "dataOnOutfit": true,
@@ -9987,22 +9986,23 @@
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
-    "spike capacity": {
-      "key": "spike capacity",
+    "shield connection point": {
+      "key": "shield connection point",
       "dataOnly": true,
       "usedInDataCategories": [
-        "Ammunition",
-        "Secondary Weapons"
+        "Systems"
       ],
-      "dataUsageCount": 3,
+      "dataUsageCount": 5,
       "dataValueRange": {
-        "min": -1,
-        "max": 20
+        "min": -2,
+        "max": 1
       },
       "dataSampleValues": [
-        20,
-        -1,
-        16
+        1,
+        1,
+        1,
+        1,
+        -2
       ],
       "dataOnShip": false,
       "dataOnOutfit": true,

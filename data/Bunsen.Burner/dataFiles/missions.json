@@ -1,0 +1,257 @@
+[
+  {
+    "name": "Bunsen Torch Banned",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "bunsen torch banned"
+    ],
+    "_pluginId": "LixiChronikouOrious list/Bunsen.Burner",
+    "_internalId": "LixiChronikouOrious list/Bunsen.Burner::Bunsen Torch Banned",
+    "_hash": "18b9b262a611",
+    "sourcePlugin": "LixiChronikouOrious list/Bunsen.Burner"
+  },
+  {
+    "name": "Bunsen Quickstart",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "bunsen burner available",
+      "bunsen torch banned"
+    ],
+    "_pluginId": "LixiChronikouOrious list/Bunsen.Burner",
+    "_internalId": "LixiChronikouOrious list/Bunsen.Burner::Bunsen Quickstart",
+    "_hash": "18b9b262a611",
+    "sourcePlugin": "LixiChronikouOrious list/Bunsen.Burner"
+  },
+  {
+    "name": "FW Flamethrower Deployment",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "fw flamethrowers deployed"
+    ],
+    "_pluginId": "LixiChronikouOrious list/Bunsen.Burner",
+    "_internalId": "LixiChronikouOrious list/Bunsen.Burner::FW Flamethrower Deployment",
+    "_hash": "18b9b262a611",
+    "sourcePlugin": "LixiChronikouOrious list/Bunsen.Burner"
+  },
+  {
+    "name": "FW Bunsen Burner Timer",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "fw bunsen burner init"
+    ],
+    "_pluginId": "LixiChronikouOrious list/Bunsen.Burner",
+    "_internalId": "LixiChronikouOrious list/Bunsen.Burner::FW Bunsen Burner Timer",
+    "_hash": "18b9b262a611",
+    "sourcePlugin": "LixiChronikouOrious list/Bunsen.Burner"
+  },
+  {
+    "name": "FW Bunsen Burner 1",
+    "displayName": "Weapon Testing",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Free Worlds Syndicate Republic Pirate"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Rust",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Rust"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Bunsen.Burner",
+    "_internalId": "LixiChronikouOrious list/Bunsen.Burner::FW Bunsen Burner 1",
+    "_hash": "b2b7f76b92c6",
+    "sourcePlugin": "LixiChronikouOrious list/Bunsen.Burner"
+  },
+  {
+    "name": "FW Bunsen Burner 2",
+    "displayName": "Weapon Testing",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onComplete": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Rust",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Rust"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "bunsen burner available"
+    ],
+    "_pluginId": "LixiChronikouOrious list/Bunsen.Burner",
+    "_internalId": "LixiChronikouOrious list/Bunsen.Burner::FW Bunsen Burner 2",
+    "_hash": "6b3049a94c20",
+    "sourcePlugin": "LixiChronikouOrious list/Bunsen.Burner"
+  }
+]

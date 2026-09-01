@@ -1,0 +1,1218 @@
+[
+  {
+    "name": "Monolith Job",
+    "displayName": "A Job Offer",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onDecline": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "attributes": "deep",
+        "not": "planet Valhalla"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Valhalla",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Valhalla"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "Monolith of the Shallow"
+    ],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Monolith Job",
+    "_hash": "169f2302b735",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Monolith of Lionheart",
+    "displayName": "Hacker Warfare",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": {
+      "days": 20,
+      "multiplier": 2
+    },
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onOffer": [],
+        "onEnter": [],
+        "onFail": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Valhalla",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Valhalla"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Haven",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Haven"
+      }
+    },
+    "stopovers": [
+      {
+        "name": "Haze",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Haze"
+      }
+    ],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "Monolith of the Shallow"
+    ],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Monolith of Lionheart",
+    "_hash": "00b26c632143",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Monolith Assualt",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 40,
+      "max": 40,
+      "mode": "fixed",
+      "nbParams": null
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Haze",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Haze"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Haven",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Haven"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Monolith Assualt",
+    "_hash": "e98dfaa8736e",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Monolith Raid",
+    "displayName": "Hacker Warfare",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Haven",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Haven"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Monolith Raid",
+    "_hash": "6b091681a49b",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Monolith Returning",
+    "displayName": "Hacker Warfare",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 21,
+      "max": 32,
+      "mode": "uniform",
+      "nbParams": null
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onComplete": [
+          {
+            "base": 10000000,
+            "multiplier": 0
+          }
+        ],
+        "onFail": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Haven",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Haven"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Valhalla",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Valhalla"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "Monolith of the Deep",
+      "Monolith of the Shallow"
+    ],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Monolith Returning",
+    "_hash": "d0a508c09e87",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Monolith Rolled Out",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "near": "Sol 100"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Monolith Rolled Out",
+    "_hash": "9eeed643a3a3",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Aesalon Roars",
+    "displayName": "Warship Retreaval",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": {
+      "days": 20,
+      "multiplier": 2
+    },
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onComplete": [
+          {
+            "base": 13000000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Wayfarer",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Wayfarer"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Shaula",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "Aesalon Roars"
+    ],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Aesalon Roars",
+    "_hash": "b172f163b995",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Killa Kid",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {}
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Wayfarer",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Wayfarer"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Killa Kid",
+    "_hash": "644c659037c6",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Hes just a Kid",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onEnter": [
+          {
+            "base": -300000000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Wayfarer",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Wayfarer"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Hes just a Kid",
+    "_hash": "a36acf8d269f",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Thats alotta money",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Greenrock",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Greenrock"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": [
+        {
+          "name": "Stolen Prototype",
+          "count": 1,
+          "pluginId": "Capitalis Major/Capitalis-Major",
+          "internalId": "Capitalis Major/Capitalis-Major::Stolen Prototype",
+          "grantedIn": "onOffer",
+          "customName": "Tarazed Prototype"
+        }
+      ]
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Thats alotta money",
+    "_hash": "086435b54b23",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Aesalon Rolled Out",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "near": "Sol 100"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Aesalon Rolled Out",
+    "_hash": "9eeed643a3a3",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Krieg: Material Collection",
+    "displayName": "Special Delivery",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onComplete": [
+          {
+            "base": 3000000,
+            "multiplier": 0
+          }
+        ],
+        "onDecline": [],
+        "onFail": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "near": "Sol 100"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Rust",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Rust"
+      }
+    },
+    "stopovers": [
+      {
+        "name": "Makerplace",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Makerplace"
+      },
+      {
+        "name": "Prime",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Prime"
+      },
+      {
+        "name": "Valhalla",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Valhalla"
+      }
+    ],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "Krieg Stands",
+      "Krieg Stands",
+      "Krieg Stands"
+    ],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Krieg: Material Collection",
+    "_hash": "9f878ed63b6e",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Krieg: Material Collection A",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "Electronics",
+      "min": 200,
+      "max": 200,
+      "mode": "fixed",
+      "nbParams": null
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Valhalla",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Valhalla"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Rust",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Rust"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Krieg: Material Collection A",
+    "_hash": "a807a1a8630e",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Krieg: Material Collection B",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "Metals",
+      "min": 400,
+      "max": 400,
+      "mode": "fixed",
+      "nbParams": null
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Prime",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Prime"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Rust",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Rust"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Krieg: Material Collection B",
+    "_hash": "57b089cf9c6c",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Krieg: Material Collection C",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "Metals",
+      "min": 600,
+      "max": 600,
+      "mode": "fixed",
+      "nbParams": null
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Makerplace",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Makerplace"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Rust",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Rust"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Krieg: Material Collection C",
+    "_hash": "59fb6523f890",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Krieg Rolled Out",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "near": "Sol 100"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Krieg Rolled Out",
+    "_hash": "9eeed643a3a3",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Sestor Factory Ship Elimination",
+    "displayName": "Unknown Sestor Factory",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": {
+      "days": 10,
+      "multiplier": 2
+    },
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onEnter": [],
+        "onComplete": [
+          {
+            "base": 10000000,
+            "multiplier": 0
+          }
+        ],
+        "onFail": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Desi Seledrak",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Desi Seledrak"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "wanderers: Kar Ik Vot 927 Escaped"
+    ],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Sestor Factory Ship Elimination",
+    "_hash": "b80848f6ad81",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Wanderer Sestor Confusion",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Wanderer"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Wanderer Sestor Confusion",
+    "_hash": "9ad59bb11c0d",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Ae Il I-Delta Found",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onEnter": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Ae Il I-Delta Found",
+    "_hash": "0d560ef1bd61",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Ae Il I-Delta Defence Fleet",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {}
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Ae Il I-Delta Defence Fleet",
+    "_hash": "0df98d11da87",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Sestor Factory Mothership",
+    "displayName": "Sestor Mothership Elimination",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onComplete": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Ae Il I-Delta",
+        "count": 1,
+        "pluginId": "Capitalis Major/Capitalis-Major",
+        "internalId": "Capitalis Major/Capitalis-Major::Ae Il I-Delta"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "Sestor Second Factory Eliminated A",
+      "Sestor Second Factory Eliminated B",
+      "Sestor Second Factory Eliminated C"
+    ],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Sestor Factory Mothership",
+    "_hash": "d281db20d6a1",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Quarg Sestor Aid",
+    "displayName": "Quarg Help",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onComplete": [
+          {
+            "base": 8000000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "attributes": "gegno quarg quarg"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Ae Il I-Delta",
+        "count": 1,
+        "pluginId": "Capitalis Major/Capitalis-Major",
+        "internalId": "Capitalis Major/Capitalis-Major::Ae Il I-Delta"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Quarg Sestor Aid",
+    "_hash": "ed6ac1e4920e",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  },
+  {
+    "name": "Sestor Factory Mothership Rematch",
+    "displayName": "Sestor Mothership Elimination",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onComplete": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Ae Il I-Delta",
+        "count": 1,
+        "pluginId": "Capitalis Major/Capitalis-Major",
+        "internalId": "Capitalis Major/Capitalis-Major::Ae Il I-Delta"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "Sestor Second Factory Eliminated A",
+      "Sestor Second Factory Eliminated B",
+      "Sestor Second Factory Eliminated C"
+    ],
+    "_pluginId": "Capitalis Major/Capitalis-Major",
+    "_internalId": "Capitalis Major/Capitalis-Major::Sestor Factory Mothership Rematch",
+    "_hash": "d281db20d6a1",
+    "sourcePlugin": "Capitalis Major/Capitalis-Major"
+  }
+]

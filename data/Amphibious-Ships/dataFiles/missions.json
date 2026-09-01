@@ -1,0 +1,4488 @@
+[
+  {
+    "name": "First Contact: Navarchs",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::First Contact: Navarchs",
+    "_hash": "18a463927b94",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Contact Quarg Reaction",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "not": "government Navarch"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Contact Quarg Reaction",
+    "_hash": "0bb584d9672b",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Small Talk I",
+    "displayName": null,
+    "locations": [],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Small Talk I",
+    "_hash": "74b450205c59",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Palendra Button Push",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Palendra",
+        "count": 1,
+        "pluginId": "Amphibious Ships/Amphibious-Ships",
+        "internalId": "Amphibious Ships/Amphibious-Ships::Palendra"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Palendra Button Push",
+    "_hash": "56d71a76a358",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Enpaldra Button Push",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Enpaldra",
+        "count": 1,
+        "pluginId": "Amphibious Ships/Amphibious-Ships",
+        "internalId": "Amphibious Ships/Amphibious-Ships::Enpaldra"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Enpaldra Button Push",
+    "_hash": "ba0a75163abe",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Drepalen Button Push",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Drepalen",
+        "count": 1,
+        "pluginId": "Amphibious Ships/Amphibious-Ships",
+        "internalId": "Amphibious Ships/Amphibious-Ships::Drepalen"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Drepalen Button Push",
+    "_hash": "b9862b28d7bd",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch System Reveal",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "Navarch System Reveal"
+    ],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch System Reveal",
+    "_hash": "9cd0df2272d7",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Small, Stable) [0]",
+    "displayName": "Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 380,
+      "max": null,
+      "expected": 428,
+      "softMax": 532,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.04
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 500000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Small, Stable) [0]",
+    "_hash": "df05990ed7a6",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Small, Stable) [1]",
+    "displayName": "Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 380,
+      "max": null,
+      "expected": 428,
+      "softMax": 532,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.04
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 500000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Small, Stable) [1]",
+    "_hash": "df05990ed7a6",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Small, Stable) [2]",
+    "displayName": "Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 380,
+      "max": null,
+      "expected": 428,
+      "softMax": 532,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.04
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 500000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Small, Stable) [2]",
+    "_hash": "df05990ed7a6",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Small, Stable) [3]",
+    "displayName": "Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 380,
+      "max": null,
+      "expected": 428,
+      "softMax": 532,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.04
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 500000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Small, Stable) [3]",
+    "_hash": "df05990ed7a6",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Small, Stable) [4]",
+    "displayName": "Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 380,
+      "max": null,
+      "expected": 428,
+      "softMax": 532,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.04
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 500000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Small, Stable) [4]",
+    "_hash": "df05990ed7a6",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Small, Stable) [5]",
+    "displayName": "Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 380,
+      "max": null,
+      "expected": 428,
+      "softMax": 532,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.04
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 500000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Small, Stable) [5]",
+    "_hash": "df05990ed7a6",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Small, Stable) [6]",
+    "displayName": "Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 380,
+      "max": null,
+      "expected": 428,
+      "softMax": 532,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.04
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 500000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Small, Stable) [6]",
+    "_hash": "df05990ed7a6",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Small, Stable) [7]",
+    "displayName": "Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 380,
+      "max": null,
+      "expected": 428,
+      "softMax": 532,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.04
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 500000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Small, Stable) [7]",
+    "_hash": "df05990ed7a6",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Small, Flux) [0]",
+    "displayName": "Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 300,
+      "max": null,
+      "expected": 612,
+      "softMax": 877,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 13,
+        "p": 0.04
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 600000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Small, Flux) [0]",
+    "_hash": "a66fd5f80225",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Small, Flux) [1]",
+    "displayName": "Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 300,
+      "max": null,
+      "expected": 612,
+      "softMax": 877,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 13,
+        "p": 0.04
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 600000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Small, Flux) [1]",
+    "_hash": "a66fd5f80225",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Small, Flux) [2]",
+    "displayName": "Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 300,
+      "max": null,
+      "expected": 612,
+      "softMax": 877,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 13,
+        "p": 0.04
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 600000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Small, Flux) [2]",
+    "_hash": "a66fd5f80225",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Small, Flux) [3]",
+    "displayName": "Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 300,
+      "max": null,
+      "expected": 612,
+      "softMax": 877,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 13,
+        "p": 0.04
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 600000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Small, Flux) [3]",
+    "_hash": "a66fd5f80225",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Small, Flux) [4]",
+    "displayName": "Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 300,
+      "max": null,
+      "expected": 612,
+      "softMax": 877,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 13,
+        "p": 0.04
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 600000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Small, Flux) [4]",
+    "_hash": "a66fd5f80225",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Medium, Stable) [0]",
+    "displayName": "Large delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 790,
+      "max": null,
+      "expected": 870,
+      "softMax": 971,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 6,
+        "p": 0.07
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 500000,
+            "multiplier": 625
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Medium, Stable) [0]",
+    "_hash": "9a80227706aa",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Medium, Stable) [1]",
+    "displayName": "Large delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 790,
+      "max": null,
+      "expected": 870,
+      "softMax": 971,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 6,
+        "p": 0.07
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 700000,
+            "multiplier": 625
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Medium, Stable) [1]",
+    "_hash": "e3147ffd6b62",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Medium, Stable) [2]",
+    "displayName": "Large delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 790,
+      "max": null,
+      "expected": 870,
+      "softMax": 971,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 6,
+        "p": 0.07
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 700000,
+            "multiplier": 625
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Medium, Stable) [2]",
+    "_hash": "e3147ffd6b62",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Medium, Stable) [3]",
+    "displayName": "Large delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 790,
+      "max": null,
+      "expected": 870,
+      "softMax": 971,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 6,
+        "p": 0.07
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 700000,
+            "multiplier": 625
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Medium, Stable) [3]",
+    "_hash": "e3147ffd6b62",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Medium, Stable) [4]",
+    "displayName": "Large delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 790,
+      "max": null,
+      "expected": 870,
+      "softMax": 971,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 6,
+        "p": 0.07
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 700000,
+            "multiplier": 625
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Medium, Stable) [4]",
+    "_hash": "e3147ffd6b62",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Medium, Stable) [5]",
+    "displayName": "Large delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 790,
+      "max": null,
+      "expected": 870,
+      "softMax": 971,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 6,
+        "p": 0.07
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 700000,
+            "multiplier": 625
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Medium, Stable) [5]",
+    "_hash": "e3147ffd6b62",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Medium, Flux) [0]",
+    "displayName": "Large delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 710,
+      "max": null,
+      "expected": 1033,
+      "softMax": 1274,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 17,
+        "p": 0.05
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 800000,
+            "multiplier": 625
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Medium, Flux) [0]",
+    "_hash": "917d604b827d",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Medium, Flux) [1]",
+    "displayName": "Large delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 710,
+      "max": null,
+      "expected": 1033,
+      "softMax": 1274,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 17,
+        "p": 0.05
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 800000,
+            "multiplier": 625
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Medium, Flux) [1]",
+    "_hash": "917d604b827d",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Medium, Flux) [2]",
+    "displayName": "Large delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 710,
+      "max": null,
+      "expected": 1033,
+      "softMax": 1274,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 17,
+        "p": 0.05
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 800000,
+            "multiplier": 625
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Medium, Flux) [2]",
+    "_hash": "917d604b827d",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Medium, Flux) [3]",
+    "displayName": "Large delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 710,
+      "max": null,
+      "expected": 1033,
+      "softMax": 1274,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 17,
+        "p": 0.05
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 800000,
+            "multiplier": 625
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Medium, Flux) [3]",
+    "_hash": "917d604b827d",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Large, Stable) [0]",
+    "displayName": "Huge delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 1520,
+      "max": null,
+      "expected": 1672,
+      "softMax": 1837,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 8,
+        "p": 0.05
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 900000,
+            "multiplier": 650
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Large, Stable) [0]",
+    "_hash": "40dc2f99b228",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Large, Stable) [1]",
+    "displayName": "Huge delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 1520,
+      "max": null,
+      "expected": 1672,
+      "softMax": 1837,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 8,
+        "p": 0.05
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 900000,
+            "multiplier": 650
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Large, Stable) [1]",
+    "_hash": "40dc2f99b228",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Large, Stable) [2]",
+    "displayName": "Huge delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 1520,
+      "max": null,
+      "expected": 1672,
+      "softMax": 1837,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 8,
+        "p": 0.05
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 900000,
+            "multiplier": 650
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Large, Stable) [2]",
+    "_hash": "40dc2f99b228",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Large, Stable) [3]",
+    "displayName": "Huge delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 1520,
+      "max": null,
+      "expected": 1672,
+      "softMax": 1837,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 8,
+        "p": 0.05
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 900000,
+            "multiplier": 650
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Large, Stable) [3]",
+    "_hash": "40dc2f99b228",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Large, Flux) [0]",
+    "displayName": "Huge delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 1360,
+      "max": null,
+      "expected": 1974,
+      "softMax": 2404,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 19,
+        "p": 0.03
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1000000,
+            "multiplier": 650
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Large, Flux) [0]",
+    "_hash": "dd77d3be65ef",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Delivery (Large, Flux) [1]",
+    "displayName": "Huge delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 1360,
+      "max": null,
+      "expected": 1974,
+      "softMax": 2404,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 19,
+        "p": 0.03
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1000000,
+            "multiplier": 650
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Delivery (Large, Flux) [1]",
+    "_hash": "dd77d3be65ef",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Small, Stable) [0]",
+    "displayName": "Soldiers to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 85,
+      "max": null,
+      "expected": 140,
+      "softMax": 192,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 13,
+        "p": 0.19
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 800000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Small, Stable) [0]",
+    "_hash": "f4d784b485e2",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Small, Stable) [1]",
+    "displayName": "Soldiers to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 85,
+      "max": null,
+      "expected": 140,
+      "softMax": 192,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 13,
+        "p": 0.19
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 800000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Small, Stable) [1]",
+    "_hash": "f4d784b485e2",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Small, Stable) [2]",
+    "displayName": "Soldiers to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 85,
+      "max": null,
+      "expected": 140,
+      "softMax": 192,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 13,
+        "p": 0.19
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 800000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Small, Stable) [2]",
+    "_hash": "f4d784b485e2",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Small, Stable) [3]",
+    "displayName": "Workers to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 85,
+      "max": null,
+      "expected": 140,
+      "softMax": 192,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 13,
+        "p": 0.19
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 800000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Small, Stable) [3]",
+    "_hash": "f6283422831c",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Small, Stable) [4]",
+    "displayName": "Workers to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 85,
+      "max": null,
+      "expected": 140,
+      "softMax": 192,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 13,
+        "p": 0.19
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 800000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Small, Stable) [4]",
+    "_hash": "f6283422831c",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Small, Stable) [5]",
+    "displayName": "Workers to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 85,
+      "max": null,
+      "expected": 140,
+      "softMax": 192,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 13,
+        "p": 0.19
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 800000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Small, Stable) [5]",
+    "_hash": "f6283422831c",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Small, Stable) [6]",
+    "displayName": "Workers to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 85,
+      "max": null,
+      "expected": 140,
+      "softMax": 192,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 13,
+        "p": 0.19
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 800000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Small, Stable) [6]",
+    "_hash": "f6283422831c",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Small, Flux) [0]",
+    "displayName": "Soldiers to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 60,
+      "max": null,
+      "expected": 201,
+      "softMax": 346,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 9,
+        "p": 0.06
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 900000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Small, Flux) [0]",
+    "_hash": "54311dc7aac7",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Small, Flux) [1]",
+    "displayName": "Soldiers to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 60,
+      "max": null,
+      "expected": 201,
+      "softMax": 346,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 9,
+        "p": 0.06
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 900000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Small, Flux) [1]",
+    "_hash": "54311dc7aac7",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Small, Flux) [2]",
+    "displayName": "Workers to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 60,
+      "max": null,
+      "expected": 201,
+      "softMax": 346,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 9,
+        "p": 0.06
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 900000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Small, Flux) [2]",
+    "_hash": "a4faacae3788",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Small, Flux) [3]",
+    "displayName": "Workers to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 60,
+      "max": null,
+      "expected": 201,
+      "softMax": 346,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 9,
+        "p": 0.06
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 900000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Small, Flux) [3]",
+    "_hash": "a4faacae3788",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Small, Flux) [4]",
+    "displayName": "Workers to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 60,
+      "max": null,
+      "expected": 201,
+      "softMax": 346,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 9,
+        "p": 0.06
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 900000,
+            "multiplier": 600
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Small, Flux) [4]",
+    "_hash": "a4faacae3788",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Medium, Stable) [0]",
+    "displayName": "Battalion to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 350,
+      "max": null,
+      "expected": 460,
+      "softMax": 551,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 15,
+        "p": 0.12
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1000000,
+            "multiplier": 625
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Medium, Stable) [0]",
+    "_hash": "f755185e5dda",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Medium, Stable) [1]",
+    "displayName": "Battalion to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 350,
+      "max": null,
+      "expected": 460,
+      "softMax": 551,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 15,
+        "p": 0.12
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1000000,
+            "multiplier": 625
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Medium, Stable) [1]",
+    "_hash": "f755185e5dda",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Medium, Stable) [2]",
+    "displayName": "Battalion to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 350,
+      "max": null,
+      "expected": 460,
+      "softMax": 551,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 15,
+        "p": 0.12
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1000000,
+            "multiplier": 625
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Medium, Stable) [2]",
+    "_hash": "f755185e5dda",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Medium, Stable) [3]",
+    "displayName": "Large work crew to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 350,
+      "max": null,
+      "expected": 460,
+      "softMax": 551,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 15,
+        "p": 0.12
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1000000,
+            "multiplier": 625
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Medium, Stable) [3]",
+    "_hash": "cdd4dce88ee3",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Medium, Stable) [4]",
+    "displayName": "Large work crew to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 350,
+      "max": null,
+      "expected": 460,
+      "softMax": 551,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 15,
+        "p": 0.12
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1000000,
+            "multiplier": 625
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Medium, Stable) [4]",
+    "_hash": "cdd4dce88ee3",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Medium, Stable) [5]",
+    "displayName": "Large work crew to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 350,
+      "max": null,
+      "expected": 460,
+      "softMax": 551,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 15,
+        "p": 0.12
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1000000,
+            "multiplier": 625
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Medium, Stable) [5]",
+    "_hash": "cdd4dce88ee3",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Medium, Flux) [0]",
+    "displayName": "Battalion to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 300,
+      "max": null,
+      "expected": 547,
+      "softMax": 758,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 13,
+        "p": 0.05
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1100000,
+            "multiplier": 625
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Medium, Flux) [0]",
+    "_hash": "89e68b79a924",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Medium, Flux) [1]",
+    "displayName": "Large work crew to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 300,
+      "max": null,
+      "expected": 547,
+      "softMax": 758,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 13,
+        "p": 0.05
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1100000,
+            "multiplier": 625
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Medium, Flux) [1]",
+    "_hash": "273c5087a4c7",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Large, Stable) [1]",
+    "displayName": "League to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 800,
+      "max": null,
+      "expected": 927,
+      "softMax": 1046,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 11,
+        "p": 0.08
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1200000,
+            "multiplier": 650
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Large, Stable) [1]",
+    "_hash": "8f94e82081f5",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Large, Stable) [2]",
+    "displayName": "Huge work crew to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 800,
+      "max": null,
+      "expected": 927,
+      "softMax": 1046,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 11,
+        "p": 0.08
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1200000,
+            "multiplier": 650
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Large, Stable) [2]",
+    "_hash": "7a5a90963b26",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Large, Stable) [3]",
+    "displayName": "Huge work crew to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 800,
+      "max": null,
+      "expected": 927,
+      "softMax": 1046,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 11,
+        "p": 0.08
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1200000,
+            "multiplier": 650
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Large, Stable) [3]",
+    "_hash": "7a5a90963b26",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Large, Flux) [0]",
+    "displayName": "Huge work crew to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 700,
+      "max": null,
+      "expected": 1092,
+      "softMax": 1512,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 8,
+        "p": 0.02
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1300000,
+            "multiplier": 650
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Large, Flux) [0]",
+    "_hash": "e38d60864167",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Passengers (Large, Flux) [1]",
+    "displayName": "Huge work crew to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 700,
+      "max": null,
+      "expected": 1092,
+      "softMax": 1512,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 8,
+        "p": 0.02
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1300000,
+            "multiplier": 650
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Navarch"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Passengers (Large, Flux) [1]",
+    "_hash": "e38d60864167",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Researchers (Small) [0]",
+    "displayName": "Small research crew to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "research materials",
+      "min": 60,
+      "max": null,
+      "expected": 231,
+      "softMax": 406,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 9,
+        "p": 0.05
+      }
+    },
+    "passengers": {
+      "min": 100,
+      "max": null,
+      "expected": 211,
+      "softMax": 317,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 11,
+        "p": 0.09
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1000000,
+            "multiplier": 625
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch",
+        "not": "attributes navarch research"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "1 10",
+        "government": "Navarch",
+        "attributes": "navarch research"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Researchers (Small) [0]",
+    "_hash": "4d7d7b52d5d2",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Researchers (Small) [1]",
+    "displayName": "Small research crew to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "research materials",
+      "min": 60,
+      "max": null,
+      "expected": 231,
+      "softMax": 406,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 9,
+        "p": 0.05
+      }
+    },
+    "passengers": {
+      "min": 100,
+      "max": null,
+      "expected": 211,
+      "softMax": 317,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 11,
+        "p": 0.09
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1000000,
+            "multiplier": 625
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch",
+        "not": "attributes navarch research"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "1 10",
+        "government": "Navarch",
+        "attributes": "navarch research"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Researchers (Small) [1]",
+    "_hash": "4d7d7b52d5d2",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Researchers (Small) [2]",
+    "displayName": "Small research crew to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "research materials",
+      "min": 60,
+      "max": null,
+      "expected": 231,
+      "softMax": 406,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 9,
+        "p": 0.05
+      }
+    },
+    "passengers": {
+      "min": 100,
+      "max": null,
+      "expected": 211,
+      "softMax": 317,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 11,
+        "p": 0.09
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1000000,
+            "multiplier": 625
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch",
+        "not": "attributes navarch research"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "1 10",
+        "government": "Navarch",
+        "attributes": "navarch research"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Researchers (Small) [2]",
+    "_hash": "4d7d7b52d5d2",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Researchers (Medium) [1]",
+    "displayName": "Research crew to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "research materials",
+      "min": 90,
+      "max": null,
+      "expected": 394,
+      "softMax": 628,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 16,
+        "p": 0.05
+      }
+    },
+    "passengers": {
+      "min": 240,
+      "max": null,
+      "expected": 412,
+      "softMax": 543,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 17,
+        "p": 0.09
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1250000,
+            "multiplier": 650
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch",
+        "not": "attributes navarch research"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "1 10",
+        "government": "Navarch",
+        "attributes": "navarch research"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Researchers (Medium) [1]",
+    "_hash": "239eb4784041",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Researchers (Medium) [2]",
+    "displayName": "Research crew to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "research materials",
+      "min": 90,
+      "max": null,
+      "expected": 394,
+      "softMax": 628,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 16,
+        "p": 0.05
+      }
+    },
+    "passengers": {
+      "min": 240,
+      "max": null,
+      "expected": 412,
+      "softMax": 543,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 17,
+        "p": 0.09
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1250000,
+            "multiplier": 650
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch",
+        "not": "attributes navarch research"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "1 10",
+        "government": "Navarch",
+        "attributes": "navarch research"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Researchers (Medium) [2]",
+    "_hash": "239eb4784041",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Small Quarg Automata Hunting (Melirad)",
+    "displayName": "Unusual Quarg automaton presence in Melirad",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 8000000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Small Quarg Automata Hunting (Melirad)",
+    "_hash": "e87d3b051f25",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Small Quarg Automata Hunting (Onirigad)",
+    "displayName": "Unusual Quarg automaton presence in Onirigad",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 8000000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Small Quarg Automata Hunting (Onirigad)",
+    "_hash": "4e2f0143071d",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Quarg Automata Hunting (Ulad)",
+    "displayName": "Concerning Quarg automaton presence in Ulad",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 28000000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Navarch"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Quarg Automata Hunting (Ulad)",
+    "_hash": "910430abeceb",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Archives",
+    "displayName": null,
+    "locations": [],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "planet": "Resei"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Archives",
+    "_hash": "f673e6017156",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Klados [1]",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "planet": "Venif"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "Navarch Klados Waiting Period"
+    ],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Klados [1]",
+    "_hash": "3121d7a6416a",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Klados [2]",
+    "displayName": "Klados Testing",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": {
+      "type": "filter",
+      "value": {
+        "planet": "Venif"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Klados [2]",
+    "_hash": "469360731620",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  },
+  {
+    "name": "Navarch Klados [3]",
+    "displayName": "Klados Test Fight",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onComplete": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "planet": "Venif"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "Klados Early Sales",
+      "Klados Full Sales",
+      "Klados Early Adoption",
+      "Klados Full Adoption"
+    ],
+    "_pluginId": "Amphibious Ships/Amphibious-Ships",
+    "_internalId": "Amphibious Ships/Amphibious-Ships::Navarch Klados [3]",
+    "_hash": "363b610bb066",
+    "sourcePlugin": "Amphibious Ships/Amphibious-Ships"
+  }
+]

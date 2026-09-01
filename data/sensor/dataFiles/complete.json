@@ -1655,5 +1655,896 @@
       "pluginId": "sensor/sensor"
     }
   ],
-  "parsedAt": "2026-09-01T03:21:59.380Z"
+  "galaxies": [],
+  "systems": [
+    {
+      "displayName": null,
+      "flags": {
+        "inaccessible": false,
+        "hidden": false,
+        "shrouded": false
+      },
+      "pos": {
+        "x": 53,
+        "y": 62
+      },
+      "government": "sensor",
+      "attributes": [],
+      "music": null,
+      "arrival": {
+        "distance": 5000,
+        "link": 1,
+        "jump": 5000
+      },
+      "departure": null,
+      "ramscoop": {
+        "universal": 1,
+        "addend": 0.5,
+        "multiplier": 1
+      },
+      "habitable": 10000,
+      "belts": [
+        {
+          "distance": 10000,
+          "weight": null,
+          "pluginId": "sensor/sensor"
+        },
+        {
+          "distance": 10000,
+          "weight": null,
+          "pluginId": "sensor/sensor"
+        },
+        {
+          "distance": 10000,
+          "weight": null,
+          "pluginId": "sensor/sensor"
+        },
+        {
+          "distance": 10000,
+          "weight": null,
+          "pluginId": "sensor/sensor"
+        },
+        {
+          "distance": 10000,
+          "weight": null,
+          "pluginId": "sensor/sensor"
+        },
+        {
+          "distance": 10000,
+          "weight": null,
+          "pluginId": "sensor/sensor"
+        },
+        {
+          "distance": 10000,
+          "weight": null,
+          "pluginId": "sensor/sensor"
+        },
+        {
+          "distance": 10000,
+          "weight": null,
+          "pluginId": "sensor/sensor"
+        }
+      ],
+      "invisibleFence": 10000,
+      "jumpRange": null,
+      "haze": "_menu/haze-full",
+      "links": [],
+      "asteroids": [],
+      "minables": [
+        {
+          "name": "lead",
+          "count": 1,
+          "pluginId": "sensor/sensor",
+          "internalId": "sensor/sensor::minables:lead",
+          "asteroidCount": 400,
+          "energy": 0.1
+        },
+        {
+          "name": "tungsten",
+          "count": 1,
+          "pluginId": "sensor/sensor",
+          "internalId": "sensor/sensor::minables:tungsten",
+          "asteroidCount": 101,
+          "energy": 0.1
+        },
+        {
+          "name": "titanium",
+          "count": 1,
+          "pluginId": "sensor/sensor",
+          "internalId": "sensor/sensor::minables:titanium",
+          "asteroidCount": 90,
+          "energy": 0.1
+        },
+        {
+          "name": "uranium",
+          "count": 1,
+          "pluginId": "sensor/sensor",
+          "internalId": "sensor/sensor::minables:uranium",
+          "asteroidCount": 240,
+          "energy": 0.1
+        }
+      ],
+      "trade": [],
+      "fleets": [
+        {
+          "name": "sensor guard fleet",
+          "count": 1,
+          "pluginId": "sensor/sensor",
+          "internalId": "sensor/sensor::systemFleet:sensor guard fleet",
+          "period": 200,
+          "toSpawn": null
+        },
+        {
+          "name": "sensor swarm fleet",
+          "count": 1,
+          "pluginId": "sensor/sensor",
+          "internalId": "sensor/sensor::systemFleet:sensor swarm fleet",
+          "period": 60,
+          "toSpawn": null
+        }
+      ],
+      "raids": [],
+      "noRaids": false,
+      "hazards": [
+        {
+          "name": "Ringworld gravity",
+          "count": 1,
+          "pluginId": "sensor/sensor",
+          "internalId": "sensor/sensor::hazard:Ringworld gravity",
+          "period": 1,
+          "toSpawn": null
+        }
+      ],
+      "starfieldDensity": 0,
+      "objectTree": [
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "star/g3",
+          "spriteScale": null,
+          "distance": null,
+          "period": 10,
+          "offset": null,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels1",
+          "spriteScale": 0.5,
+          "distance": 800,
+          "period": 349.82,
+          "offset": 21,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels2",
+          "spriteScale": 0.5,
+          "distance": 800,
+          "period": 349.82,
+          "offset": 32,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels1",
+          "spriteScale": 0.5,
+          "distance": 800,
+          "period": 349.82,
+          "offset": 44,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels3",
+          "spriteScale": 0.5,
+          "distance": 800,
+          "period": 349.82,
+          "offset": 53,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels2",
+          "spriteScale": 0.5,
+          "distance": 800,
+          "period": 349.82,
+          "offset": 62,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels1",
+          "spriteScale": 0.5,
+          "distance": 800,
+          "period": 349.82,
+          "offset": 66,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels4",
+          "spriteScale": 0.5,
+          "distance": 800,
+          "period": 349.82,
+          "offset": 73,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels5",
+          "spriteScale": 0.5,
+          "distance": 800,
+          "period": 349.82,
+          "offset": 87,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels3",
+          "spriteScale": 0.5,
+          "distance": 800,
+          "period": 349.82,
+          "offset": 95,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels2",
+          "spriteScale": 0.5,
+          "distance": 800,
+          "period": 349.82,
+          "offset": 104,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels4",
+          "spriteScale": 0.5,
+          "distance": 800,
+          "period": 349.82,
+          "offset": 116,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels1",
+          "spriteScale": 0.5,
+          "distance": 800,
+          "period": 349.82,
+          "offset": 125,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels2",
+          "spriteScale": 0.5,
+          "distance": 800,
+          "period": 349.82,
+          "offset": 134,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels2",
+          "spriteScale": 0.5,
+          "distance": 800,
+          "period": 349.82,
+          "offset": 149,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels1",
+          "spriteScale": 0.5,
+          "distance": 800,
+          "period": 349.82,
+          "offset": 185,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels3",
+          "spriteScale": 0.5,
+          "distance": 800,
+          "period": 349.82,
+          "offset": 197,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels2",
+          "spriteScale": 0.5,
+          "distance": 800,
+          "period": 349.82,
+          "offset": 207,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels5",
+          "spriteScale": 0.5,
+          "distance": 800,
+          "period": 349.82,
+          "offset": 218,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels2",
+          "spriteScale": 0.5,
+          "distance": 800,
+          "period": 349.82,
+          "offset": 231,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels2",
+          "spriteScale": 0.5,
+          "distance": 800,
+          "period": 349.82,
+          "offset": 244,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": "lidar",
+          "isLandable": true,
+          "sprite": "planet/ringworld",
+          "spriteScale": 0.5,
+          "distance": 812,
+          "period": 349.82,
+          "offset": 340,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": "sensor/sensor::object:lidar",
+          "_planetData": {
+            "displayName": null,
+            "attributes": [],
+            "requires": [],
+            "landscapes": [
+              {
+                "name": "land/space2",
+                "count": 1,
+                "pluginId": "sensor/sensor",
+                "internalId": "sensor/sensor::landscape:land/space2"
+              }
+            ],
+            "music": "ambient/machinery",
+            "description": {
+              "text": "A ringworld seemingly abandoned on some parts",
+              "toDisplay": null
+            },
+            "spaceport": {
+              "text": "This spaceport is abandoned",
+              "toDisplay": null
+            },
+            "toKnow": null,
+            "toLand": null,
+            "toAccessOutfitter": null,
+            "toAccessShipyard": null,
+            "port": null,
+            "government": "sensor",
+            "governmentInherited": false,
+            "shipyards": [
+              {
+                "name": "Basic Ships",
+                "count": 1,
+                "pluginId": "sensor/sensor",
+                "internalId": "sensor/sensor::shipyard:Basic Ships"
+              }
+            ],
+            "outfitters": [
+              {
+                "name": "Basic Weapons",
+                "count": 1,
+                "pluginId": "sensor/sensor",
+                "internalId": "sensor/sensor::outfitter:Basic Weapons"
+              },
+              {
+                "name": "Basic Outfits",
+                "count": 1,
+                "pluginId": "sensor/sensor",
+                "internalId": "sensor/sensor::outfitter:Basic Outfits"
+              }
+            ],
+            "requiredReputation": 0,
+            "bribe": 0.1,
+            "bribeThreshold": null,
+            "bribeFraction": null,
+            "security": 0.1,
+            "wormhole": null,
+            "tribute": {
+              "credits": 100,
+              "threshold": 0,
+              "fleets": [
+                {
+                  "name": "sensor guard fleet",
+                  "count": 10,
+                  "pluginId": "sensor/sensor",
+                  "internalId": "sensor/sensor::tributeFleet:sensor guard fleet"
+                }
+              ],
+              "dailyReputationPenalty": null
+            },
+            "tributeHails": {},
+            "systemName": "array",
+            "name": "lidar",
+            "_pluginId": "sensor/sensor",
+            "_internalId": "sensor/sensor::lidar",
+            "_definedBy": [
+              "sensor/sensor"
+            ],
+            "_lastModifiedBy": "sensor/sensor"
+          }
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels2",
+          "spriteScale": 0.5,
+          "distance": 830,
+          "period": 349.82,
+          "offset": 29,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels1",
+          "spriteScale": 0.5,
+          "distance": 830,
+          "period": 349.82,
+          "offset": 38,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels1",
+          "spriteScale": 0.5,
+          "distance": 830,
+          "period": 349.82,
+          "offset": 42,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels3",
+          "spriteScale": 0.5,
+          "distance": 830,
+          "period": 349.82,
+          "offset": 55,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels2",
+          "spriteScale": 0.5,
+          "distance": 830,
+          "period": 349.82,
+          "offset": 64,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels5",
+          "spriteScale": 0.5,
+          "distance": 830,
+          "period": 349.82,
+          "offset": 78,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels3",
+          "spriteScale": 0.5,
+          "distance": 830,
+          "period": 349.82,
+          "offset": 92,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels5",
+          "spriteScale": 0.5,
+          "distance": 830,
+          "period": 349.82,
+          "offset": 106,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels2",
+          "spriteScale": 0.5,
+          "distance": 830,
+          "period": 349.82,
+          "offset": 120,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels1",
+          "spriteScale": 0.5,
+          "distance": 830,
+          "period": 349.82,
+          "offset": 132,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels1",
+          "spriteScale": 0.5,
+          "distance": 830,
+          "period": 349.82,
+          "offset": 145,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels2",
+          "spriteScale": 0.5,
+          "distance": 830,
+          "period": 349.82,
+          "offset": 198,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels3",
+          "spriteScale": 0.5,
+          "distance": 830,
+          "period": 349.82,
+          "offset": 212,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/panels4",
+          "spriteScale": 0.5,
+          "distance": 830,
+          "period": 349.82,
+          "offset": 237,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/station1b",
+          "spriteScale": 3,
+          "distance": 2000,
+          "period": 10,
+          "offset": 0,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/station1b",
+          "spriteScale": 3,
+          "distance": 2000,
+          "period": 10,
+          "offset": 180,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "sensor/sensor",
+          "internalId": null,
+          "_planetData": null
+        }
+      ],
+      "planets": [
+        {
+          "name": "lidar",
+          "count": 1,
+          "pluginId": "sensor/sensor",
+          "internalId": "sensor/sensor::systemPlanet:lidar"
+        }
+      ],
+      "name": "array",
+      "_pluginId": "sensor/sensor",
+      "_internalId": "sensor/sensor::array",
+      "_definedBy": [
+        "sensor/sensor"
+      ],
+      "_lastModifiedBy": "sensor/sensor"
+    }
+  ],
+  "planets": [
+    {
+      "displayName": null,
+      "attributes": [],
+      "requires": [],
+      "landscapes": [
+        {
+          "name": "land/space2",
+          "count": 1,
+          "pluginId": "sensor/sensor",
+          "internalId": "sensor/sensor::landscape:land/space2"
+        }
+      ],
+      "music": "ambient/machinery",
+      "description": {
+        "text": "A ringworld seemingly abandoned on some parts",
+        "toDisplay": null
+      },
+      "spaceport": {
+        "text": "This spaceport is abandoned",
+        "toDisplay": null
+      },
+      "toKnow": null,
+      "toLand": null,
+      "toAccessOutfitter": null,
+      "toAccessShipyard": null,
+      "port": null,
+      "government": "sensor",
+      "governmentInherited": false,
+      "shipyards": [
+        {
+          "name": "Basic Ships",
+          "count": 1,
+          "pluginId": "sensor/sensor",
+          "internalId": "sensor/sensor::shipyard:Basic Ships"
+        }
+      ],
+      "outfitters": [
+        {
+          "name": "Basic Weapons",
+          "count": 1,
+          "pluginId": "sensor/sensor",
+          "internalId": "sensor/sensor::outfitter:Basic Weapons"
+        },
+        {
+          "name": "Basic Outfits",
+          "count": 1,
+          "pluginId": "sensor/sensor",
+          "internalId": "sensor/sensor::outfitter:Basic Outfits"
+        }
+      ],
+      "requiredReputation": 0,
+      "bribe": 0.1,
+      "bribeThreshold": null,
+      "bribeFraction": null,
+      "security": 0.1,
+      "wormhole": null,
+      "tribute": {
+        "credits": 100,
+        "threshold": 0,
+        "fleets": [
+          {
+            "name": "sensor guard fleet",
+            "count": 10,
+            "pluginId": "sensor/sensor",
+            "internalId": "sensor/sensor::tributeFleet:sensor guard fleet"
+          }
+        ],
+        "dailyReputationPenalty": null
+      },
+      "tributeHails": {},
+      "systemName": "array",
+      "name": "lidar",
+      "_pluginId": "sensor/sensor",
+      "_internalId": "sensor/sensor::lidar",
+      "_definedBy": [
+        "sensor/sensor"
+      ],
+      "_lastModifiedBy": "sensor/sensor"
+    }
+  ],
+  "wormholes": [],
+  "missions": [],
+  "parsedAt": "2026-09-01T13:05:46.262Z"
 }

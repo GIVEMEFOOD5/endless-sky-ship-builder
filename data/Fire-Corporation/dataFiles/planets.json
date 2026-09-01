@@ -1,0 +1,75 @@
+[
+  {
+    "displayName": null,
+    "attributes": [
+      "pirate"
+    ],
+    "requires": [],
+    "landscapes": [
+      {
+        "name": "land/forest4",
+        "count": 1,
+        "pluginId": "Fire Corporation/Fire-Corporation",
+        "internalId": "Fire Corporation/Fire-Corporation::landscape:land/forest4"
+      }
+    ],
+    "music": null,
+    "description": {
+      "text": "This is a scarcely inhabited planet, being accesible only by Jump Drive.",
+      "toDisplay": null
+    },
+    "spaceport": {
+      "text": "There is barley even a refinery.",
+      "toDisplay": null
+    },
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "Pirate",
+    "governmentInherited": true,
+    "shipyards": [],
+    "outfitters": [],
+    "requiredReputation": 3,
+    "bribe": null,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": 0,
+    "wormhole": null,
+    "tribute": {
+      "credits": 35000,
+      "threshold": 8104,
+      "fleets": [
+        {
+          "name": "Large Northern Pirates",
+          "count": 5,
+          "pluginId": "Fire Corporation/Fire-Corporation",
+          "internalId": "Fire Corporation/Fire-Corporation::tributeFleet:Large Northern Pirates"
+        },
+        {
+          "name": "Large Core Pirates",
+          "count": 3,
+          "pluginId": "Fire Corporation/Fire-Corporation",
+          "internalId": "Fire Corporation/Fire-Corporation::tributeFleet:Large Core Pirates"
+        },
+        {
+          "name": "Large Southern Pirates",
+          "count": 2,
+          "pluginId": "Fire Corporation/Fire-Corporation",
+          "internalId": "Fire Corporation/Fire-Corporation::tributeFleet:Large Southern Pirates"
+        }
+      ],
+      "dailyReputationPenalty": null
+    },
+    "tributeHails": {},
+    "systemName": "Hidden Queen",
+    "name": "Crown of Secrecy",
+    "_pluginId": "Fire Corporation/Fire-Corporation",
+    "_internalId": "Fire Corporation/Fire-Corporation::Crown of Secrecy",
+    "_definedBy": [
+      "Fire Corporation/Fire-Corporation"
+    ],
+    "_lastModifiedBy": "Fire Corporation/Fire-Corporation"
+  }
+]

@@ -247,5 +247,393 @@
   ],
   "outfits": [],
   "effects": [],
-  "parsedAt": "2026-09-01T03:21:59.101Z"
+  "galaxies": [],
+  "systems": [
+    {
+      "displayName": null,
+      "flags": {
+        "inaccessible": false,
+        "hidden": false,
+        "shrouded": false
+      },
+      "pos": {
+        "x": 110,
+        "y": -509
+      },
+      "government": "Drak (C)",
+      "attributes": [],
+      "music": null,
+      "arrival": {
+        "distance": 3000,
+        "link": null,
+        "jump": null
+      },
+      "departure": null,
+      "ramscoop": null,
+      "habitable": null,
+      "belts": [],
+      "invisibleFence": null,
+      "jumpRange": null,
+      "haze": "_menu/haze-blackbody",
+      "links": [],
+      "asteroids": [],
+      "minables": [],
+      "trade": [],
+      "fleets": [
+        {
+          "name": "ArchonF",
+          "count": 1,
+          "pluginId": "Nova1422s list/capture.archons",
+          "internalId": "Nova1422s list/capture.archons::systemFleet:ArchonF",
+          "period": 36000,
+          "toSpawn": null
+        }
+      ],
+      "raids": [],
+      "noRaids": false,
+      "hazards": [],
+      "starfieldDensity": null,
+      "objectTree": [
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "star/nova",
+          "spriteScale": null,
+          "distance": null,
+          "period": 1000,
+          "offset": 260,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "Nova1422s list/capture.archons",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "star/nova-core",
+          "spriteScale": null,
+          "distance": null,
+          "period": 1000,
+          "offset": 260,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "Nova1422s list/capture.archons",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/rock13-b",
+          "spriteScale": null,
+          "distance": 1507.181,
+          "period": 300.901,
+          "offset": null,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "Nova1422s list/capture.archons",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/lava1-b",
+          "spriteScale": null,
+          "distance": 780.258,
+          "period": 280.5369,
+          "offset": null,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "Nova1422s list/capture.archons",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/lava5",
+          "spriteScale": null,
+          "distance": 1025.017,
+          "period": 134.05,
+          "offset": null,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "Nova1422s list/capture.archons",
+          "internalId": null,
+          "_planetData": null
+        }
+      ],
+      "planets": [],
+      "name": "Hallownest",
+      "_pluginId": "Nova1422s list/capture.archons",
+      "_internalId": "Nova1422s list/capture.archons::Hallownest",
+      "_definedBy": [
+        "Nova1422s list/capture.archons"
+      ],
+      "_lastModifiedBy": "Nova1422s list/capture.archons"
+    }
+  ],
+  "planets": [],
+  "wormholes": [],
+  "missions": [
+    {
+      "name": "Archon Personality Compatibility Patch (C)",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [],
+      "_pluginId": "Nova1422s list/capture.archons",
+      "_internalId": "Nova1422s list/capture.archons::Archon Personality Compatibility Patch (C)",
+      "_hash": "18b9b262a611",
+      "sourcePlugin": "Nova1422s list/capture.archons"
+    },
+    {
+      "name": "Drak guarding Korath space (C)",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": true,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {}
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [],
+      "_pluginId": "Nova1422s list/capture.archons",
+      "_internalId": "Nova1422s list/capture.archons::Drak guarding Korath space (C)",
+      "_hash": "43bab1d8c5e0",
+      "sourcePlugin": "Nova1422s list/capture.archons"
+    },
+    {
+      "name": "Drak guarding Sayaiban (C)",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": true,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {}
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [],
+      "_pluginId": "Nova1422s list/capture.archons",
+      "_internalId": "Nova1422s list/capture.archons::Drak guarding Sayaiban (C)",
+      "_hash": "43bab1d8c5e0",
+      "sourcePlugin": "Nova1422s list/capture.archons"
+    },
+    {
+      "name": "Drak guarding Void Sprites (C)",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": true,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {}
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [],
+      "_pluginId": "Nova1422s list/capture.archons",
+      "_internalId": "Nova1422s list/capture.archons::Drak guarding Void Sprites (C)",
+      "_hash": "43bab1d8c5e0",
+      "sourcePlugin": "Nova1422s list/capture.archons"
+    },
+    {
+      "name": "Drak guarding Incipias space (C)",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": true,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {}
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [],
+      "_pluginId": "Nova1422s list/capture.archons",
+      "_internalId": "Nova1422s list/capture.archons::Drak guarding Incipias space (C)",
+      "_hash": "43bab1d8c5e0",
+      "sourcePlugin": "Nova1422s list/capture.archons"
+    },
+    {
+      "name": "Archon Personality Compatibility Patch (D)",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [],
+      "_pluginId": "Nova1422s list/capture.archons",
+      "_internalId": "Nova1422s list/capture.archons::Archon Personality Compatibility Patch (D)",
+      "_hash": "18b9b262a611",
+      "sourcePlugin": "Nova1422s list/capture.archons"
+    },
+    {
+      "name": "Archon Personality Compatibility Patch (E)",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [],
+      "_pluginId": "Nova1422s list/capture.archons",
+      "_internalId": "Nova1422s list/capture.archons::Archon Personality Compatibility Patch (E)",
+      "_hash": "18b9b262a611",
+      "sourcePlugin": "Nova1422s list/capture.archons"
+    }
+  ],
+  "parsedAt": "2026-09-01T13:05:45.445Z"
 }

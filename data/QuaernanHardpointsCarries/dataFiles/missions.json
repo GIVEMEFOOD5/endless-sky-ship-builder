@@ -1,0 +1,830 @@
+[
+  {
+    "name": "Quaernan Cargo 1",
+    "displayName": "Worldly Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 10000,
+      "max": 20000,
+      "mode": "uniform",
+      "nbParams": null
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 3000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "1 12",
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Quaernan/QuaernanHardpointsCarries",
+    "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Cargo 1",
+    "_hash": "b36d67a19cd1",
+    "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
+  },
+  {
+    "name": "Quaernan Cargo 2",
+    "displayName": "Worldly Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 10000,
+      "max": 20000,
+      "mode": "uniform",
+      "nbParams": null
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 3000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "1 12",
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Quaernan/QuaernanHardpointsCarries",
+    "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Cargo 2",
+    "_hash": "b36d67a19cd1",
+    "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
+  },
+  {
+    "name": "Quaernan Large Cargo 1",
+    "displayName": "Stellar Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 20000,
+      "max": 45000,
+      "mode": "uniform",
+      "nbParams": null
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 3250,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "1 12",
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Quaernan/QuaernanHardpointsCarries",
+    "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Large Cargo 1",
+    "_hash": "d309574e6869",
+    "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
+  },
+  {
+    "name": "Quaernan Large Cargo 2",
+    "displayName": "Stellar Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 20000,
+      "max": 45000,
+      "mode": "uniform",
+      "nbParams": null
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 3250,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "1 12",
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Quaernan/QuaernanHardpointsCarries",
+    "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Large Cargo 2",
+    "_hash": "d309574e6869",
+    "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
+  },
+  {
+    "name": "Quaernan Huge Cargo",
+    "displayName": "Galactic Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 40000,
+      "max": 90000,
+      "mode": "uniform",
+      "nbParams": null
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 3500,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "1 12",
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Quaernan/QuaernanHardpointsCarries",
+    "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Huge Cargo",
+    "_hash": "594ab23f86bf",
+    "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
+  },
+  {
+    "name": "Quaernan Passengers 1",
+    "displayName": "Worldly transport to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 500,
+      "max": 1200,
+      "mode": "uniform",
+      "nbParams": null
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 7000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "3 10",
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Quaernan/QuaernanHardpointsCarries",
+    "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Passengers 1",
+    "_hash": "26670e938e2f",
+    "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
+  },
+  {
+    "name": "Quaernan Passengers 2",
+    "displayName": "Worldly transport to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 500,
+      "max": 1200,
+      "mode": "uniform",
+      "nbParams": null
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 7000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "3 10",
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Quaernan/QuaernanHardpointsCarries",
+    "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Passengers 2",
+    "_hash": "26670e938e2f",
+    "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
+  },
+  {
+    "name": "Quaernan Passengers 3",
+    "displayName": "Worldly transport to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 500,
+      "max": 1200,
+      "mode": "uniform",
+      "nbParams": null
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 7000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "3 10",
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Quaernan/QuaernanHardpointsCarries",
+    "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Passengers 3",
+    "_hash": "26670e938e2f",
+    "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
+  },
+  {
+    "name": "Quaernan Large Passengers 1",
+    "displayName": "Stellar transport to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 1000,
+      "max": 3000,
+      "mode": "uniform",
+      "nbParams": null
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 7500,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "3 10",
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Quaernan/QuaernanHardpointsCarries",
+    "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Large Passengers 1",
+    "_hash": "113a53868f87",
+    "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
+  },
+  {
+    "name": "Quaernan Large Passengers 2",
+    "displayName": "Stellar transport to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 1100,
+      "max": 3500,
+      "mode": "uniform",
+      "nbParams": null
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 8000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "attributes": "urban",
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 10",
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Quaernan/QuaernanHardpointsCarries",
+    "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Large Passengers 2",
+    "_hash": "a39851d35764",
+    "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
+  },
+  {
+    "name": "Quaernan Large Miners 1",
+    "displayName": "Stellar Miner transport to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 1100,
+      "max": 3500,
+      "mode": "uniform",
+      "nbParams": null
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 8250,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "attributes": "mining",
+        "distance": "3 13",
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Quaernan/QuaernanHardpointsCarries",
+    "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Large Miners 1",
+    "_hash": "d258efe647d4",
+    "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
+  },
+  {
+    "name": "Quaernan Huge Miners 1",
+    "displayName": "Galactic Miner transport to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 3250,
+      "max": 8500,
+      "mode": "uniform",
+      "nbParams": null
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 9000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "attributes": "mining",
+        "distance": "3 15",
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Quaernan/QuaernanHardpointsCarries",
+    "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Huge Miners 1",
+    "_hash": "b4d6cbb8dfde",
+    "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
+  },
+  {
+    "name": "Quaernan Large Farmers 1",
+    "displayName": "Stellar Farmer transport to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 1100,
+      "max": 3500,
+      "mode": "uniform",
+      "nbParams": null
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 7750,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "attributes": "farming",
+        "distance": "3 13",
+        "government": "Republic Free Worlds Syndicate Neutral Independent"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Quaernan/QuaernanHardpointsCarries",
+    "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Large Farmers 1",
+    "_hash": "a87ca64df9b7",
+    "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
+  }
+]

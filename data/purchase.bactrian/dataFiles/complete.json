@@ -321,5 +321,83 @@
   ],
   "outfits": [],
   "effects": [],
-  "parsedAt": "2026-09-01T03:21:59.104Z"
+  "galaxies": [],
+  "systems": [],
+  "planets": [
+    {
+      "displayName": null,
+      "attributes": [
+        "frontier",
+        "mining",
+        "north",
+        "north",
+        "pirate",
+        "pirate"
+      ],
+      "requires": [],
+      "landscapes": [],
+      "music": null,
+      "description": {
+        "text": "\tMuch of the planet is desert, but with enough moisture to grow enough crops to feed the entire population. Strip mining has turned other parts of the planet into barren wastelands, and has polluted many of the rivers.",
+        "toDisplay": null
+      },
+      "spaceport": {
+        "text": "\tThis is an independent world, and a relatively stable settlement, but the effects of its separation from the rest of the galaxy are evident. A few young people carrying large backpacks eye you with interest, perhaps trying to gauge their chances of getting you to give them a cheap lift off-planet.",
+        "toDisplay": null
+      },
+      "toKnow": null,
+      "toLand": null,
+      "toAccessOutfitter": null,
+      "toAccessShipyard": null,
+      "port": null,
+      "government": "Pirate",
+      "governmentInherited": true,
+      "shipyards": [
+        {
+          "name": "pirated",
+          "count": 1,
+          "pluginId": "Nova1422s list/purchase.bactrian",
+          "internalId": "Nova1422s list/purchase.bactrian::shipyard:pirated"
+        }
+      ],
+      "outfitters": [],
+      "requiredReputation": null,
+      "bribe": 0.03,
+      "bribeThreshold": null,
+      "bribeFraction": null,
+      "security": 0,
+      "wormhole": null,
+      "tribute": {
+        "credits": 700,
+        "threshold": 3000,
+        "fleets": [
+          {
+            "name": "Small Northern Pirates",
+            "count": 21,
+            "pluginId": "official-game/endless-sky",
+            "internalId": "official-game/endless-sky::tributeFleet:Small Northern Pirates"
+          }
+        ],
+        "dailyReputationPenalty": null
+      },
+      "tributeHails": {},
+      "systemName": "Arneb",
+      "name": "Haven",
+      "_pluginId": "official-game/endless-sky",
+      "_internalId": "official-game/endless-sky::Haven",
+      "_definedBy": [
+        "official-game/endless-sky",
+        "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
+        "Nova1422s list/purchase.bactrian",
+        "Corellian Shipyard/corellian-shipyard",
+        "Mega Freight/Mega-Freight",
+        "Quality of Life Outfits/QOL-Outfits",
+        "Lost In Midnight/Lost-in-Midnight"
+      ],
+      "_lastModifiedBy": "Lost In Midnight/Lost-in-Midnight"
+    }
+  ],
+  "wormholes": [],
+  "missions": [],
+  "parsedAt": "2026-09-01T13:05:45.452Z"
 }

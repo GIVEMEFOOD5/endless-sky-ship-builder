@@ -1,0 +1,81 @@
+[
+  {
+    "displayName": null,
+    "attributes": [],
+    "requires": [],
+    "landscapes": [
+      {
+        "name": "land/space2",
+        "count": 1,
+        "pluginId": "sensor/sensor",
+        "internalId": "sensor/sensor::landscape:land/space2"
+      }
+    ],
+    "music": "ambient/machinery",
+    "description": {
+      "text": "A ringworld seemingly abandoned on some parts",
+      "toDisplay": null
+    },
+    "spaceport": {
+      "text": "This spaceport is abandoned",
+      "toDisplay": null
+    },
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "sensor",
+    "governmentInherited": false,
+    "shipyards": [
+      {
+        "name": "Basic Ships",
+        "count": 1,
+        "pluginId": "sensor/sensor",
+        "internalId": "sensor/sensor::shipyard:Basic Ships"
+      }
+    ],
+    "outfitters": [
+      {
+        "name": "Basic Weapons",
+        "count": 1,
+        "pluginId": "sensor/sensor",
+        "internalId": "sensor/sensor::outfitter:Basic Weapons"
+      },
+      {
+        "name": "Basic Outfits",
+        "count": 1,
+        "pluginId": "sensor/sensor",
+        "internalId": "sensor/sensor::outfitter:Basic Outfits"
+      }
+    ],
+    "requiredReputation": 0,
+    "bribe": 0.1,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": 0.1,
+    "wormhole": null,
+    "tribute": {
+      "credits": 100,
+      "threshold": 0,
+      "fleets": [
+        {
+          "name": "sensor guard fleet",
+          "count": 10,
+          "pluginId": "sensor/sensor",
+          "internalId": "sensor/sensor::tributeFleet:sensor guard fleet"
+        }
+      ],
+      "dailyReputationPenalty": null
+    },
+    "tributeHails": {},
+    "systemName": "array",
+    "name": "lidar",
+    "_pluginId": "sensor/sensor",
+    "_internalId": "sensor/sensor::lidar",
+    "_definedBy": [
+      "sensor/sensor"
+    ],
+    "_lastModifiedBy": "sensor/sensor"
+  }
+]

@@ -339,5 +339,769 @@
   ],
   "outfits": [],
   "effects": [],
-  "parsedAt": "2026-09-01T03:21:59.162Z"
+  "galaxies": [],
+  "systems": [],
+  "planets": [],
+  "wormholes": [],
+  "missions": [
+    {
+      "name": "ZOC: Commonwealth Established",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [
+        "ZOC: commonwealth established"
+      ],
+      "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
+      "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Commonwealth Established",
+      "_hash": "18b9b262a611",
+      "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
+    },
+    {
+      "name": "ZOC: Commonwealth Peace",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": {
+        "type": "filter",
+        "value": {
+          "government": "Commonwealth"
+        }
+      },
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [
+        "ZOC: commonwealth peace"
+      ],
+      "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
+      "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Commonwealth Peace",
+      "_hash": "a68486a07f4b",
+      "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
+    },
+    {
+      "name": "ZOC: Deneb Tribute",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [
+        "ZOC: deneb tribute"
+      ],
+      "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
+      "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Deneb Tribute",
+      "_hash": "18b9b262a611",
+      "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
+    },
+    {
+      "name": "ZOC: Free State Established",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [
+        "ZOC: free state established"
+      ],
+      "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
+      "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Free State Established",
+      "_hash": "18b9b262a611",
+      "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
+    },
+    {
+      "name": "ZOC: Bloodsea joins Free State",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [
+        "ZOC: bloodsea joins free state"
+      ],
+      "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
+      "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Bloodsea joins Free State",
+      "_hash": "18b9b262a611",
+      "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
+    },
+    {
+      "name": "ZOC: Free State Peace",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": {
+        "type": "filter",
+        "value": {
+          "government": "Free State"
+        }
+      },
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [
+        "ZOC: free state peace"
+      ],
+      "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
+      "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Free State Peace",
+      "_hash": "c496a30c5e75",
+      "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
+    },
+    {
+      "name": "ZOC: Militia License Revokement",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [],
+      "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
+      "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Militia License Revokement",
+      "_hash": "18b9b262a611",
+      "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
+    },
+    {
+      "name": "ZOC: Free Worlds Peace",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": {
+        "type": "filter",
+        "value": {
+          "government": "Free Worlds"
+        }
+      },
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [
+        "ZOC: free worlds peace"
+      ],
+      "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
+      "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Free Worlds Peace",
+      "_hash": "1b311fc9b159",
+      "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
+    },
+    {
+      "name": "ZOC: Haven Timer",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [
+        "ZOC: haven timer"
+      ],
+      "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
+      "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Haven Timer",
+      "_hash": "18b9b262a611",
+      "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
+    },
+    {
+      "name": "ZOC: Haven",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [
+        "ZOC: haven"
+      ],
+      "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
+      "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Haven",
+      "_hash": "18b9b262a611",
+      "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
+    },
+    {
+      "name": "ZOC: Norn Timer",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [
+        "ZOC: norn timer"
+      ],
+      "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
+      "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Norn Timer",
+      "_hash": "18b9b262a611",
+      "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
+    },
+    {
+      "name": "ZOC: Norn",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [
+        "ZOC: norn"
+      ],
+      "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
+      "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Norn",
+      "_hash": "18b9b262a611",
+      "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
+    },
+    {
+      "name": "ZOC: Poisonwood Timer",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [
+        "ZOC: poisonwood timer"
+      ],
+      "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
+      "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Poisonwood Timer",
+      "_hash": "18b9b262a611",
+      "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
+    },
+    {
+      "name": "ZOC: Poisonwood",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [
+        "ZOC: poisonwood"
+      ],
+      "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
+      "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Poisonwood",
+      "_hash": "18b9b262a611",
+      "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
+    },
+    {
+      "name": "ZOC: Navy License Revokement",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [],
+      "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
+      "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Navy License Revokement",
+      "_hash": "18b9b262a611",
+      "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
+    },
+    {
+      "name": "ZOC: Republic Peace",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {}
+      },
+      "source": {
+        "type": "filter",
+        "value": {
+          "government": "Republic"
+        }
+      },
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [],
+      "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
+      "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Republic Peace",
+      "_hash": "cc91094ab517",
+      "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
+    },
+    {
+      "name": "ZOC: Syndicate Peace",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": {
+        "type": "filter",
+        "value": {
+          "government": "Syndicate"
+        }
+      },
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [
+        "ZOC: syndicate peace"
+      ],
+      "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
+      "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Syndicate Peace",
+      "_hash": "1599c1c66e6c",
+      "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
+    },
+    {
+      "name": "ZOC: Windblain Timer",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [
+        "ZOC: windblain timer"
+      ],
+      "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
+      "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Windblain Timer",
+      "_hash": "18b9b262a611",
+      "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
+    },
+    {
+      "name": "ZOC: Windblain",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [
+        "ZOC: windblain"
+      ],
+      "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
+      "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Windblain",
+      "_hash": "18b9b262a611",
+      "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
+    }
+  ],
+  "parsedAt": "2026-09-01T13:05:45.580Z"
 }

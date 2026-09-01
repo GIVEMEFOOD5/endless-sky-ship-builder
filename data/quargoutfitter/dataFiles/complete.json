@@ -31,5 +31,171 @@
     }
   ],
   "effects": [],
-  "parsedAt": "2026-09-01T03:21:59.105Z"
+  "galaxies": [],
+  "systems": [],
+  "planets": [
+    {
+      "displayName": null,
+      "attributes": [
+        "frontier",
+        "pirate",
+        "south",
+        "south",
+        "pirate",
+        "station"
+      ],
+      "requires": [],
+      "landscapes": [],
+      "music": null,
+      "description": {
+        "text": "Smuggler's Den was formerly known as Grendel Station, back when it was an operating refinery. But, it has since been taken over by pirates, who turned it into a haven for all manner of smugglers and privateers. As a hub of pirate activity, Smuggler's Den has access to fenced goods from beyond the region, resulting in repair shops that can make a variety of legal and illegal modifications to your ship. This confluence also provides the opportunity to buy refurbished starships... if it does not trouble your conscience to think about the likely fates of their previous owners. Rumor has it that pilots with the right connections may be able to purchase heavily modified ships here.",
+        "toDisplay": null
+      },
+      "spaceport": {
+        "text": "It is a strange but indisputable fact that pirates smell worse than ordinary human beings. In this day and age, where even the cheapest shuttlecraft at least has a sonic shower, there is no logical explanation for it, except that anarchist tendencies must somehow go hand in hand with a tendency to reject society's norms around hygiene. Here in a space station, with nothing but recycled air to breathe, the effect is overpowering.",
+        "toDisplay": null
+      },
+      "toKnow": null,
+      "toLand": null,
+      "toAccessOutfitter": null,
+      "toAccessShipyard": null,
+      "port": null,
+      "government": "Pirate",
+      "governmentInherited": true,
+      "shipyards": [],
+      "outfitters": [
+        {
+          "name": "quarh",
+          "count": 1,
+          "pluginId": "Nova1422s list/quargoutfitter",
+          "internalId": "Nova1422s list/quargoutfitter::outfitter:quarh"
+        }
+      ],
+      "requiredReputation": null,
+      "bribe": 0.06,
+      "bribeThreshold": null,
+      "bribeFraction": null,
+      "security": 0,
+      "wormhole": null,
+      "tribute": {
+        "credits": 400,
+        "threshold": 2000,
+        "fleets": [
+          {
+            "name": "Small Southern Pirates",
+            "count": 21,
+            "pluginId": "official-game/endless-sky",
+            "internalId": "official-game/endless-sky::tributeFleet:Small Southern Pirates"
+          }
+        ],
+        "dailyReputationPenalty": null
+      },
+      "tributeHails": {},
+      "systemName": "Men",
+      "name": "Smuggler's Den",
+      "_pluginId": "official-game/endless-sky",
+      "_internalId": "official-game/endless-sky::Smuggler's Den",
+      "_definedBy": [
+        "official-game/endless-sky",
+        "Nova1422s list/quargoutfitter",
+        "Blended Ships/blended-ships",
+        "Mega Freight/Mega-Freight",
+        "Rumskib/rumskib",
+        "Lost In Midnight/Lost-in-Midnight"
+      ],
+      "_lastModifiedBy": "Lost In Midnight/Lost-in-Midnight"
+    }
+  ],
+  "wormholes": [],
+  "missions": [
+    {
+      "name": "Lunarium Quarg",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": {
+        "type": "filter",
+        "value": {
+          "government": "Coalition"
+        }
+      },
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [
+        "Lunarium quarg"
+      ],
+      "_pluginId": "Nova1422s list/quargoutfitter",
+      "_internalId": "Nova1422s list/quargoutfitter::Lunarium Quarg",
+      "_hash": "34d04ee9821c",
+      "sourcePlugin": "Nova1422s list/quargoutfitter"
+    },
+    {
+      "name": "Heliarch Quarg",
+      "displayName": null,
+      "locations": [
+        "landing"
+      ],
+      "repeatable": false,
+      "repeatLimit": null,
+      "minor": false,
+      "priority": false,
+      "invisible": true,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": {
+        "type": "filter",
+        "value": {
+          "government": "Heliarch"
+        }
+      },
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "conditionSideEffects": [],
+      "eventTriggers": [
+        "Heliarch quarg"
+      ],
+      "_pluginId": "Nova1422s list/quargoutfitter",
+      "_internalId": "Nova1422s list/quargoutfitter::Heliarch Quarg",
+      "_hash": "0a69b6303089",
+      "sourcePlugin": "Nova1422s list/quargoutfitter"
+    }
+  ],
+  "parsedAt": "2026-09-01T13:05:45.456Z"
 }

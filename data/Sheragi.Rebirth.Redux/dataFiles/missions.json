@@ -1,0 +1,4549 @@
+[
+  {
+    "name": "Drak guarding Sheragi space",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {}
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Drak guarding Sheragi space",
+    "_hash": "43bab1d8c5e0",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Tiny) 1",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 145000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Amuul",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Tiny) 1",
+    "_hash": "ca5268e3a900",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Tiny) 2",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 145000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Myink",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Tiny) 2",
+    "_hash": "29988fdf404a",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Tiny) 3",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 145000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Loaw",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Tiny) 3",
+    "_hash": "128adce92637",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Tiny) 4",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 145000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Lyrik",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Tiny) 4",
+    "_hash": "85d03fbb3da1",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Tiny) 5",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 145000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Crayiss",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Tiny) 5",
+    "_hash": "539d43459ab9",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Tiny) 6",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 145000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "I'gra",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Tiny) 6",
+    "_hash": "0d9b48bafece",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Small) 1",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 420000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Amuul",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Small) 1",
+    "_hash": "4ec5c1a3f216",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Small) 2",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 420000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Myink",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Small) 2",
+    "_hash": "d0cfbc468c89",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Small) 3",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 420000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Loaw",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Small) 3",
+    "_hash": "9c8bf1486ffe",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Small) 4",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 420000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Lyrik",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Small) 4",
+    "_hash": "dcc2ab3d6d1e",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Small) 5",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 420000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Crayiss",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Small) 5",
+    "_hash": "a073c374e5f1",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Small) 6",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 420000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "I'gra",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Small) 6",
+    "_hash": "f211b849b495",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Medium) 1",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 485000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Amuul",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Medium) 1",
+    "_hash": "8ae92d063522",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Medium) 2",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 485000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Myink",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Medium) 2",
+    "_hash": "9b2a6d4cc4f1",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Medium) 3",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 485000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Loaw",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Medium) 3",
+    "_hash": "4d13282f8166",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Medium) 4",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 485000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Lyrik",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Medium) 4",
+    "_hash": "fa4656c0e899",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Medium) 5",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 485000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Crayiss",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Medium) 5",
+    "_hash": "fc2a7db427b1",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Medium) 6",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 485000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "I'gra",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Medium) 6",
+    "_hash": "eebd71742c3f",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Medium) 7",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 485000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Andowinor",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Medium) 7",
+    "_hash": "789965e98a04",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Medium) 8",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 485000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Douhvy",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Medium) 8",
+    "_hash": "fd7d6e582cd0",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Large) 1",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1420000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Amuul",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Large) 1",
+    "_hash": "5516e40f9704",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Large) 2",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1420000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Myink",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Large) 2",
+    "_hash": "5d114d08998d",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Large) 3",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1420000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Loaw",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Large) 3",
+    "_hash": "640f32550c4c",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Large) 4",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1420000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Lyrik",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Large) 4",
+    "_hash": "b571ccfe380d",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Large) 5",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1420000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Crayiss",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Large) 5",
+    "_hash": "2aaf5c352d61",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Large) 6",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1420000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "I'gra",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Large) 6",
+    "_hash": "77b2d287bafe",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Large) 7",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1420000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Andowinor",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Large) 7",
+    "_hash": "8dd8d3d35169",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi Bounty Hunting (Large) 8",
+    "displayName": "Wanted Dishonored ship in <waypoints>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 1420000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "military"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Douhvy",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi Bounty Hunting (Large) 8",
+    "_hash": "4bd55fcc7617",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Cargo [0]",
+    "displayName": "Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 5,
+      "max": null,
+      "expected": 23,
+      "softMax": 63,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.1
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Cargo [0]",
+    "_hash": "0b46b28a0cf4",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Cargo [1]",
+    "displayName": "Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 5,
+      "max": null,
+      "expected": 23,
+      "softMax": 63,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.1
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 10",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Cargo [1]",
+    "_hash": "316574e6b13d",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Cargo [2]",
+    "displayName": "Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 5,
+      "max": null,
+      "expected": 23,
+      "softMax": 63,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.1
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "attributes": "mining textiles factory farming fishing oil",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 12",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Cargo [2]",
+    "_hash": "494f4b7af9c0",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Cargo [3]",
+    "displayName": "Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 5,
+      "max": null,
+      "expected": 23,
+      "softMax": 63,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.1
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 2000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "attributes": "mining textiles factory farming fishing oil",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "3 14",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Cargo [3]",
+    "_hash": "80bb96e0b77a",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Cargo [4]",
+    "displayName": "Delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 5,
+      "max": null,
+      "expected": 23,
+      "softMax": 63,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.1
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 4000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "attributes": "mining textiles factory farming fishing oil",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "4 16",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Cargo [4]",
+    "_hash": "7e44c523a36d",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Bulk Delivery [0]",
+    "displayName": "Bulk delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 25,
+      "max": null,
+      "expected": 63,
+      "softMax": 146,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.05
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Bulk Delivery [0]",
+    "_hash": "dca4bb568045",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Bulk Delivery [1]",
+    "displayName": "Bulk delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 25,
+      "max": null,
+      "expected": 63,
+      "softMax": 146,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.05
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 2000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "3 12",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Bulk Delivery [1]",
+    "_hash": "6ca5452496b8",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Bulk Delivery [2]",
+    "displayName": "Bulk delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 25,
+      "max": null,
+      "expected": 63,
+      "softMax": 146,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.05
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 4000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "attributes": "mining textiles factory farming fishing oil",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "4 16",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Bulk Delivery [2]",
+    "_hash": "090d15cf419c",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Rush Delivery [0]",
+    "displayName": "Rush delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": {
+      "days": 0,
+      "multiplier": 2
+    },
+    "cargo": {
+      "commodity": "random",
+      "min": 5,
+      "max": null,
+      "expected": 23,
+      "softMax": 63,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.1
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 16000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "4 10",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Rush Delivery [0]",
+    "_hash": "26a09904fd3f",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Rush Delivery [1]",
+    "displayName": "Rush delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": {
+      "days": 0,
+      "multiplier": 2
+    },
+    "cargo": {
+      "commodity": "random",
+      "min": 5,
+      "max": null,
+      "expected": 23,
+      "softMax": 63,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.1
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 18000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "3 6",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Rush Delivery [1]",
+    "_hash": "737b226e22c2",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Rush Delivery [2]",
+    "displayName": "Rush delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": {
+      "days": 0,
+      "multiplier": 2
+    },
+    "cargo": {
+      "commodity": "random",
+      "min": 5,
+      "max": null,
+      "expected": 23,
+      "softMax": 63,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.1
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 20000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "attributes": "mining textiles factory farming fishing oil",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "3 6",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Rush Delivery [2]",
+    "_hash": "749f0592252f",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Passengers [0]",
+    "displayName": "Passenger transport to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 1,
+      "max": null,
+      "expected": 2,
+      "softMax": 5,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 10,
+        "p": 0.9
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 2000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 10",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Passengers [0]",
+    "_hash": "c774e5072324",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Passengers [1]",
+    "displayName": "Passenger transport to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 1,
+      "max": null,
+      "expected": 2,
+      "softMax": 5,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 10,
+        "p": 0.9
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 10",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Passengers [1]",
+    "_hash": "4c98dc4dbbeb",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Passengers [2]",
+    "displayName": "Passenger transport to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 1,
+      "max": null,
+      "expected": 2,
+      "softMax": 5,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 10,
+        "p": 0.9
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 10",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Passengers [2]",
+    "_hash": "4c98dc4dbbeb",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Passengers [3]",
+    "displayName": "Passenger transport to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 1,
+      "max": null,
+      "expected": 2,
+      "softMax": 5,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 10,
+        "p": 0.9
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 10",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Passengers [3]",
+    "_hash": "4c98dc4dbbeb",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Passengers [4]",
+    "displayName": "Passenger transport to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 2,
+      "max": null,
+      "expected": 3,
+      "softMax": 6,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 10,
+        "p": 0.9
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 2000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "attributes": "urban",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 10",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Passengers [4]",
+    "_hash": "0f54ac074af3",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Transport miners to <planet>",
+    "displayName": "Transport miners to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 2,
+      "max": null,
+      "expected": 3,
+      "softMax": 5,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.8
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 2000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "attributes": "mining",
+        "distance": "3 12",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Transport miners to <planet>",
+    "_hash": "c709b28347aa",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Transport farmers to <planet>",
+    "displayName": "Transport farmers to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 2,
+      "max": null,
+      "expected": 3,
+      "softMax": 5,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.8
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 2000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "attributes": "farming",
+        "distance": "2 12",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Transport farmers to <planet>",
+    "_hash": "906f54020e90",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Transport mill workers to <planet>",
+    "displayName": "Transport mill workers to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 2,
+      "max": null,
+      "expected": 3,
+      "softMax": 5,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.8
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 2000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "attributes": "textiles",
+        "distance": "2 12",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Transport mill workers to <planet>",
+    "_hash": "66c71082607f",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Transport workers to <planet>",
+    "displayName": "Transport workers to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 2,
+      "max": null,
+      "expected": 3,
+      "softMax": 5,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.8
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 2000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "attributes": "factory",
+        "distance": "2 12",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Transport workers to <planet>",
+    "_hash": "e7e70070929e",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Tourists out [0]",
+    "displayName": "Bring a tourist to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 1,
+      "max": 1,
+      "mode": "fixed",
+      "nbParams": null
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 6000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "attributes": "tourism",
+        "distance": "2 35",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Tourists out [0]",
+    "_hash": "7514ebfe0e02",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Tourists out [1]",
+    "displayName": "Bring tourists to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 2,
+      "max": null,
+      "expected": 3,
+      "softMax": 6,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 10,
+        "p": 0.9
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 4000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "attributes": "tourism",
+        "distance": "2 25",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Tourists out [1]",
+    "_hash": "d1d4934986ea",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Wealthy tourists out",
+    "displayName": "Bring wealthy tourists to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 2,
+      "max": null,
+      "expected": 3,
+      "softMax": 6,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 10,
+        "p": 0.9
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 10000,
+            "multiplier": 200
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "attributes": "rich urban",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "attributes": "tourism",
+        "distance": "2 30",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Wealthy tourists out",
+    "_hash": "c9fa9004a423",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Tourists back [0]",
+    "displayName": "Bring a tourist home to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 1,
+      "max": 1,
+      "mode": "fixed",
+      "nbParams": null
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 6000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "tourism"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 35",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Tourists back [0]",
+    "_hash": "a72143a00ec1",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Tourists back [1]",
+    "displayName": "Bring tourists home to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 2,
+      "max": null,
+      "expected": 3,
+      "softMax": 6,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 10,
+        "p": 0.9
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 4000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "attributes": "tourism"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 25",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Tourists back [1]",
+    "_hash": "04c946d142f4",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Wealthy tourists back",
+    "displayName": "Bring wealthy tourists home to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 2,
+      "max": null,
+      "expected": 3,
+      "softMax": 6,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 10,
+        "p": 0.9
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 10000,
+            "multiplier": 200
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "attributes": "tourism",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "attributes": "rich urban",
+        "distance": "2 30",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Wealthy tourists back",
+    "_hash": "82fe08197b8f",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Family [0]",
+    "displayName": "Transport family to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 2,
+      "max": null,
+      "expected": 6,
+      "softMax": 14,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 4,
+        "p": 0.5
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 4000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 16",
+        "government": "Sheragi (Rebirth)",
+        "not": "attributes volcanic"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Family [0]",
+    "_hash": "56b1bea7c05f",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Family [1]",
+    "displayName": "Transport family to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 2,
+      "max": null,
+      "expected": 6,
+      "softMax": 14,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 4,
+        "p": 0.5
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 6000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "3 20",
+        "government": "Sheragi (Rebirth)",
+        "not": "attributes volcanic"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Family [1]",
+    "_hash": "77fbc106bca0",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Family [2]",
+    "displayName": "Transport family to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 2,
+      "max": null,
+      "expected": 6,
+      "softMax": 14,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 4,
+        "p": 0.5
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 8000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "4 24",
+        "government": "Sheragi (Rebirth)",
+        "not": "attributes volcanic"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Family [2]",
+    "_hash": "d92589f193b1",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Family [3]",
+    "displayName": "Transport family to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 2,
+      "max": null,
+      "expected": 6,
+      "softMax": 14,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 4,
+        "p": 0.5
+      }
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 10000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "4 32",
+        "government": "Sheragi (Rebirth)",
+        "not": "attributes volcanic"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Family [3]",
+    "_hash": "383529b633a4",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Large Bulk Delivery [0]",
+    "displayName": "Large bulk delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 40,
+      "max": null,
+      "expected": 138,
+      "softMax": 348,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.02
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 4000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Large Bulk Delivery [0]",
+    "_hash": "15e3d868a795",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Large Bulk Delivery [1]",
+    "displayName": "Large bulk delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 40,
+      "max": null,
+      "expected": 138,
+      "softMax": 348,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.02
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 6000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "3 12",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Large Bulk Delivery [1]",
+    "_hash": "709e60ae5cb2",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Large Bulk Delivery [2]",
+    "displayName": "Large bulk delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 40,
+      "max": null,
+      "expected": 138,
+      "softMax": 348,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.02
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 8000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "attributes": "mining textiles factory farming fishing oil",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "3 16",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Large Bulk Delivery [2]",
+    "_hash": "f73abc000683",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Super Bulk Delivery [0]",
+    "displayName": "Very large bulk delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 300,
+      "max": null,
+      "expected": 398,
+      "softMax": 608,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.02
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 50000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Super Bulk Delivery [0]",
+    "_hash": "8044603174de",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Super Bulk Delivery [1]",
+    "displayName": "Very large bulk delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 300,
+      "max": null,
+      "expected": 398,
+      "softMax": 608,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.02
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 57500,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Super Bulk Delivery [1]",
+    "_hash": "a2c870a7fb96",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Mega Bulk Delivery [0]",
+    "displayName": "Extremely large bulk delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 750,
+      "max": null,
+      "expected": 848,
+      "softMax": 1058,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.02
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 110000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "2 8",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Mega Bulk Delivery [0]",
+    "_hash": "d32027c4abdb",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Eden Mega Bulk Delivery [1]",
+    "displayName": "Extremely large bulk delivery to <planet>",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 750,
+      "max": null,
+      "expected": 848,
+      "softMax": 1058,
+      "mode": "negative-binomial",
+      "nbParams": {
+        "r": 2,
+        "p": 0.02
+      }
+    },
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          },
+          {
+            "base": 120000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": {
+      "type": "filter",
+      "value": {
+        "distance": "3 8",
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Mega Bulk Delivery [1]",
+    "_hash": "06f53f07855f",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "First Contact: Sheragi",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onDecline": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "not": "attributes uninhabited"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::First Contact: Sheragi",
+    "_hash": "481355766d2c",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Discovered Sheragi Space",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "label sheragi space"
+    ],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Discovered Sheragi Space",
+    "_hash": "b623cb91a39c",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Stuck in Eden",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onWaypoint": [],
+        "onEnter": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "attributes": "eden"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Eden Gateway",
+        "count": 1,
+        "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+        "internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Eden Gateway"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Ithquent",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [
+        {
+          "name": "Quantum Energy Field",
+          "count": 1,
+          "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+          "internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Quantum Energy Field",
+          "grantedIn": "onWaypoint"
+        }
+      ],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Stuck in Eden",
+    "_hash": "85d1cc5b94e7",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Sheragi intro 1",
+    "displayName": null,
+    "locations": [],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "not": "attributes uninhabited"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Sheragi intro 1",
+    "_hash": "5eb5d782c16f",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Assisting Sheragi",
+    "displayName": null,
+    "locations": [
+      "assisting"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [
+          {
+            "base": 75000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Rebirth)",
+        "not": "attributes automaton"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Thaczil",
+        "count": 1,
+        "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+        "internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Thaczil"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Assisting Sheragi",
+    "_hash": "5815d8533ac5",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Boarding Dishonoured Jewels",
+    "displayName": null,
+    "locations": [
+      "boarding"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [
+          {
+            "base": 3250000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Dishonoured)",
+        "not": "attributes automaton"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Thaczil",
+        "count": 1,
+        "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+        "internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Thaczil"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Boarding Dishonoured Jewels",
+    "_hash": "d648d80eaeba",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Boarding Dishonoured Gold",
+    "displayName": null,
+    "locations": [
+      "boarding"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [
+          {
+            "base": 350000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Sheragi (Dishonoured)",
+        "not": "attributes automaton"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Thaczil",
+        "count": 1,
+        "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+        "internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Thaczil"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Boarding Dishonoured Gold",
+    "_hash": "33b11d65888e",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  },
+  {
+    "name": "Izkagg 1",
+    "displayName": "Escort Izkagg to <planet>",
+    "locations": [],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": true,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 65000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Ghrophund",
+        "count": 1,
+        "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+        "internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Ghrophund"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Ghrophund",
+        "count": 1,
+        "pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+        "internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Ghrophund"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux",
+    "_internalId": "LixiChronikouOrious list/Sheragi.Rebirth.Redux::Izkagg 1",
+    "_hash": "b99327cfb37b",
+    "sourcePlugin": "LixiChronikouOrious list/Sheragi.Rebirth.Redux"
+  }
+]

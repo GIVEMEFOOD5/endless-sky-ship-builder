@@ -1,0 +1,653 @@
+[
+  {
+    "name": "mOctave Omnis Reset",
+    "displayName": "Reset mOctave Plugins",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Omnis Arena"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "mOctave Omnis Clear"
+    ],
+    "_pluginId": "Blended Ships/blended-ships",
+    "_internalId": "Blended Ships/blended-ships::mOctave Omnis Reset",
+    "_hash": "8e857215b047",
+    "sourcePlugin": "Blended Ships/blended-ships"
+  },
+  {
+    "name": "Add to Omnis: Blended Ships",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": true,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "Add to Omnis: Blended Ships"
+    ],
+    "_pluginId": "Blended Ships/blended-ships",
+    "_internalId": "Blended Ships/blended-ships::Add to Omnis: Blended Ships",
+    "_hash": "826d0762abb9",
+    "sourcePlugin": "Blended Ships/blended-ships"
+  },
+  {
+    "name": "FWC Checkmate 1 (Barquentine)",
+    "displayName": "Defend Cebalrai",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onFail": [],
+        "onOffer": [],
+        "onVisit": [],
+        "onComplete": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Tundra",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Tundra"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": [
+        {
+          "name": "Barquentine 🇲 (Nuke)",
+          "count": 1,
+          "pluginId": null,
+          "internalId": null,
+          "grantedIn": "onComplete",
+          "customName": "F.S. Kauri"
+        }
+      ]
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [
+      {
+        "condition": "salary: Free Worlds",
+        "op": "=",
+        "trigger": "onComplete"
+      }
+    ],
+    "eventTriggers": [
+      "fwc defend cebalrai",
+      "fwc defended cebalrai",
+      "fwc solace has nukes"
+    ],
+    "_pluginId": "Blended Ships/blended-ships",
+    "_internalId": "Blended Ships/blended-ships::FWC Checkmate 1 (Barquentine)",
+    "_hash": "7727296c6832",
+    "sourcePlugin": "Blended Ships/blended-ships"
+  },
+  {
+    "name": "FW Pug 3B (Barquentine)",
+    "displayName": "Escort to <planet>",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 1,
+      "max": 1,
+      "mode": "fixed",
+      "nbParams": null
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onFail": [],
+        "onOffer": [],
+        "onVisit": [],
+        "onComplete": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Zug",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Zug"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Geminus",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Geminus"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": [
+        {
+          "name": "Barquentine 🇲",
+          "count": 1,
+          "pluginId": "Blended Ships/blended-ships",
+          "internalId": "Blended Ships/blended-ships::Barquentine 🇲",
+          "grantedIn": "onOffer",
+          "customName": "F.S. Kauri"
+        }
+      ]
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [
+      {
+        "condition": "salary: Free Worlds",
+        "op": "=",
+        "trigger": "onOffer"
+      }
+    ],
+    "eventTriggers": [],
+    "_pluginId": "Blended Ships/blended-ships",
+    "_internalId": "Blended Ships/blended-ships::FW Pug 3B (Barquentine)",
+    "_hash": "846ad413e184",
+    "sourcePlugin": "Blended Ships/blended-ships"
+  },
+  {
+    "name": "Woodchip Available for Sale",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Republic Syndicate Neutral Free Worlds Independent"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "Woodchip Available for Sale"
+    ],
+    "_pluginId": "Blended Ships/blended-ships",
+    "_internalId": "Blended Ships/blended-ships::Woodchip Available for Sale",
+    "_hash": "3df2b8b04f6d",
+    "sourcePlugin": "Blended Ships/blended-ships"
+  },
+  {
+    "name": "Trial by Fire 1",
+    "displayName": "Report to <planet>",
+    "locations": [],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onComplete": [],
+        "onFail": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Geminus",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Geminus"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Geyser",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Geyser"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": [
+        {
+          "name": "Missile Frigate 🇲",
+          "count": 1,
+          "pluginId": "Blended Ships/blended-ships",
+          "internalId": "Blended Ships/blended-ships::Missile Frigate 🇲",
+          "grantedIn": "onOffer",
+          "customName": "R.N.S. FF-19a-0002"
+        }
+      ]
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Blended Ships/blended-ships",
+    "_internalId": "Blended Ships/blended-ships::Trial by Fire 1",
+    "_hash": "03ac6bd066bf",
+    "sourcePlugin": "Blended Ships/blended-ships"
+  },
+  {
+    "name": "Trial by Fire 2",
+    "displayName": "Missile Frigate Testing",
+    "locations": [],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 2000,
+            "multiplier": 0
+          }
+        ],
+        "onFail": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Geyser",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Geyser"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Fingol",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Blended Ships/blended-ships",
+    "_internalId": "Blended Ships/blended-ships::Trial by Fire 2",
+    "_hash": "a3ea382e9ac1",
+    "sourcePlugin": "Blended Ships/blended-ships"
+  },
+  {
+    "name": "Trial by Fire 3",
+    "displayName": "Missile Frigate Testing",
+    "locations": [],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onVisit": [],
+        "onComplete": [],
+        "onFail": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Geyser",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Geyser"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Fingol",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Blended Ships/blended-ships",
+    "_internalId": "Blended Ships/blended-ships::Trial by Fire 3",
+    "_hash": "1f897ee296f4",
+    "sourcePlugin": "Blended Ships/blended-ships"
+  },
+  {
+    "name": "Trial by Fire 4",
+    "displayName": "Pirate Hunting",
+    "locations": [],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": {
+      "days": 6,
+      "multiplier": 2
+    },
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onVisit": [],
+        "onComplete": [],
+        "onFail": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Geyser",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Geyser"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Bounty",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Bounty"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      "missile frigate available"
+    ],
+    "_pluginId": "Blended Ships/blended-ships",
+    "_internalId": "Blended Ships/blended-ships::Trial by Fire 4",
+    "_hash": "1c462143870f",
+    "sourcePlugin": "Blended Ships/blended-ships"
+  },
+  {
+    "name": "Trial by Fire Epilogue",
+    "displayName": null,
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Blended Ships/blended-ships",
+    "_internalId": "Blended Ships/blended-ships::Trial by Fire Epilogue",
+    "_hash": "9cd0df2272d7",
+    "sourcePlugin": "Blended Ships/blended-ships"
+  },
+  {
+    "name": "FW Embassy 1B (Star General)",
+    "displayName": "Ambassadors to Bourne",
+    "locations": [
+      "landing"
+    ],
+    "repeatable": false,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 2,
+      "max": 2,
+      "mode": "fixed",
+      "nbParams": null
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onFail": [],
+        "onOffer": [],
+        "onVisit": [],
+        "onComplete": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Earth",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Earth"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Bourne",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Bourne"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Blended Ships/blended-ships",
+    "_internalId": "Blended Ships/blended-ships::FW Embassy 1B (Star General)",
+    "_hash": "f958e098fb41",
+    "sourcePlugin": "Blended Ships/blended-ships"
+  },
+  {
+    "name": "Republic Assassination (Star General)",
+    "displayName": "Assassinate a political target",
+    "locations": [
+      "job"
+    ],
+    "repeatable": true,
+    "repeatLimit": null,
+    "minor": false,
+    "priority": false,
+    "invisible": false,
+    "illegal": null,
+    "deadline": {
+      "days": 20,
+      "multiplier": 2
+    },
+    "cargo": null,
+    "passengers": null,
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onComplete": [
+          {
+            "base": 800000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": {
+        "government": "Pirate",
+        "attributes": "north pirate"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Blended Ships/blended-ships",
+    "_internalId": "Blended Ships/blended-ships::Republic Assassination (Star General)",
+    "_hash": "13f7ec4eaad0",
+    "sourcePlugin": "Blended Ships/blended-ships"
+  }
+]
