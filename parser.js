@@ -62,6 +62,8 @@ const https           = require('https');
 const http            = require('http');
 const SpeciesResolver = require('./speciesResolver');
 const LocationResolver = require('./locationResolver');
+const EndlessSkyMapParser     = require('./mapParser');
+const EndlessSkyMissionParser = require('./missionParser');
 const { parseAttributes } = require('./attributeParser');
 const crypto          = require('crypto');
 const fs              = require('fs').promises;
@@ -447,12 +449,16 @@ class EndlessSkyParser {
 
     this.speciesResolver  = new SpeciesResolver();
     this.locationResolver = new LocationResolver();
+    this.mapParser     = new EndlessSkyMapParser();
+    this.missionParser2 = new EndlessSkyMissionParser();
   }
 
   setSourcePriority(sources) {
     this._sourcePriority.clear();
     sources.forEach((source, index) => {
       this._sourcePriority.set(source.name, index);
+        this.mapParser.setSourcePriority(sources);
+        this.missionParser2.setSourcePriority(sources);
     });
   }
 
@@ -1010,20 +1016,31 @@ class EndlessSkyParser {
         } else if (trimmed.startsWith('fleet ')) {
           i = this.parseFleetBlock(lines, i); continue;
         } else if (trimmed.startsWith('mission ')) {
+          const [m, ni] = this.missionParser2.parseMissionBlock(lines, i, this._currentPluginId);
+          if (m) this.missionParser2.register(m, this._currentPluginId);
           i = this.parseMissionBlock(lines, i); continue;
         } else if (trimmed.startsWith('shipyard ')) {
           i = this.parseShipyardBlock(lines, i); continue;
         } else if (trimmed.startsWith('outfitter ')) {
           i = this.parseOutfitterBlock(lines, i); continue;
         } else if (trimmed.startsWith('planet ') || trimmed.startsWith('"planet"')) {
+          this.mapParser.parsePlanetBlock(lines, i, this._currentPluginId);
           i = this.parsePlanetBlock(lines, i); continue;
         } else if (trimmed.startsWith('event ') || trimmed === 'event') {
           i = this.parseEventBlock(lines, i); continue;
         } else if (trimmed.startsWith('system ')) {
+          this.mapParser.parseSystemBlock(lines, i, this._currentPluginId);
           i = this.parseSystemBlock(lines, i); continue;
         } else if (trimmed.startsWith('person ')) {
-          // NEW (person-block pass). See parsePersonBlock below.
           i = this.parsePersonBlock(lines, i); continue;
+        } else if (trimmed.startsWith('galaxy ')) {
+          i = this.mapParser.parseGalaxyBlock(lines, i, this._currentPluginId); continue;
+        } else if (trimmed.startsWith('wormhole ')) {
+          i = this.mapParser.parseWormholeBlock(lines, i, this._currentPluginId); continue;
+        } else if (trimmed.startsWith('star ')) {
+          i = this.mapParser.parseStarBlock(lines, i, this._currentPluginId); continue;
+        } else if (trimmed.startsWith('"landing message"')) {
+          i = this.mapParser.parseLandingMessageBlock(lines, i, this._currentPluginId); continue;
         }
       }
       i++;
@@ -2852,6 +2869,19 @@ async function main() {
     console.log(`  Planets: ${sharedParser.speciesResolver.planets.length}`);
     console.log('='.repeat(60));
 
+    console.log(`\nResolving map data (links, object↔planet join, government inheritance, wormholes)...`);
+    const mapResolveStats = sharedParser.mapParser.runAllResolvers();
+    console.log(`  ${JSON.stringify(mapResolveStats)}`);
+
+    console.log(`\nResolving mission collisions across all plugins...`);
+    sharedParser.missionParser2.resolveCollisions();
+    console.log(`  ${sharedParser.missionParser2.collisions.length} colliding mission name(s) found`);
+
+    console.log(`\nResolving mission reward/planet cross-references...`);
+    const rewardStats = sharedParser.missionParser2.resolveRewardPluginIds(sharedParser);
+    const planetRefStats = sharedParser.missionParser2.resolvePlanetRefs(sharedParser.mapParser);
+    console.log(`  rewards: ${JSON.stringify(rewardStats)}, planet refs: ${JSON.stringify(planetRefStats)}`);
+    
     for (const { plugin } of allResults) {
       sharedParser.speciesResolver.attachSpecies(
         plugin.ships, plugin.variants, plugin.outfits, plugin.outputName
@@ -2886,11 +2916,18 @@ async function main() {
       const effectsOut = plugin.effects.map(e => ({
         ...e, pluginId: e._pluginId ?? null, _pluginId: undefined,
       }));
+      const mapSlice = sharedParser.mapParser.toPluginSlice(plugin.pluginId);
+      const missionSlice = sharedParser.missionParser2.toPluginSlice(plugin.pluginId);
 
       await fs.writeFile(path.join(dataFilesDir, 'ships.json'),    JSON.stringify(shipsOut,    null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'variants.json'), JSON.stringify(variantsOut, null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'outfits.json'),  JSON.stringify(outfitsOut,  null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'effects.json'),  JSON.stringify(effectsOut,  null, 2));
+      await fs.writeFile(path.join(dataFilesDir, 'galaxies.json'),  JSON.stringify(mapSlice.galaxies,  null, 2));
+      await fs.writeFile(path.join(dataFilesDir, 'systems.json'),   JSON.stringify(mapSlice.systems,   null, 2));
+      await fs.writeFile(path.join(dataFilesDir, 'planets.json'),   JSON.stringify(mapSlice.planets,   null, 2));
+      await fs.writeFile(path.join(dataFilesDir, 'wormholes.json'), JSON.stringify(mapSlice.wormholes, null, 2));
+      await fs.writeFile(path.join(dataFilesDir, 'missions.json'), JSON.stringify(missionSlice, null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'complete.json'), JSON.stringify({
         plugin:      plugin.name,
         repository:  source.repository,
@@ -2898,11 +2935,17 @@ async function main() {
         variants:    variantsOut,
         outfits:     outfitsOut,
         effects:     effectsOut,
+        galaxies:    mapSlice.galaxies,
+        systems:     mapSlice.systems,
+        planets:     mapSlice.planets,
+        wormholes:   mapSlice.wormholes,
+        missions:    missionSlice,
         parsedAt:    new Date().toISOString(),
       }, null, 2));
 
       console.log(`  ✓ ${shipsOut.length} ships | ${variantsOut.length} variants | ${outfitsOut.length} outfits | ${effectsOut.length} effects`);
-
+      console.log(`  ✓ ${mapSlice.systems.length} systems | ${mapSlice.planets.length} planets | ${mapSlice.wormholes.length} wormholes | ${missionSlice.length} missions`);
+      
       if (!dataIndex[source.name]) dataIndex[source.name] = [];
       const indexEntry = {
         outputName: plugin.outputName,
@@ -2923,6 +2966,14 @@ async function main() {
     await fs.writeFile(eventGovImpactPath, JSON.stringify(sharedParser.eventGovernmentImpacts, null, 2));
     console.log(`Wrote data/eventGovernmentImpact.json with ${sharedParser.eventGovernmentImpacts.length} event→fleet→government record(s)`);
 
+    await fs.writeFile(path.join(process.cwd(), 'data', 'map.json'),
+      JSON.stringify(sharedParser.mapParser.toJSON(), null, 2));
+    console.log(`Wrote data/map.json (merged galaxy/system/planet/wormhole view)`);
+
+    await fs.writeFile(path.join(process.cwd(), 'data', 'missionCollisions.json'),
+      JSON.stringify(sharedParser.missionParser2.collisions, null, 2));
+    console.log(`Wrote data/missionCollisions.json with ${sharedParser.missionParser2.collisions.length} collision record(s)`);
+    
     await parseAttributes(path.join(process.cwd(), 'data'));
 
     console.log(`\n${'='.repeat(60)}\n✓ All done!\n${'='.repeat(60)}\n`);
