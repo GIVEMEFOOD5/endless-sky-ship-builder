@@ -16,14 +16,14 @@
       "jumpNavH": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/source/ShipJumpNavigation.h",
       "tooltips": "https://raw.githubusercontent.com/endless-sky/endless-sky/master/data/_ui/tooltips.txt"
     },
-    "generatedAt": "2026-08-30T20:31:02.833Z",
+    "generatedAt": "2026-09-01T03:22:09.063Z",
     "formulaNotation": [
       "[attr name] = attributes.Get(\"attr name\") in C++.",
       "FnName() calls refer to other ship functions.",
       "Multi-branch functions have one formula entry per return statement."
     ],
     "discovery": {
-      "scannedAt": "2026-08-30T20:30:58.855Z",
+      "scannedAt": "2026-09-01T03:22:06.786Z",
       "totalCandidatesScanned": 468,
       "relevantFilesFound": 26,
       "relevantFilePaths": [
@@ -37,8 +37,8 @@
         "source/FleetCargo.cpp",
         "source/GameAction.cpp",
         "source/Government.cpp",
-        "source/Hardpoint.cpp",
         "source/HailPanel.cpp",
+        "source/Hardpoint.cpp",
         "source/HiringPanel.cpp",
         "source/LocationFilter.cpp",
         "source/MainPanel.cpp",
@@ -129,7 +129,7 @@
       "note": "isMovementRelevant on each attribute (below) is derived structurally from the ship-function call graph, seeded only from InertialMass/Drag/DragForce — see movementSystem at the bottom of this file for the full function/attribute lists and rationale."
     },
     "dataUsage": {
-      "scannedAt": "2026-08-30T20:31:02.829Z",
+      "scannedAt": "2026-09-01T03:22:09.058Z",
       "filesScanned": 199,
       "attributeKeysObserved": 274,
       "dataOnlyAttributeKeys": [
@@ -1132,9 +1132,9 @@
       },
       "dataSampleValues": [
         5,
-        3,
-        3,
         0.3,
+        3,
+        3,
         0.25
       ],
       "dataOnShip": true,
@@ -1929,8 +1929,8 @@
         0.3,
         2.4,
         6,
-        24,
-        24
+        6,
+        15
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -2885,11 +2885,11 @@
         "max": 3
       },
       "dataSampleValues": [
+        3,
         0.01,
         0.02,
         0.012,
-        0.024,
-        0.048
+        0.024
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -3202,10 +3202,10 @@
         "max": 1
       },
       "dataSampleValues": [
-        1,
         0.15,
         0.15,
         0.12,
+        1,
         0.08
       ],
       "dataOnShip": true,
@@ -4665,8 +4665,8 @@
         0.1,
         0.3,
         0.2,
-        0.5,
-        1
+        2,
+        0.5
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -7661,8 +7661,8 @@
         10,
         6,
         90,
-        100,
-        5
+        5,
+        0.05
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -7852,7 +7852,7 @@
       },
       "dataSampleValues": [
         90,
-        1,
+        36,
         1,
         1,
         1
@@ -8753,10 +8753,10 @@
         "max": 135
       },
       "dataSampleValues": [
-        50,
-        135,
         0.0005,
-        1.1
+        1.1,
+        50,
+        135
       ],
       "dataOnShip": true,
       "dataOnOutfit": true,
@@ -8807,6 +8807,25 @@
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
+    "hull repair energy": {
+      "key": "hull repair energy",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Utility"
+      ],
+      "dataUsageCount": 1,
+      "dataValueRange": {
+        "min": 3,
+        "max": 3
+      },
+      "dataSampleValues": [
+        3
+      ],
+      "dataOnShip": true,
+      "dataOnOutfit": false,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
     "flotsam chance": {
       "key": "flotsam chance",
       "dataOnly": true,
@@ -8833,25 +8852,6 @@
       ],
       "dataOnShip": false,
       "dataOnOutfit": true,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
-    "hull repair energy": {
-      "key": "hull repair energy",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Utility"
-      ],
-      "dataUsageCount": 1,
-      "dataValueRange": {
-        "min": 3,
-        "max": 3
-      },
-      "dataSampleValues": [
-        3
-      ],
-      "dataOnShip": true,
-      "dataOnOutfit": false,
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
@@ -9949,28 +9949,6 @@
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
-    "spike capacity": {
-      "key": "spike capacity",
-      "dataOnly": true,
-      "usedInDataCategories": [
-        "Ammunition",
-        "Secondary Weapons"
-      ],
-      "dataUsageCount": 3,
-      "dataValueRange": {
-        "min": -1,
-        "max": 20
-      },
-      "dataSampleValues": [
-        20,
-        -1,
-        16
-      ],
-      "dataOnShip": false,
-      "dataOnOutfit": true,
-      "area": "Custom / Modder-Defined",
-      "areaBadges": []
-    },
     "waterlining": {
       "key": "waterlining",
       "dataOnly": true,
@@ -10006,6 +9984,28 @@
       ],
       "dataOnShip": true,
       "dataOnOutfit": false,
+      "area": "Custom / Modder-Defined",
+      "areaBadges": []
+    },
+    "spike capacity": {
+      "key": "spike capacity",
+      "dataOnly": true,
+      "usedInDataCategories": [
+        "Ammunition",
+        "Secondary Weapons"
+      ],
+      "dataUsageCount": 3,
+      "dataValueRange": {
+        "min": -1,
+        "max": 20
+      },
+      "dataSampleValues": [
+        20,
+        -1,
+        16
+      ],
+      "dataOnShip": false,
+      "dataOnOutfit": true,
       "area": "Custom / Modder-Defined",
       "areaBadges": []
     },
