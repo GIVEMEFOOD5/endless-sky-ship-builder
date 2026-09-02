@@ -210,6 +210,75 @@ function hashNode(obj) {
   return crypto.createHash('sha1').update(JSON.stringify(obj)).digest('hex').slice(0, 12);
 }
 
+// ---------------------------------------------------------------------------
+// Generic indentation tree - a nothing-left-out fallback capture alongside
+// the targeted field parsing above. Every line under `system`/`planet`
+// becomes { key, values, children } (same shape ships/outfits/planets
+// already use for repeated-value lines), so anything not covered by a
+// dedicated regex above (port sub-details, tribute hail text, condition
+// bodies, any keyword this module hasn't been taught yet) still ends up in
+// the node's `raw` field instead of silently vanishing. See missionParser.js
+// for the fuller write-up of why this shape was chosen.
+// ---------------------------------------------------------------------------
+
+function tokenizeESLine(line) {
+  const tokens = [];
+  let i = 0;
+  const n = line.length;
+  while (i < n) {
+    while (i < n && /\s/.test(line[i])) i++;
+    if (i >= n) break;
+    const ch = line[i];
+    if (ch === '"' || ch === '`' || ch === "'") {
+      const quote = ch;
+      let j = i + 1;
+      while (j < n && line[j] !== quote) j++;
+      tokens.push(line.slice(i + 1, j));
+      i = (j < n) ? j + 1 : j;
+    } else {
+      let j = i;
+      while (j < n && !/\s/.test(line[j])) j++;
+      tokens.push(line.slice(i, j));
+      i = j;
+    }
+  }
+  return tokens;
+}
+
+function coerceToken(tok) {
+  if (tok !== '' && /^-?\d+(\.\d+)?$/.test(tok)) return parseFloat(tok);
+  return tok;
+}
+
+function parseIndentTree(lines, startIdx, baseIndent) {
+  const entries = [];
+  let i = startIdx;
+  while (i < lines.length) {
+    const rawLine = lines[i];
+    if (!rawLine.trim()) { i++; continue; }
+    const indent = indentOf(rawLine);
+    if (indent < baseIndent) break;
+    const stripped = rawLine.trim();
+    if (stripped.startsWith('#')) { i++; continue; }
+
+    const tokens = tokenizeESLine(stripped);
+    const key = tokens.length > 0 ? tokens[0] : stripped;
+    const values = tokens.slice(1).map(coerceToken);
+    i++;
+
+    let k = i;
+    while (k < lines.length && !lines[k].trim()) k++;
+    let children = null;
+    if (k < lines.length && indentOf(lines[k]) > baseIndent) {
+      const [childEntries, ni] = parseIndentTree(lines, k, indentOf(lines[k]));
+      children = childEntries;
+      i = ni;
+    }
+    entries.push({ key, values, children });
+  }
+  return [entries, i];
+}
+
 /** Build a { name, count, pluginId, internalId } reference entry - the
  *  shape used for every nested named item throughout this module, mirroring
  *  outfitMapToOutputFormat()'s { count, pluginId, internalId } shape in
@@ -352,6 +421,7 @@ class EndlessSkyMapParser {
       objectTree: [],
     };
 
+    const systemBodyStart = i + 1;
     i++;
     while (i < lines.length) {
       const line = lines[i];
@@ -491,7 +561,8 @@ class EndlessSkyMapParser {
       i++;
     }
 
-    this._mergeSystem(name, partial, pluginId);
+    const [rawEntries] = parseIndentTree(lines, systemBodyStart, baseIndent + 1);
+    this._mergeSystem(name, partial, pluginId, rawEntries);
     return i;
   }
 
@@ -610,7 +681,7 @@ class EndlessSkyMapParser {
     return [node, i];
   }
 
-  _mergeSystem(name, partial, pluginId) {
+  _mergeSystem(name, partial, pluginId, rawEntries = null) {
     let node = this.systems.get(name);
     if (!node) {
       node = this._stampNew({
@@ -620,12 +691,13 @@ class EndlessSkyMapParser {
         belts: [], invisibleFence: null, jumpRange: null, haze: null,
         links: [], asteroids: [], minables: [], trade: [], fleets: [],
         raids: [], noRaids: false, hazards: [], starfieldDensity: null,
-        objectTree: [], planets: [],
+        objectTree: [], planets: [], rawByPlugin: [],
       }, name, pluginId);
       this.systems.set(name, node);
     } else {
       this._stampTouched(node, pluginId);
     }
+    if (rawEntries) node.rawByPlugin.push({ pluginId, entries: rawEntries });
 
     // Scalars: last write wins (see file header comment).
     if (partial.displayName != null) node.displayName = partial.displayName;
@@ -714,6 +786,7 @@ class EndlessSkyMapParser {
       security: null, wormhole: null, tribute: null, tributeHails: {},
     };
 
+    const planetBodyStart = i + 1;
     i++;
     while (i < lines.length) {
       const line = lines[i];
@@ -838,11 +911,12 @@ class EndlessSkyMapParser {
       i++;
     }
 
-    this._mergePlanet(name, partial, pluginId);
+    const [rawEntries] = parseIndentTree(lines, planetBodyStart, baseIndent + 1);
+    this._mergePlanet(name, partial, pluginId, rawEntries);
     return i;
   }
 
-  _mergePlanet(name, partial, pluginId) {
+  _mergePlanet(name, partial, pluginId, rawEntries = null) {
     let node = this.planets.get(name);
     if (!node) {
       node = this._stampNew({
@@ -853,11 +927,13 @@ class EndlessSkyMapParser {
         shipyards: [], outfitters: [], requiredReputation: null,
         bribe: null, bribeThreshold: null, bribeFraction: null, security: null,
         wormhole: null, tribute: null, tributeHails: {}, systemName: null,
+        rawByPlugin: [],
       }, name, pluginId);
       this.planets.set(name, node);
     } else {
       this._stampTouched(node, pluginId);
     }
+    if (rawEntries) node.rawByPlugin.push({ pluginId, entries: rawEntries });
 
     if (partial.displayName != null) node.displayName = partial.displayName;
     if (partial.music != null) node.music = partial.music;
