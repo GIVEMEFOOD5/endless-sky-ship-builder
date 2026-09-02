@@ -2,18 +2,77 @@
   {
     "name": "type 5 radiants",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: wanderers: derecho mass production"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "type 5 radiants"
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: wanderers: derecho mass production"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -29,30 +88,90 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "type 5 radiants"
+      {
+        "name": "type 5 radiants",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Quality of Life Outfits/QOL-Outfits",
     "_internalId": "Quality of Life Outfits/QOL-Outfits::type 5 radiants",
-    "_hash": "18b9b262a611",
+    "_hash": "3f523f46404d",
     "sourcePlugin": "Quality of Life Outfits/QOL-Outfits"
   },
   {
     "name": "Ranger Gear Available",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: war begins"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "ranger gear"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: war begins"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -68,13 +187,19 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "ranger gear"
+      {
+        "name": "ranger gear",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Quality of Life Outfits/QOL-Outfits",
     "_internalId": "Quality of Life Outfits/QOL-Outfits::Ranger Gear Available",
-    "_hash": "18b9b262a611",
+    "_hash": "984db5db09db",
     "sourcePlugin": "Quality of Life Outfits/QOL-Outfits"
   }
 ]

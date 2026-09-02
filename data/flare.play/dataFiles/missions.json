@@ -1,0 +1,270 @@
+[
+  {
+    "name": "flare.play.start",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Free Worlds",
+              "Republic",
+              "Syndicate",
+              "Militia",
+              "Merchant",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "days since start",
+            "values": [
+              ">",
+              1
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "effect/newflares/avgi flare fusion flare"
+                ],
+                "children": null
+              },
+              {
+                "key": "You walk through the bustling main concourse of the spaceport, dodging luggage drones and loud traders. Neon flickers, engines hum, and the scent of ozone fills the air. Then, something catches your eye... a holo-ad, bright and sharp, floating above a transit gate. You pause. You see a sleek freighter ignite its engines. But the flare isn't the usual blue; it's a searing crimson with blue at the borders. The logo pulses in the corner: FlarePlay. You read the tagline: \"Engine Flare Reimagined\".",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The ad zooms in on a tech in a slick suit holding a shimmering vial. You hear her voice through the ad's ambient sound: \"Once reserved for military prototypes and elite builders... now available to everyone\". While watching the ad, you learn that FlarePlay has recently stepped out of the shadows and is now a legitimate supplier to the big outfitters on Wayfarer, Valhalla, Sunracer, Foundry and Solace. Their flare additives promise style.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "Thinking about how your ship would look trailing blue-white, you check your datapad. Yeah, it's compatible. You smirk. You walk on, but the idea lingers.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [],
+    "flags": {
+      "non-blocking": true,
+      "invisible": true
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "days since start",
+          "values": [
+            ">",
+            1
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Free Worlds",
+            "Republic",
+            "Syndicate",
+            "Militia",
+            "Merchant",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/flare.play",
+    "_internalId": "Zuckungs List/flare.play::flare.play.start",
+    "_hash": "a7d5cddbe866",
+    "sourcePlugin": "Zuckungs List/flare.play"
+  },
+  {
+    "name": "flare.play.equip.fleets",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "flare.play.wave1",
+              30
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "flare.play.wave2",
+              90
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "flare.play.wave3",
+              150
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {
+      "non-blocking": true,
+      "invisible": true
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {},
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      {
+        "name": "flare.play.wave1",
+        "delayDays": 30,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "flare.play.wave2",
+        "delayDays": 90,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "flare.play.wave3",
+        "delayDays": 150,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
+    ],
+    "_pluginId": "Zuckungs List/flare.play",
+    "_internalId": "Zuckungs List/flare.play::flare.play.equip.fleets",
+    "_hash": "ca5e6c41969b",
+    "sourcePlugin": "Zuckungs List/flare.play"
+  }
+]

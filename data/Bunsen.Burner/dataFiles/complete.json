@@ -1694,6 +1694,10 @@
           "Storm Seekers": true,
           "Navy (Oathkeeper)": true
         },
+        "Zuckungs List/job.coloring": {
+          "Pirate": true,
+          "Merchant": true
+        },
         "LixiChronikouOrious list/Bunsen.Burner": {
           "Free Worlds": true
         },
@@ -1723,6 +1727,12 @@
         },
         "SpaceCrate/SpaceCrate": {
           "Republic": true
+        },
+        "Zuckungs List/heavy.traffic": {
+          "Republic": true
+        },
+        "Zuckungs List/planet.map": {
+          "Avalonian Fauna": true
         }
       },
       "governmentEvents": [
@@ -1895,18 +1905,91 @@
     {
       "name": "Bunsen Torch Banned",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "event: bunsen burner available"
+              ],
+              "children": null
+            },
+            {
+              "key": "has",
+              "values": [
+                "main plot completed"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "bunsen torch banned"
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "event: bunsen burner available"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "main plot completed"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -1922,30 +2005,102 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "bunsen torch banned"
+        {
+          "name": "bunsen torch banned",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "LixiChronikouOrious list/Bunsen.Burner",
       "_internalId": "LixiChronikouOrious list/Bunsen.Burner::Bunsen Torch Banned",
-      "_hash": "18b9b262a611",
+      "_hash": "5f20851608c1",
       "sourcePlugin": "LixiChronikouOrious list/Bunsen.Burner"
     },
     {
       "name": "Bunsen Quickstart",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "event: quickstart free worlds shop changes"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "bunsen burner available"
+              ],
+              "children": null
+            },
+            {
+              "key": "event",
+              "values": [
+                "bunsen torch banned"
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "event: quickstart free worlds shop changes"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -1961,31 +2116,110 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "bunsen burner available",
-        "bunsen torch banned"
+        {
+          "name": "bunsen burner available",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        },
+        {
+          "name": "bunsen torch banned",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "LixiChronikouOrious list/Bunsen.Burner",
       "_internalId": "LixiChronikouOrious list/Bunsen.Burner::Bunsen Quickstart",
-      "_hash": "18b9b262a611",
+      "_hash": "6c3c606c14a9",
       "sourcePlugin": "LixiChronikouOrious list/Bunsen.Burner"
     },
     {
       "name": "FW Flamethrower Deployment",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "event: flamethrower available"
+              ],
+              "children": null
+            },
+            {
+              "key": "has",
+              "values": [
+                "event: fw gets catalytic ramscoop"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "fw flamethrowers deployed"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "event: flamethrower available"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "event: fw gets catalytic ramscoop"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -2001,30 +2235,91 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "fw flamethrowers deployed"
+        {
+          "name": "fw flamethrowers deployed",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "LixiChronikouOrious list/Bunsen.Burner",
       "_internalId": "LixiChronikouOrious list/Bunsen.Burner::FW Flamethrower Deployment",
-      "_hash": "18b9b262a611",
+      "_hash": "39f8c112c6b8",
       "sourcePlugin": "LixiChronikouOrious list/Bunsen.Burner"
     },
     {
       "name": "FW Bunsen Burner Timer",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "event: flamethrower available"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "fw bunsen burner init",
+                60
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "event: flamethrower available"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -2040,30 +2335,174 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "fw bunsen burner init"
+        {
+          "name": "fw bunsen burner init",
+          "delayDays": 60,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "LixiChronikouOrious list/Bunsen.Burner",
       "_internalId": "LixiChronikouOrious list/Bunsen.Burner::FW Bunsen Burner Timer",
-      "_hash": "18b9b262a611",
+      "_hash": "87beb1e88f94",
       "sourcePlugin": "LixiChronikouOrious list/Bunsen.Burner"
     },
     {
       "name": "FW Bunsen Burner 1",
       "displayName": "Weapon Testing",
+      "description": "When you have time, report to <destination>, where Barmy Edward has another weapon he would like you to test.",
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "government",
+              "values": [
+                "Free Worlds",
+                "Syndicate",
+                "Republic",
+                "Pirate"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "name",
+          "values": [
+            "Weapon Testing"
+          ],
+          "children": null
+        },
+        {
+          "key": "description",
+          "values": [
+            "When you have time, report to <destination>, where Barmy Edward has another weapon he would like you to test."
+          ],
+          "children": null
+        },
+        {
+          "key": "destination",
+          "values": [
+            "Rust"
+          ],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "event: fw bunsen burner init"
+              ],
+              "children": null
+            },
+            {
+              "key": "has",
+              "values": [
+                "event: fw gets catalytic ramscoop"
+              ],
+              "children": null
+            },
+            {
+              "key": "has",
+              "values": [
+                "event: dreadnought deployment"
+              ],
+              "children": null
+            },
+            {
+              "key": "random",
+              "values": [
+                "<",
+                30
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "A message arrives from Barmy Edward of Kraz Cybernetics: \"Greetings! We've prototyped a new weapon based on the same technology as the flamethrower. Stop by our lab on <destination> if you have time to help us test it.\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {},
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": false,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "event: fw bunsen burner init"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "event: fw gets catalytic ramscoop"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "event: dreadnought deployment"
+            ],
+            "children": null
+          },
+          {
+            "key": "random",
+            "values": [
+              "<",
+              30
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -2072,9 +2511,18 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "government": "Free Worlds Syndicate Republic Pirate"
-        }
+        "value": [
+          {
+            "key": "government",
+            "values": [
+              "Free Worlds",
+              "Syndicate",
+              "Republic",
+              "Pirate"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": {
         "type": "planet",
@@ -2092,28 +2540,374 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [],
       "_pluginId": "LixiChronikouOrious list/Bunsen.Burner",
       "_internalId": "LixiChronikouOrious list/Bunsen.Burner::FW Bunsen Burner 1",
-      "_hash": "b2b7f76b92c6",
+      "_hash": "372ebe5ce4bb",
       "sourcePlugin": "LixiChronikouOrious list/Bunsen.Burner"
     },
     {
       "name": "FW Bunsen Burner 2",
       "displayName": "Weapon Testing",
+      "description": "A test ship with new weaponry is in orbit around <planet>. Fight and disable it (but do not destroy it!) and then land to give Dr. Cardona feedback on its performance.",
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "name",
+          "values": [
+            "Weapon Testing"
+          ],
+          "children": null
+        },
+        {
+          "key": "description",
+          "values": [
+            "A test ship with new weaponry is in orbit around <planet>. Fight and disable it (but do not destroy it!) and then land to give Dr. Cardona feedback on its performance."
+          ],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [
+            "Rust"
+          ],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "FW Bunsen Burner 1: done"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "You received a message recently from Barmy Edward, asking you to stop by the Kraz Cybernetics facility to help test a new weapon. Do you want to visit them now?",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t(Yes.)",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t(No.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "defer",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "\tThe Kraz Cybernetics receptionist points you in a familiar direction, towards the hangar where Barmy Edward does his work. You do not find him there; instead, you are greeted by one of his colleagues: \"Good afternoon. Captain <last>, is it? I'm Dr. Chris Cardona. I work with Mr. Edward on the occasional project, including this latest prototype. We had some - uh - technical difficulties with the fuel injection component, and Mr. Edward is on temporary medical leave. Not to worry, he left me with clear instructions regarding your assignment.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tHe seems unfazed by this state of affairs.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tJust as before, you are to engage our test ship in combat in orbit above <planet> and attempt to disable it without causing permanent damage to its hull. In this case, it is a salvaged Falcon, the Red Hammer.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"Technical difficulties?\"",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t\"Medical leave?\"",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "\t\"Yes, the fuel injector came loose and doused the hangar with hyperspace fuel. It didn't ignite, but Mr. Edward inhaled enough of the vapours to put him out of action for a few weeks. Thankfully, the lab was not damaged, and production of test units is still on schedule.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"For science!\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "accept",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"For Edward!\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "accept",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"Sorry, I'd rather not end up like Edward. I don't want to be involved.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "decline",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "npc",
+          "values": [
+            "save",
+            "disable"
+          ],
+          "children": [
+            {
+              "key": "personality",
+              "values": [
+                "staying",
+                "heroic"
+              ],
+              "children": null
+            },
+            {
+              "key": "government",
+              "values": [
+                "Test Dummy"
+              ],
+              "children": null
+            },
+            {
+              "key": "ship",
+              "values": [
+                "Falcon (Bunsen)",
+                "Red Hammer"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "complete"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "bunsen burner available",
+                30
+              ],
+              "children": null
+            },
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "You return to Kraz Cybernetics to deliver your report to Dr. Cardona. As you approach the hangar, he steps outside, removes a respirator and pair of safety goggles from his face, and rushes forward to meet you.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Captain <last>, you're back so soon? Come, let us discuss your findings in my office, where the air is - uh - better conditioned. It's humid out here, no?\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tYou follow him to his office, away from the hangar, and away from an unusual smell which has begun to fill the air.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"The weapon worked well, I presume?\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"Indeed.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "good"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"I was able to neutralize it without much effort.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "bad"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "good"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Glad to hear it.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tHe glances at the figures displayed on his monitor.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Yes, the data we've collected remotely seem to meet our expectations.\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "goto",
+                      "values": [
+                        "end"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "bad"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"I see. Surely that speaks more to the effectiveness of your ship's cooling system than to any deficiency in the prototype.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"Indeed.\"",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t\"Don't call me Shirley.\"",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "end"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"You should be able to find production models at our distributors within one to two months. On behalf of Kraz Cybernetics, I thank you for your assistance. Mr. Edward will be pleased to hear of our success.\" You bid Dr. Cardona farewell, and return to your ship.",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {},
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": false,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "FW Bunsen Burner 1: done"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -2137,16 +2931,22 @@
         "outfits": [],
         "ships": []
       },
-      "hasNpcObjective": false,
+      "hasNpcObjective": true,
+      "npcCount": 1,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "bunsen burner available"
+        {
+          "name": "bunsen burner available",
+          "delayDays": 30,
+          "delayDaysMax": null,
+          "trigger": "onComplete"
+        }
       ],
       "_pluginId": "LixiChronikouOrious list/Bunsen.Burner",
       "_internalId": "LixiChronikouOrious list/Bunsen.Burner::FW Bunsen Burner 2",
-      "_hash": "6b3049a94c20",
+      "_hash": "c4d7ed3c57af",
       "sourcePlugin": "LixiChronikouOrious list/Bunsen.Burner"
     }
   ],
-  "parsedAt": "2026-09-01T13:05:45.515Z"
+  "parsedAt": "2026-09-02T07:57:23.363Z"
 }

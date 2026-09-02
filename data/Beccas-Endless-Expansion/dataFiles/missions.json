@@ -2,18 +2,116 @@
   {
     "name": "Battle For Sich'ka'ara Ends",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: battle for sich'ka'ara ends"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "attributes",
+            "values": [
+              "wanderer"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Earth"
+        ],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "more unfettered stuff"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "fail"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: more unfettered stuff"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: battle for sich'ka'ara ends"
+          ],
+          "children": null
+        }
+      ],
+      "fail": [
+        {
+          "key": "has",
+          "values": [
+            "event: more unfettered stuff"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -22,9 +120,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "attributes": "wanderer"
-      }
+      "value": [
+        {
+          "key": "attributes",
+          "values": [
+            "wanderer"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": {
       "type": "planet",
@@ -42,30 +146,134 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "more unfettered stuff"
+      {
+        "name": "more unfettered stuff",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Battle For Sich'ka'ara Ends",
-    "_hash": "44d436e0ec64",
+    "_hash": "addf073c3bb8",
     "sourcePlugin": "Beccas-Endless-Expansion/Beccas-Endless-Expansion"
   },
   {
     "name": "Wanderers Ap'arak 3: Unfettered",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: wanderers: the eye opens"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "attributes",
+            "values": [
+              "wanderer"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Earth"
+        ],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "even more unfettered stuff"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "fail"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "even more unfettered stuff"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: wanderers: the eye opens"
+          ],
+          "children": null
+        }
+      ],
+      "fail": [
+        {
+          "key": "has",
+          "values": [
+            "even more unfettered stuff"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -74,9 +282,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "attributes": "wanderer"
-      }
+      "value": [
+        {
+          "key": "attributes",
+          "values": [
+            "wanderer"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": {
       "type": "planet",
@@ -94,30 +308,134 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "even more unfettered stuff"
+      {
+        "name": "even more unfettered stuff",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Wanderers Ap'arak 3: Unfettered",
-    "_hash": "44d436e0ec64",
+    "_hash": "b66e829f7e0c",
     "sourcePlugin": "Beccas-Endless-Expansion/Beccas-Endless-Expansion"
   },
   {
     "name": "Wanderers: Mentors 4",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: wanderers: hurricane mass production"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "attributes",
+            "values": [
+              "wanderer"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Earth"
+        ],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "more wanderer stuff"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "fail"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: more wanderer stuff"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: wanderers: hurricane mass production"
+          ],
+          "children": null
+        }
+      ],
+      "fail": [
+        {
+          "key": "has",
+          "values": [
+            "event: more wanderer stuff"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -126,9 +444,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "attributes": "wanderer"
-      }
+      "value": [
+        {
+          "key": "attributes",
+          "values": [
+            "wanderer"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": {
       "type": "planet",
@@ -146,30 +470,164 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "more wanderer stuff"
+      {
+        "name": "more wanderer stuff",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Wanderers: Mentors 4",
-    "_hash": "44d436e0ec64",
+    "_hash": "7f5b4e2ba950",
     "sourcePlugin": "Beccas-Endless-Expansion/Beccas-Endless-Expansion"
   },
   {
     "name": "Kraz Hand To Hand 1",
     "displayName": "Message from Barmy Edward",
+    "description": "Barmy Edward sent you a message asking you to go to <destination> soon. He probably has another weapon ready for testing.",
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "Message from Barmy Edward"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Barmy Edward sent you a message asking you to go to <destination> soon. He probably has another weapon ready for testing."
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "near",
+            "values": [
+              "Kraz",
+              1,
+              100
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Rust"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "free worlds plot completed"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "event: flamethrower available"
+            ],
+            "children": null
+          },
+          {
+            "key": "random",
+            "values": [
+              "<",
+              25
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "As soon as you finish your post-flight checklist, you hear the usual beep of an incoming message. When you check your computer, you find that it's from Barmy Edwards. \"Hi <first>! It's been a while since our last meeting. To see our new product before it is on sale, come here on <destination> as soon as you can\".",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The message wasn't very clear about what you will see there, but from your previous experience there are good chances it is another weapon.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {},
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "free worlds plot completed"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "event: flamethrower available"
+          ],
+          "children": null
+        },
+        {
+          "key": "random",
+          "values": [
+            "<",
+            25
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -178,9 +636,17 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "near": "Kraz 1 100"
-      }
+      "value": [
+        {
+          "key": "near",
+          "values": [
+            "Kraz",
+            1,
+            100
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": {
       "type": "planet",
@@ -198,28 +664,264 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Kraz Hand To Hand 1",
-    "_hash": "4ac4c5054006",
+    "_hash": "28984eafc47c",
     "sourcePlugin": "Beccas-Endless-Expansion/Beccas-Endless-Expansion"
   },
   {
     "name": "Kraz Hand To Hand 2",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Rust"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "Kraz Hand To Hand 1: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "heavy hand to hand available",
+              16
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Heavy Laser Rifle",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "When you land, you open your ship's door and you start walking towards the main Kraz Cybernetics building. This time, you don't even have to give your name to the receptionist; as soon as she sees you, she says: \"Welcome, Captain <last>! Barmy Edward is waiting for you in building 13, second floor, room 9.\" The whole buliding 13 reveals to be a weapon testing laboratory, with the second floor being focused on rifles testing. Barmy is in front of the room's door, with a smile on his face. He looks quite excited. \"<first>! Long time no see. Are you ready to see the most beautiful thing in your life?\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Absolutely!\"",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t\"Why all this haste?\"",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t\"What's behind that door?\"",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "\"Follow me\" he says. He lays his hand on a device similar to a scanner next to the door, then types something on a pad which opens the door. The room is a rifle range, with some targets on the far side that start moving on some rails as soon as Barmy presses a switch. \"For many decades, here at Kraz, we tried to understand enough about the Heavy Lasers to improve them. The Deep, once again, beat us with their fantastic Electron Beam. While we haven't been able to replicate them, our previous studies on the laser technology haven't been a total waste of time, but I guess you will judge that yourself.\" He opens a safe box and takes out a large rifle.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/heavy laser rifle"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"The Laser Rifle is older than any other laser currently used,\" he says \"a piece of technology less complicated to understand, and to improve. I'm not saying it was easy, of course\" he adds, hiding a smile.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Can I try it?\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "test"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"Why should I choose this over a couple grenades?\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "grenades"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"It's wonderful.\"",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "\t\"Isn't it? It's also a very effective weapon. Shoot at those moving targets.\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "goto",
+                    "values": [
+                      "shoot"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "test"
+                ],
+                "children": null
+              },
+              {
+                "key": "\t\"Of course!\tShoot at those moving targets.\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "goto",
+                    "values": [
+                      "shoot"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "grenades"
+                ],
+                "children": null
+              },
+              {
+                "key": "\t\"Well, first of all, it will be more useful at defending than covering your ship and your crew with explosives,\" he says, with such a tone that you can't say if he was just sarcastic or also a little irritated. \"Not to mention,\" he adds,\" the fact they are barely legal, and could be banished one day. At least, I wouldn't start launching explosives in a ship where the smallest hole would kill you soon. Anyways, you can try it yourself. Shoot at those moving targets.\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "goto",
+                    "values": [
+                      "shoot"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "shoot"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tYou kneel down and you try to aim. It is surprisingly comfortable to hold for such a heavy weapon. As soon as you press the trigger, it fires a fast succession of yellow-green shots that pierce through the target and set on fire the wall behind it. When you look at Barmy, you notice he has a large smile on his face.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"How long until I can buy this?\"",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "\t\"Hardly more than a week, the production line is almost completed. But you can keep the one you are holding. I don't need it, and I don't think anybody will be worried when they hear your name, <first>. You are somewhat of a celebrity here.\"",
+                "values": [],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {},
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "Kraz Hand To Hand 1: done"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -251,30 +953,107 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "heavy hand to hand available"
+      {
+        "name": "heavy hand to hand available",
+        "delayDays": 16,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Kraz Hand To Hand 2",
-    "_hash": "adf3efc72093",
+    "_hash": "e37a61b2be04",
     "sourcePlugin": "Beccas-Endless-Expansion/Beccas-Endless-Expansion"
   },
   {
     "name": "Kraz Hand To Hand 3",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "near",
+            "values": [
+              "Kraz",
+              1,
+              100
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: heavy hand to hand available"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "It's been more than two weeks since you met with Barmy when you receive another message from him. It says: \"Sorry for the wait, <first>. The boss decided to wait for another project to be ready before starting the mass production. This should be good news for you: when you come here you'll see another invention, an upgraded version of the Security Station. I didn't directly take part in its development, but I have been able to take an accurate look and I must admit, they did a very good job.\"",
+                "values": [],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {},
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: heavy hand to hand available"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -283,9 +1062,17 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "near": "Kraz 1 100"
-      }
+      "value": [
+        {
+          "key": "near",
+          "values": [
+            "Kraz",
+            1,
+            100
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -295,28 +1082,102 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Kraz Hand To Hand 3",
-    "_hash": "dad097be2a08",
+    "_hash": "8da95427738b",
     "sourcePlugin": "Beccas-Endless-Expansion/Beccas-Endless-Expansion"
   },
   {
     "name": "Remnant: Return the Samples 2B",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Remnant"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "Remnant: Return the Samples 2: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "Robin unlocked",
+              14
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "Remnant: Return the Samples 2: done"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -325,9 +1186,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Remnant"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Remnant"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -337,30 +1204,125 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Robin unlocked"
+      {
+        "name": "Robin unlocked",
+        "delayDays": 14,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Remnant: Return the Samples 2B",
-    "_hash": "f7748498f444",
+    "_hash": "0cc47ac771f4",
     "sourcePlugin": "Beccas-Endless-Expansion/Beccas-Endless-Expansion"
   },
   {
     "name": "Remnant: Robin developed",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Remnant"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Viminal"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: Robin unlocked"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "Soon after you land, you receive a message from Plume, the xenobiologist you helped recently. The message chants, \"Hello, Captain <last>! Ever since you first made contact with the void sprite(s), we have been developing an improved gascraft to make better use of modern construction techniques and advanced instrumentation.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tWith the Archon no longer attacking our ships, we've been allocated sufficient resources to complete a working prototype of this new design, one we're calling the Robin. It's still in early development, and we aren't confident in how it will handle frequent trips to Nenia and back. But the shipyard on <planet> has begun mass producing them, and you might see our young pilots training in them around some of our home worlds.\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: Robin unlocked"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -369,9 +1331,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Remnant"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Remnant"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": {
       "type": "planet",
@@ -389,28 +1357,76 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::Remnant: Robin developed",
-    "_hash": "5755e587da0f",
+    "_hash": "bc16e473ffa8",
     "sourcePlugin": "Beccas-Endless-Expansion/Beccas-Endless-Expansion"
   },
   {
     "name": "FW Vanilla Escort Removed A",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "not",
+            "values": [
+              "FW Escort 1: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [
+              "FW Escort 1"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {},
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "not",
+          "values": [
+            "FW Escort 1: done"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -426,28 +1442,76 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::FW Vanilla Escort Removed A",
-    "_hash": "9cd0df2272d7",
+    "_hash": "281e0e936fd0",
     "sourcePlugin": "Beccas-Endless-Expansion/Beccas-Endless-Expansion"
   },
   {
     "name": "FW Vanilla Escort Removed B",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "FW Vanilla Escort Removed 0: offered"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "clear",
+            "values": [
+              "fw intro escort failed"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {},
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "FW Vanilla Escort Removed 0: offered"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -463,26 +1527,509 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::FW Vanilla Escort Removed B",
-    "_hash": "9cd0df2272d7",
+    "_hash": "5782a6c2f11c",
     "sourcePlugin": "Beccas-Endless-Expansion/Beccas-Endless-Expansion"
   },
   {
     "name": "FW Escort 1 New",
     "displayName": "Free Worlds Escort",
+    "description": "Escort a Free Worlds supply convoy safely to <destination>.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Free Worlds Escort"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Escort a Free Worlds supply convoy safely to <destination>."
+        ],
+        "children": null
+      },
+      {
+        "key": "minor",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "autosave",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Free Worlds"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Wayfarer"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              20,
+              "*",
+              "assisted free worlds"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "FW Escort 1: offered"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "fail"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "chosen sides"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [
+          "accompany",
+          "save"
+        ],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "escort",
+              "timid"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Merchant"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Raleigh"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Scott"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Hudson"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Drake"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Magellan"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Franklin"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "heroic",
+              "escort"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Free Worlds"
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [],
+            "children": [
+              {
+                "key": "cargo",
+                "values": [
+                  0
+                ],
+                "children": null
+              },
+              {
+                "key": "names",
+                "values": [
+                  "free worlds small"
+                ],
+                "children": null
+              },
+              {
+                "key": "variant",
+                "values": [],
+                "children": [
+                  {
+                    "key": "Hawk",
+                    "values": [
+                      2
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "Sparrow",
+                    "values": [
+                      5
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "plunders",
+              "entering"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Pirate"
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Southern Pirates"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "plunders",
+              "staying"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Pirate"
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Southern Pirates"
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Alpha Arae"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "plunders",
+              "staying"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Pirate"
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Southern Pirates"
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Lesath"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "plunders",
+              "waiting"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Pirate"
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Southern Pirates",
+              2
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Tarazed"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "As you are walking through the spaceport, a man in a militia uniform approaches you. \"Captain <last>?\" he asks. You nod. \"I'm the Free Worlds quartermaster here on <origin>,\" he says. \"We're looking for ships to help escort a supply convoy that is traveling to <planet> and back. Our last few convoys have been attacked by pirates, and we suspect this one will be as well. Are you interested?\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Sure, I'd be glad to assist.\"",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t\"Sorry, I'm busy with another mission at this moment.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "\t\"Great!\" he says. \"You'll be escorting six freighters. If they all make it safely there and back, your payment will be four hundred thousand credits.\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "log",
+            "values": [
+              "Serving as an escort for a Free Worlds supply convoy to Tarazed. It sounds like pirates have been specifically targeting their convoys, recently."
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "fail"
+        ],
+        "children": [
+          {
+            "key": "set",
+            "values": [
+              "fw intro escort failed"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "You have reached <planet>, but you left part of the convoy behind! Better depart and wait for them to arrive in this star system."
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [],
+    "flags": {
+      "minor": true,
+      "autosave": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": true,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            20,
+            "*",
+            "assisted free worlds"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "FW Escort 1: offered"
+          ],
+          "children": null
+        }
+      ],
+      "fail": [
+        {
+          "key": "has",
+          "values": [
+            "chosen sides"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -494,9 +2041,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Free Worlds"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Free Worlds"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": {
       "type": "planet",
@@ -513,29 +2066,469 @@
       "outfits": [],
       "ships": []
     },
-    "hasNpcObjective": false,
+    "hasNpcObjective": true,
+    "npcCount": 6,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::FW Escort 1 New",
-    "_hash": "cca996cf3056",
+    "_hash": "131a55301f8f",
     "sourcePlugin": "Beccas-Endless-Expansion/Beccas-Endless-Expansion"
   },
   {
     "name": "FW Escort 1B New",
     "displayName": "Free Worlds Escort",
+    "description": "Escort a Free Worlds supply convoy safely to <destination>.",
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "Free Worlds Escort"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Escort a Free Worlds supply convoy safely to <destination>."
+        ],
+        "children": null
+      },
+      {
+        "key": "autosave",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Wayfarer"
+        ],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Longjump"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "FW Escort 1 New: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "fail"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "chosen sides"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [
+          "accompany",
+          "save"
+        ],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "escort",
+              "timid"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Merchant"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Raleigh"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Scott"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Hudson"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Drake"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Magellan"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Franklin"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "heroic",
+              "escort"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Free Worlds"
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [],
+            "children": [
+              {
+                "key": "cargo",
+                "values": [
+                  0
+                ],
+                "children": null
+              },
+              {
+                "key": "names",
+                "values": [
+                  "free worlds small"
+                ],
+                "children": null
+              },
+              {
+                "key": "variant",
+                "values": [],
+                "children": [
+                  {
+                    "key": "Hawk",
+                    "values": [
+                      1
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "Sparrow",
+                    "values": [
+                      3
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "plunders",
+              "entering"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Pirate"
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Southern Pirates"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "plunders",
+              "staying"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Pirate"
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Southern Pirates"
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Alpha Arae"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "plunders",
+              "staying"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Pirate"
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Southern Pirates"
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Lesath"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "plunders",
+              "waiting"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Pirate"
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Southern Pirates",
+              2
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Sabik"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "Your convoy of freighters reaches <origin> intact, despite numerous encounters with pirates. The merchant captains sell their trade goods and stock up with weapons and ship outfits that will be used to build new ships for the Free Worlds. Of course, now that you are carrying such valuable cargo, the pirate attacks are likely to get even worse...",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [
+              400000
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "You are met at the spaceport by Tomek Voigt, one of the members of the Free Worlds Council. He thanks you and the other escort captains for your service, and pays you each <payment>. \"The convoy is heading out again immediately,\" he says, \"so meet me in the spaceport if you are willing to volunteer for escort duty again.\"",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "fail"
+        ],
+        "children": [
+          {
+            "key": "set",
+            "values": [
+              "fw intro escort failed"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "You have reached <planet>, but you left part of the convoy behind! Better depart and wait for them to arrive in this star system."
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "autosave": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "FW Escort 1 New: done"
+          ],
+          "children": null
+        }
+      ],
+      "fail": [
+        {
+          "key": "has",
+          "values": [
+            "chosen sides"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -574,27 +2567,428 @@
       "outfits": [],
       "ships": []
     },
-    "hasNpcObjective": false,
+    "hasNpcObjective": true,
+    "npcCount": 6,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::FW Escort 1B New",
-    "_hash": "2b955302f92d",
+    "_hash": "87e647721a38",
     "sourcePlugin": "Beccas-Endless-Expansion/Beccas-Endless-Expansion"
   },
   {
     "name": "FW Escort 2 New",
     "displayName": "Free Worlds Escort",
+    "description": "Escort a Free Worlds supply convoy safely to <destination>.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Free Worlds Escort"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Escort a Free Worlds supply convoy safely to <destination>."
+        ],
+        "children": null
+      },
+      {
+        "key": "autosave",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Longjump"
+        ],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Wayfarer"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "FW Escort 1B New: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "fail"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "chosen sides"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [
+          "accompany",
+          "save"
+        ],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "escort",
+              "timid"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Merchant"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Raleigh"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Scott"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Hudson"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Drake"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Magellan"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Franklin"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "heroic",
+              "escort"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Free Worlds"
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [],
+            "children": [
+              {
+                "key": "cargo",
+                "values": [
+                  0
+                ],
+                "children": null
+              },
+              {
+                "key": "names",
+                "values": [
+                  "free worlds small"
+                ],
+                "children": null
+              },
+              {
+                "key": "variant",
+                "values": [],
+                "children": [
+                  {
+                    "key": "Sparrow",
+                    "values": [
+                      3
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "plunders",
+              "staying"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Pirate"
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Southern Pirates"
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Alpha Arae"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "plunders",
+              "staying"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Pirate"
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Southern Pirates"
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Lesath"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "plunders",
+              "waiting"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Pirate"
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Southern Pirates",
+              3
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Tarazed"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "A few of the escort pilots, yourself included, have stuck around for another mission. Tomek meets you in the spaceport and says, \"Same deal as before, and same payment. Plus, please believe that all of you are known to the Council, and your bravery will not be forgotten. We can't afford to lose any of these freighters. Who's willing to help escort them?\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Volunteer.)",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t(Go find some other work to do.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "\t\"Great!\" says Tomek. \"Good luck to all of you, and I hope to see you all safely back here in a couple of weeks.\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "fail"
+        ],
+        "children": [
+          {
+            "key": "set",
+            "values": [
+              "fw intro escort failed"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "You have reached <planet>, but you left part of the convoy behind! Better depart and wait for them to arrive in this star system."
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [],
+    "flags": {
+      "autosave": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "FW Escort 1B New: done"
+          ],
+          "children": null
+        }
+      ],
+      "fail": [
+        {
+          "key": "has",
+          "values": [
+            "chosen sides"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -627,29 +3021,459 @@
       "outfits": [],
       "ships": []
     },
-    "hasNpcObjective": false,
+    "hasNpcObjective": true,
+    "npcCount": 5,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::FW Escort 2 New",
-    "_hash": "e682586861f3",
+    "_hash": "2965314ea077",
     "sourcePlugin": "Beccas-Endless-Expansion/Beccas-Endless-Expansion"
   },
   {
     "name": "FW Escort 2B New",
     "displayName": "Free Worlds Escort",
+    "description": "Escort a Free Worlds supply convoy safely to <destination>.",
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "Free Worlds Escort"
+        ],
+        "children": null
+      },
+      {
+        "key": "autosave",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Escort a Free Worlds supply convoy safely to <destination>."
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Wayfarer"
+        ],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Longjump"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "FW Escort 2 New: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "fail"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "chosen sides"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [
+          "accompany",
+          "save"
+        ],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "escort",
+              "timid"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Merchant"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Raleigh"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Scott"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Hudson"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Drake"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Magellan"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Franklin"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "heroic",
+              "escort"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Free Worlds"
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [],
+            "children": [
+              {
+                "key": "cargo",
+                "values": [
+                  0
+                ],
+                "children": null
+              },
+              {
+                "key": "names",
+                "values": [
+                  "free worlds small"
+                ],
+                "children": null
+              },
+              {
+                "key": "variant",
+                "values": [],
+                "children": [
+                  {
+                    "key": "Sparrow",
+                    "values": [
+                      2
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "plunders",
+              "staying"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Pirate"
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Southern Pirates",
+              2
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Small Southern Pirates",
+              2
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Alpha Arae"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "plunders",
+              "staying"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Pirate"
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Southern Pirates",
+              2
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Small Southern Pirates",
+              2
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Lesath"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "plunders",
+              "waiting"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Pirate"
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Southern Pirates"
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Small Southern Pirates",
+              2
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Sabik"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "Once again, the convoy stocks up on weapons and outfits and begins preparing for the return journey. You can't help worrying that the longer these convoys keep running, the more pirates will discover their route and begin setting ambushes for them.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [
+              400000
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "Again, Tomek Voigt meets you at the spaceport, thanks you all for your courage and dedication, and pays you <payment>. Then, he pulls you aside and says, \"Captain <last>, if you're interested in helping us further, please meet me in the spaceport bar.\"",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "fail"
+        ],
+        "children": [
+          {
+            "key": "set",
+            "values": [
+              "fw intro escort failed"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "You have reached <planet>, but you left part of the convoy behind! Better depart and wait for them to arrive in this star system."
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "autosave": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "FW Escort 2 New: done"
+          ],
+          "children": null
+        }
+      ],
+      "fail": [
+        {
+          "key": "has",
+          "values": [
+            "chosen sides"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -688,27 +3512,276 @@
       "outfits": [],
       "ships": []
     },
-    "hasNpcObjective": false,
+    "hasNpcObjective": true,
+    "npcCount": 5,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::FW Escort 2B New",
-    "_hash": "2b955302f92d",
+    "_hash": "66972cf610d5",
     "sourcePlugin": "Beccas-Endless-Expansion/Beccas-Endless-Expansion"
   },
   {
     "name": "FW Escort 3 New",
     "displayName": "Stranded Freighter",
+    "description": "Repair the <npc>, which is stranded in the <waypoints> system, and escort it safely back to <destination>.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Stranded Freighter"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Repair the <npc>, which is stranded in the <waypoints> system, and escort it safely back to <destination>."
+        ],
+        "children": null
+      },
+      {
+        "key": "autosave",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Longjump"
+        ],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Lesath"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "FW Escort 2B New: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "fail"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "chosen sides"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [
+          "accompany",
+          "save"
+        ],
+        "children": [
+          {
+            "key": "system",
+            "values": [
+              "Lesath"
+            ],
+            "children": null
+          },
+          {
+            "key": "personality",
+            "values": [
+              "escort",
+              "derelict",
+              "timid"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Merchant"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Freighter (Heavy)",
+              "F.S. Shackleton"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "When you walk into the bar, Voigt looks very glad to see you. \"Here's the deal,\" he says. \"One of our freighters, the <npc>, was just disabled in the <waypoints> system. We need you to fly there immediately, repair it, and bring it back here before it can be captured by the pirates. Do you think you're up to the task?\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Sure!\"",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t\"Sorry, I'm just a merchant captain. The Free Worlds shouldn't be asking me to do combat missions.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "decline",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "\t\"Glad to hear it,\" he says. \"The crew of that freighter is depending on you. I know I don't have to tell you what will happen to them if the pirates board them before you get there.\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [
+              200000
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [],
+            "children": [
+              {
+                "key": "Voigt is immensely relieved to see the <npc> returned safely home. \"You have done us a great service today, Captain,\" he says, as he hands you credit chips for <payment>. \"I'll be sure to let the Council know how helpful you have been.\"",
+                "values": [],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "assisted free worlds",
+            "values": [
+              "++"
+            ],
+            "children": null
+          },
+          {
+            "key": "log",
+            "values": [
+              "Helped rescue a Free Worlds freighter that had been disabled by pirates. Earned the gratitude of Tomek Voigt, the Council member in charge of the supply convoys."
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "fail"
+        ],
+        "children": [
+          {
+            "key": "set",
+            "values": [
+              "fw intro escort failed"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "Tomek Voigt messages you and says, \"Please escort the <npc> back here as soon as possible! Their crew is counting on you.\""
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [],
+    "flags": {
+      "autosave": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "FW Escort 2B New: done"
+          ],
+          "children": null
+        }
+      ],
+      "fail": [
+        {
+          "key": "has",
+          "values": [
+            "chosen sides"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -746,29 +3819,78 @@
       "outfits": [],
       "ships": []
     },
-    "hasNpcObjective": false,
+    "hasNpcObjective": true,
+    "npcCount": 1,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::FW Escort 3 New",
-    "_hash": "c75408925a4f",
+    "_hash": "852222c2c2aa",
     "sourcePlugin": "Beccas-Endless-Expansion/Beccas-Endless-Expansion"
   },
   {
     "name": "New Exile Drones",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "Wanderers: Sestor: Final: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "exiles new drones",
+              10
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {},
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "Wanderers: Sestor: Final: done"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -784,13 +3906,19 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "exiles new drones"
+      {
+        "name": "exiles new drones",
+        "delayDays": 10,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion",
     "_internalId": "Beccas-Endless-Expansion/Beccas-Endless-Expansion::New Exile Drones",
-    "_hash": "9cd0df2272d7",
+    "_hash": "86c787764e10",
     "sourcePlugin": "Beccas-Endless-Expansion/Beccas-Endless-Expansion"
   }
 ]

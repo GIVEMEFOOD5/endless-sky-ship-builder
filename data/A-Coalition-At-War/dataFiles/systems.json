@@ -177,6 +177,12 @@
                   "count": 1,
                   "pluginId": "official-game/endless-sky",
                   "internalId": "official-game/endless-sky::landscape:land/canyon03"
+                },
+                {
+                  "name": "land/forpelog",
+                  "count": 1,
+                  "pluginId": "Zuckungs List/landing.images",
+                  "internalId": "Zuckungs List/landing.images::landscape:land/forpelog"
                 }
               ],
               "music": null,
@@ -211,14 +217,105 @@
               },
               "tributeHails": {},
               "systemName": "Sadalsuud",
+              "rawByPlugin": [
+                {
+                  "pluginId": "official-game/endless-sky",
+                  "entries": [
+                    {
+                      "key": "attributes",
+                      "values": [
+                        "human quarg",
+                        "moon",
+                        "quarg"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "landscape",
+                      "values": [
+                        "land/canyon03"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "description",
+                      "values": [
+                        "Forpelog is a Quarg mining world, barely habitable by their standards and, because of its low gravity, unsuitable for long-term human habitation. The Quarg city is a marvel of advanced technology, entirely enclosed within glass and steel, with gardens and terraces where alien trees and plants grow. Outside the city, the landscape is rugged and beautiful, but the atmosphere is too thin to breathe and contains almost no oxygen."
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "spaceport",
+                      "values": [
+                        "Your ship is docked on a metal pad immediately outside the dome of the city, which towers over you. Immediately after you landed, a smaller canopy unfolded around your ship, sealing it in and providing enough air for you to breathe as you make your way inside. The stark, lifeless badlands outside give way to bustling streets and lush blue foliage within. No other human beings are in sight."
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "bribe",
+                      "values": [
+                        0
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "security",
+                      "values": [
+                        0.9
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "pluginId": "Nova1422s list/tributequarg",
+                  "entries": [
+                    {
+                      "key": "tribute",
+                      "values": [
+                        10000
+                      ],
+                      "children": [
+                        {
+                          "key": "fleet",
+                          "values": [
+                            "Quarg Defense"
+                          ],
+                          "children": null
+                        },
+                        {
+                          "key": "threshold",
+                          "values": [
+                            2700
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "pluginId": "Zuckungs List/landing.images",
+                  "entries": [
+                    {
+                      "key": "landscape",
+                      "values": [
+                        "land/forpelog"
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ],
               "name": "Forpelog",
               "_pluginId": "official-game/endless-sky",
               "_internalId": "official-game/endless-sky::Forpelog",
               "_definedBy": [
                 "official-game/endless-sky",
-                "Nova1422s list/tributequarg"
+                "Nova1422s list/tributequarg",
+                "Zuckungs List/landing.images"
               ],
-              "_lastModifiedBy": "Nova1422s list/tributequarg"
+              "_lastModifiedBy": "Zuckungs List/landing.images"
             }
           }
         ],
@@ -243,6 +340,576 @@
       }
     ],
     "planets": [],
+    "rawByPlugin": [
+      {
+        "pluginId": "official-game/endless-sky",
+        "entries": [
+          {
+            "key": "pos",
+            "values": [
+              -134,
+              508
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Quarg"
+            ],
+            "children": null
+          },
+          {
+            "key": "attributes",
+            "values": [
+              "south"
+            ],
+            "children": null
+          },
+          {
+            "key": "belt",
+            "values": [
+              1859
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "Enif"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "Sadalmelik"
+            ],
+            "children": null
+          },
+          {
+            "key": "asteroids",
+            "values": [
+              "small rock",
+              1,
+              4.116
+            ],
+            "children": null
+          },
+          {
+            "key": "asteroids",
+            "values": [
+              "large rock",
+              3,
+              1.5876
+            ],
+            "children": null
+          },
+          {
+            "key": "asteroids",
+            "values": [
+              "large metal",
+              1,
+              3.1458
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Clothing",
+              353
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Electronics",
+              849
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Equipment",
+              561
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Food",
+              388
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Heavy Metals",
+              824
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Industrial",
+              796
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Luxury Goods",
+              1484
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Medical",
+              911
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Metal",
+              320
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Plastic",
+              447
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Small Southern Merchants",
+              900
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Southern Merchants",
+              1500
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Quarg",
+              1000
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "star/g0"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  24.1269
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "star/k8"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  70.4245
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  180
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/ice3-b"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  307.989
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/lava2"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  583.399
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/cloud0-b"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  1021.4
+                ],
+                "children": null
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/ice8-b"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      131
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/jupiter"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  1668.01
+                ],
+                "children": null
+              },
+              {
+                "key": "object",
+                "values": [
+                  "Forpelog"
+                ],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/rock17"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      274
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/rock7"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  4591.9
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "pluginId": "A Coalition at War/A-Coalition-At-War",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "link",
+              "Quarg Southern Wormhole"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "Small Crossguard Patrol",
+              5500
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "Large Crossguard Patrol",
+              9800
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "Small Black Death",
+              7600
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "Large Black Death",
+              19300
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "MGF: Small Solacer Reefer",
+              4500
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "MGF: Solacer Juice Tanker",
+              5500
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "Rangphenn Transport",
+              6200
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "Jacks Gang",
+              16100
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "POOT/poot-senza-solaria",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "authors-respawn-poot-author",
+              2500000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "POOT/endless_sky_senza_solaria",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "authors-respawn-poot-author",
+              2500000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "POOT/poot-senza-solaria_senza_solaria",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "authors-respawn-poot-author",
+              2500000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/space.fauna",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "space fauna 01",
+              12273
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/too.many.asteroids",
+        "entries": [
+          {
+            "key": "remove",
+            "values": [
+              "asteroids",
+              "small rock"
+            ],
+            "children": null
+          },
+          {
+            "key": "remove",
+            "values": [
+              "asteroids",
+              "large rock"
+            ],
+            "children": null
+          },
+          {
+            "key": "remove",
+            "values": [
+              "asteroids",
+              "large metal"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "name": "Sadalsuud",
     "_pluginId": "official-game/endless-sky",
     "_internalId": "official-game/endless-sky::Sadalsuud",
@@ -252,9 +919,11 @@
       "Mega Freight/Mega-Freight",
       "POOT/poot-senza-solaria",
       "POOT/endless_sky_senza_solaria",
-      "POOT/poot-senza-solaria_senza_solaria"
+      "POOT/poot-senza-solaria_senza_solaria",
+      "Zuckungs List/space.fauna",
+      "Zuckungs List/too.many.asteroids"
     ],
-    "_lastModifiedBy": "POOT/poot-senza-solaria_senza_solaria"
+    "_lastModifiedBy": "Zuckungs List/too.many.asteroids"
   },
   {
     "displayName": null,
@@ -377,6 +1046,12 @@
               "count": 1,
               "pluginId": "official-game/endless-sky",
               "internalId": "official-game/endless-sky::landscape:land/fields11-sfiera"
+            },
+            {
+              "name": "land/tebutebstable",
+              "count": 1,
+              "pluginId": "Zuckungs List/landing.images",
+              "internalId": "Zuckungs List/landing.images::landscape:land/tebutebstable"
             }
           ],
           "music": null,
@@ -406,13 +1081,84 @@
           "tribute": null,
           "tributeHails": {},
           "systemName": "Tebuteb",
+          "rawByPlugin": [
+            {
+              "pluginId": "official-game/endless-sky",
+              "entries": [
+                {
+                  "key": "attributes",
+                  "values": [
+                    "arach",
+                    "farming",
+                    "longcows"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "landscape",
+                  "values": [
+                    "land/fields11-sfiera"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "description",
+                  "values": [
+                    "This world is home to House Garbarag, the Arachi guild of farmers and ranchers. On private ranches far from the cities, they experiment with raising new breeds of longcows, a unique species of cattle that grow a new body segment each year and can reach more than thirty meters in length. The meat from a single longcow can feed a village for a month."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "description",
+                  "values": [
+                    "\tLongcows are typically docile and slow-moving, but when frightened one of them can do as much damage as an entire herd of stampeding terrestrial cattle."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    "The spaceport is next door to the city's meat-packing district, which is not any more pleasant or scenic than its equivalent on a human world would be. The actual slaughterhouses are some distance outside the city limits, placed there because in the early days of the colony a particularly large longcow in its death throes went on a rampage and destroyed several city blocks before it bled out and died."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "bribe",
+                  "values": [
+                    0
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "security",
+                  "values": [
+                    0.5
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "pluginId": "Zuckungs List/landing.images",
+              "entries": [
+                {
+                  "key": "landscape",
+                  "values": [
+                    "land/tebutebstable"
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
           "name": "Tebuteb's Table",
           "_pluginId": "official-game/endless-sky",
           "_internalId": "official-game/endless-sky::Tebuteb's Table",
           "_definedBy": [
-            "official-game/endless-sky"
+            "official-game/endless-sky",
+            "Zuckungs List/landing.images"
           ],
-          "_lastModifiedBy": "official-game/endless-sky"
+          "_lastModifiedBy": "Zuckungs List/landing.images"
         }
       },
       {
@@ -462,6 +1208,550 @@
       }
     ],
     "planets": [],
+    "rawByPlugin": [
+      {
+        "pluginId": "official-game/endless-sky",
+        "entries": [
+          {
+            "key": "pos",
+            "values": [
+              -615.587,
+              710.051
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Coalition"
+            ],
+            "children": null
+          },
+          {
+            "key": "attributes",
+            "values": [
+              "arachi"
+            ],
+            "children": null
+          },
+          {
+            "key": "belt",
+            "values": [
+              1855
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "Glubatub"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "Miblulub"
+            ],
+            "children": null
+          },
+          {
+            "key": "asteroids",
+            "values": [
+              "small rock",
+              7,
+              2.0468
+            ],
+            "children": null
+          },
+          {
+            "key": "asteroids",
+            "values": [
+              "medium rock",
+              54,
+              3.094
+            ],
+            "children": null
+          },
+          {
+            "key": "asteroids",
+            "values": [
+              "large rock",
+              30,
+              2.4514
+            ],
+            "children": null
+          },
+          {
+            "key": "asteroids",
+            "values": [
+              "small metal",
+              1,
+              2.975
+            ],
+            "children": null
+          },
+          {
+            "key": "asteroids",
+            "values": [
+              "medium metal",
+              1,
+              3.2368
+            ],
+            "children": null
+          },
+          {
+            "key": "asteroids",
+            "values": [
+              "large metal",
+              4,
+              3.1654
+            ],
+            "children": null
+          },
+          {
+            "key": "minables",
+            "values": [
+              "silicon",
+              22,
+              2.92343
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Clothing",
+              384
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Electronics",
+              699
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Equipment",
+              633
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Food",
+              124
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Heavy Metals",
+              904
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Industrial",
+              587
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Luxury Goods",
+              1452
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Medical",
+              617
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Metal",
+              274
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Plastic",
+              290
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Small Arach",
+              600
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Arach",
+              2000
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Small Kimek",
+              1800
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Kimek",
+              7000
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Small Saryd",
+              1600
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Saryd",
+              6000
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Arach Miners",
+              4000
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Kimek Miners",
+              12000
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Saryd Miners",
+              12000
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Heliarch",
+              250
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "star/m0"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  38.6525
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  180
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "star/m3"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  53.7774
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "Tebuteb's Table"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/cloud3"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  454.983
+                ],
+                "children": null
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/dust5"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      152
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/rock19-b"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  816.943
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/gas13"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  1300.7
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/gas12"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  2511.99
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "pluginId": "A Coalition at War/A-Coalition-At-War",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "link",
+              "Heliarch Southern Wormhole"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "POOT/poot-senza-solaria",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "authors-respawn-poot-author",
+              2500000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "POOT/endless_sky_senza_solaria",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "authors-respawn-poot-author",
+              2500000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "POOT/poot-senza-solaria_senza_solaria",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "authors-respawn-poot-author",
+              2500000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/space.fauna",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "space fauna 01",
+              14828
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/too.many.asteroids",
+        "entries": [
+          {
+            "key": "remove",
+            "values": [
+              "asteroids",
+              "small rock"
+            ],
+            "children": null
+          },
+          {
+            "key": "remove",
+            "values": [
+              "asteroids",
+              "medium rock"
+            ],
+            "children": null
+          },
+          {
+            "key": "remove",
+            "values": [
+              "asteroids",
+              "large rock"
+            ],
+            "children": null
+          },
+          {
+            "key": "remove",
+            "values": [
+              "asteroids",
+              "small metal"
+            ],
+            "children": null
+          },
+          {
+            "key": "remove",
+            "values": [
+              "asteroids",
+              "medium metal"
+            ],
+            "children": null
+          },
+          {
+            "key": "remove",
+            "values": [
+              "asteroids",
+              "large metal"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "name": "Tebuteb",
     "_pluginId": "official-game/endless-sky",
     "_internalId": "official-game/endless-sky::Tebuteb",
@@ -470,9 +1760,11 @@
       "A Coalition at War/A-Coalition-At-War",
       "POOT/poot-senza-solaria",
       "POOT/endless_sky_senza_solaria",
-      "POOT/poot-senza-solaria_senza_solaria"
+      "POOT/poot-senza-solaria_senza_solaria",
+      "Zuckungs List/space.fauna",
+      "Zuckungs List/too.many.asteroids"
     ],
-    "_lastModifiedBy": "POOT/poot-senza-solaria_senza_solaria"
+    "_lastModifiedBy": "Zuckungs List/too.many.asteroids"
   },
   {
     "displayName": null,
@@ -571,6 +1863,46 @@
           "tribute": null,
           "tributeHails": {},
           "systemName": "Quarg Southern Wormhole",
+          "rawByPlugin": [
+            {
+              "pluginId": "A Coalition at War/A-Coalition-At-War",
+              "entries": [
+                {
+                  "key": "description",
+                  "values": [
+                    "Wormhole to Quarg space."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    "test"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "pluginId": "A Coalition at War/A-Coalition-At-War",
+              "entries": [
+                {
+                  "key": "description",
+                  "values": [
+                    "Wormhole to Coalition space"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    "test"
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
           "name": "Wormhole Quarg",
           "_pluginId": "A Coalition at War/A-Coalition-At-War",
           "_internalId": "A Coalition at War/A-Coalition-At-War::Wormhole Quarg",
@@ -678,6 +2010,240 @@
         "count": 1,
         "pluginId": "A Coalition at War/A-Coalition-At-War",
         "internalId": "A Coalition at War/A-Coalition-At-War::systemPlanet:Wormhole Quarg"
+      }
+    ],
+    "rawByPlugin": [
+      {
+        "pluginId": "A Coalition at War/A-Coalition-At-War",
+        "entries": [
+          {
+            "key": "pos",
+            "values": [
+              -600.587,
+              720.051
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "Tebuteb"
+            ],
+            "children": null
+          },
+          {
+            "key": "attributes",
+            "values": [
+              "wormhole"
+            ],
+            "children": null
+          },
+          {
+            "key": "arrival",
+            "values": [
+              2560
+            ],
+            "children": null
+          },
+          {
+            "key": "habitable",
+            "values": [
+              2560
+            ],
+            "children": null
+          },
+          {
+            "key": "belt",
+            "values": [
+              1635
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [
+              "Wormhole Quarg"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/wormhole"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  2079.28
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  3264.09
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "star/f0"
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  10
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/desert5"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  200
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  22.3606
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/europa-b"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  403.41
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  64.056
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/desert7-b"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  824.9
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  187.301
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/gas1"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  1706.99
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  557.553
+                ],
+                "children": null
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/ice8-b"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      216
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "period",
+                    "values": [
+                      11.1964
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     ],
     "name": "Heliarch Southern Wormhole",
@@ -877,6 +2443,46 @@
           "tribute": null,
           "tributeHails": {},
           "systemName": "Quarg Southern Wormhole",
+          "rawByPlugin": [
+            {
+              "pluginId": "A Coalition at War/A-Coalition-At-War",
+              "entries": [
+                {
+                  "key": "description",
+                  "values": [
+                    "Wormhole to Quarg space."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    "test"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "pluginId": "A Coalition at War/A-Coalition-At-War",
+              "entries": [
+                {
+                  "key": "description",
+                  "values": [
+                    "Wormhole to Coalition space"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    "test"
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
           "name": "Wormhole Quarg",
           "_pluginId": "A Coalition at War/A-Coalition-At-War",
           "_internalId": "A Coalition at War/A-Coalition-At-War::Wormhole Quarg",
@@ -893,6 +2499,240 @@
         "count": 1,
         "pluginId": "A Coalition at War/A-Coalition-At-War",
         "internalId": "A Coalition at War/A-Coalition-At-War::systemPlanet:Wormhole Quarg"
+      }
+    ],
+    "rawByPlugin": [
+      {
+        "pluginId": "A Coalition at War/A-Coalition-At-War",
+        "entries": [
+          {
+            "key": "pos",
+            "values": [
+              -154,
+              528
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "Sadalsuud"
+            ],
+            "children": null
+          },
+          {
+            "key": "attributes",
+            "values": [
+              "wormhole"
+            ],
+            "children": null
+          },
+          {
+            "key": "arrival",
+            "values": [
+              2560
+            ],
+            "children": null
+          },
+          {
+            "key": "habitable",
+            "values": [
+              2560
+            ],
+            "children": null
+          },
+          {
+            "key": "belt",
+            "values": [
+              1635
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [
+              "Wormhole Quarg"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/wormhole"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  2079.28
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  3264.09
+                ],
+                "children": null
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "star/f0"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "period",
+                    "values": [
+                      10
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/desert5"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      200
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "period",
+                    "values": [
+                      22.3606
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/europa-b"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      403.41
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "period",
+                    "values": [
+                      64.056
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/desert7-b"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      824.9
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "period",
+                    "values": [
+                      187.301
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/gas1"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      1706.99
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "period",
+                    "values": [
+                      557.553
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "object",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "sprite",
+                        "values": [
+                          "planet/ice8-b"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "distance",
+                        "values": [
+                          216
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "period",
+                        "values": [
+                          11.1964
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       }
     ],
     "name": "Quarg Southern Wormhole",

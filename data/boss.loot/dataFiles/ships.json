@@ -1,0 +1,1618 @@
+[
+  {
+    "name": "dun_raptor",
+    "engines": [
+      {
+        "x": -5,
+        "y": 21
+      },
+      {
+        "x": 5,
+        "y": 21
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -19.5,
+        "turret": "Ka'het Ravager Turret"
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "flame",
+        "openChance": 50,
+        "spreadChance": 80
+      }
+    ],
+    "swizzle": 0,
+    "uncapturable": true,
+    "never disabled": true,
+    "display name": "Raptor",
+    "sprite": "ship/bsg_raptor",
+    "attributes": {
+      "category": "Drone",
+      "cost": 490000,
+      "shields": 2500,
+      "hull": 2500,
+      "automaton": 1,
+      "mass": 105,
+      "drag": 1.8,
+      "heat dissipation": 0.79,
+      "fuel capacity": 200,
+      "outfit space": 160,
+      "weapon capacity": 80,
+      "engine capacity": 80,
+      "weapon": {
+        "blast radius": 24,
+        "shield damage": 240,
+        "hull damage": 120,
+        "hit force": 360
+      }
+    },
+    "tiny explosion": 10,
+    "small explosion": 20,
+    "description": "A heavy duty frame well supported by a versatile suite to maintain pressure against any foe.",
+    "_internalId": "Zuckungs List/boss.loot::dun_raptor",
+    "_pluginId": "Zuckungs List/boss.loot",
+    "_hash": "65b753a7ae7c",
+    "governments": {
+      "Zuckungs List/boss.loot": {
+        "Sagittarian": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Zuckungs List/boss.loot": {
+        "Missions": [
+          "dun1_sys_b_02_enter"
+        ]
+      }
+    },
+    "outfits": {
+      "Ka'het Ravager Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Ka'het Ravager Turret"
+      },
+      "S-970 Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::S-970 Regenerator"
+      },
+      "Small Heat Shunt": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Small Heat Shunt"
+      },
+      "Red Sun Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Red Sun Reactor"
+      },
+      "Supercapacitor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Supercapacitor"
+      },
+      "A120 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::A120 Atomic Thruster"
+      },
+      "A125 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::A125 Atomic Steering"
+      }
+    }
+  },
+  {
+    "name": "dun_viper",
+    "engines": [
+      {
+        "x": -7,
+        "y": 36.5
+      },
+      {
+        "x": 7,
+        "y": 36.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 2.5,
+        "turret": "Ka'het Annihilator Turret"
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "flame",
+        "openChance": 13,
+        "spreadChance": 14
+      }
+    ],
+    "swizzle": 0,
+    "uncapturable": true,
+    "never disabled": true,
+    "display name": "Viper",
+    "sprite": "ship/bsg_viper",
+    "attributes": {
+      "category": "Fighter",
+      "cost": 286000,
+      "shields": 1800,
+      "hull": 1200,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 70,
+      "drag": 0.87,
+      "heat dissipation": 0.81,
+      "ramscoop": 3,
+      "fuel capacity": 100,
+      "outfit space": 160,
+      "weapon capacity": 80,
+      "engine capacity": 80,
+      "weapon": {
+        "blast radius": 12,
+        "shield damage": 120,
+        "hull damage": 60,
+        "hit force": 180
+      }
+    },
+    "tiny explosion": 15,
+    "small explosion": 5,
+    "description": "A craft that favors mobility and range to keep the pilot safe, yet still deceptively well protected.",
+    "_internalId": "Zuckungs List/boss.loot::dun_viper",
+    "_pluginId": "Zuckungs List/boss.loot",
+    "_hash": "503f4c26254f",
+    "governments": {
+      "Zuckungs List/boss.loot": {
+        "Sagittarian": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Zuckungs List/boss.loot": {
+        "Missions": [
+          "dun1_sys_b_01_enter",
+          "dun1_sys_b_02_enter",
+          "dun1_sys_b_03_enter",
+          "dun1_sys_b_04_enter"
+        ]
+      }
+    },
+    "outfits": {
+      "Ka'het Annihilator Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Ka'het Annihilator Turret"
+      },
+      "S-270 Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::S-270 Regenerator"
+      },
+      "Small Heat Shunt": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Small Heat Shunt"
+      },
+      "Small Biochemical Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Small Biochemical Cell"
+      },
+      "Red Sun Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Red Sun Reactor"
+      },
+      "A120 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::A120 Atomic Thruster"
+      },
+      "A125 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::A125 Atomic Steering"
+      }
+    }
+  },
+  {
+    "name": "dun_raider",
+    "engines": [
+      {
+        "x": -7,
+        "y": 36.5
+      },
+      {
+        "x": 7,
+        "y": 36.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 2.5,
+        "turret": "Ka'het Annihilator Turret"
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "flame",
+        "openChance": 13,
+        "spreadChance": 14
+      }
+    ],
+    "swizzle": 0,
+    "uncapturable": true,
+    "never disabled": true,
+    "display name": "Raider",
+    "sprite": "ship/bsg_raider",
+    "attributes": {
+      "category": "Fighter",
+      "cost": 286000,
+      "shields": 1800,
+      "hull": 1200,
+      "required crew": 1,
+      "bunks": 1,
+      "mass": 70,
+      "drag": 0.87,
+      "heat dissipation": 0.81,
+      "ramscoop": 3,
+      "fuel capacity": 100,
+      "outfit space": 160,
+      "weapon capacity": 80,
+      "engine capacity": 80,
+      "weapon": {
+        "blast radius": 12,
+        "shield damage": 120,
+        "hull damage": 60,
+        "hit force": 180
+      }
+    },
+    "tiny explosion": 15,
+    "small explosion": 5,
+    "description": "A craft that favors mobility and range to keep the pilot safe, yet still deceptively well protected.",
+    "_internalId": "Zuckungs List/boss.loot::dun_raider",
+    "_pluginId": "Zuckungs List/boss.loot",
+    "_hash": "f635d196b9f4",
+    "governments": {
+      "Zuckungs List/boss.loot": {
+        "Sagittarian": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Zuckungs List/boss.loot": {
+        "Missions": [
+          "dun1_sys_b_05_enter",
+          "dun1_sys_b_06_enter"
+        ]
+      }
+    },
+    "outfits": {
+      "Ka'het Annihilator Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Ka'het Annihilator Turret"
+      },
+      "S-270 Regenerator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::S-270 Regenerator"
+      },
+      "Small Heat Shunt": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Small Heat Shunt"
+      },
+      "Small Biochemical Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Small Biochemical Cell"
+      },
+      "Red Sun Reactor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Red Sun Reactor"
+      },
+      "A120 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::A120 Atomic Thruster"
+      },
+      "A125 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::A125 Atomic Steering"
+      }
+    }
+  },
+  {
+    "name": "dun_tiger",
+    "engines": [
+      {
+        "x": 53,
+        "y": 300
+      },
+      {
+        "x": -53,
+        "y": 300
+      },
+      {
+        "x": 21,
+        "y": 300
+      },
+      {
+        "x": -21,
+        "y": 300
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -55,
+        "y": -31
+      },
+      {
+        "x": 55,
+        "y": -31
+      }
+    ],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -98,
+        "y": -20,
+        "gun": "Replica Drak Cannon"
+      },
+      {
+        "x": 98,
+        "y": -20,
+        "gun": "Replica Drak Cannon"
+      },
+      {
+        "x": -115,
+        "y": 10,
+        "gun": "Pug Seeker"
+      },
+      {
+        "x": 115,
+        "y": 10,
+        "gun": "Pug Seeker"
+      },
+      {
+        "x": -16,
+        "y": -300,
+        "gun": "Pug Seeker"
+      },
+      {
+        "x": 16,
+        "y": -300,
+        "gun": "Pug Seeker"
+      }
+    ],
+    "turrets": [
+      {
+        "x": -30,
+        "y": -200,
+        "turret": "Banisher Grav-Turret"
+      },
+      {
+        "x": 30,
+        "y": -200,
+        "turret": "Banisher Grav-Turret"
+      },
+      {
+        "x": -60,
+        "y": -8,
+        "turret": "Anti-Missile Turret"
+      },
+      {
+        "x": 60,
+        "y": -8,
+        "turret": "Anti-Missile Turret"
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "swizzle": 0,
+    "uncapturable": true,
+    "never disabled": true,
+    "display name": "Tiger",
+    "sprite": "ship/bsg_tiger",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 45000000,
+      "shields": 50000,
+      "hull": 50000,
+      "shield generation": 1.66,
+      "hull repair rate": 1.66,
+      "mass": 3000,
+      "drag": 10,
+      "fuel capacity": 1000,
+      "heat dissipation": 0.6,
+      "cargo space": 500,
+      "required crew": 50,
+      "bunks": 200,
+      "outfit space": 2000,
+      "weapon capacity": 1000,
+      "engine capacity": 500,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 8000,
+        "hull damage": 4000,
+        "hit force": 12000
+      }
+    },
+    "tiny explosion": 30,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 50,
+    "final explode": "final explosion large",
+    "description": "",
+    "_internalId": "Zuckungs List/boss.loot::dun_tiger",
+    "_pluginId": "Zuckungs List/boss.loot",
+    "_hash": "560575c390b2",
+    "governments": {
+      "Zuckungs List/boss.loot": {
+        "Sagittarian": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Zuckungs List/boss.loot": {
+        "Missions": [
+          "dun1_sys_b_01_enter"
+        ]
+      }
+    },
+    "outfits": {
+      "Pug Seeker": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Pug Seeker"
+      },
+      "Replica Drak Cannon": {
+        "count": 2,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::Replica Drak Cannon"
+      },
+      "Anti-Missile Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Anti-Missile Turret"
+      },
+      "Banisher Grav-Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Banisher Grav-Turret"
+      },
+      "Large Heat Shunt": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Large Heat Shunt"
+      },
+      "Triple Plasma Core": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Triple Plasma Core"
+      },
+      "Crystal Capacitor": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Crystal Capacitor"
+      },
+      "Thruster (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Thruster (Planetary Class)"
+      },
+      "Steering (Stellar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Steering (Stellar Class)"
+      }
+    }
+  },
+  {
+    "name": "dun_battlestar",
+    "engines": [
+      {
+        "x": -75,
+        "y": 385
+      },
+      {
+        "x": -30,
+        "y": 385
+      },
+      {
+        "x": 30,
+        "y": 385
+      },
+      {
+        "x": 75,
+        "y": 385
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -121,
+        "y": -140
+      },
+      {
+        "x": 121,
+        "y": -140
+      }
+    ],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": 45,
+        "y": -350,
+        "turret": "Anti-Missile Turret"
+      },
+      {
+        "x": -45,
+        "y": -350,
+        "turret": "Anti-Missile Turret"
+      },
+      {
+        "x": 57.5,
+        "y": -252,
+        "turret": "Langrage Hyper-Heaver"
+      },
+      {
+        "x": -57.5,
+        "y": -252,
+        "turret": "Langrage Hyper-Heaver"
+      },
+      {
+        "x": 57.5,
+        "y": -202,
+        "turret": "Langrage Hyper-Heaver"
+      },
+      {
+        "x": -57.5,
+        "y": -202,
+        "turret": "Langrage Hyper-Heaver"
+      },
+      {
+        "x": 70,
+        "y": -152,
+        "turret": "Anti-Missile Turret"
+      },
+      {
+        "x": -70,
+        "y": -152,
+        "turret": "Anti-Missile Turret"
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": -33,
+        "y": -385,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -33,
+        "y": -385,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -33,
+        "y": -385,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -33,
+        "y": -385,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -33,
+        "y": -385,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -13,
+        "y": -385,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -13,
+        "y": -385,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -13,
+        "y": -385,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -13,
+        "y": -385,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -13,
+        "y": -385,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 13,
+        "y": -385,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 13,
+        "y": -385,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 13,
+        "y": -385,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 13,
+        "y": -385,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 13,
+        "y": -385,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 33,
+        "y": -385,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 33,
+        "y": -385,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 33,
+        "y": -385,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 33,
+        "y": -385,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 33,
+        "y": -385,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      }
+    ],
+    "leaks": [],
+    "swizzle": 0,
+    "uncapturable": true,
+    "never disabled": true,
+    "display name": "Battlestar",
+    "sprite": "ship/bsg_battlestar",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 45000000,
+      "shields": 62500,
+      "hull": 62500,
+      "shield generation": 3.22,
+      "hull repair rate": 2.49,
+      "mass": 4000,
+      "drag": 12,
+      "fuel capacity": 1000,
+      "heat dissipation": 0.2,
+      "cargo space": 750,
+      "required crew": 60,
+      "bunks": 400,
+      "outfit space": 2000,
+      "weapon capacity": 1000,
+      "engine capacity": 500,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 8000,
+        "hull damage": 4000,
+        "hit force": 12000
+      }
+    },
+    "tiny explosion": 30,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 50,
+    "final explode": "final explosion large",
+    "description": "",
+    "_internalId": "Zuckungs List/boss.loot::dun_battlestar",
+    "_pluginId": "Zuckungs List/boss.loot",
+    "_hash": "b387a2681baf",
+    "governments": {
+      "Zuckungs List/boss.loot": {
+        "Sagittarian": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Zuckungs List/boss.loot": {
+        "Missions": [
+          "dun1_sys_b_02_enter"
+        ]
+      }
+    },
+    "outfits": {
+      "Anti-Missile Turret": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Anti-Missile Turret"
+      },
+      "Langrage Hyper-Heaver": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Langrage Hyper-Heaver"
+      },
+      "Refueling Module": {
+        "count": 8,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Refueling Module"
+      },
+      "Large Heat Shunt": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Large Heat Shunt"
+      },
+      "Double Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Double Plasma Core"
+      },
+      "Crystal Capacitor": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Crystal Capacitor"
+      },
+      "Thruster (Asteroid Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Thruster (Asteroid Class)"
+      },
+      "Thruster (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Thruster (Planetary Class)"
+      },
+      "Steering (Lunar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Steering (Lunar Class)"
+      },
+      "Steering (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Steering (Planetary Class)"
+      }
+    }
+  },
+  {
+    "name": "dun_valkyrie",
+    "engines": [
+      {
+        "x": -23,
+        "y": 285
+      },
+      {
+        "x": 23,
+        "y": 285
+      },
+      {
+        "x": -83,
+        "y": 88
+      },
+      {
+        "x": 83,
+        "y": 88
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -85,
+        "y": -111
+      },
+      {
+        "x": 85,
+        "y": -111
+      }
+    ],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -291,
+        "gun": "Fire-Lance"
+      },
+      {
+        "x": -18,
+        "y": -291,
+        "gun": "Ka'het Nullifier"
+      },
+      {
+        "x": 18,
+        "y": -291,
+        "gun": "Ka'het Nullifier"
+      },
+      {
+        "x": 35,
+        "y": -240,
+        "gun": "Korath Detainer"
+      },
+      {
+        "x": -35,
+        "y": -240,
+        "gun": "Korath Detainer"
+      }
+    ],
+    "turrets": [
+      {
+        "x": -30,
+        "y": -187,
+        "turret": "Shield Disruptor Turret"
+      },
+      {
+        "x": 30,
+        "y": -187,
+        "turret": "Shield Disruptor Turret"
+      },
+      {
+        "x": -84,
+        "y": -73,
+        "turret": "Korath Inferno"
+      },
+      {
+        "x": 84,
+        "y": -73,
+        "turret": "Korath Inferno"
+      },
+      {
+        "x": 0,
+        "y": -81,
+        "turret": "Anti-Missile Turret"
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "swizzle": 0,
+    "uncapturable": true,
+    "never disabled": true,
+    "display name": "Valkyrie",
+    "sprite": "ship/bsg_valkyrie",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 45000000,
+      "shields": 75000,
+      "hull": 75000,
+      "shield generation": 4.98,
+      "hull repair rate": 3.32,
+      "mass": 5000,
+      "drag": 14,
+      "fuel capacity": 1000,
+      "heat dissipation": 0.3,
+      "cargo space": 1000,
+      "required crew": 75,
+      "bunks": 600,
+      "outfit space": 2000,
+      "weapon capacity": 1000,
+      "engine capacity": 500,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 8000,
+        "hull damage": 4000,
+        "hit force": 12000
+      }
+    },
+    "tiny explosion": 30,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 50,
+    "final explode": "final explosion large",
+    "description": "",
+    "_internalId": "Zuckungs List/boss.loot::dun_valkyrie",
+    "_pluginId": "Zuckungs List/boss.loot",
+    "_hash": "42f5e7114c4b",
+    "governments": {
+      "Zuckungs List/boss.loot": {
+        "Sagittarian": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Zuckungs List/boss.loot": {
+        "Missions": [
+          "dun1_sys_b_04_enter"
+        ]
+      }
+    },
+    "outfits": {
+      "Ka'het Nullifier": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Ka'het Nullifier"
+      },
+      "Korath Detainer": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Korath Detainer"
+      },
+      "Fire-Lance": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Fire-Lance"
+      },
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Anti-Missile Turret"
+      },
+      "Shield Disruptor Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Shield Disruptor Turret"
+      },
+      "Korath Inferno": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Korath Inferno"
+      },
+      "Large Heat Shunt": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Large Heat Shunt"
+      },
+      "Small Hybrid Cooling": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Small Hybrid Cooling"
+      },
+      "Triple Plasma Core": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Triple Plasma Core"
+      },
+      "Crystal Capacitor": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Crystal Capacitor"
+      },
+      "Thruster (Asteroid Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Thruster (Asteroid Class)"
+      },
+      "Thruster (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Thruster (Planetary Class)"
+      },
+      "Steering (Stellar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Steering (Stellar Class)"
+      }
+    }
+  },
+  {
+    "name": "dun_defender",
+    "engines": [
+      {
+        "x": -70,
+        "y": 295
+      },
+      {
+        "x": 70,
+        "y": 295
+      },
+      {
+        "x": -54,
+        "y": 295
+      },
+      {
+        "x": 54,
+        "y": 295
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -75,
+        "y": -68
+      },
+      {
+        "x": 75,
+        "y": -68
+      }
+    ],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -14,
+        "y": -295,
+        "gun": "Bombardment Cannon"
+      },
+      {
+        "x": 14,
+        "y": -295,
+        "gun": "Bombardment Cannon"
+      },
+      {
+        "x": 7,
+        "y": -295,
+        "gun": "Bombardment Cannon"
+      },
+      {
+        "x": -7,
+        "y": -295,
+        "gun": "Bombardment Cannon"
+      },
+      {
+        "x": -20,
+        "y": -283,
+        "gun": "Bombardment Cannon"
+      },
+      {
+        "x": 20,
+        "y": -283,
+        "gun": "Bombardment Cannon"
+      },
+      {
+        "x": -28,
+        "y": -267,
+        "gun": "Bombardment Cannon"
+      },
+      {
+        "x": 28,
+        "y": -267,
+        "gun": "Bombardment Cannon"
+      }
+    ],
+    "turrets": [
+      {
+        "x": -48,
+        "y": -110,
+        "turret": "Sunbeam Turret"
+      },
+      {
+        "x": 48,
+        "y": -110,
+        "turret": "Sunbeam Turret"
+      },
+      {
+        "x": -81,
+        "y": -15,
+        "turret": "Sunbeam Turret"
+      },
+      {
+        "x": 81,
+        "y": -15,
+        "turret": "Sunbeam Turret"
+      },
+      {
+        "x": -38,
+        "y": -213,
+        "turret": "Moonbeam Turret"
+      },
+      {
+        "x": 38,
+        "y": -213,
+        "turret": "Moonbeam Turret"
+      },
+      {
+        "x": -70,
+        "y": 33,
+        "turret": "Moonbeam Turret"
+      },
+      {
+        "x": 70,
+        "y": 33,
+        "turret": "Moonbeam Turret"
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "swizzle": 0,
+    "uncapturable": true,
+    "never disabled": true,
+    "display name": "Defender",
+    "sprite": "ship/bsg_defender",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 45000000,
+      "shields": 87500,
+      "hull": 87500,
+      "shield generation": 6.64,
+      "hull repair rate": 4.98,
+      "mass": 6000,
+      "drag": 16,
+      "fuel capacity": 1000,
+      "heat dissipation": 0.5,
+      "cargo space": 1250,
+      "required crew": 90,
+      "bunks": 800,
+      "outfit space": 2000,
+      "weapon capacity": 1000,
+      "engine capacity": 500,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 8000,
+        "hull damage": 4000,
+        "hit force": 12000
+      }
+    },
+    "tiny explosion": 30,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 50,
+    "final explode": "final explosion large",
+    "description": "",
+    "_internalId": "Zuckungs List/boss.loot::dun_defender",
+    "_pluginId": "Zuckungs List/boss.loot",
+    "_hash": "b938c095a9fb",
+    "governments": {
+      "Zuckungs List/boss.loot": {
+        "Sagittarian": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Zuckungs List/boss.loot": {
+        "Missions": [
+          "dun1_sys_b_03_enter"
+        ]
+      }
+    },
+    "outfits": {
+      "Bombardment Cannon": {
+        "count": 8,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Bombardment Cannon"
+      },
+      "Sunbeam Turret": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Sunbeam Turret"
+      },
+      "Moonbeam Turret": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Moonbeam Turret"
+      },
+      "Double Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Double Plasma Core"
+      },
+      "Triple Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Triple Plasma Core"
+      },
+      "Large Battery Module": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Large Battery Module"
+      },
+      "Thruster (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Thruster (Planetary Class)"
+      },
+      "Steering (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Steering (Planetary Class)"
+      }
+    }
+  },
+  {
+    "name": "dun_basestar",
+    "engines": [
+      {
+        "x": -39,
+        "y": 97
+      },
+      {
+        "x": 39,
+        "y": 97
+      },
+      {
+        "x": -50,
+        "y": 120
+      },
+      {
+        "x": 50,
+        "y": 120
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -36,
+        "y": -100
+      },
+      {
+        "x": 36,
+        "y": -100
+      }
+    ],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -337,
+        "gun": "Korath Detainer"
+      },
+      {
+        "x": 0,
+        "y": -337,
+        "gun": "Ka'het Nullifier"
+      },
+      {
+        "x": -172,
+        "y": -290,
+        "gun": "Pug Seeker"
+      },
+      {
+        "x": -172,
+        "y": -290,
+        "gun": "Ballistic Cannon"
+      },
+      {
+        "x": 172,
+        "y": -290,
+        "gun": "Pug Seeker"
+      },
+      {
+        "x": 172,
+        "y": -290,
+        "gun": "Ballistic Cannon"
+      },
+      {
+        "x": -110,
+        "y": -205,
+        "gun": "Plasma Repeater"
+      },
+      {
+        "x": 110,
+        "y": -205,
+        "gun": "Plasma Repeater"
+      },
+      {
+        "x": -90,
+        "y": -184,
+        "gun": "Plasma Repeater"
+      },
+      {
+        "x": 90,
+        "y": -184,
+        "gun": "Plasma Repeater"
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -278,
+        "turret": "Pulse Laser Turret"
+      },
+      {
+        "x": 0,
+        "y": -278,
+        "turret": "Pulse Laser Turret"
+      },
+      {
+        "x": -141,
+        "y": -235,
+        "turret": "Grab-Strike Turret"
+      },
+      {
+        "x": -141,
+        "y": -235,
+        "turret": "Shield Disruptor Turret"
+      },
+      {
+        "x": 141,
+        "y": -235,
+        "turret": "Grab-Strike Turret"
+      },
+      {
+        "x": 141,
+        "y": -235,
+        "turret": "Shield Disruptor Turret"
+      },
+      {
+        "x": -69.5,
+        "y": 98,
+        "turret": "Thrasher Turret"
+      },
+      {
+        "x": 61,
+        "y": 98,
+        "turret": "Thrasher Turret"
+      },
+      {
+        "x": 113.5,
+        "y": 191.5,
+        "turret": "Anti-Missile Turret"
+      },
+      {
+        "x": -119.5,
+        "y": 191,
+        "turret": "Anti-Missile Turret"
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0,
+        "position": "\"back\"",
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0,
+        "launch effect": "human internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": 0,
+        "launch effect": "human internal"
+      }
+    ],
+    "leaks": [],
+    "swizzle": 0,
+    "uncapturable": true,
+    "never disabled": true,
+    "display name": "Basestar",
+    "plural": "Basestar",
+    "sprite": "ship/bsg_basestar",
+    "attributes": {
+      "category": "Heavy Warship",
+      "cost": 45000000,
+      "shields": 100000,
+      "hull": 100000,
+      "shield generation": 8.3,
+      "hull repair rate": 4.98,
+      "mass": 4500,
+      "drag": 20,
+      "fuel capacity": 1000,
+      "heat dissipation": 0.4,
+      "cargo space": 1500,
+      "required crew": 100,
+      "bunks": 1000,
+      "outfit space": 2000,
+      "weapon capacity": 1000,
+      "engine capacity": 500,
+      "weapon": {
+        "blast radius": 400,
+        "shield damage": 8000,
+        "hull damage": 4000,
+        "hit force": 12000
+      }
+    },
+    "tiny explosion": 30,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 50,
+    "final explode": "final explosion large",
+    "description": "",
+    "_internalId": "Zuckungs List/boss.loot::dun_basestar",
+    "_pluginId": "Zuckungs List/boss.loot",
+    "_hash": "88fef6bdd9f9",
+    "governments": {
+      "Zuckungs List/boss.loot": {
+        "Sagittarian": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Zuckungs List/boss.loot": {
+        "Missions": [
+          "dun1_sys_b_06_enter"
+        ]
+      }
+    },
+    "outfits": {
+      "Pug Seeker": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Pug Seeker"
+      },
+      "Ka'het Nullifier": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Ka'het Nullifier"
+      },
+      "Korath Detainer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Korath Detainer"
+      },
+      "Ballistic Cannon": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Ballistic Cannon"
+      },
+      "Plasma Repeater": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Plasma Repeater"
+      },
+      "Pulse Laser Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Pulse Laser Turret"
+      },
+      "Grab-Strike Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Grab-Strike Turret"
+      },
+      "Anti-Missile Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Anti-Missile Turret"
+      },
+      "Shield Disruptor Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Shield Disruptor Turret"
+      },
+      "Thrasher Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Thrasher Turret"
+      },
+      "Small Heat Shunt": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Small Heat Shunt"
+      },
+      "Large Heat Shunt": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Large Heat Shunt"
+      },
+      "Plasma Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Plasma Core"
+      },
+      "Triple Plasma Core": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Triple Plasma Core"
+      },
+      "Crystal Capacitor": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Crystal Capacitor"
+      },
+      "Thruster (Lunar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Thruster (Lunar Class)"
+      },
+      "Thruster (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Thruster (Planetary Class)"
+      },
+      "Steering (Lunar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Steering (Lunar Class)"
+      },
+      "Steering (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Steering (Planetary Class)"
+      }
+    }
+  }
+]

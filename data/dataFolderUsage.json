@@ -1,5 +1,5 @@
 {
-  "scannedAt": 1788267964078,
+  "scannedAt": 1788335861004,
   "fileCount": 199,
   "perKey": {
     "cost": {
@@ -1410,8 +1410,8 @@
         1,
         0.54,
         0.16,
-        0.27,
-        0.3
+        1.3,
+        0.27
       ],
       "onShip": false,
       "onOutfit": true
@@ -1647,8 +1647,8 @@
       "samples": [
         73,
         35,
+        40,
         18,
-        9,
         9
       ],
       "onShip": false,
@@ -1871,10 +1871,10 @@
       "max": 1,
       "samples": [
         -1,
-        1,
-        1,
-        1,
-        1
+        -1,
+        -1,
+        -1,
+        -1
       ],
       "onShip": true,
       "onOutfit": true
@@ -2346,8 +2346,8 @@
         90,
         72,
         36,
-        36,
-        18
+        18,
+        36
       ],
       "onShip": true,
       "onOutfit": true
@@ -2585,357 +2585,6 @@
         1,
         1,
         1
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "speck capacity": {
-      "count": 4,
-      "categories": [
-        "Ammunition",
-        "Guns",
-        "Turrets"
-      ],
-      "min": -1,
-      "max": 1800,
-      "samples": [
-        -1,
-        1200,
-        900,
-        1800
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "velocity override": {
-      "count": 18,
-      "categories": [
-        "Guns",
-        "Secondary Weapons",
-        "Turrets"
-      ],
-      "min": 5,
-      "max": 1400,
-      "samples": [
-        30,
-        30,
-        300,
-        300,
-        1200
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "firing force": {
-      "count": 34,
-      "categories": [
-        "Guns",
-        "Secondary Weapons",
-        "Systems",
-        "Turrets"
-      ],
-      "min": -139.5,
-      "max": 2700,
-      "samples": [
-        12,
-        24,
-        600,
-        30,
-        1875
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "random velocity": {
-      "count": 28,
-      "categories": [
-        "Guns",
-        "Turrets"
-      ],
-      "min": -240,
-      "max": 20,
-      "samples": [
-        0.6,
-        -240,
-        -210,
-        6,
-        3
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "random lifetime": {
-      "count": 60,
-      "categories": [
-        "Guns",
-        "Secondary Weapons"
-      ],
-      "min": 3,
-      "max": 80,
-      "samples": [
-        3,
-        3,
-        3,
-        30,
-        4
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "lasing power": {
-      "count": 3,
-      "categories": [
-        "Systems",
-        "Turrets"
-      ],
-      "min": -2,
-      "max": 3,
-      "samples": [
-        3,
-        -1,
-        -2
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "damage dropoff": {
-      "count": 3,
-      "categories": [
-        "Turrets"
-      ],
-      "min": 0,
-      "max": 0,
-      "samples": [
-        0,
-        0,
-        0
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "dropoff modifier": {
-      "count": 3,
-      "categories": [
-        "Turrets"
-      ],
-      "min": 0,
-      "max": 0.7,
-      "samples": [
-        0,
-        0,
-        0.7
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "#": {
-      "count": 23,
-      "categories": [
-        "Guns",
-        "Heavy Warship",
-        "Medium Warship",
-        "Secondary Weapons",
-        "Systems",
-        "Transport",
-        "Turrets"
-      ],
-      "min": 0.0005,
-      "max": 135,
-      "samples": [
-        50,
-        135,
-        0.0005,
-        1.1
-      ],
-      "onShip": true,
-      "onOutfit": true
-    },
-    "firing fuel": {
-      "count": 8,
-      "categories": [
-        "Secondary Weapons",
-        "Turrets"
-      ],
-      "min": 0.15,
-      "max": 200,
-      "samples": [
-        0.24,
-        0.15,
-        10,
-        12.5,
-        100
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "firing scramble": {
-      "count": 1,
-      "categories": [
-        "Guns"
-      ],
-      "min": 4.5,
-      "max": 4.5,
-      "samples": [
-        4.5
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "penetration count": {
-      "count": 6,
-      "categories": [
-        "Guns",
-        "Secondary Weapons"
-      ],
-      "min": 3,
-      "max": 100,
-      "samples": [
-        3,
-        3,
-        5,
-        100,
-        20
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "ophrys capacity": {
-      "count": 3,
-      "categories": [
-        "Ammunition",
-        "Secondary Weapons"
-      ],
-      "min": -1,
-      "max": 12,
-      "samples": [
-        1,
-        -1,
-        12
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "optical tracking": {
-      "count": 25,
-      "categories": [
-        "Guns",
-        "Secondary Weapons"
-      ],
-      "min": 0.4,
-      "max": 1,
-      "samples": [
-        0.72,
-        0.6,
-        0.6,
-        0.6,
-        0.6
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "range override": {
-      "count": 25,
-      "categories": [
-        "Guns",
-        "Secondary Weapons",
-        "Turret",
-        "Turrets"
-      ],
-      "min": 50,
-      "max": 10000000,
-      "samples": [
-        600,
-        6000,
-        3600,
-        3600,
-        3600
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "radar tracking": {
-      "count": 21,
-      "categories": [
-        "Guns",
-        "Secondary Weapons"
-      ],
-      "min": 0.2,
-      "max": 1,
-      "samples": [
-        0.9,
-        0.9,
-        0.9,
-        0.9,
-        0.9
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "display name": {
-      "count": 17,
-      "categories": [
-        "Ammunition",
-        "Guns",
-        "Secondary Weapons",
-        "Systems",
-        "Turrets",
-        "Unique"
-      ],
-      "min": null,
-      "max": null,
-      "samples": [],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "split range": {
-      "count": 17,
-      "categories": [
-        "Guns",
-        "Secondary Weapons"
-      ],
-      "min": 180,
-      "max": 1200,
-      "samples": [
-        180,
-        300,
-        1200,
-        600,
-        400
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "trigger radius": {
-      "count": 17,
-      "categories": [
-        "Secondary Weapons",
-        "Turrets"
-      ],
-      "min": 20,
-      "max": 1200,
-      "samples": [
-        90,
-        30,
-        1200,
-        1100,
-        20
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "fade out": {
-      "count": 5,
-      "categories": [
-        "Turrets"
-      ],
-      "min": 2,
-      "max": 60,
-      "samples": [
-        60,
-        60,
-        10,
-        2,
-        7
       ],
       "onShip": false,
       "onOutfit": true
@@ -3184,35 +2833,6 @@
       "onShip": true,
       "onOutfit": true
     },
-    "live effect": {
-      "count": 38,
-      "categories": [
-        "Guns",
-        "Secondary Weapons",
-        "Turrets"
-      ],
-      "min": null,
-      "max": null,
-      "samples": [],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "swarm capacity": {
-      "count": 3,
-      "categories": [
-        "Ammunition",
-        "Secondary Weapons"
-      ],
-      "min": -1,
-      "max": 400,
-      "samples": [
-        200,
-        -1,
-        400
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
     "relay upgrades": {
       "count": 4,
       "categories": [
@@ -3377,6 +2997,386 @@
       "onShip": true,
       "onOutfit": true
     },
+    "speck capacity": {
+      "count": 4,
+      "categories": [
+        "Ammunition",
+        "Guns",
+        "Turrets"
+      ],
+      "min": -1,
+      "max": 1800,
+      "samples": [
+        -1,
+        1200,
+        900,
+        1800
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "velocity override": {
+      "count": 18,
+      "categories": [
+        "Guns",
+        "Secondary Weapons",
+        "Turrets"
+      ],
+      "min": 5,
+      "max": 1400,
+      "samples": [
+        30,
+        30,
+        300,
+        300,
+        1200
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "firing force": {
+      "count": 34,
+      "categories": [
+        "Guns",
+        "Secondary Weapons",
+        "Systems",
+        "Turrets"
+      ],
+      "min": -139.5,
+      "max": 2700,
+      "samples": [
+        12,
+        24,
+        600,
+        30,
+        1875
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "random velocity": {
+      "count": 28,
+      "categories": [
+        "Guns",
+        "Turrets"
+      ],
+      "min": -240,
+      "max": 20,
+      "samples": [
+        0.6,
+        -240,
+        -210,
+        6,
+        3
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "random lifetime": {
+      "count": 60,
+      "categories": [
+        "Guns",
+        "Secondary Weapons"
+      ],
+      "min": 3,
+      "max": 80,
+      "samples": [
+        3,
+        3,
+        3,
+        30,
+        4
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "lasing power": {
+      "count": 3,
+      "categories": [
+        "Systems",
+        "Turrets"
+      ],
+      "min": -2,
+      "max": 3,
+      "samples": [
+        3,
+        -1,
+        -2
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "damage dropoff": {
+      "count": 3,
+      "categories": [
+        "Turrets"
+      ],
+      "min": 0,
+      "max": 0,
+      "samples": [
+        0,
+        0,
+        0
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "dropoff modifier": {
+      "count": 3,
+      "categories": [
+        "Turrets"
+      ],
+      "min": 0,
+      "max": 0.7,
+      "samples": [
+        0,
+        0,
+        0.7
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "#": {
+      "count": 23,
+      "categories": [
+        "Guns",
+        "Heavy Warship",
+        "Medium Warship",
+        "Secondary Weapons",
+        "Systems",
+        "Transport",
+        "Turrets"
+      ],
+      "min": 0.0005,
+      "max": 135,
+      "samples": [
+        0.0005,
+        1.1,
+        50,
+        135
+      ],
+      "onShip": true,
+      "onOutfit": true
+    },
+    "firing fuel": {
+      "count": 8,
+      "categories": [
+        "Secondary Weapons",
+        "Turrets"
+      ],
+      "min": 0.15,
+      "max": 200,
+      "samples": [
+        0.24,
+        0.15,
+        10,
+        12.5,
+        100
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "firing scramble": {
+      "count": 1,
+      "categories": [
+        "Guns"
+      ],
+      "min": 4.5,
+      "max": 4.5,
+      "samples": [
+        4.5
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "penetration count": {
+      "count": 6,
+      "categories": [
+        "Guns",
+        "Secondary Weapons"
+      ],
+      "min": 3,
+      "max": 100,
+      "samples": [
+        3,
+        3,
+        5,
+        100,
+        20
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "ophrys capacity": {
+      "count": 3,
+      "categories": [
+        "Ammunition",
+        "Secondary Weapons"
+      ],
+      "min": -1,
+      "max": 12,
+      "samples": [
+        1,
+        -1,
+        12
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "optical tracking": {
+      "count": 25,
+      "categories": [
+        "Guns",
+        "Secondary Weapons"
+      ],
+      "min": 0.4,
+      "max": 1,
+      "samples": [
+        0.72,
+        0.6,
+        0.6,
+        0.6,
+        0.6
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "range override": {
+      "count": 25,
+      "categories": [
+        "Guns",
+        "Secondary Weapons",
+        "Turret",
+        "Turrets"
+      ],
+      "min": 50,
+      "max": 10000000,
+      "samples": [
+        600,
+        6000,
+        3600,
+        3600,
+        3600
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "radar tracking": {
+      "count": 21,
+      "categories": [
+        "Guns",
+        "Secondary Weapons"
+      ],
+      "min": 0.2,
+      "max": 1,
+      "samples": [
+        0.9,
+        0.9,
+        0.9,
+        0.9,
+        0.9
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "display name": {
+      "count": 17,
+      "categories": [
+        "Ammunition",
+        "Guns",
+        "Secondary Weapons",
+        "Systems",
+        "Turrets",
+        "Unique"
+      ],
+      "min": null,
+      "max": null,
+      "samples": [],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "split range": {
+      "count": 17,
+      "categories": [
+        "Guns",
+        "Secondary Weapons"
+      ],
+      "min": 180,
+      "max": 1200,
+      "samples": [
+        180,
+        300,
+        1200,
+        600,
+        400
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "trigger radius": {
+      "count": 17,
+      "categories": [
+        "Secondary Weapons",
+        "Turrets"
+      ],
+      "min": 20,
+      "max": 1200,
+      "samples": [
+        90,
+        30,
+        1200,
+        1100,
+        20
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "fade out": {
+      "count": 5,
+      "categories": [
+        "Turrets"
+      ],
+      "min": 2,
+      "max": 60,
+      "samples": [
+        60,
+        60,
+        10,
+        2,
+        7
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "live effect": {
+      "count": 38,
+      "categories": [
+        "Guns",
+        "Secondary Weapons",
+        "Turrets"
+      ],
+      "min": null,
+      "max": null,
+      "samples": [],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "swarm capacity": {
+      "count": 3,
+      "categories": [
+        "Ammunition",
+        "Secondary Weapons"
+      ],
+      "min": -1,
+      "max": 400,
+      "samples": [
+        200,
+        -1,
+        400
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
     "shield heat": {
       "count": 27,
       "categories": [
@@ -3518,28 +3518,6 @@
       "onShip": false,
       "onOutfit": true
     },
-    "scramble protection": {
-      "count": 16,
-      "categories": [
-        "Heavy Warship",
-        "Light Warship",
-        "Medium Warship",
-        "Transport",
-        "Unclassified",
-        "Unclassified Minor"
-      ],
-      "min": 0.1,
-      "max": 3,
-      "samples": [
-        0.1,
-        0.2,
-        0.2,
-        0.2,
-        0.1
-      ],
-      "onShip": true,
-      "onOutfit": false
-    },
     "finisher capacity": {
       "count": 4,
       "categories": [
@@ -3611,6 +3589,28 @@
       ],
       "onShip": false,
       "onOutfit": true
+    },
+    "scramble protection": {
+      "count": 16,
+      "categories": [
+        "Heavy Warship",
+        "Light Warship",
+        "Medium Warship",
+        "Transport",
+        "Unclassified",
+        "Unclassified Minor"
+      ],
+      "min": 0.1,
+      "max": 3,
+      "samples": [
+        0.1,
+        0.2,
+        0.2,
+        0.2,
+        0.1
+      ],
+      "onShip": true,
+      "onOutfit": false
     },
     "safe": {
       "count": 20,
@@ -3734,8 +3734,8 @@
         0.2,
         0.3,
         0.1,
-        1,
-        0.2
+        0.2,
+        0.3
       ],
       "onShip": true,
       "onOutfit": true
@@ -3776,8 +3776,8 @@
         10,
         100,
         100,
-        100,
-        150
+        150,
+        200
       ],
       "onShip": true,
       "onOutfit": true
@@ -4348,6 +4348,25 @@
       "onShip": false,
       "onOutfit": true
     },
+    "ka'sei": {
+      "count": 15,
+      "categories": [
+        "Interceptor",
+        "Light Warship",
+        "Medium Warship"
+      ],
+      "min": 1,
+      "max": 1,
+      "samples": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "onShip": true,
+      "onOutfit": false
+    },
     "firing hull": {
       "count": 4,
       "categories": [
@@ -4423,25 +4442,6 @@
       ],
       "onShip": false,
       "onOutfit": true
-    },
-    "ka'sei": {
-      "count": 15,
-      "categories": [
-        "Interceptor",
-        "Light Warship",
-        "Medium Warship"
-      ],
-      "min": 1,
-      "max": 1,
-      "samples": [
-        1,
-        1,
-        1,
-        1,
-        1
-      ],
-      "onShip": true,
-      "onOutfit": false
     },
     "asteroid mount jd": {
       "count": 13,
@@ -5004,6 +5004,19 @@
       "onShip": false,
       "onOutfit": true
     },
+    "operating costs": {
+      "count": 1,
+      "categories": [
+        "Secondary Weapons"
+      ],
+      "min": 150,
+      "max": 150,
+      "samples": [
+        150
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
     "delayed hull repair rate": {
       "count": 1,
       "categories": [
@@ -5026,87 +5039,6 @@
       "max": 60,
       "samples": [
         60
-      ],
-      "onShip": true,
-      "onOutfit": false
-    },
-    "operating costs": {
-      "count": 1,
-      "categories": [
-        "Secondary Weapons"
-      ],
-      "min": 150,
-      "max": 150,
-      "samples": [
-        150
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "spike capacity": {
-      "count": 3,
-      "categories": [
-        "Ammunition",
-        "Secondary Weapons"
-      ],
-      "min": -1,
-      "max": 20,
-      "samples": [
-        20,
-        -1,
-        16
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "firing ion": {
-      "count": 1,
-      "categories": [
-        "Secondary Weapons"
-      ],
-      "min": 3,
-      "max": 3,
-      "samples": [
-        3
-      ],
-      "onShip": false,
-      "onOutfit": true
-    },
-    "waterlining": {
-      "count": 1,
-      "categories": [
-        "Transport"
-      ],
-      "min": 1,
-      "max": 1,
-      "samples": [
-        1
-      ],
-      "onShip": true,
-      "onOutfit": false
-    },
-    "corrosion resistance": {
-      "count": 1,
-      "categories": [
-        "Transport"
-      ],
-      "min": 0.6,
-      "max": 0.6,
-      "samples": [
-        0.6
-      ],
-      "onShip": true,
-      "onOutfit": false
-    },
-    "exclusive: Vujlet": {
-      "count": 1,
-      "categories": [
-        "Light Warship"
-      ],
-      "min": 1,
-      "max": 1,
-      "samples": [
-        1
       ],
       "onShip": true,
       "onOutfit": false
@@ -5172,6 +5104,74 @@
         4.5,
         8,
         12.2
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "waterlining": {
+      "count": 1,
+      "categories": [
+        "Transport"
+      ],
+      "min": 1,
+      "max": 1,
+      "samples": [
+        1
+      ],
+      "onShip": true,
+      "onOutfit": false
+    },
+    "corrosion resistance": {
+      "count": 1,
+      "categories": [
+        "Transport"
+      ],
+      "min": 0.6,
+      "max": 0.6,
+      "samples": [
+        0.6
+      ],
+      "onShip": true,
+      "onOutfit": false
+    },
+    "exclusive: Vujlet": {
+      "count": 1,
+      "categories": [
+        "Light Warship"
+      ],
+      "min": 1,
+      "max": 1,
+      "samples": [
+        1
+      ],
+      "onShip": true,
+      "onOutfit": false
+    },
+    "spike capacity": {
+      "count": 3,
+      "categories": [
+        "Ammunition",
+        "Secondary Weapons"
+      ],
+      "min": -1,
+      "max": 20,
+      "samples": [
+        20,
+        -1,
+        16
+      ],
+      "onShip": false,
+      "onOutfit": true
+    },
+    "firing ion": {
+      "count": 1,
+      "categories": [
+        "Secondary Weapons"
+      ],
+      "min": 3,
+      "max": 3,
+      "samples": [
+        3
       ],
       "onShip": false,
       "onOutfit": true

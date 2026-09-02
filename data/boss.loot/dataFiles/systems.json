@@ -1,0 +1,6155 @@
+[
+  {
+    "displayName": null,
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -384,
+      "y": -322
+    },
+    "government": "Republic",
+    "attributes": [
+      "north",
+      "notable",
+      "star",
+      "supergiant",
+      "star"
+    ],
+    "music": null,
+    "arrival": null,
+    "departure": null,
+    "ramscoop": null,
+    "habitable": null,
+    "belts": [
+      {
+        "distance": 2141,
+        "weight": null,
+        "pluginId": "official-game/endless-sky"
+      }
+    ],
+    "invisibleFence": null,
+    "jumpRange": null,
+    "haze": "_menu/haze-67",
+    "links": [
+      {
+        "name": "Adhile",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:Adhile",
+        "explicit": false
+      }
+    ],
+    "asteroids": [],
+    "minables": [],
+    "trade": [],
+    "fleets": [],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "star/m-supergiant",
+        "spriteScale": null,
+        "distance": null,
+        "period": null,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "official-game/endless-sky",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/desert2-b",
+        "spriteScale": null,
+        "distance": 679.44,
+        "period": null,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "official-game/endless-sky",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/rock0-b",
+        "spriteScale": null,
+        "distance": 1035.69,
+        "period": null,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "official-game/endless-sky",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/dust6",
+        "spriteScale": null,
+        "distance": 1582.62,
+        "period": null,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [
+          {
+            "name": null,
+            "isLandable": false,
+            "sprite": "planet/lava1-b",
+            "spriteScale": null,
+            "distance": 182,
+            "period": null,
+            "offset": null,
+            "visibility": null,
+            "hazards": [],
+            "children": [],
+            "pluginId": "official-game/endless-sky",
+            "internalId": null,
+            "_planetData": null
+          }
+        ],
+        "pluginId": "official-game/endless-sky",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/fog0",
+        "spriteScale": null,
+        "distance": 2215.83,
+        "period": null,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "official-game/endless-sky",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": "Prime",
+        "isLandable": true,
+        "sprite": "planet/forest2-b",
+        "spriteScale": null,
+        "distance": 3581.98,
+        "period": null,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::object:Prime",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [
+            "factory",
+            "north",
+            "urban"
+          ],
+          "requires": [],
+          "landscapes": [
+            {
+              "name": "land/city11",
+              "count": 1,
+              "pluginId": "official-game/endless-sky",
+              "internalId": "official-game/endless-sky::landscape:land/city11"
+            },
+            {
+              "name": "land/prime",
+              "count": 1,
+              "pluginId": "Zuckungs List/landing.images",
+              "internalId": "Zuckungs List/landing.images::landscape:land/prime"
+            }
+          ],
+          "music": null,
+          "description": {
+            "text": "Prime is a very Earth-like ocean world, with a population of over a billion people. It is home to Betelgeuse Shipyards, and much of the industry on the planet is related to ship-building in one way or another, like refining and working metal, or developing exotic new hull and framing materials. Although some mining is done in more remote regions of the planet, Prime is reliant on shipments of metal and other goods to feed its industries.",
+            "toDisplay": null
+          },
+          "spaceport": {
+            "text": "The spaceport is a long, multi-story building designed to look like a carrier starship, but much larger. It is built mostly of steel and glass, with the sturdy beams and girders that support the building visible on the inside, giving it the look of a ship still in construction, whose interior has not yet been fully fitted out. In nearby hangars, final assembly is being done on ships, some of which have been completed and are now for sale.",
+            "toDisplay": null
+          },
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": "Republic",
+          "governmentInherited": true,
+          "shipyards": [
+            {
+              "name": "Betelgeuse Basics",
+              "count": 1,
+              "pluginId": "official-game/endless-sky",
+              "internalId": "official-game/endless-sky::shipyard:Betelgeuse Basics"
+            },
+            {
+              "name": "Betelgeuse Advanced",
+              "count": 1,
+              "pluginId": "official-game/endless-sky",
+              "internalId": "official-game/endless-sky::shipyard:Betelgeuse Advanced"
+            },
+            {
+              "name": "Navy Basics",
+              "count": 1,
+              "pluginId": "official-game/endless-sky",
+              "internalId": "official-game/endless-sky::shipyard:Navy Basics"
+            },
+            {
+              "name": "Megaparsec Basics",
+              "count": 1,
+              "pluginId": "official-game/endless-sky",
+              "internalId": "official-game/endless-sky::shipyard:Megaparsec Basics"
+            }
+          ],
+          "outfitters": [
+            {
+              "name": "Common Outfits",
+              "count": 1,
+              "pluginId": "official-game/endless-sky",
+              "internalId": "official-game/endless-sky::outfitter:Common Outfits"
+            },
+            {
+              "name": "Ammo North",
+              "count": 1,
+              "pluginId": "official-game/endless-sky",
+              "internalId": "official-game/endless-sky::outfitter:Ammo North"
+            },
+            {
+              "name": "Lovelace Basics",
+              "count": 1,
+              "pluginId": "official-game/endless-sky",
+              "internalId": "official-game/endless-sky::outfitter:Lovelace Basics"
+            },
+            {
+              "name": "Northern Explorers",
+              "count": 1,
+              "pluginId": "official-game/endless-sky",
+              "internalId": "official-game/endless-sky::outfitter:Northern Explorers"
+            }
+          ],
+          "requiredReputation": 2,
+          "bribe": 0.05,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": 0.6,
+          "wormhole": null,
+          "tribute": {
+            "credits": 4400,
+            "threshold": 8000,
+            "fleets": [
+              {
+                "name": "Large Republic",
+                "count": 17,
+                "pluginId": "official-game/endless-sky",
+                "internalId": "official-game/endless-sky::tributeFleet:Large Republic"
+              }
+            ],
+            "dailyReputationPenalty": null
+          },
+          "tributeHails": {},
+          "systemName": "Betelgeuse",
+          "rawByPlugin": [
+            {
+              "pluginId": "official-game/endless-sky",
+              "entries": [
+                {
+                  "key": "attributes",
+                  "values": [
+                    "factory",
+                    "north",
+                    "urban"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "landscape",
+                  "values": [
+                    "land/city11"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "description",
+                  "values": [
+                    "Prime is a very Earth-like ocean world, with a population of over a billion people. It is home to Betelgeuse Shipyards, and much of the industry on the planet is related to ship-building in one way or another, like refining and working metal, or developing exotic new hull and framing materials. Although some mining is done in more remote regions of the planet, Prime is reliant on shipments of metal and other goods to feed its industries."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    "The spaceport is a long, multi-story building designed to look like a carrier starship, but much larger. It is built mostly of steel and glass, with the sturdy beams and girders that support the building visible on the inside, giving it the look of a ship still in construction, whose interior has not yet been fully fitted out. In nearby hangars, final assembly is being done on ships, some of which have been completed and are now for sale."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "shipyard",
+                  "values": [
+                    "Betelgeuse Basics"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "shipyard",
+                  "values": [
+                    "Betelgeuse Advanced"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "shipyard",
+                  "values": [
+                    "Navy Basics"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "shipyard",
+                  "values": [
+                    "Megaparsec Basics"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "outfitter",
+                  "values": [
+                    "Common Outfits"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "outfitter",
+                  "values": [
+                    "Ammo North"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "outfitter",
+                  "values": [
+                    "Lovelace Basics"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "outfitter",
+                  "values": [
+                    "Northern Explorers"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "required reputation",
+                  "values": [
+                    2
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "bribe",
+                  "values": [
+                    0.05
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "security",
+                  "values": [
+                    0.6
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "tribute",
+                  "values": [
+                    4400
+                  ],
+                  "children": [
+                    {
+                      "key": "threshold",
+                      "values": [
+                        8000
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "fleet",
+                      "values": [
+                        "Large Republic",
+                        17
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "pluginId": "Blended Ships/blended-ships",
+              "entries": [
+                {
+                  "key": "add",
+                  "values": [
+                    "shipyard",
+                    "Prograde"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "pluginId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
+              "entries": [
+                {
+                  "key": "add",
+                  "values": [
+                    "shipyard",
+                    "Louise Conglomerate Basics"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "add",
+                  "values": [
+                    "shipyard",
+                    "Louise Conglomerate Advanced"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "pluginId": "Mega Freight/Mega-Freight",
+              "entries": [
+                {
+                  "key": "add",
+                  "values": [
+                    "shipyard",
+                    "MarStel Intermediate"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "add",
+                  "values": [
+                    "shipyard",
+                    "MarStel Advanced"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "pluginId": "Mega Freight/Mega-Freight",
+              "entries": [
+                {
+                  "key": "add",
+                  "values": [
+                    "attributes",
+                    "limestone mining"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "pluginId": "Mega Freight/Mega-Freight",
+              "entries": [
+                {
+                  "key": "add",
+                  "values": [
+                    "attributes",
+                    "large factory",
+                    "heavy industry"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "pluginId": "Zuckungs List/landing.images",
+              "entries": [
+                {
+                  "key": "landscape",
+                  "values": [
+                    "land/prime"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "pluginId": "Zuckungs List/ship.cores",
+              "entries": [
+                {
+                  "key": "add",
+                  "values": [
+                    "outfitter",
+                    "Betelgeuse Basics Cores"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "add",
+                  "values": [
+                    "outfitter",
+                    "Betelgeuse Advanced Cores"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "add",
+                  "values": [
+                    "outfitter",
+                    "Navy Basics Cores"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "add",
+                  "values": [
+                    "outfitter",
+                    "Megaparsec Basics Cores"
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
+          "name": "Prime",
+          "_pluginId": "official-game/endless-sky",
+          "_internalId": "official-game/endless-sky::Prime",
+          "_definedBy": [
+            "official-game/endless-sky",
+            "Blended Ships/blended-ships",
+            "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
+            "Mega Freight/Mega-Freight",
+            "Zuckungs List/landing.images",
+            "Zuckungs List/ship.cores"
+          ],
+          "_lastModifiedBy": "Zuckungs List/ship.cores"
+        }
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/gas13-b",
+        "spriteScale": null,
+        "distance": 5080.11,
+        "period": null,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [
+          {
+            "name": null,
+            "isLandable": false,
+            "sprite": "planet/rock17-b",
+            "spriteScale": null,
+            "distance": 282,
+            "period": null,
+            "offset": null,
+            "visibility": null,
+            "hazards": [],
+            "children": [],
+            "pluginId": "official-game/endless-sky",
+            "internalId": null,
+            "_planetData": null
+          },
+          {
+            "name": null,
+            "isLandable": false,
+            "sprite": "planet/lava2",
+            "spriteScale": null,
+            "distance": 372,
+            "period": null,
+            "offset": null,
+            "visibility": null,
+            "hazards": [],
+            "children": [],
+            "pluginId": "official-game/endless-sky",
+            "internalId": null,
+            "_planetData": null
+          },
+          {
+            "name": null,
+            "isLandable": false,
+            "sprite": "planet/oberon-b",
+            "spriteScale": null,
+            "distance": 516,
+            "period": null,
+            "offset": null,
+            "visibility": null,
+            "hazards": [],
+            "children": [],
+            "pluginId": "official-game/endless-sky",
+            "internalId": null,
+            "_planetData": null
+          }
+        ],
+        "pluginId": "official-game/endless-sky",
+        "internalId": null,
+        "_planetData": null
+      }
+    ],
+    "planets": [],
+    "rawByPlugin": [
+      {
+        "pluginId": "official-game/endless-sky",
+        "entries": [
+          {
+            "key": "pos",
+            "values": [
+              -384,
+              -322
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Republic"
+            ],
+            "children": null
+          },
+          {
+            "key": "attributes",
+            "values": [
+              "north",
+              "notable star",
+              "supergiant star"
+            ],
+            "children": null
+          },
+          {
+            "key": "belt",
+            "values": [
+              2141
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-67"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "Alheka"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "Mirzam"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "Rigel"
+            ],
+            "children": null
+          },
+          {
+            "key": "asteroids",
+            "values": [
+              "medium rock",
+              21,
+              1.86
+            ],
+            "children": null
+          },
+          {
+            "key": "asteroids",
+            "values": [
+              "large rock",
+              7,
+              1.65
+            ],
+            "children": null
+          },
+          {
+            "key": "asteroids",
+            "values": [
+              "small metal",
+              78,
+              2.7
+            ],
+            "children": null
+          },
+          {
+            "key": "asteroids",
+            "values": [
+              "medium metal",
+              19,
+              3.18
+            ],
+            "children": null
+          },
+          {
+            "key": "asteroids",
+            "values": [
+              "large metal",
+              56,
+              4.38
+            ],
+            "children": null
+          },
+          {
+            "key": "minables",
+            "values": [
+              "lead",
+              43,
+              6.0536
+            ],
+            "children": null
+          },
+          {
+            "key": "minables",
+            "values": [
+              "silicon",
+              25,
+              4.05481
+            ],
+            "children": null
+          },
+          {
+            "key": "minables",
+            "values": [
+              "silver",
+              4,
+              3.65891
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Clothing",
+              226
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Electronics",
+              647
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Equipment",
+              681
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Food",
+              482
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Heavy Metals",
+              1140
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Industrial",
+              635
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Luxury Goods",
+              1344
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Medical",
+              568
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Metal",
+              384
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Plastic",
+              470
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Small Northern Merchants",
+              2000
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Northern Merchants",
+              800
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Small Republic",
+              2500
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Republic",
+              3500
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Republic Logistics",
+              6000
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Northern Pirates",
+              4000
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Human Miners",
+              3000
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "star/m-supergiant"
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/desert2-b"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  679.44
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/rock0-b"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  1035.69
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/dust6"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  1582.62
+                ],
+                "children": null
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/lava1-b"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      182
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/fog0"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  2215.83
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "Prime"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/forest2-b"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  3581.98
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/gas13-b"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  5080.11
+                ],
+                "children": null
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/rock17-b"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      282
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/lava2"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      372
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/oberon-b"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      516
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "pluginId": "Nova1422s list/navypirates",
+        "entries": []
+      },
+      {
+        "pluginId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "minables",
+              "superheavy metals",
+              3,
+              12
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "minables",
+              "Sulfur",
+              2,
+              8
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Blended Ships/blended-ships",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "Pleasure Craft",
+              3000
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "Pleasure Craft Transport",
+              5000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "MGF: Stiletto Company Small",
+              3000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "object",
+              "MGF: Fake Prime"
+            ],
+            "children": [
+              {
+                "key": "distance",
+                "values": [
+                  3581.99
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  1459.94
+                ],
+                "children": null
+              },
+              {
+                "key": "object",
+                "values": [
+                  "Ankaim Orbital Station"
+                ],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/mgf ankaim defense orbital"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      210
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "period",
+                    "values": [
+                      32
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "Sulso LG Shipping",
+              6500
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "Galactic Express Central Line",
+              13000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "NGK Hauling HeavyFreight",
+              7500
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "NGK Hauling RORO",
+              12000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "Maryhal Logistic ArteryLine",
+              7500
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "POOT/poot-senza-solaria",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "authors-respawn-poot-author",
+              2500000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "POOT/endless_sky_senza_solaria",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "authors-respawn-poot-author",
+              2500000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "POOT/poot-senza-solaria_senza_solaria",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "authors-respawn-poot-author",
+              2500000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/boss.loot",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "link",
+              "Adhile"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/space.fauna",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "space fauna 01",
+              15074
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/too.many.asteroids",
+        "entries": [
+          {
+            "key": "remove",
+            "values": [
+              "asteroids",
+              "medium rock"
+            ],
+            "children": null
+          },
+          {
+            "key": "remove",
+            "values": [
+              "asteroids",
+              "large rock"
+            ],
+            "children": null
+          },
+          {
+            "key": "remove",
+            "values": [
+              "asteroids",
+              "small metal"
+            ],
+            "children": null
+          },
+          {
+            "key": "remove",
+            "values": [
+              "asteroids",
+              "medium metal"
+            ],
+            "children": null
+          },
+          {
+            "key": "remove",
+            "values": [
+              "asteroids",
+              "large metal"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "name": "Betelgeuse",
+    "_pluginId": "official-game/endless-sky",
+    "_internalId": "official-game/endless-sky::Betelgeuse",
+    "_definedBy": [
+      "official-game/endless-sky",
+      "Nova1422s list/navypirates",
+      "Asteroid-Expansion/Asteroid-Expansion_EndlessSky",
+      "Blended Ships/blended-ships",
+      "Mega Freight/Mega-Freight",
+      "POOT/poot-senza-solaria",
+      "POOT/endless_sky_senza_solaria",
+      "POOT/poot-senza-solaria_senza_solaria",
+      "Zuckungs List/boss.loot",
+      "Zuckungs List/space.fauna",
+      "Zuckungs List/too.many.asteroids"
+    ],
+    "_lastModifiedBy": "Zuckungs List/too.many.asteroids"
+  },
+  {
+    "displayName": null,
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -423,
+      "y": -358
+    },
+    "government": "Republic (GalTac)",
+    "attributes": [],
+    "music": null,
+    "arrival": {
+      "distance": 850,
+      "link": null,
+      "jump": null
+    },
+    "departure": null,
+    "ramscoop": null,
+    "habitable": 850,
+    "belts": [],
+    "invisibleFence": null,
+    "jumpRange": null,
+    "haze": null,
+    "links": [
+      {
+        "name": "Betelgeuse",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:Betelgeuse",
+        "explicit": true
+      }
+    ],
+    "asteroids": [],
+    "minables": [],
+    "trade": [
+      {
+        "name": "Clothing",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::trade:Clothing",
+        "cost": 246
+      },
+      {
+        "name": "Electronics",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::trade:Electronics",
+        "cost": 667
+      },
+      {
+        "name": "Equipment",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::trade:Equipment",
+        "cost": 621
+      },
+      {
+        "name": "Food",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::trade:Food",
+        "cost": 502
+      },
+      {
+        "name": "Heavy Metals",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::trade:Heavy Metals",
+        "cost": 1120
+      },
+      {
+        "name": "Industrial",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::trade:Industrial",
+        "cost": 665
+      },
+      {
+        "name": "Luxury Goods",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::trade:Luxury Goods",
+        "cost": 1304
+      },
+      {
+        "name": "Medical",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::trade:Medical",
+        "cost": 598
+      },
+      {
+        "name": "Metal",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::trade:Metal",
+        "cost": 334
+      },
+      {
+        "name": "Plastic",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::trade:Plastic",
+        "cost": 499
+      }
+    ],
+    "fleets": [
+      {
+        "name": "Small Republic",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::systemFleet:Small Republic",
+        "period": 2800,
+        "toSpawn": null
+      },
+      {
+        "name": "Large Republic",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::systemFleet:Large Republic",
+        "period": 3800,
+        "toSpawn": null
+      }
+    ],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "star/m8",
+        "spriteScale": null,
+        "distance": null,
+        "period": 10,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": "dun1_wormhole_01",
+        "isLandable": true,
+        "sprite": "planet/dun_wormhole_green",
+        "spriteScale": 1,
+        "distance": 500,
+        "period": 365,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [
+          {
+            "name": "dun_station_01",
+            "isLandable": true,
+            "sprite": "planet/station1",
+            "spriteScale": 0.5,
+            "distance": 300,
+            "period": 365,
+            "offset": 180,
+            "visibility": null,
+            "hazards": [],
+            "children": [],
+            "pluginId": "Zuckungs List/boss.loot",
+            "internalId": "Zuckungs List/boss.loot::object:dun_station_01",
+            "_planetData": {
+              "displayName": "Vigilant Horizon",
+              "attributes": [],
+              "requires": [],
+              "landscapes": [
+                {
+                  "name": "land/dun_station01",
+                  "count": 1,
+                  "pluginId": "Zuckungs List/boss.loot",
+                  "internalId": "Zuckungs List/boss.loot::landscape:land/dun_station01"
+                }
+              ],
+              "music": null,
+              "description": {
+                "text": "The Republic Navy space station Vigilant Horizon orbits a massive, pulsating wormhole at the edge of known space. A sprawling, armored structure bristling with sensor arrays, communication dishes, and defense turrets, it serves as both a research outpost and strategic military hub. Its hull bears the scars of past skirmishes, yet its systems remain sharp and vigilant. Constantly monitoring wormhole fluctuations, the station transmits vital data to Republic command while maintaining a fleet of patrol ships ready to intercept threats. Inside, a blend of military precision and scientific curiosity drives the crew, all stationed at the gateway to the unknown.",
+                "toDisplay": null
+              },
+              "spaceport": {
+                "text": "The Republic Navy station Vigilant Horizon orbits a massive, pulsating wormhole at the edge of known space. A sprawling, armored structure bristling with sensor arrays, communication dishes, and defense turrets, it serves as both a research outpost and strategic military hub. Its hull bears the scars of past skirmishes, yet its systems remain sharp and vigilant. Constantly monitoring wormhole fluctuations, the station transmits vital data to Republic command while maintaining a fleet of patrol ships ready to intercept threats. Inside, a blend of military precision and scientific curiosity drives the crew, all stationed at the gateway to the unknown.",
+                "toDisplay": null
+              },
+              "toKnow": null,
+              "toLand": null,
+              "toAccessOutfitter": null,
+              "toAccessShipyard": null,
+              "port": null,
+              "government": "Republic (GalTac)",
+              "governmentInherited": false,
+              "shipyards": [
+                {
+                  "name": "dun_empty",
+                  "count": 1,
+                  "pluginId": "Zuckungs List/boss.loot",
+                  "internalId": "Zuckungs List/boss.loot::shipyard:dun_empty"
+                }
+              ],
+              "outfitters": [
+                {
+                  "name": "dun_empty",
+                  "count": 1,
+                  "pluginId": "Zuckungs List/boss.loot",
+                  "internalId": "Zuckungs List/boss.loot::outfitter:dun_empty"
+                }
+              ],
+              "requiredReputation": null,
+              "bribe": null,
+              "bribeThreshold": null,
+              "bribeFraction": null,
+              "security": null,
+              "wormhole": null,
+              "tribute": null,
+              "tributeHails": {},
+              "systemName": "Adhile",
+              "rawByPlugin": [
+                {
+                  "pluginId": "Zuckungs List/boss.loot",
+                  "entries": [
+                    {
+                      "key": "display name",
+                      "values": [
+                        "Vigilant Horizon"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "landscape",
+                      "values": [
+                        "land/dun_station01"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "description",
+                      "values": [
+                        "The Republic Navy space station Vigilant Horizon orbits a massive, pulsating wormhole at the edge of known space. A sprawling, armored structure bristling with sensor arrays, communication dishes, and defense turrets, it serves as both a research outpost and strategic military hub. Its hull bears the scars of past skirmishes, yet its systems remain sharp and vigilant. Constantly monitoring wormhole fluctuations, the station transmits vital data to Republic command while maintaining a fleet of patrol ships ready to intercept threats. Inside, a blend of military precision and scientific curiosity drives the crew, all stationed at the gateway to the unknown."
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "spaceport",
+                      "values": [
+                        "The Republic Navy station Vigilant Horizon orbits a massive, pulsating wormhole at the edge of known space. A sprawling, armored structure bristling with sensor arrays, communication dishes, and defense turrets, it serves as both a research outpost and strategic military hub. Its hull bears the scars of past skirmishes, yet its systems remain sharp and vigilant. Constantly monitoring wormhole fluctuations, the station transmits vital data to Republic command while maintaining a fleet of patrol ships ready to intercept threats. Inside, a blend of military precision and scientific curiosity drives the crew, all stationed at the gateway to the unknown."
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "government",
+                      "values": [
+                        "Republic (GalTac)"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "outfitter",
+                      "values": [
+                        "dun_empty"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "shipyard",
+                      "values": [
+                        "dun_empty"
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ],
+              "name": "dun_station_01",
+              "_pluginId": "Zuckungs List/boss.loot",
+              "_internalId": "Zuckungs List/boss.loot::dun_station_01",
+              "_definedBy": [
+                "Zuckungs List/boss.loot"
+              ],
+              "_lastModifiedBy": "Zuckungs List/boss.loot"
+            }
+          }
+        ],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::object:dun1_wormhole_01",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [
+            "Emerald",
+            "Code",
+            "1"
+          ],
+          "requires": [
+            ""
+          ],
+          "landscapes": [],
+          "music": null,
+          "description": null,
+          "spaceport": {
+            "text": "",
+            "toDisplay": null
+          },
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": null,
+          "governmentInherited": false,
+          "shipyards": [],
+          "outfitters": [],
+          "requiredReputation": null,
+          "bribe": null,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": null,
+          "wormhole": "dun1_wormhole_01",
+          "tribute": null,
+          "tributeHails": {},
+          "systemName": "dun1_sys_01",
+          "rawByPlugin": [
+            {
+              "pluginId": "Zuckungs List/boss.loot",
+              "entries": [
+                {
+                  "key": "attributes",
+                  "values": [
+                    "requires: Emerald Code 1"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    ""
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "wormhole",
+                  "values": [
+                    "dun1_wormhole_01"
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
+          "name": "dun1_wormhole_01",
+          "_pluginId": "Zuckungs List/boss.loot",
+          "_internalId": "Zuckungs List/boss.loot::dun1_wormhole_01",
+          "_definedBy": [
+            "Zuckungs List/boss.loot"
+          ],
+          "_lastModifiedBy": "Zuckungs List/boss.loot"
+        }
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/gas14-b",
+        "spriteScale": null,
+        "distance": 987,
+        "period": 634,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      }
+    ],
+    "planets": [
+      {
+        "name": "dun1_wormhole_01",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::systemPlanet:dun1_wormhole_01"
+      },
+      {
+        "name": "dun_station_01",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::systemPlanet:dun_station_01"
+      }
+    ],
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/boss.loot",
+        "entries": [
+          {
+            "key": "pos",
+            "values": [
+              -423,
+              -358
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "Betelgeuse"
+            ],
+            "children": null
+          },
+          {
+            "key": "arrival",
+            "values": [
+              850
+            ],
+            "children": null
+          },
+          {
+            "key": "habitable",
+            "values": [
+              850
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Republic (GalTac)"
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Clothing",
+              246
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Electronics",
+              667
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Equipment",
+              621
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Food",
+              502
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Heavy Metals",
+              1120
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Industrial",
+              665
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Luxury Goods",
+              1304
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Medical",
+              598
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Metal",
+              334
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Plastic",
+              499
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Small Republic",
+              2800
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Republic",
+              3800
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "star/m8"
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  10
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "dun1_wormhole_01"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/dun_wormhole_green"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      1
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  500
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  365
+                ],
+                "children": null
+              },
+              {
+                "key": "object",
+                "values": [
+                  "dun_station_01"
+                ],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/station1"
+                    ],
+                    "children": [
+                      {
+                        "key": "scale",
+                        "values": [
+                          0.5
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      300
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "period",
+                    "values": [
+                      365
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "offset",
+                    "values": [
+                      180
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/gas14-b"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  987
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  634
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "Adhile",
+    "_pluginId": "Zuckungs List/boss.loot",
+    "_internalId": "Zuckungs List/boss.loot::Adhile",
+    "_definedBy": [
+      "Zuckungs List/boss.loot"
+    ],
+    "_lastModifiedBy": "Zuckungs List/boss.loot"
+  },
+  {
+    "displayName": "Lumen Grove",
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -6750,
+      "y": -6900
+    },
+    "government": null,
+    "attributes": [],
+    "music": null,
+    "arrival": null,
+    "departure": null,
+    "ramscoop": null,
+    "habitable": null,
+    "belts": [],
+    "invisibleFence": null,
+    "jumpRange": 1,
+    "haze": "_menu/haze-dark-nebula",
+    "links": [
+      {
+        "name": "dun1_sys_b_01",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:dun1_sys_b_01",
+        "explicit": true
+      },
+      {
+        "name": "dun1_sys_b_02",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:dun1_sys_b_02",
+        "explicit": true
+      },
+      {
+        "name": "dun1_sys_b_03",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:dun1_sys_b_03",
+        "explicit": true
+      }
+    ],
+    "asteroids": [],
+    "minables": [
+      {
+        "name": "Verdanite",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::minables:Verdanite",
+        "asteroidCount": 1,
+        "energy": 5
+      }
+    ],
+    "trade": [],
+    "fleets": [],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "star/dun1_02",
+        "spriteScale": null,
+        "distance": null,
+        "period": 10,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/dust2",
+        "spriteScale": null,
+        "distance": 302,
+        "period": 330,
+        "offset": 19,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/rock3-b",
+        "spriteScale": null,
+        "distance": 576,
+        "period": 639,
+        "offset": 146,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/gas10",
+        "spriteScale": null,
+        "distance": 1109,
+        "period": 877,
+        "offset": 265,
+        "visibility": null,
+        "hazards": [],
+        "children": [
+          {
+            "name": null,
+            "isLandable": false,
+            "sprite": "planet/lava0-b",
+            "spriteScale": null,
+            "distance": 192,
+            "period": 14,
+            "offset": null,
+            "visibility": null,
+            "hazards": [],
+            "children": [],
+            "pluginId": "Zuckungs List/boss.loot",
+            "internalId": null,
+            "_planetData": null
+          }
+        ],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": "dun1_wormhole_01",
+        "isLandable": true,
+        "sprite": "planet/dun_wormhole_green",
+        "spriteScale": null,
+        "distance": 1500,
+        "period": 1,
+        "offset": 270,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::object:dun1_wormhole_01",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [
+            "Emerald",
+            "Code",
+            "1"
+          ],
+          "requires": [
+            ""
+          ],
+          "landscapes": [],
+          "music": null,
+          "description": null,
+          "spaceport": {
+            "text": "",
+            "toDisplay": null
+          },
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": null,
+          "governmentInherited": false,
+          "shipyards": [],
+          "outfitters": [],
+          "requiredReputation": null,
+          "bribe": null,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": null,
+          "wormhole": "dun1_wormhole_01",
+          "tribute": null,
+          "tributeHails": {},
+          "systemName": "dun1_sys_01",
+          "rawByPlugin": [
+            {
+              "pluginId": "Zuckungs List/boss.loot",
+              "entries": [
+                {
+                  "key": "attributes",
+                  "values": [
+                    "requires: Emerald Code 1"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    ""
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "wormhole",
+                  "values": [
+                    "dun1_wormhole_01"
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
+          "name": "dun1_wormhole_01",
+          "_pluginId": "Zuckungs List/boss.loot",
+          "_internalId": "Zuckungs List/boss.loot::dun1_wormhole_01",
+          "_definedBy": [
+            "Zuckungs List/boss.loot"
+          ],
+          "_lastModifiedBy": "Zuckungs List/boss.loot"
+        }
+      },
+      {
+        "name": "dun1_wormhole_00",
+        "isLandable": true,
+        "sprite": "planet/dun_wormhole_green",
+        "spriteScale": null,
+        "distance": 1530,
+        "period": 1,
+        "offset": 280,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::object:dun1_wormhole_00",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [
+            "Emerald",
+            "Code",
+            "0"
+          ],
+          "requires": [
+            ""
+          ],
+          "landscapes": [],
+          "music": null,
+          "description": null,
+          "spaceport": {
+            "text": "",
+            "toDisplay": null
+          },
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": null,
+          "governmentInherited": false,
+          "shipyards": [],
+          "outfitters": [],
+          "requiredReputation": null,
+          "bribe": null,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": null,
+          "wormhole": "dun1_wormhole_00",
+          "tribute": null,
+          "tributeHails": {},
+          "systemName": "dun1_sys_b_06",
+          "rawByPlugin": [
+            {
+              "pluginId": "Zuckungs List/boss.loot",
+              "entries": [
+                {
+                  "key": "attributes",
+                  "values": [
+                    "requires: Emerald Code 0"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    ""
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "wormhole",
+                  "values": [
+                    "dun1_wormhole_00"
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
+          "name": "dun1_wormhole_00",
+          "_pluginId": "Zuckungs List/boss.loot",
+          "_internalId": "Zuckungs List/boss.loot::dun1_wormhole_00",
+          "_definedBy": [
+            "Zuckungs List/boss.loot"
+          ],
+          "_lastModifiedBy": "Zuckungs List/boss.loot"
+        }
+      }
+    ],
+    "planets": [
+      {
+        "name": "dun1_wormhole_01",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::systemPlanet:dun1_wormhole_01"
+      },
+      {
+        "name": "dun1_wormhole_00",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::systemPlanet:dun1_wormhole_00"
+      }
+    ],
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/boss.loot",
+        "entries": [
+          {
+            "key": "display name",
+            "values": [
+              "Lumen Grove"
+            ],
+            "children": null
+          },
+          {
+            "key": "pos",
+            "values": [
+              -6750,
+              -6900
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "dun1_sys_b_01"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "dun1_sys_b_02"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "dun1_sys_b_03"
+            ],
+            "children": null
+          },
+          {
+            "key": "jump range",
+            "values": [
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-dark-nebula"
+            ],
+            "children": null
+          },
+          {
+            "key": "minables",
+            "values": [
+              "Verdanite",
+              1,
+              5
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "star/dun1_02"
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  10
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/dust2"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  302
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  330
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  19
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/rock3-b"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  576
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  639
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  146
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/gas10"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  1109
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  877
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  265
+                ],
+                "children": null
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/lava0-b"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      192
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "period",
+                    "values": [
+                      14
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "dun1_wormhole_01"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/dun_wormhole_green"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  1500
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  1
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  270
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "dun1_wormhole_00"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/dun_wormhole_green"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  1530
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  1
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  280
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "dun1_sys_01",
+    "_pluginId": "Zuckungs List/boss.loot",
+    "_internalId": "Zuckungs List/boss.loot::dun1_sys_01",
+    "_definedBy": [
+      "Zuckungs List/boss.loot"
+    ],
+    "_lastModifiedBy": "Zuckungs List/boss.loot"
+  },
+  {
+    "displayName": "Feyshade Crown",
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -6640,
+      "y": -6940
+    },
+    "government": null,
+    "attributes": [],
+    "music": null,
+    "arrival": null,
+    "departure": null,
+    "ramscoop": null,
+    "habitable": null,
+    "belts": [],
+    "invisibleFence": null,
+    "jumpRange": 1,
+    "haze": "_menu/haze-dark-nebula",
+    "links": [
+      {
+        "name": "dun1_sys_b_01",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:dun1_sys_b_01",
+        "explicit": true
+      },
+      {
+        "name": "dun1_sys_b_02",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:dun1_sys_b_02",
+        "explicit": true
+      },
+      {
+        "name": "dun1_sys_b_03",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:dun1_sys_b_03",
+        "explicit": true
+      }
+    ],
+    "asteroids": [],
+    "minables": [
+      {
+        "name": "Verdanite",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::minables:Verdanite",
+        "asteroidCount": 3,
+        "energy": 5
+      }
+    ],
+    "trade": [],
+    "fleets": [],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "star/dun1_05",
+        "spriteScale": null,
+        "distance": null,
+        "period": 10,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/lava3",
+        "spriteScale": null,
+        "distance": 320,
+        "period": 230,
+        "offset": 122,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": "dun1_save1",
+        "isLandable": true,
+        "sprite": "planet/desert0",
+        "spriteScale": null,
+        "distance": 430,
+        "period": 217,
+        "offset": 80,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::object:dun1_save1",
+        "_planetData": {
+          "displayName": "Zenara",
+          "attributes": [],
+          "requires": [],
+          "landscapes": [
+            {
+              "name": "land/desert12",
+              "count": 1,
+              "pluginId": "Zuckungs List/boss.loot",
+              "internalId": "Zuckungs List/boss.loot::landscape:land/desert12"
+            }
+          ],
+          "music": null,
+          "description": {
+            "text": "Zenara is a barren, sun-scorched desert world, its ochre dunes stretching endlessly under a searing sky. Winds whip fine, rust-colored sand across rock formations and dry basins that suggest long-lost rivers. Temperatures swing violently between blistering days and freezing nights, with no signs of native life. Amid the desolation lies a peculiar anomaly: a metallic landing area carved into a flat plateau, clearly artificial yet weathered by time. At its center stands a refueling station of unknown origin... tall, monolithic, and silently operational. Its design is unfamiliar to any known species, humming faintly with residual power. The structure appears to maintain itself, untouched by decay or dust. No transmissions, no markings, no signs of its creators... only a sense of eerie purpose. It offers fuel without question, and then silence. Explorers approach with caution, wondering who, or what built this outpost in the middle of nowhere.",
+            "toDisplay": null
+          },
+          "spaceport": {
+            "text": "Zenara is a barren, sun-scorched desert world, its ochre dunes stretching endlessly under a searing sky. Winds whip fine, rust-colored sand across rock formations and dry basins that suggest long-lost rivers. Temperatures swing violently between blistering days and freezing nights, with no signs of native life. Amid the desolation lies a peculiar anomaly: a metallic landing area carved into a flat plateau, clearly artificial yet weathered by time. At its center stands a refueling station of unknown origin... tall, monolithic, and silently operational. Its design is unfamiliar to any known species, humming faintly with residual power. The structure appears to maintain itself, untouched by decay or dust. No transmissions, no markings, no signs of its creators... only a sense of eerie purpose. It offers fuel without question, and then silence. Explorers approach with caution, wondering who, or what built this outpost in the middle of nowhere.",
+            "toDisplay": null
+          },
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": "Uninhabited",
+          "governmentInherited": false,
+          "shipyards": [],
+          "outfitters": [],
+          "requiredReputation": null,
+          "bribe": null,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": null,
+          "wormhole": null,
+          "tribute": null,
+          "tributeHails": {},
+          "systemName": "dun1_sys_02",
+          "rawByPlugin": [
+            {
+              "pluginId": "Zuckungs List/boss.loot",
+              "entries": [
+                {
+                  "key": "display name",
+                  "values": [
+                    "Zenara"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "landscape",
+                  "values": [
+                    "land/desert12"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "government",
+                  "values": [
+                    "Uninhabited"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "description",
+                  "values": [
+                    "Zenara is a barren, sun-scorched desert world, its ochre dunes stretching endlessly under a searing sky. Winds whip fine, rust-colored sand across rock formations and dry basins that suggest long-lost rivers. Temperatures swing violently between blistering days and freezing nights, with no signs of native life. Amid the desolation lies a peculiar anomaly: a metallic landing area carved into a flat plateau, clearly artificial yet weathered by time. At its center stands a refueling station of unknown origin... tall, monolithic, and silently operational. Its design is unfamiliar to any known species, humming faintly with residual power. The structure appears to maintain itself, untouched by decay or dust. No transmissions, no markings, no signs of its creators... only a sense of eerie purpose. It offers fuel without question, and then silence. Explorers approach with caution, wondering who, or what built this outpost in the middle of nowhere."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    "Zenara is a barren, sun-scorched desert world, its ochre dunes stretching endlessly under a searing sky. Winds whip fine, rust-colored sand across rock formations and dry basins that suggest long-lost rivers. Temperatures swing violently between blistering days and freezing nights, with no signs of native life. Amid the desolation lies a peculiar anomaly: a metallic landing area carved into a flat plateau, clearly artificial yet weathered by time. At its center stands a refueling station of unknown origin... tall, monolithic, and silently operational. Its design is unfamiliar to any known species, humming faintly with residual power. The structure appears to maintain itself, untouched by decay or dust. No transmissions, no markings, no signs of its creators... only a sense of eerie purpose. It offers fuel without question, and then silence. Explorers approach with caution, wondering who, or what built this outpost in the middle of nowhere."
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
+          "name": "dun1_save1",
+          "_pluginId": "Zuckungs List/boss.loot",
+          "_internalId": "Zuckungs List/boss.loot::dun1_save1",
+          "_definedBy": [
+            "Zuckungs List/boss.loot"
+          ],
+          "_lastModifiedBy": "Zuckungs List/boss.loot"
+        }
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/lava6-b",
+        "spriteScale": null,
+        "distance": 556,
+        "period": 157,
+        "offset": 267,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/desert10-b",
+        "spriteScale": null,
+        "distance": 989,
+        "period": 343,
+        "offset": 345,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": "dun1_wormhole_02",
+        "isLandable": true,
+        "sprite": "planet/dun_wormhole_green",
+        "spriteScale": null,
+        "distance": 1500,
+        "period": 1,
+        "offset": 90,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::object:dun1_wormhole_02",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [
+            "Emerald",
+            "Code",
+            "2",
+            "Emerald",
+            "Code",
+            "3",
+            "Emerald",
+            "Code",
+            "4"
+          ],
+          "requires": [
+            "",
+            "",
+            ""
+          ],
+          "landscapes": [],
+          "music": null,
+          "description": null,
+          "spaceport": {
+            "text": "",
+            "toDisplay": null
+          },
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": null,
+          "governmentInherited": false,
+          "shipyards": [],
+          "outfitters": [],
+          "requiredReputation": null,
+          "bribe": null,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": null,
+          "wormhole": "dun1_wormhole_02",
+          "tribute": null,
+          "tributeHails": {},
+          "systemName": "dun1_sys_03",
+          "rawByPlugin": [
+            {
+              "pluginId": "Zuckungs List/boss.loot",
+              "entries": [
+                {
+                  "key": "attributes",
+                  "values": [
+                    "requires: Emerald Code 2",
+                    "requires: Emerald Code 3",
+                    "requires: Emerald Code 4"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    ""
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "wormhole",
+                  "values": [
+                    "dun1_wormhole_02"
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
+          "name": "dun1_wormhole_02",
+          "_pluginId": "Zuckungs List/boss.loot",
+          "_internalId": "Zuckungs List/boss.loot::dun1_wormhole_02",
+          "_definedBy": [
+            "Zuckungs List/boss.loot"
+          ],
+          "_lastModifiedBy": "Zuckungs List/boss.loot"
+        }
+      }
+    ],
+    "planets": [
+      {
+        "name": "dun1_save1",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::systemPlanet:dun1_save1"
+      },
+      {
+        "name": "dun1_wormhole_02",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::systemPlanet:dun1_wormhole_02"
+      }
+    ],
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/boss.loot",
+        "entries": [
+          {
+            "key": "display name",
+            "values": [
+              "Feyshade Crown"
+            ],
+            "children": null
+          },
+          {
+            "key": "pos",
+            "values": [
+              -6640,
+              -6940
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "dun1_sys_b_01"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "dun1_sys_b_02"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "dun1_sys_b_03"
+            ],
+            "children": null
+          },
+          {
+            "key": "jump range",
+            "values": [
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-dark-nebula"
+            ],
+            "children": null
+          },
+          {
+            "key": "minables",
+            "values": [
+              "Verdanite",
+              3,
+              5
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "star/dun1_05"
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  10
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/lava3"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  320
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  230
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  122
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "dun1_save1"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/desert0"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  430
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  217
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  80
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/lava6-b"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  556
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  157
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  267
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/desert10-b"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  989
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  343
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  345
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "dun1_wormhole_02"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/dun_wormhole_green"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  1500
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  1
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  90
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "dun1_sys_02",
+    "_pluginId": "Zuckungs List/boss.loot",
+    "_internalId": "Zuckungs List/boss.loot::dun1_sys_02",
+    "_definedBy": [
+      "Zuckungs List/boss.loot"
+    ],
+    "_lastModifiedBy": "Zuckungs List/boss.loot"
+  },
+  {
+    "displayName": "Chloris' Veil",
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -6540,
+      "y": -6890
+    },
+    "government": null,
+    "attributes": [],
+    "music": null,
+    "arrival": null,
+    "departure": null,
+    "ramscoop": null,
+    "habitable": null,
+    "belts": [],
+    "invisibleFence": null,
+    "jumpRange": 1,
+    "haze": "_menu/haze-dark-nebula",
+    "links": [
+      {
+        "name": "dun1_sys_b_04",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:dun1_sys_b_04",
+        "explicit": true
+      },
+      {
+        "name": "dun1_sys_b_05",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:dun1_sys_b_05",
+        "explicit": true
+      }
+    ],
+    "asteroids": [],
+    "minables": [
+      {
+        "name": "Verdanite",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::minables:Verdanite",
+        "asteroidCount": 1,
+        "energy": 5
+      }
+    ],
+    "trade": [],
+    "fleets": [],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "star/dun1_05",
+        "spriteScale": null,
+        "distance": null,
+        "period": 10,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/lava3",
+        "spriteScale": null,
+        "distance": 320,
+        "period": 320,
+        "offset": 222,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/lava6-b",
+        "spriteScale": null,
+        "distance": 556,
+        "period": 257,
+        "offset": 67,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/desert10-b",
+        "spriteScale": null,
+        "distance": 989,
+        "period": 443,
+        "offset": 145,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": "dun1_wormhole_02",
+        "isLandable": true,
+        "sprite": "planet/dun_wormhole_green",
+        "spriteScale": null,
+        "distance": 1500,
+        "period": 1,
+        "offset": 90,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::object:dun1_wormhole_02",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [
+            "Emerald",
+            "Code",
+            "2",
+            "Emerald",
+            "Code",
+            "3",
+            "Emerald",
+            "Code",
+            "4"
+          ],
+          "requires": [
+            "",
+            "",
+            ""
+          ],
+          "landscapes": [],
+          "music": null,
+          "description": null,
+          "spaceport": {
+            "text": "",
+            "toDisplay": null
+          },
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": null,
+          "governmentInherited": false,
+          "shipyards": [],
+          "outfitters": [],
+          "requiredReputation": null,
+          "bribe": null,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": null,
+          "wormhole": "dun1_wormhole_02",
+          "tribute": null,
+          "tributeHails": {},
+          "systemName": "dun1_sys_03",
+          "rawByPlugin": [
+            {
+              "pluginId": "Zuckungs List/boss.loot",
+              "entries": [
+                {
+                  "key": "attributes",
+                  "values": [
+                    "requires: Emerald Code 2",
+                    "requires: Emerald Code 3",
+                    "requires: Emerald Code 4"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    ""
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "wormhole",
+                  "values": [
+                    "dun1_wormhole_02"
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
+          "name": "dun1_wormhole_02",
+          "_pluginId": "Zuckungs List/boss.loot",
+          "_internalId": "Zuckungs List/boss.loot::dun1_wormhole_02",
+          "_definedBy": [
+            "Zuckungs List/boss.loot"
+          ],
+          "_lastModifiedBy": "Zuckungs List/boss.loot"
+        }
+      }
+    ],
+    "planets": [
+      {
+        "name": "dun1_wormhole_02",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::systemPlanet:dun1_wormhole_02"
+      }
+    ],
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/boss.loot",
+        "entries": [
+          {
+            "key": "display name",
+            "values": [
+              "Chloris' Veil"
+            ],
+            "children": null
+          },
+          {
+            "key": "pos",
+            "values": [
+              -6540,
+              -6890
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "dun1_sys_b_04"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "dun1_sys_b_05"
+            ],
+            "children": null
+          },
+          {
+            "key": "jump range",
+            "values": [
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-dark-nebula"
+            ],
+            "children": null
+          },
+          {
+            "key": "minables",
+            "values": [
+              "Verdanite",
+              1,
+              5
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "star/dun1_05"
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  10
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/lava3"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  320
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  320
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  222
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/lava6-b"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  556
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  257
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  67
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/desert10-b"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  989
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  443
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  145
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "dun1_wormhole_02"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/dun_wormhole_green"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  1500
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  1
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  90
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "dun1_sys_03",
+    "_pluginId": "Zuckungs List/boss.loot",
+    "_internalId": "Zuckungs List/boss.loot::dun1_sys_03",
+    "_definedBy": [
+      "Zuckungs List/boss.loot"
+    ],
+    "_lastModifiedBy": "Zuckungs List/boss.loot"
+  },
+  {
+    "displayName": "Sacred Beryl",
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -6440,
+      "y": -6860
+    },
+    "government": null,
+    "attributes": [],
+    "music": null,
+    "arrival": null,
+    "departure": null,
+    "ramscoop": null,
+    "habitable": null,
+    "belts": [],
+    "invisibleFence": null,
+    "jumpRange": 1,
+    "haze": "_menu/haze-dark-nebula",
+    "links": [
+      {
+        "name": "dun1_sys_b_04",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:dun1_sys_b_04",
+        "explicit": true
+      },
+      {
+        "name": "dun1_sys_b_05",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:dun1_sys_b_05",
+        "explicit": true
+      }
+    ],
+    "asteroids": [],
+    "minables": [
+      {
+        "name": "Verdanite",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::minables:Verdanite",
+        "asteroidCount": 2,
+        "energy": 5
+      }
+    ],
+    "trade": [],
+    "fleets": [],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "star/dun1_05",
+        "spriteScale": null,
+        "distance": null,
+        "period": 10,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/lava3",
+        "spriteScale": null,
+        "distance": 320,
+        "period": 130,
+        "offset": 252,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": "dun1_save2",
+        "isLandable": true,
+        "sprite": "planet/desert0",
+        "spriteScale": null,
+        "distance": 430,
+        "period": 280,
+        "offset": 170,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::object:dun1_save2",
+        "_planetData": {
+          "displayName": "Halion",
+          "attributes": [],
+          "requires": [],
+          "landscapes": [
+            {
+              "name": "land/fields6",
+              "count": 1,
+              "pluginId": "Zuckungs List/boss.loot",
+              "internalId": "Zuckungs List/boss.loot::landscape:land/fields6"
+            }
+          ],
+          "music": null,
+          "description": {
+            "text": "Halion is a serene, uninhabited world covered in endless rolling grasslands, swaying under pale blue skies. The air is crisp and thin, with scattered clusters of smooth stone outcrops dotting the verdant terrain. Occasional breezes ripple through the tall, silver-green grass, creating waves of motion across the landscape. Nestled in a shallow valley is a small landing area, an octagonal platform of dark alloy, partially overgrown with native flora. Adjacent to it stands a sleek refueling station, seemingly dormant yet fully functional. Its smooth, curved surfaces glow faintly when approached, activating without prompt. The design is minimalist and elegant, unlike any known engineering, no visible controls, no logos, only a seamless interface that responds to proximity. The structure feels less like machinery and more like an artifact, quietly waiting for travelers long since gone. It provides sustenance for ships, but offers no answers.",
+            "toDisplay": null
+          },
+          "spaceport": {
+            "text": "Halion is a serene, uninhabited world covered in endless rolling grasslands, swaying under pale blue skies. The air is crisp and thin, with scattered clusters of smooth stone outcrops dotting the verdant terrain. Occasional breezes ripple through the tall, silver-green grass, creating waves of motion across the landscape. Nestled in a shallow valley is a small landing area, an octagonal platform of dark alloy, partially overgrown with native flora. Adjacent to it stands a sleek refueling station, seemingly dormant yet fully functional. Its smooth, curved surfaces glow faintly when approached, activating without prompt. The design is minimalist and elegant, unlike any known engineering, no visible controls, no logos, only a seamless interface that responds to proximity. The structure feels less like machinery and more like an artifact, quietly waiting for travelers long since gone. It provides sustenance for ships, but offers no answers.",
+            "toDisplay": null
+          },
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": "Uninhabited",
+          "governmentInherited": false,
+          "shipyards": [],
+          "outfitters": [],
+          "requiredReputation": null,
+          "bribe": null,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": null,
+          "wormhole": null,
+          "tribute": null,
+          "tributeHails": {},
+          "systemName": "dun1_sys_04",
+          "rawByPlugin": [
+            {
+              "pluginId": "Zuckungs List/boss.loot",
+              "entries": [
+                {
+                  "key": "display name",
+                  "values": [
+                    "Halion"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "landscape",
+                  "values": [
+                    "land/fields6"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "government",
+                  "values": [
+                    "Uninhabited"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "description",
+                  "values": [
+                    "Halion is a serene, uninhabited world covered in endless rolling grasslands, swaying under pale blue skies. The air is crisp and thin, with scattered clusters of smooth stone outcrops dotting the verdant terrain. Occasional breezes ripple through the tall, silver-green grass, creating waves of motion across the landscape. Nestled in a shallow valley is a small landing area, an octagonal platform of dark alloy, partially overgrown with native flora. Adjacent to it stands a sleek refueling station, seemingly dormant yet fully functional. Its smooth, curved surfaces glow faintly when approached, activating without prompt. The design is minimalist and elegant, unlike any known engineering, no visible controls, no logos, only a seamless interface that responds to proximity. The structure feels less like machinery and more like an artifact, quietly waiting for travelers long since gone. It provides sustenance for ships, but offers no answers."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    "Halion is a serene, uninhabited world covered in endless rolling grasslands, swaying under pale blue skies. The air is crisp and thin, with scattered clusters of smooth stone outcrops dotting the verdant terrain. Occasional breezes ripple through the tall, silver-green grass, creating waves of motion across the landscape. Nestled in a shallow valley is a small landing area, an octagonal platform of dark alloy, partially overgrown with native flora. Adjacent to it stands a sleek refueling station, seemingly dormant yet fully functional. Its smooth, curved surfaces glow faintly when approached, activating without prompt. The design is minimalist and elegant, unlike any known engineering, no visible controls, no logos, only a seamless interface that responds to proximity. The structure feels less like machinery and more like an artifact, quietly waiting for travelers long since gone. It provides sustenance for ships, but offers no answers."
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
+          "name": "dun1_save2",
+          "_pluginId": "Zuckungs List/boss.loot",
+          "_internalId": "Zuckungs List/boss.loot::dun1_save2",
+          "_definedBy": [
+            "Zuckungs List/boss.loot"
+          ],
+          "_lastModifiedBy": "Zuckungs List/boss.loot"
+        }
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/lava6-b",
+        "spriteScale": null,
+        "distance": 556,
+        "period": 190,
+        "offset": 167,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/desert10-b",
+        "spriteScale": null,
+        "distance": 989,
+        "period": 143,
+        "offset": 295,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": "dun1_wormhole_03",
+        "isLandable": true,
+        "sprite": "planet/dun_wormhole_green",
+        "spriteScale": null,
+        "distance": 1500,
+        "period": 1,
+        "offset": 90,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::object:dun1_wormhole_03",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [
+            "Emerald",
+            "Code",
+            "5",
+            "Emerald",
+            "Code",
+            "6"
+          ],
+          "requires": [
+            "",
+            ""
+          ],
+          "landscapes": [],
+          "music": null,
+          "description": null,
+          "spaceport": {
+            "text": "",
+            "toDisplay": null
+          },
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": null,
+          "governmentInherited": false,
+          "shipyards": [],
+          "outfitters": [],
+          "requiredReputation": null,
+          "bribe": null,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": null,
+          "wormhole": "dun1_wormhole_03",
+          "tribute": null,
+          "tributeHails": {},
+          "systemName": "dun1_sys_b_06",
+          "rawByPlugin": [
+            {
+              "pluginId": "Zuckungs List/boss.loot",
+              "entries": [
+                {
+                  "key": "attributes",
+                  "values": [
+                    "requires: Emerald Code 5",
+                    "requires: Emerald Code 6"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    ""
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "wormhole",
+                  "values": [
+                    "dun1_wormhole_03"
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
+          "name": "dun1_wormhole_03",
+          "_pluginId": "Zuckungs List/boss.loot",
+          "_internalId": "Zuckungs List/boss.loot::dun1_wormhole_03",
+          "_definedBy": [
+            "Zuckungs List/boss.loot"
+          ],
+          "_lastModifiedBy": "Zuckungs List/boss.loot"
+        }
+      }
+    ],
+    "planets": [
+      {
+        "name": "dun1_save2",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::systemPlanet:dun1_save2"
+      },
+      {
+        "name": "dun1_wormhole_03",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::systemPlanet:dun1_wormhole_03"
+      }
+    ],
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/boss.loot",
+        "entries": [
+          {
+            "key": "display name",
+            "values": [
+              "Sacred Beryl"
+            ],
+            "children": null
+          },
+          {
+            "key": "pos",
+            "values": [
+              -6440,
+              -6860
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "dun1_sys_b_04"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "dun1_sys_b_05"
+            ],
+            "children": null
+          },
+          {
+            "key": "jump range",
+            "values": [
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-dark-nebula"
+            ],
+            "children": null
+          },
+          {
+            "key": "minables",
+            "values": [
+              "Verdanite",
+              2,
+              5
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "star/dun1_05"
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  10
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/lava3"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  320
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  130
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  252
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "dun1_save2"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/desert0"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  430
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  280
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  170
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/lava6-b"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  556
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  190
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  167
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/desert10-b"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  989
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  143
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  295
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "dun1_wormhole_03"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/dun_wormhole_green"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  1500
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  1
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  90
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "dun1_sys_04",
+    "_pluginId": "Zuckungs List/boss.loot",
+    "_internalId": "Zuckungs List/boss.loot::dun1_sys_04",
+    "_definedBy": [
+      "Zuckungs List/boss.loot"
+    ],
+    "_lastModifiedBy": "Zuckungs List/boss.loot"
+  },
+  {
+    "displayName": "Alaris Tranquil",
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -6700,
+      "y": -6970
+    },
+    "government": null,
+    "attributes": [],
+    "music": null,
+    "arrival": null,
+    "departure": null,
+    "ramscoop": null,
+    "habitable": null,
+    "belts": [],
+    "invisibleFence": null,
+    "jumpRange": 1,
+    "haze": "_menu/haze-dark-nebula",
+    "links": [
+      {
+        "name": "dun1_sys_01",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:dun1_sys_01",
+        "explicit": true
+      },
+      {
+        "name": "dun1_sys_02",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:dun1_sys_02",
+        "explicit": true
+      }
+    ],
+    "asteroids": [],
+    "minables": [],
+    "trade": [],
+    "fleets": [],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "star/dun1_04",
+        "spriteScale": null,
+        "distance": null,
+        "period": 10,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/ice1-b",
+        "spriteScale": null,
+        "distance": 729,
+        "period": 127,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/lava6",
+        "spriteScale": null,
+        "distance": 1288,
+        "period": 223,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      }
+    ],
+    "planets": [],
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/boss.loot",
+        "entries": [
+          {
+            "key": "display name",
+            "values": [
+              "Alaris Tranquil"
+            ],
+            "children": null
+          },
+          {
+            "key": "pos",
+            "values": [
+              -6700,
+              -6970
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "dun1_sys_01"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "dun1_sys_02"
+            ],
+            "children": null
+          },
+          {
+            "key": "jump range",
+            "values": [
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-dark-nebula"
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "star/dun1_04"
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  10
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/ice1-b"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  729
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  127
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/lava6"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  1288
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  223
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "dun1_sys_b_01",
+    "_pluginId": "Zuckungs List/boss.loot",
+    "_internalId": "Zuckungs List/boss.loot::dun1_sys_b_01",
+    "_definedBy": [
+      "Zuckungs List/boss.loot"
+    ],
+    "_lastModifiedBy": "Zuckungs List/boss.loot"
+  },
+  {
+    "displayName": "Aetherleaf",
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -6700,
+      "y": -6920
+    },
+    "government": null,
+    "attributes": [],
+    "music": null,
+    "arrival": null,
+    "departure": null,
+    "ramscoop": null,
+    "habitable": null,
+    "belts": [],
+    "invisibleFence": null,
+    "jumpRange": 1,
+    "haze": "_menu/haze-dark-nebula",
+    "links": [
+      {
+        "name": "dun1_sys_01",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:dun1_sys_01",
+        "explicit": true
+      },
+      {
+        "name": "dun1_sys_02",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:dun1_sys_02",
+        "explicit": true
+      }
+    ],
+    "asteroids": [],
+    "minables": [],
+    "trade": [],
+    "fleets": [],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "star/dun1_06",
+        "spriteScale": null,
+        "distance": null,
+        "period": 10,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/cloud0",
+        "spriteScale": null,
+        "distance": 339,
+        "period": 175,
+        "offset": 15,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/gas17",
+        "spriteScale": null,
+        "distance": 1265,
+        "period": 1283,
+        "offset": 99,
+        "visibility": null,
+        "hazards": [],
+        "children": [
+          {
+            "name": null,
+            "isLandable": false,
+            "sprite": "planet/ice8-b",
+            "spriteScale": null,
+            "distance": 256,
+            "period": 90,
+            "offset": 40,
+            "visibility": null,
+            "hazards": [],
+            "children": [],
+            "pluginId": "Zuckungs List/boss.loot",
+            "internalId": null,
+            "_planetData": null
+          }
+        ],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      }
+    ],
+    "planets": [],
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/boss.loot",
+        "entries": [
+          {
+            "key": "display name",
+            "values": [
+              "Aetherleaf"
+            ],
+            "children": null
+          },
+          {
+            "key": "pos",
+            "values": [
+              -6700,
+              -6920
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "dun1_sys_01"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "dun1_sys_02"
+            ],
+            "children": null
+          },
+          {
+            "key": "jump range",
+            "values": [
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-dark-nebula"
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "star/dun1_06"
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  10
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/cloud0"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  339
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  175
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  15
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/gas17"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  1265
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  1283
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  99
+                ],
+                "children": null
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/ice8-b"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      256
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "period",
+                    "values": [
+                      90
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "offset",
+                    "values": [
+                      40
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "dun1_sys_b_02",
+    "_pluginId": "Zuckungs List/boss.loot",
+    "_internalId": "Zuckungs List/boss.loot::dun1_sys_b_02",
+    "_definedBy": [
+      "Zuckungs List/boss.loot"
+    ],
+    "_lastModifiedBy": "Zuckungs List/boss.loot"
+  },
+  {
+    "displayName": "Verdant Path",
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -6700,
+      "y": -6870
+    },
+    "government": null,
+    "attributes": [],
+    "music": null,
+    "arrival": null,
+    "departure": null,
+    "ramscoop": null,
+    "habitable": null,
+    "belts": [],
+    "invisibleFence": null,
+    "jumpRange": 1,
+    "haze": "_menu/haze-dark-nebula",
+    "links": [
+      {
+        "name": "dun1_sys_01",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:dun1_sys_01",
+        "explicit": true
+      },
+      {
+        "name": "dun1_sys_02",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:dun1_sys_02",
+        "explicit": true
+      }
+    ],
+    "asteroids": [],
+    "minables": [],
+    "trade": [],
+    "fleets": [],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "star/dun1_01",
+        "spriteScale": null,
+        "distance": null,
+        "period": 10,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/lava3",
+        "spriteScale": null,
+        "distance": 479,
+        "period": 158,
+        "offset": 220,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/desert0",
+        "spriteScale": null,
+        "distance": 660,
+        "period": 30,
+        "offset": 166,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      }
+    ],
+    "planets": [],
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/boss.loot",
+        "entries": [
+          {
+            "key": "display name",
+            "values": [
+              "Verdant Path"
+            ],
+            "children": null
+          },
+          {
+            "key": "pos",
+            "values": [
+              -6700,
+              -6870
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "dun1_sys_01"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "dun1_sys_02"
+            ],
+            "children": null
+          },
+          {
+            "key": "jump range",
+            "values": [
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-dark-nebula"
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "star/dun1_01"
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  10
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/lava3"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  479
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  158
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  220
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/desert0"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  660
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  30
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  166
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "dun1_sys_b_03",
+    "_pluginId": "Zuckungs List/boss.loot",
+    "_internalId": "Zuckungs List/boss.loot::dun1_sys_b_03",
+    "_definedBy": [
+      "Zuckungs List/boss.loot"
+    ],
+    "_lastModifiedBy": "Zuckungs List/boss.loot"
+  },
+  {
+    "displayName": "Jade Serenity",
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -6540,
+      "y": -6840
+    },
+    "government": null,
+    "attributes": [],
+    "music": null,
+    "arrival": null,
+    "departure": null,
+    "ramscoop": null,
+    "habitable": null,
+    "belts": [],
+    "invisibleFence": null,
+    "jumpRange": 1,
+    "haze": "_menu/haze-dark-nebula",
+    "links": [
+      {
+        "name": "dun1_sys_03",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:dun1_sys_03",
+        "explicit": true
+      },
+      {
+        "name": "dun1_sys_04",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:dun1_sys_04",
+        "explicit": true
+      }
+    ],
+    "asteroids": [],
+    "minables": [],
+    "trade": [],
+    "fleets": [],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "star/dun1_05",
+        "spriteScale": null,
+        "distance": null,
+        "period": 10,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/io",
+        "spriteScale": null,
+        "distance": 673,
+        "period": 61,
+        "offset": 126,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/rock0-b",
+        "spriteScale": null,
+        "distance": 1030,
+        "period": 274,
+        "offset": 21,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      }
+    ],
+    "planets": [],
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/boss.loot",
+        "entries": [
+          {
+            "key": "display name",
+            "values": [
+              "Jade Serenity"
+            ],
+            "children": null
+          },
+          {
+            "key": "pos",
+            "values": [
+              -6540,
+              -6840
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "dun1_sys_03"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "dun1_sys_04"
+            ],
+            "children": null
+          },
+          {
+            "key": "jump range",
+            "values": [
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-dark-nebula"
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "star/dun1_05"
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  10
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/io"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  673
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  61
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  126
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/rock0-b"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  1030
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  274
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  21
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "dun1_sys_b_04",
+    "_pluginId": "Zuckungs List/boss.loot",
+    "_internalId": "Zuckungs List/boss.loot::dun1_sys_b_04",
+    "_definedBy": [
+      "Zuckungs List/boss.loot"
+    ],
+    "_lastModifiedBy": "Zuckungs List/boss.loot"
+  },
+  {
+    "displayName": "Zentara Bloom",
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -6500,
+      "y": -6930
+    },
+    "government": null,
+    "attributes": [],
+    "music": null,
+    "arrival": null,
+    "departure": null,
+    "ramscoop": null,
+    "habitable": null,
+    "belts": [],
+    "invisibleFence": null,
+    "jumpRange": 1,
+    "haze": "_menu/haze-dark-nebula",
+    "links": [
+      {
+        "name": "dun1_sys_03",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:dun1_sys_03",
+        "explicit": true
+      },
+      {
+        "name": "dun1_sys_04",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::link:dun1_sys_04",
+        "explicit": true
+      }
+    ],
+    "asteroids": [],
+    "minables": [],
+    "trade": [],
+    "fleets": [],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "star/dun1_03",
+        "spriteScale": null,
+        "distance": null,
+        "period": 10,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/dust4",
+        "spriteScale": null,
+        "distance": 478,
+        "period": 432,
+        "offset": 10,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/water0",
+        "spriteScale": null,
+        "distance": 717,
+        "period": 827,
+        "offset": 310,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/dust4-b",
+        "spriteScale": null,
+        "distance": 989,
+        "period": 780,
+        "offset": 66,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      }
+    ],
+    "planets": [],
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/boss.loot",
+        "entries": [
+          {
+            "key": "display name",
+            "values": [
+              "Zentara Bloom"
+            ],
+            "children": null
+          },
+          {
+            "key": "pos",
+            "values": [
+              -6500,
+              -6930
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "dun1_sys_03"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "dun1_sys_04"
+            ],
+            "children": null
+          },
+          {
+            "key": "jump range",
+            "values": [
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-dark-nebula"
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "star/dun1_03"
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  10
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/dust4"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  478
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  432
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  10
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/water0"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  717
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  827
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  310
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/dust4-b"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  989
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  780
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  66
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "dun1_sys_b_05",
+    "_pluginId": "Zuckungs List/boss.loot",
+    "_internalId": "Zuckungs List/boss.loot::dun1_sys_b_05",
+    "_definedBy": [
+      "Zuckungs List/boss.loot"
+    ],
+    "_lastModifiedBy": "Zuckungs List/boss.loot"
+  },
+  {
+    "displayName": "Emerald Dream",
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -6370,
+      "y": -6800
+    },
+    "government": null,
+    "attributes": [],
+    "music": null,
+    "arrival": null,
+    "departure": null,
+    "ramscoop": null,
+    "habitable": null,
+    "belts": [],
+    "invisibleFence": null,
+    "jumpRange": 1,
+    "haze": "_menu/haze-dark-nebula",
+    "links": [],
+    "asteroids": [],
+    "minables": [],
+    "trade": [],
+    "fleets": [],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "star/dun1_03",
+        "spriteScale": null,
+        "distance": null,
+        "period": 10,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/dust4",
+        "spriteScale": null,
+        "distance": 478,
+        "period": 432,
+        "offset": 10,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/water0",
+        "spriteScale": null,
+        "distance": 717,
+        "period": 827,
+        "offset": 310,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/dust4-b",
+        "spriteScale": null,
+        "distance": 989,
+        "period": 780,
+        "offset": 66,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": "dun1_wormhole_03",
+        "isLandable": true,
+        "sprite": "planet/dun_wormhole_green",
+        "spriteScale": null,
+        "distance": 1500,
+        "period": 1,
+        "offset": 270,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::object:dun1_wormhole_03",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [
+            "Emerald",
+            "Code",
+            "5",
+            "Emerald",
+            "Code",
+            "6"
+          ],
+          "requires": [
+            "",
+            ""
+          ],
+          "landscapes": [],
+          "music": null,
+          "description": null,
+          "spaceport": {
+            "text": "",
+            "toDisplay": null
+          },
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": null,
+          "governmentInherited": false,
+          "shipyards": [],
+          "outfitters": [],
+          "requiredReputation": null,
+          "bribe": null,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": null,
+          "wormhole": "dun1_wormhole_03",
+          "tribute": null,
+          "tributeHails": {},
+          "systemName": "dun1_sys_b_06",
+          "rawByPlugin": [
+            {
+              "pluginId": "Zuckungs List/boss.loot",
+              "entries": [
+                {
+                  "key": "attributes",
+                  "values": [
+                    "requires: Emerald Code 5",
+                    "requires: Emerald Code 6"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    ""
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "wormhole",
+                  "values": [
+                    "dun1_wormhole_03"
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
+          "name": "dun1_wormhole_03",
+          "_pluginId": "Zuckungs List/boss.loot",
+          "_internalId": "Zuckungs List/boss.loot::dun1_wormhole_03",
+          "_definedBy": [
+            "Zuckungs List/boss.loot"
+          ],
+          "_lastModifiedBy": "Zuckungs List/boss.loot"
+        }
+      },
+      {
+        "name": "dun1_wormhole_00",
+        "isLandable": true,
+        "sprite": "planet/dun_wormhole_green",
+        "spriteScale": null,
+        "distance": 1500,
+        "period": 1,
+        "offset": 90,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::object:dun1_wormhole_00",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [
+            "Emerald",
+            "Code",
+            "0"
+          ],
+          "requires": [
+            ""
+          ],
+          "landscapes": [],
+          "music": null,
+          "description": null,
+          "spaceport": {
+            "text": "",
+            "toDisplay": null
+          },
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": null,
+          "governmentInherited": false,
+          "shipyards": [],
+          "outfitters": [],
+          "requiredReputation": null,
+          "bribe": null,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": null,
+          "wormhole": "dun1_wormhole_00",
+          "tribute": null,
+          "tributeHails": {},
+          "systemName": "dun1_sys_b_06",
+          "rawByPlugin": [
+            {
+              "pluginId": "Zuckungs List/boss.loot",
+              "entries": [
+                {
+                  "key": "attributes",
+                  "values": [
+                    "requires: Emerald Code 0"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    ""
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "wormhole",
+                  "values": [
+                    "dun1_wormhole_00"
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
+          "name": "dun1_wormhole_00",
+          "_pluginId": "Zuckungs List/boss.loot",
+          "_internalId": "Zuckungs List/boss.loot::dun1_wormhole_00",
+          "_definedBy": [
+            "Zuckungs List/boss.loot"
+          ],
+          "_lastModifiedBy": "Zuckungs List/boss.loot"
+        }
+      }
+    ],
+    "planets": [
+      {
+        "name": "dun1_wormhole_03",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::systemPlanet:dun1_wormhole_03"
+      },
+      {
+        "name": "dun1_wormhole_00",
+        "count": 1,
+        "pluginId": "Zuckungs List/boss.loot",
+        "internalId": "Zuckungs List/boss.loot::systemPlanet:dun1_wormhole_00"
+      }
+    ],
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/boss.loot",
+        "entries": [
+          {
+            "key": "display name",
+            "values": [
+              "Emerald Dream"
+            ],
+            "children": null
+          },
+          {
+            "key": "pos",
+            "values": [
+              -6370,
+              -6800
+            ],
+            "children": null
+          },
+          {
+            "key": "jump range",
+            "values": [
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-dark-nebula"
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "star/dun1_03"
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  10
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/dust4"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  478
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  432
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  10
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/water0"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  717
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  827
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  310
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/dust4-b"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  989
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  780
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  66
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "dun1_wormhole_03"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/dun_wormhole_green"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  1500
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  1
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  270
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "dun1_wormhole_00"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/dun_wormhole_green"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  1500
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  1
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  90
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "dun1_sys_b_06",
+    "_pluginId": "Zuckungs List/boss.loot",
+    "_internalId": "Zuckungs List/boss.loot::dun1_sys_b_06",
+    "_definedBy": [
+      "Zuckungs List/boss.loot"
+    ],
+    "_lastModifiedBy": "Zuckungs List/boss.loot"
+  }
+]

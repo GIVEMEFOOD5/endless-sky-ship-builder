@@ -1,0 +1,389 @@
+[
+  {
+    "name": "start asteroid rotation",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "not",
+            "values": [
+              "asteroid wait"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "set",
+            "values": [
+              "asteroid wait"
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "asteroid.pos.1",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "asteroid.pos.2",
+              2
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "asteroid.pos.3",
+              3
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "asteroid.pos.4",
+              4
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "asteroid.pos.5",
+              5
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "asteroid.pos.6",
+              6
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "asteroid.pos.7",
+              7
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "asteroid.pos.8",
+              8
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "asteroid.pos.9",
+              9
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "asteroid.pos.10",
+              10
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "asteroid wait",
+              11
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {
+      "non-blocking": true,
+      "invisible": true
+    },
+    "repeatable": true,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "not",
+          "values": [
+            "asteroid wait"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      {
+        "name": "asteroid.pos.1",
+        "delayDays": 1,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "asteroid.pos.2",
+        "delayDays": 2,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "asteroid.pos.3",
+        "delayDays": 3,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "asteroid.pos.4",
+        "delayDays": 4,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "asteroid.pos.5",
+        "delayDays": 5,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "asteroid.pos.6",
+        "delayDays": 6,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "asteroid.pos.7",
+        "delayDays": 7,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "asteroid.pos.8",
+        "delayDays": 8,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "asteroid.pos.9",
+        "delayDays": 9,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "asteroid.pos.10",
+        "delayDays": 10,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "asteroid wait",
+        "delayDays": 11,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
+    ],
+    "_pluginId": "Zuckungs List/comets",
+    "_internalId": "Zuckungs List/comets::start asteroid rotation",
+    "_hash": "e6d48b61bf91",
+    "sourcePlugin": "Zuckungs List/comets"
+  },
+  {
+    "name": "restart asteroid rotation",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "asteroid wait"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "event: asteroid wait"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "clear",
+            "values": [
+              "asteroid wait"
+            ],
+            "children": null
+          },
+          {
+            "key": "clear",
+            "values": [
+              "event: asteroid wait"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {
+      "non-blocking": true,
+      "invisible": true
+    },
+    "repeatable": true,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "asteroid wait"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "event: asteroid wait"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/comets",
+    "_internalId": "Zuckungs List/comets::restart asteroid rotation",
+    "_hash": "615a8bd8d780",
+    "sourcePlugin": "Zuckungs List/comets"
+  }
+]

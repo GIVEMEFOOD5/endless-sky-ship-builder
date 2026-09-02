@@ -2,18 +2,187 @@
   {
     "name": "Senza Solaria Supply Solarian Particle Waveform Turret (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Solarian Particle Waveform Turret"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/pwave turret"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Solarian Particle Waveform Turret to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Solarian Particle Waveform Turret",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Solarian Particle Waveform Turret (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Solarian Particle Waveform Turret"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -23,9 +192,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -35,30 +210,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Solarian Particle Waveform Turret (outfit)"
+      {
+        "name": "Senza Solaria Stocks Solarian Particle Waveform Turret (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
     "_internalId": "POOT/poot-senza-solaria_senza_solaria::Senza Solaria Supply Solarian Particle Waveform Turret (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "1e1eb9c6d42a",
     "sourcePlugin": "POOT/poot-senza-solaria_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Solarian Particle Waveform Cannon (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Solarian Particle Waveform Cannon"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/pwave turret"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Solarian Particle Waveform Cannon to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Solarian Particle Waveform Cannon",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Solarian Particle Waveform Cannon (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Solarian Particle Waveform Cannon"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -68,9 +418,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -80,30 +436,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Solarian Particle Waveform Cannon (outfit)"
+      {
+        "name": "Senza Solaria Stocks Solarian Particle Waveform Cannon (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
     "_internalId": "POOT/poot-senza-solaria_senza_solaria::Senza Solaria Supply Solarian Particle Waveform Cannon (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "7137c449092b",
     "sourcePlugin": "POOT/poot-senza-solaria_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Solarian Zapper Turret (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Solarian Zapper Turret"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/pug zapper turret"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Solarian Zapper Turret to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Solarian Zapper Turret",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Solarian Zapper Turret (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Solarian Zapper Turret"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -113,9 +644,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -125,30 +662,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Solarian Zapper Turret (outfit)"
+      {
+        "name": "Senza Solaria Stocks Solarian Zapper Turret (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
     "_internalId": "POOT/poot-senza-solaria_senza_solaria::Senza Solaria Supply Solarian Zapper Turret (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "abb5a515658a",
     "sourcePlugin": "POOT/poot-senza-solaria_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Solarian Zapper (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Solarian Zapper"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/pug zapper"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Solarian Zapper to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Solarian Zapper",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Solarian Zapper (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Solarian Zapper"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -158,9 +870,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -170,30 +888,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Solarian Zapper (outfit)"
+      {
+        "name": "Senza Solaria Stocks Solarian Zapper (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
     "_internalId": "POOT/poot-senza-solaria_senza_solaria::Senza Solaria Supply Solarian Zapper (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "f38f4ba56407",
     "sourcePlugin": "POOT/poot-senza-solaria_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Microbot Grinder (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Microbot Grinder"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/unknown"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Microbot Grinder to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Microbot Grinder",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Microbot Grinder (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Microbot Grinder"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -203,9 +1096,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -215,30 +1114,239 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Microbot Grinder (outfit)"
+      {
+        "name": "Senza Solaria Stocks Microbot Grinder (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
     "_internalId": "POOT/poot-senza-solaria_senza_solaria::Senza Solaria Supply Microbot Grinder (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "d6eae996c0bf",
     "sourcePlugin": "POOT/poot-senza-solaria_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Senza Solaria (ship)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "and",
+            "values": [],
+            "children": [
+              {
+                "key": "has",
+                "values": [
+                  "ship model: Senza Solaria"
+                ],
+                "children": null
+              },
+              {
+                "key": "not",
+                "values": [
+                  "flagship model: Senza Solaria"
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "thumbnail/senza_solaria_thumbnail"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria With your Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected a ship unknown to them within your fleet, would you be willing to donate it for us to research it?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Senza Solaria to be researched.) WARNING: ALL INSTALLED OUTFITS WILL BE LOST.",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers guide your ship to an isolated landing pad a few miles from the spaceport, and carefully transport it inside of one of their research facilities.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new ship entering production soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "take",
+            "values": [
+              "ship",
+              "Senza Solaria"
+            ],
+            "children": [
+              {
+                "key": "count",
+                "values": [
+                  1
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Senza Solaria (ship)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "and",
+          "values": [],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "ship model: Senza Solaria"
+              ],
+              "children": null
+            },
+            {
+              "key": "not",
+              "values": [
+                "flagship model: Senza Solaria"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -248,9 +1356,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -260,30 +1374,239 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Senza Solaria (ship)"
+      {
+        "name": "Senza Solaria Stocks Senza Solaria (ship)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
     "_internalId": "POOT/poot-senza-solaria_senza_solaria::Senza Solaria Supply Senza Solaria (ship)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "97f604c9daab",
     "sourcePlugin": "POOT/poot-senza-solaria_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Solarian Star Barge (ship)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "and",
+            "values": [],
+            "children": [
+              {
+                "key": "has",
+                "values": [
+                  "ship model: Solarian Star Barge"
+                ],
+                "children": null
+              },
+              {
+                "key": "not",
+                "values": [
+                  "flagship model: Solarian Star Barge"
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "thumbnail/star barge"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria With your Solarian Star Barge, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected a ship unknown to them within your fleet, would you be willing to donate it for us to research it?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Solarian Star Barge to be researched.) WARNING: ALL INSTALLED OUTFITS WILL BE LOST.",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers guide your ship to an isolated landing pad a few miles from the spaceport, and carefully transport it inside of one of their research facilities.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new ship entering production soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "take",
+            "values": [
+              "ship",
+              "Solarian Star Barge"
+            ],
+            "children": [
+              {
+                "key": "count",
+                "values": [
+                  1
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Solarian Star Barge (ship)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "and",
+          "values": [],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "ship model: Solarian Star Barge"
+              ],
+              "children": null
+            },
+            {
+              "key": "not",
+              "values": [
+                "flagship model: Solarian Star Barge"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -293,9 +1616,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -305,30 +1634,239 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Solarian Star Barge (ship)"
+      {
+        "name": "Senza Solaria Stocks Solarian Star Barge (ship)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
     "_internalId": "POOT/poot-senza-solaria_senza_solaria::Senza Solaria Supply Solarian Star Barge (ship)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "6b224721db09",
     "sourcePlugin": "POOT/poot-senza-solaria_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Solarian Research Drone (ship)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "and",
+            "values": [],
+            "children": [
+              {
+                "key": "has",
+                "values": [
+                  "ship model: Solarian Research Drone"
+                ],
+                "children": null
+              },
+              {
+                "key": "not",
+                "values": [
+                  "flagship model: Solarian Research Drone"
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "ship/science drone"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria With your Solarian Research Drone, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected a ship unknown to them within your fleet, would you be willing to donate it for us to research it?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Solarian Research Drone to be researched.) WARNING: ALL INSTALLED OUTFITS WILL BE LOST.",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers guide your ship to an isolated landing pad a few miles from the spaceport, and carefully transport it inside of one of their research facilities.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new ship entering production soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "take",
+            "values": [
+              "ship",
+              "Solarian Research Drone"
+            ],
+            "children": [
+              {
+                "key": "count",
+                "values": [
+                  1
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Solarian Research Drone (ship)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "and",
+          "values": [],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "ship model: Solarian Research Drone"
+              ],
+              "children": null
+            },
+            {
+              "key": "not",
+              "values": [
+                "flagship model: Solarian Research Drone"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -338,9 +1876,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -350,30 +1894,362 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Solarian Research Drone (ship)"
+      {
+        "name": "Senza Solaria Stocks Solarian Research Drone (ship)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
     "_internalId": "POOT/poot-senza-solaria_senza_solaria::Senza Solaria Supply Solarian Research Drone (ship)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "8336fb5f5fee",
     "sourcePlugin": "POOT/poot-senza-solaria_senza_solaria"
   },
   {
     "name": "senza solaria:first landing",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "log",
+            "values": [
+              "Senza Solaria is a research library owned by Solaria that catalogues all kinds of technologies from across the galaxy. They have strict donation requirements and protocols, requiring any and all donations to be accepted (As long as it has not already been donated), as well as any items subject for donation to be within a ships cargo hold. They will also not take a fleets flagship, however they will take all outfits within any donated ship."
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "\tWhile in orbit, you notice an unfamiliar station within the Ruticulus system and decide to approach it. You can see very large ridges covering the surface of the station, moving like small waves in an ocean.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAs you get closer the surface of the station, you quickly realize that that the ridges you saw on the surface of the station were not just moving sections of the station, but massive assembly lines, spanning the entire way across the station. There is a structural beam at the center of the station that stretches all the way to both ends, and is filled with bridges and connections to the different factories and assembly lines. ",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\tContinue exploring",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "explore1"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "explore1"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tAfter some exploring of the surface, you notice a thin ring shaped spaceport embedded near the middle of the station, with landing pads extending off of its side. Within moments of landing and exiting your ship, you are quickly approached by a man wearing a light blue labcoat covered with different electronics.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": " ",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\"Welcome to Senza Solaria! Our systems show that you are unregistered with Solaria, would you care to be registered?\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\tWhat is this place?",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "explain"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\tWho are you?",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "explain"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\tYes I Would",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "join"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\tI already am (skip dialogue)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "skip"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "explain"
+                ],
+                "children": null
+              },
+              {
+                "key": "\t\"I am a researcher for Senza Solaria, a combination research and production facility owned by Solaria Labs, where our goal is to create a full library of every known piece of technology, including having working examples to show off on our station\".",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Solaria has existed for quite a while as a small collection of research facilities here in the Dirt Belt, however our recent stations are an attempt to share our collection across the galaxy. We are even willing to allow trusted members of Solaria to purchase our duplicates of said discovered technology. However...\" He pauses briefly, looking somewhat embarassed before continuing.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": " ",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Due to the cost of making such a massive production facility, we are financially unable to afford to purchase any technology designs or products, meaning that we have to rely solely off of donations and contributions of the public to be able to add anything to our collection.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\tI see...",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "explain2"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "explain2"
+                ],
+                "children": null
+              },
+              {
+                "key": "\t\"That is where you come in.\" He says, looking you with a hopeful glance.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\"If you register with the station, we will allow you to contribute any piece of technology you can. Whether it be a system component, weapon, a ship, drone, a historical relic, or any other types of materials and artifacts you may have, we would be very interested to included in our library and be able to research it.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\tSounds interesting... how do I join?",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "join"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "skip"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tYou pull out the Senza Solaria card in your pocket and show it to him. The researcher looks startled and jumps slightly, almost dropping his tablet. He quickly double checks his system notes, looking visably embarassed.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Ah... yes, I apologize, it seems you are indeed already in the system... Very well, sorry for the intrusion. e-enjoy your visit!\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "goto",
+                    "values": [
+                      "done"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "join"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tHe hands you a small card with a logo of the station on it. You notice it has some sort of electronic system embeded into the thin surface.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"By having this card with you, our scanners will be able to see a list of the contents within your cargo hold when you land on the station, and anytime our sensors detect an unknown object within your fleet, we will send a research group out to meet with you and discuss the possibility of donating said item to the station.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Alright, now let me just connect your card with the system quickly... and...... ah, there we go! you are now registered with the system. The next time you should visit the station with any unknown technology, we will be ready and waiting to meet with you to discuss it.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Very well! Everything should be in working order now. I cannot begin to thank you enough for helping with our... predicament. Hopefully the next time you return we will be meeting over something quite, oh, shall we say... interesting?\" The researcher smiles, then turns and heads back in towards the station.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\tContinue",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "done"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "done"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tThe card in your hand lights up, showing a list of all the contents of your cargo, and your ships within the system. It seems now it is up to you to venture out and decided what you wish to bring to be donated to Senza Solaria...",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {},
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {},
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -382,9 +2258,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -394,11 +2276,12 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "POOT/poot-senza-solaria_senza_solaria",
     "_internalId": "POOT/poot-senza-solaria_senza_solaria::senza solaria:first landing",
-    "_hash": "e31c0ffe06e6",
+    "_hash": "51a7426c8ecb",
     "sourcePlugin": "POOT/poot-senza-solaria_senza_solaria"
   }
 ]

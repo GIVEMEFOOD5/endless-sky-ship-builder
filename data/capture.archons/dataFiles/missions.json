@@ -2,18 +2,73 @@
   {
     "name": "Archon Personality Compatibility Patch (C)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [
+              "Drak guarding Korath space"
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [
+              "Drak guarding Sayaiban"
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [
+              "Drak guarding Void Sprites"
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [
+              "Drak guarding Incipias space"
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {},
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -29,28 +84,216 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Nova1422s list/capture.archons",
     "_internalId": "Nova1422s list/capture.archons::Archon Personality Compatibility Patch (C)",
-    "_hash": "18b9b262a611",
+    "_hash": "a0c584366e3d",
     "sourcePlugin": "Nova1422s list/capture.archons"
   },
   {
     "name": "Drak guarding Korath space (C)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "not",
+            "values": [
+              "Drak guarding Korath space (C): active"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "never",
+            "values": [],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [
+          "save"
+        ],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Drak"
+            ],
+            "children": null
+          },
+          {
+            "key": "personality",
+            "values": [
+              "heroic",
+              "vindictive",
+              "staying",
+              "frugal",
+              "forbearing"
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Fasitopfar"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Archon (C)",
+              "Kasiliri's Folly"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [
+          "save"
+        ],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Drak"
+            ],
+            "children": null
+          },
+          {
+            "key": "personality",
+            "values": [
+              "heroic",
+              "vindictive",
+              "staying",
+              "frugal",
+              "forbearing"
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Kasikfar"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Archon (C)",
+              "Sword of Eden"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [
+          "save"
+        ],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Drak"
+            ],
+            "children": null
+          },
+          {
+            "key": "personality",
+            "values": [
+              "heroic",
+              "vindictive",
+              "staying",
+              "frugal",
+              "forbearing"
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Peresedersi"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Archon (C)",
+              "Snows of Far Door Nai"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "not",
+          "values": [
+            "Drak guarding Korath space (C): active"
+          ],
+          "children": null
+        }
+      ],
+      "complete": [
+        {
+          "key": "never",
+          "values": [],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {}
@@ -63,29 +306,135 @@
       "outfits": [],
       "ships": []
     },
-    "hasNpcObjective": false,
+    "hasNpcObjective": true,
+    "npcCount": 3,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Nova1422s list/capture.archons",
     "_internalId": "Nova1422s list/capture.archons::Drak guarding Korath space (C)",
-    "_hash": "43bab1d8c5e0",
+    "_hash": "5febe21eb206",
     "sourcePlugin": "Nova1422s list/capture.archons"
   },
   {
     "name": "Drak guarding Sayaiban (C)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "not",
+            "values": [
+              "Drak guarding Sayaiban (C): active"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "never",
+            "values": [],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [
+          "save"
+        ],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Drak"
+            ],
+            "children": null
+          },
+          {
+            "key": "personality",
+            "values": [
+              "heroic",
+              "vindictive",
+              "staying",
+              "frugal",
+              "forbearing"
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Sayaiban"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Archon (C)",
+              "Watchful Gravetender"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "not",
+          "values": [
+            "Drak guarding Sayaiban (C): active"
+          ],
+          "children": null
+        }
+      ],
+      "complete": [
+        {
+          "key": "never",
+          "values": [],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {}
@@ -98,29 +447,134 @@
       "outfits": [],
       "ships": []
     },
-    "hasNpcObjective": false,
+    "hasNpcObjective": true,
+    "npcCount": 1,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Nova1422s list/capture.archons",
     "_internalId": "Nova1422s list/capture.archons::Drak guarding Sayaiban (C)",
-    "_hash": "43bab1d8c5e0",
+    "_hash": "a415f1bda0d8",
     "sourcePlugin": "Nova1422s list/capture.archons"
   },
   {
     "name": "Drak guarding Void Sprites (C)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "not",
+            "values": [
+              "Drak guarding Void Sprites (C): active"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "never",
+            "values": [],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [
+          "save"
+        ],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Drak"
+            ],
+            "children": null
+          },
+          {
+            "key": "personality",
+            "values": [
+              "heroic",
+              "vindictive",
+              "staying",
+              "frugal"
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Nenia"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Archon (C)",
+              "Sleeping Dragon"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "not",
+          "values": [
+            "Drak guarding Void Sprites (C): active"
+          ],
+          "children": null
+        }
+      ],
+      "complete": [
+        {
+          "key": "never",
+          "values": [],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {}
@@ -133,29 +587,135 @@
       "outfits": [],
       "ships": []
     },
-    "hasNpcObjective": false,
+    "hasNpcObjective": true,
+    "npcCount": 1,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Nova1422s list/capture.archons",
     "_internalId": "Nova1422s list/capture.archons::Drak guarding Void Sprites (C)",
-    "_hash": "43bab1d8c5e0",
+    "_hash": "4bf0a16b607f",
     "sourcePlugin": "Nova1422s list/capture.archons"
   },
   {
     "name": "Drak guarding Incipias space (C)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "not",
+            "values": [
+              "Drak guarding Incipias space (C): active"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "never",
+            "values": [],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [
+          "save"
+        ],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Drak (Incipias)"
+            ],
+            "children": null
+          },
+          {
+            "key": "personality",
+            "values": [
+              "staying",
+              "forbearing",
+              "frugal",
+              "heroic",
+              "vindictive"
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Il'le"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Archon (C)",
+              "Guardian of Spring"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "not",
+          "values": [
+            "Drak guarding Incipias space (C): active"
+          ],
+          "children": null
+        }
+      ],
+      "complete": [
+        {
+          "key": "never",
+          "values": [],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {}
@@ -168,29 +728,71 @@
       "outfits": [],
       "ships": []
     },
-    "hasNpcObjective": false,
+    "hasNpcObjective": true,
+    "npcCount": 1,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Nova1422s list/capture.archons",
     "_internalId": "Nova1422s list/capture.archons::Drak guarding Incipias space (C)",
-    "_hash": "43bab1d8c5e0",
+    "_hash": "e11c55cf128f",
     "sourcePlugin": "Nova1422s list/capture.archons"
   },
   {
     "name": "Archon Personality Compatibility Patch (D)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [
+              "Drak guarding Sayaiban (C)"
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [
+              "Drak guarding Korath space (C)"
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {},
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -206,28 +808,70 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Nova1422s list/capture.archons",
     "_internalId": "Nova1422s list/capture.archons::Archon Personality Compatibility Patch (D)",
-    "_hash": "18b9b262a611",
+    "_hash": "0e7d6ad7febe",
     "sourcePlugin": "Nova1422s list/capture.archons"
   },
   {
     "name": "Archon Personality Compatibility Patch (E)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [
+              "Drak guarding Sayaiban (C)"
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [
+              "Drak guarding Korath space (C)"
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {},
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -243,11 +887,12 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Nova1422s list/capture.archons",
     "_internalId": "Nova1422s list/capture.archons::Archon Personality Compatibility Patch (E)",
-    "_hash": "18b9b262a611",
+    "_hash": "0e7d6ad7febe",
     "sourcePlugin": "Nova1422s list/capture.archons"
   }
 ]

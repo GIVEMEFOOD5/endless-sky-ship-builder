@@ -2,18 +2,187 @@
   {
     "name": "Senza Solaria Supply Asteroid jumpdrive conversion (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Asteroid jumpdrive conversion"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/magenta screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Asteroid jumpdrive conversion to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Asteroid jumpdrive conversion",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Asteroid jumpdrive conversion (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Asteroid jumpdrive conversion"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -23,9 +192,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -35,30 +210,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Asteroid jumpdrive conversion (outfit)"
+      {
+        "name": "Senza Solaria Stocks Asteroid jumpdrive conversion (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Asteroid jumpdrive conversion (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "357c66893537",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Asteroid mount conversion (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Asteroid mount conversion"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/magenta screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Asteroid mount conversion to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Asteroid mount conversion",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Asteroid mount conversion (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Asteroid mount conversion"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -68,9 +418,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -80,30 +436,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Asteroid mount conversion (outfit)"
+      {
+        "name": "Senza Solaria Stocks Asteroid mount conversion (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Asteroid mount conversion (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "f12cf08356bd",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Asteroid antimissle conversion (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Asteroid antimissle conversion"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/magenta screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Asteroid antimissle conversion to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Asteroid antimissle conversion",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Asteroid antimissle conversion (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Asteroid antimissle conversion"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -113,9 +644,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -125,30 +662,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Asteroid antimissle conversion (outfit)"
+      {
+        "name": "Senza Solaria Stocks Asteroid antimissle conversion (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Asteroid antimissle conversion (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "0bcb8fd1f23f",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Asteroid large mount conversion (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Asteroid large mount conversion"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/magenta screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Asteroid large mount conversion to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Asteroid large mount conversion",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Asteroid large mount conversion (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Asteroid large mount conversion"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -158,9 +870,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -170,30 +888,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Asteroid large mount conversion (outfit)"
+      {
+        "name": "Senza Solaria Stocks Asteroid large mount conversion (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Asteroid large mount conversion (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "3ecf21de945a",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Heavy Outfit (Gun) (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Heavy Outfit (Gun)"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/black_screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Heavy Outfit (Gun) to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Heavy Outfit (Gun)",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Heavy Outfit (Gun) (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Heavy Outfit (Gun)"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -203,9 +1096,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -215,30 +1114,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Heavy Outfit (Gun) (outfit)"
+      {
+        "name": "Senza Solaria Stocks Heavy Outfit (Gun) (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Heavy Outfit (Gun) (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "61a79b8742bc",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Heavy Outfit (Turret) (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Heavy Outfit (Turret)"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/black_screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Heavy Outfit (Turret) to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Heavy Outfit (Turret)",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Heavy Outfit (Turret) (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Heavy Outfit (Turret)"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -248,9 +1322,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -260,30 +1340,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Heavy Outfit (Turret) (outfit)"
+      {
+        "name": "Senza Solaria Stocks Heavy Outfit (Turret) (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Heavy Outfit (Turret) (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "991d68f0ef8c",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Heavy Outfit Expansion (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Heavy Outfit Expansion"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/black_screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Heavy Outfit Expansion to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Heavy Outfit Expansion",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Heavy Outfit Expansion (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Heavy Outfit Expansion"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -293,9 +1548,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -305,30 +1566,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Heavy Outfit Expansion (outfit)"
+      {
+        "name": "Senza Solaria Stocks Heavy Outfit Expansion (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Heavy Outfit Expansion (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "25637a6239d6",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Utility Heavy Outfit (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Utility Heavy Outfit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/black_screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Utility Heavy Outfit to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Utility Heavy Outfit",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Utility Heavy Outfit (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Utility Heavy Outfit"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -338,9 +1774,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -350,30 +1792,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Utility Heavy Outfit (outfit)"
+      {
+        "name": "Senza Solaria Stocks Utility Heavy Outfit (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Utility Heavy Outfit (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "3ca1f4d6de63",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Compact Heavy Outfit (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Compact Heavy Outfit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/black_screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Compact Heavy Outfit to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Compact Heavy Outfit",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Compact Heavy Outfit (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Compact Heavy Outfit"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -383,9 +2000,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -395,30 +2018,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Compact Heavy Outfit (outfit)"
+      {
+        "name": "Senza Solaria Stocks Compact Heavy Outfit (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Compact Heavy Outfit (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "a130de67431a",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Spinalmount Modification (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Spinalmount Modification"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/lime screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Spinalmount Modification to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Spinalmount Modification",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Spinalmount Modification (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Spinalmount Modification"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -428,9 +2226,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -440,30 +2244,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Spinalmount Modification (outfit)"
+      {
+        "name": "Senza Solaria Stocks Spinalmount Modification (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Spinalmount Modification (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "905a36adaf0b",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Turret-to-Outfit Conversion (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Turret-to-Outfit Conversion"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/green screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Turret-to-Outfit Conversion to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Turret-to-Outfit Conversion",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Turret-to-Outfit Conversion (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Turret-to-Outfit Conversion"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -473,9 +2452,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -485,30 +2470,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Turret-to-Outfit Conversion (outfit)"
+      {
+        "name": "Senza Solaria Stocks Turret-to-Outfit Conversion (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Turret-to-Outfit Conversion (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "a485a6534a46",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Gunport-to-Outfit Conversion (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Gunport-to-Outfit Conversion"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/green screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Gunport-to-Outfit Conversion to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Gunport-to-Outfit Conversion",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Gunport-to-Outfit Conversion (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Gunport-to-Outfit Conversion"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -518,9 +2678,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -530,30 +2696,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Gunport-to-Outfit Conversion (outfit)"
+      {
+        "name": "Senza Solaria Stocks Gunport-to-Outfit Conversion (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Gunport-to-Outfit Conversion (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "4e6b08c2892f",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Cargo Conversion (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Cargo Conversion"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/purple screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Cargo Conversion to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Cargo Conversion",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Cargo Conversion (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Cargo Conversion"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -563,9 +2904,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -575,30 +2922,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Cargo Conversion (outfit)"
+      {
+        "name": "Senza Solaria Stocks Cargo Conversion (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Cargo Conversion (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "595937402b46",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Cargo Conversion XL (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Cargo Conversion XL"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/purple screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Cargo Conversion XL to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Cargo Conversion XL",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Cargo Conversion XL (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Cargo Conversion XL"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -608,9 +3130,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -620,30 +3148,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Cargo Conversion XL (outfit)"
+      {
+        "name": "Senza Solaria Stocks Cargo Conversion XL (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Cargo Conversion XL (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "fb2e3788143c",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Cargo Deconversion (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Cargo Deconversion"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/purple screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Cargo Deconversion to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Cargo Deconversion",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Cargo Deconversion (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Cargo Deconversion"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -653,9 +3356,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -665,30 +3374,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Cargo Deconversion (outfit)"
+      {
+        "name": "Senza Solaria Stocks Cargo Deconversion (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Cargo Deconversion (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "a3c73861d604",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Cargo Deconversion XL (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Cargo Deconversion XL"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/purple screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Cargo Deconversion XL to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Cargo Deconversion XL",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Cargo Deconversion XL (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Cargo Deconversion XL"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -698,9 +3582,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -710,30 +3600,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Cargo Deconversion XL (outfit)"
+      {
+        "name": "Senza Solaria Stocks Cargo Deconversion XL (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Cargo Deconversion XL (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "663d582cd14a",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Cargo-Bunk Conversion (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Cargo-Bunk Conversion"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/purple screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Cargo-Bunk Conversion to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Cargo-Bunk Conversion",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Cargo-Bunk Conversion (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Cargo-Bunk Conversion"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -743,9 +3808,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -755,30 +3826,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Cargo-Bunk Conversion (outfit)"
+      {
+        "name": "Senza Solaria Stocks Cargo-Bunk Conversion (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Cargo-Bunk Conversion (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "cf07b53704e5",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Cargo-Bunk Conversion XL (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Cargo-Bunk Conversion XL"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/purple screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Cargo-Bunk Conversion XL to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Cargo-Bunk Conversion XL",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Cargo-Bunk Conversion XL (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Cargo-Bunk Conversion XL"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -788,9 +4034,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -800,30 +4052,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Cargo-Bunk Conversion XL (outfit)"
+      {
+        "name": "Senza Solaria Stocks Cargo-Bunk Conversion XL (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Cargo-Bunk Conversion XL (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "37abd2ca2faf",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Engine Conversion (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Engine Conversion"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/orange screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Engine Conversion to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Engine Conversion",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Engine Conversion (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Engine Conversion"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -833,9 +4260,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -845,30 +4278,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Engine Conversion (outfit)"
+      {
+        "name": "Senza Solaria Stocks Engine Conversion (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Engine Conversion (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "7d308e9cf70b",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Engine Conversion XL (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Engine Conversion XL"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/orange screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Engine Conversion XL to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Engine Conversion XL",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Engine Conversion XL (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Engine Conversion XL"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -878,9 +4486,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -890,30 +4504,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Engine Conversion XL (outfit)"
+      {
+        "name": "Senza Solaria Stocks Engine Conversion XL (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Engine Conversion XL (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "49497809ab2d",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Engine Deconversion (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Engine Deconversion"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/orange screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Engine Deconversion to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Engine Deconversion",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Engine Deconversion (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Engine Deconversion"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -923,9 +4712,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -935,30 +4730,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Engine Deconversion (outfit)"
+      {
+        "name": "Senza Solaria Stocks Engine Deconversion (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Engine Deconversion (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "a9961975455d",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Engine Deconversion XL (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Engine Deconversion XL"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/orange screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Engine Deconversion XL to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Engine Deconversion XL",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Engine Deconversion XL (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Engine Deconversion XL"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -968,9 +4938,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -980,30 +4956,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Engine Deconversion XL (outfit)"
+      {
+        "name": "Senza Solaria Stocks Engine Deconversion XL (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Engine Deconversion XL (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "cdb519e8da6f",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Weapon Conversion (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Weapon Conversion"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/yellow screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Weapon Conversion to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Weapon Conversion",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Weapon Conversion (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Weapon Conversion"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -1013,9 +5164,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -1025,30 +5182,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Weapon Conversion (outfit)"
+      {
+        "name": "Senza Solaria Stocks Weapon Conversion (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Weapon Conversion (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "4e38fc9c1dd3",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Weapon Conversion XL (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Weapon Conversion XL"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/yellow screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Weapon Conversion XL to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Weapon Conversion XL",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Weapon Conversion XL (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Weapon Conversion XL"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -1058,9 +5390,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -1070,30 +5408,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Weapon Conversion XL (outfit)"
+      {
+        "name": "Senza Solaria Stocks Weapon Conversion XL (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Weapon Conversion XL (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "938d861ae6d7",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Weapon Deconversion (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Weapon Deconversion"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/yellow screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Weapon Deconversion to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Weapon Deconversion",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Weapon Deconversion (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Weapon Deconversion"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -1103,9 +5616,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -1115,30 +5634,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Weapon Deconversion (outfit)"
+      {
+        "name": "Senza Solaria Stocks Weapon Deconversion (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Weapon Deconversion (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "e86bf2a45f52",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   },
   {
     "name": "Senza Solaria Supply Weapon Deconversion XL (outfit)",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Weapon Deconversion XL"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/yellow screwdriver"
+                ],
+                "children": null
+              },
+              {
+                "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Donate the Weapon Deconversion XL to be researched.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "donate"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Don't donate.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "defer",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "donate"
+                ],
+                "children": null
+              },
+              {
+                "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Weapon Deconversion XL",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "Senza Solaria Stocks Weapon Deconversion XL (outfit)"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (cargo): Weapon Deconversion XL"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -1148,9 +5842,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "planet": "Senza Solaria"
-      }
+      "value": [
+        {
+          "key": "planet",
+          "values": [
+            "Senza Solaria"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -1160,13 +5860,19 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Senza Solaria Stocks Weapon Deconversion XL (outfit)"
+      {
+        "name": "Senza Solaria Stocks Weapon Deconversion XL (outfit)",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "POOT/poot-system-conversions_senza_solaria",
     "_internalId": "POOT/poot-system-conversions_senza_solaria::Senza Solaria Supply Weapon Deconversion XL (outfit)",
-    "_hash": "cfe6a1c4fc40",
+    "_hash": "bc4d9c0e243d",
     "sourcePlugin": "POOT/poot-system-conversions_senza_solaria"
   }
 ]

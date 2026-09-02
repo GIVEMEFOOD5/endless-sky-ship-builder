@@ -1,0 +1,135 @@
+[
+  {
+    "displayName": null,
+    "attributes": [
+      "quarg"
+    ],
+    "requires": [],
+    "landscapes": [
+      {
+        "name": "land/bwerner5",
+        "count": 1,
+        "pluginId": "Zuckungs List/quarg.farm",
+        "internalId": "Zuckungs List/quarg.farm::landscape:land/bwerner5"
+      }
+    ],
+    "music": null,
+    "description": {
+      "text": "Ver is a military Quarg outpost for spying on the coalition.",
+      "toDisplay": null
+    },
+    "spaceport": {
+      "text": "The Quarg let you know that you aren't welcome here.",
+      "toDisplay": null
+    },
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "Quarg (Evil)",
+    "governmentInherited": true,
+    "shipyards": [],
+    "outfitters": [],
+    "requiredReputation": null,
+    "bribe": 0,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": 0.9,
+    "wormhole": null,
+    "tribute": {
+      "credits": 1000,
+      "threshold": 8000,
+      "fleets": [
+        {
+          "name": "Quarg (Evil)",
+          "count": 2,
+          "pluginId": "Zuckungs List/quarg.farm",
+          "internalId": "Zuckungs List/quarg.farm::tributeFleet:Quarg (Evil)"
+        }
+      ],
+      "dailyReputationPenalty": null
+    },
+    "tributeHails": {},
+    "systemName": "Saquerver",
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/quarg.farm",
+        "entries": [
+          {
+            "key": "attributes",
+            "values": [
+              "quarg"
+            ],
+            "children": null
+          },
+          {
+            "key": "landscape",
+            "values": [
+              "land/bwerner5"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "Ver is a military Quarg outpost for spying on the coalition."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "The Quarg let you know that you aren't welcome here."
+            ],
+            "children": null
+          },
+          {
+            "key": "bribe",
+            "values": [
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "security",
+            "values": [
+              0.9
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute",
+            "values": [
+              1000
+            ],
+            "children": [
+              {
+                "key": "threshold",
+                "values": [
+                  8000
+                ],
+                "children": null
+              },
+              {
+                "key": "fleet",
+                "values": [
+                  "Quarg (Evil)",
+                  2
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "Ver",
+    "_pluginId": "Zuckungs List/quarg.farm",
+    "_internalId": "Zuckungs List/quarg.farm::Ver",
+    "_definedBy": [
+      "Zuckungs List/quarg.farm"
+    ],
+    "_lastModifiedBy": "Zuckungs List/quarg.farm"
+  }
+]

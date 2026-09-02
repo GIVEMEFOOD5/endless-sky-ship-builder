@@ -1,0 +1,2464 @@
+[
+  {
+    "name": "Ava Cargo 1",
+    "displayName": "Delivery to <planet>",
+    "description": "Deliver <cargo> to <planet>. Payment is <payment>.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Delivery to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Deliver <cargo> to <planet>. Payment is <payment>."
+        ],
+        "children": null
+      },
+      {
+        "key": "cargo",
+        "values": [
+          "random",
+          5,
+          20
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [],
+        "children": [
+          {
+            "key": "distance",
+            "values": [
+              0,
+              4
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              60
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic cargo on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic cargo delivery payment"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "job"
+    ],
+    "flags": {},
+    "repeatable": true,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 5,
+      "max": 20,
+      "mode": "uniform",
+      "nbParams": null
+    },
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            60
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Avalonian"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "distance",
+          "values": [
+            0,
+            4
+          ],
+          "children": null
+        },
+        {
+          "key": "government",
+          "values": [
+            "Avalonian"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::Ava Cargo 1",
+    "_hash": "9ffc8fa30feb",
+    "sourcePlugin": "Zuckungs List/planet.map"
+  },
+  {
+    "name": "Ava Cargo 2",
+    "displayName": "Delivery to <planet>",
+    "description": "Deliver <cargo> to <planet>. Payment is <payment>.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Delivery to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Deliver <cargo> to <planet>. Payment is <payment>."
+        ],
+        "children": null
+      },
+      {
+        "key": "cargo",
+        "values": [
+          "random",
+          15,
+          60
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [],
+        "children": [
+          {
+            "key": "distance",
+            "values": [
+              0,
+              4
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              60
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic cargo on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic cargo delivery payment"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "job"
+    ],
+    "flags": {},
+    "repeatable": true,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 15,
+      "max": 60,
+      "mode": "uniform",
+      "nbParams": null
+    },
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            60
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Avalonian"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "distance",
+          "values": [
+            0,
+            4
+          ],
+          "children": null
+        },
+        {
+          "key": "government",
+          "values": [
+            "Avalonian"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::Ava Cargo 2",
+    "_hash": "e375e45519d7",
+    "sourcePlugin": "Zuckungs List/planet.map"
+  },
+  {
+    "name": "Ava Cargo 3",
+    "displayName": "Delivery to <planet>",
+    "description": "Deliver <cargo> to <planet>. Payment is <payment>.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Delivery to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Deliver <cargo> to <planet>. Payment is <payment>."
+        ],
+        "children": null
+      },
+      {
+        "key": "cargo",
+        "values": [
+          "random",
+          5,
+          20
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [],
+        "children": [
+          {
+            "key": "distance",
+            "values": [
+              0,
+              4
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              60
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic cargo on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic cargo delivery payment"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "job"
+    ],
+    "flags": {},
+    "repeatable": true,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": {
+      "commodity": "random",
+      "min": 5,
+      "max": 20,
+      "mode": "uniform",
+      "nbParams": null
+    },
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            60
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Avalonian"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "distance",
+          "values": [
+            0,
+            4
+          ],
+          "children": null
+        },
+        {
+          "key": "government",
+          "values": [
+            "Avalonian"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::Ava Cargo 3",
+    "_hash": "9ffc8fa30feb",
+    "sourcePlugin": "Zuckungs List/planet.map"
+  },
+  {
+    "name": "Ava Passengers 1",
+    "displayName": "Transport to <planet>",
+    "description": "Transport <fare> to <planet>. Payment is <payment>.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Transport to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Transport <fare> to <planet>. Payment is <payment>."
+        ],
+        "children": null
+      },
+      {
+        "key": "passengers",
+        "values": [
+          1,
+          10
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [],
+        "children": [
+          {
+            "key": "distance",
+            "values": [
+              0,
+              4
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              60
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic passenger on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic passenger dropoff payment"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "job"
+    ],
+    "flags": {},
+    "repeatable": true,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 1,
+      "max": 10,
+      "mode": "uniform",
+      "nbParams": null
+    },
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            60
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Avalonian"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "distance",
+          "values": [
+            0,
+            4
+          ],
+          "children": null
+        },
+        {
+          "key": "government",
+          "values": [
+            "Avalonian"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::Ava Passengers 1",
+    "_hash": "f2c3deee7460",
+    "sourcePlugin": "Zuckungs List/planet.map"
+  },
+  {
+    "name": "Ava Passengers 2",
+    "displayName": "Transport to <planet>",
+    "description": "Transport <fare> to <planet>. Payment is <payment>.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Transport to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Transport <fare> to <planet>. Payment is <payment>."
+        ],
+        "children": null
+      },
+      {
+        "key": "passengers",
+        "values": [
+          8,
+          18
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [],
+        "children": [
+          {
+            "key": "distance",
+            "values": [
+              0,
+              4
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              60
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic passenger on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic passenger dropoff payment"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "job"
+    ],
+    "flags": {},
+    "repeatable": true,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 8,
+      "max": 18,
+      "mode": "uniform",
+      "nbParams": null
+    },
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            60
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Avalonian"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "distance",
+          "values": [
+            0,
+            4
+          ],
+          "children": null
+        },
+        {
+          "key": "government",
+          "values": [
+            "Avalonian"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::Ava Passengers 2",
+    "_hash": "d26ba410ffb6",
+    "sourcePlugin": "Zuckungs List/planet.map"
+  },
+  {
+    "name": "Ava Passengers 3",
+    "displayName": "Transport to <planet>",
+    "description": "Transport <fare> to <planet>. Payment is <payment>.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Transport to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Transport <fare> to <planet>. Payment is <payment>."
+        ],
+        "children": null
+      },
+      {
+        "key": "passengers",
+        "values": [
+          16,
+          26
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [],
+        "children": [
+          {
+            "key": "distance",
+            "values": [
+              0,
+              4
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              60
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic passenger on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic passenger dropoff payment"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "job"
+    ],
+    "flags": {},
+    "repeatable": true,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 16,
+      "max": 26,
+      "mode": "uniform",
+      "nbParams": null
+    },
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            60
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 0,
+            "multiplier": 150
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Avalonian"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "distance",
+          "values": [
+            0,
+            4
+          ],
+          "children": null
+        },
+        {
+          "key": "government",
+          "values": [
+            "Avalonian"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::Ava Passengers 3",
+    "_hash": "38246ee7215b",
+    "sourcePlugin": "Zuckungs List/planet.map"
+  },
+  {
+    "name": "ava start story",
+    "displayName": "Search for the colony ship",
+    "description": "Investigate the Theben system, to search for clues on the disappearing of a colony ship, 200 years ago.",
+    "raw": [
+      {
+        "key": "outfitter",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "Search for the colony ship"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Investigate the Theben system, to search for clues on the disappearing of a colony ship, 200 years ago."
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Memory"
+        ],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Memory"
+        ],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Theben"
+        ],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "The Landing Site"
+        ],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Local Map"
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "scene/ava_outfitter"
+                ],
+                "children": null
+              },
+              {
+                "key": "At the outfitter you hear a story about a colony ship lost a few centuries ago. It appears, that it was last seen in this system, heading west. There is just one system to the west, so why not do a little sightseeing there?",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "ava unhide theben"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "enter",
+          "Theben"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "After a long time scan of the Theben system, your improved scanner finds a planet. You should go for a visit."
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "enter",
+          "The Landing Site"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Local Map"
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "ava close wormhole"
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "While landing your whole ship shakes. As you try to leave the planet again, you can feel an invisible force pulling your ship down. You can't  escape. Well, maybe the people in the big city right in front of you can help?",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [
+              2000000
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "You tell the administration of Memory what you found out about the colony ship. With the exact position of the hard to find planet, they'll send ships to include the planet to the Republic. Because you solved the mystery of the disappeared colony ship, the government pays you two million credits.",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "outfitter"
+    ],
+    "flags": {},
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {},
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onAccept": [],
+        "onEnter": [],
+        "onComplete": [
+          {
+            "base": 2000000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Memory",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Memory"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Memory",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Memory"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Theben",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      },
+      {
+        "name": "The Landing Site",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [
+        {
+          "name": "Local Map",
+          "count": 1,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::Local Map",
+          "grantedIn": "onOffer"
+        },
+        {
+          "name": "Local Map",
+          "count": 1,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::Local Map",
+          "grantedIn": "onEnter"
+        }
+      ],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      {
+        "name": "ava unhide theben",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      },
+      {
+        "name": "ava close wormhole",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onEnter"
+      }
+    ],
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::ava start story",
+    "_hash": "c70ed9a3a421",
+    "sourcePlugin": "Zuckungs List/planet.map"
+  },
+  {
+    "name": "ava what is going on",
+    "displayName": "Contact Linus Rane",
+    "description": "Contact a local inhabitant named Linus Rane. He lives in Ember (City)",
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "Contact Linus Rane"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Contact a local inhabitant named Linus Rane. He lives in Ember (City)"
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Center (City)"
+        ],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Ember (City)"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "ava start story: offered"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "scene/ava_city_plaza"
+                ],
+                "children": null
+              },
+              {
+                "key": "After the landing you seek contact to find out what's going on here. After an hour you know a lot more. This planet is called New Avalon, a forest planet, and yes, the inhabitants are mostly from the disappeared colony ship. Some other came with their own ships, and can't leave because an invisible force hinders the ships from breaking through the atmosphere. The biggest city, named Center, and three other cities were build around a lake. After questioning your way up, you finally reach the city council, which, like expected, can't help escaping this planet.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "After two more hours of talking to strangers, you hear of a guy, who might know some more. Travel to Ember (City) to meet a guy named Linus Rane.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {},
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "ava start story: offered"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Center (City)",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::Center (City)"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Ember (City)",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::Ember (City)"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::ava what is going on",
+    "_hash": "dcb5e93d994a",
+    "sourcePlugin": "Zuckungs List/planet.map"
+  },
+  {
+    "name": "ava what is going on 2",
+    "displayName": "Contact Linus Rane",
+    "description": "Find Linus Rane. He is on an expedition to the eastern sea.",
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "Contact Linus Rane"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Find Linus Rane. He is on an expedition to the eastern sea."
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Ember (City)"
+        ],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Expedition Ship"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "ava what is going on: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "scene/ava_city_woman"
+                ],
+                "children": null
+              },
+              {
+                "key": "In Ember you ask around for hours to find Linus Rane. And finally you meet someone who knows where to find him. Unfortunately Linus went to an expedition to the eastern sea, so you have to fly there.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "ava spawn object"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {},
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "ava what is going on: done"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onAccept": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Ember (City)",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::Ember (City)"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Expedition Ship",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::Expedition Ship"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      {
+        "name": "ava spawn object",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
+    ],
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::ava what is going on 2",
+    "_hash": "2dffcb6217ed",
+    "sourcePlugin": "Zuckungs List/planet.map"
+  },
+  {
+    "name": "ava linus knows",
+    "displayName": "Fly west",
+    "description": "Fly west to find the mysterious object Linus Rane was talking about.",
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "Fly west"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Fly west to find the mysterious object Linus Rane was talking about."
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Expedition Ship"
+        ],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Mysterious Object"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "ava what is going on 2: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "scene/ava_expedition01"
+                ],
+                "children": null
+              },
+              {
+                "key": "It took some time to find Linus Rane, but it was worth it.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "Linus tells a story, about when he was leading an expedition to the far west. At some point they discovered a big metallic object. They couldn't analyze it, because it was made of an unknown metal. Nothing worked. The expedition came home again to get help with their discovery. But when the expedition, grown with dozens of people, returned to where the object was, it was gone. The members of the expedition and Linus got called liars and nothing more was done. That's the story.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "You decide to fly west, into the great desert, to find out more.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {},
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "ava what is going on 2: done"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Expedition Ship",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::Expedition Ship"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Mysterious Object",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::Mysterious Object"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::ava linus knows",
+    "_hash": "1756fbe806be",
+    "sourcePlugin": "Zuckungs List/planet.map"
+  },
+  {
+    "name": "ava back to linus",
+    "displayName": "Fly back to Linus",
+    "description": "Fly back to the Expedition Ship, to tell Linus about what happened inside the mysterious object.",
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "Fly back to Linus"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Fly back to the Expedition Ship, to tell Linus about what happened inside the mysterious object."
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Mysterious Object"
+        ],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Expedition Ship"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "ava linus knows: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "ava open wormhole"
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "scene/ava_demolished_metallic"
+                ],
+                "children": null
+              },
+              {
+                "key": "You found the mysterious object! As you examine it with your modern scanning equipment, you find an entrance. Then the things happen really fast.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "A group of robots appear, they shoot, you shoot back, things explode, smoke, heat, flames. After like 2 minutes everything's finished. You overlook a scene of burning trash. All robots are destroyed, the computers and consoles too. You don't know what this object was, or what it was doing, but you know with this kind of destruction it won't continue doing what it did. You decide to head back to Linus",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "scene/ava_expedition02"
+                ],
+                "children": null
+              },
+              {
+                "key": "Linus has hard times believing your story. Strange robots, and the people aren't trapped here anymore? Well, he, you, and all others can test that now.",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {},
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "ava linus knows: done"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onComplete": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Mysterious Object",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::Mysterious Object"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Expedition Ship",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::Expedition Ship"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      {
+        "name": "ava open wormhole",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
+    ],
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::ava back to linus",
+    "_hash": "eba46649672e",
+    "sourcePlugin": "Zuckungs List/planet.map"
+  },
+  {
+    "name": "ava dragon attack",
+    "displayName": "Defend <planet>.",
+    "description": "Defeat an animal attack on <planet>.",
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "Defend <planet>."
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Defeat an animal attack on <planet>."
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              20
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "scene/ava_red_dragons"
+                ],
+                "children": null
+              },
+              {
+                "key": "A group of Avalonian Red Dragons are attacking this settlement. Although these animals are no threat to modern spaceships, they can badly harm exposed humans.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\thelp defending",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "launch",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\tdon't help defending",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "decline",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [
+          "kill"
+        ],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Avalonian Fauna"
+            ],
+            "children": null
+          },
+          {
+            "key": "personality",
+            "values": [
+              "heroic",
+              "staying",
+              "target"
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Avalonian Dragons",
+              3
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "ava dragon attacked",
+            "values": [
+              "++"
+            ],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              80000
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "For your help defeating the Red Dragons, the local administration pays you 80,000 credits.",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {},
+    "repeatable": true,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            20
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onComplete": [
+          {
+            "base": 80000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Avalonian"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": true,
+    "npcCount": 1,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::ava dragon attack",
+    "_hash": "736acf913e16",
+    "sourcePlugin": "Zuckungs List/planet.map"
+  }
+]

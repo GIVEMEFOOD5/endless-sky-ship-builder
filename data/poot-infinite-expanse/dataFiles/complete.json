@@ -352,18 +352,187 @@
     {
       "name": "Senza Solaria Supply Infentessimal Outfit Expansion (outfit)",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "planet",
+              "values": [
+                "Senza Solaria"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "outfit (cargo): Infentessimal Outfit Expansion"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "scene",
+                  "values": [
+                    "outfit/vanillaplus/infentessimal-outfit"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t(Donate the Infentessimal Outfit Expansion to be researched.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "donate"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t(Don't donate.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "defer",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "donate"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "outfit",
+              "values": [
+                "Infentessimal Outfit Expansion",
+                -1
+              ],
+              "children": null
+            },
+            {
+              "key": "event",
+              "values": [
+                "Senza Solaria Stocks Infentessimal Outfit Expansion (outfit)"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Infentessimal Outfit Expansion"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -373,9 +542,15 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "planet": "Senza Solaria"
-        }
+        "value": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -385,30 +560,205 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "Senza Solaria Stocks Infentessimal Outfit Expansion (outfit)"
+        {
+          "name": "Senza Solaria Stocks Infentessimal Outfit Expansion (outfit)",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onAccept"
+        }
       ],
       "_pluginId": "POOT/poot-infinite-expanse",
       "_internalId": "POOT/poot-infinite-expanse::Senza Solaria Supply Infentessimal Outfit Expansion (outfit)",
-      "_hash": "cfe6a1c4fc40",
+      "_hash": "606c9ec58a17",
       "sourcePlugin": "POOT/poot-infinite-expanse"
     },
     {
       "name": "Senza Solaria Supply Infentessimal Outfit Expansion XL (outfit)",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "planet",
+              "values": [
+                "Senza Solaria"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "outfit (cargo): Infentessimal Outfit Expansion XL"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "scene",
+                  "values": [
+                    "outfit/vanillaplus/infentessimal-outfit"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t(Donate the Infentessimal Outfit Expansion XL to be researched.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "donate"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t(Don't donate.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "defer",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "donate"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "outfit",
+              "values": [
+                "Infentessimal Outfit Expansion XL",
+                -1
+              ],
+              "children": null
+            },
+            {
+              "key": "event",
+              "values": [
+                "Senza Solaria Stocks Infentessimal Outfit Expansion XL (outfit)"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Infentessimal Outfit Expansion XL"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -418,9 +768,15 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "planet": "Senza Solaria"
-        }
+        "value": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -430,30 +786,205 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "Senza Solaria Stocks Infentessimal Outfit Expansion XL (outfit)"
+        {
+          "name": "Senza Solaria Stocks Infentessimal Outfit Expansion XL (outfit)",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onAccept"
+        }
       ],
       "_pluginId": "POOT/poot-infinite-expanse",
       "_internalId": "POOT/poot-infinite-expanse::Senza Solaria Supply Infentessimal Outfit Expansion XL (outfit)",
-      "_hash": "cfe6a1c4fc40",
+      "_hash": "de784c8d3f72",
       "sourcePlugin": "POOT/poot-infinite-expanse"
     },
     {
       "name": "Senza Solaria Supply Infentessimal Cargo Expansion (outfit)",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "planet",
+              "values": [
+                "Senza Solaria"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "outfit (cargo): Infentessimal Cargo Expansion"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "scene",
+                  "values": [
+                    "outfit/vanillaplus/infentessimal-cargo"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t(Donate the Infentessimal Cargo Expansion to be researched.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "donate"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t(Don't donate.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "defer",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "donate"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "outfit",
+              "values": [
+                "Infentessimal Cargo Expansion",
+                -1
+              ],
+              "children": null
+            },
+            {
+              "key": "event",
+              "values": [
+                "Senza Solaria Stocks Infentessimal Cargo Expansion (outfit)"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Infentessimal Cargo Expansion"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -463,9 +994,15 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "planet": "Senza Solaria"
-        }
+        "value": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -475,30 +1012,205 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "Senza Solaria Stocks Infentessimal Cargo Expansion (outfit)"
+        {
+          "name": "Senza Solaria Stocks Infentessimal Cargo Expansion (outfit)",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onAccept"
+        }
       ],
       "_pluginId": "POOT/poot-infinite-expanse",
       "_internalId": "POOT/poot-infinite-expanse::Senza Solaria Supply Infentessimal Cargo Expansion (outfit)",
-      "_hash": "cfe6a1c4fc40",
+      "_hash": "a4d7b6b34fe2",
       "sourcePlugin": "POOT/poot-infinite-expanse"
     },
     {
       "name": "Senza Solaria Supply Infentessimal Cargo Expansion XL (outfit)",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "planet",
+              "values": [
+                "Senza Solaria"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "outfit (cargo): Infentessimal Cargo Expansion XL"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "scene",
+                  "values": [
+                    "outfit/vanillaplus/infentessimal-cargo"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t(Donate the Infentessimal Cargo Expansion XL to be researched.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "donate"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t(Don't donate.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "defer",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "donate"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "outfit",
+              "values": [
+                "Infentessimal Cargo Expansion XL",
+                -1
+              ],
+              "children": null
+            },
+            {
+              "key": "event",
+              "values": [
+                "Senza Solaria Stocks Infentessimal Cargo Expansion XL (outfit)"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Infentessimal Cargo Expansion XL"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -508,9 +1220,15 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "planet": "Senza Solaria"
-        }
+        "value": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -520,30 +1238,205 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "Senza Solaria Stocks Infentessimal Cargo Expansion XL (outfit)"
+        {
+          "name": "Senza Solaria Stocks Infentessimal Cargo Expansion XL (outfit)",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onAccept"
+        }
       ],
       "_pluginId": "POOT/poot-infinite-expanse",
       "_internalId": "POOT/poot-infinite-expanse::Senza Solaria Supply Infentessimal Cargo Expansion XL (outfit)",
-      "_hash": "cfe6a1c4fc40",
+      "_hash": "68d793e32671",
       "sourcePlugin": "POOT/poot-infinite-expanse"
     },
     {
       "name": "Senza Solaria Supply Void Mass Expansion S (outfit)",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "planet",
+              "values": [
+                "Senza Solaria"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "outfit (cargo): Void Mass Expansion S"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "scene",
+                  "values": [
+                    "outfit/red screwdriver"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t(Donate the Void Mass Expansion S to be researched.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "donate"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t(Don't donate.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "defer",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "donate"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "outfit",
+              "values": [
+                "Void Mass Expansion S",
+                -1
+              ],
+              "children": null
+            },
+            {
+              "key": "event",
+              "values": [
+                "Senza Solaria Stocks Void Mass Expansion S (outfit)"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Void Mass Expansion S"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -553,9 +1446,15 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "planet": "Senza Solaria"
-        }
+        "value": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -565,30 +1464,205 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "Senza Solaria Stocks Void Mass Expansion S (outfit)"
+        {
+          "name": "Senza Solaria Stocks Void Mass Expansion S (outfit)",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onAccept"
+        }
       ],
       "_pluginId": "POOT/poot-infinite-expanse",
       "_internalId": "POOT/poot-infinite-expanse::Senza Solaria Supply Void Mass Expansion S (outfit)",
-      "_hash": "cfe6a1c4fc40",
+      "_hash": "65cde2e562df",
       "sourcePlugin": "POOT/poot-infinite-expanse"
     },
     {
       "name": "Senza Solaria Supply Void Mass Expansion XL (outfit)",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "planet",
+              "values": [
+                "Senza Solaria"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "outfit (cargo): Void Mass Expansion XL"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "scene",
+                  "values": [
+                    "outfit/red screwdriver"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t(Donate the Void Mass Expansion XL to be researched.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "donate"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t(Don't donate.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "defer",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "donate"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "outfit",
+              "values": [
+                "Void Mass Expansion XL",
+                -1
+              ],
+              "children": null
+            },
+            {
+              "key": "event",
+              "values": [
+                "Senza Solaria Stocks Void Mass Expansion XL (outfit)"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Void Mass Expansion XL"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -598,9 +1672,15 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "planet": "Senza Solaria"
-        }
+        "value": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -610,30 +1690,205 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "Senza Solaria Stocks Void Mass Expansion XL (outfit)"
+        {
+          "name": "Senza Solaria Stocks Void Mass Expansion XL (outfit)",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onAccept"
+        }
       ],
       "_pluginId": "POOT/poot-infinite-expanse",
       "_internalId": "POOT/poot-infinite-expanse::Senza Solaria Supply Void Mass Expansion XL (outfit)",
-      "_hash": "cfe6a1c4fc40",
+      "_hash": "01bdc27957fb",
       "sourcePlugin": "POOT/poot-infinite-expanse"
     },
     {
       "name": "Senza Solaria Supply Void Outfit Expansion S (outfit)",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "planet",
+              "values": [
+                "Senza Solaria"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "outfit (cargo): Void Outfit Expansion S"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "scene",
+                  "values": [
+                    "outfit/green screwdriver"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t(Donate the Void Outfit Expansion S to be researched.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "donate"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t(Don't donate.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "defer",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "donate"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "outfit",
+              "values": [
+                "Void Outfit Expansion S",
+                -1
+              ],
+              "children": null
+            },
+            {
+              "key": "event",
+              "values": [
+                "Senza Solaria Stocks Void Outfit Expansion S (outfit)"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Void Outfit Expansion S"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -643,9 +1898,15 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "planet": "Senza Solaria"
-        }
+        "value": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -655,30 +1916,205 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "Senza Solaria Stocks Void Outfit Expansion S (outfit)"
+        {
+          "name": "Senza Solaria Stocks Void Outfit Expansion S (outfit)",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onAccept"
+        }
       ],
       "_pluginId": "POOT/poot-infinite-expanse",
       "_internalId": "POOT/poot-infinite-expanse::Senza Solaria Supply Void Outfit Expansion S (outfit)",
-      "_hash": "cfe6a1c4fc40",
+      "_hash": "e208e95a024d",
       "sourcePlugin": "POOT/poot-infinite-expanse"
     },
     {
       "name": "Senza Solaria Supply Void Outfit Expansion XL (outfit)",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "planet",
+              "values": [
+                "Senza Solaria"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "outfit (cargo): Void Outfit Expansion XL"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "scene",
+                  "values": [
+                    "outfit/green screwdriver"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t(Donate the Void Outfit Expansion XL to be researched.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "donate"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t(Don't donate.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "defer",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "donate"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "outfit",
+              "values": [
+                "Void Outfit Expansion XL",
+                -1
+              ],
+              "children": null
+            },
+            {
+              "key": "event",
+              "values": [
+                "Senza Solaria Stocks Void Outfit Expansion XL (outfit)"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Void Outfit Expansion XL"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -688,9 +2124,15 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "planet": "Senza Solaria"
-        }
+        "value": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -700,30 +2142,205 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "Senza Solaria Stocks Void Outfit Expansion XL (outfit)"
+        {
+          "name": "Senza Solaria Stocks Void Outfit Expansion XL (outfit)",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onAccept"
+        }
       ],
       "_pluginId": "POOT/poot-infinite-expanse",
       "_internalId": "POOT/poot-infinite-expanse::Senza Solaria Supply Void Outfit Expansion XL (outfit)",
-      "_hash": "cfe6a1c4fc40",
+      "_hash": "15182f6cb9db",
       "sourcePlugin": "POOT/poot-infinite-expanse"
     },
     {
       "name": "Senza Solaria Supply Void Cargo Expansion S (outfit)",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "planet",
+              "values": [
+                "Senza Solaria"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "outfit (cargo): Void Cargo Expansion S"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "scene",
+                  "values": [
+                    "outfit/purple screwdriver"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t(Donate the Void Cargo Expansion S to be researched.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "donate"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t(Don't donate.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "defer",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "donate"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "outfit",
+              "values": [
+                "Void Cargo Expansion S",
+                -1
+              ],
+              "children": null
+            },
+            {
+              "key": "event",
+              "values": [
+                "Senza Solaria Stocks Void Cargo Expansion S (outfit)"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Void Cargo Expansion S"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -733,9 +2350,15 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "planet": "Senza Solaria"
-        }
+        "value": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -745,30 +2368,205 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "Senza Solaria Stocks Void Cargo Expansion S (outfit)"
+        {
+          "name": "Senza Solaria Stocks Void Cargo Expansion S (outfit)",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onAccept"
+        }
       ],
       "_pluginId": "POOT/poot-infinite-expanse",
       "_internalId": "POOT/poot-infinite-expanse::Senza Solaria Supply Void Cargo Expansion S (outfit)",
-      "_hash": "cfe6a1c4fc40",
+      "_hash": "6f3a1bc9b434",
       "sourcePlugin": "POOT/poot-infinite-expanse"
     },
     {
       "name": "Senza Solaria Supply Void Cargo Expansion XL (outfit)",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "planet",
+              "values": [
+                "Senza Solaria"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "outfit (cargo): Void Cargo Expansion XL"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "scene",
+                  "values": [
+                    "outfit/purple screwdriver"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t(Donate the Void Cargo Expansion XL to be researched.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "donate"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t(Don't donate.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "defer",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "donate"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "outfit",
+              "values": [
+                "Void Cargo Expansion XL",
+                -1
+              ],
+              "children": null
+            },
+            {
+              "key": "event",
+              "values": [
+                "Senza Solaria Stocks Void Cargo Expansion XL (outfit)"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Void Cargo Expansion XL"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -778,9 +2576,15 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "planet": "Senza Solaria"
-        }
+        "value": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -790,30 +2594,205 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "Senza Solaria Stocks Void Cargo Expansion XL (outfit)"
+        {
+          "name": "Senza Solaria Stocks Void Cargo Expansion XL (outfit)",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onAccept"
+        }
       ],
       "_pluginId": "POOT/poot-infinite-expanse",
       "_internalId": "POOT/poot-infinite-expanse::Senza Solaria Supply Void Cargo Expansion XL (outfit)",
-      "_hash": "cfe6a1c4fc40",
+      "_hash": "b8f8543bacb0",
       "sourcePlugin": "POOT/poot-infinite-expanse"
     },
     {
       "name": "Senza Solaria Supply Void Engine Expansion S (outfit)",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "planet",
+              "values": [
+                "Senza Solaria"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "outfit (cargo): Void Engine Expansion S"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "scene",
+                  "values": [
+                    "outfit/orange screwdriver"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t(Donate the Void Engine Expansion S to be researched.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "donate"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t(Don't donate.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "defer",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "donate"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "outfit",
+              "values": [
+                "Void Engine Expansion S",
+                -1
+              ],
+              "children": null
+            },
+            {
+              "key": "event",
+              "values": [
+                "Senza Solaria Stocks Void Engine Expansion S (outfit)"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Void Engine Expansion S"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -823,9 +2802,15 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "planet": "Senza Solaria"
-        }
+        "value": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -835,30 +2820,205 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "Senza Solaria Stocks Void Engine Expansion S (outfit)"
+        {
+          "name": "Senza Solaria Stocks Void Engine Expansion S (outfit)",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onAccept"
+        }
       ],
       "_pluginId": "POOT/poot-infinite-expanse",
       "_internalId": "POOT/poot-infinite-expanse::Senza Solaria Supply Void Engine Expansion S (outfit)",
-      "_hash": "cfe6a1c4fc40",
+      "_hash": "0082830928f6",
       "sourcePlugin": "POOT/poot-infinite-expanse"
     },
     {
       "name": "Senza Solaria Supply Void Engine Expansion XL (outfit)",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "planet",
+              "values": [
+                "Senza Solaria"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "outfit (cargo): Void Engine Expansion XL"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "scene",
+                  "values": [
+                    "outfit/orange screwdriver"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t(Donate the Void Engine Expansion XL to be researched.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "donate"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t(Don't donate.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "defer",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "donate"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "outfit",
+              "values": [
+                "Void Engine Expansion XL",
+                -1
+              ],
+              "children": null
+            },
+            {
+              "key": "event",
+              "values": [
+                "Senza Solaria Stocks Void Engine Expansion XL (outfit)"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Void Engine Expansion XL"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -868,9 +3028,15 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "planet": "Senza Solaria"
-        }
+        "value": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -880,30 +3046,205 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "Senza Solaria Stocks Void Engine Expansion XL (outfit)"
+        {
+          "name": "Senza Solaria Stocks Void Engine Expansion XL (outfit)",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onAccept"
+        }
       ],
       "_pluginId": "POOT/poot-infinite-expanse",
       "_internalId": "POOT/poot-infinite-expanse::Senza Solaria Supply Void Engine Expansion XL (outfit)",
-      "_hash": "cfe6a1c4fc40",
+      "_hash": "0dca843067d6",
       "sourcePlugin": "POOT/poot-infinite-expanse"
     },
     {
       "name": "Senza Solaria Supply Void Weapon Expansion S (outfit)",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "planet",
+              "values": [
+                "Senza Solaria"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "outfit (cargo): Void Weapon Expansion S"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "scene",
+                  "values": [
+                    "outfit/yellow screwdriver"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t(Donate the Void Weapon Expansion S to be researched.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "donate"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t(Don't donate.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "defer",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "donate"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "outfit",
+              "values": [
+                "Void Weapon Expansion S",
+                -1
+              ],
+              "children": null
+            },
+            {
+              "key": "event",
+              "values": [
+                "Senza Solaria Stocks Void Weapon Expansion S (outfit)"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Void Weapon Expansion S"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -913,9 +3254,15 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "planet": "Senza Solaria"
-        }
+        "value": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -925,30 +3272,205 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "Senza Solaria Stocks Void Weapon Expansion S (outfit)"
+        {
+          "name": "Senza Solaria Stocks Void Weapon Expansion S (outfit)",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onAccept"
+        }
       ],
       "_pluginId": "POOT/poot-infinite-expanse",
       "_internalId": "POOT/poot-infinite-expanse::Senza Solaria Supply Void Weapon Expansion S (outfit)",
-      "_hash": "cfe6a1c4fc40",
+      "_hash": "38ce06656856",
       "sourcePlugin": "POOT/poot-infinite-expanse"
     },
     {
       "name": "Senza Solaria Supply Void Weapon Expansion XL (outfit)",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "planet",
+              "values": [
+                "Senza Solaria"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "outfit (cargo): Void Weapon Expansion XL"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "scene",
+                  "values": [
+                    "outfit/yellow screwdriver"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "Upon arriving at Senza Solaria, before you can even decide where to go, a group of researchers are already there to meet you the moment you step off of your ship.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Our scanners detected an unknown outfit aboard your ship, would you be willing to donate it for us to reverse engineer?\" says a researcher.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t(Donate the Void Weapon Expansion XL to be researched.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "donate"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t(Don't donate.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "defer",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "donate"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\"Ah, perfect! We appreciate your donation, and assure you, your contribution will not go to waste!\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "The engineers carefully extract the donation from your ship, and take it to their research facility to reverse engineer.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tAfter idling at the spaceport for a few hours, you hear rumors of a new stock arriving soon at Senza Solaria.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "outfit",
+              "values": [
+                "Void Weapon Expansion XL",
+                -1
+              ],
+              "children": null
+            },
+            {
+              "key": "event",
+              "values": [
+                "Senza Solaria Stocks Void Weapon Expansion XL (outfit)"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (cargo): Void Weapon Expansion XL"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -958,9 +3480,15 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "planet": "Senza Solaria"
-        }
+        "value": [
+          {
+            "key": "planet",
+            "values": [
+              "Senza Solaria"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -970,15 +3498,21 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "Senza Solaria Stocks Void Weapon Expansion XL (outfit)"
+        {
+          "name": "Senza Solaria Stocks Void Weapon Expansion XL (outfit)",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onAccept"
+        }
       ],
       "_pluginId": "POOT/poot-infinite-expanse",
       "_internalId": "POOT/poot-infinite-expanse::Senza Solaria Supply Void Weapon Expansion XL (outfit)",
-      "_hash": "cfe6a1c4fc40",
+      "_hash": "df963103a86d",
       "sourcePlugin": "POOT/poot-infinite-expanse"
     }
   ],
-  "parsedAt": "2026-09-01T13:05:46.525Z"
+  "parsedAt": "2026-09-02T07:57:24.990Z"
 }

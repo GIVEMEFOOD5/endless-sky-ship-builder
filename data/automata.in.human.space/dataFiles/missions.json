@@ -1,0 +1,106 @@
+[
+  {
+    "name": "automata to human space",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "Wanderers: Sestor: Factory 3: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "automatahuman"
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {
+      "invisible": true
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "Wanderers: Sestor: Factory 3: done"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      {
+        "name": "automatahuman",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
+    ],
+    "_pluginId": "Zuckungs List/automata.in.human.space",
+    "_internalId": "Zuckungs List/automata.in.human.space::automata to human space",
+    "_hash": "f57f735c89b2",
+    "sourcePlugin": "Zuckungs List/automata.in.human.space"
+  }
+]

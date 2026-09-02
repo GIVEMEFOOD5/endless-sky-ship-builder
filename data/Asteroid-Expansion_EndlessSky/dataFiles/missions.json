@@ -2,18 +2,178 @@
   {
     "name": "Asteroid 0.1",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "outfitter",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "outfits",
+            "values": [
+              "Asteroid Scanner",
+              "Research Laboratory",
+              "Spectrometer Array",
+              "\"Tuur\" Scanning Suite",
+              "MCS Extractor"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "branch",
+                "values": [
+                  "hasscanner"
+                ],
+                "children": [
+                  {
+                    "key": "or",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "has",
+                        "values": [
+                          "outfit (flagship installed): Asteroid Scanner"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "has",
+                        "values": [
+                          "outfit (flagship installed): Research Laboratory"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "has",
+                        "values": [
+                          "outfit (flagship installed): Spectrometer Array"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "has",
+                        "values": [
+                          "outfit (flagship installed): Tuur Scanning Suite"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "has",
+                        "values": [
+                          "outfit (flagship installed): MCS Extractor"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "There is a buzz of conversation in the outfitter, a shop-owner beckons you over to a store selling asteroid scanners. \"Can I interest you in a scanning system? There has been a breakthrough in scanning technology and our scanners now detect many more minerals and metals than before.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tYou thank him but say you aren't interested right now, although its probably something you should consider",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "hasscanner"
+                ],
+                "children": null
+              },
+              {
+                "key": "There is a buzz of conversation in the outfitter, a shop-owner beckons you over to a store selling asteroid scanners. \"Since you already have one I thought I'd tell you. There's been a breakthrough in scanning technology and an update has been pushed to all scanners. Your scanner will now detect a much wider range of minerals at no extra cost.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tYou thank him for the info and move on.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "log",
+            "values": [
+              "Update pushed to all asteroid scanners from a breakthrough in scanning tech. Your scanner now detects a much wider range of minerals."
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "enter"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "Your system now automatically detects many more minerals and metals than before. This scanning technology might be useful."
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "outfitter"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {},
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -23,9 +183,19 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "outfits": "Asteroid Scanner Research Laboratory Spectrometer Array Tuur Scanning Suite MCS Extractor"
-      }
+      "value": [
+        {
+          "key": "outfits",
+          "values": [
+            "Asteroid Scanner",
+            "Research Laboratory",
+            "Spectrometer Array",
+            "\"Tuur\" Scanning Suite",
+            "MCS Extractor"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -35,24 +205,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky",
     "_internalId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky::Asteroid 0.1",
-    "_hash": "1157730583a9",
+    "_hash": "3ef49128703f",
     "sourcePlugin": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky"
   },
   {
     "name": "Mineral Shortages (Osmium)",
     "displayName": "Harvested osmium to <planet>",
+    "description": "Factories on <planet> are suffering from a mineral shortage. Harvest <amount> tons of <mineral> and return to <destination> by <date>. Payment is <payment>.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Harvested osmium to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "deadline",
+        "values": [
+          7
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Factories on <planet> are suffering from a mineral shortage. Harvest <amount> tons of <mineral> and return to <destination> by <date>. Payment is <payment>."
+        ],
+        "children": null
+      },
+      {
+        "key": "substitutions",
+        "values": [],
+        "children": [
+          {
+            "key": "<mineral>",
+            "values": [
+              "osmium"
+            ],
+            "children": null
+          },
+          {
+            "key": "<amount>",
+            "values": [
+              30
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              5
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit (all): Osmium",
+            "values": [
+              "<",
+              5
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "cargo space",
+            "values": [
+              ">=",
+              30
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          },
+          {
+            "key": "attributes",
+            "values": [
+              "factory"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic mineral on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [
+              379500
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Osmium",
+              -30
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic mineral delivery payment"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {
+      "substitutions": [
+        {
+          "key": "<mineral>",
+          "values": [
+            "osmium"
+          ],
+          "children": null
+        },
+        {
+          "key": "<amount>",
+          "values": [
+            30
+          ],
+          "children": null
+        }
+      ]
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": {
       "days": 7,
@@ -60,6 +411,36 @@
     },
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            5
+          ],
+          "children": null
+        },
+        {
+          "key": "outfit (all): Osmium",
+          "values": [
+            "<",
+            5
+          ],
+          "children": null
+        }
+      ],
+      "accept": [
+        {
+          "key": "cargo space",
+          "values": [
+            ">=",
+            30
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -74,10 +455,26 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Republic Free Worlds Syndicate Neutral Independent",
-        "attributes": "factory"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        },
+        {
+          "key": "attributes",
+          "values": [
+            "factory"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -87,24 +484,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky",
     "_internalId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky::Mineral Shortages (Osmium)",
-    "_hash": "f902a5946310",
+    "_hash": "6f608205be4e",
     "sourcePlugin": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky"
   },
   {
     "name": "Mineral Shortages (Iridium)",
     "displayName": "Harvested iridium to <planet>",
+    "description": "Factories on <planet> are suffering from a mineral shortage. Harvest <amount> tons of <mineral> and return to <destination> by <date>. Payment is <payment>.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Harvested iridium to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "deadline",
+        "values": [
+          7
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Factories on <planet> are suffering from a mineral shortage. Harvest <amount> tons of <mineral> and return to <destination> by <date>. Payment is <payment>."
+        ],
+        "children": null
+      },
+      {
+        "key": "substitutions",
+        "values": [],
+        "children": [
+          {
+            "key": "<mineral>",
+            "values": [
+              "iridium"
+            ],
+            "children": null
+          },
+          {
+            "key": "<amount>",
+            "values": [
+              30
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              5
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit (all): Iridium",
+            "values": [
+              "<",
+              5
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "cargo space",
+            "values": [
+              ">=",
+              30
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          },
+          {
+            "key": "attributes",
+            "values": [
+              "factory"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic mineral on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [
+              517500
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Iridium",
+              -30
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic mineral delivery payment"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {
+      "substitutions": [
+        {
+          "key": "<mineral>",
+          "values": [
+            "iridium"
+          ],
+          "children": null
+        },
+        {
+          "key": "<amount>",
+          "values": [
+            30
+          ],
+          "children": null
+        }
+      ]
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": {
       "days": 7,
@@ -112,6 +690,36 @@
     },
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            5
+          ],
+          "children": null
+        },
+        {
+          "key": "outfit (all): Iridium",
+          "values": [
+            "<",
+            5
+          ],
+          "children": null
+        }
+      ],
+      "accept": [
+        {
+          "key": "cargo space",
+          "values": [
+            ">=",
+            30
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -126,10 +734,26 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Republic Free Worlds Syndicate Neutral Independent",
-        "attributes": "factory"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        },
+        {
+          "key": "attributes",
+          "values": [
+            "factory"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -139,24 +763,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky",
     "_internalId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky::Mineral Shortages (Iridium)",
-    "_hash": "36204a72cdaa",
+    "_hash": "2324b8b36f80",
     "sourcePlugin": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky"
   },
   {
     "name": "Mineral Shortages (Palladium)",
     "displayName": "Harvested palladium to <planet>",
+    "description": "Factories on <planet> are suffering from a mineral shortage. Harvest <amount> tons of <mineral> and return to <destination> by <date>. Payment is <payment>.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Harvested palladium to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "deadline",
+        "values": [
+          7
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Factories on <planet> are suffering from a mineral shortage. Harvest <amount> tons of <mineral> and return to <destination> by <date>. Payment is <payment>."
+        ],
+        "children": null
+      },
+      {
+        "key": "substitutions",
+        "values": [],
+        "children": [
+          {
+            "key": "<mineral>",
+            "values": [
+              "palladium"
+            ],
+            "children": null
+          },
+          {
+            "key": "<amount>",
+            "values": [
+              60
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              5
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit (all): Palladium",
+            "values": [
+              "<",
+              25
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "cargo space",
+            "values": [
+              ">=",
+              60
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          },
+          {
+            "key": "attributes",
+            "values": [
+              "factory"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic mineral on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [
+              483000
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Palladium",
+              -60
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic mineral delivery payment"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {
+      "substitutions": [
+        {
+          "key": "<mineral>",
+          "values": [
+            "palladium"
+          ],
+          "children": null
+        },
+        {
+          "key": "<amount>",
+          "values": [
+            60
+          ],
+          "children": null
+        }
+      ]
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": {
       "days": 7,
@@ -164,6 +969,36 @@
     },
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            5
+          ],
+          "children": null
+        },
+        {
+          "key": "outfit (all): Palladium",
+          "values": [
+            "<",
+            25
+          ],
+          "children": null
+        }
+      ],
+      "accept": [
+        {
+          "key": "cargo space",
+          "values": [
+            ">=",
+            60
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -178,10 +1013,26 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Republic Free Worlds Syndicate Neutral Independent",
-        "attributes": "factory"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        },
+        {
+          "key": "attributes",
+          "values": [
+            "factory"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -191,24 +1042,205 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky",
     "_internalId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky::Mineral Shortages (Palladium)",
-    "_hash": "08d9f6d19f49",
+    "_hash": "6c092a8faeb5",
     "sourcePlugin": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky"
   },
   {
     "name": "Mineral Shortages (Scandium)",
     "displayName": "Harvested scandium to <planet>",
+    "description": "Factories on <planet> are suffering from a mineral shortage. Harvest <amount> tons of <mineral> and return to <destination> by <date>. Payment is <payment>.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Harvested scandium to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "deadline",
+        "values": [
+          7
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Factories on <planet> are suffering from a mineral shortage. Harvest <amount> tons of <mineral> and return to <destination> by <date>. Payment is <payment>."
+        ],
+        "children": null
+      },
+      {
+        "key": "substitutions",
+        "values": [],
+        "children": [
+          {
+            "key": "<mineral>",
+            "values": [
+              "scandium"
+            ],
+            "children": null
+          },
+          {
+            "key": "<amount>",
+            "values": [
+              60
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              5
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit (all): Scandium",
+            "values": [
+              "<",
+              25
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "cargo space",
+            "values": [
+              ">=",
+              60
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          },
+          {
+            "key": "attributes",
+            "values": [
+              "factory"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic mineral on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [
+              483000
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Scandium",
+              -60
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic mineral delivery payment"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {
+      "substitutions": [
+        {
+          "key": "<mineral>",
+          "values": [
+            "scandium"
+          ],
+          "children": null
+        },
+        {
+          "key": "<amount>",
+          "values": [
+            60
+          ],
+          "children": null
+        }
+      ]
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": {
       "days": 7,
@@ -216,6 +1248,36 @@
     },
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            5
+          ],
+          "children": null
+        },
+        {
+          "key": "outfit (all): Scandium",
+          "values": [
+            "<",
+            25
+          ],
+          "children": null
+        }
+      ],
+      "accept": [
+        {
+          "key": "cargo space",
+          "values": [
+            ">=",
+            60
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -230,10 +1292,26 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Republic Free Worlds Syndicate Neutral Independent",
-        "attributes": "factory"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        },
+        {
+          "key": "attributes",
+          "values": [
+            "factory"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -243,11 +1321,12 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky",
     "_internalId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky::Mineral Shortages (Scandium)",
-    "_hash": "328454575d73",
+    "_hash": "fb6b58e44ab3",
     "sourcePlugin": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky"
   }
 ]

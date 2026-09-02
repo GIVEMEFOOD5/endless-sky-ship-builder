@@ -132,7 +132,7 @@
       },
       "governmentEvents": [],
       "locations": {
-        "LixiChronikouOrious list/Zone.of.Control": {
+        "Zuckungs List/ship.cores": {
           "_deprecated/unused": true
         }
       },
@@ -294,7 +294,7 @@
       },
       "governmentEvents": [],
       "locations": {
-        "LixiChronikouOrious list/Zone.of.Control": {
+        "Zuckungs List/ship.cores": {
           "_deprecated/unused": true
         }
       },
@@ -347,18 +347,113 @@
     {
       "name": "ZOC: Commonwealth Established",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "non-blocking",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "main plot completed"
+              ],
+              "children": null
+            },
+            {
+              "key": "not",
+              "values": [
+                "event: fw tarazed joins"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "dialog",
+              "values": [],
+              "children": [
+                {
+                  "key": "BREAKING NEWS",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "The people of New Britain and Wayfarer, and of all the Dominions and Territories thereunto belonging, are henceforth under the governance of the Commonwealth.",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "event",
+              "values": [
+                "ZOC: commonwealth established"
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true,
+        "non-blocking": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "main plot completed"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "event: fw tarazed joins"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -374,30 +469,199 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "ZOC: commonwealth established"
+        {
+          "name": "ZOC: commonwealth established",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
       "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Commonwealth Established",
-      "_hash": "18b9b262a611",
+      "_hash": "57d3dfdf9ae9",
       "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
     },
     {
       "name": "ZOC: Commonwealth Peace",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "government",
+              "values": [
+                "Commonwealth"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "event: ZOC: commonwealth established"
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Wayfarer",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Arachne Station",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: New Britain",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Sinter",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "ZOC: commonwealth peace"
+              ],
+              "children": null
+            },
+            {
+              "key": "dialog",
+              "values": [],
+              "children": [
+                {
+                  "key": "<first> <last> shall be, and is hereby declared to be, Lord Protector of the Commonwealth of New Britain and Wayfarer, and the dominions thereto belonging, for his life.",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "reputation: Commonwealth",
+              "values": [
+                ">?=",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "reputation: Militia",
+              "values": [
+                ">?=",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "event: ZOC: commonwealth established"
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Wayfarer",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Arachne Station",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: New Britain",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Sinter",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -406,9 +670,15 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "government": "Commonwealth"
-        }
+        "value": [
+          {
+            "key": "government",
+            "values": [
+              "Commonwealth"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -418,30 +688,156 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "ZOC: commonwealth peace"
+        {
+          "name": "ZOC: commonwealth peace",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
       "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Commonwealth Peace",
-      "_hash": "a68486a07f4b",
+      "_hash": "1f48221e7094",
       "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
     },
     {
       "name": "ZOC: Deneb Tribute",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "non-blocking",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "event: ZOC: free worlds peace"
+              ],
+              "children": null
+            },
+            {
+              "key": "has",
+              "values": [
+                "event: ZOC: republic peace"
+              ],
+              "children": null
+            },
+            {
+              "key": "has",
+              "values": [
+                "event: ZOC: syndicate peace"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "ZOC: deneb tribute"
+              ],
+              "children": null
+            },
+            {
+              "key": "dialog",
+              "values": [],
+              "children": [
+                {
+                  "key": "Considering your conquest of the Republic, Syndicate and the Free Worlds, the administration of the neutral Deneb zone bows to you in awe.",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "tribute: Pugglemug",
+              "values": [
+                "=",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Pugglequat",
+              "values": [
+                "=",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true,
+        "non-blocking": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "event: ZOC: free worlds peace"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "event: ZOC: republic peace"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "event: ZOC: syndicate peace"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -457,30 +853,117 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "ZOC: deneb tribute"
+        {
+          "name": "ZOC: deneb tribute",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
       "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Deneb Tribute",
-      "_hash": "18b9b262a611",
+      "_hash": "c8a0b49afdfb",
       "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
     },
     {
       "name": "ZOC: Free State Established",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "non-blocking",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "main plot completed"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "dialog",
+              "values": [],
+              "children": [
+                {
+                  "key": "BREAKING NEWS",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "The citizens of Thule raise the song of freedom and their own existence as a people. Free from foreign bonds, may flourish the Free State and its citizens for many ages to come.",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "event",
+              "values": [
+                "ZOC: free state established"
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true,
+        "non-blocking": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "main plot completed"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -496,30 +979,131 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "ZOC: free state established"
+        {
+          "name": "ZOC: free state established",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
       "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Free State Established",
-      "_hash": "18b9b262a611",
+      "_hash": "f40901f55328",
       "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
     },
     {
       "name": "ZOC: Bloodsea joins Free State",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "non-blocking",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "event: ZOC: free state established"
+              ],
+              "children": null
+            },
+            {
+              "key": "not",
+              "values": [
+                "event: bloodsea joins free worlds"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "dialog",
+              "values": [],
+              "children": [
+                {
+                  "key": "SHORT NEWS",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "Bloodsea joins the Free State.",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "event",
+              "values": [
+                "ZOC: bloodsea joins free state"
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true,
+        "non-blocking": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "event: ZOC: free state established"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "event: bloodsea joins free worlds"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -535,30 +1119,241 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "ZOC: bloodsea joins free state"
+        {
+          "name": "ZOC: bloodsea joins free state",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
       "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Bloodsea joins Free State",
-      "_hash": "18b9b262a611",
+      "_hash": "677d066f78f7",
       "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
     },
     {
       "name": "ZOC: Free State Peace",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "non-blocking",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "government",
+              "values": [
+                "Free State"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "event: ZOC: free state established"
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Thule",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Smuggler's Den",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "or",
+              "values": [],
+              "children": [
+                {
+                  "key": "not",
+                  "values": [
+                    "event: bloodsea joins free state"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "and",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "has",
+                      "values": [
+                        "event: bloodsea joins free state"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "tribute: Bloodsea",
+                      "values": [
+                        ">",
+                        0
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "ZOC: free state peace"
+              ],
+              "children": null
+            },
+            {
+              "key": "dialog",
+              "values": [],
+              "children": [
+                {
+                  "key": "You receive a message from the Free State Council: \"Hail, thrice hail, our new President <first> <last>! Look down in mercy on us! Protect and guide the state, illuminate it from above!\" You're not sure whether they take a joke at you, but as they'll pay and give provision to your ships for free, there's no reason to continue the hostilities.",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "reputation: Free State",
+              "values": [
+                ">?=",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "reputation: Militia",
+              "values": [
+                ">?=",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true,
+        "non-blocking": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "event: ZOC: free state established"
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Thule",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Smuggler's Den",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "or",
+            "values": [],
+            "children": [
+              {
+                "key": "not",
+                "values": [
+                  "event: bloodsea joins free state"
+                ],
+                "children": null
+              },
+              {
+                "key": "and",
+                "values": [],
+                "children": [
+                  {
+                    "key": "has",
+                    "values": [
+                      "event: bloodsea joins free state"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "tribute: Bloodsea",
+                    "values": [
+                      ">",
+                      0
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -567,9 +1362,15 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "government": "Free State"
-        }
+        "value": [
+          {
+            "key": "government",
+            "values": [
+              "Free State"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -579,30 +1380,128 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "ZOC: free state peace"
+        {
+          "name": "ZOC: free state peace",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
       "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Free State Peace",
-      "_hash": "c496a30c5e75",
+      "_hash": "8143da377202",
       "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
     },
     {
       "name": "ZOC: Militia License Revokement",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "non-blocking",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "reputation: Free Worlds",
+              "values": [
+                "<",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "has",
+              "values": [
+                "license: Militia"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "dialog",
+              "values": [],
+              "children": [
+                {
+                  "key": "Because of your aggression against the Free Worlds, your Militia license has been revoked by the Senate.",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "clear",
+              "values": [
+                "license: Militia"
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true,
+        "non-blocking": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "reputation: Free Worlds",
+            "values": [
+              "<",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "license: Militia"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -618,28 +1517,985 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [],
       "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
       "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Militia License Revokement",
-      "_hash": "18b9b262a611",
+      "_hash": "d60cbe2cfb69",
       "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
     },
     {
       "name": "ZOC: Free Worlds Peace",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "non-blocking",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "government",
+              "values": [
+                "Free Worlds"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "main plot completed"
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Bourne",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Oasis",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Starcross",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Shorebreak",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Rust",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Poseidos",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Wyvern Station",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Dune",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Skymoot",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Typhon Station",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Thunder",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Zug",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Mere",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Longjump",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Flood",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Deep",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Glaze",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Charon Station",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Sundrinker",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Lichen",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Twinstar",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Darkstone",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Solace",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Winter",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Cornucopia",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Trinket",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Dancer",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: New India",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: New Portland",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: New Holland",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Clark",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Oblivion",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Rand",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Arabia",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: New Washington",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Hopper",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "or",
+              "values": [],
+              "children": [
+                {
+                  "key": "not",
+                  "values": [
+                    "event: albatross joins free worlds"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "and",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "has",
+                      "values": [
+                        "event: albatross joins free worlds"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "tribute: Albatross",
+                      "values": [
+                        ">",
+                        0
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "or",
+              "values": [],
+              "children": [
+                {
+                  "key": "not",
+                  "values": [
+                    "event: bloodsea joins free worlds"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "and",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "has",
+                      "values": [
+                        "event: bloodsea joins free worlds"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "tribute: Bloodsea",
+                      "values": [
+                        ">",
+                        0
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "or",
+              "values": [],
+              "children": [
+                {
+                  "key": "not",
+                  "values": [
+                    "event: fw tarazed joins"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "and",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "has",
+                      "values": [
+                        "event: fw tarazed joins"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "tribute: Wayfarer",
+                      "values": [
+                        ">",
+                        0
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "tribute: Arachne Station",
+                      "values": [
+                        ">",
+                        0
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "tribute: New Britain",
+                      "values": [
+                        ">",
+                        0
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "tribute: Sinter",
+                      "values": [
+                        ">",
+                        0
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "ZOC: free worlds peace"
+              ],
+              "children": null
+            },
+            {
+              "key": "dialog",
+              "values": [],
+              "children": [
+                {
+                  "key": "The Free Worlds' Senate is in disarray, but in a last effort they are able to agree in commissioning Alondo to negotiate peace with you. He can convince you to stop the hostilities in exchange for keeping all planetary tributes, and the restoration of your landing rights and licenses. At farewell you notice, that Alondo looks very very very disappointed in you.",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "reputation: Free Worlds",
+              "values": [
+                ">?=",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "reputation: Militia",
+              "values": [
+                ">?=",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "set",
+              "values": [
+                "license: Militia"
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: New Tibet",
+              "values": [
+                "=",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Harmony",
+              "values": [
+                "=",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true,
+        "non-blocking": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "main plot completed"
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Bourne",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Oasis",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Starcross",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Shorebreak",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Rust",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Poseidos",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Wyvern Station",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Dune",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Skymoot",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Typhon Station",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Thunder",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Zug",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Mere",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Longjump",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Flood",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Deep",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Glaze",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Charon Station",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Sundrinker",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Lichen",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Twinstar",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Darkstone",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Solace",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Winter",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Cornucopia",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Trinket",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Dancer",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: New India",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: New Portland",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: New Holland",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Clark",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Oblivion",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Rand",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Arabia",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: New Washington",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Hopper",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "or",
+            "values": [],
+            "children": [
+              {
+                "key": "not",
+                "values": [
+                  "event: albatross joins free worlds"
+                ],
+                "children": null
+              },
+              {
+                "key": "and",
+                "values": [],
+                "children": [
+                  {
+                    "key": "has",
+                    "values": [
+                      "event: albatross joins free worlds"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "tribute: Albatross",
+                    "values": [
+                      ">",
+                      0
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "or",
+            "values": [],
+            "children": [
+              {
+                "key": "not",
+                "values": [
+                  "event: bloodsea joins free worlds"
+                ],
+                "children": null
+              },
+              {
+                "key": "and",
+                "values": [],
+                "children": [
+                  {
+                    "key": "has",
+                    "values": [
+                      "event: bloodsea joins free worlds"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "tribute: Bloodsea",
+                    "values": [
+                      ">",
+                      0
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "or",
+            "values": [],
+            "children": [
+              {
+                "key": "not",
+                "values": [
+                  "event: fw tarazed joins"
+                ],
+                "children": null
+              },
+              {
+                "key": "and",
+                "values": [],
+                "children": [
+                  {
+                    "key": "has",
+                    "values": [
+                      "event: fw tarazed joins"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "tribute: Wayfarer",
+                    "values": [
+                      ">",
+                      0
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "tribute: Arachne Station",
+                    "values": [
+                      ">",
+                      0
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "tribute: New Britain",
+                    "values": [
+                      ">",
+                      0
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "tribute: Sinter",
+                    "values": [
+                      ">",
+                      0
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -648,9 +2504,15 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "government": "Free Worlds"
-        }
+        "value": [
+          {
+            "key": "government",
+            "values": [
+              "Free Worlds"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -660,30 +2522,102 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "ZOC: free worlds peace"
+        {
+          "name": "ZOC: free worlds peace",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
       "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Free Worlds Peace",
-      "_hash": "1b311fc9b159",
+      "_hash": "f02fdbfe30d3",
       "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
     },
     {
       "name": "ZOC: Haven Timer",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "non-blocking",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "Ice Queen 8: done"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "ZOC: haven timer",
+                90
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true,
+        "non-blocking": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "Ice Queen 8: done"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -699,30 +2633,141 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "ZOC: haven timer"
+        {
+          "name": "ZOC: haven timer",
+          "delayDays": 90,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
       "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Haven Timer",
-      "_hash": "18b9b262a611",
+      "_hash": "31d746158904",
       "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
     },
     {
       "name": "ZOC: Haven",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "non-blocking",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "event: ZOC: haven timer"
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Haven",
+              "values": [
+                "==",
+                0
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "ZOC: haven"
+              ],
+              "children": null
+            },
+            {
+              "key": "dialog",
+              "values": [],
+              "children": [
+                {
+                  "key": "You receive an encrypted message via the \"Routed Onion Telemetrics\" system. Only one person knows your onion address, so you transfer the message to a separate second-hand computer, type ******** into the password prompt, solve some tricky captchas personalized on information only you and the sender can know, like birthdays, pet fur color and endearments, insert your keys -- literal ones, not alphanumerical ones -- and finally have 30 seconds to read before the message destroys itself and the computer.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tIldy, now undisputed on Haven, informed you that she arranged a daily Voidcoin transaction worth of 700 credits a day as a compensation for your efforts, which nobody else she knew would have ever made for her. She'd like to send you more as a fair share of her \"business\", but that could become too conspicuous.",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "tribute: Haven",
+              "values": [
+                "=",
+                700
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true,
+        "non-blocking": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "event: ZOC: haven timer"
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Haven",
+            "values": [
+              "==",
+              0
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -738,30 +2783,102 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "ZOC: haven"
+        {
+          "name": "ZOC: haven",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
       "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Haven",
-      "_hash": "18b9b262a611",
+      "_hash": "b34beba1a97d",
       "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
     },
     {
       "name": "ZOC: Norn Timer",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "non-blocking",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "Stone to Hope: Thanks: offered"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "ZOC: norn timer",
+                90
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true,
+        "non-blocking": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "Stone to Hope: Thanks: offered"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -777,30 +2894,151 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "ZOC: norn timer"
+        {
+          "name": "ZOC: norn timer",
+          "delayDays": 90,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
       "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Norn Timer",
-      "_hash": "18b9b262a611",
+      "_hash": "56790276508b",
       "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
     },
     {
       "name": "ZOC: Norn",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "non-blocking",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "event: ZOC: norn timer"
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Norn",
+              "values": [
+                "==",
+                0
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "ZOC: norn"
+              ],
+              "children": null
+            },
+            {
+              "key": "dialog",
+              "values": [],
+              "children": [
+                {
+                  "key": "The tales of your good deeds throughout the Deep start to become part of Norn's folk culture, with the usual exaggerations.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tYou can't remember to have saved Skaldgar from falling into a volcano on Helheim, descending with a white-painted ship from a smoke-filled sky like an angel, triggering his regret and wish to make amends with his family. You doubt that you have melted through two kilometres of ice on Hope just to place Tosti's family stone.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tAnd you assume that you would have known if you had fought Ice-Slugs on Nifel or Shark-Krakens on Windblain with bare hands. But at least you have saved a \"maiden in distress\", though you're pretty sure that Hjlod would scowl at how the story is told on Norn.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tAnyway, the community councils decide to pay tribute to your contribution to Norn's society and culture, and will pay you a lifelong pension of 500 credits a day.",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "tribute: Norn",
+              "values": [
+                "=",
+                500
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true,
+        "non-blocking": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "event: ZOC: norn timer"
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Norn",
+            "values": [
+              "==",
+              0
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -816,30 +3054,116 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "ZOC: norn"
+        {
+          "name": "ZOC: norn",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
       "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Norn",
-      "_hash": "18b9b262a611",
+      "_hash": "780d8df19890",
       "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
     },
     {
       "name": "ZOC: Poisonwood Timer",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "non-blocking",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "event: liberation of Poisonwood"
+              ],
+              "children": null
+            },
+            {
+              "key": "has",
+              "values": [
+                "main plot completed"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "ZOC: poisonwood timer",
+                30
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true,
+        "non-blocking": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "event: liberation of Poisonwood"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "main plot completed"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -855,30 +3179,136 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "ZOC: poisonwood timer"
+        {
+          "name": "ZOC: poisonwood timer",
+          "delayDays": 30,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
       "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Poisonwood Timer",
-      "_hash": "18b9b262a611",
+      "_hash": "a5bb041bfbce",
       "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
     },
     {
       "name": "ZOC: Poisonwood",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "non-blocking",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "event: ZOC: poisonwood timer"
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Poisonwood",
+              "values": [
+                "==",
+                0
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "ZOC: poisonwood"
+              ],
+              "children": null
+            },
+            {
+              "key": "dialog",
+              "values": [],
+              "children": [
+                {
+                  "key": "The government of Poisonwood decided to name you an honorary citizen, and to pay you a lifelong pension of 300 credits a day as a tribute to your role in the heroic liberation from the Alphas.",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "tribute: Poisonwood",
+              "values": [
+                "=",
+                300
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true,
+        "non-blocking": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "event: ZOC: poisonwood timer"
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Poisonwood",
+            "values": [
+              "==",
+              0
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -894,30 +3324,203 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "ZOC: poisonwood"
+        {
+          "name": "ZOC: poisonwood",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
       "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Poisonwood",
-      "_hash": "18b9b262a611",
+      "_hash": "49b9cebfd213",
       "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
     },
     {
       "name": "ZOC: Navy License Revokement",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "non-blocking",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "reputation: Republic",
+              "values": [
+                "<",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "or",
+              "values": [],
+              "children": [
+                {
+                  "key": "has",
+                  "values": [
+                    "license: Navy"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "has",
+                  "values": [
+                    "license: Navy Auxiliary"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "has",
+                  "values": [
+                    "license: Navy Cruiser"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "has",
+                  "values": [
+                    "license: Navy Carrier"
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "dialog",
+              "values": [],
+              "children": [
+                {
+                  "key": "Because of your attack on the Republic, your Navy licenses have been revoked by the Parliament.",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "clear",
+              "values": [
+                "license: Navy"
+              ],
+              "children": null
+            },
+            {
+              "key": "clear",
+              "values": [
+                "license: Navy Auxiliary"
+              ],
+              "children": null
+            },
+            {
+              "key": "clear",
+              "values": [
+                "license: Navy Cruiser"
+              ],
+              "children": null
+            },
+            {
+              "key": "clear",
+              "values": [
+                "license: Navy Carrier"
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true,
+        "non-blocking": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "reputation: Republic",
+            "values": [
+              "<",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "or",
+            "values": [],
+            "children": [
+              {
+                "key": "has",
+                "values": [
+                  "license: Navy"
+                ],
+                "children": null
+              },
+              {
+                "key": "has",
+                "values": [
+                  "license: Navy Auxiliary"
+                ],
+                "children": null
+              },
+              {
+                "key": "has",
+                "values": [
+                  "license: Navy Cruiser"
+                ],
+                "children": null
+              },
+              {
+                "key": "has",
+                "values": [
+                  "license: Navy Carrier"
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -933,37 +3536,1206 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [],
       "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
       "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Navy License Revokement",
-      "_hash": "18b9b262a611",
+      "_hash": "60f377e12df3",
       "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
     },
     {
       "name": "ZOC: Republic Peace",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "non-blocking",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "government",
+              "values": [
+                "Republic"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "main plot completed"
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Earth",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Chiron",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: New China",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Mars",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: New Switzerland",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Geyser",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Relic",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Silver",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Shiver",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Luna",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Hestia",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Follower",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Glory",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Mainsail",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Farseer",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Martini",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Calda",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Vail",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Vinci",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Geminus",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Ada",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Thrall",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Pearl",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Hermes",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Valhalla",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Midgard",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Bivrost",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Asgard",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Haze",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Windblain",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Alfheim",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Muspel",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Norn",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Memory",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Helheim",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Nifel",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Mani",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Huginn Station",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Muninn Station",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Alexandria",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Leviathan Station",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Fenrir Station",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Phoenix Station",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Prime",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Shroud",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Maelstrom",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Skillet",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Splashdown",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Pilot",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Featherweight",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Farpoint",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Serpens",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Triton Station",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Carbuncle Station",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Bounty",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Gemstone",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Heartland",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Big Sky",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: New Iceland",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Tundra",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: New Kansas",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: New Austria",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: New Wales",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: New Argentina",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: New Boston",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: New Greenland",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Ingot",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: New Sahara",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Hydra Station",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true,
+        "non-blocking": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "main plot completed"
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Earth",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Chiron",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: New China",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Mars",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: New Switzerland",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Geyser",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Relic",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Silver",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Shiver",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Luna",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Hestia",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Follower",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Glory",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Mainsail",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Farseer",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Martini",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Calda",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Vail",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Vinci",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Geminus",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Ada",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Thrall",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Pearl",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Hermes",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Valhalla",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Midgard",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Bivrost",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Asgard",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Haze",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Windblain",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Alfheim",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Muspel",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Norn",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Memory",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Helheim",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Nifel",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Mani",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Huginn Station",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Muninn Station",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Alexandria",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Leviathan Station",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Fenrir Station",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Phoenix Station",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Prime",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Shroud",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Maelstrom",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Skillet",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Splashdown",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Pilot",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Featherweight",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Farpoint",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Serpens",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Triton Station",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Carbuncle Station",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Bounty",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Gemstone",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Heartland",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Big Sky",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: New Iceland",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Tundra",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: New Kansas",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: New Austria",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: New Wales",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: New Argentina",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: New Boston",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: New Greenland",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Ingot",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: New Sahara",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Hydra Station",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {}
       },
       "source": {
         "type": "filter",
-        "value": {
-          "government": "Republic"
-        }
+        "value": [
+          {
+            "key": "government",
+            "values": [
+              "Republic"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -973,28 +4745,574 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [],
       "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
       "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Republic Peace",
-      "_hash": "cc91094ab517",
+      "_hash": "05ab9284f8c8",
       "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
     },
     {
       "name": "ZOC: Syndicate Peace",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "non-blocking",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "government",
+              "values": [
+                "Syndicate"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "main plot completed"
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Moonshake",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Hephaestus",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Foundry",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Maker",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Sunracer",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Shangri-La",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Nimbus",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Sundive",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Delve",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Amazon",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Crossroads",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Canyon",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Lodestone",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Antipode",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Icefall",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Burthen",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Quicksilver",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Furnace",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Hippocrates",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Placer",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Bluestone",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Trove",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Charybdis Station",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Oberon Station",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Millrace",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Reunion",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Tinker",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Kraken Station",
+              "values": [
+                ">",
+                0
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "ZOC: syndicate peace"
+              ],
+              "children": null
+            },
+            {
+              "key": "dialog",
+              "values": [],
+              "children": [
+                {
+                  "key": "The Syndicate's supervisory board members are cornered in their last office tower. Your hostile takeover is complete, and grudgingly you're elected as chairman of the board. Your only obligation is to receive your wage in the form of tax-free tribute, and to leave the Syndicate alone.",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "reputation: Syndicate",
+              "values": [
+                ">?=",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true,
+        "non-blocking": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "main plot completed"
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Moonshake",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Hephaestus",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Foundry",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Maker",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Sunracer",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Shangri-La",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Nimbus",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Sundive",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Delve",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Amazon",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Crossroads",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Canyon",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Lodestone",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Antipode",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Icefall",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Burthen",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Quicksilver",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Furnace",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Hippocrates",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Placer",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Bluestone",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Trove",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Charybdis Station",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Oberon Station",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Millrace",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Reunion",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Tinker",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Kraken Station",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -1003,9 +5321,15 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "government": "Syndicate"
-        }
+        "value": [
+          {
+            "key": "government",
+            "values": [
+              "Syndicate"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -1015,30 +5339,102 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "ZOC: syndicate peace"
+        {
+          "name": "ZOC: syndicate peace",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
       "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Syndicate Peace",
-      "_hash": "1599c1c66e6c",
+      "_hash": "773554f76c1b",
       "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
     },
     {
       "name": "ZOC: Windblain Timer",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "non-blocking",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "Hjlod Remembers Windblain: done"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "ZOC: windblain timer",
+                30
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true,
+        "non-blocking": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "Hjlod Remembers Windblain: done"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -1054,30 +5450,136 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "ZOC: windblain timer"
+        {
+          "name": "ZOC: windblain timer",
+          "delayDays": 30,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
       "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Windblain Timer",
-      "_hash": "18b9b262a611",
+      "_hash": "3b30624978b9",
       "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
     },
     {
       "name": "ZOC: Windblain",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "non-blocking",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "event: ZOC: windblain timer"
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute: Windblain",
+              "values": [
+                "==",
+                0
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "ZOC: windblain"
+              ],
+              "children": null
+            },
+            {
+              "key": "dialog",
+              "values": [],
+              "children": [
+                {
+                  "key": "The elders of the Skadenga and the Ranfolk voted to pay tribute to the deeds of Skadamarkadi, the one \"marked by Skade\", and to give support in the further voyage across the endless skies on the search of adventures to be besung in sagas which future generations will know as Edda Skadamarkada. May 800 credits a day be of good use on your path.",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "tribute: Windblain",
+              "values": [
+                "=",
+                800
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true,
+        "non-blocking": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "event: ZOC: windblain timer"
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute: Windblain",
+            "values": [
+              "==",
+              0
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -1093,15 +5595,21 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "ZOC: windblain"
+        {
+          "name": "ZOC: windblain",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "LixiChronikouOrious list/Zone.of.Control",
       "_internalId": "LixiChronikouOrious list/Zone.of.Control::ZOC: Windblain",
-      "_hash": "18b9b262a611",
+      "_hash": "72a13ed74666",
       "sourcePlugin": "LixiChronikouOrious list/Zone.of.Control"
     }
   ],
-  "parsedAt": "2026-09-01T13:05:45.580Z"
+  "parsedAt": "2026-09-02T07:57:23.420Z"
 }

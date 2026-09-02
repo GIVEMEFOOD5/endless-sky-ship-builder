@@ -2,18 +2,60 @@
   {
     "name": "Fighter Factory Installed",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "set",
+            "values": [
+              "Fighter Factory Installed"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {},
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -30,24 +72,96 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::Fighter Factory Installed",
-    "_hash": "3a022401cca6",
+    "_hash": "119a71bac660",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Record",
     "displayName": "!F: Record Fighter",
+    "description": "Record number of current number of fighter and drone present. If fighter were loss new fighter will be produced on landing to replace it.",
+    "raw": [
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "!F: Record Fighter"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Record number of current number of fighter and drone present. If fighter were loss new fighter will be produced on landing to replace it."
+        ],
+        "children": null
+      },
+      {
+        "key": "deadline",
+        "values": [
+          1
+        ],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "FiFc: Mem: Fighter Count",
+            "values": [
+              "=",
+              "ships: Fighter"
+            ],
+            "children": null
+          },
+          {
+            "key": "FiFc: Mem: Drone Count",
+            "values": [
+              "=",
+              "ships: Drone"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {},
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": {
       "days": 1,
@@ -55,6 +169,7 @@
     },
     "cargo": null,
     "passengers": null,
+    "conditions": {},
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -71,28 +186,154 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Record",
-    "_hash": "d0ff2a7e303a",
+    "_hash": "b1d6ff5df638",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Custom Fighter 1) 1 v0.10.0",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "never",
+            "values": [],
+            "children": null
+          },
+          {
+            "key": "ships: Fighter",
+            "values": [
+              "<",
+              "FiFc: Mem: Fighter Count"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit (installed): XMA03 Fighter Assembler",
+            "values": [
+              ">=",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit (installed): E1-a Custom Blueprint 1",
+            "values": [
+              ">=",
+              1
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "FiFc: Custom Fighter 1"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "never",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "ships: Fighter",
+          "values": [
+            "<",
+            "FiFc: Mem: Fighter Count"
+          ],
+          "children": null
+        },
+        {
+          "key": "outfit (installed): XMA03 Fighter Assembler",
+          "values": [
+            ">=",
+            1
+          ],
+          "children": null
+        },
+        {
+          "key": "outfit (installed): E1-a Custom Blueprint 1",
+          "values": [
+            ">=",
+            1
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -118,28 +359,128 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Custom Fighter 1) 1 v0.10.0",
-    "_hash": "7cb1af0d0337",
+    "_hash": "bc7d73f8c34d",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Custom Fighter 1) 1",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "ships: Fighter",
+            "values": [
+              "<",
+              "FiFc: Mem: Fighter Count"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              2
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Custom Blueprint 1",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "FiFc: Custom Fighter 1"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "ships: Fighter",
+          "values": [
+            "<",
+            "FiFc: Mem: Fighter Count"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -165,28 +506,128 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Custom Fighter 1) 1",
-    "_hash": "7cb1af0d0337",
+    "_hash": "ee7d41c1a674",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Custom Fighter 1) 2",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "ships: Fighter",
+            "values": [
+              "<",
+              "FiFc: Mem: Fighter Count"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              2
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Custom Blueprint 1",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "FiFc: Custom Fighter 1"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "ships: Fighter",
+          "values": [
+            "<",
+            "FiFc: Mem: Fighter Count"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -212,28 +653,128 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Custom Fighter 1) 2",
-    "_hash": "7cb1af0d0337",
+    "_hash": "ee7d41c1a674",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Lance) 1",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "ships: Fighter",
+            "values": [
+              "<",
+              "FiFc: Mem: Fighter Count"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Lance Blueprint",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Lance"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "ships: Fighter",
+          "values": [
+            "<",
+            "FiFc: Mem: Fighter Count"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -259,28 +800,128 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Lance) 1",
-    "_hash": "739e656590ab",
+    "_hash": "9456a83c760d",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Lance) 2",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "ships: Fighter",
+            "values": [
+              "<",
+              "FiFc: Mem: Fighter Count"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              2
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Lance Blueprint",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Lance"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "ships: Fighter",
+          "values": [
+            "<",
+            "FiFc: Mem: Fighter Count"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -306,28 +947,128 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Lance) 2",
-    "_hash": "739e656590ab",
+    "_hash": "31635713f581",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Finch) 1",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "ships: Fighter",
+            "values": [
+              "<",
+              "FiFc: Mem: Fighter Count"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Finch Blueprint",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Finch"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "ships: Fighter",
+          "values": [
+            "<",
+            "FiFc: Mem: Fighter Count"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -353,28 +1094,128 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Finch) 1",
-    "_hash": "c73b56a3b8f5",
+    "_hash": "03e7def76f21",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Finch) 2",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "ships: Fighter",
+            "values": [
+              "<",
+              "FiFc: Mem: Fighter Count"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              2
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Finch Blueprint",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Finch"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "ships: Fighter",
+          "values": [
+            "<",
+            "FiFc: Mem: Fighter Count"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -400,28 +1241,128 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Finch) 2",
-    "_hash": "c73b56a3b8f5",
+    "_hash": "cbc766dd4a62",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Barb) 1",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "ships: Fighter",
+            "values": [
+              "<",
+              "FiFc: Mem: Fighter Count"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Barb Blueprint",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Barb"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "ships: Fighter",
+          "values": [
+            "<",
+            "FiFc: Mem: Fighter Count"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -447,28 +1388,128 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Barb) 1",
-    "_hash": "a33e096511f5",
+    "_hash": "21e5304d6b3e",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Barb) 2",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "ships: Fighter",
+            "values": [
+              "<",
+              "FiFc: Mem: Fighter Count"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              2
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Barb Blueprint",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Barb"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "ships: Fighter",
+          "values": [
+            "<",
+            "FiFc: Mem: Fighter Count"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -494,28 +1535,128 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Barb) 2",
-    "_hash": "a33e096511f5",
+    "_hash": "bd70ad41edd9",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Barb (Proton)) 1",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "ships: Fighter",
+            "values": [
+              "<",
+              "FiFc: Mem: Fighter Count"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Barb-P Blueprint",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Barb (Proton)"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "ships: Fighter",
+          "values": [
+            "<",
+            "FiFc: Mem: Fighter Count"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -541,28 +1682,101 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Barb (Proton)) 1",
-    "_hash": "4168d19ed303",
+    "_hash": "d30cd107766f",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Barb (Proton)) 2",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              2
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Barb-P Blueprint",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Barb (Proton)"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {},
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -588,28 +1802,128 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Barb (Proton)) 2",
-    "_hash": "4168d19ed303",
+    "_hash": "3cfb397f14b1",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Dagger) 1",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "ships: Fighter",
+            "values": [
+              "<",
+              "FiFc: Mem: Fighter Count"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Dagger Blueprint",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Dagger"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "ships: Fighter",
+          "values": [
+            "<",
+            "FiFc: Mem: Fighter Count"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -635,28 +1949,128 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Dagger) 1",
-    "_hash": "68999f23a48c",
+    "_hash": "50c4f6e572ca",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Dagger) 2",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "ships: Fighter",
+            "values": [
+              "<",
+              "FiFc: Mem: Fighter Count"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              2
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Dagger Blueprint",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Dagger"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "ships: Fighter",
+          "values": [
+            "<",
+            "FiFc: Mem: Fighter Count"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -682,28 +2096,128 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Dagger) 2",
-    "_hash": "68999f23a48c",
+    "_hash": "d053be3557fc",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Combat Drone) 1",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "ships: Drone",
+            "values": [
+              "<",
+              "FiFc: Mem: Drone Count"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Combat Drone Blueprint",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Combat Drone"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "ships: Drone",
+          "values": [
+            "<",
+            "FiFc: Mem: Drone Count"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -729,28 +2243,128 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Combat Drone) 1",
-    "_hash": "9fdc3da481a2",
+    "_hash": "661bd3c6899d",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Combat Drone) 2",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "ships: Drone",
+            "values": [
+              "<",
+              "FiFc: Mem: Drone Count"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              2
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Combat Drone Blueprint",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Combat Drone"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "ships: Drone",
+          "values": [
+            "<",
+            "FiFc: Mem: Drone Count"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -776,28 +2390,128 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Combat Drone) 2",
-    "_hash": "9fdc3da481a2",
+    "_hash": "6559d14783a6",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Surveillance Drone) 1",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "ships: Drone",
+            "values": [
+              "<",
+              "FiFc: Mem: Drone Count"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Surveillance Drone Blueprint",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Surveillance Drone"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "ships: Drone",
+          "values": [
+            "<",
+            "FiFc: Mem: Drone Count"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -823,28 +2537,128 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Surveillance Drone) 1",
-    "_hash": "14ae08d101af",
+    "_hash": "9b3f8483982a",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Surveillance Drone) 2",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "ships: Drone",
+            "values": [
+              "<",
+              "FiFc: Mem: Drone Count"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              2
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Surveillance Drone Blueprint",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Surveillance Drone"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "ships: Drone",
+          "values": [
+            "<",
+            "FiFc: Mem: Drone Count"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -870,28 +2684,128 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Surveillance Drone) 2",
-    "_hash": "14ae08d101af",
+    "_hash": "f0a986f2ee15",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Petrel) 1",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "ships: Fighter",
+            "values": [
+              "<",
+              "FiFc: Mem: Fighter Count"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Petrel Blueprint",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Petrel"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "ships: Fighter",
+          "values": [
+            "<",
+            "FiFc: Mem: Fighter Count"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -917,28 +2831,128 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Petrel) 1",
-    "_hash": "54bb69797d1c",
+    "_hash": "be565c2b4286",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Petrel) 2",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "ships: Fighter",
+            "values": [
+              "<",
+              "FiFc: Mem: Fighter Count"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              2
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Petrel Blueprint",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Petrel"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "ships: Fighter",
+          "values": [
+            "<",
+            "FiFc: Mem: Fighter Count"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -964,28 +2978,128 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Petrel) 2",
-    "_hash": "54bb69797d1c",
+    "_hash": "bdce799313d9",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Smew) 1",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "ships: Fighter",
+            "values": [
+              "<",
+              "FiFc: Mem: Fighter Count"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Smew Blueprint",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Smew"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "ships: Fighter",
+          "values": [
+            "<",
+            "FiFc: Mem: Fighter Count"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -1011,28 +3125,128 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Smew) 1",
-    "_hash": "2a87e474d17c",
+    "_hash": "f2d87d791f6a",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Smew) 2",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "ships: Fighter",
+            "values": [
+              "<",
+              "FiFc: Mem: Fighter Count"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              2
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Smew Blueprint",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Smew"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "ships: Fighter",
+          "values": [
+            "<",
+            "FiFc: Mem: Fighter Count"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -1058,28 +3272,128 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Smew) 2",
-    "_hash": "2a87e474d17c",
+    "_hash": "9fe357882f13",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Tern) 1",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "ships: Drone",
+            "values": [
+              "<",
+              "FiFc: Mem: Drone Count"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Tern Blueprint",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Tern"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "ships: Drone",
+          "values": [
+            "<",
+            "FiFc: Mem: Drone Count"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -1105,28 +3419,128 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Tern) 1",
-    "_hash": "873226f6c297",
+    "_hash": "f125cc7a24aa",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   },
   {
     "name": "FiFc: Fighter Assembly (Tern) 2",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "ships: Drone",
+            "values": [
+              "<",
+              "FiFc: Mem: Drone Count"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "XMA03 Fighter Assembler",
+              2
+            ],
+            "children": null
+          },
+          {
+            "key": "require",
+            "values": [
+              "E1-a Tern Blueprint",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Universal Fighter Parts",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Tern"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "ships: Drone",
+          "values": [
+            "<",
+            "FiFc: Mem: Drone Count"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -1152,11 +3566,12 @@
       ]
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Fighter Factory/Fighter-Factory",
     "_internalId": "Fighter Factory/Fighter-Factory::FiFc: Fighter Assembly (Tern) 2",
-    "_hash": "873226f6c297",
+    "_hash": "59b1840766d4",
     "sourcePlugin": "Fighter Factory/Fighter-Factory"
   }
 ]

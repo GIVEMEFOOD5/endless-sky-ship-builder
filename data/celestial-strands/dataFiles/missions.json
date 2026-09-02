@@ -2,18 +2,66 @@
   {
     "name": "Celestial Strands Map",
     "displayName": "Reveal Map",
+    "description": "Reveals the map for Celestial Strands.",
+    "raw": [
+      {
+        "key": "description",
+        "values": [
+          "Reveals the map for Celestial Strands."
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "Reveal Map"
+        ],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "revealStrands"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Hideout"
+        ],
+        "children": null
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {},
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {},
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -37,13 +85,19 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "revealStrands"
+      {
+        "name": "revealStrands",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
     ],
     "_pluginId": "Celestial Strands/celestial-strands",
     "_internalId": "Celestial Strands/celestial-strands::Celestial Strands Map",
-    "_hash": "f5cf488bf234",
+    "_hash": "881f52e27fd6",
     "sourcePlugin": "Celestial Strands/celestial-strands"
   }
 ]

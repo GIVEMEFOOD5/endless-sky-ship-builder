@@ -1,0 +1,4786 @@
+[
+  {
+    "displayName": null,
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -4750,
+      "y": -4900
+    },
+    "government": "Avalonian",
+    "attributes": [],
+    "music": null,
+    "arrival": {
+      "distance": 1000,
+      "link": null,
+      "jump": null
+    },
+    "departure": null,
+    "ramscoop": null,
+    "habitable": 3000,
+    "belts": [],
+    "invisibleFence": null,
+    "jumpRange": null,
+    "haze": "_menu/haze-water",
+    "links": [
+      {
+        "name": "The Landing Site",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::link:The Landing Site",
+        "explicit": true
+      }
+    ],
+    "asteroids": [],
+    "minables": [],
+    "trade": [
+      {
+        "name": "Clothing",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Clothing",
+        "cost": 290
+      },
+      {
+        "name": "Electronics",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Electronics",
+        "cost": 670
+      },
+      {
+        "name": "Equipment",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Equipment",
+        "cost": 500
+      },
+      {
+        "name": "Food",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Food",
+        "cost": 350
+      },
+      {
+        "name": "Heavy Metals",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Heavy Metals",
+        "cost": 870
+      },
+      {
+        "name": "Industrial",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Industrial",
+        "cost": 740
+      },
+      {
+        "name": "Luxury Goods",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Luxury Goods",
+        "cost": 1295
+      },
+      {
+        "name": "Medical",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Medical",
+        "cost": 550
+      },
+      {
+        "name": "Metal",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Metal",
+        "cost": 367
+      },
+      {
+        "name": "Plastic",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Plastic",
+        "cost": 320
+      }
+    ],
+    "fleets": [
+      {
+        "name": "Avalonian Fleet",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::systemFleet:Avalonian Fleet",
+        "period": 3000,
+        "toSpawn": null
+      }
+    ],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [
+      {
+        "name": "Expedition Ship",
+        "isLandable": true,
+        "sprite": "planet/expedition",
+        "spriteScale": 1,
+        "distance": 0,
+        "period": 1,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::object:Expedition Ship",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [
+            "research"
+          ],
+          "requires": [],
+          "landscapes": [
+            {
+              "name": "land/ava_ship",
+              "count": 1,
+              "pluginId": "Zuckungs List/planet.map",
+              "internalId": "Zuckungs List/planet.map::landscape:land/ava_ship"
+            }
+          ],
+          "music": null,
+          "description": {
+            "text": "This is a big expedition ship.",
+            "toDisplay": null
+          },
+          "spaceport": {
+            "text": "This is the landing area",
+            "toDisplay": null
+          },
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": "Avalonian",
+          "governmentInherited": false,
+          "shipyards": [],
+          "outfitters": [],
+          "requiredReputation": null,
+          "bribe": 0.05,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": 0.7,
+          "wormhole": null,
+          "tribute": {
+            "credits": 1000,
+            "threshold": 7000,
+            "fleets": [
+              {
+                "name": "Avalonian Fleet",
+                "count": 39,
+                "pluginId": "Zuckungs List/planet.map",
+                "internalId": "Zuckungs List/planet.map::tributeFleet:Avalonian Fleet"
+              }
+            ],
+            "dailyReputationPenalty": null
+          },
+          "tributeHails": {},
+          "systemName": "The Eastern Sea",
+          "rawByPlugin": [
+            {
+              "pluginId": "Zuckungs List/planet.map",
+              "entries": [
+                {
+                  "key": "attributes",
+                  "values": [
+                    "research"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "landscape",
+                  "values": [
+                    "land/ava_ship"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "government",
+                  "values": [
+                    "Avalonian"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "description",
+                  "values": [
+                    "This is a big expedition ship."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    "This is the landing area"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "bribe",
+                  "values": [
+                    0.05
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "security",
+                  "values": [
+                    0.7
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "tribute",
+                  "values": [
+                    1000
+                  ],
+                  "children": [
+                    {
+                      "key": "threshold",
+                      "values": [
+                        7000
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "fleet",
+                      "values": [
+                        "Avalonian Fleet",
+                        39
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "name": "Expedition Ship",
+          "_pluginId": "Zuckungs List/planet.map",
+          "_internalId": "Zuckungs List/planet.map::Expedition Ship",
+          "_definedBy": [
+            "Zuckungs List/planet.map"
+          ],
+          "_lastModifiedBy": "Zuckungs List/planet.map"
+        }
+      }
+    ],
+    "planets": [
+      {
+        "name": "Expedition Ship",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::systemPlanet:Expedition Ship"
+      }
+    ],
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/planet.map",
+        "entries": [
+          {
+            "key": "pos",
+            "values": [
+              -4750,
+              -4900
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          },
+          {
+            "key": "arrival",
+            "values": [
+              1000
+            ],
+            "children": null
+          },
+          {
+            "key": "habitable",
+            "values": [
+              3000
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-water"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "The Landing Site"
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Clothing",
+              290
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Electronics",
+              670
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Equipment",
+              500
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Food",
+              350
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Heavy Metals",
+              870
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Industrial",
+              740
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Luxury Goods",
+              1295
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Medical",
+              550
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Metal",
+              367
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Plastic",
+              320
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Avalonian Fleet",
+              3000
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [
+              "Expedition Ship"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/expedition"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      1
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  0
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  1
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "The Eastern Sea",
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::The Eastern Sea",
+    "_definedBy": [
+      "Zuckungs List/planet.map"
+    ],
+    "_lastModifiedBy": "Zuckungs List/planet.map"
+  },
+  {
+    "displayName": null,
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -5080,
+      "y": -4750
+    },
+    "government": "Avalonian",
+    "attributes": [],
+    "music": null,
+    "arrival": {
+      "distance": 1000,
+      "link": null,
+      "jump": null
+    },
+    "departure": null,
+    "ramscoop": null,
+    "habitable": 3000,
+    "belts": [],
+    "invisibleFence": null,
+    "jumpRange": null,
+    "haze": "_menu/haze-forest",
+    "links": [
+      {
+        "name": "The Landing Site",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::link:The Landing Site",
+        "explicit": true
+      }
+    ],
+    "asteroids": [],
+    "minables": [],
+    "trade": [
+      {
+        "name": "Clothing",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Clothing",
+        "cost": 262
+      },
+      {
+        "name": "Electronics",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Electronics",
+        "cost": 690
+      },
+      {
+        "name": "Equipment",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Equipment",
+        "cost": 480
+      },
+      {
+        "name": "Food",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Food",
+        "cost": 320
+      },
+      {
+        "name": "Heavy Metals",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Heavy Metals",
+        "cost": 820
+      },
+      {
+        "name": "Industrial",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Industrial",
+        "cost": 740
+      },
+      {
+        "name": "Luxury Goods",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Luxury Goods",
+        "cost": 1245
+      },
+      {
+        "name": "Medical",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Medical",
+        "cost": 510
+      },
+      {
+        "name": "Metal",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Metal",
+        "cost": 297
+      },
+      {
+        "name": "Plastic",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Plastic",
+        "cost": 320
+      }
+    ],
+    "fleets": [
+      {
+        "name": "Avalonian Fleet",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::systemFleet:Avalonian Fleet",
+        "period": 2600,
+        "toSpawn": null
+      }
+    ],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [],
+    "planets": [],
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/planet.map",
+        "entries": [
+          {
+            "key": "pos",
+            "values": [
+              -5080,
+              -4750
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          },
+          {
+            "key": "arrival",
+            "values": [
+              1000
+            ],
+            "children": null
+          },
+          {
+            "key": "habitable",
+            "values": [
+              3000
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-forest"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "The Landing Site"
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Clothing",
+              262
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Electronics",
+              690
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Equipment",
+              480
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Food",
+              320
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Heavy Metals",
+              820
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Industrial",
+              740
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Luxury Goods",
+              1245
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Medical",
+              510
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Metal",
+              297
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Plastic",
+              320
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Avalonian Fleet",
+              2600
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "name": "Tropical Forests of the South",
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::Tropical Forests of the South",
+    "_definedBy": [
+      "Zuckungs List/planet.map"
+    ],
+    "_lastModifiedBy": "Zuckungs List/planet.map"
+  },
+  {
+    "displayName": null,
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -4850,
+      "y": -5310
+    },
+    "government": "Avalonian",
+    "attributes": [],
+    "music": null,
+    "arrival": {
+      "distance": 1000,
+      "link": null,
+      "jump": null
+    },
+    "departure": null,
+    "ramscoop": null,
+    "habitable": 3000,
+    "belts": [],
+    "invisibleFence": null,
+    "jumpRange": null,
+    "haze": "_menu/haze-forest",
+    "links": [
+      {
+        "name": "The Landing Site",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::link:The Landing Site",
+        "explicit": true
+      },
+      {
+        "name": "North Woods",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::link:North Woods",
+        "explicit": true
+      },
+      {
+        "name": "North Cape",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::link:North Cape",
+        "explicit": true
+      }
+    ],
+    "asteroids": [],
+    "minables": [],
+    "trade": [
+      {
+        "name": "Clothing",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Clothing",
+        "cost": 201
+      },
+      {
+        "name": "Electronics",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Electronics",
+        "cost": 690
+      },
+      {
+        "name": "Equipment",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Equipment",
+        "cost": 500
+      },
+      {
+        "name": "Food",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Food",
+        "cost": 320
+      },
+      {
+        "name": "Heavy Metals",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Heavy Metals",
+        "cost": 790
+      },
+      {
+        "name": "Industrial",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Industrial",
+        "cost": 740
+      },
+      {
+        "name": "Luxury Goods",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Luxury Goods",
+        "cost": 1245
+      },
+      {
+        "name": "Medical",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Medical",
+        "cost": 520
+      },
+      {
+        "name": "Metal",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Metal",
+        "cost": 307
+      },
+      {
+        "name": "Plastic",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Plastic",
+        "cost": 280
+      }
+    ],
+    "fleets": [
+      {
+        "name": "Avalonian Fleet",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::systemFleet:Avalonian Fleet",
+        "period": 3200,
+        "toSpawn": null
+      }
+    ],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [],
+    "planets": [],
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/planet.map",
+        "entries": [
+          {
+            "key": "pos",
+            "values": [
+              -4850,
+              -5310
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          },
+          {
+            "key": "arrival",
+            "values": [
+              1000
+            ],
+            "children": null
+          },
+          {
+            "key": "habitable",
+            "values": [
+              3000
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-forest"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "The Landing Site"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "North Woods"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "North Cape"
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Clothing",
+              201
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Electronics",
+              690
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Equipment",
+              500
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Food",
+              320
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Heavy Metals",
+              790
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Industrial",
+              740
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Luxury Goods",
+              1245
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Medical",
+              520
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Metal",
+              307
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Plastic",
+              280
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Avalonian Fleet",
+              3200
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "name": "The Northern Tundra",
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::The Northern Tundra",
+    "_definedBy": [
+      "Zuckungs List/planet.map"
+    ],
+    "_lastModifiedBy": "Zuckungs List/planet.map"
+  },
+  {
+    "displayName": null,
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -4740,
+      "y": -5220
+    },
+    "government": "Avalonian",
+    "attributes": [],
+    "music": null,
+    "arrival": {
+      "distance": 1000,
+      "link": null,
+      "jump": null
+    },
+    "departure": null,
+    "ramscoop": null,
+    "habitable": 3000,
+    "belts": [],
+    "invisibleFence": null,
+    "jumpRange": null,
+    "haze": "_menu/haze-forest",
+    "links": [
+      {
+        "name": "The Northern Tundra",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::link:The Northern Tundra",
+        "explicit": true
+      },
+      {
+        "name": "Eastern Desert",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::link:Eastern Desert",
+        "explicit": true
+      }
+    ],
+    "asteroids": [],
+    "minables": [],
+    "trade": [
+      {
+        "name": "Clothing",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Clothing",
+        "cost": 220
+      },
+      {
+        "name": "Electronics",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Electronics",
+        "cost": 650
+      },
+      {
+        "name": "Equipment",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Equipment",
+        "cost": 490
+      },
+      {
+        "name": "Food",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Food",
+        "cost": 350
+      },
+      {
+        "name": "Heavy Metals",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Heavy Metals",
+        "cost": 810
+      },
+      {
+        "name": "Industrial",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Industrial",
+        "cost": 750
+      },
+      {
+        "name": "Luxury Goods",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Luxury Goods",
+        "cost": 1275
+      },
+      {
+        "name": "Medical",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Medical",
+        "cost": 511
+      },
+      {
+        "name": "Metal",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Metal",
+        "cost": 301
+      },
+      {
+        "name": "Plastic",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Plastic",
+        "cost": 320
+      }
+    ],
+    "fleets": [
+      {
+        "name": "Avalonian Fleet",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::systemFleet:Avalonian Fleet",
+        "period": 2800,
+        "toSpawn": null
+      }
+    ],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [
+      {
+        "name": "Green Hell (Lumberjack Camp)",
+        "isLandable": true,
+        "sprite": "planet/hut",
+        "spriteScale": 1,
+        "distance": 100,
+        "period": 1,
+        "offset": 0,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::object:Green Hell (Lumberjack Camp)",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [
+            "lumberjack"
+          ],
+          "requires": [],
+          "landscapes": [
+            {
+              "name": "land/ava_lumberjack",
+              "count": 1,
+              "pluginId": "Zuckungs List/planet.map",
+              "internalId": "Zuckungs List/planet.map::landscape:land/ava_lumberjack"
+            }
+          ],
+          "music": null,
+          "description": {
+            "text": "This is a small lumberjack camp.",
+            "toDisplay": null
+          },
+          "spaceport": {
+            "text": "This is the landing area.",
+            "toDisplay": null
+          },
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": "Avalonian",
+          "governmentInherited": false,
+          "shipyards": [],
+          "outfitters": [],
+          "requiredReputation": null,
+          "bribe": null,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": null,
+          "wormhole": null,
+          "tribute": null,
+          "tributeHails": {},
+          "systemName": "North Woods",
+          "rawByPlugin": [
+            {
+              "pluginId": "Zuckungs List/planet.map",
+              "entries": [
+                {
+                  "key": "attributes",
+                  "values": [
+                    "lumberjack"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "landscape",
+                  "values": [
+                    "land/ava_lumberjack"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "government",
+                  "values": [
+                    "Avalonian"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "description",
+                  "values": [
+                    "This is a small lumberjack camp."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    "This is the landing area."
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
+          "name": "Green Hell (Lumberjack Camp)",
+          "_pluginId": "Zuckungs List/planet.map",
+          "_internalId": "Zuckungs List/planet.map::Green Hell (Lumberjack Camp)",
+          "_definedBy": [
+            "Zuckungs List/planet.map"
+          ],
+          "_lastModifiedBy": "Zuckungs List/planet.map"
+        }
+      }
+    ],
+    "planets": [
+      {
+        "name": "Green Hell (Lumberjack Camp)",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::systemPlanet:Green Hell (Lumberjack Camp)"
+      }
+    ],
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/planet.map",
+        "entries": [
+          {
+            "key": "pos",
+            "values": [
+              -4740,
+              -5220
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          },
+          {
+            "key": "arrival",
+            "values": [
+              1000
+            ],
+            "children": null
+          },
+          {
+            "key": "habitable",
+            "values": [
+              3000
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-forest"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "The Northern Tundra"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "Eastern Desert"
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Clothing",
+              220
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Electronics",
+              650
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Equipment",
+              490
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Food",
+              350
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Heavy Metals",
+              810
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Industrial",
+              750
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Luxury Goods",
+              1275
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Medical",
+              511
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Metal",
+              301
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Plastic",
+              320
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Avalonian Fleet",
+              2800
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [
+              "Green Hell (Lumberjack Camp)"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/hut"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      1
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  100
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  1
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  0
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "North Woods",
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::North Woods",
+    "_definedBy": [
+      "Zuckungs List/planet.map"
+    ],
+    "_lastModifiedBy": "Zuckungs List/planet.map"
+  },
+  {
+    "displayName": null,
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -4850,
+      "y": -5070
+    },
+    "government": "Avalonian",
+    "attributes": [],
+    "music": null,
+    "arrival": {
+      "distance": 1000,
+      "link": null,
+      "jump": null
+    },
+    "departure": null,
+    "ramscoop": null,
+    "habitable": 3000,
+    "belts": [],
+    "invisibleFence": null,
+    "jumpRange": null,
+    "haze": "_menu/haze-desert",
+    "links": [
+      {
+        "name": "North Woods",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::link:North Woods",
+        "explicit": true
+      },
+      {
+        "name": "The Landing Site",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::link:The Landing Site",
+        "explicit": true
+      }
+    ],
+    "asteroids": [],
+    "minables": [],
+    "trade": [
+      {
+        "name": "Clothing",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Clothing",
+        "cost": 220
+      },
+      {
+        "name": "Electronics",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Electronics",
+        "cost": 680
+      },
+      {
+        "name": "Equipment",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Equipment",
+        "cost": 500
+      },
+      {
+        "name": "Food",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Food",
+        "cost": 400
+      },
+      {
+        "name": "Heavy Metals",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Heavy Metals",
+        "cost": 800
+      },
+      {
+        "name": "Industrial",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Industrial",
+        "cost": 720
+      },
+      {
+        "name": "Luxury Goods",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Luxury Goods",
+        "cost": 1255
+      },
+      {
+        "name": "Medical",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Medical",
+        "cost": 560
+      },
+      {
+        "name": "Metal",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Metal",
+        "cost": 301
+      },
+      {
+        "name": "Plastic",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Plastic",
+        "cost": 270
+      }
+    ],
+    "fleets": [
+      {
+        "name": "Avalonian Fleet",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::systemFleet:Avalonian Fleet",
+        "period": 3000,
+        "toSpawn": null
+      }
+    ],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [],
+    "planets": [],
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/planet.map",
+        "entries": [
+          {
+            "key": "pos",
+            "values": [
+              -4850,
+              -5070
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          },
+          {
+            "key": "arrival",
+            "values": [
+              1000
+            ],
+            "children": null
+          },
+          {
+            "key": "habitable",
+            "values": [
+              3000
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-desert"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "North Woods"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "The Landing Site"
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Clothing",
+              220
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Electronics",
+              680
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Equipment",
+              500
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Food",
+              400
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Heavy Metals",
+              800
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Industrial",
+              720
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Luxury Goods",
+              1255
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Medical",
+              560
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Metal",
+              301
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Plastic",
+              270
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Avalonian Fleet",
+              3000
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "name": "Eastern Desert",
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::Eastern Desert",
+    "_definedBy": [
+      "Zuckungs List/planet.map"
+    ],
+    "_lastModifiedBy": "Zuckungs List/planet.map"
+  },
+  {
+    "displayName": null,
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -5270,
+      "y": -5100
+    },
+    "government": "Avalonian",
+    "attributes": [],
+    "music": null,
+    "arrival": {
+      "distance": 1000,
+      "link": null,
+      "jump": null
+    },
+    "departure": null,
+    "ramscoop": null,
+    "habitable": 3000,
+    "belts": [],
+    "invisibleFence": null,
+    "jumpRange": null,
+    "haze": "_menu/haze-desert",
+    "links": [
+      {
+        "name": "The Landing Site",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::link:The Landing Site",
+        "explicit": true
+      },
+      {
+        "name": "Dunes",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::link:Dunes",
+        "explicit": true
+      }
+    ],
+    "asteroids": [],
+    "minables": [],
+    "trade": [
+      {
+        "name": "Clothing",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Clothing",
+        "cost": 240
+      },
+      {
+        "name": "Electronics",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Electronics",
+        "cost": 650
+      },
+      {
+        "name": "Equipment",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Equipment",
+        "cost": 480
+      },
+      {
+        "name": "Food",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Food",
+        "cost": 420
+      },
+      {
+        "name": "Heavy Metals",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Heavy Metals",
+        "cost": 830
+      },
+      {
+        "name": "Industrial",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Industrial",
+        "cost": 710
+      },
+      {
+        "name": "Luxury Goods",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Luxury Goods",
+        "cost": 1225
+      },
+      {
+        "name": "Medical",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Medical",
+        "cost": 560
+      },
+      {
+        "name": "Metal",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Metal",
+        "cost": 307
+      },
+      {
+        "name": "Plastic",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Plastic",
+        "cost": 280
+      }
+    ],
+    "fleets": [
+      {
+        "name": "Avalonian Fleet",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::systemFleet:Avalonian Fleet",
+        "period": 2200,
+        "toSpawn": null
+      }
+    ],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [],
+    "planets": [],
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/planet.map",
+        "entries": [
+          {
+            "key": "pos",
+            "values": [
+              -5270,
+              -5100
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          },
+          {
+            "key": "arrival",
+            "values": [
+              1000
+            ],
+            "children": null
+          },
+          {
+            "key": "habitable",
+            "values": [
+              3000
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-desert"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "The Landing Site"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "Dunes"
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Clothing",
+              240
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Electronics",
+              650
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Equipment",
+              480
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Food",
+              420
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Heavy Metals",
+              830
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Industrial",
+              710
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Luxury Goods",
+              1225
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Medical",
+              560
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Metal",
+              307
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Plastic",
+              280
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Avalonian Fleet",
+              2200
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "name": "The Great Desert",
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::The Great Desert",
+    "_definedBy": [
+      "Zuckungs List/planet.map"
+    ],
+    "_lastModifiedBy": "Zuckungs List/planet.map"
+  },
+  {
+    "displayName": null,
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -5170,
+      "y": -5130
+    },
+    "government": "Avalonian",
+    "attributes": [],
+    "music": null,
+    "arrival": {
+      "distance": 1000,
+      "link": null,
+      "jump": null
+    },
+    "departure": null,
+    "ramscoop": null,
+    "habitable": 3000,
+    "belts": [],
+    "invisibleFence": null,
+    "jumpRange": null,
+    "haze": "_menu/haze-desert",
+    "links": [
+      {
+        "name": "The Great Desert",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::link:The Great Desert",
+        "explicit": true
+      },
+      {
+        "name": "North Cape",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::link:North Cape",
+        "explicit": true
+      }
+    ],
+    "asteroids": [],
+    "minables": [],
+    "trade": [
+      {
+        "name": "Clothing",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Clothing",
+        "cost": 280
+      },
+      {
+        "name": "Electronics",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Electronics",
+        "cost": 660
+      },
+      {
+        "name": "Equipment",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Equipment",
+        "cost": 460
+      },
+      {
+        "name": "Food",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Food",
+        "cost": 500
+      },
+      {
+        "name": "Heavy Metals",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Heavy Metals",
+        "cost": 650
+      },
+      {
+        "name": "Industrial",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Industrial",
+        "cost": 720
+      },
+      {
+        "name": "Luxury Goods",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Luxury Goods",
+        "cost": 1225
+      },
+      {
+        "name": "Medical",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Medical",
+        "cost": 560
+      },
+      {
+        "name": "Metal",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Metal",
+        "cost": 317
+      },
+      {
+        "name": "Plastic",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Plastic",
+        "cost": 260
+      }
+    ],
+    "fleets": [
+      {
+        "name": "Avalonian Fleet",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::systemFleet:Avalonian Fleet",
+        "period": 2500,
+        "toSpawn": null
+      }
+    ],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [
+      {
+        "name": "Black Gold (Oil Rig)",
+        "isLandable": true,
+        "sprite": "planet/oilrig",
+        "spriteScale": 1,
+        "distance": 700,
+        "period": 1,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::object:Black Gold (Oil Rig)",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [
+            "oil",
+            "rig"
+          ],
+          "requires": [],
+          "landscapes": [
+            {
+              "name": "land/ava_oilrig",
+              "count": 1,
+              "pluginId": "Zuckungs List/planet.map",
+              "internalId": "Zuckungs List/planet.map::landscape:land/ava_oilrig"
+            }
+          ],
+          "music": null,
+          "description": {
+            "text": "This is an oil rig.",
+            "toDisplay": null
+          },
+          "spaceport": {
+            "text": "This is the landing area.",
+            "toDisplay": null
+          },
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": "Avalonian",
+          "governmentInherited": false,
+          "shipyards": [],
+          "outfitters": [],
+          "requiredReputation": null,
+          "bribe": null,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": null,
+          "wormhole": null,
+          "tribute": null,
+          "tributeHails": {},
+          "systemName": "Dunes",
+          "rawByPlugin": [
+            {
+              "pluginId": "Zuckungs List/planet.map",
+              "entries": [
+                {
+                  "key": "attributes",
+                  "values": [
+                    "oil rig"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "landscape",
+                  "values": [
+                    "land/ava_oilrig"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "government",
+                  "values": [
+                    "Avalonian"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "description",
+                  "values": [
+                    "This is an oil rig."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    "This is the landing area."
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
+          "name": "Black Gold (Oil Rig)",
+          "_pluginId": "Zuckungs List/planet.map",
+          "_internalId": "Zuckungs List/planet.map::Black Gold (Oil Rig)",
+          "_definedBy": [
+            "Zuckungs List/planet.map"
+          ],
+          "_lastModifiedBy": "Zuckungs List/planet.map"
+        }
+      },
+      {
+        "name": "Morgana (Village)",
+        "isLandable": true,
+        "sprite": "planet/oasis",
+        "spriteScale": 1,
+        "distance": 0,
+        "period": 1,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::object:Morgana (Village)",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [
+            "oasis"
+          ],
+          "requires": [],
+          "landscapes": [
+            {
+              "name": "land/ava_oasis",
+              "count": 1,
+              "pluginId": "Zuckungs List/planet.map",
+              "internalId": "Zuckungs List/planet.map::landscape:land/ava_oasis"
+            }
+          ],
+          "music": null,
+          "description": {
+            "text": "This is a small oasis village.",
+            "toDisplay": null
+          },
+          "spaceport": {
+            "text": "This is the landing area.",
+            "toDisplay": null
+          },
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": "Avalonian",
+          "governmentInherited": false,
+          "shipyards": [],
+          "outfitters": [],
+          "requiredReputation": null,
+          "bribe": null,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": null,
+          "wormhole": null,
+          "tribute": null,
+          "tributeHails": {},
+          "systemName": "Dunes",
+          "rawByPlugin": [
+            {
+              "pluginId": "Zuckungs List/planet.map",
+              "entries": [
+                {
+                  "key": "attributes",
+                  "values": [
+                    "oasis"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "landscape",
+                  "values": [
+                    "land/ava_oasis"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "government",
+                  "values": [
+                    "Avalonian"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "description",
+                  "values": [
+                    "This is a small oasis village."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    "This is the landing area."
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
+          "name": "Morgana (Village)",
+          "_pluginId": "Zuckungs List/planet.map",
+          "_internalId": "Zuckungs List/planet.map::Morgana (Village)",
+          "_definedBy": [
+            "Zuckungs List/planet.map"
+          ],
+          "_lastModifiedBy": "Zuckungs List/planet.map"
+        }
+      }
+    ],
+    "planets": [
+      {
+        "name": "Black Gold (Oil Rig)",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::systemPlanet:Black Gold (Oil Rig)"
+      },
+      {
+        "name": "Morgana (Village)",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::systemPlanet:Morgana (Village)"
+      }
+    ],
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/planet.map",
+        "entries": [
+          {
+            "key": "pos",
+            "values": [
+              -5170,
+              -5130
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          },
+          {
+            "key": "arrival",
+            "values": [
+              1000
+            ],
+            "children": null
+          },
+          {
+            "key": "habitable",
+            "values": [
+              3000
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-desert"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "The Great Desert"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "North Cape"
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Clothing",
+              280
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Electronics",
+              660
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Equipment",
+              460
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Food",
+              500
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Heavy Metals",
+              650
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Industrial",
+              720
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Luxury Goods",
+              1225
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Medical",
+              560
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Metal",
+              317
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Plastic",
+              260
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Avalonian Fleet",
+              2500
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [
+              "Black Gold (Oil Rig)"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/oilrig"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      1
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  700
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  1
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "Morgana (Village)"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/oasis"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      1
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  0
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  1
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "Dunes",
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::Dunes",
+    "_definedBy": [
+      "Zuckungs List/planet.map"
+    ],
+    "_lastModifiedBy": "Zuckungs List/planet.map"
+  },
+  {
+    "displayName": null,
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -5080,
+      "y": -5320
+    },
+    "government": "Avalonian",
+    "attributes": [],
+    "music": null,
+    "arrival": {
+      "distance": 1000,
+      "link": null,
+      "jump": null
+    },
+    "departure": null,
+    "ramscoop": null,
+    "habitable": 3000,
+    "belts": [],
+    "invisibleFence": null,
+    "jumpRange": null,
+    "haze": "_menu/haze-forest",
+    "links": [
+      {
+        "name": "The Northern Tundra",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::link:The Northern Tundra",
+        "explicit": true
+      },
+      {
+        "name": "Dunes",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::link:Dunes",
+        "explicit": true
+      }
+    ],
+    "asteroids": [],
+    "minables": [],
+    "trade": [
+      {
+        "name": "Clothing",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Clothing",
+        "cost": 260
+      },
+      {
+        "name": "Electronics",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Electronics",
+        "cost": 640
+      },
+      {
+        "name": "Equipment",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Equipment",
+        "cost": 470
+      },
+      {
+        "name": "Food",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Food",
+        "cost": 400
+      },
+      {
+        "name": "Heavy Metals",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Heavy Metals",
+        "cost": 850
+      },
+      {
+        "name": "Industrial",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Industrial",
+        "cost": 700
+      },
+      {
+        "name": "Luxury Goods",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Luxury Goods",
+        "cost": 1205
+      },
+      {
+        "name": "Medical",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Medical",
+        "cost": 540
+      },
+      {
+        "name": "Metal",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Metal",
+        "cost": 347
+      },
+      {
+        "name": "Plastic",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Plastic",
+        "cost": 290
+      }
+    ],
+    "fleets": [
+      {
+        "name": "Avalonian Fleet",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::systemFleet:Avalonian Fleet",
+        "period": 2000,
+        "toSpawn": null
+      }
+    ],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [],
+    "planets": [],
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/planet.map",
+        "entries": [
+          {
+            "key": "pos",
+            "values": [
+              -5080,
+              -5320
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          },
+          {
+            "key": "arrival",
+            "values": [
+              1000
+            ],
+            "children": null
+          },
+          {
+            "key": "habitable",
+            "values": [
+              3000
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-forest"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "The Northern Tundra"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "Dunes"
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Clothing",
+              260
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Electronics",
+              640
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Equipment",
+              470
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Food",
+              400
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Heavy Metals",
+              850
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Industrial",
+              700
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Luxury Goods",
+              1205
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Medical",
+              540
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Metal",
+              347
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Plastic",
+              290
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Avalonian Fleet",
+              2000
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "name": "North Cape",
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::North Cape",
+    "_definedBy": [
+      "Zuckungs List/planet.map"
+    ],
+    "_lastModifiedBy": "Zuckungs List/planet.map"
+  },
+  {
+    "displayName": null,
+    "flags": {
+      "inaccessible": false,
+      "hidden": false,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -5000,
+      "y": -5000
+    },
+    "government": "Avalonian",
+    "attributes": [],
+    "music": null,
+    "arrival": {
+      "distance": 1000,
+      "link": null,
+      "jump": null
+    },
+    "departure": null,
+    "ramscoop": null,
+    "habitable": 3000,
+    "belts": [],
+    "invisibleFence": null,
+    "jumpRange": null,
+    "haze": "_menu/haze-forest",
+    "links": [
+      {
+        "name": "The Great Desert",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::link:The Great Desert",
+        "explicit": true
+      },
+      {
+        "name": "The Northern Tundra",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::link:The Northern Tundra",
+        "explicit": true
+      },
+      {
+        "name": "Tropical Forests of the South",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::link:Tropical Forests of the South",
+        "explicit": true
+      },
+      {
+        "name": "The Eastern Sea",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::link:The Eastern Sea",
+        "explicit": true
+      },
+      {
+        "name": "Eastern Desert",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::link:Eastern Desert",
+        "explicit": true
+      }
+    ],
+    "asteroids": [],
+    "minables": [],
+    "trade": [
+      {
+        "name": "Clothing",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Clothing",
+        "cost": 240
+      },
+      {
+        "name": "Electronics",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Electronics",
+        "cost": 611
+      },
+      {
+        "name": "Equipment",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Equipment",
+        "cost": 455
+      },
+      {
+        "name": "Food",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Food",
+        "cost": 422
+      },
+      {
+        "name": "Heavy Metals",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Heavy Metals",
+        "cost": 899
+      },
+      {
+        "name": "Industrial",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Industrial",
+        "cost": 675
+      },
+      {
+        "name": "Luxury Goods",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Luxury Goods",
+        "cost": 1135
+      },
+      {
+        "name": "Medical",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Medical",
+        "cost": 520
+      },
+      {
+        "name": "Metal",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Metal",
+        "cost": 367
+      },
+      {
+        "name": "Plastic",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Plastic",
+        "cost": 270
+      }
+    ],
+    "fleets": [
+      {
+        "name": "Avalonian Fleet",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::systemFleet:Avalonian Fleet",
+        "period": 250,
+        "toSpawn": null
+      }
+    ],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [
+      {
+        "name": "Ember (City)",
+        "isLandable": true,
+        "sprite": "planet/city4",
+        "spriteScale": 1,
+        "distance": 0,
+        "period": 1,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::object:Ember (City)",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [
+            "factory",
+            "research",
+            "urban"
+          ],
+          "requires": [],
+          "landscapes": [
+            {
+              "name": "land/ava_city02",
+              "count": 1,
+              "pluginId": "Zuckungs List/planet.map",
+              "internalId": "Zuckungs List/planet.map::landscape:land/ava_city02"
+            }
+          ],
+          "music": null,
+          "description": {
+            "text": "This is a city.",
+            "toDisplay": null
+          },
+          "spaceport": {
+            "text": "This is the landing area",
+            "toDisplay": null
+          },
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": "Avalonian",
+          "governmentInherited": false,
+          "shipyards": [],
+          "outfitters": [
+            {
+              "name": "Avalonian Basics",
+              "count": 1,
+              "pluginId": "Zuckungs List/planet.map",
+              "internalId": "Zuckungs List/planet.map::outfitter:Avalonian Basics"
+            }
+          ],
+          "requiredReputation": null,
+          "bribe": 0.05,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": 0.7,
+          "wormhole": null,
+          "tribute": {
+            "credits": 1000,
+            "threshold": 7000,
+            "fleets": [
+              {
+                "name": "Avalonian Fleet",
+                "count": 39,
+                "pluginId": "Zuckungs List/planet.map",
+                "internalId": "Zuckungs List/planet.map::tributeFleet:Avalonian Fleet"
+              }
+            ],
+            "dailyReputationPenalty": null
+          },
+          "tributeHails": {},
+          "systemName": "The Landing Site",
+          "rawByPlugin": [
+            {
+              "pluginId": "Zuckungs List/planet.map",
+              "entries": [
+                {
+                  "key": "attributes",
+                  "values": [
+                    "factory",
+                    "research",
+                    "urban"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "landscape",
+                  "values": [
+                    "land/ava_city02"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "government",
+                  "values": [
+                    "Avalonian"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "description",
+                  "values": [
+                    "This is a city."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    "This is the landing area"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "outfitter",
+                  "values": [
+                    "Avalonian Basics"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "bribe",
+                  "values": [
+                    0.05
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "security",
+                  "values": [
+                    0.7
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "tribute",
+                  "values": [
+                    1000
+                  ],
+                  "children": [
+                    {
+                      "key": "threshold",
+                      "values": [
+                        7000
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "fleet",
+                      "values": [
+                        "Avalonian Fleet",
+                        39
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "name": "Ember (City)",
+          "_pluginId": "Zuckungs List/planet.map",
+          "_internalId": "Zuckungs List/planet.map::Ember (City)",
+          "_definedBy": [
+            "Zuckungs List/planet.map"
+          ],
+          "_lastModifiedBy": "Zuckungs List/planet.map"
+        }
+      },
+      {
+        "name": "Center (City)",
+        "isLandable": true,
+        "sprite": "planet/city1",
+        "spriteScale": 1,
+        "distance": 1520,
+        "period": 1,
+        "offset": 20,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::object:Center (City)",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [
+            "factory",
+            "research",
+            "urban"
+          ],
+          "requires": [],
+          "landscapes": [
+            {
+              "name": "land/ava_city03",
+              "count": 1,
+              "pluginId": "Zuckungs List/planet.map",
+              "internalId": "Zuckungs List/planet.map::landscape:land/ava_city03"
+            }
+          ],
+          "music": null,
+          "description": {
+            "text": "This is a city.",
+            "toDisplay": null
+          },
+          "spaceport": {
+            "text": "This is the landing area",
+            "toDisplay": null
+          },
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": "Avalonian",
+          "governmentInherited": false,
+          "shipyards": [
+            {
+              "name": "Avalonian Basics",
+              "count": 1,
+              "pluginId": "Zuckungs List/planet.map",
+              "internalId": "Zuckungs List/planet.map::shipyard:Avalonian Basics"
+            }
+          ],
+          "outfitters": [
+            {
+              "name": "Avalonian Basics",
+              "count": 1,
+              "pluginId": "Zuckungs List/planet.map",
+              "internalId": "Zuckungs List/planet.map::outfitter:Avalonian Basics"
+            }
+          ],
+          "requiredReputation": null,
+          "bribe": 0.05,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": 0.7,
+          "wormhole": null,
+          "tribute": {
+            "credits": 1000,
+            "threshold": 7000,
+            "fleets": [
+              {
+                "name": "Avalonian Fleet",
+                "count": 39,
+                "pluginId": "Zuckungs List/planet.map",
+                "internalId": "Zuckungs List/planet.map::tributeFleet:Avalonian Fleet"
+              }
+            ],
+            "dailyReputationPenalty": null
+          },
+          "tributeHails": {},
+          "systemName": "The Landing Site",
+          "rawByPlugin": [
+            {
+              "pluginId": "Zuckungs List/planet.map",
+              "entries": [
+                {
+                  "key": "attributes",
+                  "values": [
+                    "factory",
+                    "research",
+                    "urban"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "landscape",
+                  "values": [
+                    "land/ava_city03"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "government",
+                  "values": [
+                    "Avalonian"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "description",
+                  "values": [
+                    "This is a city."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    "This is the landing area"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "outfitter",
+                  "values": [
+                    "Avalonian Basics"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "shipyard",
+                  "values": [
+                    "Avalonian Basics"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "bribe",
+                  "values": [
+                    0.05
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "security",
+                  "values": [
+                    0.7
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "tribute",
+                  "values": [
+                    1000
+                  ],
+                  "children": [
+                    {
+                      "key": "threshold",
+                      "values": [
+                        7000
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "fleet",
+                      "values": [
+                        "Avalonian Fleet",
+                        39
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "name": "Center (City)",
+          "_pluginId": "Zuckungs List/planet.map",
+          "_internalId": "Zuckungs List/planet.map::Center (City)",
+          "_definedBy": [
+            "Zuckungs List/planet.map"
+          ],
+          "_lastModifiedBy": "Zuckungs List/planet.map"
+        }
+      },
+      {
+        "name": "Lightfall (City)",
+        "isLandable": true,
+        "sprite": "planet/city3",
+        "spriteScale": 0.8,
+        "distance": 1500,
+        "period": 1,
+        "offset": 130,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::object:Lightfall (City)",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [
+            "factory",
+            "research",
+            "urban"
+          ],
+          "requires": [],
+          "landscapes": [
+            {
+              "name": "land/ava_city04",
+              "count": 1,
+              "pluginId": "Zuckungs List/planet.map",
+              "internalId": "Zuckungs List/planet.map::landscape:land/ava_city04"
+            }
+          ],
+          "music": null,
+          "description": {
+            "text": "This is a city.",
+            "toDisplay": null
+          },
+          "spaceport": {
+            "text": "This is the landing area",
+            "toDisplay": null
+          },
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": "Avalonian",
+          "governmentInherited": false,
+          "shipyards": [],
+          "outfitters": [
+            {
+              "name": "Avalonian Basics",
+              "count": 1,
+              "pluginId": "Zuckungs List/planet.map",
+              "internalId": "Zuckungs List/planet.map::outfitter:Avalonian Basics"
+            }
+          ],
+          "requiredReputation": null,
+          "bribe": 0.05,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": 0.7,
+          "wormhole": null,
+          "tribute": {
+            "credits": 1000,
+            "threshold": 7000,
+            "fleets": [
+              {
+                "name": "Avalonian Fleet",
+                "count": 39,
+                "pluginId": "Zuckungs List/planet.map",
+                "internalId": "Zuckungs List/planet.map::tributeFleet:Avalonian Fleet"
+              }
+            ],
+            "dailyReputationPenalty": null
+          },
+          "tributeHails": {},
+          "systemName": "The Landing Site",
+          "rawByPlugin": [
+            {
+              "pluginId": "Zuckungs List/planet.map",
+              "entries": [
+                {
+                  "key": "attributes",
+                  "values": [
+                    "factory",
+                    "research",
+                    "urban"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "landscape",
+                  "values": [
+                    "land/ava_city04"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "description",
+                  "values": [
+                    "This is a city."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "government",
+                  "values": [
+                    "Avalonian"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    "This is the landing area"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "outfitter",
+                  "values": [
+                    "Avalonian Basics"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "bribe",
+                  "values": [
+                    0.05
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "security",
+                  "values": [
+                    0.7
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "tribute",
+                  "values": [
+                    1000
+                  ],
+                  "children": [
+                    {
+                      "key": "threshold",
+                      "values": [
+                        7000
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "fleet",
+                      "values": [
+                        "Avalonian Fleet",
+                        39
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "name": "Lightfall (City)",
+          "_pluginId": "Zuckungs List/planet.map",
+          "_internalId": "Zuckungs List/planet.map::Lightfall (City)",
+          "_definedBy": [
+            "Zuckungs List/planet.map"
+          ],
+          "_lastModifiedBy": "Zuckungs List/planet.map"
+        }
+      },
+      {
+        "name": "Warsong (City)",
+        "isLandable": true,
+        "sprite": "planet/city2",
+        "spriteScale": 0.7,
+        "distance": 2000,
+        "period": 1,
+        "offset": 80,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::object:Warsong (City)",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [
+            "factory",
+            "research",
+            "urban"
+          ],
+          "requires": [],
+          "landscapes": [
+            {
+              "name": "land/ava_city01",
+              "count": 1,
+              "pluginId": "Zuckungs List/planet.map",
+              "internalId": "Zuckungs List/planet.map::landscape:land/ava_city01"
+            }
+          ],
+          "music": null,
+          "description": {
+            "text": "This is a city.",
+            "toDisplay": null
+          },
+          "spaceport": {
+            "text": "This is the landing area",
+            "toDisplay": null
+          },
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": "Avalonian",
+          "governmentInherited": false,
+          "shipyards": [],
+          "outfitters": [
+            {
+              "name": "Avalonian Basics",
+              "count": 1,
+              "pluginId": "Zuckungs List/planet.map",
+              "internalId": "Zuckungs List/planet.map::outfitter:Avalonian Basics"
+            }
+          ],
+          "requiredReputation": null,
+          "bribe": 0.05,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": 0.7,
+          "wormhole": null,
+          "tribute": {
+            "credits": 1000,
+            "threshold": 7000,
+            "fleets": [
+              {
+                "name": "Avalonian Fleet",
+                "count": 39,
+                "pluginId": "Zuckungs List/planet.map",
+                "internalId": "Zuckungs List/planet.map::tributeFleet:Avalonian Fleet"
+              }
+            ],
+            "dailyReputationPenalty": null
+          },
+          "tributeHails": {},
+          "systemName": "The Landing Site",
+          "rawByPlugin": [
+            {
+              "pluginId": "Zuckungs List/planet.map",
+              "entries": [
+                {
+                  "key": "attributes",
+                  "values": [
+                    "factory",
+                    "research",
+                    "urban"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "landscape",
+                  "values": [
+                    "land/ava_city01"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "government",
+                  "values": [
+                    "Avalonian"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "description",
+                  "values": [
+                    "This is a city."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    "This is the landing area"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "outfitter",
+                  "values": [
+                    "Avalonian Basics"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "bribe",
+                  "values": [
+                    0.05
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "security",
+                  "values": [
+                    0.7
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "tribute",
+                  "values": [
+                    1000
+                  ],
+                  "children": [
+                    {
+                      "key": "threshold",
+                      "values": [
+                        7000
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "fleet",
+                      "values": [
+                        "Avalonian Fleet",
+                        39
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "name": "Warsong (City)",
+          "_pluginId": "Zuckungs List/planet.map",
+          "_internalId": "Zuckungs List/planet.map::Warsong (City)",
+          "_definedBy": [
+            "Zuckungs List/planet.map"
+          ],
+          "_lastModifiedBy": "Zuckungs List/planet.map"
+        }
+      },
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "planet/lake1",
+        "spriteScale": 4,
+        "distance": 1300,
+        "period": 1,
+        "offset": 65,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": "New Avalon",
+        "isLandable": true,
+        "sprite": "planet/cloud",
+        "spriteScale": 2.5,
+        "distance": 3500,
+        "period": 1,
+        "offset": 0,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::object:New Avalon",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [],
+          "requires": [],
+          "landscapes": [],
+          "music": null,
+          "description": null,
+          "spaceport": null,
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": "Planet Map",
+          "governmentInherited": false,
+          "shipyards": [],
+          "outfitters": [],
+          "requiredReputation": null,
+          "bribe": null,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": null,
+          "wormhole": "New Avalon Map",
+          "tribute": null,
+          "tributeHails": {},
+          "systemName": "Theben",
+          "rawByPlugin": [
+            {
+              "pluginId": "Zuckungs List/planet.map",
+              "entries": [
+                {
+                  "key": "wormhole",
+                  "values": [
+                    "New Avalon Map"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "government",
+                  "values": [
+                    "Planet Map"
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
+          "name": "New Avalon",
+          "_pluginId": "Zuckungs List/planet.map",
+          "_internalId": "Zuckungs List/planet.map::New Avalon",
+          "_definedBy": [
+            "Zuckungs List/planet.map"
+          ],
+          "_lastModifiedBy": "Zuckungs List/planet.map"
+        }
+      }
+    ],
+    "planets": [
+      {
+        "name": "Ember (City)",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::systemPlanet:Ember (City)"
+      },
+      {
+        "name": "Center (City)",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::systemPlanet:Center (City)"
+      },
+      {
+        "name": "Lightfall (City)",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::systemPlanet:Lightfall (City)"
+      },
+      {
+        "name": "Warsong (City)",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::systemPlanet:Warsong (City)"
+      },
+      {
+        "name": "New Avalon",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::systemPlanet:New Avalon"
+      }
+    ],
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/planet.map",
+        "entries": [
+          {
+            "key": "pos",
+            "values": [
+              -5000,
+              -5000
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          },
+          {
+            "key": "arrival",
+            "values": [
+              1000
+            ],
+            "children": null
+          },
+          {
+            "key": "habitable",
+            "values": [
+              3000
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-forest"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "The Great Desert"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "The Northern Tundra"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "Tropical Forests of the South"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "The Eastern Sea"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "Eastern Desert"
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Clothing",
+              240
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Electronics",
+              611
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Equipment",
+              455
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Food",
+              422
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Heavy Metals",
+              899
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Industrial",
+              675
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Luxury Goods",
+              1135
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Medical",
+              520
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Metal",
+              367
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Plastic",
+              270
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Avalonian Fleet",
+              250
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [
+              "Ember (City)"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/city4"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      1
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  0
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  1
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "Center (City)"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/city1"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      1
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  1520
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  1
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  20
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "Lightfall (City)"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/city3"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.8
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  1500
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  1
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  130
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "Warsong (City)"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/city2"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.7
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  2000
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  1
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  80
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/lake1"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      4
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  1300
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  1
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  65
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "New Avalon"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/cloud"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      2.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  3500
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  1
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  0
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "The Landing Site",
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::The Landing Site",
+    "_definedBy": [
+      "Zuckungs List/planet.map"
+    ],
+    "_lastModifiedBy": "Zuckungs List/planet.map"
+  },
+  {
+    "displayName": null,
+    "flags": {
+      "inaccessible": false,
+      "hidden": true,
+      "shrouded": false
+    },
+    "pos": {
+      "x": -740,
+      "y": -123
+    },
+    "government": "Republic",
+    "attributes": [
+      "bright",
+      "star",
+      "notable",
+      "star"
+    ],
+    "music": null,
+    "arrival": {
+      "distance": 1000,
+      "link": null,
+      "jump": null
+    },
+    "departure": null,
+    "ramscoop": null,
+    "habitable": 2000,
+    "belts": [
+      {
+        "distance": 1748,
+        "weight": null,
+        "pluginId": "Zuckungs List/planet.map"
+      }
+    ],
+    "invisibleFence": null,
+    "jumpRange": null,
+    "haze": "_menu/haze-67",
+    "links": [],
+    "asteroids": [],
+    "minables": [
+      {
+        "name": "uranium",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::minables:uranium",
+        "asteroidCount": 3,
+        "energy": 9.1
+      },
+      {
+        "name": "platinum",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::minables:platinum",
+        "asteroidCount": 3,
+        "energy": 7.8
+      },
+      {
+        "name": "copper",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::minables:copper",
+        "asteroidCount": 3,
+        "energy": 5.3
+      }
+    ],
+    "trade": [
+      {
+        "name": "Clothing",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Clothing",
+        "cost": 240
+      },
+      {
+        "name": "Electronics",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Electronics",
+        "cost": 611
+      },
+      {
+        "name": "Equipment",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Equipment",
+        "cost": 455
+      },
+      {
+        "name": "Food",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Food",
+        "cost": 422
+      },
+      {
+        "name": "Heavy Metals",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Heavy Metals",
+        "cost": 899
+      },
+      {
+        "name": "Industrial",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Industrial",
+        "cost": 675
+      },
+      {
+        "name": "Luxury Goods",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Luxury Goods",
+        "cost": 1135
+      },
+      {
+        "name": "Medical",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Medical",
+        "cost": 520
+      },
+      {
+        "name": "Metal",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Metal",
+        "cost": 367
+      },
+      {
+        "name": "Plastic",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::trade:Plastic",
+        "cost": 270
+      }
+    ],
+    "fleets": [],
+    "raids": [],
+    "noRaids": false,
+    "hazards": [],
+    "starfieldDensity": null,
+    "objectTree": [
+      {
+        "name": null,
+        "isLandable": false,
+        "sprite": "star/b3",
+        "spriteScale": null,
+        "distance": null,
+        "period": 10,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": null,
+        "_planetData": null
+      },
+      {
+        "name": "New Avalon",
+        "isLandable": true,
+        "sprite": "planet/earth",
+        "spriteScale": null,
+        "distance": 2008.63,
+        "period": 1,
+        "offset": null,
+        "visibility": null,
+        "hazards": [],
+        "children": [],
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::object:New Avalon",
+        "_planetData": {
+          "displayName": null,
+          "attributes": [],
+          "requires": [],
+          "landscapes": [],
+          "music": null,
+          "description": null,
+          "spaceport": null,
+          "toKnow": null,
+          "toLand": null,
+          "toAccessOutfitter": null,
+          "toAccessShipyard": null,
+          "port": null,
+          "government": "Planet Map",
+          "governmentInherited": false,
+          "shipyards": [],
+          "outfitters": [],
+          "requiredReputation": null,
+          "bribe": null,
+          "bribeThreshold": null,
+          "bribeFraction": null,
+          "security": null,
+          "wormhole": "New Avalon Map",
+          "tribute": null,
+          "tributeHails": {},
+          "systemName": "Theben",
+          "rawByPlugin": [
+            {
+              "pluginId": "Zuckungs List/planet.map",
+              "entries": [
+                {
+                  "key": "wormhole",
+                  "values": [
+                    "New Avalon Map"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "government",
+                  "values": [
+                    "Planet Map"
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
+          "name": "New Avalon",
+          "_pluginId": "Zuckungs List/planet.map",
+          "_internalId": "Zuckungs List/planet.map::New Avalon",
+          "_definedBy": [
+            "Zuckungs List/planet.map"
+          ],
+          "_lastModifiedBy": "Zuckungs List/planet.map"
+        }
+      }
+    ],
+    "planets": [
+      {
+        "name": "New Avalon",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::systemPlanet:New Avalon"
+      }
+    ],
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/planet.map",
+        "entries": [
+          {
+            "key": "hidden",
+            "values": [],
+            "children": null
+          },
+          {
+            "key": "pos",
+            "values": [
+              -740,
+              -123
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Republic"
+            ],
+            "children": null
+          },
+          {
+            "key": "attributes",
+            "values": [
+              "bright star",
+              "notable star"
+            ],
+            "children": null
+          },
+          {
+            "key": "arrival",
+            "values": [
+              1000
+            ],
+            "children": null
+          },
+          {
+            "key": "habitable",
+            "values": [
+              2000
+            ],
+            "children": null
+          },
+          {
+            "key": "belt",
+            "values": [
+              1748
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-67"
+            ],
+            "children": null
+          },
+          {
+            "key": "minables",
+            "values": [
+              "uranium",
+              3,
+              9.1
+            ],
+            "children": null
+          },
+          {
+            "key": "minables",
+            "values": [
+              "platinum",
+              3,
+              7.8
+            ],
+            "children": null
+          },
+          {
+            "key": "minables",
+            "values": [
+              "copper",
+              3,
+              5.3
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Clothing",
+              240
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Electronics",
+              611
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Equipment",
+              455
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Food",
+              422
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Heavy Metals",
+              899
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Industrial",
+              675
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Luxury Goods",
+              1135
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Medical",
+              520
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Metal",
+              367
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Plastic",
+              270
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "star/b3"
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  10
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "New Avalon"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/earth"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  2008.63
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  1
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "Theben",
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::Theben",
+    "_definedBy": [
+      "Zuckungs List/planet.map"
+    ],
+    "_lastModifiedBy": "Zuckungs List/planet.map"
+  }
+]

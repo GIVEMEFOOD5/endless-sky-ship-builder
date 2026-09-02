@@ -1,0 +1,1212 @@
+[
+  {
+    "name": "kestrel unlock timer",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "near",
+            "values": [
+              "Tarazed",
+              100
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "Kestrel Available: declined"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "branch",
+                "values": [
+                  "engines"
+                ],
+                "children": [
+                  {
+                    "key": "has",
+                    "values": [
+                      "kestrel: more engines"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "branch",
+                "values": [
+                  "weapons"
+                ],
+                "children": [
+                  {
+                    "key": "has",
+                    "values": [
+                      "kestrel: more weapons"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "branch",
+                "values": [
+                  "shields"
+                ],
+                "children": [
+                  {
+                    "key": "has",
+                    "values": [
+                      "kestrel: more shields"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "branch",
+                "values": [
+                  "bays"
+                ],
+                "children": [
+                  {
+                    "key": "has",
+                    "values": [
+                      "kestrel: more bays"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "engines"
+                ],
+                "children": null
+              },
+              {
+                "key": "action",
+                "values": [],
+                "children": [
+                  {
+                    "key": "set",
+                    "values": [
+                      "first kestrel engines"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "event",
+                    "values": [
+                      "kestrel available: more weapons",
+                      90
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "event",
+                    "values": [
+                      "kestrel available: more shields",
+                      180
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "event",
+                    "values": [
+                      "kestrel available: more bays",
+                      270
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "You receive a message from Charles Atinoda, the ship designer at Tarazed Corporation: \"Captain <last>, since you were deeply involved in the development of the Kestrel, we decided to inform you that we develop more variants of the Kestrel now. Stay tuned.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "weapons"
+                ],
+                "children": null
+              },
+              {
+                "key": "action",
+                "values": [],
+                "children": [
+                  {
+                    "key": "set",
+                    "values": [
+                      "first kestrel weapons"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "event",
+                    "values": [
+                      "kestrel available: more engines",
+                      90
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "event",
+                    "values": [
+                      "kestrel available: more shields",
+                      180
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "event",
+                    "values": [
+                      "kestrel available: more bays",
+                      270
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "You receive a message from Charles Atinoda, the ship designer at Tarazed Corporation: \"Captain <last>, since you were deeply involved in the development of the Kestrel, we decided to inform you that we develop more variants of the Kestrel now. Stay tuned.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "shields"
+                ],
+                "children": null
+              },
+              {
+                "key": "action",
+                "values": [],
+                "children": [
+                  {
+                    "key": "set",
+                    "values": [
+                      "first kestrel shields"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "event",
+                    "values": [
+                      "kestrel available: more weapons",
+                      90
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "event",
+                    "values": [
+                      "kestrel available: more engines",
+                      180
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "event",
+                    "values": [
+                      "kestrel available: more bays",
+                      270
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "You receive a message from Charles Atinoda, the ship designer at Tarazed Corporation: \"Captain <last>, since you were deeply involved in the development of the Kestrel, we decided to inform you that we develop more variants of the Kestrel now. Stay tuned.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "bays"
+                ],
+                "children": null
+              },
+              {
+                "key": "action",
+                "values": [],
+                "children": [
+                  {
+                    "key": "set",
+                    "values": [
+                      "first kestrel bays"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "event",
+                    "values": [
+                      "kestrel available: more weapons",
+                      90
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "event",
+                    "values": [
+                      "kestrel available: more engines",
+                      180
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "event",
+                    "values": [
+                      "kestrel available: more shields",
+                      270
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "You receive a message from Charles Atinoda, the ship designer at Tarazed Corporation: \"Captain <last>, since you were deeply involved in the development of the Kestrel, we decided to inform you that we develop more variants of the Kestrel now. Stay tuned.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {
+      "invisible": true
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "Kestrel Available: declined"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "near",
+          "values": [
+            "Tarazed",
+            100
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      {
+        "name": "kestrel available: more weapons",
+        "delayDays": 90,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "kestrel available: more shields",
+        "delayDays": 180,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "kestrel available: more bays",
+        "delayDays": 270,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "kestrel available: more engines",
+        "delayDays": 90,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "kestrel available: more shields",
+        "delayDays": 180,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "kestrel available: more bays",
+        "delayDays": 270,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "kestrel available: more weapons",
+        "delayDays": 90,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "kestrel available: more engines",
+        "delayDays": 180,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "kestrel available: more bays",
+        "delayDays": 270,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "kestrel available: more weapons",
+        "delayDays": 90,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "kestrel available: more engines",
+        "delayDays": 180,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      },
+      {
+        "name": "kestrel available: more shields",
+        "delayDays": 270,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
+    ],
+    "_pluginId": "Zuckungs List/kestrel.unlocks",
+    "_internalId": "Zuckungs List/kestrel.unlocks::kestrel unlock timer",
+    "_hash": "e2dacc367783",
+    "sourcePlugin": "Zuckungs List/kestrel.unlocks"
+  },
+  {
+    "name": "kestrel unlock engines",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "near",
+            "values": [
+              "Tarazed",
+              100
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "kestrel unlock timer: declined"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "event: kestrel available: more engines"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "first kestrel engines"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Wayfarer"
+        ],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "set",
+            "values": [
+              "Kestrel: More Engines: failed"
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "thumbnail/kestrele"
+                ],
+                "children": null
+              },
+              {
+                "key": "You receive a message from Charles Atinoda, the ship designer at Tarazed Corporation: \"Captain <last>, we are pleased to inform you that we developed a new Version of the Kestrel with better engines and that it is now available for sale here on Wayfarer. \"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {
+      "invisible": true
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "kestrel unlock timer: declined"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "event: kestrel available: more engines"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "first kestrel engines"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "near",
+          "values": [
+            "Tarazed",
+            100
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Wayfarer",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Wayfarer"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/kestrel.unlocks",
+    "_internalId": "Zuckungs List/kestrel.unlocks::kestrel unlock engines",
+    "_hash": "46c12b3ea469",
+    "sourcePlugin": "Zuckungs List/kestrel.unlocks"
+  },
+  {
+    "name": "kestrel unlock weapons",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "near",
+            "values": [
+              "Tarazed",
+              100
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "kestrel unlock timer: declined"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "event: kestrel available: more weapons"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "first kestrel weapons"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Wayfarer"
+        ],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "set",
+            "values": [
+              "Kestrel: More Weapons: failed"
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "thumbnail/kestrelw"
+                ],
+                "children": null
+              },
+              {
+                "key": "You receive a message from Charles Atinoda, the ship designer at Tarazed Corporation: \"Captain <last>, we are pleased to inform you that we developed a new Version of the Kestrel with more weapons and that it is now available for sale here on Wayfarer. \"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {
+      "invisible": true
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "kestrel unlock timer: declined"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "event: kestrel available: more weapons"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "first kestrel weapons"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "near",
+          "values": [
+            "Tarazed",
+            100
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Wayfarer",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Wayfarer"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/kestrel.unlocks",
+    "_internalId": "Zuckungs List/kestrel.unlocks::kestrel unlock weapons",
+    "_hash": "c1c504d63f6b",
+    "sourcePlugin": "Zuckungs List/kestrel.unlocks"
+  },
+  {
+    "name": "kestrel unlock shields",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "near",
+            "values": [
+              "Tarazed",
+              100
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "kestrel unlock timer: declined"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "event: kestrel available: more shields"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "first kestrel shields"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Wayfarer"
+        ],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "set",
+            "values": [
+              "Kestrel: More Shields: failed"
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "thumbnail/kestrels"
+                ],
+                "children": null
+              },
+              {
+                "key": "You receive a message from Charles Atinoda, the ship designer at Tarazed Corporation: \"Captain <last>, we are pleased to inform you that we developed a new Version of the Kestrel with better shields and that it is now available for sale here on Wayfarer. \"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {
+      "invisible": true
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "kestrel unlock timer: declined"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "event: kestrel available: more shields"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "first kestrel shields"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "near",
+          "values": [
+            "Tarazed",
+            100
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Wayfarer",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Wayfarer"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/kestrel.unlocks",
+    "_internalId": "Zuckungs List/kestrel.unlocks::kestrel unlock shields",
+    "_hash": "77297723f87e",
+    "sourcePlugin": "Zuckungs List/kestrel.unlocks"
+  },
+  {
+    "name": "kestrel unlock bays",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "near",
+            "values": [
+              "Tarazed",
+              100
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "kestrel unlock timer: declined"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "event: kestrel available: more bays"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "first kestrel bays"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Wayfarer"
+        ],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "set",
+            "values": [
+              "Kestrel: More Bays: failed"
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "thumbnail/kestrelc"
+                ],
+                "children": null
+              },
+              {
+                "key": "You receive a message from Charles Atinoda, the ship designer at Tarazed Corporation: \"Captain <last>, we are pleased to inform you that we developed a new Version of the Kestrel with more bays and that it is now available for sale here on Wayfarer. \"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {
+      "invisible": true
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "kestrel unlock timer: declined"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "event: kestrel available: more bays"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "first kestrel bays"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "near",
+          "values": [
+            "Tarazed",
+            100
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Wayfarer",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Wayfarer"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/kestrel.unlocks",
+    "_internalId": "Zuckungs List/kestrel.unlocks::kestrel unlock bays",
+    "_hash": "80eac89429ee",
+    "sourcePlugin": "Zuckungs List/kestrel.unlocks"
+  }
+]

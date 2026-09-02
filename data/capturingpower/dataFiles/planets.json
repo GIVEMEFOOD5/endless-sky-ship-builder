@@ -56,14 +56,124 @@
     },
     "tributeHails": {},
     "systemName": "Deneb",
+    "rawByPlugin": [
+      {
+        "pluginId": "official-game/endless-sky",
+        "entries": [
+          {
+            "key": "landscape",
+            "values": [
+              "land/myrabella5"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "This planet appears to be the Pug capital. Cities with impossibly high towers, connected by arches and bridges, are sprinkled across the landscape, and surrounding the cities are shorter, uglier buildings used as factories. However, a surprising amount of the land area is unsettled, its natural beauty untouched. Given how much damage humans did to Earth before discovering the hyperdrive, you find it hard to fathom how a species isolated in a single star system could have enough restraint to leave their home so pristine."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "The primary spaceport here is marked by an enormous collection of arches forming an open-air dome. Based on the power cables and devices attached to the sides of the arches, you suspect that the entire dome can be protected by an energy shield if necessary. Inside it, landing platforms jut out from the arches at many different levels."
+            ],
+            "children": null
+          },
+          {
+            "key": "required reputation",
+            "values": [
+              2
+            ],
+            "children": null
+          },
+          {
+            "key": "bribe",
+            "values": [
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "security",
+            "values": [
+              1
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Nova1422s list/capturingpower",
+        "entries": [
+          {
+            "key": "outfitter",
+            "values": [
+              "100k"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Lost In Midnight/Lost-in-Midnight",
+        "entries": [
+          {
+            "key": "tribute",
+            "values": [
+              1
+            ],
+            "children": [
+              {
+                "key": "threshold",
+                "values": [
+                  3000
+                ],
+                "children": null
+              },
+              {
+                "key": "fleet",
+                "values": [
+                  "Small Pug",
+                  15
+                ],
+                "children": null
+              },
+              {
+                "key": "fleet",
+                "values": [
+                  "Large Pug",
+                  3
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/landing.images",
+        "entries": [
+          {
+            "key": "landscape",
+            "values": [
+              "land/pugglemug"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "name": "Pugglemug",
     "_pluginId": "official-game/endless-sky",
     "_internalId": "official-game/endless-sky::Pugglemug",
     "_definedBy": [
       "official-game/endless-sky",
       "Nova1422s list/capturingpower",
-      "Lost In Midnight/Lost-in-Midnight"
+      "Lost In Midnight/Lost-in-Midnight",
+      "Zuckungs List/landing.images"
     ],
-    "_lastModifiedBy": "Lost In Midnight/Lost-in-Midnight"
+    "_lastModifiedBy": "Zuckungs List/landing.images"
   }
 ]

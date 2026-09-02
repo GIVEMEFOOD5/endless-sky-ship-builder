@@ -1,0 +1,1228 @@
+{
+  "plugin": "quarg.farm",
+  "repository": "https://github.com/zuckung/endless-sky-plugins",
+  "ships": [],
+  "variants": [],
+  "outfits": [
+    {
+      "name": "Stub",
+      "category": "Power",
+      "cost": 100000000,
+      "thumbnail": "outfit/quarg antimatter core",
+      "mass": 80,
+      "outfit space": -80,
+      "energy generation": 80,
+      "heat generation": 20,
+      "unplunderable": 1,
+      "description": "Woot?",
+      "governments": {
+        "quarg.farm": {
+          "quarg.farm": true
+        }
+      },
+      "governmentEvents": [],
+      "locations": {
+        "Zuckungs List/quarg.farm": {
+          "_deprecated/unused": true
+        }
+      },
+      "pluginId": "Zuckungs List/quarg.farm",
+      "internalId": "Zuckungs List/quarg.farm::Stub"
+    }
+  ],
+  "effects": [],
+  "galaxies": [],
+  "systems": [
+    {
+      "displayName": null,
+      "flags": {
+        "inaccessible": false,
+        "hidden": false,
+        "shrouded": false
+      },
+      "pos": {
+        "x": -509,
+        "y": 550
+      },
+      "government": "Quarg (Evil)",
+      "attributes": [],
+      "music": null,
+      "arrival": {
+        "distance": 600,
+        "link": null,
+        "jump": null
+      },
+      "departure": null,
+      "ramscoop": null,
+      "habitable": 600,
+      "belts": [
+        {
+          "distance": 1345,
+          "weight": null,
+          "pluginId": "Zuckungs List/quarg.farm"
+        }
+      ],
+      "invisibleFence": null,
+      "jumpRange": null,
+      "haze": "_menu/haze-blackbody",
+      "links": [],
+      "asteroids": [],
+      "minables": [],
+      "trade": [],
+      "fleets": [
+        {
+          "name": "Quarg (Evil)",
+          "count": 1,
+          "pluginId": "Zuckungs List/quarg.farm",
+          "internalId": "Zuckungs List/quarg.farm::systemFleet:Quarg (Evil)",
+          "period": 1000,
+          "toSpawn": null
+        },
+        {
+          "name": "Large Quarg (Evil)",
+          "count": 1,
+          "pluginId": "Zuckungs List/quarg.farm",
+          "internalId": "Zuckungs List/quarg.farm::systemFleet:Large Quarg (Evil)",
+          "period": 2000,
+          "toSpawn": null
+        },
+        {
+          "name": "Quarg Utility (Evil)",
+          "count": 1,
+          "pluginId": "Zuckungs List/quarg.farm",
+          "internalId": "Zuckungs List/quarg.farm::systemFleet:Quarg Utility (Evil)",
+          "period": 3000,
+          "toSpawn": null
+        }
+      ],
+      "raids": [],
+      "noRaids": false,
+      "hazards": [],
+      "starfieldDensity": null,
+      "objectTree": [
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "star/g5",
+          "spriteScale": null,
+          "distance": null,
+          "period": 10,
+          "offset": null,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "Zuckungs List/quarg.farm",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/rock6-b",
+          "spriteScale": null,
+          "distance": 392,
+          "period": 88,
+          "offset": null,
+          "visibility": null,
+          "hazards": [],
+          "children": [
+            {
+              "name": null,
+              "isLandable": false,
+              "sprite": "planet/europa",
+              "spriteScale": null,
+              "distance": 190,
+              "period": 22,
+              "offset": null,
+              "visibility": null,
+              "hazards": [],
+              "children": [],
+              "pluginId": "Zuckungs List/quarg.farm",
+              "internalId": null,
+              "_planetData": null
+            }
+          ],
+          "pluginId": "Zuckungs List/quarg.farm",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": "Ver",
+          "isLandable": true,
+          "sprite": "planet/ocean4",
+          "spriteScale": null,
+          "distance": 601,
+          "period": 312,
+          "offset": null,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "Zuckungs List/quarg.farm",
+          "internalId": "Zuckungs List/quarg.farm::object:Ver",
+          "_planetData": {
+            "displayName": null,
+            "attributes": [
+              "quarg"
+            ],
+            "requires": [],
+            "landscapes": [
+              {
+                "name": "land/bwerner5",
+                "count": 1,
+                "pluginId": "Zuckungs List/quarg.farm",
+                "internalId": "Zuckungs List/quarg.farm::landscape:land/bwerner5"
+              }
+            ],
+            "music": null,
+            "description": {
+              "text": "Ver is a military Quarg outpost for spying on the coalition.",
+              "toDisplay": null
+            },
+            "spaceport": {
+              "text": "The Quarg let you know that you aren't welcome here.",
+              "toDisplay": null
+            },
+            "toKnow": null,
+            "toLand": null,
+            "toAccessOutfitter": null,
+            "toAccessShipyard": null,
+            "port": null,
+            "government": "Quarg (Evil)",
+            "governmentInherited": true,
+            "shipyards": [],
+            "outfitters": [],
+            "requiredReputation": null,
+            "bribe": 0,
+            "bribeThreshold": null,
+            "bribeFraction": null,
+            "security": 0.9,
+            "wormhole": null,
+            "tribute": {
+              "credits": 1000,
+              "threshold": 8000,
+              "fleets": [
+                {
+                  "name": "Quarg (Evil)",
+                  "count": 2,
+                  "pluginId": "Zuckungs List/quarg.farm",
+                  "internalId": "Zuckungs List/quarg.farm::tributeFleet:Quarg (Evil)"
+                }
+              ],
+              "dailyReputationPenalty": null
+            },
+            "tributeHails": {},
+            "systemName": "Saquerver",
+            "rawByPlugin": [
+              {
+                "pluginId": "Zuckungs List/quarg.farm",
+                "entries": [
+                  {
+                    "key": "attributes",
+                    "values": [
+                      "quarg"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "landscape",
+                    "values": [
+                      "land/bwerner5"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "description",
+                    "values": [
+                      "Ver is a military Quarg outpost for spying on the coalition."
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "spaceport",
+                    "values": [
+                      "The Quarg let you know that you aren't welcome here."
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "bribe",
+                    "values": [
+                      0
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "security",
+                    "values": [
+                      0.9
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "tribute",
+                    "values": [
+                      1000
+                    ],
+                    "children": [
+                      {
+                        "key": "threshold",
+                        "values": [
+                          8000
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "fleet",
+                        "values": [
+                          "Quarg (Evil)",
+                          2
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "name": "Ver",
+            "_pluginId": "Zuckungs List/quarg.farm",
+            "_internalId": "Zuckungs List/quarg.farm::Ver",
+            "_definedBy": [
+              "Zuckungs List/quarg.farm"
+            ],
+            "_lastModifiedBy": "Zuckungs List/quarg.farm"
+          }
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/lava3-b",
+          "spriteScale": null,
+          "distance": 1176,
+          "period": 699,
+          "offset": null,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "Zuckungs List/quarg.farm",
+          "internalId": null,
+          "_planetData": null
+        },
+        {
+          "name": null,
+          "isLandable": false,
+          "sprite": "planet/gas15",
+          "spriteScale": null,
+          "distance": 2549,
+          "period": 2310,
+          "offset": null,
+          "visibility": null,
+          "hazards": [],
+          "children": [
+            {
+              "name": null,
+              "isLandable": false,
+              "sprite": "planet/dust5",
+              "spriteScale": null,
+              "distance": 207,
+              "period": 16,
+              "offset": null,
+              "visibility": null,
+              "hazards": [],
+              "children": [],
+              "pluginId": "Zuckungs List/quarg.farm",
+              "internalId": null,
+              "_planetData": null
+            },
+            {
+              "name": null,
+              "isLandable": false,
+              "sprite": "planet/desert4",
+              "spriteScale": null,
+              "distance": 376,
+              "period": 32,
+              "offset": null,
+              "visibility": null,
+              "hazards": [],
+              "children": [],
+              "pluginId": "Zuckungs List/quarg.farm",
+              "internalId": null,
+              "_planetData": null
+            }
+          ],
+          "pluginId": "Zuckungs List/quarg.farm",
+          "internalId": null,
+          "_planetData": null
+        }
+      ],
+      "planets": [
+        {
+          "name": "Ver",
+          "count": 1,
+          "pluginId": "Zuckungs List/quarg.farm",
+          "internalId": "Zuckungs List/quarg.farm::systemPlanet:Ver"
+        }
+      ],
+      "rawByPlugin": [
+        {
+          "pluginId": "Zuckungs List/quarg.farm",
+          "entries": [
+            {
+              "key": "pos",
+              "values": [
+                -509,
+                550
+              ],
+              "children": null
+            },
+            {
+              "key": "government",
+              "values": [
+                "Quarg (Evil)"
+              ],
+              "children": null
+            },
+            {
+              "key": "arrival",
+              "values": [
+                600
+              ],
+              "children": null
+            },
+            {
+              "key": "habitable",
+              "values": [
+                600
+              ],
+              "children": null
+            },
+            {
+              "key": "belt",
+              "values": [
+                1345
+              ],
+              "children": null
+            },
+            {
+              "key": "haze",
+              "values": [
+                "_menu/haze-blackbody"
+              ],
+              "children": null
+            },
+            {
+              "key": "fleet",
+              "values": [
+                "Quarg (Evil)",
+                1000
+              ],
+              "children": null
+            },
+            {
+              "key": "fleet",
+              "values": [
+                "Large Quarg (Evil)",
+                2000
+              ],
+              "children": null
+            },
+            {
+              "key": "fleet",
+              "values": [
+                "Quarg Utility (Evil)",
+                3000
+              ],
+              "children": null
+            },
+            {
+              "key": "object",
+              "values": [],
+              "children": [
+                {
+                  "key": "sprite",
+                  "values": [
+                    "star/g5"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "period",
+                  "values": [
+                    10
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "object",
+              "values": [],
+              "children": [
+                {
+                  "key": "sprite",
+                  "values": [
+                    "planet/rock6-b"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "distance",
+                  "values": [
+                    392
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "period",
+                  "values": [
+                    88
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "object",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "sprite",
+                      "values": [
+                        "planet/europa"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "distance",
+                      "values": [
+                        190
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "period",
+                      "values": [
+                        22
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "object",
+              "values": [
+                "Ver"
+              ],
+              "children": [
+                {
+                  "key": "sprite",
+                  "values": [
+                    "planet/ocean4"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "distance",
+                  "values": [
+                    601
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "period",
+                  "values": [
+                    312
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "object",
+              "values": [],
+              "children": [
+                {
+                  "key": "sprite",
+                  "values": [
+                    "planet/lava3-b"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "distance",
+                  "values": [
+                    1176
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "period",
+                  "values": [
+                    699
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "object",
+              "values": [],
+              "children": [
+                {
+                  "key": "sprite",
+                  "values": [
+                    "planet/gas15"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "distance",
+                  "values": [
+                    2549
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "period",
+                  "values": [
+                    2310
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "object",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "sprite",
+                      "values": [
+                        "planet/dust5"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "distance",
+                      "values": [
+                        207
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "period",
+                      "values": [
+                        16
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "object",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "sprite",
+                      "values": [
+                        "planet/desert4"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "distance",
+                      "values": [
+                        376
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "period",
+                      "values": [
+                        32
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "name": "Saquerver",
+      "_pluginId": "Zuckungs List/quarg.farm",
+      "_internalId": "Zuckungs List/quarg.farm::Saquerver",
+      "_definedBy": [
+        "Zuckungs List/quarg.farm"
+      ],
+      "_lastModifiedBy": "Zuckungs List/quarg.farm"
+    }
+  ],
+  "planets": [
+    {
+      "displayName": null,
+      "attributes": [
+        "quarg"
+      ],
+      "requires": [],
+      "landscapes": [
+        {
+          "name": "land/bwerner5",
+          "count": 1,
+          "pluginId": "Zuckungs List/quarg.farm",
+          "internalId": "Zuckungs List/quarg.farm::landscape:land/bwerner5"
+        }
+      ],
+      "music": null,
+      "description": {
+        "text": "Ver is a military Quarg outpost for spying on the coalition.",
+        "toDisplay": null
+      },
+      "spaceport": {
+        "text": "The Quarg let you know that you aren't welcome here.",
+        "toDisplay": null
+      },
+      "toKnow": null,
+      "toLand": null,
+      "toAccessOutfitter": null,
+      "toAccessShipyard": null,
+      "port": null,
+      "government": "Quarg (Evil)",
+      "governmentInherited": true,
+      "shipyards": [],
+      "outfitters": [],
+      "requiredReputation": null,
+      "bribe": 0,
+      "bribeThreshold": null,
+      "bribeFraction": null,
+      "security": 0.9,
+      "wormhole": null,
+      "tribute": {
+        "credits": 1000,
+        "threshold": 8000,
+        "fleets": [
+          {
+            "name": "Quarg (Evil)",
+            "count": 2,
+            "pluginId": "Zuckungs List/quarg.farm",
+            "internalId": "Zuckungs List/quarg.farm::tributeFleet:Quarg (Evil)"
+          }
+        ],
+        "dailyReputationPenalty": null
+      },
+      "tributeHails": {},
+      "systemName": "Saquerver",
+      "rawByPlugin": [
+        {
+          "pluginId": "Zuckungs List/quarg.farm",
+          "entries": [
+            {
+              "key": "attributes",
+              "values": [
+                "quarg"
+              ],
+              "children": null
+            },
+            {
+              "key": "landscape",
+              "values": [
+                "land/bwerner5"
+              ],
+              "children": null
+            },
+            {
+              "key": "description",
+              "values": [
+                "Ver is a military Quarg outpost for spying on the coalition."
+              ],
+              "children": null
+            },
+            {
+              "key": "spaceport",
+              "values": [
+                "The Quarg let you know that you aren't welcome here."
+              ],
+              "children": null
+            },
+            {
+              "key": "bribe",
+              "values": [
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "security",
+              "values": [
+                0.9
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute",
+              "values": [
+                1000
+              ],
+              "children": [
+                {
+                  "key": "threshold",
+                  "values": [
+                    8000
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "fleet",
+                  "values": [
+                    "Quarg (Evil)",
+                    2
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "name": "Ver",
+      "_pluginId": "Zuckungs List/quarg.farm",
+      "_internalId": "Zuckungs List/quarg.farm::Ver",
+      "_definedBy": [
+        "Zuckungs List/quarg.farm"
+      ],
+      "_lastModifiedBy": "Zuckungs List/quarg.farm"
+    }
+  ],
+  "wormholes": [],
+  "missions": [
+    {
+      "name": "plugin: quarg.farm",
+      "displayName": "[4] plugin: quarg.farm",
+      "description": "Shows options for the plugin quarg.farm.",
+      "raw": [
+        {
+          "key": "name",
+          "values": [
+            "[4] plugin: quarg.farm"
+          ],
+          "children": null
+        },
+        {
+          "key": "color",
+          "values": [
+            "selected",
+            "control.station plugin job: selected",
+            [
+              "unselected",
+              "control.station plugin job: unselected"
+            ]
+          ],
+          "children": null
+        },
+        {
+          "key": "color",
+          "values": [
+            "unselected",
+            "control.station plugin job: unselected"
+          ],
+          "children": null
+        },
+        {
+          "key": "job",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "repeat",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "description",
+          "values": [
+            "Shows options for the plugin quarg.farm."
+          ],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [
+            "Control Station"
+          ],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "installed plugin: control.station"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "label",
+                  "values": [
+                    "prestart"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "start"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "Plugin: quarg.farm",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\tshow plugin README",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "readme"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\tremove quarg atrocities (if changed by other plugins, like LiM)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "atrocities"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\tdone",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "end"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "readme"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "quarg.farm readme",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "Adds a new system \"Saquerver\" (between human and coalition space) where you can farm a new Quarg faction. Also the death sentence from all other Quarg got removed.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "The system \"Saquerver\" lies between \"Serquergen\" and \"Ablub\". The usual-sized Quarg fleets spawn there. Killing/plundering them doesn't make the other Quarg angry. Landing on the other Quarg faction's worlds doesn't end with a death sentence when you have their ships/outfits.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\tcontinue",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "start"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "atrocities"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "action",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "event",
+                      "values": [
+                        "beat lim"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "atrocities from all quarg factions removed!",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\tcontinue",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "start"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "end"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
+      "locations": [
+        "job"
+      ],
+      "flags": {
+        "color": [
+          "selected",
+          "control.station plugin job: selected",
+          [
+            "unselected",
+            "control.station plugin job: unselected"
+          ]
+        ]
+      },
+      "repeatable": true,
+      "repeatLimit": null,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "installed plugin: control.station"
+            ],
+            "children": null
+          }
+        ]
+      },
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onAccept": []
+        }
+      },
+      "source": {
+        "type": "planet",
+        "ref": {
+          "name": "Control Station",
+          "count": 1,
+          "pluginId": "Zuckungs List/control.station",
+          "internalId": "Zuckungs List/control.station::Control Station"
+        }
+      },
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "npcCount": 0,
+      "conditionSideEffects": [],
+      "eventTriggers": [
+        {
+          "name": "beat lim",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onAccept"
+        }
+      ],
+      "_pluginId": "Zuckungs List/quarg.farm",
+      "_internalId": "Zuckungs List/quarg.farm::plugin: quarg.farm",
+      "_hash": "99ee09b1a7ea",
+      "sourcePlugin": "Zuckungs List/quarg.farm"
+    },
+    {
+      "name": "Quarg Warning Saquerver",
+      "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "complete"
+          ],
+          "children": [
+            {
+              "key": "never",
+              "values": [],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "enter",
+            "Saquerver"
+          ],
+          "children": [
+            {
+              "key": "dialog",
+              "values": [
+                "When you enter the Saquerver system you receive a transmission: \"Human, this is a restricted military system, leave immediately or we will attack. You are not welcome here.\""
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
+      "locations": [
+        "landing"
+      ],
+      "flags": {
+        "invisible": true
+      },
+      "repeatable": false,
+      "repeatLimit": null,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "conditions": {
+        "complete": [
+          {
+            "key": "never",
+            "values": [],
+            "children": null
+          }
+        ]
+      },
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onEnter": []
+        }
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "npcCount": 0,
+      "conditionSideEffects": [],
+      "eventTriggers": [],
+      "_pluginId": "Zuckungs List/quarg.farm",
+      "_internalId": "Zuckungs List/quarg.farm::Quarg Warning Saquerver",
+      "_hash": "b77d3c75a243",
+      "sourcePlugin": "Zuckungs List/quarg.farm"
+    }
+  ],
+  "parsedAt": "2026-09-02T07:57:25.959Z"
+}

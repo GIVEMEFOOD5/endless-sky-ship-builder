@@ -2,18 +2,428 @@
   {
     "name": "Quarg Rep",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "tribute: Alta Hai"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "tribute: Ruelogakk"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "tribute: Giaru Gegno"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "tribute: Arroharg"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "tribute: Truklar"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "tribute: Echo"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "tribute: Grakhord"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "tribute: Forpelog"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "tribute: Lagrange"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "tribute: Spec Inci"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "tribute: Ut Divitas"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "tribute: Kuwaru Efreti"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "After your extreme show of dominance, The quarg contact you to let you know that they don't want to fight you anymore.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "send \"Yes, lets have peace!\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "peace"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "send \"There can be no peace between us!\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "war"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "send \"If you pay me 10 million credits maybe then we can have peace\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "pay"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "peace"
+                ],
+                "children": null
+              },
+              {
+                "key": "action",
+                "values": [],
+                "children": [
+                  {
+                    "key": "reputation: Quarg",
+                    "values": [
+                      "=",
+                      100
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "reputation: Quarg (Hai)",
+                    "values": [
+                      "=",
+                      100
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "reputation: Quarg (Kor Efret)",
+                    "values": [
+                      "=",
+                      100
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "reputation: Quarg (Gegno)",
+                    "values": [
+                      "=",
+                      100
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "reputation: Quarg (Incipias)",
+                    "values": [
+                      "=",
+                      100
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "The quargs immediately accept your decision.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "war"
+                ],
+                "children": null
+              },
+              {
+                "key": "The quargs have labeled you as their sworn enemy.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "pay"
+                ],
+                "children": null
+              },
+              {
+                "key": "action",
+                "values": [],
+                "children": [
+                  {
+                    "key": "reputation: Quarg",
+                    "values": [
+                      "=",
+                      100
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "reputation: Quarg (Hai)",
+                    "values": [
+                      "=",
+                      100
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "reputation: Quarg (Kor Efret)",
+                    "values": [
+                      "=",
+                      100
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "reputation: Quarg (Gegno)",
+                    "values": [
+                      "=",
+                      100
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "reputation: Quarg (Incipias)",
+                    "values": [
+                      "=",
+                      100
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "payment",
+                    "values": [
+                      10000000
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "The quargs immediately accept your decision.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "tribute: Alta Hai"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "tribute: Ruelogakk"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "tribute: Giaru Gegno"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "tribute: Arroharg"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "tribute: Truklar"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "tribute: Echo"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "tribute: Grakhord"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "tribute: Forpelog"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "tribute: Lagrange"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "tribute: Spec Inci"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "tribute: Ut Divitas"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "tribute: Kuwaru Efreti"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -34,11 +444,12 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Nova1422s list/tributequarg",
     "_internalId": "Nova1422s list/tributequarg::Quarg Rep",
-    "_hash": "f8aab98a8e1b",
+    "_hash": "1436cd8c9489",
     "sourcePlugin": "Nova1422s list/tributequarg"
   }
 ]

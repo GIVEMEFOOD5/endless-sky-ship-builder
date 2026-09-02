@@ -4685,6 +4685,188 @@
       },
       "tributeHails": {},
       "systemName": "Men",
+      "rawByPlugin": [
+        {
+          "pluginId": "official-game/endless-sky",
+          "entries": [
+            {
+              "key": "attributes",
+              "values": [
+                "frontier",
+                "pirate",
+                "south",
+                "south pirate"
+              ],
+              "children": null
+            },
+            {
+              "key": "landscape",
+              "values": [
+                "land/dmottl2"
+              ],
+              "children": null
+            },
+            {
+              "key": "description",
+              "values": [
+                "Thule is a mountainous world with a population of nearly a billion, settled in the early days of space exploration. When the colony was first established, the Earth government did not yet have the strength to control any system but its own. As such, Thule refused to join the Republic when it was formed, and has since repulsed all efforts to force it to do so. It is well-known that the planet sponsors pirate fleets which bring it cheap materials to bolster its economy, but the planet is so far from the center of Republic space that fighting a war here would be prohibitively expensive, and so they remain unopposed."
+              ],
+              "children": null
+            },
+            {
+              "key": "spaceport",
+              "values": [
+                "The inhabitants of Thule are notoriously suspicious of strangers. They all seem to immediately recognize you as an off-worlder, perhaps by your clothing or your accent. The food sold in the shops is like nothing you have seen elsewhere, and the natives' accents are so strong that they almost seem to be speaking a different language. You feel as if you are visiting an alien world; centuries of separation has created a culture here that is very different from your own."
+              ],
+              "children": null
+            },
+            {
+              "key": "outfitter",
+              "values": [
+                "Delta V Advanced"
+              ],
+              "children": null
+            },
+            {
+              "key": "outfitter",
+              "values": [
+                "Kraz Advanced"
+              ],
+              "children": null
+            },
+            {
+              "key": "outfitter",
+              "values": [
+                "Common Outfits"
+              ],
+              "children": null
+            },
+            {
+              "key": "outfitter",
+              "values": [
+                "Ammo North"
+              ],
+              "children": null
+            },
+            {
+              "key": "outfitter",
+              "values": [
+                "Ammo South"
+              ],
+              "children": null
+            },
+            {
+              "key": "outfitter",
+              "values": [
+                "Pirate Outfits"
+              ],
+              "children": null
+            },
+            {
+              "key": "outfitter",
+              "values": [
+                "Pirate Basics"
+              ],
+              "children": null
+            },
+            {
+              "key": "outfitter",
+              "values": [
+                "Pirate Advanced"
+              ],
+              "children": null
+            },
+            {
+              "key": "bribe",
+              "values": [
+                0.05
+              ],
+              "children": null
+            },
+            {
+              "key": "security",
+              "values": [
+                0.6
+              ],
+              "children": null
+            },
+            {
+              "key": "tribute",
+              "values": [
+                900
+              ],
+              "children": [
+                {
+                  "key": "threshold",
+                  "values": [
+                    2500
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "fleet",
+                  "values": [
+                    "Large Southern Pirates",
+                    16
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "pluginId": "DAIS/DAIS",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "shipyard",
+                "Thule"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Mega Freight/Mega-Freight",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "outfitter",
+                "MGF South Pirate Outfits"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Lost In Midnight/Lost-in-Midnight",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "outfitter",
+                "Pirate Outfits"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Zuckungs List/landing.images",
+          "entries": [
+            {
+              "key": "landscape",
+              "values": [
+                "land/thule"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "name": "Thule",
       "_pluginId": "official-game/endless-sky",
       "_internalId": "official-game/endless-sky::Thule",
@@ -4692,9 +4874,10 @@
         "official-game/endless-sky",
         "DAIS/DAIS",
         "Mega Freight/Mega-Freight",
-        "Lost In Midnight/Lost-in-Midnight"
+        "Lost In Midnight/Lost-in-Midnight",
+        "Zuckungs List/landing.images"
       ],
-      "_lastModifiedBy": "Lost In Midnight/Lost-in-Midnight"
+      "_lastModifiedBy": "Zuckungs List/landing.images"
     }
   ],
   "wormholes": [],
@@ -4702,18 +4885,84 @@
     {
       "name": "Erinyes Update",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "event: dreadnoughts for sale"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "erinyes for sale"
+              ],
+              "children": null
+            },
+            {
+              "key": "event",
+              "values": [
+                "erinyes deployment"
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "event: dreadnoughts for sale"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -4729,31 +4978,108 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "erinyes for sale",
-        "erinyes deployment"
+        {
+          "name": "erinyes for sale",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        },
+        {
+          "name": "erinyes deployment",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "DAIS/DAIS",
       "_internalId": "DAIS/DAIS::Erinyes Update",
-      "_hash": "18b9b262a611",
+      "_hash": "a43a01077cd4",
       "sourcePlugin": "DAIS/DAIS"
     },
     {
       "name": "Rime Branches Update",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "wanderers: first tech increase"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "rime branch for sale"
+              ],
+              "children": null
+            },
+            {
+              "key": "event",
+              "values": [
+                "rime branch deployment"
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "wanderers: first tech increase"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -4769,31 +5095,108 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "rime branch for sale",
-        "rime branch deployment"
+        {
+          "name": "rime branch for sale",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        },
+        {
+          "name": "rime branch deployment",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "DAIS/DAIS",
       "_internalId": "DAIS/DAIS::Rime Branches Update",
-      "_hash": "18b9b262a611",
+      "_hash": "529ea48afe2b",
       "sourcePlugin": "DAIS/DAIS"
     },
     {
       "name": "Catatumbos Update",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "event: wanderers: derecho mass production"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "catatumbo for sale"
+              ],
+              "children": null
+            },
+            {
+              "key": "event",
+              "values": [
+                "catatumbo deployment"
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "event: wanderers: derecho mass production"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -4809,29 +5212,1236 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "catatumbo for sale",
-        "catatumbo deployment"
+        {
+          "name": "catatumbo for sale",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        },
+        {
+          "name": "catatumbo deployment",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "DAIS/DAIS",
       "_internalId": "DAIS/DAIS::Catatumbos Update",
-      "_hash": "18b9b262a611",
+      "_hash": "dac1cd0e8746",
       "sourcePlugin": "DAIS/DAIS"
     },
     {
       "name": "Moonbeam for Sale",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "minor",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [
+            "Thule"
+          ],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "random",
+              "values": [
+                "<",
+                50
+              ],
+              "children": null
+            },
+            {
+              "key": "or",
+              "values": [],
+              "children": [
+                {
+                  "key": "has",
+                  "values": [
+                    "DAIS bypass mission requirements"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "combat rating",
+                  "values": [
+                    ">",
+                    6000
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "and",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "combat rating",
+                      "values": [
+                        ">",
+                        2000
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "has",
+                      "values": [
+                        "main plot completed"
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "branch",
+                  "values": [
+                    "met our lady"
+                  ],
+                  "children": [
+                    {
+                      "key": "has",
+                      "values": [
+                        "Erannas Revenge 2: done"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "While exploring what passes for an upscale bar at this planet's spaceport, you notice that the other patrons have suddenly quieted down. A tall, older woman walks over to the bar and retrieves a glass of something before approaching you.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"The great Captain <first> <last>,\" she says. Her voice is sharp and laced with an accent you can't quite place. \"It's not often we have someone of such renown grace our humble establishment.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"It's not often I visit 'establishments' on pirate worlds.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "to",
+                          "values": [
+                            "display"
+                          ],
+                          "children": [
+                            {
+                              "key": "reputation: Pirate",
+                              "values": [
+                                "<",
+                                0
+                              ],
+                              "children": null
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"Really? I thought the place felt like home.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "to",
+                          "values": [
+                            "display"
+                          ],
+                          "children": [
+                            {
+                              "key": "reputation: Pirate",
+                              "values": [
+                                ">",
+                                25
+                              ],
+                              "children": null
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"Whatever it is you're selling, I'm not interested.\"",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t\"And who are you?\"",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t\"Go on.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "direct"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "\tShe chuckles, short and dry. \"Your reputation did not imply you would have such a talent for humor, captain. One can only hope your biographers shall be more comprehensive in their work than the newsrags. I am the proprietress of this establishment, along with a couple of other on-world institutions.\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "goto",
+                      "values": [
+                        "get on with it"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "direct"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\tShe chuckles, short and dry. \"Canny, are you? I am the proprietress of this establishment, along with a couple of other on-world institutions.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "get on with it"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"You seem familiar too. One of the local warlords, I presume?\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "to",
+                          "values": [
+                            "display"
+                          ],
+                          "children": [
+                            {
+                              "key": "reputation: Pirate",
+                              "values": [
+                                ">",
+                                25
+                              ],
+                              "children": null
+                            }
+                          ]
+                        },
+                        {
+                          "key": "goto",
+                          "values": [
+                            "recognized"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"Get on with it.\"",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t\"Look, I really don't have time for this.\"",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "\t\"Oh, very well\" she says. She knocks back her glass and slides it back over to the bartender, who carefully and noiselessly cleans it.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "goto",
+                      "values": [
+                        "our lady"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "recognized"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"I'm touched!\" she says. \"So few really recognize me these days. Then again, that has its benefits...\" She knocks back her glass and slides it back over to the bartender, who carefully and noiselessly cleans it.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "our lady"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"I am Our Lady of the Serrated Blade. I ran a little piratical outfit out of here back in the day, but these days I'm just a simple businesswoman. It's amazing how effectively you can liberate credits from the weary and well-to-do alike with nothing more than fine imported whiskey and the impression that you're accustomed to violence. And as it so happens, I recognize between us the telltale heralds of a mutually beneficial transaction.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"What sort of transaction?\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "ship offer"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"You don't make it sound like I have much choice.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "not much choice"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"I don't do business with criminals.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "to",
+                          "values": [
+                            "display"
+                          ],
+                          "children": [
+                            {
+                              "key": "reputation: Pirate",
+                              "values": [
+                                "<",
+                                0
+                              ],
+                              "children": null
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "\tOur Lady of the Serrated Blade laughs again. \"Where's the fun in that?\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "goto",
+                      "values": [
+                        "ship offer"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "not much choice"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Oh, don't worry,\" Our Lady of the Serrated Blade says, \"I prefer to kill only those who I'm certain won't have a starship open fire on my bar if it figures out what happens. Small fry, you know.\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "goto",
+                      "values": [
+                        "ship offer"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "met our lady"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "While exploring what passes for an upscale bar at this planet's spaceport, you notice that the other patrons have suddenly quieted down. A tall, older woman walks over to the bar and retrieves a glass of something before approaching you. You recognize her as the from when you returned Eranna to Thule; it's Our Lady of the Serrated Blade, a local woman of some importance on Thule.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"The great Captain <first> <last>,\" she says. Her voice is sharp and laced with an accent you can't quite place. \"What a pleasure to meet such a capable figure again.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"A pleasure for me as well, Our Lady.\"",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t\"Has our mutual friend settled in well?\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "eranna"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "\t\"It's a real surprise,\" Our Lady says, \"because I was just thinking about you. I thought there might be the makings of a beneficial business relationship between the two of us - you see, our mutual friend Eranna says you have a soft spot for quality starships.\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "goto",
+                      "values": [
+                        "snark"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "eranna"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Indeed she has,\" says Our Lady. \"It seems sweet Eranna picked up some useful business skills during her time with the Syndicate...\" she interrupts herself with what must be a rude local hand gesture, \"...and has made herself quite indispensible to a number of persons of interest here, yours truly included. Though not, I might add, as indispensible as she is to my daughter!\" She laughs raucously. \"Anyway, while those two aren't whispering sweet nothings to each other, they whisper other things to me; things like your soft spot for quality starships. Am I right?\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "snark"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"Somehow I didn't take you for a used-starship saleswoman.\"",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t\"I suppose you are.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "ship offer"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "\tOur Lady guffaws and slaps her thigh. \"Well, what do I have to do? Show off my black books? Order a hit on some poor sop on the street? Forgive a woman for having a diversified business portfolio.\" She slides her glass back to the bartender, who starts polishing it while he watches the two of you talk.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "ship offer"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\tOur Lady continues. \"Suffice it to say, I have a vessel in my private collection you're unlikely to find on the market. Or anywhere else, really. Stargazer Shipyards Moonbeam, circa 2620, not factory-new of course - what is these days, I swear Tarazed has a whole team of 'scratch engineers' who key the entire damn hull right there in the factory - but still purrs like a kitten and makes shame for those potbellied Republic hulks.\" She mimes spitting on the ground.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"I used it for smuggling squirrel-tech in the '80s, but after I got out of starside business, didn't really have much use for it. Could sell it for scrap or to some fat-cat corpo from the Paradise Worlds, but there's nothing that would please me more than to see it in the hands of some young but, shall we say, provably effective troublemaker. You see, I've become sentimental in my old age.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"And how much would this cost me?\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "how much"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"Another time, perhaps.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "another time"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"Sorry, not interested.\"",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "how much"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\tOur Lady of the Serrated Blade taps on the bar and the bartender slides her another drink, which she slowly swirls around in the glass while contemplating. \"Let's call it a round forty million, all-included.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"Okay.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "to",
+                          "values": [
+                            "display"
+                          ],
+                          "children": [
+                            {
+                              "key": "credits",
+                              "values": [
+                                ">=",
+                                40000000
+                              ],
+                              "children": null
+                            }
+                          ]
+                        },
+                        {
+                          "key": "goto",
+                          "values": [
+                            "shipyard"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"Thank you, but I don't think I'm interested at that price.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "not interested"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"I don't have that much on hand right now.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "another time"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"For an antique ship? That's extortionate!\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "extortionate"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"Aw, you can do better for a friend of the family, can't you? I've heard those older-model ships have some trouble with modern shield generators.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "to",
+                          "values": [
+                            "display"
+                          ],
+                          "children": [
+                            {
+                              "key": "has",
+                              "values": [
+                                "Erannas Revenge 2: done"
+                              ],
+                              "children": null
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"I know from experience that those older-model ships can have some trouble with modern shield generators.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "to",
+                          "values": [
+                            "display"
+                          ],
+                          "children": [
+                            {
+                              "key": "or",
+                              "values": [],
+                              "children": [
+                                {
+                                  "key": "has",
+                                  "values": [
+                                    "ship model (all): Enforcer"
+                                  ],
+                                  "children": null
+                                },
+                                {
+                                  "key": "has",
+                                  "values": [
+                                    "ship model (all): Saber"
+                                  ],
+                                  "children": null
+                                },
+                                {
+                                  "key": "has",
+                                  "values": [
+                                    "ship model (all): Moonbeam"
+                                  ],
+                                  "children": null
+                                },
+                                {
+                                  "key": "has",
+                                  "values": [
+                                    "ship model (all): Puffin"
+                                  ],
+                                  "children": null
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "\tShe laughs. \"I like you; good business sense! Indeed they do. Back in the day it didn't matter as much. Okay, then, I'll cut you a deal. Forty-eight million, and I'll get one of my friends to do what he can with the shield matrix. Might not be quite as clean as what they do in Tarazed, but I bet he'll squeeze an extra ten percent out of it. Maybe fifteen if he hasn't had too much to drink. What do you say?\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "action",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "set",
+                      "values": [
+                        "moonbeam marauder variant"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"That's more like it. It's a deal.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "to",
+                          "values": [
+                            "display"
+                          ],
+                          "children": [
+                            {
+                              "key": "credits",
+                              "values": [
+                                ">=",
+                                48000000
+                              ],
+                              "children": null
+                            }
+                          ]
+                        },
+                        {
+                          "key": "goto",
+                          "values": [
+                            "shipyard wait"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"No, thank you.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "not interested"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"I don't have that much on hand right now.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "another time"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "extortionate"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"I could extort you if you prefer. Do you want the ship, yes or no?\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"Yes.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "to",
+                          "values": [
+                            "display"
+                          ],
+                          "children": [
+                            {
+                              "key": "credits",
+                              "values": [
+                                ">=",
+                                40000000
+                              ],
+                              "children": null
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"No.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "not interested"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"I don't have that much on hand right now.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "another time"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "shipyard"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "action",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "give",
+                      "values": [
+                        "ship",
+                        "Moonbeam (Our Lady)",
+                        "Arrow of Artemis"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "payment",
+                      "values": [
+                        -40000000
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "\tYou head to a hidden-away hangar at some distance from the main spaceport. It is almost entirely filled with the ship you came here to buy, large and angular - archetypical 2600s styling. Despite the griminess of the hangar, the ship itself seems solid and superficially spaceworthy, if somewhat weathered. You hand over the credits to Our Lady, who in turn leads you aboard and shows you around. It's clear that a lot of care has gone into making the interior comfortable; the seats have been upholstered with dusty but resilient leather and the bulkheads have been trimmed with real wood in the captain's quarters. Eventually, Our Lady shows you the bridge; a cramped but efficient affair with an older-model projective viewscreen.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t(Sit in the captain's chair.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "neutral"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"I always loved these 2600s ships. Nothing these days quite has the same charm.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "appreciative"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"It'll do.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "neutral"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "neutral"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"She's yours now, Captain,\" says Our Lady. \"Take good care of her.\" She exits and leaves you to get acquainted with your new purchase.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "decline",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "appreciative"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"They don't, do they,\" says Our Lady. \"Hah, like I said. Sentimental in my old age. She's yours now, Captain. Take good care of her.\" She exits and leaves you to get acquainted with your new purchase.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "decline",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "shipyard wait"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "action",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "give",
+                      "values": [
+                        "ship",
+                        "Moonbeam of the Serrated Blade",
+                        "Arrow of Artemis"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "payment",
+                      "values": [
+                        -48000000
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "\tYou head to a hidden-away hangar at some distance from the main spaceport. It is almost entirely filled with the ship you came here to buy, large and angular - archetypical 2600s styling. Despite the griminess of the hangar, the ship itself seems solid and superficially spaceworthy, if somewhat weathered. A work crew is crawling over the surface of it, peeling open sections of hull plating to get at the shield emitters. You hand over the credits to Our Lady, who briefly introduces you to her aforementioned \"friend,\" a short, stocky man with an enormous moustache who leaves grease stains on your hand when he shakes it.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tOnce the introductions are out of the way, Our Lady shows you around inside the vessel. It's clear that a lot of care has gone into making the interior comfortable; the seats have been upholstered with dusty but resilient leather and the bulkheads have been trimmed with real wood in the captain's quarters. Eventually, she shows you the bridge; a cramped but efficient affair with an older-model projective viewscreen.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t(Sit in the captain's chair.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "neutral wait"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"I always loved these 2600s ships. Nothing these days quite has the same charm.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "appreciative wait"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"It'll do.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "neutral wait"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "neutral wait"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"She's yours now, Captain,\" says Our Lady. \"Take good care of her.\" She exits and leaves you to get acquainted with your new purchase, sticking around outside to give some orders to the work crew until they are eventually finished and she pays them a small portion of the additional eight million credits you gave her.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "decline",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "appreciative wait"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"They don't, do they,\" says Our Lady. \"Hah, like I said. Sentimental in my old age. She's yours now, Captain. Take good care of her.\" She exits and leaves you to get acquainted with your new purchase, sticking around outside to give some orders to the work crew until they are eventually finished and she pays them a small portion of the additional eight million credits you gave her.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "decline",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "not interested"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\tShe looks you over for a second, pushes her hair back, and then stands. \"So be it, <first>. Clear skies to you, tasteless as you might be.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tSoon after she leaves, the bar regains its usual lively atmosphere.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "decline",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "another time"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "action",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "set",
+                      "values": [
+                        "Moonbeam for Sale: deferred"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "\t\"Fair enough,\" she says, before making a wide gesture with her arms. \"Collate your assets! Do whatever it is you need to do. Talk to my people in the spaceport here when you're ready. The ones carrying the big knives, they'll be easy to find. Clear skies to you, captain.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tSoon after she leaves, the bar regains its usual lively atmosphere.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "decline",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
       "locations": [],
+      "flags": {
+        "invisible": true,
+        "minor": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": true,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              50
+            ],
+            "children": null
+          },
+          {
+            "key": "or",
+            "values": [],
+            "children": [
+              {
+                "key": "has",
+                "values": [
+                  "DAIS bypass mission requirements"
+                ],
+                "children": null
+              },
+              {
+                "key": "combat rating",
+                "values": [
+                  ">",
+                  6000
+                ],
+                "children": null
+              },
+              {
+                "key": "and",
+                "values": [],
+                "children": [
+                  {
+                    "key": "combat rating",
+                    "values": [
+                      ">",
+                      2000
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "has",
+                    "values": [
+                      "main plot completed"
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -4881,26 +6491,286 @@
         ]
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [],
       "_pluginId": "DAIS/DAIS",
       "_internalId": "DAIS/DAIS::Moonbeam for Sale",
-      "_hash": "1bb5151d2463",
+      "_hash": "59fe4344f413",
       "sourcePlugin": "DAIS/DAIS"
     },
     {
       "name": "Moonbeam for Sale Follow-Up",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [
+            "Thule"
+          ],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "Moonbeam for Sale: deferred"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "While browsing the spaceport here, you notice several of the locals wearing long, serrated knives on their belts, the distinguishing feature of the crew of Our Lady of the Serrated Blade, who previously approached you to sell a vintage Moonbeam heavy warship.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t(Approach them so you can purchase the ship.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "to",
+                          "values": [
+                            "display"
+                          ],
+                          "children": [
+                            {
+                              "key": "and",
+                              "values": [],
+                              "children": [
+                                {
+                                  "key": "credits",
+                                  "values": [
+                                    ">=",
+                                    40000000
+                                  ],
+                                  "children": null
+                                },
+                                {
+                                  "key": "not",
+                                  "values": [
+                                    "moonbeam marauder variant"
+                                  ],
+                                  "children": null
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t(Approach them so you can purchase the ship, with modifications.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "to",
+                          "values": [
+                            "display"
+                          ],
+                          "children": [
+                            {
+                              "key": "and",
+                              "values": [],
+                              "children": [
+                                {
+                                  "key": "credits",
+                                  "values": [
+                                    ">=",
+                                    48000000
+                                  ],
+                                  "children": null
+                                },
+                                {
+                                  "key": "has",
+                                  "values": [
+                                    "moonbeam marauder variant"
+                                  ],
+                                  "children": null
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "key": "goto",
+                          "values": [
+                            "purchase modified"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t(Another time, perhaps.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "defer",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t(Never.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "decline",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "action",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "give",
+                      "values": [
+                        "ship",
+                        "Moonbeam (Our Lady)",
+                        "Arrow of Artemis"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "payment",
+                      "values": [
+                        -40000000
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "\tThe person you approach says nothing other than a quick \"come with me,\" and they lead you to a hangar set aside from the main spaceport.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "goto",
+                      "values": [
+                        "end"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "purchase modified"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "action",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "give",
+                      "values": [
+                        "ship",
+                        "Moonbeam of the Serrated Blade",
+                        "Arrow of Artemis"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "payment",
+                      "values": [
+                        -48000000
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "clear",
+                      "values": [
+                        "moonbeam marauder variant"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "\tThe person you approach says nothing other than a quick \"come with me,\" and they lead you to a hangar set aside from the main spaceport.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "end"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\tOur Lady of the Serrated Blade arrives a few minutes later to take your credits and motions for you to go aboard. \"I'd love to show you around,\" she says, \"but I'm afraid one of my competitors made a serious tactical error a couple of days ago and I'm the midst of what you might call a hostile takeover. Take good care of her, captain, and clear skies to you.\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "decline",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
       "locations": [],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "Moonbeam for Sale: deferred"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -4950,37 +6820,174 @@
         ]
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [],
       "_pluginId": "DAIS/DAIS",
       "_internalId": "DAIS/DAIS::Moonbeam for Sale Follow-Up",
-      "_hash": "9b20aa5c4801",
+      "_hash": "ceec6bbfe9dc",
       "sourcePlugin": "DAIS/DAIS"
     },
     {
       "name": "Marauder Reflection Hunting",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "near",
+              "values": [
+                "Sol",
+                100
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "flagship model: Reflection"
+              ],
+              "children": null
+            },
+            {
+              "key": "total ships",
+              "values": [
+                "==",
+                1
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "npc",
+          "values": [
+            "kill"
+          ],
+          "children": [
+            {
+              "key": "government",
+              "values": [
+                "Bounty"
+              ],
+              "children": null
+            },
+            {
+              "key": "personality",
+              "values": [
+                "heroic",
+                "staying",
+                "nemesis",
+                "target"
+              ],
+              "children": null
+            },
+            {
+              "key": "system",
+              "values": [],
+              "children": [
+                {
+                  "key": "distance",
+                  "values": [
+                    1,
+                    1
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "ship",
+              "values": [
+                "Marauder Reflection",
+                "Grendel"
+              ],
+              "children": null
+            },
+            {
+              "key": "on",
+              "values": [
+                "kill"
+              ],
+              "children": [
+                {
+                  "key": "fail",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "flagship model: Reflection"
+            ],
+            "children": null
+          },
+          {
+            "key": "total ships",
+            "values": [
+              "==",
+              1
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {}
       },
       "source": {
         "type": "filter",
-        "value": {
-          "near": "Sol 100"
-        }
+        "value": [
+          {
+            "key": "near",
+            "values": [
+              "Sol",
+              100
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -4989,23 +6996,524 @@
         "outfits": [],
         "ships": []
       },
-      "hasNpcObjective": false,
+      "hasNpcObjective": true,
+      "npcCount": 1,
       "conditionSideEffects": [],
       "eventTriggers": [],
       "_pluginId": "DAIS/DAIS",
       "_internalId": "DAIS/DAIS::Marauder Reflection Hunting",
-      "_hash": "3feb15c0da69",
+      "_hash": "ad11f55dcbc9",
       "sourcePlugin": "DAIS/DAIS"
     },
     {
       "name": "Erannas Revenge 1",
       "displayName": "Steal modified Akster",
+      "description": "Eranna Merced, wife of Syndicate executive Leo Merced, wants to escape both her marriage and the Syndicate and return home to Thule. As payment, she has provided the access codes to Leo's favorite ship, a modified Akster parked on <destination> that he confiscated off a pirate warlord years ago.",
+      "raw": [
+        {
+          "key": "name",
+          "values": [
+            "Steal modified Akster"
+          ],
+          "children": null
+        },
+        {
+          "key": "description",
+          "values": [
+            "Eranna Merced, wife of Syndicate executive Leo Merced, wants to escape both her marriage and the Syndicate and return home to Thule. As payment, she has provided the access codes to Leo's favorite ship, a modified Akster parked on <destination> that he confiscated off a pirate warlord years ago."
+          ],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "government",
+              "values": [
+                "Syndicate"
+              ],
+              "children": null
+            },
+            {
+              "key": "not",
+              "values": [
+                "planet",
+                "Amazon"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "destination",
+          "values": [
+            "Amazon"
+          ],
+          "children": null
+        },
+        {
+          "key": "passengers",
+          "values": [
+            1
+          ],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "or",
+              "values": [],
+              "children": [
+                {
+                  "key": "has",
+                  "values": [
+                    "DAIS bypass mission requirements"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "has",
+                  "values": [
+                    "main plot completed"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "has",
+                  "values": [
+                    "Moonbeam for Sale: offered"
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "\tAs you sit in the spaceport bar waiting for opportunities, one of them finds you. Behind you, you hear a woman's voice: \"Excuse me. You're Captain <first> <last>, aren't you?\" You turn around and see her, a relatively slight, well-dressed lady with a shock of short black hair. She's sitting in a particularly well-shadowed booth, and her accent is tinged with something you can't quite place.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"Yes. Do I know you?\"",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t\"Yes. And you are?\"",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "branch",
+                  "values": [
+                    "war hero"
+                  ],
+                  "children": [
+                    {
+                      "key": "has",
+                      "values": [
+                        "main plot completed"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "\tShe extends a hand. \"My name is Eranna Merced,\" she says. \"I heard about you from a friend of mine. She says you're a capable, honorable commander... a bit of a starship enthusiast, too, if she tells me correctly.\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "goto",
+                      "values": [
+                        "known"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "war hero"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\tShe extends a hand. \"My name is Eranna Merced,\" she says. \"I've seen your face on the broadcasts about the end of the Pug War. Word is you're a capable, honorable person... a bit of a starship enthusiast, too, if rumor is to be believed.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "known"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"I had no idea I was so well-known,\" you say.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tShe smiles. \"Don't get all self-important,\" she says. \"But I'm a careful listener. Well, if you're anything like they say, then I'm hoping you might be willing to help me with a job I want done.\" She pauses for a moment and looks around to make sure no one else is listening in. \"But first, I need to know: what do you really think about the Syndicate? I'm not going to report you to them or anything... I just need to know the truth.\" Her voice has taken on a strangely concerned and desperate tone, and her brow furrows, the heavy shadows left by the bar's lighting casting it into sharp relief.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"I have no real love for it, but I doubt most people do. It's just a part of life.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "jaded"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"It's a machine that exploits the many to provide for the few. Humanity would be better without it.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "resentful"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"Maybe the executives are misguided at times, but they're people worth looking up to. Their work ethic is commendable.\"",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "\tEranna chuckles. \"Misguided...\" she echoes. \"I wish you were more like your rumors, Captain. Please excuse me.\" She offers you a cursory nod and gets up, leaving the bar in a hurry.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "decline",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "jaded"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\tEranna chuckles. \"A part of life...\" she echoes. \"So it is. But if you really don't care for it, then maybe you'll be willing.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Willing to do what?\" you ask.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "goto",
+                      "values": [
+                        "leo"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "resentful"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"How clear-headed!\" Eranna says, smiling darkly. \"You're quite right. Maybe you'd be willing to help someone against it, then?\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tYou let out a curious \"hmm\" that maintains her smile.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "leo"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"My husband is Leo Merced, director of Anti-Pirate Activities for Syndicate Security,\" says Eranna. Her eyes are gleaming like bloody murder. \"He's a bastard. I want out - I've wanted out for years, but now I finally have a plan. And I want to make him hurt all along the way. Help me, and I can get you a nice ship for your trouble. What do you say?\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "questions"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"Can't you just get a divorce?\"",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t\"What's your plan?\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "plan"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"This sounds like an exceptionally bad idea. No thank you.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "decline",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "\tEranna lets out a jaded scoff. \"Republic law says I have that right, doesn't it? But laws have a way of bending for the likes of Syndicate execs. If you must know, I never had the slightest desire to marry him in the first place; but when a rich man swoops down to a poor planet and greases the local magistrate's palms twice over, he tends to get his trophies. Especially when he can order an 'anti-crime force' to come in and scour the place for corruption and smuggling and drugs.\" She lets out a long, angry exhale. \"So, what do you say?\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"So what's your plan?\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "plan"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"Sounds like 'bastard' is right.\"",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t\"Your husband sounds like a bad person to make an enemy of. No thank you.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "decline",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "\t\"Don't ask me to get into details,\" she says. \"It'll do neither of us any good. Let's just say the Syndicate has a habit of promoting the most wretched among its ranks.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"So what's your plan?\" you ask.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "plan"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"I have an... old friend on Thule,\" Eranna says. \"Someone I can trust. Someone Leo would be a fool to cross, even with his position. All I need is someone to get me there incognito. But I want to send him a message, and you need payment, so: one of his favorite houses is on Amazon, in the south of Syndicate space. One of his favorite ships is there, too - and I have the access codes. Help me and it's yours.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"Let's do this. Onward to Amazon.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "accept",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"What sort of ship is it?\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "akster"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"Seems like an awfully rich reward.\"",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t\"Sorry, but you clearly haven't thought this through. No thank you.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "decline",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "\t\"Leo is an awfully rich man,\" says Eranna, and sighs. \"Look, I don't care if you burn the damn thing; so long as he doesn't have it, I'm happy.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Fair enough,\" you say. \"Onward to Amazon, then.\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "akster"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\tEranna smiles. \"I thought you might be interested. It's a Lionheart Akster he confiscated from a pirate warlord a decade or so ago; heavily modified, I'm told. He likes to go on joyrides. I doubt you'll find another one like it.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"All right, then,\" you say. \"Onward to Amazon.\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "log",
+              "values": [
+                "Accepted a mission from Eranna Merced, wife to \"bastard\" Syndicate executive Leo Merced. Agreed to take her to her former home of Thule in exchange for the access codes to Leo Merced's prized Lionheart Akster."
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "complete"
+          ],
+          "children": [
+            {
+              "key": "give",
+              "values": [
+                "ship",
+                "Akster of the Torches",
+                "Firestarter"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [],
+      "flags": {},
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": false,
       "illegal": null,
       "deadline": null,
       "cargo": null,
@@ -5014,6 +7522,37 @@
         "max": 1,
         "mode": "fixed",
         "nbParams": null
+      },
+      "conditions": {
+        "offer": [
+          {
+            "key": "or",
+            "values": [],
+            "children": [
+              {
+                "key": "has",
+                "values": [
+                  "DAIS bypass mission requirements"
+                ],
+                "children": null
+              },
+              {
+                "key": "has",
+                "values": [
+                  "main plot completed"
+                ],
+                "children": null
+              },
+              {
+                "key": "has",
+                "values": [
+                  "Moonbeam for Sale: offered"
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
       },
       "payment": {
         "apparentPayment": null,
@@ -5025,10 +7564,23 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "government": "Syndicate",
-          "not": "planet Amazon"
-        }
+        "value": [
+          {
+            "key": "government",
+            "values": [
+              "Syndicate"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "planet",
+              "Amazon"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": {
         "type": "planet",
@@ -5055,24 +7607,521 @@
         ]
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [],
       "_pluginId": "DAIS/DAIS",
       "_internalId": "DAIS/DAIS::Erannas Revenge 1",
-      "_hash": "f15cd045296b",
+      "_hash": "8a78f3085469",
       "sourcePlugin": "DAIS/DAIS"
     },
     {
       "name": "Erannas Revenge 2",
       "displayName": "Return Eranna to Thule",
+      "description": "Having stolen Leo Merced's modified Akster, return Eranna to <destination> where she will meet with 'an old friend' she has on the planet.",
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "clearance",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "name",
+          "values": [
+            "Return Eranna to Thule"
+          ],
+          "children": null
+        },
+        {
+          "key": "description",
+          "values": [
+            "Having stolen Leo Merced's modified Akster, return Eranna to <destination> where she will meet with 'an old friend' she has on the planet."
+          ],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [
+            "Amazon"
+          ],
+          "children": null
+        },
+        {
+          "key": "destination",
+          "values": [
+            "Thule"
+          ],
+          "children": null
+        },
+        {
+          "key": "passengers",
+          "values": [
+            1
+          ],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "Erannas Revenge 1: done"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "\tEranna directs you to land at a luxurious estate in the Amazonian highlands; it's served by a small spaceport of its own, a half-dozen hangar bays discreetly tucked into the landscape and just as many landing pads ringing the building complex you assume to be a house. As soon as you land, Eranna disembarks, handing you a small data-chip and pointing you to the hangar bay with the Akster. \"Please wait for me, Captain,\" she says. \"There are a few things from the house I'd like to take before I leave.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"If you must.\"",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t\"Please be quick.\"",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "\tWhile she runs inside, you inspect the parked Akster. True to Eranna's word, the formerly-sleek Lionheart ship has been altered substantially: additional armor plating, an extra pair of gun ports, and an armored 360-degree display-screen cockpit are all aftermarket upgrades added at no doubt substantial expense. A plaque on the bridge proclaims the limited-edition ship's batch number: #28 out of 1000, if it is to be believed. Beneath it is etched the ship's name: 'Firestarter.'",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tWhile you supervise the crew transfer to the Firestarter to get it ready to fly, you suddenly notice the scent of something burning. Soon a shout comes from outside; you race out of the ship's interior to see what is going on, and your eyes are greeted by a plume of smoke rising from Leo Merced's house. Soon after you spot Eranna running out of the burning building, and you meet her back at your ship's docking ramp.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"What the hell?\"",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t\"I take it you're ready to go?\"",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "\tShe looks at you, sweat streaked across her face. \"It's time for us to leave,\" she says. \"Planetary security will be here soon.\" She pauses. \"Sorry. I wasn't sure you'd accept if you knew ahead of time. But I've wanted to see this place go up in flames for years. And it feels so good to see.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tWith little time to prepare, you are forced to scramble both your own ship and the Firestarter for launch.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "launch",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "complete"
+          ],
+          "children": [
+            {
+              "key": "log",
+              "values": [
+                "Returned Eranna Kasak (formerly Merced) to Thule, reuniting her with her lover, the daughter of the locally influential semi-criminal figure Our Lady of the Serrated Blade."
+              ],
+              "children": null
+            },
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "branch",
+                  "values": [
+                    "met our lady"
+                  ],
+                  "children": [
+                    {
+                      "key": "or",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "has",
+                          "values": [
+                            "Moonbeam for Sale: offered"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "Eranna directs you to land at a smaller private spaceport in the midst of the Thulian evening. An armored vehicle is waiting by the landing pad, its sides emblazoned with a painting of some sort of serrated knife. Two women are leaning against the side of it; both tall, one older and one younger. Their sides are flanked by two mountainous bodyguards with knives the size of cleavers strapped to their chests. As the <ship> settles onto its landing gear and Eranna joins you on its boarding ramp, the two women approach, both smiling widely.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Eranna Kasak!\" says the older woman, \"and I never thought we'd see you here again!\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tEranna isn't looking at her, however - and before she even has the chance to reply, the younger of the two Thulian women bounds into her and pulls her into a ferocious hug while the elder chuckles. It takes some moments then for Eranna and the other woman to disentangle from their embrace, and at last they only separate when the local woman places a kiss in the center of Eranna's forehead.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tMore than a little shaken, Eranna returns her gaze to you. \"Excuse me,\" she says. \"I'd like to present Our Lady of the Serrated Blade, my old friend... and her daughter, Lady Bright-Eyes of Shal.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Pleased to meet you, you say.\" The two Ladies incline their heads in return, a gesture that seems like politeness stretched over something sharper.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "goto",
+                      "values": [
+                        "questions"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "met our lady"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "Eranna directs you to land at a smaller private spaceport in the midst of the Thulian evening. An armored vehicle is waiting by the landing pad, its sides emblazoned with the familiar painted emblem of Our Lady of the Serrated Blade. Our Lady herself leans against the side of it, joined by another younger woman and flanked by two mountainous bodyguards with knives the size of cleavers strapped to their chests. As the <ship> settles onto its landing gear and Eranna joins you on its boarding ramp, Our Lady and the other woman approach, wide smiles plastered on both their faces.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Eranna Kasak!\" says Our Lady, \"and I never thought we'd see you here again!\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tEranna isn't looking at her, however - and before she even has the chance to reply, the younger of the two Thulian women bounds into her and pulls her into a ferocious hug while Our Lady chuckles. It takes some moments then for Eranna and the other woman to disentangle from their embrace, and at last they only separate when the local woman places a kiss in the center of Eranna's forehead.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tMore than a little shaken, Eranna returns her gaze to you. \"Excuse me,\" she says. \"I'd like to present Our Lady of the Serrated Blade, my old friend... and her daughter, Lady Bright-Eyes of Shal.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"Our Lady and I have met before, but I didn't know the two of you knew each other.\"",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t\"A pleasure to see you again, Our Lady, and a pleasure to meet you, Lady Bright-Eyes.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "pleasure"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "\tEranna laughs. \"Everyone knows everyone on Thule,\" she says.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"But we pick our friends carefully,\" says Our Lady. \"Though even so, I can never deny my daughter a thing. Ah, I swear I'm getting soft!\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "goto",
+                      "values": [
+                        "questions"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "pleasure"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"I told you the Captain was a good choice, didn't I?\" says Our Lady. \"A proper professional. So rare these days!\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tEranna smiles thinly and nods her head a little. \"Indeed.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "questions"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"What will you do now, Eranna?\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "what now"
+                          ],
+                          "children": null
+                        },
+                        {
+                          "key": "to",
+                          "values": [
+                            "display"
+                          ],
+                          "children": [
+                            {
+                              "key": "not",
+                              "values": [
+                                "eranna: what now"
+                              ],
+                              "children": null
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"I hate to bring him up, but what about Leo?\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "leo"
+                          ],
+                          "children": null
+                        },
+                        {
+                          "key": "to",
+                          "values": [
+                            "display"
+                          ],
+                          "children": [
+                            {
+                              "key": "not",
+                              "values": [
+                                "eranna: leo"
+                              ],
+                              "children": null
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"Well, I wish you all the best.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "end"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "what now"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "action",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "set",
+                      "values": [
+                        "eranna: what now"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "\tEranna looks to Lady Bright-Eyes, a happy smile light on her face. \"We have some catching up to do,\" she says. \"And after that, who knows. I'm just happy to be home, around the people I love.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tLady Bright-Eyes speaks for the first time, addressing you. Her voice is startlingly deep. \"It's a viper's nest, but at least a more honest one than the Syndicate. We look out for our own.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"So we do,\" says Our Lady. \"Four years among the Syndicate fat cats? I can't wait to hear what juicy little secrets they let slip.\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "goto",
+                      "values": [
+                        "questions"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "leo"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "action",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "set",
+                      "values": [
+                        "eranna: leo"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "\tOur Lady of the Serrated Blade takes this opportunity to mime spitting off the loading ramp, clearly disgusted. \"Thule is a long way from home for Syndicate boys,\" she says. \"Not a healthy place for a package vacation, hah!\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "goto",
+                      "values": [
+                        "questions"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "end"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "action",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "clear",
+                      "values": [
+                        "eranna: what now"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "clear",
+                      "values": [
+                        "eranna: leo"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "\t\"Thank you, Captain <last>,\" says Eranna. \"My best wishes to you as well.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"And from me as well,\" says Lady Bright-Eyes. \"Second chances fly on strange wings, Captain. I'm glad ours flew on yours.\"",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "clearance": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": false,
       "illegal": null,
       "deadline": null,
       "cargo": null,
@@ -5081,6 +8130,17 @@
         "max": 1,
         "mode": "fixed",
         "nbParams": null
+      },
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "Erannas Revenge 1: done"
+            ],
+            "children": null
+          }
+        ]
       },
       "payment": {
         "apparentPayment": null,
@@ -5114,37 +8174,223 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [],
       "_pluginId": "DAIS/DAIS",
       "_internalId": "DAIS/DAIS::Erannas Revenge 2",
-      "_hash": "589b4b3f38af",
+      "_hash": "a3e21b0e23d4",
       "sourcePlugin": "DAIS/DAIS"
     },
     {
       "name": "Erannas Revenge 3",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "transition",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "destination",
+          "values": [
+            "Thule"
+          ],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "system",
+              "values": [
+                "Men"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "Erannas Revenge 2: done"
+              ],
+              "children": null
+            },
+            {
+              "key": "random",
+              "values": [
+                "<",
+                30
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "npc",
+          "values": [
+            "save"
+          ],
+          "children": [
+            {
+              "key": "personality",
+              "values": [
+                "entering",
+                "coward",
+                "uninterested"
+              ],
+              "children": null
+            },
+            {
+              "key": "government",
+              "values": [
+                "Syndicate"
+              ],
+              "children": null
+            },
+            {
+              "key": "ship",
+              "values": [
+                "Vanguard",
+                "S.S. Lion"
+              ],
+              "children": null
+            },
+            {
+              "key": "ship",
+              "values": [
+                "Quicksilver",
+                "S-28OE"
+              ],
+              "children": null
+            },
+            {
+              "key": "ship",
+              "values": [
+                "Quicksilver",
+                "S-44A6"
+              ],
+              "children": null
+            },
+            {
+              "key": "ship",
+              "values": [
+                "Quicksilver",
+                "S-3RN4"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "npc",
+          "values": [],
+          "children": [
+            {
+              "key": "personality",
+              "values": [
+                "waiting",
+                "plunders",
+                "heroic",
+                "uninterested",
+                "lingering"
+              ],
+              "children": null
+            },
+            {
+              "key": "government",
+              "values": [
+                "Serrated Blades"
+              ],
+              "children": null
+            },
+            {
+              "key": "ship",
+              "values": [
+                "Hekla Vaba",
+                "Knife of Hephaestus"
+              ],
+              "children": null
+            },
+            {
+              "key": "ship",
+              "values": [
+                "Hekla Vaba",
+                "Bow of Atalanta"
+              ],
+              "children": null
+            },
+            {
+              "key": "ship",
+              "values": [
+                "Hekla Vaba",
+                "Shield of Athena"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "transition"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "Erannas Revenge 2: done"
+            ],
+            "children": null
+          },
+          {
+            "key": "random",
+            "values": [
+              "<",
+              30
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {}
       },
       "source": {
         "type": "filter",
-        "value": {
-          "system": "Men"
-        }
+        "value": [
+          {
+            "key": "system",
+            "values": [
+              "Men"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": {
         "type": "planet",
@@ -5161,29 +8407,135 @@
         "outfits": [],
         "ships": []
       },
-      "hasNpcObjective": false,
+      "hasNpcObjective": true,
+      "npcCount": 2,
       "conditionSideEffects": [],
       "eventTriggers": [],
       "_pluginId": "DAIS/DAIS",
       "_internalId": "DAIS/DAIS::Erannas Revenge 3",
-      "_hash": "f029f9bd0b27",
+      "_hash": "7ac174f76e4a",
       "sourcePlugin": "DAIS/DAIS"
     },
     {
       "name": "Omnis: DAIS bypass mission offer requirements",
       "displayName": "DAIS: bypass mission offer requirements",
+      "description": "Accept this mission to bypass the offer requirements of DAIS's marauder ships.",
+      "raw": [
+        {
+          "key": "job",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "repeat",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "name",
+          "values": [
+            "DAIS: bypass mission offer requirements"
+          ],
+          "children": null
+        },
+        {
+          "key": "description",
+          "values": [
+            "Accept this mission to bypass the offer requirements of DAIS's marauder ships."
+          ],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "government",
+              "values": [
+                "Omnis"
+              ],
+              "children": null
+            },
+            {
+              "key": "government",
+              "values": [
+                "Faction"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "installed plugin: Omnis"
+              ],
+              "children": null
+            },
+            {
+              "key": "not",
+              "values": [
+                "DAIS bypass mission requirements"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "set",
+              "values": [
+                "DAIS bypass mission requirements"
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "job"
       ],
+      "flags": {},
       "repeatable": true,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": false,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "installed plugin: Omnis"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "DAIS bypass mission requirements"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -5192,12 +8544,22 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "government": [
-            "Omnis",
-            "Faction"
-          ]
-        }
+        "value": [
+          {
+            "key": "government",
+            "values": [
+              "Omnis"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Faction"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -5207,28 +8569,134 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [],
       "_pluginId": "DAIS/DAIS",
       "_internalId": "DAIS/DAIS::Omnis: DAIS bypass mission offer requirements",
-      "_hash": "3ce720492f5f",
+      "_hash": "e0ca13a503cd",
       "sourcePlugin": "DAIS/DAIS"
     },
     {
       "name": "Omnis: DAIS respect mission offer requirements",
       "displayName": "DAIS: respect mission offer requirements",
+      "description": "Accept this mission to respect the offer requirements of DAIS's marauder ships.",
+      "raw": [
+        {
+          "key": "job",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "repeat",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "name",
+          "values": [
+            "DAIS: respect mission offer requirements"
+          ],
+          "children": null
+        },
+        {
+          "key": "description",
+          "values": [
+            "Accept this mission to respect the offer requirements of DAIS's marauder ships."
+          ],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "government",
+              "values": [
+                "Omnis"
+              ],
+              "children": null
+            },
+            {
+              "key": "government",
+              "values": [
+                "Faction"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "installed plugin: Omnis"
+              ],
+              "children": null
+            },
+            {
+              "key": "has",
+              "values": [
+                "DAIS bypass mission requirements"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "clear",
+              "values": [
+                "DAIS bypass mission requirements"
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "job"
       ],
+      "flags": {},
       "repeatable": true,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": false,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "installed plugin: Omnis"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "DAIS bypass mission requirements"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -5237,12 +8705,22 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "government": [
-            "Omnis",
-            "Faction"
-          ]
-        }
+        "value": [
+          {
+            "key": "government",
+            "values": [
+              "Omnis"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Faction"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -5252,13 +8730,14 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [],
       "_pluginId": "DAIS/DAIS",
       "_internalId": "DAIS/DAIS::Omnis: DAIS respect mission offer requirements",
-      "_hash": "91efb184488e",
+      "_hash": "d78d9e3ffe41",
       "sourcePlugin": "DAIS/DAIS"
     }
   ],
-  "parsedAt": "2026-09-01T13:05:45.632Z"
+  "parsedAt": "2026-09-02T07:57:23.486Z"
 }

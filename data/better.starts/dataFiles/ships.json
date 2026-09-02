@@ -1,0 +1,481 @@
+[
+  {
+    "name": "Squiddy Drone",
+    "engines": [
+      {
+        "x": -15,
+        "y": 117
+      },
+      {
+        "x": 15,
+        "y": 117
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [],
+    "turrets": [
+      {
+        "x": -12,
+        "y": -80,
+        "turret": "Quarg Skylance"
+      },
+      {
+        "x": 12,
+        "y": -80,
+        "turret": "Quarg Skylance"
+      },
+      {
+        "x": -34,
+        "y": 24,
+        "turret": "Quarg Anti-Missile"
+      },
+      {
+        "x": 34,
+        "y": 24,
+        "turret": "Quarg Anti-Missile"
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "sprite": "ship/z_squid2",
+    "thumbnail": "ship/z_squid2",
+    "swizzle": 0,
+    "attributes": {
+      "category": "modified Heavy Warship",
+      "cost": 5900000,
+      "shields": 120000,
+      "hull": 70000,
+      "required crew": 1,
+      "bunks": 10,
+      "mass": 990,
+      "drag": 18.5,
+      "heat dissipation": 0.47,
+      "fuel capacity": 1000,
+      "cargo space": 200,
+      "outfit space": 600,
+      "weapon capacity": 200,
+      "engine capacity": 120,
+      "hull repair rate": 5,
+      "hull energy": 5,
+      "ramscoop": 10,
+      "weapon": {
+        "blast radius": 250,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 12,
+    "small explosion": 16,
+    "medium explosion": 30,
+    "large explosion": 40,
+    "huge explosion": 20,
+    "final explode": "final explosion medium",
+    "description": "Once this was a Skylark.",
+    "_internalId": "Zuckungs List/better.starts::Squiddy Drone",
+    "_pluginId": "Zuckungs List/better.starts",
+    "_hash": "1dea353d6e1a",
+    "governments": {
+      "better.starts": {
+        "better.starts": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Zuckungs List/better.starts": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Antimatter Core b": {
+        "count": 1,
+        "pluginId": "Zuckungs List/better.starts",
+        "internalId": "Zuckungs List/better.starts::Antimatter Core b"
+      },
+      "Fuel Module": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Fuel Module"
+      },
+      "Intrusion Countermeasures": {
+        "count": 120,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Intrusion Countermeasures"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Jump Drive"
+      },
+      "Medium Graviton Steering b": {
+        "count": 1,
+        "pluginId": "Zuckungs List/better.starts",
+        "internalId": "Zuckungs List/better.starts::Medium Graviton Steering b"
+      },
+      "Medium Graviton Thruster b": {
+        "count": 1,
+        "pluginId": "Zuckungs List/better.starts",
+        "internalId": "Zuckungs List/better.starts::Medium Graviton Thruster b"
+      },
+      "Nanotech Battery": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Nanotech Battery"
+      },
+      "Outfits Expansion": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Outfits Expansion"
+      },
+      "Quantum Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Quantum Keystone"
+      },
+      "Quantum Shield Generator b": {
+        "count": 1,
+        "pluginId": "Zuckungs List/better.starts",
+        "internalId": "Zuckungs List/better.starts::Quantum Shield Generator b"
+      },
+      "Quarg Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Quarg Anti-Missile"
+      },
+      "Quarg Skylance": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Quarg Skylance"
+      },
+      "Wanderer Ramscoop": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Wanderer Ramscoop"
+      }
+    }
+  },
+  {
+    "name": "Squiddy",
+    "engines": [
+      {
+        "x": -14,
+        "y": 53
+      },
+      {
+        "x": 14,
+        "y": 53
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -9,
+        "y": -96,
+        "gun": ""
+      },
+      {
+        "x": 9,
+        "y": -96,
+        "gun": ""
+      },
+      {
+        "x": -1,
+        "y": -101,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": -24,
+        "y": -70,
+        "turret": ""
+      },
+      {
+        "x": 24,
+        "y": -70,
+        "turret": ""
+      },
+      {
+        "x": -26,
+        "y": -20,
+        "turret": ""
+      },
+      {
+        "x": 26,
+        "y": -20,
+        "turret": ""
+      },
+      {
+        "x": -2,
+        "y": 26,
+        "turret": ""
+      },
+      {
+        "x": -8,
+        "y": -76,
+        "turret": ""
+      },
+      {
+        "x": 8,
+        "y": -76,
+        "turret": ""
+      },
+      {
+        "x": -8,
+        "y": -32,
+        "turret": ""
+      },
+      {
+        "x": 8,
+        "y": -32,
+        "turret": ""
+      }
+    ],
+    "bays": [
+      {
+        "type": "Drone",
+        "x": 0,
+        "y": -65,
+        "launch effect": "remnant internal"
+      },
+      {
+        "type": "Drone",
+        "x": 0,
+        "y": -65,
+        "launch effect": "remnant internal"
+      },
+      {
+        "type": "Drone",
+        "x": 0,
+        "y": -65,
+        "launch effect": "remnant internal"
+      },
+      {
+        "type": "Drone",
+        "x": 0,
+        "y": -65,
+        "launch effect": "remnant internal"
+      },
+      {
+        "type": "Drone",
+        "x": 0,
+        "y": -65,
+        "launch effect": "remnant internal"
+      },
+      {
+        "type": "Drone",
+        "x": 0,
+        "y": -65,
+        "launch effect": "remnant internal"
+      },
+      {
+        "type": "Drone",
+        "x": 0,
+        "y": -65,
+        "launch effect": "remnant internal"
+      },
+      {
+        "type": "Drone",
+        "x": 0,
+        "y": -65,
+        "launch effect": "remnant internal"
+      },
+      {
+        "type": "Drone",
+        "x": 0,
+        "y": -65,
+        "launch effect": "remnant internal"
+      },
+      {
+        "type": "Drone",
+        "x": 0,
+        "y": -65,
+        "launch effect": "remnant internal"
+      },
+      {
+        "type": "Drone",
+        "x": 0,
+        "y": -65,
+        "launch effect": "remnant internal"
+      },
+      {
+        "type": "Drone",
+        "x": 0,
+        "y": -65,
+        "launch effect": "remnant internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": -65,
+        "launch effect": "remnant internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": -65,
+        "launch effect": "remnant internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": -65,
+        "launch effect": "remnant internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 0,
+        "y": -65,
+        "launch effect": "remnant internal"
+      }
+    ],
+    "leaks": [],
+    "sprite": "ship/z_squid",
+    "thumbnail": "ship/z_squid",
+    "swizzle": 0,
+    "attributes": {
+      "category": "Superheavy",
+      "cost": 256375000,
+      "shields": 250500,
+      "hull": 250500,
+      "required crew": 1000,
+      "bunks": 3000,
+      "mass": 15725,
+      "drag": 62.5,
+      "heat dissipation": 0.32,
+      "fuel capacity": 2500,
+      "ramscoop": 10.75,
+      "cargo space": 1110,
+      "outfit space": 2370,
+      "weapon capacity": 500,
+      "engine capacity": 840,
+      "shield generation": 15,
+      "shield energy": 1.8,
+      "hull repair rate": 15,
+      "hull energy": 0.75,
+      "cloak": 0.05,
+      "cloaked shield permeability": 1,
+      "cloaking energy": 3,
+      "cloaking fuel": 0.05,
+      "cloaked communication": 1,
+      "gaslining": 1,
+      "atmosphere scan": 100,
+      "outfit scan power": 175,
+      "outfit scan efficiency": 120,
+      "tactical scan power": 350,
+      "force protection": 1,
+      "heat protection": 1.5,
+      "ion resistance": 0.3,
+      "scramble resistance": 0.3,
+      "slowing resistance": 3,
+      "remnant node": 11,
+      "spinal mount": 1,
+      "weapon": {
+        "blast radius": 140,
+        "shield damage": 1400,
+        "hull damage": 700,
+        "hit force": 2100
+      }
+    },
+    "bay \"modified Heavy Warship\" 0 -65": {
+      "launch effect": "remnant internal"
+    },
+    "bay \"modified Heavy Warship\" -0 -65": {
+      "launch effect": "remnant internal"
+    },
+    "small explosion": 40,
+    "medium explosion": 30,
+    "large explosion": 20,
+    "huge explosion": 5,
+    "final explode": "final explosion large",
+    "description": "Once this was a Heron.",
+    "_internalId": "Zuckungs List/better.starts::Squiddy",
+    "_pluginId": "Zuckungs List/better.starts",
+    "_hash": "7d7fd01c94ca",
+    "governments": {
+      "better.starts": {
+        "better.starts": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "Zuckungs List/better.starts": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Antimatter Core b": {
+        "count": 6,
+        "pluginId": "Zuckungs List/better.starts",
+        "internalId": "Zuckungs List/better.starts::Antimatter Core b"
+      },
+      "Bunk Room": {
+        "count": 7,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Bunk Room"
+      },
+      "Emergency Ramscoop": {
+        "count": 10,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Emergency Ramscoop"
+      },
+      "Fragmentation Grenades": {
+        "count": 3000,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Fragmentation Grenades"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Jump Drive"
+      },
+      "NDR-114 Android": {
+        "count": 990,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::NDR-114 Android"
+      },
+      "Nanotech Battery": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Nanotech Battery"
+      },
+      "Quantum Shield Generator b": {
+        "count": 2,
+        "pluginId": "Zuckungs List/better.starts",
+        "internalId": "Zuckungs List/better.starts::Quantum Shield Generator b"
+      },
+      "Quantum Key Stone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Quantum Key Stone"
+      },
+      "Quarg Anti-Missile": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Quarg Anti-Missile"
+      },
+      "Quarg Skylance": {
+        "count": 7,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Quarg Skylance"
+      },
+      "Medium Graviton Steering b": {
+        "count": 7,
+        "pluginId": "Zuckungs List/better.starts",
+        "internalId": "Zuckungs List/better.starts::Medium Graviton Steering b"
+      },
+      "Medium Graviton Thruster b": {
+        "count": 7,
+        "pluginId": "Zuckungs List/better.starts",
+        "internalId": "Zuckungs List/better.starts::Medium Graviton Thruster b"
+      },
+      "Research Laboratory": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Research Laboratory"
+      }
+    }
+  }
+]

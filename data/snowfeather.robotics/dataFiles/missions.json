@@ -1,0 +1,822 @@
+[
+  {
+    "name": "Snowfeather Robotics 1",
+    "displayName": "Transport the robotics scientist",
+    "description": "Transport Dr. Lufbin to a robotics conference on <destination>.",
+    "raw": [
+      {
+        "key": "minor",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "Transport the robotics scientist"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Transport Dr. Lufbin to a robotics conference on <destination>."
+        ],
+        "children": null
+      },
+      {
+        "key": "passengers",
+        "values": [
+          3
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Snowfeather"
+        ],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Allhome"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit (flagship installed): NDR-114 Android"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "blocked",
+        "values": [
+          "You don't have enough passenger space for this mission."
+        ],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "scene/3hai"
+                ],
+                "children": null
+              },
+              {
+                "key": "While inspecting the main propulsion of your spaceship a group of three hai approach. The leading hai speaks to you.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\"Hello, this spaceship seems to be in pretty good shape. I would like to speak to the captain.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "After you told him that you are the captain, it turns out that the hai is looking for a passenger transport for him and his two assistants.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "Like always you ask for details of the transport, just to avoid trouble.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "His name is Dr. Lufbin, and he travels with his two assistants to a robotics conference on Allhome. The payment would be 100.000 credits. He admits that he is afraid of space travel and rejected several transport possibilities because the ships looked bad maintained.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\"So, would you take us to Allhome?\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Yes, I'm soon done with my checkups.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "thanks"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"Sorry, I'm busy repairing the ship for the next days.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "no"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "thanks"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tYou lead your passengers to their bunks and get everything ready for the flight.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "no"
+                ],
+                "children": null
+              },
+              {
+                "key": "\t\"Too bad, safe ships are so rare on this spaceport.\" You say goodbye and continue with your work.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "defer",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [
+              100000
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "scene/3hai_park"
+                ],
+                "children": null
+              },
+              {
+                "key": "You land on <destination>. Dr. Lufbin thanks you for the safe transport and pays you 100.000 credits.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\"I've seen the androids that work on your ship and I would love to study one of them. Of course I would pay you for that. If you are interested, meet me at the spaceport in a few hours.\"",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [],
+    "flags": {
+      "minor": true,
+      "blocked": "You don't have enough passenger space for this mission."
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 3,
+      "max": 3,
+      "mode": "fixed",
+      "nbParams": null
+    },
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit (flagship installed): NDR-114 Android"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onComplete": [
+          {
+            "base": 100000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Snowfeather",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Snowfeather"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Allhome",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Allhome"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/snowfeather.robotics",
+    "_internalId": "Zuckungs List/snowfeather.robotics::Snowfeather Robotics 1",
+    "_hash": "fc174b4957fe",
+    "sourcePlugin": "Zuckungs List/snowfeather.robotics"
+  },
+  {
+    "name": "Snowfeather Robotics 2",
+    "displayName": "Dr. Lufbin and the android",
+    "description": "Transport Dr. Lufbin back to <destination>.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Dr. Lufbin and the android"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Transport Dr. Lufbin back to <destination>."
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Allhome"
+        ],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Snowfeather"
+        ],
+        "children": null
+      },
+      {
+        "key": "passengers",
+        "values": [
+          3
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "Snowfeather Robotics 1: done"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "outfit (flagship installed): NDR-114 Android"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "blocked",
+        "values": [
+          "You don't have enough passenger space for this mission."
+        ],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "Back at the spaceport, Dr. Lufbin asks you to transport him and his assistants back to his robotic laboratory on Snowfeather. Furthermore, he would like to rent one of your androids to study it.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\"I will pay you 100.000 credits for the transport and 150.000 credits for renting the android. And I guess I will need it for like 30 days. Do we have a deal?\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\"\tOk, I think I can spare an android for a month\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "thanks"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\"\tNo, sorry, I can't afford a smaller android crew.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "no"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "thanks"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tDr. Lufbin seems very happy. He cancels his other speeches at the conference and head back to your ship to continue studying the android.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "no"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tDr. Lufbin seems very disappointed. He says goodbye and heads back to the conference.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "add snowfeather robotics",
+              30
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "NDR-114 Android",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              250000
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "You land on <planet>. Dr. Lufbin pays you 250.000 credits.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\"I will send you a message when I'm done with the work.\"",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [],
+    "flags": {
+      "blocked": "You don't have enough passenger space for this mission."
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": {
+      "min": 3,
+      "max": 3,
+      "mode": "fixed",
+      "nbParams": null
+    },
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "Snowfeather Robotics 1: done"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "outfit (flagship installed): NDR-114 Android"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onComplete": [
+          {
+            "base": 250000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Allhome",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Allhome"
+      }
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Snowfeather",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Snowfeather"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      {
+        "name": "add snowfeather robotics",
+        "delayDays": 30,
+        "delayDaysMax": null,
+        "trigger": "onComplete"
+      }
+    ],
+    "_pluginId": "Zuckungs List/snowfeather.robotics",
+    "_internalId": "Zuckungs List/snowfeather.robotics::Snowfeather Robotics 2",
+    "_hash": "777ac72e2843",
+    "sourcePlugin": "Zuckungs List/snowfeather.robotics"
+  },
+  {
+    "name": "Snowfeather Robotics 3",
+    "displayName": "Back to Snowfeather",
+    "description": "Dr. Lufbin from Snowfeather Robotics wants to talk to you.",
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "Back to Snowfeather"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Dr. Lufbin from Snowfeather Robotics wants to talk to you."
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Hai"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "attributes",
+              "uninhabited"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Snowfeather"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: add snowfeather robotics"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "You receive a message from Dr. Lufbin, the robotics scientist, who rented one of your androids. The work is done, and you can get your android back."
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "NDR-114 Android",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              300000
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "scene/hai_in_lab"
+                ],
+                "children": null
+              },
+              {
+                "key": "As you land on <planet>, an assistant of Dr Lufbin awaits you at the starport and leads you to the laboratory.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "Dr Lufbin greets you. \"Hello captain <last>, I have a surprise for you.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "He hands you 300.000 credits while some workers transport the 'NDR-114 Android' back on your ship.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\"The additional credits express how helpful your contribution was to my work. My company, 'Snowfeather Robotics', now sells SFR-100 worker androids and other models at the local outfitter.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "Dr. Lufbin says goodbye while you calculate how rich you will be when you replace your lazy and expensive crew.",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {},
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: add snowfeather robotics"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onComplete": [
+          {
+            "base": 300000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Hai"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "attributes",
+            "uninhabited"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Snowfeather",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Snowfeather"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [
+        {
+          "name": "NDR-114 Android",
+          "count": 1,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::NDR-114 Android",
+          "grantedIn": "onComplete"
+        }
+      ],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/snowfeather.robotics",
+    "_internalId": "Zuckungs List/snowfeather.robotics::Snowfeather Robotics 3",
+    "_hash": "22894995a132",
+    "sourcePlugin": "Zuckungs List/snowfeather.robotics"
+  }
+]

@@ -1,0 +1,279 @@
+[
+  {
+    "name": "Modified Bactrian (Remnant)",
+    "engines": [
+      {
+        "x": -18,
+        "y": 230
+      },
+      {
+        "x": 18,
+        "y": 230
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -15,
+        "y": -226,
+        "gun": "Torpedo Launcher"
+      },
+      {
+        "x": 15,
+        "y": -226,
+        "gun": "Torpedo Launcher"
+      },
+      {
+        "x": -40,
+        "y": -133,
+        "gun": "Sidewinder Missile Launcher"
+      },
+      {
+        "x": -45,
+        "y": -128,
+        "gun": "Sidewinder Missile Launcher"
+      }
+    ],
+    "turrets": [
+      {
+        "x": -22,
+        "y": -148,
+        "turret": "Heavy Laser Turret"
+      },
+      {
+        "x": 26,
+        "y": -80,
+        "turret": "Heavy Anti-Missile Turret"
+      },
+      {
+        "x": -41,
+        "y": -20,
+        "turret": "Heavy Laser Turret"
+      },
+      {
+        "x": 32,
+        "y": -7,
+        "turret": "Heavy Laser Turret"
+      },
+      {
+        "x": 53,
+        "y": 82,
+        "turret": "Heavy Laser Turret"
+      },
+      {
+        "x": -37,
+        "y": 186,
+        "turret": "Heavy Anti-Missile Turret"
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": -38,
+        "y": -26
+      },
+      {
+        "type": "Fighter",
+        "x": 35,
+        "y": 36
+      },
+      {
+        "type": "Fighter",
+        "x": -47,
+        "y": 97
+      },
+      {
+        "type": "Fighter",
+        "x": -1,
+        "y": 15,
+        "position": "over"
+      }
+    ],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 30,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      },
+      {
+        "effect": "big leak",
+        "openChance": 50,
+        "spreadChance": 30
+      }
+    ],
+    "sprite": "ship/modified bactrian",
+    "thumbnail": "thumbnail/modified bactrian-thumb",
+    "attributes": {
+      "licenses": {
+        "City-Ship": true
+      },
+      "category": "Heavy Warship",
+      "cost": 17600000,
+      "shields": 19200,
+      "hull": 7740,
+      "required crew": 77,
+      "bunks": 221,
+      "mass": 2327,
+      "drag": 30.6,
+      "heat dissipation": 0.22,
+      "fuel capacity": 700,
+      "cargo space": 265,
+      "outfit space": 980,
+      "weapon capacity": 450,
+      "engine capacity": 180,
+      "weapon": {
+        "blast radius": 260,
+        "shield damage": 2600,
+        "hull damage": 1300,
+        "hit force": 3900
+      }
+    },
+    "small explosion": 25,
+    "medium explosion": 35,
+    "large explosion": 45,
+    "huge explosion": 30,
+    "final explode": "final explosion large",
+    "description": "The owner of this Bactrian has replaced some of it's armored hull plating with additional shield emitters. This has made the ship lighter and faster. An additional fighter can be carried on a landing pad on the roof.",
+    "_internalId": "Lost In Midnight/Lost-in-Midnight::Modified Bactrian",
+    "_pluginId": "Lost In Midnight/Lost-in-Midnight",
+    "_hash": "bc560e5a36b7",
+    "variant": "Modified Bactrian (Remnant)",
+    "baseShip": "Modified Bactrian",
+    "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
+    "governments": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Bounty": true,
+        "Phenomenon (dangerous)": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Phenomenon (dangerous) → -0.01"
+    ],
+    "locations": {
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Missions": [
+          "Hunting Beelzebub: Ember Nightmare",
+          "Hunting Beelzebub: Modified Bactrian 2"
+        ]
+      }
+    },
+    "outfits": {
+      "Aeon Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Aeon Cell"
+      },
+      "Crystal Capacitor": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Crystal Capacitor"
+      },
+      "D67-TM Shield Generator": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::D67-TM Shield Generator"
+      },
+      "D94-YV Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::D94-YV Shield Generator"
+      },
+      "Epoch Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Epoch Cell"
+      },
+      "Forge-Class Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Forge-Class Thruster"
+      },
+      "Fragmentation Grenades": {
+        "count": 41,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Fragmentation Grenades"
+      },
+      "Modified Inhibitor": {
+        "count": 4,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight",
+        "internalId": "Lost In Midnight/Lost-in-Midnight::Modified Inhibitor"
+      },
+      "Ionic Afterburner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Ionic Afterburner"
+      },
+      "Large Radar Jammer": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Large Radar Jammer"
+      },
+      "Laser Rifle": {
+        "count": 41,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Laser Rifle"
+      },
+      "Liquid Helium Cooler": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Liquid Helium Cooler"
+      },
+      "Medical Bay": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight",
+        "internalId": "Lost In Midnight/Lost-in-Midnight::Medical Bay"
+      },
+      "Millennium Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Millennium Cell"
+      },
+      "Outfits Expansion": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Outfits Expansion"
+      },
+      "Point Defense Turret": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Point Defense Turret"
+      },
+      "Scram Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Scram Drive"
+      },
+      "Security Station (Staffed)": {
+        "count": 1,
+        "pluginId": "Lost In Midnight/Lost-in-Midnight",
+        "internalId": "Lost In Midnight/Lost-in-Midnight::Security Station (Staffed)"
+      },
+      "Smelter-Class Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Smelter-Class Steering"
+      },
+      "Tactical Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Tactical Scanner"
+      },
+      "Thrasher Turret": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Thrasher Turret"
+      },
+      "Tuning Rifle": {
+        "count": 41,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Tuning Rifle"
+      }
+    }
+  }
+]

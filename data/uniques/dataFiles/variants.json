@@ -1,0 +1,976 @@
+[
+  {
+    "name": "Argosy (Explorer)",
+    "engines": [
+      {
+        "x": -25,
+        "y": 91,
+        "zoom": 0.6
+      },
+      {
+        "x": -14,
+        "y": 91,
+        "zoom": 0.8
+      },
+      {
+        "x": 14,
+        "y": 91,
+        "zoom": 0.8
+      },
+      {
+        "x": 25,
+        "y": 91,
+        "zoom": 0.6
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -22,
+        "y": -37,
+        "gun": "Energy Blaster"
+      },
+      {
+        "x": -22,
+        "y": -37,
+        "gun": "Meteor Missile Launcher"
+      },
+      {
+        "x": 22,
+        "y": -37,
+        "gun": "Energy Blaster"
+      },
+      {
+        "x": 22,
+        "y": -37,
+        "gun": "Meteor Missile Launcher"
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -12.5,
+        "turret": "Blaster Turret"
+      },
+      {
+        "x": 0,
+        "y": 9.5,
+        "turret": "Anti-Missile Turret"
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 60,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 60,
+        "spreadChance": 80
+      }
+    ],
+    "plural": "Argosies",
+    "sprite": "ship/argosy",
+    "thumbnail": "thumbnail/argosy",
+    "administrative cost": 2,
+    "attributes": {
+      "category": "Light Freighter",
+      "cost": 1960000,
+      "shields": 4200,
+      "hull": 2600,
+      "required crew": 4,
+      "bunks": 14,
+      "mass": 480,
+      "drag": 7.4,
+      "heat dissipation": 0.56,
+      "fuel capacity": 400,
+      "cargo space": 120,
+      "outfit space": 270,
+      "weapon capacity": 90,
+      "engine capacity": 80,
+      "weapon": {
+        "blast radius": 60,
+        "shield damage": 600,
+        "hull damage": 300,
+        "hit force": 900
+      }
+    },
+    "tiny explosion": 10,
+    "small explosion": 25,
+    "medium explosion": 25,
+    "large explosion": 10,
+    "final explode": "final explosion medium",
+    "description": "The Argosy from Southbound Shipyards is very popular with merchants not because of its capacity, which is actually slightly smaller than the Syndicate Freighter, but because it can hold its own in combat even against a small pirate fleet. \tThe Argosy is also a very easy ship to upgrade with faster engines or more powerful weapons as needed, so many privately owned Argosies have very different capabilities than the stock model.",
+    "_internalId": "official-game/endless-sky::Argosy",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "1e5a77226501",
+    "variant": "Argosy (Explorer)",
+    "baseShip": "Argosy",
+    "_variantPluginId": "Zuckungs List/uniques",
+    "governments": {
+      "official-game/endless-sky": {
+        "Merchant": true,
+        "Free Worlds": true,
+        "Militia": true,
+        "Pirate": true,
+        "Independent": true,
+        "Lunarium (Hidden)": true,
+        "Escort": true
+      },
+      "Blended Ships/blended-ships": {
+        "Merchant": true
+      },
+      "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff": {
+        "Sayari Plushie": true,
+        "Merchant": true,
+        "Hidalgo Shrine": true
+      },
+      "Mega Freight/Mega-Freight": {
+        "Merchant": true,
+        "Pirate": true
+      },
+      "Rumskib/rumskib": {
+        "Pirate": true,
+        "Merchant": true
+      },
+      "Tugderic's Addons/Tugderics-Addons": {
+        "Smuggler": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Pirate (Rivals)": true,
+        "Merchant": true,
+        "Escort": true,
+        "Pirate": true,
+        "Free Worlds": true,
+        "Independent": true
+      },
+      "Zuckungs List/planet.map": {
+        "Avalonian": true
+      },
+      "Zuckungs List/tribute.republic": {
+        "Republic": true
+      },
+      "Crisis In Management/endless-sky-syndicate": {
+        "Merchant": true
+      },
+      "Zuckungs List/job.coloring": {
+        "Merchant": true
+      },
+      "POOT/poot-senza-solaria": {
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Free Worlds → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Militia → -0.04",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Pirate → 0.01",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Merchant → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Merchant → 0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Syndicate → 0.01",
+      "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+      "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0",
+      "Event \"at war with the pug\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"bombed zenith\": Kor Sestor attitude toward Pirate → -0.01",
+      "Event \"end of independent violence\": Independent (Killable) attitude toward Independent → 0",
+      "Event \"end of independent violence\": Independent attitude toward Independent (Killable) → 0",
+      "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc defend oblivion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"fwc pug invasion\": Pug attitude toward Free Worlds → -0.01",
+      "Event \"fwc pug peaceful\": Pug attitude toward Free Worlds → 0",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Merchant → 1",
+      "Event \"mgf: ngk resist pug invasion\": MGF: NGK Hauling attitude toward Pirate → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of independent violence\": Independent (Killable) attitude toward Independent → -0.01",
+      "Event \"start of independent violence\": Independent attitude toward Independent (Killable) → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
+    "locations": {
+      "Zuckungs List/uniques": {
+        "Missions": [
+          "derelict sospi swap"
+        ]
+      }
+    },
+    "outfits": {
+      "A255 Atomic Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::A255 Atomic Steering"
+      },
+      "A370 Atomic Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::A370 Atomic Thruster"
+      },
+      "Anti-Missile Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Anti-Missile Turret"
+      },
+      "Blaster Turret": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Blaster Turret"
+      },
+      "D23-QP Shield Generator": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::D23-QP Shield Generator"
+      },
+      "Dwarf Core": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Dwarf Core"
+      },
+      "Energy Blaster": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Energy Blaster"
+      },
+      "Fuel Pod": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Fuel Pod"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Jump Drive"
+      },
+      "Water Coolant System": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Water Coolant System"
+      }
+    }
+  },
+  {
+    "name": "Korsmanath A'awoj (Jump)",
+    "engines": [
+      {
+        "x": 0,
+        "y": 481.5,
+        "zoom": 1.7
+      },
+      {
+        "x": -135.5,
+        "y": 444,
+        "zoom": 1.6
+      },
+      {
+        "x": 135.5,
+        "y": 444,
+        "zoom": 1.6
+      },
+      {
+        "x": -88.5,
+        "y": 430.5,
+        "zoom": 0.7
+      },
+      {
+        "x": 88.5,
+        "y": 430.5,
+        "zoom": 0.7
+      },
+      {
+        "x": -77,
+        "y": 436,
+        "zoom": 0.7
+      },
+      {
+        "x": 77,
+        "y": 436,
+        "zoom": 0.7
+      },
+      {
+        "x": -46,
+        "y": 454.5,
+        "zoom": 0.8
+      },
+      {
+        "x": 46,
+        "y": 454.5,
+        "zoom": 0.8
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -90,
+        "y": -464,
+        "zoom": 0.8
+      },
+      {
+        "x": 90,
+        "y": -464,
+        "zoom": 0.8
+      },
+      {
+        "x": -115.5,
+        "y": -445.5,
+        "zoom": 0.7
+      },
+      {
+        "x": 115.5,
+        "y": -445.5,
+        "zoom": 0.7
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -90,
+        "y": -464,
+        "zoom": 0.7,
+        "left": true,
+        "angle": 180
+      },
+      {
+        "x": 90,
+        "y": -464,
+        "zoom": 0.7,
+        "right": true,
+        "angle": 180
+      },
+      {
+        "x": -115.5,
+        "y": -445.5,
+        "zoom": 0.6,
+        "left": true,
+        "angle": 180
+      },
+      {
+        "x": 115.5,
+        "y": -445.5,
+        "zoom": 0.6,
+        "right": true,
+        "angle": 180
+      },
+      {
+        "x": -152.5,
+        "y": -270,
+        "angle": 45,
+        "right": true,
+        "zoom": 0.6
+      },
+      {
+        "x": 152.5,
+        "y": -270,
+        "angle": 315,
+        "left": true,
+        "zoom": 0.6
+      },
+      {
+        "x": -172,
+        "y": 169,
+        "angle": 135,
+        "left": true,
+        "zoom": 0.6
+      },
+      {
+        "x": 172,
+        "y": 169,
+        "angle": 225,
+        "right": true,
+        "zoom": 0.6
+      },
+      {
+        "x": -135.5,
+        "y": 444,
+        "zoom": 1.2,
+        "right": true
+      },
+      {
+        "x": 135.5,
+        "y": 444,
+        "zoom": 1.2,
+        "left": true
+      }
+    ],
+    "guns": [
+      {
+        "x": -170,
+        "y": -104,
+        "gun": "Firelight Missile Bank",
+        "angle": 315
+      },
+      {
+        "x": 170,
+        "y": -104,
+        "gun": "Firelight Missile Bank",
+        "angle": 45
+      },
+      {
+        "x": -178,
+        "y": -84,
+        "gun": "Firelight Missile Bank",
+        "angle": 290
+      },
+      {
+        "x": 178,
+        "y": -84,
+        "gun": "Firelight Missile Bank",
+        "angle": 70
+      }
+    ],
+    "turrets": [
+      {
+        "x": -19.5,
+        "y": -438.5,
+        "turret": "Banisher Grav-Turret"
+      },
+      {
+        "x": 19.5,
+        "y": -438.5,
+        "turret": "Warder Anti-Missile"
+      },
+      {
+        "x": -178,
+        "y": -332,
+        "turret": "Warder Anti-Missile"
+      },
+      {
+        "x": 178,
+        "y": -332,
+        "turret": "Banisher Grav-Turret"
+      },
+      {
+        "x": -186,
+        "y": -285.5,
+        "turret": "Banisher Grav-Turret"
+      },
+      {
+        "x": 186,
+        "y": -285.5,
+        "turret": "Warder Anti-Missile"
+      },
+      {
+        "x": -131.5,
+        "y": -173.5,
+        "turret": "Langrage Hyper-Heaver"
+      },
+      {
+        "x": 131.5,
+        "y": -173.5,
+        "turret": "Korath Inferno"
+      },
+      {
+        "x": -131.5,
+        "y": -156,
+        "turret": "Korath Inferno"
+      },
+      {
+        "x": 131.5,
+        "y": -156,
+        "turret": "Warder Anti-Missile"
+      },
+      {
+        "x": 46,
+        "y": -12,
+        "turret": "Warder Anti-Missile"
+      },
+      {
+        "x": -16.5,
+        "y": 16,
+        "turret": "Banisher Grav-Turret"
+      },
+      {
+        "x": 62,
+        "y": 128,
+        "turret": "Langrage Hyper-Heaver"
+      },
+      {
+        "x": -75.5,
+        "y": 162.5,
+        "turret": "Firestorm Battery"
+      },
+      {
+        "x": -204.5,
+        "y": 200,
+        "turret": "Banisher Grav-Turret"
+      },
+      {
+        "x": 204.5,
+        "y": 200,
+        "turret": "Warder Anti-Missile"
+      },
+      {
+        "x": -192.5,
+        "y": 257.5,
+        "turret": "Warder Anti-Missile"
+      },
+      {
+        "x": 192.5,
+        "y": 257.5,
+        "turret": "Banisher Grav-Turret"
+      },
+      {
+        "x": -72.5,
+        "y": 338.5,
+        "turret": "Langrage Hyper-Heaver"
+      },
+      {
+        "x": 72.5,
+        "y": 338.5,
+        "turret": "Korath Inferno"
+      },
+      {
+        "x": -95.5,
+        "y": 365.5,
+        "turret": "Korath Inferno"
+      },
+      {
+        "x": 95.5,
+        "y": 365.5,
+        "turret": "Banisher Grav-Turret"
+      }
+    ],
+    "bays": [
+      {
+        "type": "Fighter",
+        "x": -167.5,
+        "y": -420,
+        "angle": 315,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 167.5,
+        "y": -420,
+        "angle": 45,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -179.5,
+        "y": 80,
+        "angle": 45,
+        "back": true,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 179.5,
+        "y": 80,
+        "angle": 315,
+        "back": true,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -167.5,
+        "y": -420,
+        "angle": 315,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 167.5,
+        "y": -420,
+        "angle": 45,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -179.5,
+        "y": 80,
+        "angle": 45,
+        "back": true,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 179.5,
+        "y": 80,
+        "angle": 315,
+        "back": true,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -167.5,
+        "y": -420,
+        "angle": 315,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 167.5,
+        "y": -420,
+        "angle": 45,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -179.5,
+        "y": 80,
+        "angle": 45,
+        "back": true,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 179.5,
+        "y": 80,
+        "angle": 315,
+        "back": true,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -167.5,
+        "y": -420,
+        "angle": 315,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 167.5,
+        "y": -420,
+        "angle": 45,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -179.5,
+        "y": 80,
+        "angle": 45,
+        "back": true,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 179.5,
+        "y": 80,
+        "angle": 315,
+        "back": true,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -167.5,
+        "y": -420,
+        "angle": 315,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 167.5,
+        "y": -420,
+        "angle": 45,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -179.5,
+        "y": 80,
+        "angle": 45,
+        "back": true,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 179.5,
+        "y": 80,
+        "angle": 315,
+        "back": true,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -167.5,
+        "y": -420,
+        "angle": 315,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 167.5,
+        "y": -420,
+        "angle": 45,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": -179.5,
+        "y": 80,
+        "angle": 45,
+        "back": true,
+        "launch effect": "korath internal"
+      },
+      {
+        "type": "Fighter",
+        "x": 179.5,
+        "y": 80,
+        "angle": 315,
+        "back": true,
+        "launch effect": "korath internal"
+      }
+    ],
+    "leaks": [],
+    "sprite": "ship/korsmanath a-awoj",
+    "thumbnail": "thumbnail/korsmanath a-awoj",
+    "administrative cost": 50,
+    "uncapturable": true,
+    "attributes": {
+      "category": "Superheavy",
+      "cost": 276900000,
+      "shields": 196420,
+      "hull": 320690,
+      "required crew": 1940,
+      "bunks": 31920,
+      "mass": 38565,
+      "drag": 231,
+      "heat dissipation": 0.08,
+      "solar collection": 4.2,
+      "fuel capacity": 1000,
+      "cargo space": 1864,
+      "outfit space": 3180,
+      "weapon capacity": 1148,
+      "engine capacity": 480,
+      "atmosphere scan": 100,
+      "weapon": {
+        "blast radius": 800,
+        "shield damage": 15000,
+        "hull damage": 7500,
+        "hit force": 22500
+      }
+    },
+    "tiny explosion": 30,
+    "small explosion": 45,
+    "medium explosion": 50,
+    "large explosion": 40,
+    "huge explosion": 50,
+    "final explode": "final explosion large",
+    "description": "Korsmanath A'awojs, named in memory of the Korath home system, are massive nomadic habitats that hold much of their remaining population. True flying cities, they could be self-contained miniature worlds were it not for their heavy defensive armament and reliance on unsustainable materials, methods, and sources of power. \tCommission of new Korsmanath A'awojs is a resource-demanding, labor-intensive, painstaking process fraught with political intrigue. Navarchs fight with the civilian government for resources and yard time they would rather devote to building raiding and defensive fleets, civilians vie with each other for a place on the next ship, and planning committees argue with engineers over what methods and technologies to use. This leads to construction delays, corner-cutting, and over-militarization of the design at best, and violent feuds at worst.",
+    "_internalId": "official-game/endless-sky::Korsmanath A'awoj",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "f2def540726c",
+    "variant": "Korsmanath A'awoj (Jump)",
+    "baseShip": "Korsmanath A'awoj",
+    "_variantPluginId": "Zuckungs List/uniques",
+    "governments": {
+      "official-game/endless-sky": {
+        "Korath (Civilian)": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "Korath (Civilian)": true
+      },
+      "POOT/poot-senza-solaria": {
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Syndicate → 0.01",
+      "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+      "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
+    "locations": {
+      "Zuckungs List/uniques": {
+        "Missions": [
+          "unq_korsmanath_2"
+        ]
+      }
+    },
+    "outfits": {
+      "Banisher Grav-Turret": {
+        "count": 7,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Banisher Grav-Turret"
+      },
+      "Langrage Hyper-Heaver": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Langrage Hyper-Heaver"
+      },
+      "Korath Inferno": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Korath Inferno"
+      },
+      "Warder Anti-Missile": {
+        "count": 7,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Warder Anti-Missile"
+      },
+      "Firelight Missile Bank": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Firelight Missile Bank"
+      },
+      "Firelight Storage Rack": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Firelight Storage Rack"
+      },
+      "Firelight Missile": {
+        "count": 108,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Firelight Missile"
+      },
+      "Firestorm Torpedo": {
+        "count": 13,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Firestorm Torpedo"
+      },
+      "Firestorm Battery": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Firestorm Battery"
+      },
+      "Triple Plasma Core": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Triple Plasma Core"
+      },
+      "Systems Core (Large)": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Systems Core (Large)"
+      },
+      "Liquid Sodium Cooler": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Liquid Sodium Cooler"
+      },
+      "Fuel Processor": {
+        "count": 7,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Fuel Processor"
+      },
+      "Thermal Repeater Rifle": {
+        "count": 1954,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Thermal Repeater Rifle"
+      },
+      "Microbot Defense Station": {
+        "count": 214,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Microbot Defense Station"
+      },
+      "Afterburner (Stellar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Afterburner (Stellar Class)"
+      },
+      "Reverser (Stellar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Reverser (Stellar Class)"
+      },
+      "Thruster (Stellar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Thruster (Stellar Class)"
+      },
+      "Thruster (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Thruster (Planetary Class)"
+      },
+      "Steering (Stellar Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Steering (Stellar Class)"
+      },
+      "Steering (Planetary Class)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Steering (Planetary Class)"
+      },
+      "Jump Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Jump Drive"
+      }
+    }
+  }
+]

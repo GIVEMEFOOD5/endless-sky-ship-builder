@@ -538,6 +538,113 @@
           },
           "tributeHails": {},
           "systemName": "array",
+          "rawByPlugin": [
+            {
+              "pluginId": "sensor/sensor",
+              "entries": [
+                {
+                  "key": "landscape",
+                  "values": [
+                    "land/space2"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "description",
+                  "values": [
+                    "A ringworld seemingly abandoned on some parts"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "music",
+                  "values": [
+                    "ambient/machinery"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    "This spaceport is abandoned"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "government",
+                  "values": [
+                    "sensor"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "shipyard",
+                  "values": [
+                    "Basic Ships"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "outfitter",
+                  "values": [
+                    "Basic Weapons"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "outfitter",
+                  "values": [
+                    "Basic Outfits"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "required reputation",
+                  "values": [
+                    0
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "bribe",
+                  "values": [
+                    0.1
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "security",
+                  "values": [
+                    0.1
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "tribute",
+                  "values": [
+                    100
+                  ],
+                  "children": [
+                    {
+                      "key": "threshold",
+                      "values": [
+                        0
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "fleet",
+                      "values": [
+                        "sensor guard fleet",
+                        10
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
           "name": "lidar",
           "_pluginId": "sensor/sensor",
           "_internalId": "sensor/sensor::lidar",
@@ -794,6 +901,2538 @@
         "count": 1,
         "pluginId": "sensor/sensor",
         "internalId": "sensor/sensor::systemPlanet:lidar"
+      }
+    ],
+    "rawByPlugin": [
+      {
+        "pluginId": "sensor/sensor",
+        "entries": [
+          {
+            "key": "pos",
+            "values": [
+              53,
+              62
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "sensor"
+            ],
+            "children": null
+          },
+          {
+            "key": "arrival",
+            "values": [
+              5000
+            ],
+            "children": [
+              {
+                "key": "link",
+                "values": [
+                  1
+                ],
+                "children": null
+              },
+              {
+                "key": "jump",
+                "values": [
+                  5000
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "ramscoop",
+            "values": [],
+            "children": [
+              {
+                "key": "universal",
+                "values": [
+                  1
+                ],
+                "children": null
+              },
+              {
+                "key": "addend",
+                "values": [
+                  0.5
+                ],
+                "children": null
+              },
+              {
+                "key": "multiplier",
+                "values": [
+                  1
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "habitable",
+            "values": [
+              10000
+            ],
+            "children": null
+          },
+          {
+            "key": "invisible fence",
+            "values": [
+              10000
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-full"
+            ],
+            "children": null
+          },
+          {
+            "key": "minables",
+            "values": [
+              "lead",
+              400,
+              0.1
+            ],
+            "children": null
+          },
+          {
+            "key": "minables",
+            "values": [
+              "tungsten",
+              101,
+              0.1
+            ],
+            "children": null
+          },
+          {
+            "key": "minables",
+            "values": [
+              "titanium",
+              90,
+              0.1
+            ],
+            "children": null
+          },
+          {
+            "key": "minables",
+            "values": [
+              "uranium",
+              240,
+              0.1
+            ],
+            "children": null
+          },
+          {
+            "key": "belt",
+            "values": [
+              10000
+            ],
+            "children": null
+          },
+          {
+            "key": "belt",
+            "values": [
+              10000
+            ],
+            "children": null
+          },
+          {
+            "key": "belt",
+            "values": [
+              10000
+            ],
+            "children": null
+          },
+          {
+            "key": "belt",
+            "values": [
+              10000
+            ],
+            "children": null
+          },
+          {
+            "key": "belt",
+            "values": [
+              10000
+            ],
+            "children": null
+          },
+          {
+            "key": "belt",
+            "values": [
+              10000
+            ],
+            "children": null
+          },
+          {
+            "key": "belt",
+            "values": [
+              10000
+            ],
+            "children": null
+          },
+          {
+            "key": "belt",
+            "values": [
+              10000
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "sensor guard fleet",
+              200
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "sensor swarm fleet",
+              60
+            ],
+            "children": null
+          },
+          {
+            "key": "hazard",
+            "values": [
+              "Ringworld gravity",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "starfield density",
+            "values": [
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "star/g3"
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  10
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels1"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  800
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  21
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels2"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  800
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  32
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels1"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  800
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  44
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels3"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  800
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  53
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels2"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  800
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  62
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels1"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  800
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  66
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels4"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  800
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  73
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels5"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  800
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  87
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels3"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  800
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  95
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels2"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  800
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  104
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels4"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  800
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  116
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels1"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  800
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  125
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels2"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  800
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  134
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels2"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  800
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  149
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels1"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  800
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  185
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels3"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  800
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  197
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels2"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  800
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  207
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels5"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  800
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  218
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels2"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  800
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  231
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels2"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  800
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  244
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "lidar"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/ringworld"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  812
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "lidar"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/ringworld"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  812
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  20
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "lidar"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/ringworld"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  812
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  40
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "lidar"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/ringworld"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  812
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  60
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "lidar"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/ringworld"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  812
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  80
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "lidar"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/ringworld"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  812
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  100
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "lidar"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/ringworld"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  812
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  120
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "lidar"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/ringworld"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  812
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  140
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "lidar"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/ringworld"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  812
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  160
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "lidar"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/ringworld"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  812
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  180
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "lidar"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/ringworld"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  812
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  200
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "lidar"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/ringworld"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  812
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  220
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "lidar"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/ringworld"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  812
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  240
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "lidar"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/ringworld"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  812
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  260
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "lidar"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/ringworld"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  812
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  280
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "lidar"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/ringworld"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  812
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  300
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "lidar"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/ringworld"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  812
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  320
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "lidar"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/ringworld"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  812
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  340
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels2"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  830
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  29
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels1"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  830
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  38
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels1"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  830
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  42
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels3"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  830
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  55
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels2"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  830
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  64
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels5"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  830
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  78
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels3"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  830
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  92
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels5"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  830
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  106
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels2"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  830
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  120
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels1"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  830
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  132
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels1"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  830
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  145
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels2"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  830
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  198
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels3"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  830
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  212
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/panels4"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  830
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  349.82
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  237
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/station1b"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      3
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  2000
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  10
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  0
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/station1b"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      3
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  2000
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  10
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  180
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
       }
     ],
     "name": "array",

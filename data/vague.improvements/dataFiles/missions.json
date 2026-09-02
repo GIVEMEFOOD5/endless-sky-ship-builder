@@ -1,0 +1,4562 @@
+[
+  {
+    "name": "Pact Recon 0 changed",
+    "displayName": "Pirate Reconnaissance",
+    "description": "Fly through the <waypoints> systems, then report to <destination> so the Southern Mutual Defense Pact can analyze your logs of pirate activity (if any).",
+    "raw": [
+      {
+        "key": "minor",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "Pirate Reconnaissance"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Fly through the <waypoints> systems, then report to <destination> so the Southern Mutual Defense Pact can analyze your logs of pirate activity (if any)."
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "attributes",
+            "values": [
+              "rim",
+              "south"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "government",
+              "Pirate"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "system",
+              "Alniyat",
+              "Atria",
+              "Lesath",
+              "Han"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "planet",
+              "Glaze"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Glaze"
+        ],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Alniyat"
+        ],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Atria"
+        ],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Han"
+        ],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Lesath"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              60
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "Pact Recon 0: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "You can't help noticing that the freighter parked next to the <ship> is in very bad shape, its hull pockmarked with blaster scars, as well as larger dents that may be from missiles. The crew and a number of men in militia uniforms are busy welding new hull plating onto it; the captain is having an animated conversation with a young female militia officer.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Approach them and find out what happened.)",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t(Ignore them.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "decline",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "\tYou overhear enough of the conversation to figure out that the freighter was attacked by pirates, and the militia are helping to get it in working condition again. \"A little spit shine and it'll look as good as new,\" the officer says, but the captain of the ship doesn't look convinced and walks up to his ship to work on it alongside the crew.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tThe militia officer glances over her shoulder and, having spotted you listening in, waves you over. \"No need to be shy,\" she says. \"I'm guessing you're not from around here.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"How can you tell?\"",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t\"Are the pirates rough around these parts?\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "pirates"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "\t\"Because captains from around here don't rubberneck at an every-day occurrence. After seeing your first dozen or so damaged ships, you eventually get used to seeing them and just move on.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Are the pirates rough around these parts?\" you ask.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "label",
+                "values": [
+                  "pirates"
+                ],
+                "children": null
+              },
+              {
+                "key": "\t\"Rougher than you're probably used to if you're from farther up north. The Navy doesn't patrol these parts, not unless there's some high profile warlord that's on their radar. Because of that, pirates have more free rein to terrorize us down here.\" She pauses for a moment while turning back to the freighter. \"And the pirate fleets keep getting stronger every year,\" she says with concern.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Is there something I can do to help?\"",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t\"I wish I could help, but my ship is not a warship.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "warship"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "\t\"There is indeed,\" she says. \"Have you heard of the Southern Mutual Defense Pact?\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "goto",
+                    "values": [
+                      "pact"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "warship"
+                ],
+                "children": null
+              },
+              {
+                "key": "\t\"There are other ways you could help us,\" she says. \"Have you heard of the Southern Mutual Defense Pact?\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "label",
+                "values": [
+                  "pact"
+                ],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"No. What is it?\"",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t\"Yes.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "eyes"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "\tShe says, \"We're a collection of worlds that have decided that since the Navy doesn't patrol this part of the galaxy anymore, it's up to us to keep the pirates in check. The idea is that if the pirates ever try something big, like capturing an entire planet, that planet can call on the entire Pact to assist them. And, as you can see, we also do our fair share of helping out the local merchants where we can.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Sounds like a good idea,\" you say.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "label",
+                "values": [
+                  "eyes"
+                ],
+                "children": null
+              },
+              {
+                "key": "\t\"The Pact is launching a new initiative, led by myself,\" she says. \"We're calling it the 'Thousand Eyes.' We're asking merchant ship captains to let us access their scanner logs, basically using merchants as a surveillance network. You don't have to fight the pirates, just let us know if you see them. Interested?\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Sure, I would be glad to help.\"",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t\"Sorry, sounds too risky.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "decline",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "\t\"Great!\" she says. \"Right now, we need more eyes on a few systems on the edge of Southern space. All you need to do is fly through those systems, then report to our base on <destination>. I'll mark the target systems on your ship's map for you. And by the way, the name's Freya Winters.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"<first> <last>,\" you respond, shaking her hand.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Nice to meet you, Captain <last>. Glad to have another helping hand. I'll be heading to <planet> after I've finished my business on <origin>, so see you there.\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "log",
+            "values": [
+              "Volunteered to help the Southern Mutual Defense Pact keep tabs on pirate activity in their region of space. Pirate attacks seem to be getting worse because the Navy doesn't bother to patrol down here anymore."
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic waypoint on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "set",
+            "values": [
+              "Pact Recon 0: done"
+            ],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              25000
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "pact recon 0",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "When you land on <planet>, you're approached by Freya Winters. She gives you <payment> in exchange for your scanner logs of the Southern systems. \"Thank you, Captain. I pray the pirates didn't give you too much trouble,\" she says. \"I'll be in touch when we've got a new assignment for you, assuming you're still interested.\""
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [],
+    "flags": {
+      "minor": true
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            60
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "Pact Recon 0: done"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onAccept": [],
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 25000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "attributes",
+          "values": [
+            "rim",
+            "south"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "government",
+            "Pirate"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "system",
+            "Alniyat",
+            "Atria",
+            "Lesath",
+            "Han"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "planet",
+            "Glaze"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Glaze",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Glaze"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Alniyat",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      },
+      {
+        "name": "Atria",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      },
+      {
+        "name": "Han",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      },
+      {
+        "name": "Lesath",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      {
+        "name": "pact recon 0",
+        "delayDays": 1,
+        "delayDaysMax": null,
+        "trigger": "onComplete"
+      }
+    ],
+    "_pluginId": "Zuckungs List/vague.improvements",
+    "_internalId": "Zuckungs List/vague.improvements::Pact Recon 0 changed",
+    "_hash": "818a0eee1739",
+    "sourcePlugin": "Zuckungs List/vague.improvements"
+  },
+  {
+    "name": "Pact Recon 1 changed",
+    "displayName": "Pirate Reconnaissance",
+    "description": "Fly through the <waypoints> systems, then report to <destination> so the Southern Mutual Defense Pact can analyze your logs of pirate activity (if any).",
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "Pirate Reconnaissance"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Fly through the <waypoints> systems, then report to <destination> so the Southern Mutual Defense Pact can analyze your logs of pirate activity (if any)."
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "attributes",
+            "values": [
+              "dirt belt",
+              "near earth",
+              "rim",
+              "south"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "government",
+              "Pirate"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Glaze"
+        ],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Alnasl"
+        ],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Alpha Arae"
+        ],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Eber"
+        ],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Wei"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              40
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "event: pact recon 0"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "Pact Recon 1: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "You receive a message from Freya, the militia officer in charge of tracking pirate activity. \"Hello, Captain <last>. I pray you're still interested in being a part of our Thousand Eyes program. We need some more intel on the empty systems in the middle of the Dirt Belt,\" she says. \"Pay would be a bit better than last time, since these systems are a bit more out of the way. As with before, return to <destination> once you're finished.\""
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic waypoint on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "set",
+            "values": [
+              "Pact Recon 1: done"
+            ],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              35000
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "pact recon 1",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "You transfer your sensor logs to Freya. She thanks you for your work and pays you <payment>. \"I'll let you know when we need your services again,\" she says."
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {},
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            40
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "event: pact recon 0"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "Pact Recon 1: done"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 35000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "attributes",
+          "values": [
+            "dirt belt",
+            "near earth",
+            "rim",
+            "south"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "government",
+            "Pirate"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Glaze",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Glaze"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Alnasl",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      },
+      {
+        "name": "Alpha Arae",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      },
+      {
+        "name": "Eber",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      },
+      {
+        "name": "Wei",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      {
+        "name": "pact recon 1",
+        "delayDays": 1,
+        "delayDaysMax": null,
+        "trigger": "onComplete"
+      }
+    ],
+    "_pluginId": "Zuckungs List/vague.improvements",
+    "_internalId": "Zuckungs List/vague.improvements::Pact Recon 1 changed",
+    "_hash": "d7642be5b211",
+    "sourcePlugin": "Zuckungs List/vague.improvements"
+  },
+  {
+    "name": "Pact Recon 2 changed",
+    "displayName": "Pirate Reconnaissance",
+    "description": "Fly through the <waypoints> systems, then report to <destination> so the Southern Mutual Defense Pact can analyze your logs of pirate activity (if any).",
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "Pirate Reconnaissance"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Fly through the <waypoints> systems, then report to <destination> so the Southern Mutual Defense Pact can analyze your logs of pirate activity (if any)."
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "attributes",
+            "values": [
+              "dirt belt",
+              "near earth",
+              "rim",
+              "south"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "government",
+              "Pirate"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Glaze"
+        ],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Antares"
+        ],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Men"
+        ],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Nunki"
+        ],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Shaula"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              40
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "event: pact recon 1"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "Pact Recon 2: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "You receive another message from Freya: \"Hello, Captain! I've got a more challenging and lucrative mission for you this time. We need someone to do a flyby of four pirate systems bordering the South, to gauge their strength. Again, no fighting is required, just fly in and out of the systems as fast as possible, and we're willing to pay much more than the last job given the danger involved. What do you say?\""
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic waypoint on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "set",
+            "values": [
+              "Pact Recon 2: done"
+            ],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              70000
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "pact recon 2",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "Freya Winters meets up with you in person soon after you land. \"Glad to see you're still in one piece. I pray you didn't have much trouble,\" she says, as she hands you a credit chip for <payment>. \"You've been a great help to us. I'll be sure to contact you next time we need a scout.\""
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {},
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            40
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "event: pact recon 1"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "Pact Recon 2: done"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 70000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "attributes",
+          "values": [
+            "dirt belt",
+            "near earth",
+            "rim",
+            "south"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "government",
+            "Pirate"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Glaze",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Glaze"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [
+      {
+        "name": "Antares",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      },
+      {
+        "name": "Men",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      },
+      {
+        "name": "Nunki",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      },
+      {
+        "name": "Shaula",
+        "count": 1,
+        "pluginId": null,
+        "internalId": null
+      }
+    ],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      {
+        "name": "pact recon 2",
+        "delayDays": 1,
+        "delayDaysMax": null,
+        "trigger": "onComplete"
+      }
+    ],
+    "_pluginId": "Zuckungs List/vague.improvements",
+    "_internalId": "Zuckungs List/vague.improvements::Pact Recon 2 changed",
+    "_hash": "720a1ea95d63",
+    "sourcePlugin": "Zuckungs List/vague.improvements"
+  },
+  {
+    "name": "Pact Recon 3 changed",
+    "displayName": "Pirate Reconnaissance",
+    "description": "Fly through the <marks> systems, searching for a gathering pirate fleet. Report to the Pact on <destination> once you have located them.",
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "Pirate Reconnaissance"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Fly through the <marks> systems, searching for a gathering pirate fleet. Report to the Pact on <destination> once you have located them."
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "attributes",
+            "values": [
+              "dirt belt",
+              "near earth",
+              "rim",
+              "south"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "government",
+              "Pirate"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Glaze"
+        ],
+        "children": null
+      },
+      {
+        "key": "mark",
+        "values": [
+          "Boral"
+        ],
+        "children": null
+      },
+      {
+        "key": "mark",
+        "values": [
+          "Hintar"
+        ],
+        "children": null
+      },
+      {
+        "key": "mark",
+        "values": [
+          "Naper"
+        ],
+        "children": null
+      },
+      {
+        "key": "mark",
+        "values": [
+          "Orvala"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              40
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "event: pact recon 2"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "Pact Recon 3: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "Once again, you receive a message from Freya Winters. \"We have another mission for you,\" she says, \"this one a bit more dangerous. We've heard rumors of a pirate fleet amassing in one of the seldom-visited systems in the Dirt Belt, and we need to know where they are. Interested in helping to track them down? As before, you don't need to fight, just observe them.\""
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Pirate"
+            ],
+            "children": null
+          },
+          {
+            "key": "personality",
+            "values": [
+              "staying",
+              "plunders",
+              "disables"
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Naper"
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Small Southern Pirates",
+              3
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Northern Pirates"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "enter",
+          "Boral"
+        ],
+        "children": [
+          {
+            "key": "unmark",
+            "values": [
+              "Boral"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "enter",
+          "Hintar"
+        ],
+        "children": [
+          {
+            "key": "unmark",
+            "values": [
+              "Hintar"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "enter",
+          "Orvala"
+        ],
+        "children": [
+          {
+            "key": "unmark",
+            "values": [
+              "Orvala"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "enter",
+          "Naper"
+        ],
+        "children": [
+          {
+            "key": "unmark",
+            "values": [
+              "Boral"
+            ],
+            "children": null
+          },
+          {
+            "key": "unmark",
+            "values": [
+              "Hintar"
+            ],
+            "children": null
+          },
+          {
+            "key": "unmark",
+            "values": [
+              "Orvala"
+            ],
+            "children": null
+          },
+          {
+            "key": "unmark",
+            "values": [
+              "Naper"
+            ],
+            "children": null
+          },
+          {
+            "key": "set",
+            "values": [
+              "fw located pirate fleet"
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "You have located the pirate fleet. Time to head back to <planet> to report to Freya what you found."
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "You have reached <planet>, but you haven't located the pirate fleet yet! Better depart and make sure you have checked <marks>."
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "fw located pirate fleet"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "set",
+            "values": [
+              "Pact Recon 3: done"
+            ],
+            "children": null
+          },
+          {
+            "key": "clear",
+            "values": [
+              "fw located pirate fleet"
+            ],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              80000
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "You report to Freya that you found a sizable pirate fleet in the Naper system, as well as spotting some pirates elsewhere. She thanks you, and pays you <payment>. \"Thank you for your assistance,\" she says. \"Again, I'll be in touch if we need you.\""
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {
+      "mark": [
+        "Boral",
+        "Hintar",
+        "Naper",
+        "Orvala"
+      ]
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            40
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "event: pact recon 2"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "Pact Recon 3: done"
+          ],
+          "children": null
+        }
+      ],
+      "complete": [
+        {
+          "key": "has",
+          "values": [
+            "fw located pirate fleet"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onEnter": [],
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 80000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "attributes",
+          "values": [
+            "dirt belt",
+            "near earth",
+            "rim",
+            "south"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "government",
+            "Pirate"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Glaze",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Glaze"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": true,
+    "npcCount": 1,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/vague.improvements",
+    "_internalId": "Zuckungs List/vague.improvements::Pact Recon 3 changed",
+    "_hash": "a07027ab1c25",
+    "sourcePlugin": "Zuckungs List/vague.improvements"
+  },
+  {
+    "name": "First Contact: Bunrodea (Hostile) redone",
+    "displayName": "An Intriguing Invitation",
+    "description": "You have received an invitation, or summons, to the marked system by some mantis-like aliens who seem to have been following you around human space.",
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "An Intriguing Invitation"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "You have received an invitation, or summons, to the marked system by some mantis-like aliens who seem to have been following you around human space."
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "near",
+            "values": [
+              "Sol",
+              0,
+              100
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "attributes",
+              "urban",
+              "station"
+            ],
+            "children": null
+          },
+          {
+            "key": "attributes",
+            "values": [
+              "spaceport"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Erabuthro"
+        ],
+        "children": null
+      },
+      {
+        "key": "clearance",
+        "values": [
+          "After hailing the planet the map pointed you towards, you hear an alien voice respond. Before you can think of what to say, the small device that the aliens threw at you on <origin> responds for you. The voice on the other end says something short, then cuts the feed. It seems like you've been cleared to land."
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "not",
+            "values": [
+              "installed plugin: bunrodea.missions"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "First Contact: Bunrodea (Hostile): offered"
+            ],
+            "children": null
+          },
+          {
+            "key": "or",
+            "values": [],
+            "children": [
+              {
+                "key": "reputation: Bunrodea",
+                "values": [
+                  "<",
+                  1
+                ],
+                "children": null
+              },
+              {
+                "key": "reputation: Bunrodea (Megasa)",
+                "values": [
+                  "<",
+                  1
+                ],
+                "children": null
+              },
+              {
+                "key": "reputation: Bunrodea (Erabu)",
+                "values": [
+                  "<",
+                  1
+                ],
+                "children": null
+              },
+              {
+                "key": "reputation: Bunrodea (Guard)",
+                "values": [
+                  "<",
+                  -1
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "bunrodea: guard rep",
+            "values": [
+              "=",
+              "reputation: Bunrodea (Guard)"
+            ],
+            "children": null
+          },
+          {
+            "key": "bunrodea: megasa rep",
+            "values": [
+              "=",
+              "reputation: Bunrodea (Megasa)"
+            ],
+            "children": null
+          },
+          {
+            "key": "bunrodea: erabu rep",
+            "values": [
+              "=",
+              "reputation: Bunrodea (Erabu)"
+            ],
+            "children": null
+          },
+          {
+            "key": "bunrodea: normal rep",
+            "values": [
+              "=",
+              "reputation: Bunrodea"
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "When you depart your ship, you're startled by a small alien ship uncloaking right in front of you. Two elegant mantis-like creatures step off it, each holding a strange looking weapon pointed directly at you. They have four long insectoid legs and two arms. Although their arms end in what look like hands, they also have strange claw-like features that partially enclose them, extending outward from their forearms to grasp their weapons. You look around to see if there's anyone else witnessing this, but you've landed at <origin>'s main spaceport in the middle of the night, leaving you as the only human in sight.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tThe aliens begin speaking to you in a language you don't understand, their words interspersed with clicking noises. As one of them speaks, they sound almost robotic, as if they are speaking through a synthesizer. Taking a closer look, you spot what you can only guess are cybernetic modifications to parts of the alien's body; the alien's throat and one of its eyes look non-organic, as well as the joints of its legs. The other one has no such visible modifications, though.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Do you come in peace?\"",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t\"I don't understand a word you're saying.\"",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t\"Don't shoot! I'll take you to my leader.\"",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "\tThe aliens look at each other and say a few words. One of them grabs a small device from a belt and throws it on the ground in front of you.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Pick it up.)",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t(Dodge for cover.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "dodge"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "\tYou pick up the device and look at it. It springs open in your hand, causing you to drop it. After it falls to the ground, it begins projecting a holographic star map. You recognize some of the systems on the map as those where you fought an alien fleet, made up of ships similar to the one in front of you. A single system within that region is highlighted. The aliens return to their ship, which becomes invisible again, and although you can't see it, you hear it take off and fly away.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "dodge"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tYou dodge for cover behind your ship. After a few seconds, you hear a springing sound. When you look back out from behind your ship, the aliens are gone, and the device they threw at you is now projecting a holographic star map. You recognize some of the systems on the map as those where you fought an alien fleet, made up of ships similar to the one in front of you. A single system within that region is highlighted. The alien ship becomes invisible once again, and although you can't see it, you hear it take off and fly away.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "reputation: Bunrodea",
+            "values": [
+              "=",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "reputation: Bunrodea (Guard)",
+            "values": [
+              "=",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "reputation: Bunrodea (Megasa)",
+            "values": [
+              "=",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "reputation: Bunrodea (Erabu)",
+            "values": [
+              "=",
+              0
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "reputation: Bunrodea",
+            "values": [
+              "=",
+              10
+            ],
+            "children": null
+          },
+          {
+            "key": "set",
+            "values": [
+              "First Contact: Bunrodea (Hostile): offered"
+            ],
+            "children": null
+          },
+          {
+            "key": "set",
+            "values": [
+              "First Contact: Bunrodea (Hostile): done"
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "As you enter the atmosphere, you're flanked by two large alien ships which guide you to the surface, leading you to a particular landing zone. When you leave your ship, you're met by two aliens that look similar to the ones that startled you on <origin>, including having the same weaponry.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tAs you take a moment to look around, you find yourself in the middle of a massive metropolis. Skyscrapers taller than anything you've ever seen in human space cover the horizon, although most of the buildings around you appear far more elegant in architecture. Directly ahead is a large palace-like building with a considerable number of steps leading up to the front doors.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tYou take a step forward, but one of the aliens says something while waving its weapon around, and you take the hint that you shouldn't be moving right now. The other says something into a communication device, then sits down on the ground and gestures for you to do the same. You suspect that you might be waiting here for a while.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Sit down.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "sit"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Turn around and re-enter my ship.)",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "\tYou re-enter your ship, and the aliens don't move to stop you. You decide to turn your ship back on and attempt to take off, but just as you try to activate the repulsor engines, you hear a loud buzzing sound coming from outside. You look out the nearest window, and see that the aliens have moved some sort of vehicle near your ship, buzzing with energy. You attempt to take off, but your ship's repulsor engines aren't moving you anywhere. The vehicle seems like it is deactivating any nearby repulsors.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Blast the vehicle with a turret.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "to",
+                        "values": [
+                          "display"
+                        ],
+                        "children": [
+                          {
+                            "key": "flagship base attribute: turret mounts",
+                            "values": [
+                              ">",
+                              "flagship attribute: turret mounts"
+                            ],
+                            "children": null
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Leave my ship and sit down with the aliens.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "leave"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "action",
+                "values": [],
+                "children": [
+                  {
+                    "key": "reputation: Bunrodea",
+                    "values": [
+                      "=",
+                      -10
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "reputation: Bunrodea (Guard)",
+                    "values": [
+                      "=",
+                      -10
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "reputation: Bunrodea (Megasa)",
+                    "values": [
+                      "=",
+                      -10
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "reputation: Bunrodea (Erabu)",
+                    "values": [
+                      "=",
+                      -10
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "\tYou turn one of your turrets toward the vehicle and fire, then immediately try to pull up. It looks like your shot either destroyed the vehicle or disrupted it enough for you to escape its influence as your ship rapidly rises into the atmosphere. It looks like the aliens didn't take too kindly to your action, though, as you begin seeing ships targeting you on your radar.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "flee",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "leave"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tYou exit your ship and sit down on the boarding ramp. The aliens that are watching you don't seem to care that you just tried to leave.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "goto",
+                    "values": [
+                      "intro"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "sit"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tYou sit down on the boarding ramp of your ship and gaze at the scenery while you wait.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "label",
+                "values": [
+                  "intro"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tAfter some time, you look up to the palace steps and notice a six-limbed creature unlike the mantis-like aliens watching over you. As it slowly makes its way downward and gets to the last few steps, the aliens guarding you stand to attention. You wonder if this entire time you've just been waiting for this alien to reach the bottom of the stairs.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tThe creature approaches you on all six limbs, but stands up on its hind two legs once it is only a few paces away from you. It is rather small, hardly reaching your chin while it stands at full height, with big round eyes and a large, bulbous nose. It extends its four arms outward, revealing the palms of its hands. Except for its face and palms, it is covered in a thin layer of golden brown fur. It begins speaking. You can't understand what it's saying, but it seems to be cycling through various different languages and pausing after each line, as each sentence sounds wildly different from the last. You're suddenly startled when it says perfectly, \"Hello.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Hello?\"",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t\"Wait, say that again.\"",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "loop"
+                ],
+                "children": null
+              },
+              {
+                "key": "\t\"Hello,\" the creature repeats itself. \"Hello. Hello. Hello,\" it continues to say.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Can you say anything else?\"",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t\"How do you know my language?\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "language"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"Hello.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "loop"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "\t\"Can you say anything else?\" it repeats back to you.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "goto",
+                    "values": [
+                      "human"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "language"
+                ],
+                "children": null
+              },
+              {
+                "key": "\t\"How do you know my language?\" it repeats back to you.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "label",
+                "values": [
+                  "human"
+                ],
+                "children": null
+              },
+              {
+                "key": "\t\"Human?\" it asks.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Yes, I am a human.\"",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t\"What even are you?\"",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "\t\"Human,\" it says to itself confidently. \"Human. Human. Human,\" it repeats, looking around as if it is searching for something in its mind. \"One... hundred years ago. Human,\" it says.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"I'm not the first human here?\"",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t\"What do you mean one hundred years ago?\"",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "\t\"Human visitors, many years ago,\" it says. \"Not important. The Queen desires yours presence.\" It then says something in a language that the mantis-like aliens understand, and they motion for you to follow as the small alien begins making its way back to the steps of the palace. You have a feeling you're going to dread the next half hour.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tYou finally reach the top of the palace stairs completely exhausted, although the aliens with you look entirely unphased.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tThe aliens lead you into the palace and through various elegant hallways. The walls are lined with marble statues and paintings that seem to be depicting historical figures and events for this alien race, although you're not allowed to linger long enough to get a good look at any of them.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tYou eventually approach a large ornate doorway that the aliens push open, revealing what must be the Queen's throne room. It is a long, narrow room lined with stained glass windows with what you guess is a throne chair where the alien Queen sits. The Queen is part of the mantis-like species and considerably larger in appearance than the ones guarding you.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tThe small creature says something to the Queen as you approach, and the Queen responds. The creature turns to you to translate.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "branch",
+                "values": [
+                  "royalty"
+                ],
+                "children": [
+                  {
+                    "key": "bunrodea: erabu rep",
+                    "values": [
+                      "<",
+                      1
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "branch",
+                "values": [
+                  "guard"
+                ],
+                "children": [
+                  {
+                    "key": "bunrodea: guard rep",
+                    "values": [
+                      "<",
+                      -1
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "branch",
+                "values": [
+                  "civi"
+                ],
+                "children": [
+                  {
+                    "key": "bunrodea: normal rep",
+                    "values": [
+                      "<",
+                      1
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "\t\"I hear that you have attacked one of my Megasa.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Your what?\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "megasa"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"I was only defending myself.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "lie"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"I have, and for that I apologize.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "apologize"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"Okay, and?\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "and"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "civi"
+                ],
+                "children": null
+              },
+              {
+                "key": "\t\"I hear that you have attacked one of my civilians.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"I was only defending myself.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "lie"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"I have, and for that I apologize.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "apologize"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"Okay, and?\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "and"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "guard"
+                ],
+                "children": null
+              },
+              {
+                "key": "\t\"I hear that you have fought a member of my guard.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"I was only defending myself.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "defending"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"Hey, they deserved it. They attacked me first.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "attacked"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"I have, and for that I apologize.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "apologize"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"Okay, and?\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "and"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "royalty"
+                ],
+                "children": null
+              },
+              {
+                "key": "\t\"I hear that you have attacked one of my Erabu.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Your what?\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "erabu"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"I was only defending myself.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "lie"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"I have, and for that I apologize.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "apologize"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"Okay, and?\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "and"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "erabu"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tAs the small creature translates for you, the Queen seems to laugh in a strange chittering way. \"The Erabu are the aristocrats of my land. Attacking them is a grave offense,\" the creature translates for the Queen. \"What do you say for yourself?\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "goto",
+                    "values": [
+                      "rechoice"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "megasa"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tAs the small creature translates for you, the Queen seems to laugh in a strange chittering way. \"The Megasa are the lowest of my people, but still my people to defend,\" the creature translates for the Queen. \"What do you say for yourself?\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "label",
+                "values": [
+                  "rechoice"
+                ],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Whoever I attacked, I was only defending myself.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "lie"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"Well, then for that I apologize.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "apologize"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"Okay, and?\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "and"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "defending"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tAs the small creature translates for you, the Queen seems to laugh in a strange chittering way. \"Yes, my royal guards are rather... eager to defend, and for that I apologize,\" the creature translates as the Queen speaks. \"But would my royal guard truly be doing its duty if it were not defending my lands from unknown threats? Although, perhaps they could be more patient in assessing true threats. I might punish those responsible, but it would seem that you have already dealt with those who have slighted you.\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "goto",
+                    "values": [
+                      "slighted"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "attacked"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tAs the small creature translates for you, the Queen seems to laugh in a strange chittering way. \"Deserved, you say?\" the creature translates as the Queen speaks. \"Would my royal guard truly be doing its duty if it were not defending my lands from unknown threats? Although, perhaps they could be more patient in assessing true threats. I might punish those responsible, but it would seem that you have already dealt with those who have slighted you.\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "goto",
+                    "values": [
+                      "slighted"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "lie"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tAs the small creature translates for you, the Queen steps off of her throne and approaches you. She extends her legs so that she towers over you to at least twice your height. She speaks, and the creature translates. \"How flippant you are, to lie like that in front of the highest royalty. You're either extremely brave, or extremely stupid.\" The Queen turns around and returns to her throne. \"I will show mercy, just this once. But you will not be so fortunate the next time.\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "goto",
+                    "values": [
+                      "threatened"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "and"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tAs the small creature translates for you, the Queen steps off of her throne and approaches you. She extends her legs so that she towers over you to at least twice your height. She speaks, and the creature translates. \"How flippant you are, to speak like that in front of the highest royalty. You're either extremely brave, or extremely stupid.\" The Queen turns around and returns to her throne. \"I will show mercy, just this once. But you will not be so fortunate the next time.\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "goto",
+                    "values": [
+                      "threatened"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "apologize"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tAs the small creature translates for you, the Queen looks as if she is smiling. \"An apology. Such an... unexpected response,\" the creature continues to translate for the Queen. \"Normally, those who have offended the Queen attempt to make excuses for themselves. Your apology is accepted.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tThe Queen motions to one of the guards and says something to them that the creature does not translate. She then speaks to you, and the creature translates: \"Since you have apologized, you will be allowed to live. My guards have been ordered to leave you be, and you may come and go on a small number of our worlds. But this is only so that you do not cause further trouble, and to allow you to refuel if you are passing through my systems. Your presence will only be tolerated, not welcomed. Now please leave my court.\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "goto",
+                    "values": [
+                      "end"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "threatened"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tThe Queen motions to one of the guards and says something to them that the creature does not translate. She then speaks to you, and the creature translates: \"Since I have shown you mercy, you will be allowed to live. My guards have been ordered to leave you be, and you may come and go on a small number of our worlds. But this is only so that you do not cause further trouble, and to allow you to refuel if you are passing through my systems. Your presence will only be tolerated, not welcomed. Now please leave my court.\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "goto",
+                    "values": [
+                      "end"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "slighted"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tThe Queen motions to one of the guards and says something to them that the creature does not translate. She then speaks to you, and the creature translates: \"Since it is my guards that have shown you disrespect, you will be allowed to live. My guards have been ordered to leave you be, and you may come and go on a small number of our worlds. But this is only so that you do not cause further trouble, and to allow you to refuel if you are passing through my systems. Your presence will only be tolerated, not welcomed. Now please leave my court.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "label",
+                "values": [
+                  "end"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tYou're escorted out of the throne room and told by the small creature to leave as soon as you reach your ship. You exit the palace, and realize that you must once again face the stairs. You take a deep breath, and prepare yourself for the long journey down.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "launch",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {
+      "clearance": "After hailing the planet the map pointed you towards, you hear an alien voice respond. Before you can think of what to say, the small device that the aliens threw at you on <origin> responds for you. The voice on the other end says something short, then cuts the feed. It seems like you've been cleared to land."
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "not",
+          "values": [
+            "installed plugin: bunrodea.missions"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "First Contact: Bunrodea (Hostile): offered"
+          ],
+          "children": null
+        },
+        {
+          "key": "or",
+          "values": [],
+          "children": [
+            {
+              "key": "reputation: Bunrodea",
+              "values": [
+                "<",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "reputation: Bunrodea (Megasa)",
+              "values": [
+                "<",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "reputation: Bunrodea (Erabu)",
+              "values": [
+                "<",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "reputation: Bunrodea (Guard)",
+              "values": [
+                "<",
+                -1
+              ],
+              "children": null
+            }
+          ]
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onAccept": [],
+        "onComplete": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "near",
+          "values": [
+            "Sol",
+            0,
+            100
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "attributes",
+            "urban",
+            "station"
+          ],
+          "children": null
+        },
+        {
+          "key": "attributes",
+          "values": [
+            "spaceport"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Erabuthro",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Erabuthro"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/vague.improvements",
+    "_internalId": "Zuckungs List/vague.improvements::First Contact: Bunrodea (Hostile) redone",
+    "_hash": "5fd3dc01eeca",
+    "sourcePlugin": "Zuckungs List/vague.improvements"
+  },
+  {
+    "name": "Avgi Culture: Zapchannel Energy",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Avgi (Consonance)"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "Avgi: Twilight Escape 3: done"
+            ],
+            "children": null
+          },
+          {
+            "key": "random",
+            "values": [
+              "<",
+              30
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "log",
+            "values": [
+              "Minor People",
+              "Nikkio",
+              "Nikkio is a shifty salesman peddling \"Zapchannel Ray Energy,\" a supposed health tonic with a suspicious glow."
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "action",
+                "values": [],
+                "children": [
+                  {
+                    "key": "set",
+                    "values": [
+                      "avgi: met nikkio"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "You are on your way back to the <ship> after a stroll through the spaceport when a bright yellow Avgi lands in front of you. \"Hey, you! Enthusiasm! I am Nikkio, famed medician and traveling salesman. Do you, alien sojourner, care for your health?\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"I guess so.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "scam"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"Whatever you're selling, I'm not interested.\"",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "\tYou try to step around him and continue on your way, but he mirrors you, dancing backwards to remain in your face. \"Sincerity! You are making a terrible mistake! I have something that could help with your energy, yes?\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Alright, alright. What is it?\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "scam"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"Not interested. Now move before I call the authorities.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "nope"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "scam"
+                ],
+                "children": null
+              },
+              {
+                "key": "\t\"Excitement! Wonderful! I have just the thing, certified by the Consonance Health Committee itself, surely!\" he says animatedly, arms and wings waving as he dances in front of you. \"But, reservation. Hmm. Only the most enterprising of captains could benefit from what I am about to bestow upon you. Are you certain you have what it takes to try Zapchannel Ray Energy?\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Yes, I'm very experienced, seen the galaxy and all. Now show me what you're talking about.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "glow"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"Alright, that's it. Get out of here before I call the authorities.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "nope"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "glow"
+                ],
+                "children": null
+              },
+              {
+                "key": "\t\"Excitement, excellent! I can see you are clearly a very intelligent and discerning captain. Anticipation. This serum was invented by yours truly, capable of resolving all of your worldly woes! Only 3,000 credits!\" He proudly holds out a vial of cloudy white liquid, glowing a bright, intense pale blue.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Uh, what is this?\"",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t\"Is this radioactive?\"",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t\"I'm not drinking that.\"",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "\t\"Dismissal. Nonsense, this formula is perfectly safe! A serum for the health, proven to kill over three thousand forms of cancer, you should know.\" As if on cue, the glow pulses menacingly.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Yeah, that doesn't look safe. I'm calling the authorities.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "nope"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"Alright, I'll give it a shot.\"",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "branch",
+                "values": [
+                  "superpowers"
+                ],
+                "children": [
+                  {
+                    "key": "random",
+                    "values": [
+                      "<",
+                      50
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "\tYou take the vial, warm to the touch, and uncork it. Nikkio gives you an expectant look, and gestures at you before you carefully tip the drink back. You feel a little tingly as the drink trickles down your throat, tasting vaguely of lemon and metal. This quickly intensifies into pins and needles in your chest, spreading as your body starts to go numb. As your vision darkens, punctuated by flashes of light in the corners of your eyes, your last thought is that perhaps you shouldn't have drunk a mysterious glowing liquid given to you by a seedy alien you just met in the spaceport.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "die",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "superpowers"
+                ],
+                "children": null
+              },
+              {
+                "key": "action",
+                "values": [],
+                "children": [
+                  {
+                    "key": "log",
+                    "values": [
+                      "Met a suspicious-looking Avgi salesman named Nikkio. Accepted a free sample of a strange glowing drink and somehow developed minor superpowers from it."
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "set",
+                    "values": [
+                      "damselflyman"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "outfit",
+                    "values": [
+                      "Damselflyman"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "\tYou take the vial, warm to the touch, and uncork it before carefully tipping it back. You feel a little tingly as the drink trickles down your throat, tasting vaguely of lemon and metal. This quickly intensifies into pins and needles in your chest, spreading as you start to feel somehow revitalized. After a brief, sharp pain, a suspiciously dragonfly-shaped patch of skin in the center of your chest begins to glow a vibrant blue.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\"Surprise. You surely are, ah, a worthy captain!\" says Nikkio, shock evident on his face. He begins to sidle away, glancing in all directions as though he isn't sure what's going on. \"Hurry. I must be on my way, goodbye for now, captain!\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "nope"
+                ],
+                "children": null
+              },
+              {
+                "key": "action",
+                "values": [],
+                "children": [
+                  {
+                    "key": "log",
+                    "values": [
+                      "Met a suspicious-looking Avgi salesman named Nikkio. Refused his offer of a definitely radioactive \"energy drink\" that would probably have been lethal."
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "\t\"Alarm. There's no need for that, apologies, apologies! Be on your way, Captain!\"",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {
+      "invisible": true
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "Avgi: Twilight Escape 3: done"
+          ],
+          "children": null
+        },
+        {
+          "key": "random",
+          "values": [
+            "<",
+            30
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Avgi (Consonance)"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [
+        {
+          "name": "Damselflyman",
+          "count": 1,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::Damselflyman",
+          "grantedIn": "onOffer"
+        }
+      ],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/vague.improvements",
+    "_internalId": "Zuckungs List/vague.improvements::Avgi Culture: Zapchannel Energy",
+    "_hash": "d83962013918",
+    "sourcePlugin": "Zuckungs List/vague.improvements"
+  },
+  {
+    "name": "add navy shipyard to Geminus",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "free worlds plot completed"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "add navy shipyard to Geminus",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {
+      "invisible": true,
+      "non-blocking": true
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "free worlds plot completed"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      {
+        "name": "add navy shipyard to Geminus",
+        "delayDays": 0,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
+    ],
+    "_pluginId": "Zuckungs List/vague.improvements",
+    "_internalId": "Zuckungs List/vague.improvements::add navy shipyard to Geminus",
+    "_hash": "329bcd3b968c",
+    "sourcePlugin": "Zuckungs List/vague.improvements"
+  },
+  {
+    "name": "nerve gas warner",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "entering",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Earth"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit: Nerve Gas"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "nerve gas detected"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "set",
+            "values": [
+              "nerve gas detected"
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/nerve gas"
+                ],
+                "children": null
+              },
+              {
+                "key": "Your sensors register the illegal outfit \"Nerve Gas\" on one of your ships. You should be careful when landing on non-pirate planets. The fine for owning this illegal outfit is 1.000.000 credits! In case you don't remove that outfit on next landing, you will get another warning.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "entering"
+    ],
+    "flags": {
+      "non-blocking": true
+    },
+    "repeatable": true,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit: Nerve Gas"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "nerve gas detected"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Earth",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Earth"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/vague.improvements",
+    "_internalId": "Zuckungs List/vague.improvements::nerve gas warner",
+    "_hash": "b95b11c01bc9",
+    "sourcePlugin": "Zuckungs List/vague.improvements"
+  },
+  {
+    "name": "nerve gas warner landing",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Earth"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "nerve gas detected"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "nerve gas detected landing"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "set",
+            "values": [
+              "nerve gas detected landing"
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/nerve gas"
+                ],
+                "children": null
+              },
+              {
+                "key": "You still have the outfit \"Nerve Gas\" installed on one of your ships. Consider removing it to avoid fines. There will be no more warnings till you have removed that outfit.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {
+      "non-blocking": true
+    },
+    "repeatable": true,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "nerve gas detected"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "nerve gas detected landing"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Earth",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Earth"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/vague.improvements",
+    "_internalId": "Zuckungs List/vague.improvements::nerve gas warner landing",
+    "_hash": "04144f8314a6",
+    "sourcePlugin": "Zuckungs List/vague.improvements"
+  },
+  {
+    "name": "nerve gas warner reset",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "entering",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Earth"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "nerve gas detected"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "outfit: Nerve Gas"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "clear",
+            "values": [
+              "nerve gas detected"
+            ],
+            "children": null
+          },
+          {
+            "key": "clear",
+            "values": [
+              "nerve gas detected landing"
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "entering"
+    ],
+    "flags": {
+      "non-blocking": true
+    },
+    "repeatable": true,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "nerve gas detected"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "outfit: Nerve Gas"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Earth",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Earth"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/vague.improvements",
+    "_internalId": "Zuckungs List/vague.improvements::nerve gas warner reset",
+    "_hash": "9b3468e20b50",
+    "sourcePlugin": "Zuckungs List/vague.improvements"
+  },
+  {
+    "name": "microbot defense station warner",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "entering",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Earth"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "outfit: Microbot Defense Station"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "microbot defense station detected"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "set",
+            "values": [
+              "microbot defense station detected"
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/microbot defense station"
+                ],
+                "children": null
+              },
+              {
+                "key": "Your sensors register the illegal outfit \"Microbot Defense Station\" on one of your ships. You should be careful when landing on non-pirate planets. The fine for owning this illegal outfit is 10.000.000 credits! In case you don't remove that outfit on next landing, you will get another warning.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "entering"
+    ],
+    "flags": {
+      "non-blocking": true
+    },
+    "repeatable": true,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "outfit: Microbot Defense Station"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "microbot defense station detected"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Earth",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Earth"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/vague.improvements",
+    "_internalId": "Zuckungs List/vague.improvements::microbot defense station warner",
+    "_hash": "7127e398c778",
+    "sourcePlugin": "Zuckungs List/vague.improvements"
+  },
+  {
+    "name": "microbot defense station warner landing",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Earth"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "microbot defense station detected"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "microbot defense station detected landing"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "set",
+            "values": [
+              "microbot defense station detected landing"
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/microbot defense station"
+                ],
+                "children": null
+              },
+              {
+                "key": "You still have the outfit \"Microbot Defense Station\" installed on one of your ships. Consider removing it to avoid fines. There will be no more warnings till you have removed that outfit.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {
+      "non-blocking": true
+    },
+    "repeatable": true,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "microbot defense station detected"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "microbot defense station detected landing"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Earth",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Earth"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/vague.improvements",
+    "_internalId": "Zuckungs List/vague.improvements::microbot defense station warner landing",
+    "_hash": "6e314600966e",
+    "sourcePlugin": "Zuckungs List/vague.improvements"
+  },
+  {
+    "name": "microbot defense station warner reset",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "entering",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Earth"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "microbot defense station detected"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "outfit: Microbot Defense Station"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "clear",
+            "values": [
+              "microbot defense station detected"
+            ],
+            "children": null
+          },
+          {
+            "key": "clear",
+            "values": [
+              "microbot defense station detected landing"
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "entering"
+    ],
+    "flags": {
+      "non-blocking": true
+    },
+    "repeatable": true,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "microbot defense station detected"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "outfit: Microbot Defense Station"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Earth",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Earth"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/vague.improvements",
+    "_internalId": "Zuckungs List/vague.improvements::microbot defense station warner reset",
+    "_hash": "7a08f6a7784a",
+    "sourcePlugin": "Zuckungs List/vague.improvements"
+  },
+  {
+    "name": "fix 2 arfectas stolen",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "entering",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Earth"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "Wanderers Pug Hostile: declined"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "reputation: Wanderer",
+            "values": [
+              "=",
+              100
+            ],
+            "children": null
+          },
+          {
+            "key": "reputation: Pug",
+            "values": [
+              "=",
+              100
+            ],
+            "children": null
+          },
+          {
+            "key": "reputation: Pug (Wanderer)",
+            "values": [
+              "=",
+              100
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "entering"
+    ],
+    "flags": {
+      "invisible": true
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "Wanderers Pug Hostile: declined"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": null,
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Earth",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Earth"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/vague.improvements",
+    "_internalId": "Zuckungs List/vague.improvements::fix 2 arfectas stolen",
+    "_hash": "1a2c92034468",
+    "sourcePlugin": "Zuckungs List/vague.improvements"
+  }
+]

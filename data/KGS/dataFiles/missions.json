@@ -2,18 +2,83 @@
   {
     "name": "KGS: Navy Mark II Upgrade",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: navy using mark ii ships"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "kgs: navy mark ii upgrade"
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true,
+      "non-blocking": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: navy using mark ii ships"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -29,30 +94,101 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "kgs: navy mark ii upgrade"
+      {
+        "name": "kgs: navy mark ii upgrade",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Navy Mark II Upgrade",
-    "_hash": "18b9b262a611",
+    "_hash": "d502d0326483",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: Finch Upgrade",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: southern carriers 3"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "kgs: finch upgrade"
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true,
+      "non-blocking": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: southern carriers 3"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -68,30 +204,103 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "kgs: finch upgrade"
+      {
+        "name": "kgs: finch upgrade",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Finch Upgrade",
-    "_hash": "18b9b262a611",
+    "_hash": "b400b67edd7f",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: Fallcoon Development",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "main plot completed"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "kgs: fallcoon developed",
+              20,
+              30
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true,
+      "non-blocking": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "main plot completed"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -107,28 +316,155 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "kgs: fallcoon developed"
+      {
+        "name": "kgs: fallcoon developed",
+        "delayDays": 20,
+        "delayDaysMax": 30,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Fallcoon Development",
-    "_hash": "18b9b262a611",
+    "_hash": "ba710d20d08e",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: Fallcoon Developed",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: kgs: fallcoon developed"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "As you explore the port here, a nearby screen lights up.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Take a look.)",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t(Ignore it.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "decline",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": " \"Tarazed Shipyards is announcing the Fallcoon, a new heavy warship intended to carry as many Plasma Cannons as possible!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "scene",
+                "values": [
+                  "scene/kgs_fallcoon"
+                ],
+                "children": null
+              },
+              {
+                "key": "\t\"With a main weapon array of ten Plasma Cannons, the Fallcoon beats out our competitor's Dreadnought and its six Plasma Cannons. Purchase one today at a nearby Tarazed branch!\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [],
+    "flags": {
+      "invisible": true,
+      "non-blocking": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: kgs: fallcoon developed"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -137,9 +473,19 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -149,28 +495,110 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Fallcoon Developed",
-    "_hash": "4e03fefa6359",
+    "_hash": "ede0dbf3885b",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: Twin Gatling Development",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: plasma repeater advanced"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "main plot completed"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "kgs: pirates develop twin gatlings",
+              100,
+              200
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true,
+      "non-blocking": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: plasma repeater advanced"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "main plot completed"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -186,30 +614,108 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "kgs: pirates develop twin gatlings"
+      {
+        "name": "kgs: pirates develop twin gatlings",
+        "delayDays": 100,
+        "delayDaysMax": 200,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Twin Gatling Development",
-    "_hash": "18b9b262a611",
+    "_hash": "15cf4bea21c7",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: Twin Gatlings",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "outfitter",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "outfits",
+            "values": [
+              "KGS Twin Gatling"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "kgs: pirates use twin gatlings"
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "As you walk hurriedly through the outfitter here, you notice two new weapons: the Twin Gatling and Staggered Twin Gatling.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "scene",
+                "values": [
+                  "scene/kgs_twin_gat"
+                ],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "outfitter"
     ],
+    "flags": {
+      "invisible": true,
+      "non-blocking": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {},
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -218,9 +724,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "outfits": "KGS Twin Gatling"
-      }
+      "value": [
+        {
+          "key": "outfits",
+          "values": [
+            "KGS Twin Gatling"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -230,28 +742,338 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "kgs: pirates use twin gatlings"
+      {
+        "name": "kgs: pirates use twin gatlings",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Twin Gatlings",
-    "_hash": "5ace869f0db8",
+    "_hash": "bdeb6d84a5c8",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: More Gatling Guns",
     "displayName": "Retrieve Gatling Gun Tech",
+    "description": "Barmy Edward has asked you to bring a Gatling Gun, a Twin Gatling, a Staggered Twin Gatling, and 1500 rounds of Gatling Gun ammo to <planet> for him to study.",
+    "raw": [
+      {
+        "key": "minor",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "Retrieve Gatling Gun Tech"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Barmy Edward has asked you to bring a Gatling Gun, a Twin Gatling, a Staggered Twin Gatling, and 1500 rounds of Gatling Gun ammo to <planet> for him to study."
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Skymoot"
+        ],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Rust"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "KGS: Twin Gatlings: declined"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "As you explore <origin>'s spaceport, you encounter Barmy Edward, Chief Offensive Engineer of Kraz Cybernetics, and two children. \"I'm on vacation,\" he says, \"and who do I run into but Captain <last>? It's good seeing you!\" You shake hands, and he introduces you to his two adopted daughters, Ludmina and Lunella. \"Hello <first>!\" they chorus in unison. Barmy looks at them affectionately. \"Would you like to have dinner with us?\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": " \"Sure!\"",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": " \"I'm a bit busy, maybe not.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "decline",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "\tYou are all waiting for dessert after a sumptious dinner, during which the two girls have been asking you nonstop about what being a spaceship captain is like. During a rare pause in the flow of questions, Barmy asks, \"Have you seen any interesting weapons recently?\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": " (Tell him about the Twin Gatlings you noticed at some pirate outfitters recently.)",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": " \"No, not really.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "no"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": " \"I have, actually.\" you say. \"Do you know about the Gatling Guns that some pirates around these parts sell?\" Barmy nods. \"Some time ago I visited a pirate planet, and I saw what they called a Twin Gatling, two Gatlings shoved together to fit into a single gun port. What was interesting was that there was a more expensive version that supposedly fired alternately. It advertised cooldown time half as much as firing time, while the regular version fired like a normal Gatling - twice as much cooldown time as firing time.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": " \"Wow,\" says Barmy, \"those pirates are quite creative. I have seen the Gatling Gun; it does incredible hull damage, but the downtime is significant. The staggered design must be much more effective. Actually, if I shoved three into a gun port, I could make them fire continuously! Imagine the hull ripping capability of that, plus our shield-focused Plasma Cannons. It would be an extremely effective combination! I would definitely like to do some research on these Gatlings - could you bring a few to my lab on Rust?\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": " \"Sure, what do you need?\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "yes"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": " \"I'm sorry, but I don't think I can do that. You'll need to find someone else.\"",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": " Barmy looks slightly crestfallen. \"Well,\" he says, \"I'm sure I can find someone to get them.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "label",
+                "values": [
+                  "no"
+                ],
+                "children": null
+              },
+              {
+                "key": " The stream of questions from Ludmina and Lunella renews. At last, dessert arrives, and you all dig in.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": " After dessert, the conversation turns to the aliens you've seen, the planets you've visited. Eventually, they say their goodbyes and leave.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "yes"
+                ],
+                "children": null
+              },
+              {
+                "key": " \"Yay!\" exclaims Barmy. \"I think one copy of each Gatling, including the original, plus 1500 rounds of ammo for it would be sufficient.\" He gives you the address of his lab on Rust.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": " The stream of questions from Ludmina and Lunella renews. At last, dessert arrives, and you all dig in.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": " After dessert, the conversation turns to the aliens you've seen, the planets you've visited. Eventually, they say their goodbyes and leave.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "You have returned to <planet>, but you don't have the stuff Barmy requested. Go get them before returning."
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Gatling Gun",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "KGS Twin Gatling",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "KGS Staggered Twin Gatling",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Gatling Gun Ammo",
+              -1500
+            ],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              200000
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "kgs: gatling mass production",
+              60,
+              90
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "You ask around for Barmy, and find that he's in. \"Thank you, <first>,\" he says, handing you <payment>. \"This will be very helpful. Keep an eye out for something in a few months.\"",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [],
+    "flags": {
+      "minor": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": true,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "KGS: Twin Gatlings: declined"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -290,30 +1112,159 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "kgs: gatling mass production"
+      {
+        "name": "kgs: gatling mass production",
+        "delayDays": 60,
+        "delayDaysMax": 90,
+        "trigger": "onComplete"
+      }
     ],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: More Gatling Guns",
-    "_hash": "14f73c7b764c",
+    "_hash": "49faad7a6d85",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: Gatling Guns Released",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "near",
+            "values": [
+              "Kraz",
+              100
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Zug"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: kgs: gatling mass production"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "As you finish your post-landing checks, you receive a message from Barmy Edward. A photograph of a scary-looking weapon is enclosed as well. The message reads:",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/kgs_2x3_gat"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tGood news, <first>! The next time you're on Rust, you'll be able to buy Triple, Quad, and 2x3 Gatlings.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\t\t\tBest,",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\t\t\t\t\tB. Edward Tivrusky",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\t\t\t\t\tChief Offensive Engineer",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\t\t\t\t\tKraz Cybernetics",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true,
+      "non-blocking": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: kgs: gatling mass production"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -322,9 +1273,16 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "near": "Kraz 100"
-      }
+      "value": [
+        {
+          "key": "near",
+          "values": [
+            "Kraz",
+            100
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": {
       "type": "planet",
@@ -342,28 +1300,110 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Gatling Guns Released",
-    "_hash": "06fb67983885",
+    "_hash": "92be4a02011a",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: Plasma Assault Repeater Development",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: plasma repeater advanced"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "main plot completed"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "kgs: plasma assault repeater developed",
+              450,
+              600
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true,
+      "non-blocking": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: plasma repeater advanced"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "main plot completed"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -379,28 +1419,155 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "kgs: plasma assault repeater developed"
+      {
+        "name": "kgs: plasma assault repeater developed",
+        "delayDays": 450,
+        "delayDaysMax": 600,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Plasma Assault Repeater Development",
-    "_hash": "18b9b262a611",
+    "_hash": "aea3556c0bb0",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: Plasma Assault Repeater Developed",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: kgs: plasma assault repeater developed"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "As you stroll through the spaceport, a nearby hologram starts playing an ad.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Take a look.)",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t(Ignore it.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "decline",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "\t\"Kraz Cybernetics is excited to present a new heavy weapon: the Plasma Assault Repeater!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/kgs_plasma_assault_repeater"
+                ],
+                "children": null
+              },
+              {
+                "key": "\t\"A burst fire device has been implemented onto the Plasma Repeater, and we have designed it specifically for use on the Tarazed Kingfisher heavy warship. Get one today at your local Kraz Cybernetics branch!\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [],
+    "flags": {
+      "invisible": true,
+      "non-blocking": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: kgs: plasma assault repeater developed"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -409,9 +1576,19 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -421,28 +1598,95 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Plasma Assault Repeater Developed",
-    "_hash": "4e03fefa6359",
+    "_hash": "a7888a4514d4",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: Raindrop Developed",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: southern carriers 1"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "kgs: raindrop developed",
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true,
+      "non-blocking": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: southern carriers 1"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -458,30 +1702,102 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "kgs: raindrop developed"
+      {
+        "name": "kgs: raindrop developed",
+        "delayDays": 0,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Raindrop Developed",
-    "_hash": "18b9b262a611",
+    "_hash": "0249883e85da",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: Yestrel Development",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "kestrel available"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "kgs: yestrel developed",
+              730
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true,
+      "non-blocking": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "kestrel available"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -497,30 +1813,123 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "kgs: yestrel developed"
+      {
+        "name": "kgs: yestrel developed",
+        "delayDays": 730,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Yestrel Development",
-    "_hash": "18b9b262a611",
+    "_hash": "b427b9003fdc",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: Yestrel Developed",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: kgs: yestrel developed"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "You receive a message from Charles Atinoda, the ship designer at Tarazed Corporation who designed the Kestrel: \"Captain <last>, we are pleased to inform you that our latest Kestrel variant, with all the possible upgrades, is now available for sale here on Wayfarer.\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true,
+      "non-blocking": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: kgs: yestrel developed"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -529,9 +1938,19 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -541,28 +1960,96 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Yestrel Developed",
-    "_hash": "07461fb9321a",
+    "_hash": "91a739d05964",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: Silver Penguin",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: remnant: penguin"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "kgs: silver penguin sale",
+              0
+            ],
+            "children": [
+              {
+                "key": "decline",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true,
+      "non-blocking": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: remnant: penguin"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -578,30 +2065,103 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "kgs: silver penguin sale"
+      {
+        "name": "kgs: silver penguin sale",
+        "delayDays": 0,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Silver Penguin",
-    "_hash": "18b9b262a611",
+    "_hash": "7986087e805d",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: Silver Merganser",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: remnant: cognizance merganser"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "kgs: silver merganser sale",
+              0
+            ],
+            "children": [
+              {
+                "key": "decline",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true,
+      "non-blocking": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: remnant: cognizance merganser"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -617,30 +2177,103 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "kgs: silver merganser sale"
+      {
+        "name": "kgs: silver merganser sale",
+        "delayDays": 0,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Silver Merganser",
-    "_hash": "18b9b262a611",
+    "_hash": "c1e3f6fbedc1",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: Silver Merganser Fleet",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: remnant: merganser fleet"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "kgs: silver merganser fleet",
+              0
+            ],
+            "children": [
+              {
+                "key": "decline",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true,
+      "non-blocking": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: remnant: merganser fleet"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -656,30 +2289,103 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "kgs: silver merganser fleet"
+      {
+        "name": "kgs: silver merganser fleet",
+        "delayDays": 0,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Silver Merganser Fleet",
-    "_hash": "18b9b262a611",
+    "_hash": "a7408bd38a1c",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: Silver Peregrine Fleet",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: remnant: cognizance peregrine"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "kgs: silver peregrine fleet",
+              0
+            ],
+            "children": [
+              {
+                "key": "decline",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true,
+      "non-blocking": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: remnant: cognizance peregrine"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -695,30 +2401,131 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "kgs: silver peregrine fleet"
+      {
+        "name": "kgs: silver peregrine fleet",
+        "delayDays": 0,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Silver Peregrine Fleet",
-    "_hash": "18b9b262a611",
+    "_hash": "6de7bc4dbd39",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: Silver Fleet Teciimach Deployment",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: remnant: teciimach deployment"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "event: kgs: silver merganser fleet"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "event: kgs: silver peregrine fleet"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "kgs: silver fleet teciimach deployment",
+              0
+            ],
+            "children": [
+              {
+                "key": "decline",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true,
+      "non-blocking": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: remnant: teciimach deployment"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "event: kgs: silver merganser fleet"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "event: kgs: silver peregrine fleet"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -734,30 +2541,104 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "kgs: silver fleet teciimach deployment"
+      {
+        "name": "kgs: silver fleet teciimach deployment",
+        "delayDays": 0,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Silver Fleet Teciimach Deployment",
-    "_hash": "18b9b262a611",
+    "_hash": "4aa0c1c3708d",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: Biolofez Triolofez Yolofez Development",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: remnant: cognizance salvage expansion"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "kgs: biolofez triolofez yolofez developed",
+              80,
+              90
+            ],
+            "children": [
+              {
+                "key": "decline",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true,
+      "non-blocking": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: remnant: cognizance salvage expansion"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -773,30 +2654,130 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "kgs: biolofez triolofez yolofez developed"
+      {
+        "name": "kgs: biolofez triolofez yolofez developed",
+        "delayDays": 80,
+        "delayDaysMax": 90,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Biolofez Triolofez Yolofez Development",
-    "_hash": "18b9b262a611",
+    "_hash": "115264a5ac0a",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: Biolofez Triolofez Yolofez Developed",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Remnant"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: kgs: biolofez triolofez yolofez developed"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "Once you finish your post-landing checks, you receive a message from Aeolus. It reads:",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "scene",
+                "values": [
+                  "scene/kgs_biolofez_triolofez_yolofez"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tGreetings, Captain <last>. We have developed several modifications for our many captured 'olofez to be more suitable for planetary defense, and they are now for sale.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\tAeolus",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: kgs: biolofez triolofez yolofez developed"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -805,9 +2786,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Remnant"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Remnant"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -817,28 +2804,97 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Biolofez Triolofez Yolofez Developed",
-    "_hash": "f7748498f444",
+    "_hash": "beb3b58d3b83",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: Twinhibitor Bithrasher Trithrasher Development",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: remnant: teciimach deployment"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "kgs: twinhibitor bithrasher trithrasher developed",
+              200,
+              365
+            ],
+            "children": [
+              {
+                "key": "decline",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true,
+      "non-blocking": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: remnant: teciimach deployment"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -854,30 +2910,130 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "kgs: twinhibitor bithrasher trithrasher developed"
+      {
+        "name": "kgs: twinhibitor bithrasher trithrasher developed",
+        "delayDays": 200,
+        "delayDaysMax": 365,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Twinhibitor Bithrasher Trithrasher Development",
-    "_hash": "18b9b262a611",
+    "_hash": "e0698f2e0504",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: Twinhibitor Bithrasher Trithrasher Developed",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Remnant"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: kgs: twinhibitor bithrasher trithrasher developed"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "As you are about to leave your bridge to go outside and stretch your legs, a short message from Taely appears on your dashboard. It reads:",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "scene",
+                "values": [
+                  "scene/kgs_twinhibitor_bithrasher_trithrasher"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tHello, Captain <last>! Several of our captains raised complaints that our guns are too small, so we designed three new weapons, the Twinhibitor, Bithrasher, and Trithrasher. Development has recently finished, and they are now for sale.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\t\tTaely",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: kgs: twinhibitor bithrasher trithrasher developed"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -886,9 +3042,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Remnant"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Remnant"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -898,28 +3060,95 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Twinhibitor Bithrasher Trithrasher Developed",
-    "_hash": "f7748498f444",
+    "_hash": "1474a5038eaf",
     "sourcePlugin": "Kai's list/KGS"
   },
   {
     "name": "KGS: Rapid Stream Development",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "non-blocking",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: wanderers: heavy gust mass production"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "kgs: rapid stream developed",
+              10
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true,
+      "non-blocking": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: wanderers: heavy gust mass production"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -935,13 +3164,19 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "kgs: rapid stream developed"
+      {
+        "name": "kgs: rapid stream developed",
+        "delayDays": 10,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Kai's list/KGS",
     "_internalId": "Kai's list/KGS::KGS: Rapid Stream Development",
-    "_hash": "18b9b262a611",
+    "_hash": "97fae3261d80",
     "sourcePlugin": "Kai's list/KGS"
   }
 ]

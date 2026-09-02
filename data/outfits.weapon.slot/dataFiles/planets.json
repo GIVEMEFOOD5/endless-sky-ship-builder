@@ -1,0 +1,1997 @@
+[
+  {
+    "displayName": null,
+    "attributes": [
+      "south",
+      "tourism"
+    ],
+    "requires": [],
+    "landscapes": [],
+    "music": null,
+    "description": {
+      "text": "\tLocal rumors tell about an alien species of \"canyon people\" who live in caves in some of the deepest canyons, leading to a constant stream of visiting xenobiologists. The scientific consensus, however, is that these sightings have only been of a reclusive ape-like species that lives in the canyons, and is not known to dig caves or show any other sign of civilization.",
+      "toDisplay": null
+    },
+    "spaceport": {
+      "text": "\tYou notice quite a few families with children sitting by the windows on the upper stories of the tower, watching starships landing and taking off. Many of them have brought folding chairs or blankets to sit on. That must be what passes for entertainment on this world.",
+      "toDisplay": null
+    },
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "Republic",
+    "governmentInherited": true,
+    "shipyards": [],
+    "outfitters": [],
+    "requiredReputation": null,
+    "bribe": null,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": 0.2,
+    "wormhole": null,
+    "tribute": {
+      "credits": 1700,
+      "threshold": 3500,
+      "fleets": [
+        {
+          "name": "Large Militia",
+          "count": 25,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::tributeFleet:Large Militia"
+        }
+      ],
+      "dailyReputationPenalty": null
+    },
+    "tributeHails": {},
+    "systemName": "Aldhibain",
+    "rawByPlugin": [
+      {
+        "pluginId": "official-game/endless-sky",
+        "entries": [
+          {
+            "key": "attributes",
+            "values": [
+              "south",
+              "tourism"
+            ],
+            "children": null
+          },
+          {
+            "key": "landscape",
+            "values": [
+              "land/canyon8"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "Glaze is a varied world with everything from sunny beaches to frozen tundra, but it is perhaps best known for its sandstone canyons and deserts. This world's wildlife has never been studied in great detail."
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "\tLocal rumors tell about an alien species of \"canyon people\" who live in caves in some of the deepest canyons, leading to a constant stream of visiting xenobiologists. The scientific consensus, however, is that these sightings have only been of a reclusive ape-like species that lives in the canyons, and is not known to dig caves or show any other sign of civilization."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "The spaceport is a tower of glass and steel perched on top of a mesa, overlooking the canyonlands: spires of red and pale yellow stone, with a sprinkling of trees at the lower elevations. A wide highway winds down the side of the mesa, through several tunnels, and then off to the horizon. The port itself is not terribly busy."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "\tYou notice quite a few families with children sitting by the windows on the upper stories of the tower, watching starships landing and taking off. Many of them have brought folding chairs or blankets to sit on. That must be what passes for entertainment on this world."
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Basic Ships"
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Southbound Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Common Outfits"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Delta V Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Kraz Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Ammo South"
+            ],
+            "children": null
+          },
+          {
+            "key": "security",
+            "values": [
+              0.2
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute",
+            "values": [
+              1700
+            ],
+            "children": [
+              {
+                "key": "threshold",
+                "values": [
+                  3500
+                ],
+                "children": null
+              },
+              {
+                "key": "fleet",
+                "values": [
+                  "Large Militia",
+                  25
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "pluginId": "Blended Ships/blended-ships",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Greenrock"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Intrasystem Basic"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Intrasystem Advanced"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "MarStel Intermediate"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "MarStel Advanced"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Lost In Midnight/Lost-in-Midnight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Basic Fuel"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/landing.images",
+        "entries": [
+          {
+            "key": "landscape",
+            "values": [
+              "land/glaze"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/outfits.weapon.slot",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Weyland Industries"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/ship.cores",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Basic Ships Cores"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Southbound Basics Cores"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "name": "Glaze",
+    "_pluginId": "official-game/endless-sky",
+    "_internalId": "official-game/endless-sky::Glaze",
+    "_definedBy": [
+      "official-game/endless-sky",
+      "Blended Ships/blended-ships",
+      "Mega Freight/Mega-Freight",
+      "Lost In Midnight/Lost-in-Midnight",
+      "Zuckungs List/landing.images",
+      "Zuckungs List/outfits.weapon.slot",
+      "Zuckungs List/ship.cores"
+    ],
+    "_lastModifiedBy": "Zuckungs List/ship.cores"
+  },
+  {
+    "displayName": null,
+    "attributes": [
+      "factory",
+      "moon",
+      "near",
+      "earth",
+      "tourism"
+    ],
+    "requires": [],
+    "landscapes": [],
+    "music": null,
+    "description": {
+      "text": "\tThe facility is still in operation, although it is now overshadowed by the far more advanced shipbuilding centers like Geminus in the Castor system.",
+      "toDisplay": null
+    },
+    "spaceport": {
+      "text": "\tEverything is so ancient and ramshackle that it feels almost like you have stepped back in time to the early days of human space flight. Perhaps that's what the tourists come here to experience.",
+      "toDisplay": null
+    },
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "Republic",
+    "governmentInherited": true,
+    "shipyards": [],
+    "outfitters": [],
+    "requiredReputation": null,
+    "bribe": 0.05,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": 0.2,
+    "wormhole": null,
+    "tribute": {
+      "credits": 2500,
+      "threshold": 7500,
+      "fleets": [
+        {
+          "name": "Large Republic",
+          "count": 10,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::tributeFleet:Large Republic"
+        }
+      ],
+      "dailyReputationPenalty": null
+    },
+    "tributeHails": {},
+    "systemName": "Sol",
+    "rawByPlugin": [
+      {
+        "pluginId": "official-game/endless-sky",
+        "entries": [
+          {
+            "key": "attributes",
+            "values": [
+              "factory",
+              "moon",
+              "near earth",
+              "tourism"
+            ],
+            "children": null
+          },
+          {
+            "key": "landscape",
+            "values": [
+              "land/earthrise"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "In the early days of space travel, back when engines were still so inefficient that escaping from a planet's gravity was costly and difficult, an enormous shipyard was built on the Moon where asteroids, harvested from the asteroid belt, were mined for raw materials for ships."
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "\tThe facility is still in operation, although it is now overshadowed by the far more advanced shipbuilding centers like Geminus in the Castor system."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "The spaceport is rudimentary, and the main pressurized dome of the facility is probably at least half a millennium old. So many metal foil patches have been cemented to its outer wall to stop slow air leaks that in places they entirely cover the surface."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "\tEverything is so ancient and ramshackle that it feels almost like you have stepped back in time to the early days of human space flight. Perhaps that's what the tourists come here to experience."
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Basic Ships"
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Navy Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Betelgeuse Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Syndicate Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Tycho Crater Advanced"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Common Outfits"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Lovelace Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Syndicate Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Ammo North"
+            ],
+            "children": null
+          },
+          {
+            "key": "bribe",
+            "values": [
+              0.05
+            ],
+            "children": null
+          },
+          {
+            "key": "security",
+            "values": [
+              0.2
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute",
+            "values": [
+              2500
+            ],
+            "children": [
+              {
+                "key": "threshold",
+                "values": [
+                  7500
+                ],
+                "children": null
+              },
+              {
+                "key": "fleet",
+                "values": [
+                  "Large Republic",
+                  10
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Intrasystem Basic"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Intrasystem Advanced"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Freight Galactic Basic"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Freight Galactic Advanced"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Bellwing Starship Corporation Advanced"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Najrmalas Shipworks Basic"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "MJK Heavy Industries Basic"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Seikron Dockyard Basics"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "attributes",
+              "medium factory",
+              "heavy industry"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/landing.images",
+        "entries": [
+          {
+            "key": "landscape",
+            "values": [
+              "land/luna"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/outfits.weapon.slot",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Weyland Industries"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/ship.cores",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Basic Ships Cores"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Navy Basics Cores"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Betelgeuse Basics Cores"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Syndicate Basics Cores"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Tycho Crater Advanced Cores"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "name": "Luna",
+    "_pluginId": "official-game/endless-sky",
+    "_internalId": "official-game/endless-sky::Luna",
+    "_definedBy": [
+      "official-game/endless-sky",
+      "Mega Freight/Mega-Freight",
+      "Zuckungs List/landing.images",
+      "Zuckungs List/outfits.weapon.slot",
+      "Zuckungs List/ship.cores"
+    ],
+    "_lastModifiedBy": "Zuckungs List/ship.cores"
+  },
+  {
+    "displayName": null,
+    "attributes": [
+      "core",
+      "factory",
+      "farming",
+      "fishing",
+      "frontier",
+      "urban"
+    ],
+    "requires": [],
+    "landscapes": [],
+    "music": null,
+    "description": {
+      "text": "\tOutside the cities, large regions of undeveloped land still remain. Hovercraft racing is a major local sport, and some massive and elaborate courses have been constructed in the wilderness.",
+      "toDisplay": null
+    },
+    "spaceport": {
+      "text": "\tA series of enormous cranes tower over one section of landing pads. From them hang hull fragments, engines, and even a few small ships, each being swung from one location within the shipyard to another. Meanwhile, forklifts and flatbed trucks are weaving between the buildings in every direction.",
+      "toDisplay": null
+    },
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "Syndicate",
+    "governmentInherited": true,
+    "shipyards": [],
+    "outfitters": [],
+    "requiredReputation": null,
+    "bribe": 0.06,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": 0.7,
+    "wormhole": null,
+    "tribute": {
+      "credits": 1700,
+      "threshold": 5000,
+      "fleets": [
+        {
+          "name": "Large Syndicate",
+          "count": 10,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::tributeFleet:Large Syndicate"
+        }
+      ],
+      "dailyReputationPenalty": null
+    },
+    "tributeHails": {},
+    "systemName": "Mirfak",
+    "rawByPlugin": [
+      {
+        "pluginId": "official-game/endless-sky",
+        "entries": [
+          {
+            "key": "attributes",
+            "values": [
+              "core",
+              "factory",
+              "farming",
+              "fishing",
+              "frontier",
+              "urban"
+            ],
+            "children": null
+          },
+          {
+            "key": "landscape",
+            "values": [
+              "land/myrabella8"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "Sunracer is home of Megaparsec, Inc., a shipyard that specializes in designing fast, lightweight ships."
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "\tIt is a well-settled planet with a population of over a billion, and a diverse economy that includes farming and fishing in addition to the shipyards."
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "\tOutside the cities, large regions of undeveloped land still remain. Hovercraft racing is a major local sport, and some massive and elaborate courses have been constructed in the wilderness."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "On Sunracer, the spaceport and shipyard are one and the same. As you walk among the landing pads and hangars, it is not immediately clear which ships are visiting starships undergoing minor repairs, and which are new ones under construction."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "\tA series of enormous cranes tower over one section of landing pads. From them hang hull fragments, engines, and even a few small ships, each being swung from one location within the shipyard to another. Meanwhile, forklifts and flatbed trucks are weaving between the buildings in every direction."
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Basic Ships"
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Syndicate Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Megaparsec Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Megaparsec Advanced"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Common Outfits"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Syndicate Advanced"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Lovelace Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Ammo North"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Northern Explorers"
+            ],
+            "children": null
+          },
+          {
+            "key": "bribe",
+            "values": [
+              0.06
+            ],
+            "children": null
+          },
+          {
+            "key": "security",
+            "values": [
+              0.7
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute",
+            "values": [
+              1700
+            ],
+            "children": [
+              {
+                "key": "threshold",
+                "values": [
+                  5000
+                ],
+                "children": null
+              },
+              {
+                "key": "fleet",
+                "values": [
+                  "Large Syndicate",
+                  10
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "pluginId": "Blended Ships/blended-ships",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Prograde"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Becca Finmeccanica"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Louise Conglomerate Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Louise Conglomerate Advanced"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "attributes",
+              "large factory",
+              "heavy industry"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "attributes",
+              "fruit export"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Lost In Midnight/Lost-in-Midnight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "description",
+              "\tAdditional races for starship pilots are held far above using the three artificial satellites in synchronous orbit around the star."
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Sunracer"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Basic Fuel"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Sunracers"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/flare.play",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "FlarePlay"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/landing.images",
+        "entries": [
+          {
+            "key": "landscape",
+            "values": [
+              "land/sunracer"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/outfits.weapon.slot",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Weyland Industries"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/ship.cores",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Basic Ships Cores"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Syndicate Basics Cores"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Megaparsec Basics Cores"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Megaparsec Advanced Cores"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "name": "Sunracer",
+    "_pluginId": "official-game/endless-sky",
+    "_internalId": "official-game/endless-sky::Sunracer",
+    "_definedBy": [
+      "official-game/endless-sky",
+      "Blended Ships/blended-ships",
+      "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
+      "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
+      "Mega Freight/Mega-Freight",
+      "Lost In Midnight/Lost-in-Midnight",
+      "Zuckungs List/flare.play",
+      "Zuckungs List/landing.images",
+      "Zuckungs List/outfits.weapon.slot",
+      "Zuckungs List/ship.cores"
+    ],
+    "_lastModifiedBy": "Zuckungs List/ship.cores"
+  },
+  {
+    "displayName": null,
+    "attributes": [
+      "deep",
+      "education",
+      "factory",
+      "farming",
+      "fishing",
+      "research",
+      "urban"
+    ],
+    "requires": [],
+    "landscapes": [],
+    "music": null,
+    "description": {
+      "text": "\tThe shipyards of Lionheart Industries are located here. Centuries ago, warships built here turned the tide of the Alpha War, and today the ships designed and built in the Deep continue to be some of the most technologically advanced ships in human space - and the most expensive.",
+      "toDisplay": null
+    },
+    "spaceport": {
+      "text": "\tDespite the Deep's importance to defeating the Alphas, Remembrance Day is seldom observed in the region. The only thing you see out of the ordinary is a milk dish on the counter of an information booth.",
+      "toDisplay": [
+        "\"days since year start\" > 35",
+        "\"days since year start\" < 55"
+      ]
+    },
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "Republic",
+    "governmentInherited": true,
+    "shipyards": [],
+    "outfitters": [],
+    "requiredReputation": null,
+    "bribe": 0.08,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": 0.8,
+    "wormhole": null,
+    "tribute": {
+      "credits": 3600,
+      "threshold": 7000,
+      "fleets": [
+        {
+          "name": "Large Deep Security Rep",
+          "count": 35,
+          "pluginId": "Zuckungs List/tribute.republic",
+          "internalId": "Zuckungs List/tribute.republic::tributeFleet:Large Deep Security Rep"
+        }
+      ],
+      "dailyReputationPenalty": null
+    },
+    "tributeHails": {},
+    "systemName": "Epsilon Leonis",
+    "rawByPlugin": [
+      {
+        "pluginId": "official-game/endless-sky",
+        "entries": [
+          {
+            "key": "attributes",
+            "values": [
+              "deep",
+              "education",
+              "factory",
+              "farming",
+              "fishing",
+              "research",
+              "urban"
+            ],
+            "children": null
+          },
+          {
+            "key": "landscape",
+            "values": [
+              "land/mfield3"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "Valhalla was the first world to be settled in this region of space, which is known as the Deep. It is rich in natural resources, but all its vast farms and fisheries are insufficient to feed its population of over five billion."
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "\tThe shipyards of Lionheart Industries are located here. Centuries ago, warships built here turned the tide of the Alpha War, and today the ships designed and built in the Deep continue to be some of the most technologically advanced ships in human space - and the most expensive."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "Surrounding the spaceport is a metropolis of skyscrapers and factories that spreads all the way to the horizon in every direction."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "\tThe spaceport itself is an imposing building, composed of three towers rising over a hundred stories into the air and connected at various levels by bridges. The docking bays are on the higher levels, with warehouse space lower down and loading platforms for trucks at ground level. Massive cargo elevators run up and down in the center of each building, and the hallways are all wide enough to allow small robotic carts and forklifts in addition to foot traffic."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "\tDespite the Deep's importance to defeating the Alphas, Remembrance Day is seldom observed in the region. The only thing you see out of the ordinary is a milk dish on the counter of an information booth."
+            ],
+            "children": [
+              {
+                "key": "to",
+                "values": [
+                  "display"
+                ],
+                "children": [
+                  {
+                    "key": "days since year start",
+                    "values": [
+                      ">",
+                      35
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "days since year start",
+                    "values": [
+                      "<",
+                      55
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Basic Ships"
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Lionheart Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Lionheart Advanced"
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Betelgeuse Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Common Outfits"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Ammo North"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Deep Sky Advanced"
+            ],
+            "children": null
+          },
+          {
+            "key": "bribe",
+            "values": [
+              0.08
+            ],
+            "children": null
+          },
+          {
+            "key": "security",
+            "values": [
+              0.8
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute",
+            "values": [
+              3600
+            ],
+            "children": [
+              {
+                "key": "threshold",
+                "values": [
+                  7000
+                ],
+                "children": null
+              },
+              {
+                "key": "fleet",
+                "values": [
+                  "Large Deep Security",
+                  35
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Capital Planet"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Corellian Shipyard/corellian-shipyard",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Corellian Vanguard Dealer"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Bellwing Starship Corporation Intermediate"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Najrmalas Shipworks Advanced"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "attributes",
+              "large factory",
+              "heavy industry"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Quality of Life Outfits/QOL-Outfits",
+        "entries": [
+          {
+            "key": "outfitter",
+            "values": [
+              "Capital Planet"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/flare.play",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "FlarePlay"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/landing.images",
+        "entries": [
+          {
+            "key": "landscape",
+            "values": [
+              "land/valhalla"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/outfits.weapon.slot",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Weyland Industries"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/ship.cores",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Basic Ships Cores"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Lionheart Basics Cores"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Lionheart Advanced Cores"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Betelgeuse Basics Cores"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/tribute.republic",
+        "entries": [
+          {
+            "key": "tribute",
+            "values": [
+              3600
+            ],
+            "children": [
+              {
+                "key": "threshold",
+                "values": [
+                  7000
+                ],
+                "children": null
+              },
+              {
+                "key": "fleet",
+                "values": [
+                  "Large Deep Security Rep",
+                  35
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "Valhalla",
+    "_pluginId": "official-game/endless-sky",
+    "_internalId": "official-game/endless-sky::Valhalla",
+    "_definedBy": [
+      "official-game/endless-sky",
+      "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
+      "Corellian Shipyard/corellian-shipyard",
+      "Mega Freight/Mega-Freight",
+      "Quality of Life Outfits/QOL-Outfits",
+      "Zuckungs List/flare.play",
+      "Zuckungs List/landing.images",
+      "Zuckungs List/outfits.weapon.slot",
+      "Zuckungs List/ship.cores",
+      "Zuckungs List/tribute.republic"
+    ],
+    "_lastModifiedBy": "Zuckungs List/tribute.republic"
+  },
+  {
+    "displayName": null,
+    "attributes": [
+      "factory",
+      "research",
+      "south",
+      "tourism"
+    ],
+    "requires": [],
+    "landscapes": [],
+    "music": null,
+    "description": {
+      "text": "\tThe Tarazed Corporation, a maker of alien-inspired ships and outfits, is one of the largest industries on Wayfarer, and they draw raw materials from throughout this region of space.",
+      "toDisplay": null
+    },
+    "spaceport": {
+      "text": "The spaceport is clearly the artifact of an architect who was as familiar with alien architecture as with human. Instead of square angles, it has many curved walls and domes. The landing pads jut out from the building at various heights. Some of the landing pads are designed with docking tubes specifically for Quarg visitors, and the ceilings are unusually high to accommodate the Quarg, several of whom are walking around and mingling with the humans here.",
+      "toDisplay": null
+    },
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "Republic",
+    "governmentInherited": true,
+    "shipyards": [],
+    "outfitters": [],
+    "requiredReputation": null,
+    "bribe": 0.07,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": 0.3,
+    "wormhole": null,
+    "tribute": {
+      "credits": 1700,
+      "threshold": 5000,
+      "fleets": [
+        {
+          "name": "Large Militia Rep",
+          "count": 26,
+          "pluginId": "Zuckungs List/tribute.republic",
+          "internalId": "Zuckungs List/tribute.republic::tributeFleet:Large Militia Rep"
+        }
+      ],
+      "dailyReputationPenalty": null
+    },
+    "tributeHails": {},
+    "systemName": "Tarazed",
+    "rawByPlugin": [
+      {
+        "pluginId": "official-game/endless-sky",
+        "entries": [
+          {
+            "key": "attributes",
+            "values": [
+              "factory",
+              "research",
+              "south",
+              "tourism"
+            ],
+            "children": null
+          },
+          {
+            "key": "landscape",
+            "values": [
+              "land/nasa1"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "Wayfarer was initially settled by a team of scientists and diplomats seeking to build a relationship with the Quarg worlds to the galactic southeast of here. Partly through the aid of the Quarg and partly through a desire to emulate them, it has grown into a very technologically advanced world."
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "\tThe Tarazed Corporation, a maker of alien-inspired ships and outfits, is one of the largest industries on Wayfarer, and they draw raw materials from throughout this region of space."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "The spaceport is clearly the artifact of an architect who was as familiar with alien architecture as with human. Instead of square angles, it has many curved walls and domes. The landing pads jut out from the building at various heights. Some of the landing pads are designed with docking tubes specifically for Quarg visitors, and the ceilings are unusually high to accommodate the Quarg, several of whom are walking around and mingling with the humans here."
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Basic Ships"
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Tarazed Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Tarazed Advanced"
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Southbound Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Delta V Advanced"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Kraz Advanced"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Common Outfits"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Ammo South"
+            ],
+            "children": null
+          },
+          {
+            "key": "bribe",
+            "values": [
+              0.07
+            ],
+            "children": null
+          },
+          {
+            "key": "security",
+            "values": [
+              0.3
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute",
+            "values": [
+              1700
+            ],
+            "children": [
+              {
+                "key": "threshold",
+                "values": [
+                  5000
+                ],
+                "children": null
+              },
+              {
+                "key": "fleet",
+                "values": [
+                  "Large Militia",
+                  26
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "pluginId": "Blended Ships/blended-ships",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Greenrock"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Louise Conglomerate Basics"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Corellian Shipyard/corellian-shipyard",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Corellian Striker Dealer"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "spaceport",
+              "\tA Corellian Striker sits at the edge of the dealer lot, atomic engines gleaming. The sales rep notices you looking. \"Fastest thing CEC ever built. Twin heavy lasers, nuclear propulsion, paper-thin hull.\" She taps the warranty placard bolted to the landing strut. It reads: \"CEC warranties explicitly exclude shield failure events, thermal runaway, and any incident the pilot could have avoided by flying a different ship.\""
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Intrasystem Basic"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Intrasystem Advanced"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "attributes",
+              "large factory",
+              "heavy industry"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "POOT/peripherals-or-outstanding-trinkets",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Solaria Quantum Basics (POOT)"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Solaria Quantum Advanced (POOT)"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Solaria Basics (POOT)"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Solaria Advanced (POOT)"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "POOT/peripherals-or-outstanding-trinkets_senza_solaria",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Solaria Quantum Basics (POOT)"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Solaria Quantum Advanced (POOT)"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Solaria Basics (POOT)"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Solaria Advanced (POOT)"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/flare.play",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "FlarePlay"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/landing.images",
+        "entries": [
+          {
+            "key": "landscape",
+            "values": [
+              "land/wayfarer"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/outfits.weapon.slot",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Weyland Industries"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/ship.cores",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Basic Ships Cores"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Tarazed Basics Cores"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Tarazed Advanced Cores"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Southbound Basics Cores"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/tribute.republic",
+        "entries": [
+          {
+            "key": "tribute",
+            "values": [
+              1700
+            ],
+            "children": [
+              {
+                "key": "threshold",
+                "values": [
+                  5000
+                ],
+                "children": null
+              },
+              {
+                "key": "fleet",
+                "values": [
+                  "Large Militia Rep",
+                  26
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "Wayfarer",
+    "_pluginId": "official-game/endless-sky",
+    "_internalId": "official-game/endless-sky::Wayfarer",
+    "_definedBy": [
+      "official-game/endless-sky",
+      "Blended Ships/blended-ships",
+      "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
+      "Corellian Shipyard/corellian-shipyard",
+      "Mega Freight/Mega-Freight",
+      "POOT/peripherals-or-outstanding-trinkets",
+      "POOT/peripherals-or-outstanding-trinkets_senza_solaria",
+      "Zuckungs List/flare.play",
+      "Zuckungs List/landing.images",
+      "Zuckungs List/outfits.weapon.slot",
+      "Zuckungs List/ship.cores",
+      "Zuckungs List/tribute.republic"
+    ],
+    "_lastModifiedBy": "Zuckungs List/tribute.republic"
+  }
+]

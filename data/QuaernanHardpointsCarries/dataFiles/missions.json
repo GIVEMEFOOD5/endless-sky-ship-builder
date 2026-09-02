@@ -2,14 +2,158 @@
   {
     "name": "Quaernan Cargo 1",
     "displayName": "Worldly Delivery to <planet>",
+    "description": "The Quaernan's massive cargo capacity is needed to bring <cargo> to <destination>. You will be paid <payment> for your services.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Worldly Delivery to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "The Quaernan's massive cargo capacity is needed to bring <cargo> to <destination>. You will be paid <payment> for your services."
+        ],
+        "children": null
+      },
+      {
+        "key": "cargo",
+        "values": [
+          "random",
+          10000,
+          20000
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              80
+            ],
+            "children": null
+          },
+          {
+            "key": "cargo space",
+            "values": [
+              ">",
+              8500
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [],
+        "children": [
+          {
+            "key": "distance",
+            "values": [
+              1,
+              12
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic cargo on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              3000
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic cargo delivery payment"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {},
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": {
@@ -20,6 +164,26 @@
       "nbParams": null
     },
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            80
+          ],
+          "children": null
+        },
+        {
+          "key": "cargo space",
+          "values": [
+            ">",
+            8500
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -38,16 +202,43 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": {
       "type": "filter",
-      "value": {
-        "distance": "1 12",
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "distance",
+          "values": [
+            1,
+            12
+          ],
+          "children": null
+        },
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "stopovers": [],
     "waypoints": [],
@@ -56,24 +247,169 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Quaernan/QuaernanHardpointsCarries",
     "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Cargo 1",
-    "_hash": "b36d67a19cd1",
+    "_hash": "85f1ae320150",
     "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
   },
   {
     "name": "Quaernan Cargo 2",
     "displayName": "Worldly Delivery to <planet>",
+    "description": "The Quaernan's massive cargo capacity is needed to bring <cargo> to <destination>. You will be paid <payment> for your services.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Worldly Delivery to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "The Quaernan's massive cargo capacity is needed to bring <cargo> to <destination>. You will be paid <payment> for your services."
+        ],
+        "children": null
+      },
+      {
+        "key": "cargo",
+        "values": [
+          "random",
+          10000,
+          20000
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              50
+            ],
+            "children": null
+          },
+          {
+            "key": "cargo space",
+            "values": [
+              ">",
+              8500
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [],
+        "children": [
+          {
+            "key": "distance",
+            "values": [
+              1,
+              12
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic cargo on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              3000
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic cargo delivery payment"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {},
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": {
@@ -84,6 +420,26 @@
       "nbParams": null
     },
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            50
+          ],
+          "children": null
+        },
+        {
+          "key": "cargo space",
+          "values": [
+            ">",
+            8500
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -102,16 +458,43 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": {
       "type": "filter",
-      "value": {
-        "distance": "1 12",
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "distance",
+          "values": [
+            1,
+            12
+          ],
+          "children": null
+        },
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "stopovers": [],
     "waypoints": [],
@@ -120,24 +503,169 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Quaernan/QuaernanHardpointsCarries",
     "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Cargo 2",
-    "_hash": "b36d67a19cd1",
+    "_hash": "a05d267e1158",
     "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
   },
   {
     "name": "Quaernan Large Cargo 1",
     "displayName": "Stellar Delivery to <planet>",
+    "description": "The Quaernan's massive cargo capacity is needed to bring <cargo> to <destination>. You will be paid <payment> for your services.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Stellar Delivery to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "The Quaernan's massive cargo capacity is needed to bring <cargo> to <destination>. You will be paid <payment> for your services."
+        ],
+        "children": null
+      },
+      {
+        "key": "cargo",
+        "values": [
+          "random",
+          20000,
+          45000
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              70
+            ],
+            "children": null
+          },
+          {
+            "key": "cargo space",
+            "values": [
+              ">",
+              12000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [],
+        "children": [
+          {
+            "key": "distance",
+            "values": [
+              1,
+              12
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic cargo on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              3250
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic cargo delivery payment"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {},
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": {
@@ -148,6 +676,26 @@
       "nbParams": null
     },
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            70
+          ],
+          "children": null
+        },
+        {
+          "key": "cargo space",
+          "values": [
+            ">",
+            12000
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -166,16 +714,43 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": {
       "type": "filter",
-      "value": {
-        "distance": "1 12",
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "distance",
+          "values": [
+            1,
+            12
+          ],
+          "children": null
+        },
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "stopovers": [],
     "waypoints": [],
@@ -184,24 +759,169 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Quaernan/QuaernanHardpointsCarries",
     "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Large Cargo 1",
-    "_hash": "d309574e6869",
+    "_hash": "bc456ce06d6b",
     "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
   },
   {
     "name": "Quaernan Large Cargo 2",
     "displayName": "Stellar Delivery to <planet>",
+    "description": "The Quaernan's massive cargo capacity is needed to bring <cargo> to <destination>. You will be paid <payment> for your services.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Stellar Delivery to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "The Quaernan's massive cargo capacity is needed to bring <cargo> to <destination>. You will be paid <payment> for your services."
+        ],
+        "children": null
+      },
+      {
+        "key": "cargo",
+        "values": [
+          "random",
+          20000,
+          45000
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              35
+            ],
+            "children": null
+          },
+          {
+            "key": "cargo space",
+            "values": [
+              ">",
+              12000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [],
+        "children": [
+          {
+            "key": "distance",
+            "values": [
+              1,
+              12
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic cargo on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              3250
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic cargo delivery payment"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {},
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": {
@@ -212,6 +932,26 @@
       "nbParams": null
     },
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            35
+          ],
+          "children": null
+        },
+        {
+          "key": "cargo space",
+          "values": [
+            ">",
+            12000
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -230,16 +970,43 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": {
       "type": "filter",
-      "value": {
-        "distance": "1 12",
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "distance",
+          "values": [
+            1,
+            12
+          ],
+          "children": null
+        },
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "stopovers": [],
     "waypoints": [],
@@ -248,24 +1015,169 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Quaernan/QuaernanHardpointsCarries",
     "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Large Cargo 2",
-    "_hash": "d309574e6869",
+    "_hash": "0812b836428c",
     "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
   },
   {
     "name": "Quaernan Huge Cargo",
     "displayName": "Galactic Delivery to <planet>",
+    "description": "The Quaernan's massive cargo capacity is needed to bring <cargo> to <destination>. You will be paid <payment> for your services.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Galactic Delivery to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "The Quaernan's massive cargo capacity is needed to bring <cargo> to <destination>. You will be paid <payment> for your services."
+        ],
+        "children": null
+      },
+      {
+        "key": "cargo",
+        "values": [
+          "random",
+          40000,
+          90000
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              20
+            ],
+            "children": null
+          },
+          {
+            "key": "cargo space",
+            "values": [
+              ">",
+              30000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [],
+        "children": [
+          {
+            "key": "distance",
+            "values": [
+              1,
+              12
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic cargo on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              3500
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic cargo delivery payment"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {},
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": {
@@ -276,6 +1188,26 @@
       "nbParams": null
     },
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            20
+          ],
+          "children": null
+        },
+        {
+          "key": "cargo space",
+          "values": [
+            ">",
+            30000
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -294,16 +1226,43 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": {
       "type": "filter",
-      "value": {
-        "distance": "1 12",
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "distance",
+          "values": [
+            1,
+            12
+          ],
+          "children": null
+        },
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "stopovers": [],
     "waypoints": [],
@@ -312,24 +1271,168 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Quaernan/QuaernanHardpointsCarries",
     "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Huge Cargo",
-    "_hash": "594ab23f86bf",
+    "_hash": "5c8f5d8fb8b4",
     "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
   },
   {
     "name": "Quaernan Passengers 1",
     "displayName": "Worldly transport to <planet>",
+    "description": "The Quaernan's enormous living capacity is needed to bring <fare> to <destination>. You will be paid <payment>.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Worldly transport to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "The Quaernan's enormous living capacity is needed to bring <fare> to <destination>. You will be paid <payment>."
+        ],
+        "children": null
+      },
+      {
+        "key": "passengers",
+        "values": [
+          500,
+          1200
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              75
+            ],
+            "children": null
+          },
+          {
+            "key": "passenger space",
+            "values": [
+              ">",
+              450
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [],
+        "children": [
+          {
+            "key": "distance",
+            "values": [
+              3,
+              10
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic passenger on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              7000
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic passenger dropoff payment"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {},
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
@@ -338,6 +1441,26 @@
       "max": 1200,
       "mode": "uniform",
       "nbParams": null
+    },
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            75
+          ],
+          "children": null
+        },
+        {
+          "key": "passenger space",
+          "values": [
+            ">",
+            450
+          ],
+          "children": null
+        }
+      ]
     },
     "payment": {
       "apparentPayment": null,
@@ -357,16 +1480,43 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": {
       "type": "filter",
-      "value": {
-        "distance": "3 10",
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "distance",
+          "values": [
+            3,
+            10
+          ],
+          "children": null
+        },
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "stopovers": [],
     "waypoints": [],
@@ -375,24 +1525,168 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Quaernan/QuaernanHardpointsCarries",
     "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Passengers 1",
-    "_hash": "26670e938e2f",
+    "_hash": "92c2f54ba87b",
     "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
   },
   {
     "name": "Quaernan Passengers 2",
     "displayName": "Worldly transport to <planet>",
+    "description": "The Quaernan's enormous living capacity is needed to bring <fare> to <destination>. You will be paid <payment>.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Worldly transport to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "The Quaernan's enormous living capacity is needed to bring <fare> to <destination>. You will be paid <payment>."
+        ],
+        "children": null
+      },
+      {
+        "key": "passengers",
+        "values": [
+          500,
+          1200
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              35
+            ],
+            "children": null
+          },
+          {
+            "key": "passenger space",
+            "values": [
+              ">",
+              450
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [],
+        "children": [
+          {
+            "key": "distance",
+            "values": [
+              3,
+              10
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic passenger on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              7000
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic passenger dropoff payment"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {},
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
@@ -401,6 +1695,26 @@
       "max": 1200,
       "mode": "uniform",
       "nbParams": null
+    },
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            35
+          ],
+          "children": null
+        },
+        {
+          "key": "passenger space",
+          "values": [
+            ">",
+            450
+          ],
+          "children": null
+        }
+      ]
     },
     "payment": {
       "apparentPayment": null,
@@ -420,16 +1734,43 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": {
       "type": "filter",
-      "value": {
-        "distance": "3 10",
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "distance",
+          "values": [
+            3,
+            10
+          ],
+          "children": null
+        },
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "stopovers": [],
     "waypoints": [],
@@ -438,24 +1779,168 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Quaernan/QuaernanHardpointsCarries",
     "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Passengers 2",
-    "_hash": "26670e938e2f",
+    "_hash": "ad6d0ddccd5e",
     "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
   },
   {
     "name": "Quaernan Passengers 3",
     "displayName": "Worldly transport to <planet>",
+    "description": "The Quaernan's enormous living capacity is needed to bring <fare> to <destination>. You will be paid <payment>.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Worldly transport to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "The Quaernan's enormous living capacity is needed to bring <fare> to <destination>. You will be paid <payment>."
+        ],
+        "children": null
+      },
+      {
+        "key": "passengers",
+        "values": [
+          500,
+          1200
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              15
+            ],
+            "children": null
+          },
+          {
+            "key": "passenger space",
+            "values": [
+              ">",
+              450
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [],
+        "children": [
+          {
+            "key": "distance",
+            "values": [
+              3,
+              10
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic passenger on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              7000
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic passenger dropoff payment"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {},
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
@@ -464,6 +1949,26 @@
       "max": 1200,
       "mode": "uniform",
       "nbParams": null
+    },
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            15
+          ],
+          "children": null
+        },
+        {
+          "key": "passenger space",
+          "values": [
+            ">",
+            450
+          ],
+          "children": null
+        }
+      ]
     },
     "payment": {
       "apparentPayment": null,
@@ -483,16 +1988,43 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": {
       "type": "filter",
-      "value": {
-        "distance": "3 10",
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "distance",
+          "values": [
+            3,
+            10
+          ],
+          "children": null
+        },
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "stopovers": [],
     "waypoints": [],
@@ -501,24 +2033,168 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Quaernan/QuaernanHardpointsCarries",
     "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Passengers 3",
-    "_hash": "26670e938e2f",
+    "_hash": "ec0ddddb5d6f",
     "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
   },
   {
     "name": "Quaernan Large Passengers 1",
     "displayName": "Stellar transport to <planet>",
+    "description": "The Quaernan's enormous living capacity is needed to bring <fare> to <destination>. You will be paid <payment>.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Stellar transport to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "The Quaernan's enormous living capacity is needed to bring <fare> to <destination>. You will be paid <payment>."
+        ],
+        "children": null
+      },
+      {
+        "key": "passengers",
+        "values": [
+          1000,
+          3000
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              40
+            ],
+            "children": null
+          },
+          {
+            "key": "passenger space",
+            "values": [
+              ">",
+              950
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [],
+        "children": [
+          {
+            "key": "distance",
+            "values": [
+              3,
+              10
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic passenger on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              7500
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic passenger dropoff payment"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {},
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
@@ -527,6 +2203,26 @@
       "max": 3000,
       "mode": "uniform",
       "nbParams": null
+    },
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            40
+          ],
+          "children": null
+        },
+        {
+          "key": "passenger space",
+          "values": [
+            ">",
+            950
+          ],
+          "children": null
+        }
+      ]
     },
     "payment": {
       "apparentPayment": null,
@@ -546,16 +2242,43 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": {
       "type": "filter",
-      "value": {
-        "distance": "3 10",
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "distance",
+          "values": [
+            3,
+            10
+          ],
+          "children": null
+        },
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "stopovers": [],
     "waypoints": [],
@@ -564,24 +2287,175 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Quaernan/QuaernanHardpointsCarries",
     "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Large Passengers 1",
-    "_hash": "113a53868f87",
+    "_hash": "a7c02e2c36c3",
     "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
   },
   {
     "name": "Quaernan Large Passengers 2",
     "displayName": "Stellar transport to <planet>",
+    "description": "These <bunks> passengers want to leave the pollution and crime on <origin> behind and settle on <destination>. Payment is <payment>.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Stellar transport to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "These <bunks> passengers want to leave the pollution and crime on <origin> behind and settle on <destination>. Payment is <payment>."
+        ],
+        "children": null
+      },
+      {
+        "key": "passengers",
+        "values": [
+          1100,
+          3500
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              30
+            ],
+            "children": null
+          },
+          {
+            "key": "passenger space",
+            "values": [
+              ">",
+              1000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "attributes",
+            "values": [
+              "urban"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [],
+        "children": [
+          {
+            "key": "distance",
+            "values": [
+              2,
+              10
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic passenger on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              8000
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic passenger dropoff payment"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {},
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
@@ -590,6 +2464,26 @@
       "max": 3500,
       "mode": "uniform",
       "nbParams": null
+    },
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            30
+          ],
+          "children": null
+        },
+        {
+          "key": "passenger space",
+          "values": [
+            ">",
+            1000
+          ],
+          "children": null
+        }
+      ]
     },
     "payment": {
       "apparentPayment": null,
@@ -609,17 +2503,50 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "attributes": "urban",
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "attributes",
+          "values": [
+            "urban"
+          ],
+          "children": null
+        },
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": {
       "type": "filter",
-      "value": {
-        "distance": "2 10",
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "distance",
+          "values": [
+            2,
+            10
+          ],
+          "children": null
+        },
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "stopovers": [],
     "waypoints": [],
@@ -628,24 +2555,174 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Quaernan/QuaernanHardpointsCarries",
     "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Large Passengers 2",
-    "_hash": "a39851d35764",
+    "_hash": "f26a280c1753",
     "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
   },
   {
     "name": "Quaernan Large Miners 1",
     "displayName": "Stellar Miner transport to <planet>",
+    "description": "This crew of <bunks> miners is hoping to find work on <destination>, and they will pay you <payment> to take them there.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Stellar Miner transport to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "This crew of <bunks> miners is hoping to find work on <destination>, and they will pay you <payment> to take them there."
+        ],
+        "children": null
+      },
+      {
+        "key": "passengers",
+        "values": [
+          1100,
+          3500
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              30
+            ],
+            "children": null
+          },
+          {
+            "key": "passenger space",
+            "values": [
+              ">",
+              1000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [],
+        "children": [
+          {
+            "key": "attributes",
+            "values": [
+              "mining"
+            ],
+            "children": null
+          },
+          {
+            "key": "distance",
+            "values": [
+              3,
+              13
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic passenger on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              8250
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "You wish the mining crew the best of luck on <planet>, and collect your payment of <payment>."
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {},
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
@@ -654,6 +2731,26 @@
       "max": 3500,
       "mode": "uniform",
       "nbParams": null
+    },
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            30
+          ],
+          "children": null
+        },
+        {
+          "key": "passenger space",
+          "values": [
+            ">",
+            1000
+          ],
+          "children": null
+        }
+      ]
     },
     "payment": {
       "apparentPayment": null,
@@ -673,17 +2770,50 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": {
       "type": "filter",
-      "value": {
-        "attributes": "mining",
-        "distance": "3 13",
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "attributes",
+          "values": [
+            "mining"
+          ],
+          "children": null
+        },
+        {
+          "key": "distance",
+          "values": [
+            3,
+            13
+          ],
+          "children": null
+        },
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "stopovers": [],
     "waypoints": [],
@@ -692,24 +2822,174 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Quaernan/QuaernanHardpointsCarries",
     "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Large Miners 1",
-    "_hash": "d258efe647d4",
+    "_hash": "4c696d5f8380",
     "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
   },
   {
     "name": "Quaernan Huge Miners 1",
     "displayName": "Galactic Miner transport to <planet>",
+    "description": "A mining company has contacted you about a very lucrative work order. They have contracted <bunks> miners for work on <destination>, and they will pay you <payment> to bring them there.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Galactic Miner transport to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "A mining company has contacted you about a very lucrative work order. They have contracted <bunks> miners for work on <destination>, and they will pay you <payment> to bring them there."
+        ],
+        "children": null
+      },
+      {
+        "key": "passengers",
+        "values": [
+          3250,
+          8500
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              10
+            ],
+            "children": null
+          },
+          {
+            "key": "passenger space",
+            "values": [
+              ">",
+              3000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [],
+        "children": [
+          {
+            "key": "attributes",
+            "values": [
+              "mining"
+            ],
+            "children": null
+          },
+          {
+            "key": "distance",
+            "values": [
+              3,
+              15
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic passenger on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              9000
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "You wish the mining crew the best of luck on <planet>, and collect your payment of <payment>."
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {},
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
@@ -718,6 +2998,26 @@
       "max": 8500,
       "mode": "uniform",
       "nbParams": null
+    },
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            10
+          ],
+          "children": null
+        },
+        {
+          "key": "passenger space",
+          "values": [
+            ">",
+            3000
+          ],
+          "children": null
+        }
+      ]
     },
     "payment": {
       "apparentPayment": null,
@@ -737,17 +3037,50 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": {
       "type": "filter",
-      "value": {
-        "attributes": "mining",
-        "distance": "3 15",
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "attributes",
+          "values": [
+            "mining"
+          ],
+          "children": null
+        },
+        {
+          "key": "distance",
+          "values": [
+            3,
+            15
+          ],
+          "children": null
+        },
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "stopovers": [],
     "waypoints": [],
@@ -756,24 +3089,174 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Quaernan/QuaernanHardpointsCarries",
     "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Huge Miners 1",
-    "_hash": "b4d6cbb8dfde",
+    "_hash": "37c86d7c8d35",
     "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
   },
   {
     "name": "Quaernan Large Farmers 1",
     "displayName": "Stellar Farmer transport to <planet>",
+    "description": "This unusually massive family of <bunks> farmers is hoping to find work on <destination>, and they will pay you <payment> to take them there.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "Stellar Farmer transport to <planet>"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "This unusually massive family of <bunks> farmers is hoping to find work on <destination>, and they will pay you <payment> to take them there."
+        ],
+        "children": null
+      },
+      {
+        "key": "passengers",
+        "values": [
+          1100,
+          3500
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              15
+            ],
+            "children": null
+          },
+          {
+            "key": "passenger space",
+            "values": [
+              ">",
+              1000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [],
+        "children": [
+          {
+            "key": "attributes",
+            "values": [
+              "farming"
+            ],
+            "children": null
+          },
+          {
+            "key": "distance",
+            "values": [
+              3,
+              13
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "phrase",
+              "generic passenger on visit"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              7750
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "You wish the farming family the best of luck on <planet>, and collect your payment of <payment>."
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {},
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
@@ -782,6 +3265,26 @@
       "max": 3500,
       "mode": "uniform",
       "nbParams": null
+    },
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            15
+          ],
+          "children": null
+        },
+        {
+          "key": "passenger space",
+          "values": [
+            ">",
+            1000
+          ],
+          "children": null
+        }
+      ]
     },
     "payment": {
       "apparentPayment": null,
@@ -801,17 +3304,50 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": {
       "type": "filter",
-      "value": {
-        "attributes": "farming",
-        "distance": "3 13",
-        "government": "Republic Free Worlds Syndicate Neutral Independent"
-      }
+      "value": [
+        {
+          "key": "attributes",
+          "values": [
+            "farming"
+          ],
+          "children": null
+        },
+        {
+          "key": "distance",
+          "values": [
+            3,
+            13
+          ],
+          "children": null
+        },
+        {
+          "key": "government",
+          "values": [
+            "Republic",
+            "Free Worlds",
+            "Syndicate",
+            "Neutral",
+            "Independent"
+          ],
+          "children": null
+        }
+      ]
     },
     "stopovers": [],
     "waypoints": [],
@@ -820,11 +3356,12 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Quaernan/QuaernanHardpointsCarries",
     "_internalId": "Quaernan/QuaernanHardpointsCarries::Quaernan Large Farmers 1",
-    "_hash": "a87ca64df9b7",
+    "_hash": "67ab91da643b",
     "sourcePlugin": "Quaernan/QuaernanHardpointsCarries"
   }
 ]

@@ -2,18 +2,167 @@
   {
     "name": "Join the Coalition",
     "displayName": null,
+    "description": "Join the Coalition",
+    "raw": [
+      {
+        "key": "description",
+        "values": [
+          "Join the Coalition"
+        ],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Ring of Friendship"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "or",
+            "values": [],
+            "children": [
+              {
+                "key": "has",
+                "values": [
+                  "Investigate the Anomaly (Quarg Source): done"
+                ],
+                "children": null
+              },
+              {
+                "key": "has",
+                "values": [
+                  "Investigate the Anomaly (Coalition Source): done"
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "fail"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "Join the Quarg: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "In view of your contributions to the war with the Quarg we are elevating you to the rank of Heliarch. You now have access to select Heliarch outfits sold here (next time you land) and at \"Tebuteb's Table\" in the Tebuteb system. You may find a special mission or two on the job board. You are now a fugitive from the Quarg."
+            ],
+            "children": null
+          },
+          {
+            "key": "reputation: Heliarch",
+            "values": [
+              ">?=",
+              1000
+            ],
+            "children": null
+          },
+          {
+            "key": "reputation: Coalition",
+            "values": [
+              ">?=",
+              1000
+            ],
+            "children": null
+          },
+          {
+            "key": "reputation: Quarg",
+            "values": [
+              "<?=",
+              -10000
+            ],
+            "children": null
+          },
+          {
+            "key": "set",
+            "values": [
+              "license: Heliarch"
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "ACAW: Heliarch branch"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {},
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "or",
+          "values": [],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "Investigate the Anomaly (Quarg Source): done"
+              ],
+              "children": null
+            },
+            {
+              "key": "has",
+              "values": [
+                "Investigate the Anomaly (Coalition Source): done"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
+      "fail": [
+        {
+          "key": "has",
+          "values": [
+            "Join the Quarg: done"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -37,31 +186,229 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "ACAW: Heliarch branch"
+      {
+        "name": "ACAW: Heliarch branch",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onComplete"
+      }
     ],
     "_pluginId": "A Coalition at War/A-Coalition-At-War",
     "_internalId": "A Coalition at War/A-Coalition-At-War::Join the Coalition",
-    "_hash": "75b4931cc921",
+    "_hash": "c7f46f375097",
     "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
   },
   {
     "name": "Looting a Jump Drive (The First Time)",
     "displayName": null,
+    "description": "There is a disabled Quarg ship in the \"Heliarch Southern Wormhole\" system. Loot the jump drive and bring it to the Ring of Friendship for payment. This will require 20 cargo space.",
+    "raw": [
+      {
+        "key": "description",
+        "values": [
+          "There is a disabled Quarg ship in the \"Heliarch Southern Wormhole\" system. Loot the jump drive and bring it to the Ring of Friendship for payment. This will require 20 cargo space."
+        ],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Heliarch Southern Wormhole"
+        ],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Ring of Friendship"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "Join the Coalition: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "derelict"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Quarg"
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Heliarch Southern Wormhole"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Quarg Wardragon (jump only)",
+              "Quarg Wardragon"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "outfit: Jump Drive",
+            "values": [
+              ">=",
+              2
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "A grateful Heliarch official gives you 5 million credits for the Jump Drive you looted. \"We would like you to live long enough to be useful to us, so you may now buy looted Quarg outfits and Heliarch warships in the future when you come to the Ring of Fellowship. You must leave and land again before they will become available.\""
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "Next time the Quarg ship won't be disabled when you enter the system. Wait for it to spawn and be disabled."
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "We've equipped our Punishers in the wormhole systems with Skylances to counter the Quarg threat. You may also see our new Heliarch Longsword there from time to time. We hear the Quarg developed a new ship called the Skydragon. Do not underestimate that one."
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "We are giving you a new prototype space liner you can use for boarding. It's not very strong, but it's got lots of bunks."
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Kimek Spire Boarder"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Jump Drive",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              5000000
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "new ACAW ships"
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "quarg ships looted"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing",
       "job"
     ],
+    "flags": {},
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "Join the Coalition: done"
+          ],
+          "children": null
+        }
+      ],
+      "complete": [
+        {
+          "key": "outfit: Jump Drive",
+          "values": [
+            ">=",
+            2
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -105,33 +452,107 @@
         }
       ]
     },
-    "hasNpcObjective": false,
+    "hasNpcObjective": true,
+    "npcCount": 1,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "new ACAW ships",
-      "quarg ships looted"
+      {
+        "name": "new ACAW ships",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onComplete"
+      },
+      {
+        "name": "quarg ships looted",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onComplete"
+      }
     ],
     "_pluginId": "A Coalition at War/A-Coalition-At-War",
     "_internalId": "A Coalition at War/A-Coalition-At-War::Looting a Jump Drive (The First Time)",
-    "_hash": "a72eff156b66",
+    "_hash": "8d91dbe7d584",
     "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
   },
   {
     "name": "Looting a Jump Drive",
     "displayName": null,
+    "description": "Wait for a Quarg ship to be disabled in the \"Heliarch Southern Wormhole\" system, then loot the jump drive and bring it to the Ring of Friendship for payment. This will require 20 cargo space. It may take some time for the Quarg Wardragon to spawn.",
+    "raw": [
+      {
+        "key": "description",
+        "values": [
+          "Wait for a Quarg ship to be disabled in the \"Heliarch Southern Wormhole\" system, then loot the jump drive and bring it to the Ring of Friendship for payment. This will require 20 cargo space. It may take some time for the Quarg Wardragon to spawn."
+        ],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Heliarch Southern Wormhole"
+        ],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Ring of Friendship"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "Looting a Jump Drive (The First Time): done"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing",
       "job"
     ],
+    "flags": {},
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "Looting a Jump Drive (The First Time): done"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {}
@@ -160,28 +581,178 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "A Coalition at War/A-Coalition-At-War",
     "_internalId": "A Coalition at War/A-Coalition-At-War::Looting a Jump Drive",
-    "_hash": "58caf4758655",
+    "_hash": "98c9309f9b42",
     "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
   },
   {
     "name": "Join the Quarg",
     "displayName": null,
+    "description": "Join the Quarg",
+    "raw": [
+      {
+        "key": "description",
+        "values": [
+          "Join the Quarg"
+        ],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Forpelog"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "or",
+            "values": [],
+            "children": [
+              {
+                "key": "has",
+                "values": [
+                  "Investigate the Anomaly (Quarg Source): done"
+                ],
+                "children": null
+              },
+              {
+                "key": "has",
+                "values": [
+                  "Investigate the Anomaly (Coalition Source): done"
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "fail"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "Join the Coalition: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "The Quarg lead you deep into the station down dark hallways. You're pretty sure this is a restricted area. One of the Quarg turns to you and says, \"In view of your recent contributions to our defense against the Heliarch, we have chosen to give you an honorary position as a Quarg warrior. You now have access to select Quarg outfits once you depart and land again. There may be a special mission or two on the job board. You are also a fugitive from the Coalition/Heliarch."
+            ],
+            "children": null
+          },
+          {
+            "key": "reputation: Heliarch",
+            "values": [
+              "<?=",
+              -10000
+            ],
+            "children": null
+          },
+          {
+            "key": "reputation: Coalition",
+            "values": [
+              "<?=",
+              -10000
+            ],
+            "children": null
+          },
+          {
+            "key": "reputation: Quarg",
+            "values": [
+              ">?=",
+              1000
+            ],
+            "children": null
+          },
+          {
+            "key": "set",
+            "values": [
+              "license: Quarg"
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "ACAW: quarg branch"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {},
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "or",
+          "values": [],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "Investigate the Anomaly (Quarg Source): done"
+              ],
+              "children": null
+            },
+            {
+              "key": "has",
+              "values": [
+                "Investigate the Anomaly (Coalition Source): done"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
+      "fail": [
+        {
+          "key": "has",
+          "values": [
+            "Join the Coalition: done"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -205,30 +776,291 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "ACAW: quarg branch"
+      {
+        "name": "ACAW: quarg branch",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onComplete"
+      }
     ],
     "_pluginId": "A Coalition at War/A-Coalition-At-War",
     "_internalId": "A Coalition at War/A-Coalition-At-War::Join the Quarg",
-    "_hash": "3291f459efdf",
+    "_hash": "2e06c2763070",
     "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
   },
   {
     "name": "Observe the Heliarch's New Prototype",
     "displayName": null,
+    "description": "The Heliarch have built a new ship prototype and the Quarg are worried it may be used against them. Observe the Heliarch's new prototype in the Quarg Southern Wormhole and report back to Forpelog with your observations. You may want to use a cloaking device to avoid dying.",
+    "raw": [
+      {
+        "key": "description",
+        "values": [
+          "The Heliarch have built a new ship prototype and the Quarg are worried it may be used against them. Observe the Heliarch's new prototype in the Quarg Southern Wormhole and report back to Forpelog with your observations. You may want to use a cloaking device to avoid dying."
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Quarg Southern Wormhole"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "Join the Quarg: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "The Heliarch have built a new ship prototype and the Quarg are worried it may be used against them. Observe the Heliarch's new prototype in the Quarg Southern Wormhole and report back to Forpelog with your observations. You may want to use a cloaking device to avoid dying."
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "The Quarg are sending one of their new \"Skydragon\" ships with you on this mission."
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "staying"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Heliarch"
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Quarg Southern Wormhole"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Heliarch Longsword",
+              "Heliarch Longsword"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "staying"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Heliarch"
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Quarg Southern Wormhole"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Heliarch Longsword",
+              "Heliarch Longsword 2"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "heroic",
+              "disables"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Quarg"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Quarg Skydragon",
+              "Quarg Skydragon"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "heroic",
+              "disables"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Quarg"
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Quarg Southern Wormhole"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Quarg Skydragon",
+              "Quarg Skydragon"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "enter",
+          "Quarg Southern Wormhole"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "heliarch prototype"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "You tell the Quarg the new ships appeared to use salvaged Sheragi technology and more Finisher missile launchers than you've ever seen equipped to a single ship before. The Quarg in charge grimly thanks you for the information. \"We've also heard reports of Punishers equipped with Skylances. We must make preparations to counter this new threat.\""
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "Since you have proven yourself trustworthy, we do not want you to be unable to survive future missions. We are therefore allowing you to purchase our normal ships. They are not cheap, so we will also let you purchase antimatter cores. If you are caught sharing any of our technology with anyone else, we will destroy you."
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "You are happy that you can now buy Quarg ships and antimatter cores, but you don't like the sound of \"we will destroy you if you share our technology with anyone else\". They really don't want it falling into the wrong hands."
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "new ACAW ships"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {},
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "Join the Quarg: done"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -252,32 +1084,192 @@
       "outfits": [],
       "ships": []
     },
-    "hasNpcObjective": false,
+    "hasNpcObjective": true,
+    "npcCount": 4,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "heliarch prototype",
-      "new ACAW ships"
+      {
+        "name": "heliarch prototype",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onEnter"
+      },
+      {
+        "name": "new ACAW ships",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onComplete"
+      }
     ],
     "_pluginId": "A Coalition at War/A-Coalition-At-War",
     "_internalId": "A Coalition at War/A-Coalition-At-War::Observe the Heliarch's New Prototype",
-    "_hash": "8a68ddd4a1ed",
+    "_hash": "fe5581f5554f",
     "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
   },
   {
     "name": "Overcharged Shield Module (The First Time)",
     "displayName": null,
+    "description": "The Quarg want to study the Overcharged Shield Module used by Heliarch Punishers. Loot one of those and return. You'll need 44 cargo space. If the mission Punisher is destroyed and no others spawn, abort the mission, land on Forpelog, and accept the mission again.",
+    "raw": [
+      {
+        "key": "description",
+        "values": [
+          "The Quarg want to study the Overcharged Shield Module used by Heliarch Punishers. Loot one of those and return. You'll need 44 cargo space. If the mission Punisher is destroyed and no others spawn, abort the mission, land on Forpelog, and accept the mission again."
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Quarg Southern Wormhole"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "Observe the Heliarch's New Prototype: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "npc",
+        "values": [],
+        "children": [
+          {
+            "key": "personality",
+            "values": [
+              "staying"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Heliarch"
+            ],
+            "children": null
+          },
+          {
+            "key": "system",
+            "values": [
+              "Quarg Southern Wormhole"
+            ],
+            "children": null
+          },
+          {
+            "key": "ship",
+            "values": [
+              "Heliarch Punisher (Looting Mission)",
+              "Defender of Peace"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "require",
+            "values": [
+              "Overcharged Shield Module",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "A grateful Quarg official gives you two million credits. \"The Overcharged Shield Module is a rare piece of Heliarch technology that is more space efficient than our shield generators. We are anxious to learn its secrets.\" Next time you come back, you can also buy outfits we've looted from the Heliarch. He also informs you that you can make money faster by capturing Heliarch ships that spawn periodically in the \"Quarg Southern Wormhole\" system."
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "We're giving you a captured Kimek Spire to make capturing ships easier."
+            ],
+            "children": null
+          },
+          {
+            "key": "outfit",
+            "values": [
+              "Overcharged Shield Module",
+              -1
+            ],
+            "children": null
+          },
+          {
+            "key": "payment",
+            "values": [
+              2000000
+            ],
+            "children": null
+          },
+          {
+            "key": "give",
+            "values": [
+              "ship",
+              "Kimek Spire",
+              "Kimek Spire"
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "heliarch loot"
+            ],
+            "children": null
+          },
+          {
+            "key": "set",
+            "values": [
+              "license: Heliarch"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {},
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "Observe the Heliarch's New Prototype: done"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -313,31 +1305,88 @@
         }
       ]
     },
-    "hasNpcObjective": false,
+    "hasNpcObjective": true,
+    "npcCount": 1,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "heliarch loot"
+      {
+        "name": "heliarch loot",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onComplete"
+      }
     ],
     "_pluginId": "A Coalition at War/A-Coalition-At-War",
     "_internalId": "A Coalition at War/A-Coalition-At-War::Overcharged Shield Module (The First Time)",
-    "_hash": "407548d0f499",
+    "_hash": "0afee046a637",
     "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
   },
   {
     "name": "Overcharged Shield Module",
     "displayName": null,
+    "description": "Wait for a Heliarch Punisher to be disabled in the Quarg Wormhole system. Loot the Overcharged Shield Module and return. You'll need 44 cargo space. It may take some time for the Punisher to spawn.",
+    "raw": [
+      {
+        "key": "description",
+        "values": [
+          "Wait for a Heliarch Punisher to be disabled in the Quarg Wormhole system. Loot the Overcharged Shield Module and return. You'll need 44 cargo space. It may take some time for the Punisher to spawn."
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Quarg Southern Wormhole"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "Overcharged Shield Module (The First Time): done"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "job"
     ],
+    "flags": {},
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "Overcharged Shield Module (The First Time): done"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {}
@@ -358,28 +1407,140 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "A Coalition at War/A-Coalition-At-War",
     "_internalId": "A Coalition at War/A-Coalition-At-War::Overcharged Shield Module",
-    "_hash": "c62d23de5742",
+    "_hash": "24e99ebfc82d",
     "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
   },
   {
     "name": "v0.10.4 Patch",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "or",
+            "values": [],
+            "children": [
+              {
+                "key": "has",
+                "values": [
+                  "Join the Quarg: done"
+                ],
+                "children": null
+              },
+              {
+                "key": "has",
+                "values": [
+                  "Choose the Quarg: done"
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "fail"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "Join the Coalition: done"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "Choose the Coalition: done"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "remove quarg atrocities"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {},
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "or",
+          "values": [],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "Join the Quarg: done"
+              ],
+              "children": null
+            },
+            {
+              "key": "has",
+              "values": [
+                "Choose the Quarg: done"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
+      "fail": [
+        {
+          "key": "has",
+          "values": [
+            "Join the Coalition: done"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "Choose the Coalition: done"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -395,30 +1556,194 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "remove quarg atrocities"
+      {
+        "name": "remove quarg atrocities",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onComplete"
+      }
     ],
     "_pluginId": "A Coalition at War/A-Coalition-At-War",
     "_internalId": "A Coalition at War/A-Coalition-At-War::v0.10.4 Patch",
-    "_hash": "c74615e4ad45",
+    "_hash": "bd8f94c7e27d",
     "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
   },
   {
     "name": "Investigate the Anomaly (Coalition Source)",
     "displayName": null,
+    "description": "Investigate the Anomaly in a nearby system and return to Tebuteb's Table to report what you find.",
+    "raw": [
+      {
+        "key": "description",
+        "values": [
+          "Investigate the Anomaly in a nearby system and return to Tebuteb's Table to report what you find."
+        ],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Tebuteb's Table"
+        ],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Heliarch Southern Wormhole"
+        ],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Quarg Southern Wormhole"
+        ],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Tebuteb's Table"
+        ],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "There's an anomaly in a nearby system. An anxious Heliarch official wants you to find out what it is."
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "fail"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "Investigate the Anomaly (Quarg Source): offered"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "enter",
+          "Heliarch Southern Wormhole"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "The \"anomaly\" looks like a wormhole. The Heliarch official will want to know where it leads."
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "Did you find out where the other side of the wormhole is? Better find out before you return."
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "enter",
+          "Quarg Southern Wormhole"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "Hmmm. It leads to Quarg space. Given the history of conflict between the Heliarch and the Quarg, this probably isn't going to end well. Return to Tebuteb's Table to deliver the bad news."
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "You tell the official that the anomaly is a wormhole that connects Coalition and Quarg space."
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "I must inform the Heliarchs at once. If you desire to help in the inevitable conflict, join us, and we will find missions for you. Do not engage the Quarg, they will destroy you. "
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "bad news"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {},
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "fail": [
+        {
+          "key": "has",
+          "values": [
+            "Investigate the Anomaly (Quarg Source): offered"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -466,30 +1791,194 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "bad news"
+      {
+        "name": "bad news",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onComplete"
+      }
     ],
     "_pluginId": "A Coalition at War/A-Coalition-At-War",
     "_internalId": "A Coalition at War/A-Coalition-At-War::Investigate the Anomaly (Coalition Source)",
-    "_hash": "ed86ee6350bb",
+    "_hash": "075a0c3bd520",
     "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
   },
   {
     "name": "Investigate the Anomaly (Quarg Source)",
     "displayName": null,
+    "description": "Investigate the Anomaly in a nearby system and return to Tebuteb's Table to report what you find.",
+    "raw": [
+      {
+        "key": "description",
+        "values": [
+          "Investigate the Anomaly in a nearby system and return to Tebuteb's Table to report what you find."
+        ],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Forpelog"
+        ],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Quarg Southern Wormhole"
+        ],
+        "children": null
+      },
+      {
+        "key": "waypoint",
+        "values": [
+          "Heliarch Southern Wormhole"
+        ],
+        "children": null
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Forpelog"
+        ],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "There's an anomaly in a nearby system. An anxious Quarg official wants you to find out what it is."
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "fail"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "Investigate the Anomaly (Coalition Source): offered"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "enter",
+          "Quarg Southern Wormhole"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "The \"anomaly\" looks like a wormhole. The Quarg official will want to know where it leads."
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "enter",
+          "Heliarch Southern Wormhole"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "Hmmm. It leads to Coalition space. Given the history of conflict between the Heliarch and the Quarg, this probably isn't going to end well. Return to Forpelog to deliver the bad news."
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "Did you find out where the other side of the wormhole is? Better find out before you return."
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "You tell the official that the anomaly is a wormhole that connects Coalition and Quarg space."
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "I must inform the other Quarg at once. Do not engage the Heliarch ships, they will destroy you. If you desire to help in the inevitable conflict, join us, and we will find missions for you."
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "bad news"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {},
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "fail": [
+        {
+          "key": "has",
+          "values": [
+            "Investigate the Anomaly (Coalition Source): offered"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -537,30 +2026,161 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "bad news"
+      {
+        "name": "bad news",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onComplete"
+      }
     ],
     "_pluginId": "A Coalition at War/A-Coalition-At-War",
     "_internalId": "A Coalition at War/A-Coalition-At-War::Investigate the Anomaly (Quarg Source)",
-    "_hash": "6cc4d5a5d2c3",
+    "_hash": "03bca6811226",
     "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
   },
   {
     "name": "Choose a Side (Coalition Source)",
     "displayName": null,
+    "description": "Go to planet you want when you're ready to choose between joining the Quarg and joining the Heliarch.",
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Go to planet you want when you're ready to choose between joining the Quarg and joining the Heliarch."
+        ],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Tebuteb's Table"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "or",
+            "values": [],
+            "children": [
+              {
+                "key": "has",
+                "values": [
+                  "Investigate the Anomaly (Quarg Source): done"
+                ],
+                "children": null
+              },
+              {
+                "key": "has",
+                "values": [
+                  "Investigate the Anomaly (Coalition Source): done"
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "fail"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "Choose a Side (Quarg Source): offered"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "You have two new missions to choose from. One will lead to a Heliarch planet, the other to a Quarg planet. If you go to the Heliarch planet, you will join them and be a fugitive from the Quarg. If you go to the Quarg planet you will join the Quarg and be a fugitive from the Heliarch/Coalition. If you don't want to continue the story yet, leave and don't go to either world until you are ready."
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "remove quarg atrocities"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "or",
+          "values": [],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "Investigate the Anomaly (Quarg Source): done"
+              ],
+              "children": null
+            },
+            {
+              "key": "has",
+              "values": [
+                "Investigate the Anomaly (Coalition Source): done"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
+      "fail": [
+        {
+          "key": "has",
+          "values": [
+            "Choose a Side (Quarg Source): offered"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -584,30 +2204,161 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "remove quarg atrocities"
+      {
+        "name": "remove quarg atrocities",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "A Coalition at War/A-Coalition-At-War",
     "_internalId": "A Coalition at War/A-Coalition-At-War::Choose a Side (Coalition Source)",
-    "_hash": "f3a93fa5368b",
+    "_hash": "fbb781076513",
     "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
   },
   {
     "name": "Choose a Side (Quarg Source)",
     "displayName": null,
+    "description": "Go to planet you want when you're ready to choose between joining the Quarg and joining the Heliarch.",
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Go to planet you want when you're ready to choose between joining the Quarg and joining the Heliarch."
+        ],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Forpelog"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "or",
+            "values": [],
+            "children": [
+              {
+                "key": "has",
+                "values": [
+                  "Investigate the Anomaly (Quarg Source): done"
+                ],
+                "children": null
+              },
+              {
+                "key": "has",
+                "values": [
+                  "Investigate the Anomaly (Coalition Source): done"
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "fail"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "Choose a Side (Coalition Source): offered"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "You have two new missions to choose from. One will lead to a Heliarch planet, the other to a Quarg planet. If you go to the Heliarch planet, you will join them and be a fugitive from the Quarg. If you go to the Quarg planet you will join the Quarg and be a fugitive from the Heliarch/Coalition. If you don't want to continue the story yet, leave and don't go to either world until you are ready."
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "remove quarg atrocities"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "or",
+          "values": [],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "Investigate the Anomaly (Quarg Source): done"
+              ],
+              "children": null
+            },
+            {
+              "key": "has",
+              "values": [
+                "Investigate the Anomaly (Coalition Source): done"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
+      "fail": [
+        {
+          "key": "has",
+          "values": [
+            "Choose a Side (Coalition Source): offered"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -631,13 +2382,19 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "remove quarg atrocities"
+      {
+        "name": "remove quarg atrocities",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "A Coalition at War/A-Coalition-At-War",
     "_internalId": "A Coalition at War/A-Coalition-At-War::Choose a Side (Quarg Source)",
-    "_hash": "5b647292e5d0",
+    "_hash": "ad460f381d90",
     "sourcePlugin": "A Coalition at War/A-Coalition-At-War"
   }
 ]

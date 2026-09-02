@@ -1,0 +1,431 @@
+[
+  {
+    "name": "plugin: quarg.farm",
+    "displayName": "[4] plugin: quarg.farm",
+    "description": "Shows options for the plugin quarg.farm.",
+    "raw": [
+      {
+        "key": "name",
+        "values": [
+          "[4] plugin: quarg.farm"
+        ],
+        "children": null
+      },
+      {
+        "key": "color",
+        "values": [
+          "selected",
+          "control.station plugin job: selected",
+          [
+            "unselected",
+            "control.station plugin job: unselected"
+          ]
+        ],
+        "children": null
+      },
+      {
+        "key": "color",
+        "values": [
+          "unselected",
+          "control.station plugin job: unselected"
+        ],
+        "children": null
+      },
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Shows options for the plugin quarg.farm."
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Control Station"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "installed plugin: control.station"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "label",
+                "values": [
+                  "prestart"
+                ],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "label",
+                "values": [
+                  "start"
+                ],
+                "children": null
+              },
+              {
+                "key": "Plugin: quarg.farm",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\tshow plugin README",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "readme"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\tremove quarg atrocities (if changed by other plugins, like LiM)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "atrocities"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\tdone",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "end"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "readme"
+                ],
+                "children": null
+              },
+              {
+                "key": "quarg.farm readme",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "Adds a new system \"Saquerver\" (between human and coalition space) where you can farm a new Quarg faction. Also the death sentence from all other Quarg got removed.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The system \"Saquerver\" lies between \"Serquergen\" and \"Ablub\". The usual-sized Quarg fleets spawn there. Killing/plundering them doesn't make the other Quarg angry. Landing on the other Quarg faction's worlds doesn't end with a death sentence when you have their ships/outfits.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\tcontinue",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "start"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "atrocities"
+                ],
+                "children": null
+              },
+              {
+                "key": "action",
+                "values": [],
+                "children": [
+                  {
+                    "key": "event",
+                    "values": [
+                      "beat lim"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "atrocities from all quarg factions removed!",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\tcontinue",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "start"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "end"
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "job"
+    ],
+    "flags": {
+      "color": [
+        "selected",
+        "control.station plugin job: selected",
+        [
+          "unselected",
+          "control.station plugin job: unselected"
+        ]
+      ]
+    },
+    "repeatable": true,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "installed plugin: control.station"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onAccept": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Control Station",
+        "count": 1,
+        "pluginId": "Zuckungs List/control.station",
+        "internalId": "Zuckungs List/control.station::Control Station"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      {
+        "name": "beat lim",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
+    ],
+    "_pluginId": "Zuckungs List/quarg.farm",
+    "_internalId": "Zuckungs List/quarg.farm::plugin: quarg.farm",
+    "_hash": "99ee09b1a7ea",
+    "sourcePlugin": "Zuckungs List/quarg.farm"
+  },
+  {
+    "name": "Quarg Warning Saquerver",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "never",
+            "values": [],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "enter",
+          "Saquerver"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "When you enter the Saquerver system you receive a transmission: \"Human, this is a restricted military system, leave immediately or we will attack. You are not welcome here.\""
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {
+      "invisible": true
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "complete": [
+        {
+          "key": "never",
+          "values": [],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onEnter": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/quarg.farm",
+    "_internalId": "Zuckungs List/quarg.farm::Quarg Warning Saquerver",
+    "_hash": "b77d3c75a243",
+    "sourcePlugin": "Zuckungs List/quarg.farm"
+  }
+]

@@ -2,18 +2,107 @@
   {
     "name": "Lunarium Quarg",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "joined the lunarium"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Coalition"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "Lunarium quarg"
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "A Lunarium member approaches you \"Captain <last>, On the northernmost planet of Coalition space, an ongoing black market for technology of an advanced species there is. Something worthwhile, you may find, if seek it you do.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "Saying this, They vanish into the crowd",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "joined the lunarium"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -22,9 +111,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Coalition"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Coalition"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -34,30 +129,120 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Lunarium quarg"
+      {
+        "name": "Lunarium quarg",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Nova1422s list/quargoutfitter",
     "_internalId": "Nova1422s list/quargoutfitter::Lunarium Quarg",
-    "_hash": "34d04ee9821c",
+    "_hash": "9d3b928afbee",
     "sourcePlugin": "Nova1422s list/quargoutfitter"
   },
   {
     "name": "Heliarch Quarg",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "joined the heliarch"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Heliarch"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "Heliarch quarg"
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "A Heliarch inspector approaches you, \"Captain <last>, exceptional, your service has been. Grant you access to certain outfitters, we shall. Reserved for only a few, they are. Make good use of this opportunity, you must.\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "joined the heliarch"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -66,9 +251,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Heliarch"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Heliarch"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -78,13 +269,19 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "Heliarch quarg"
+      {
+        "name": "Heliarch quarg",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Nova1422s list/quargoutfitter",
     "_internalId": "Nova1422s list/quargoutfitter::Heliarch Quarg",
-    "_hash": "0a69b6303089",
+    "_hash": "68e53c70cb37",
     "sourcePlugin": "Nova1422s list/quargoutfitter"
   }
 ]

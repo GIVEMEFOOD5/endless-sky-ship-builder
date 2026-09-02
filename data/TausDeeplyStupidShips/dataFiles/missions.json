@@ -2,18 +2,68 @@
   {
     "name": "Uncle Trusty Introduction",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "shipyard",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Makerplace"
+        ],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "You are accosted on your way to the shipyard by a Hai wearing a poorly-fitting suit in a mid 20th century Earth style. He is wearing a nametag which, in fancy-to-the-point-of-near-illegibility cursive, reads UNCLE TRUSTY.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "UNCLE TRUSTY identifies you as a human of wealth and taste, urging you to have a look in a large warehouse adjacent to the main shipyard bearing a gaudy sign reading UNCLE TRUSTY'S RELIABLE SPACESHIPS.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "The Hai assures you that his products are all Real Human-Style spaceships of the highest quality. Well. Have a look!",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "shipyard"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {},
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -37,28 +87,99 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips",
     "_internalId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips::Uncle Trusty Introduction",
-    "_hash": "43588e111f4c",
+    "_hash": "5eed0477fcbd",
     "sourcePlugin": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
   },
   {
     "name": "Ultra-Sick Turbo Flivver 1",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "shipyard",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Makerplace"
+        ],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "flagship attribute: 'jump drive'"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "Uncle Trusty slides over to you in the shipyard. \"Hey there, captain. You're looking well-travelled - are my ears failing me, or did I detect the telltale hum of a...\" He pauses, holding up a defensive paw and making an exaggerated show of looking around for eavesdroppers. With a nod, he puts that paw on your back and guides you away from the other people doing their shipyard business. \"...A Jump Drive? Yes, yessss I did.\" This slick Hai now rubs his paws together in anticipation of an exciting deal. \"You are clearly a captain of fine taste, you wouldn't be here otherwise! Now, I appreciate human ships. Your people have many designs sleek and fearsome. You're acquainted with my Rav, of course. The trimmed Raven? It's something of a hobby of mine, taking such alien ships and...upgrading them.\" Another pause from Uncle Trusty. He walks a little circle, visibly gathering his thoughts and reining in the natural Hai tendency to speak at great speed to a more human pace. \"I've had my eye on the Flivver. Beautiful little ship. Absolutely beautiful. I want to do this one right. Not just Hai technology, no. This one I want to take all the way. Make it the best little beauty it can possibly be.\" Clap! Sounds a bit funny coming from fuzzy little paws, but it still draws a sharp line in the conversation. \"Now! This is what I'm asking: you travel the galaxy with your jump drive, bring me the tech I ask for - at your own expense! - and when we are done I'll let you fly it. A ship like this, I know I'm not good enough to make her sing, but I'm betting you are. Deal?\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "Uncle Trusty extends a paw. Shake on it?",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "shipyard"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "flagship attribute: 'jump drive'"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -82,11 +203,12 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips",
     "_internalId": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips::Ultra-Sick Turbo Flivver 1",
-    "_hash": "43588e111f4c",
+    "_hash": "94361fac4d5f",
     "sourcePlugin": "Tau's Deeply Stupid Ships/TausDeeplyStupidShips"
   }
 ]

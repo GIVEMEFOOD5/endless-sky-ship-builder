@@ -2,18 +2,100 @@
   {
     "name": "HumansGetHai",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "Wanderers Solifuge Recon 4: done"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "main plot completed"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "event: pond strider mass production"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "humans know hai"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "Wanderers Solifuge Recon 4: done"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "main plot completed"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "event: pond strider mass production"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -29,30 +111,129 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [
-      "humans know hai"
+      {
+        "name": "humans know hai",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
     ],
     "_pluginId": "Better Vanilla Hai/BetterVanillaHai",
     "_internalId": "Better Vanilla Hai/BetterVanillaHai::HumansGetHai",
-    "_hash": "18b9b262a611",
+    "_hash": "ce49f05961d2",
     "sourcePlugin": "Better Vanilla Hai/BetterVanillaHai"
   },
   {
     "name": "HumansGotHai",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "near",
+            "values": [
+              "Tarazed",
+              100
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "attributes",
+              "uninhabited"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: humans know hai"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "thumbnail/hai shield beetle"
+                ],
+                "children": null
+              },
+              {
+                "key": "label",
+                "values": [
+                  "message"
+                ],
+                "children": null
+              },
+              {
+                "key": "As you set down on the landing pad you notice a battle-scarred Hai Shield Beetle nearby with an apparently human crew disembarking. There's not as much interest among the other captains as one might expect after seeing an advanced alien warship land nearby. For better or worse, knowledge of the Hai and usage of their technology is now seemingly much more widespread.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "landing"
     ],
+    "flags": {},
     "repeatable": false,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": false,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: humans know hai"
+          ],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -61,10 +242,24 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "near": "Tarazed 100",
-        "not": "attributes uninhabited"
-      }
+      "value": [
+        {
+          "key": "near",
+          "values": [
+            "Tarazed",
+            100
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "attributes",
+            "uninhabited"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": null,
     "stopovers": [],
@@ -74,11 +269,12 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "Better Vanilla Hai/BetterVanillaHai",
     "_internalId": "Better Vanilla Hai/BetterVanillaHai::HumansGotHai",
-    "_hash": "c9c7b94d116a",
+    "_hash": "ef5a941e7903",
     "sourcePlugin": "Better Vanilla Hai/BetterVanillaHai"
   }
 ]

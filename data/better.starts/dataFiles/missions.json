@@ -1,0 +1,134 @@
+[
+  {
+    "name": "add full map",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "outfitter",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Earth"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "give map"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "outfit",
+            "values": [
+              "Full Human Space Map"
+            ],
+            "children": null
+          },
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "As soon as you arrive at the local outfitter, the technicians copy all the information they have about Human space to your navigation computer! It's nice to be a premium customer.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "outfitter"
+    ],
+    "flags": {
+      "invisible": true
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "give map"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Earth",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Earth"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [
+        {
+          "name": "Full Human Space Map",
+          "count": 1,
+          "pluginId": "Zuckungs List/better.starts",
+          "internalId": "Zuckungs List/better.starts::Full Human Space Map",
+          "grantedIn": "onOffer"
+        }
+      ],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/better.starts",
+    "_internalId": "Zuckungs List/better.starts::add full map",
+    "_hash": "9fc0533f0c80",
+    "sourcePlugin": "Zuckungs List/better.starts"
+  }
+]

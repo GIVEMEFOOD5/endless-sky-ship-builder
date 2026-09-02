@@ -1,0 +1,198 @@
+[
+  {
+    "name": "show more.person status",
+    "displayName": "(Show more.person.ships Ship List)",
+    "description": "Shows a list of all Person Ships and if they are killed or not. Also shows where to find them and with which ships.",
+    "raw": [
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "color",
+        "values": [
+          "selected",
+          "more.person.ships job: selected",
+          [
+            "unselected",
+            "more.person.ships job: unselected"
+          ]
+        ],
+        "children": null
+      },
+      {
+        "key": "color",
+        "values": [
+          "unselected",
+          "more.person.ships job: unselected"
+        ],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "(Show more.person.ships Ship List)"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Shows a list of all Person Ships and if they are killed or not. Also shows where to find them and with which ships."
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [
+          "Earth"
+        ],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "Person Ship List",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "Status\t\"Name\" (Source | Shiptype/s)",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "<p01>\t\"North Pirate Warlord\" (found in north pirate territory | Modified Bactrian)",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "<p02>\t\"Core Pirate Warlord\" (found in core pirate territory | Modified Bactrian)",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "<p03>\t\"South Pirate Warlord\" (found in south pirate territory | Modified Bactrian)",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "<p04>\t\"The Emperor\" (found Unfettered Hai territory | Emperor Beetle)",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "<p05>\t\"Eco-One\" (found in human territory | Eco)\t",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "<p06>\t\"Explorer Corps\" (found in human territory | 3xBadger)",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "<p07>\t\"Coinin Tapa\" (found east of Gegno territory | Coinin)",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "<p08>\t\"Sesk Lem\" (found in Korath territory | Ikatila'ej)",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "daily"
+        ],
+        "children": [
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "job"
+    ],
+    "flags": {
+      "color": [
+        "selected",
+        "more.person.ships job: selected",
+        [
+          "unselected",
+          "more.person.ships job: unselected"
+        ]
+      ]
+    },
+    "repeatable": true,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {},
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onAccept": [],
+        "onDaily": []
+      }
+    },
+    "source": {
+      "type": "planet",
+      "ref": {
+        "name": "Earth",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Earth"
+      }
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/more.person.ships",
+    "_internalId": "Zuckungs List/more.person.ships::show more.person status",
+    "_hash": "48d4fbca6d9c",
+    "sourcePlugin": "Zuckungs List/more.person.ships"
+  }
+]

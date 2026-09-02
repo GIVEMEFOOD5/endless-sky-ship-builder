@@ -1,0 +1,1586 @@
+{
+  "plugin": "captureable.person.ships",
+  "repository": "https://github.com/zuckung/endless-sky-plugins",
+  "ships": [],
+  "variants": [
+    {
+      "name": "Finch (MZ)",
+      "engines": [
+        {
+          "x": -5,
+          "y": 32
+        },
+        {
+          "x": 5,
+          "y": 32
+        }
+      ],
+      "reverseEngines": [],
+      "steeringEngines": [],
+      "guns": [
+        {
+          "x": 0,
+          "y": -31.5,
+          "gun": "Beam Laser"
+        },
+        {
+          "x": -7,
+          "y": -14,
+          "gun": "Javelin Mini Pod"
+        },
+        {
+          "x": 7,
+          "y": -14,
+          "gun": "Javelin Mini Pod"
+        }
+      ],
+      "turrets": [],
+      "bays": [],
+      "leaks": [
+        {
+          "effect": "flame",
+          "openChance": 60,
+          "spreadChance": 80
+        }
+      ],
+      "plural": "Finches",
+      "sprite": "ship/finch",
+      "thumbnail": "thumbnail/finch",
+      "administrative cost": 0,
+      "attributes": {
+        "category": "Fighter",
+        "cost": 126000,
+        "shields": 2000,
+        "hull": 2000,
+        "required crew": 1,
+        "bunks": 1,
+        "mass": 50,
+        "drag": 0.87,
+        "heat dissipation": 0.81,
+        "outfit space": 250,
+        "weapon capacity": 42,
+        "engine capacity": 62,
+        "weapon": {
+          "blast radius": 12,
+          "shield damage": 120,
+          "hull damage": 60,
+          "hit force": 180
+        }
+      },
+      "tiny explosion": 15,
+      "small explosion": 5,
+      "description": "When the Free Worlds started requesting a Carrier solution from its local shipyards, Tarazed Shipyards quickly saw that a few modifications could make their entry level interceptor into a top tier fighter. Over 85% of the parts that make up the Finch are shared with the Sparrow assembly line, so it's no surprise that even trimmed down to (barely) fit into a fighter bay, the blindingly fast Finch bears strong resemblance to its hyperspace-faring cousin. \tFighters do not come equipped with a hyperdrive. You cannot carry a fighter unless you have a ship in your fleet with a fighter bay.",
+      "_internalId": "official-game/endless-sky::Finch",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "ce6ce78909d8",
+      "variant": "Finch (MZ)",
+      "baseShip": "Finch",
+      "_variantPluginId": "Zuckungs List/captureable.person.ships",
+      "governments": {
+        "Zuckungs List/captureable.person.ships": {
+          "Author": true
+        }
+      },
+      "governmentEvents": [],
+      "locations": {
+        "Zuckungs List/captureable.person.ships": {
+          "Persons": [
+            "Michael Zahniser (C)"
+          ]
+        }
+      },
+      "outfits": {
+        "Electron Beam": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::Electron Beam"
+        },
+        "Fuel Pod": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::Fuel Pod"
+        },
+        "Liquid Nitrogen Cooler": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::Liquid Nitrogen Cooler"
+        },
+        "Large Radar Jammer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::Large Radar Jammer"
+        },
+        "Ramscoop": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::Ramscoop"
+        },
+        "S-270 Regenerator": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::S-270 Regenerator"
+        },
+        "LP036a Battery Pack": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::LP036a Battery Pack"
+        },
+        "Fission Reactor": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::Fission Reactor"
+        },
+        "A125 Atomic Steering": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::A125 Atomic Steering"
+        },
+        "A120 Atomic Thruster": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::A120 Atomic Thruster"
+        },
+        "Ionic Afterburner": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::Ionic Afterburner"
+        }
+      }
+    },
+    {
+      "name": "vyu-Ir(c)",
+      "engines": [
+        {
+          "x": 0,
+          "y": 200
+        }
+      ],
+      "reverseEngines": [
+        {
+          "x": 0,
+          "y": 200
+        }
+      ],
+      "steeringEngines": [
+        {
+          "x": 0,
+          "y": 200
+        }
+      ],
+      "guns": [
+        {
+          "x": -73,
+          "y": -9,
+          "gun": "Fate Sealer"
+        },
+        {
+          "x": 73,
+          "y": -9,
+          "gun": "Fate Sealer"
+        },
+        {
+          "x": -102,
+          "y": -76,
+          "gun": "Fate Divider"
+        },
+        {
+          "x": 102,
+          "y": -76,
+          "gun": "Fate Divider"
+        },
+        {
+          "x": 0,
+          "y": -90,
+          "gun": "Abyssal Composer"
+        }
+      ],
+      "turrets": [],
+      "bays": [],
+      "leaks": [],
+      "noun": "entity",
+      "sprite": "ship/vyuir/vyuir",
+      "sprite data": {
+        "frame rate": 4
+      },
+      "thumbnail": "thumbnail/vyuir",
+      "swizzle": 0,
+      "never disabled": true,
+      "attributes": {
+        "category": "Unclassified",
+        "cost": 77777777,
+        "shields": 68000,
+        "shield generation": 13,
+        "shield energy": 13,
+        "hull": 49000,
+        "hull repair rate": 1.9,
+        "automaton": 1,
+        "required crew": 1,
+        "bunks": 100,
+        "mass": 1400,
+        "drag": 30,
+        "heat dissipation": 6.7,
+        "fuel capacity": 1000,
+        "cargo space": 1000,
+        "outfit space": 1000,
+        "weapon capacity": 1000,
+        "engine capacity": 1000,
+        "energy capacity": 60000,
+        "energy generation": 80,
+        "heat generation": 20,
+        "thrust": 75,
+        "thrusting energy": 20,
+        "thrusting heat": 10,
+        "flare sound": "impulse engine",
+        "reverse thrust": 75,
+        "reverse thrusting energy": 20,
+        "reverse thrusting heat": 10,
+        "reverse flare sound": "impulse engine",
+        "turn": 900,
+        "turning energy": 10,
+        "turning heat": 5,
+        "steering flare sound": "impulse engine",
+        "disruption protection": 2,
+        "energy protection": 2,
+        "force protection": 1,
+        "ion protection": 2,
+        "scramble protection": 2,
+        "slowing protection": 1,
+        "weapon": {
+          "blast radius": 200,
+          "shield damage": 20000,
+          "hull damage": 10000,
+          "hit force": 30000
+        }
+      },
+      "huge explosion": 15,
+      "large explosion": 50,
+      "medium explosion": 70,
+      "small explosion": 60,
+      "tiny explosion": 120,
+      "final explode": "final explosion large",
+      "description": "The vyu-Ir is an ancient ship of the Vyu, one of several chambers of the Rulei. It is not known whether or not this was their final ship-class, or one of many, but the technology found on it may represent the height of the Rulei's advancements, as well as the cause of their downfall.",
+      "_internalId": "official-game/endless-sky::vyu-Ir",
+      "_pluginId": "official-game/endless-sky",
+      "_hash": "1cb7b8bf3245",
+      "variant": "vyu-Ir(c)",
+      "baseShip": "vyu-Ir",
+      "_variantPluginId": "Zuckungs List/captureable.person.ships",
+      "governments": {
+        "Zuckungs List/captureable.person.ships": {
+          "Rulei": true
+        }
+      },
+      "governmentEvents": [],
+      "locations": {
+        "Zuckungs List/captureable.person.ships": {
+          "Missions": [
+            "rework Relic of Pasts"
+          ]
+        }
+      },
+      "outfits": {
+        "Abyssal Composer": {
+          "count": 1,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::Abyssal Composer"
+        },
+        "Fate Sealer": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::Fate Sealer"
+        },
+        "Fate Divider": {
+          "count": 2,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::Fate Divider"
+        }
+      }
+    }
+  ],
+  "outfits": [
+    {
+      "name": "Author Slaughtering Trophy",
+      "category": "Unique",
+      "unique": 1,
+      "unplunderable": 1,
+      "series": "Non-Functional Unique",
+      "index": 1200,
+      "thumbnail": "outfit/gold_trophy",
+      "cost": 60000,
+      "description": "A wonderful trophy for slaughtering all Author ship captains. It is a gift by a mysterious man named 'Zuckung', who wanted to see them dead. It looks like he was jealous because they didn't let him join their ranks. Or something like that.",
+      "governments": {
+        "captureable.person.ships": {
+          "captureable.person.ships": true
+        }
+      },
+      "governmentEvents": [],
+      "locations": {
+        "Zuckungs List/captureable.person.ships": {
+          "Missions": [
+            "kill em all reward"
+          ]
+        }
+      },
+      "pluginId": "Zuckungs List/captureable.person.ships",
+      "internalId": "Zuckungs List/captureable.person.ships::Author Slaughtering Trophy"
+    }
+  ],
+  "effects": [],
+  "galaxies": [],
+  "systems": [],
+  "planets": [],
+  "wormholes": [],
+  "missions": [
+    {
+      "name": "plugin: Show Person Ship List",
+      "displayName": "[4] plugin: capturable.person.ships",
+      "description": "Shows a list of all Person Ships and if they are killed or not. Also shows where to find them and with which ships.",
+      "raw": [
+        {
+          "key": "name",
+          "values": [
+            "[4] plugin: capturable.person.ships"
+          ],
+          "children": null
+        },
+        {
+          "key": "color",
+          "values": [
+            "selected",
+            "control.station plugin job: selected",
+            [
+              "unselected",
+              "control.station plugin job: unselected"
+            ]
+          ],
+          "children": null
+        },
+        {
+          "key": "color",
+          "values": [
+            "unselected",
+            "control.station plugin job: unselected"
+          ],
+          "children": null
+        },
+        {
+          "key": "job",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "repeat",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "description",
+          "values": [
+            "Shows a list of all Person Ships and if they are killed or not. Also shows where to find them and with which ships."
+          ],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [
+            "Control Station"
+          ],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "installed plugin: control.station"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "label",
+                  "values": [
+                    "prestart"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "start"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "Plugin: capturable.person.ships",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\tshow plugin README",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "readme"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\tshow person ship list",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "personlist"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\tdone",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "end"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "personlist"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "Person Ship List",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "Status\t\"Name\" (Source | Shiptype/s)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<mich>\t\"Michael Zahniser\" (found everywhere | Kestrel + Finch)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<capn>\t\"Cap'n Pester\" (found everywhere | Quarg Wardragon)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<mara>\t\"Marauding Max\" (found everywhere | Marauder Fury)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<capt>\t\"Captain Nate\" (found everywhere | Vanguard)\t",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<tran>\t\"Tranquility\" (found everywhere | Lampyrid)\t",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<powe>\t\"Power of the People\" (found everywhere | Modified Osprey)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<loca>\t\"Local God\" (found everywhere | Ursa Polaris)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<subs>\t\"Subsidurial\" (found in uninhabited | Subsidurial)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<prot>\t\"Prototype B3-CC4\" (found in Ember Waste | Shooting Star)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<rais>\t\"Rais Iris XVIII\" (found everywhere | Marauder Bactrian)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<zitc>\t\"Zitchas\" (found in Ember Waste | Heron + Peregrine + 4x Petrel + 32x Tern)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<bric>\t\"Brick\" (found everywhere | 3x Modified Boxwing)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<gefu>\t\"Gefullte Taubenbrust\" (found everywhere | Modified Battleship)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<mast>\t\"MasterOfGrey\" (found in Hai space | Modified Ladybug)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<patr>\t\"Patrol Team\" (found everywhere | 6x Waverider)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<dana>\t\"Danau\" (found in human space | 1x modified Hauler IV, 2x Hauler III, 2x Hauler II, 2x Hauler)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\tcontinue",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "start"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "readme"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "Plugin README",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "Well, technically this plugin disables the person ships, and creates new ones which are captureable (with changed names to \"<name> (C)\", due to limitations of changing parts of the originals). Also adds all of them to the author government, adjusts some personalities and sets all frequencies to 1000. Changed \"Tranquility\" to have a weapon, so it doesn't flee. And changed \"Zitchas\" personality to \"decloaked\", so it doesn't flee and regenerate while cloaked.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "Attacking one of them makes all your enemies, they all try to disable instead of destroying, and they all have the same spawn chance which is in average 10 minutes.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "At Earth's job board you can find a repeatable job that displays which persons you have already killed, which are alive, and where to find them.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "After you've killed them all, you receive a small unique gift.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "I tested this plugin with 10x KIV349, all equipped with Mereti beam weapons, was probably an overkill on most. Boarding \"Zitchas\"(1000 crew) needed an Echo-Galleon, and I tried it with hand2hand outfits plugin. Maybe it works with nerve gas too.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "In cap_persons.txt you find the following line under gamerules: \"#\t\"person spawn period\" 2000\". If you remove the \"#\" the spawning speed is increased to one spawn in around half a minute.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\tcontinue",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "start"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "end"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
+      "locations": [
+        "job"
+      ],
+      "flags": {
+        "color": [
+          "selected",
+          "control.station plugin job: selected",
+          [
+            "unselected",
+            "control.station plugin job: unselected"
+          ]
+        ]
+      },
+      "repeatable": true,
+      "repeatLimit": null,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "installed plugin: control.station"
+            ],
+            "children": null
+          }
+        ]
+      },
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onAccept": []
+        }
+      },
+      "source": {
+        "type": "planet",
+        "ref": {
+          "name": "Control Station",
+          "count": 1,
+          "pluginId": "Zuckungs List/control.station",
+          "internalId": "Zuckungs List/control.station::Control Station"
+        }
+      },
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "npcCount": 0,
+      "conditionSideEffects": [],
+      "eventTriggers": [],
+      "_pluginId": "Zuckungs List/captureable.person.ships",
+      "_internalId": "Zuckungs List/captureable.person.ships::plugin: Show Person Ship List",
+      "_hash": "0c68c8474c38",
+      "sourcePlugin": "Zuckungs List/captureable.person.ships"
+    },
+    {
+      "name": "Show Person Ship List",
+      "displayName": "(Show Person Ship List)",
+      "description": "Shows a list of all Person Ships and if they are killed or not. Also shows where to find them and with which ships.",
+      "raw": [
+        {
+          "key": "name",
+          "values": [
+            "(Show Person Ship List)"
+          ],
+          "children": null
+        },
+        {
+          "key": "color",
+          "values": [
+            "selected",
+            "capturable.person.ships job: selected",
+            [
+              "unselected",
+              "capturable.person.ships job: unselected"
+            ]
+          ],
+          "children": null
+        },
+        {
+          "key": "color",
+          "values": [
+            "unselected",
+            "capturable.person.ships job: unselected"
+          ],
+          "children": null
+        },
+        {
+          "key": "job",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "repeat",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "description",
+          "values": [
+            "Shows a list of all Person Ships and if they are killed or not. Also shows where to find them and with which ships."
+          ],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [
+            "Earth"
+          ],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "not",
+              "values": [
+                "installed plugin: control.station"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "Person Ship List",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "Status\t\"Name\" (Source | Shiptype/s)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<mich>\t\"Michael Zahniser\" (found everywhere | Kestrel + Finch)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<capn>\t\"Cap'n Pester\" (found everywhere | Quarg Wardragon)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<mara>\t\"Marauding Max\" (found everywhere | Marauder Fury)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<capt>\t\"Captain Nate\" (found everywhere | Vanguard)\t",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<tran>\t\"Tranquility\" (found everywhere | Lampyrid)\t",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<powe>\t\"Power of the People\" (found everywhere | Modified Osprey)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<loca>\t\"Local God\" (found everywhere | Ursa Polaris)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<subs>\t\"Subsidurial\" (found in uninhabited | Subsidurial)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<prot>\t\"Prototype B3-CC4\" (found in Ember Waste | Shooting Star)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<rais>\t\"Rais Iris XVIII\" (found everywhere | Marauder Bactrian)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<zitc>\t\"Zitchas\" (found in Ember Waste | Heron + Peregrine + 4x Petrel + 32x Tern)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<bric>\t\"Brick\" (found everywhere | 3x Modified Boxwing)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<gefu>\t\"Gefullte Taubenbrust\" (found everywhere | Modified Battleship)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<mast>\t\"MasterOfGrey\" (found in Hai space | Modified Ladybug)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<patr>\t\"Patrol Team\" (found everywhere | 6x Waverider)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "<dana>\t\"Danau\" (found in human space | 1x modified Hauler IV, 2x Hauler III, 2x Hauler II, 2x Hauler)",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "captureable.person.ships disables the old person ships, and creates nearly identical new ones. This is done because of the heavy problems with modifying npc/fleets. Anyways, just the names got changed. They have a \"(C)\" behind their names. So persons ships killed prior installing this plugin got re-added. The maximum spawn time, for a person ship in the system you are in, is 10 minutes.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
+      "locations": [
+        "job"
+      ],
+      "flags": {
+        "color": [
+          "selected",
+          "capturable.person.ships job: selected",
+          [
+            "unselected",
+            "capturable.person.ships job: unselected"
+          ]
+        ]
+      },
+      "repeatable": true,
+      "repeatLimit": null,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "not",
+            "values": [
+              "installed plugin: control.station"
+            ],
+            "children": null
+          }
+        ]
+      },
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onAccept": []
+        }
+      },
+      "source": {
+        "type": "planet",
+        "ref": {
+          "name": "Earth",
+          "count": 1,
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::Earth"
+        }
+      },
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "npcCount": 0,
+      "conditionSideEffects": [],
+      "eventTriggers": [],
+      "_pluginId": "Zuckungs List/captureable.person.ships",
+      "_internalId": "Zuckungs List/captureable.person.ships::Show Person Ship List",
+      "_hash": "6dcd0272bfe6",
+      "sourcePlugin": "Zuckungs List/captureable.person.ships"
+    },
+    {
+      "name": "kill em all reward",
+      "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "government",
+              "values": [
+                "Republic",
+                "Free Worlds",
+                "Syndicate",
+                "Neutral",
+                "Independent"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "person destroyed: Michael Zahniser (C)",
+              "values": [
+                "==",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "person destroyed: Cap'n Pester (C)",
+              "values": [
+                "==",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "person destroyed: Marauding Max (C)",
+              "values": [
+                "==",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "person destroyed: Captain Nate (C)",
+              "values": [
+                "==",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "person destroyed: Tranquility (C)",
+              "values": [
+                "==",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "person destroyed: Power of the People (C)",
+              "values": [
+                "==",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "person destroyed: Local God (C)",
+              "values": [
+                "==",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "person destroyed: Subsidurial (C)",
+              "values": [
+                "==",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "person destroyed: Prototype B3-CC4 (C)",
+              "values": [
+                "==",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "person destroyed: Rais Iris XVIII (C)",
+              "values": [
+                "==",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "person destroyed: Zitchas (C)",
+              "values": [
+                "==",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "person destroyed: Brick (C)",
+              "values": [
+                "==",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "person destroyed: Gefullte Taubenbrust (C)",
+              "values": [
+                "==",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "person destroyed: MasterOfGrey (C)",
+              "values": [
+                "==",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "person destroyed: Patrol Team (C)",
+              "values": [
+                "==",
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "person destroyed: Danau (C)",
+              "values": [
+                "==",
+                1
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "outfit",
+              "values": [
+                "Author Slaughtering Trophy"
+              ],
+              "children": null
+            },
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "scene",
+                  "values": [
+                    "outfit/gold_trophy"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "As you leave your ship at the spaceport, you see a courier ship land nearby at suicidal speed. Before the engines have even completely shut down, a man jumps out of the airlock and walks purposefully towards you.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\"Captain <last>, I have a package for you. Would you please sign here.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "You have barely finished signing the last letter of your name when the courier pushes the package into your arms and hurries back to his ship. When you open the package, the first thing you see is a massive, golden trophy, which distracts you so much that you almost miss the enclosed letter. Who would send you something like this?",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\"Dear Captain <last>, it was with great joy that I heard about your victories over the Author captains. Those scoundrels don't deserve any better. They never wanted to take me in! Just thinking about that evening in the bar on Starcross makes my blood boil. Well, the matter is now settled. Enclosed is a token of my appreciation. I wish you all the best. Kind regards, Captain Zuckung\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "Even though the sender of the package seems crazy to you, you decide to keep this wonderful trophy.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "decline",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "locations": [
+        "landing"
+      ],
+      "flags": {
+        "invisible": true
+      },
+      "repeatable": false,
+      "repeatLimit": null,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "person destroyed: Michael Zahniser (C)",
+            "values": [
+              "==",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "person destroyed: Cap'n Pester (C)",
+            "values": [
+              "==",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "person destroyed: Marauding Max (C)",
+            "values": [
+              "==",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "person destroyed: Captain Nate (C)",
+            "values": [
+              "==",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "person destroyed: Tranquility (C)",
+            "values": [
+              "==",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "person destroyed: Power of the People (C)",
+            "values": [
+              "==",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "person destroyed: Local God (C)",
+            "values": [
+              "==",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "person destroyed: Subsidurial (C)",
+            "values": [
+              "==",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "person destroyed: Prototype B3-CC4 (C)",
+            "values": [
+              "==",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "person destroyed: Rais Iris XVIII (C)",
+            "values": [
+              "==",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "person destroyed: Zitchas (C)",
+            "values": [
+              "==",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "person destroyed: Brick (C)",
+            "values": [
+              "==",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "person destroyed: Gefullte Taubenbrust (C)",
+            "values": [
+              "==",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "person destroyed: MasterOfGrey (C)",
+            "values": [
+              "==",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "person destroyed: Patrol Team (C)",
+            "values": [
+              "==",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "person destroyed: Danau (C)",
+            "values": [
+              "==",
+              1
+            ],
+            "children": null
+          }
+        ]
+      },
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": {
+        "type": "filter",
+        "value": [
+          {
+            "key": "government",
+            "values": [
+              "Republic",
+              "Free Worlds",
+              "Syndicate",
+              "Neutral",
+              "Independent"
+            ],
+            "children": null
+          }
+        ]
+      },
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [
+          {
+            "name": "Author Slaughtering Trophy",
+            "count": 1,
+            "pluginId": "Zuckungs List/captureable.person.ships",
+            "internalId": "Zuckungs List/captureable.person.ships::Author Slaughtering Trophy",
+            "grantedIn": "onOffer"
+          }
+        ],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "npcCount": 0,
+      "conditionSideEffects": [],
+      "eventTriggers": [],
+      "_pluginId": "Zuckungs List/captureable.person.ships",
+      "_internalId": "Zuckungs List/captureable.person.ships::kill em all reward",
+      "_hash": "ccea2be33e9c",
+      "sourcePlugin": "Zuckungs List/captureable.person.ships"
+    },
+    {
+      "name": "rework Relic of Pasts",
+      "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "complete"
+          ],
+          "children": [
+            {
+              "key": "never",
+              "values": [],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "fail",
+              "values": [
+                "Relic of Pasts"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "npc",
+          "values": [
+            "save"
+          ],
+          "children": [
+            {
+              "key": "government",
+              "values": [
+                "Rulei"
+              ],
+              "children": null
+            },
+            {
+              "key": "personality",
+              "values": [
+                "heroic",
+                "vindictive",
+                "staying",
+                "mute",
+                "unconstrained",
+                "frugal"
+              ],
+              "children": null
+            },
+            {
+              "key": "system",
+              "values": [
+                "Kanguwa"
+              ],
+              "children": null
+            },
+            {
+              "key": "ship",
+              "values": [
+                "vyu-Ir(c)",
+                "Solemnity"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
+      "locations": [
+        "landing"
+      ],
+      "flags": {
+        "invisible": true
+      },
+      "repeatable": false,
+      "repeatLimit": null,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "conditions": {
+        "complete": [
+          {
+            "key": "never",
+            "values": [],
+            "children": null
+          }
+        ]
+      },
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onOffer": []
+        }
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": true,
+      "npcCount": 1,
+      "conditionSideEffects": [],
+      "eventTriggers": [],
+      "_pluginId": "Zuckungs List/captureable.person.ships",
+      "_internalId": "Zuckungs List/captureable.person.ships::rework Relic of Pasts",
+      "_hash": "f3edebf57eef",
+      "sourcePlugin": "Zuckungs List/captureable.person.ships"
+    }
+  ],
+  "parsedAt": "2026-09-02T07:57:25.899Z"
+}

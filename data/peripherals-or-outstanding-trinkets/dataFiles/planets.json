@@ -36,15 +36,114 @@
     "tribute": null,
     "tributeHails": {},
     "systemName": "Mei Yohn",
+    "rawByPlugin": [
+      {
+        "pluginId": "official-game/endless-sky",
+        "entries": [
+          {
+            "key": "attributes",
+            "values": [
+              "hai",
+              "hai tourism",
+              "mining"
+            ],
+            "children": null
+          },
+          {
+            "key": "landscape",
+            "values": [
+              "land/canyon02"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "Darkmetal is a cold, dry mining world, the source of much of the heavy metals that are used in Hai space. A haze of slightly radioactive dust hangs in the sky whenever it has been more than a week since the last rainstorm. Most of the mining is carried out by slow-moving vehicles the size of a small city, which ingest layers of dirt and bedrock, crush it to extract any valuable elements, then mix the remaining material with water to form a concrete-like slurry that can be extruded in solid blocks, to reduce the amount of additional dust that is added to the atmosphere."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "The spaceport is hermetically sealed, with gantry tubes that can adapt to fit the hatches of human ships as well as Hai. The seal is to keep radioactive dust out of the living spaces, but its purpose is primarily to reduce the long-term exposure of the station's permanent inhabitants; for visitors, the risks are minimal."
+            ],
+            "children": null
+          },
+          {
+            "key": "security",
+            "values": [
+              0.2
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "POOT/peripherals-or-outstanding-trinkets",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Unfettered Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Unfettered Advanced"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "POOT/peripherals-or-outstanding-trinkets_senza_solaria",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Unfettered Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Unfettered Advanced"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/landing.images",
+        "entries": [
+          {
+            "key": "landscape",
+            "values": [
+              "land/darkmetal"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "name": "Darkmetal",
     "_pluginId": "official-game/endless-sky",
     "_internalId": "official-game/endless-sky::Darkmetal",
     "_definedBy": [
       "official-game/endless-sky",
       "POOT/peripherals-or-outstanding-trinkets",
-      "POOT/peripherals-or-outstanding-trinkets_senza_solaria"
+      "POOT/peripherals-or-outstanding-trinkets_senza_solaria",
+      "Zuckungs List/landing.images"
     ],
-    "_lastModifiedBy": "POOT/peripherals-or-outstanding-trinkets_senza_solaria"
+    "_lastModifiedBy": "Zuckungs List/landing.images"
   },
   {
     "displayName": null,
@@ -85,16 +184,413 @@
       "threshold": 5000,
       "fleets": [
         {
-          "name": "Large Militia",
+          "name": "Large Militia Rep",
           "count": 26,
-          "pluginId": "official-game/endless-sky",
-          "internalId": "official-game/endless-sky::tributeFleet:Large Militia"
+          "pluginId": "Zuckungs List/tribute.republic",
+          "internalId": "Zuckungs List/tribute.republic::tributeFleet:Large Militia Rep"
         }
       ],
       "dailyReputationPenalty": null
     },
     "tributeHails": {},
     "systemName": "Tarazed",
+    "rawByPlugin": [
+      {
+        "pluginId": "official-game/endless-sky",
+        "entries": [
+          {
+            "key": "attributes",
+            "values": [
+              "factory",
+              "research",
+              "south",
+              "tourism"
+            ],
+            "children": null
+          },
+          {
+            "key": "landscape",
+            "values": [
+              "land/nasa1"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "Wayfarer was initially settled by a team of scientists and diplomats seeking to build a relationship with the Quarg worlds to the galactic southeast of here. Partly through the aid of the Quarg and partly through a desire to emulate them, it has grown into a very technologically advanced world."
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "\tThe Tarazed Corporation, a maker of alien-inspired ships and outfits, is one of the largest industries on Wayfarer, and they draw raw materials from throughout this region of space."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "The spaceport is clearly the artifact of an architect who was as familiar with alien architecture as with human. Instead of square angles, it has many curved walls and domes. The landing pads jut out from the building at various heights. Some of the landing pads are designed with docking tubes specifically for Quarg visitors, and the ceilings are unusually high to accommodate the Quarg, several of whom are walking around and mingling with the humans here."
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Basic Ships"
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Tarazed Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Tarazed Advanced"
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Southbound Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Delta V Advanced"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Kraz Advanced"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Common Outfits"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Ammo South"
+            ],
+            "children": null
+          },
+          {
+            "key": "bribe",
+            "values": [
+              0.07
+            ],
+            "children": null
+          },
+          {
+            "key": "security",
+            "values": [
+              0.3
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute",
+            "values": [
+              1700
+            ],
+            "children": [
+              {
+                "key": "threshold",
+                "values": [
+                  5000
+                ],
+                "children": null
+              },
+              {
+                "key": "fleet",
+                "values": [
+                  "Large Militia",
+                  26
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "pluginId": "Blended Ships/blended-ships",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Greenrock"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "LixiChronikouOrious list/Louise.Conglomerate.Shipyards",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Louise Conglomerate Basics"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Corellian Shipyard/corellian-shipyard",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Corellian Striker Dealer"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "spaceport",
+              "\tA Corellian Striker sits at the edge of the dealer lot, atomic engines gleaming. The sales rep notices you looking. \"Fastest thing CEC ever built. Twin heavy lasers, nuclear propulsion, paper-thin hull.\" She taps the warranty placard bolted to the landing strut. It reads: \"CEC warranties explicitly exclude shield failure events, thermal runaway, and any incident the pilot could have avoided by flying a different ship.\""
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Intrasystem Basic"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "shipyard",
+              "Intrasystem Advanced"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "attributes",
+              "large factory",
+              "heavy industry"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "POOT/peripherals-or-outstanding-trinkets",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Solaria Quantum Basics (POOT)"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Solaria Quantum Advanced (POOT)"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Solaria Basics (POOT)"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Solaria Advanced (POOT)"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "POOT/peripherals-or-outstanding-trinkets_senza_solaria",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Solaria Quantum Basics (POOT)"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Solaria Quantum Advanced (POOT)"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Solaria Basics (POOT)"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Solaria Advanced (POOT)"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/flare.play",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "FlarePlay"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/landing.images",
+        "entries": [
+          {
+            "key": "landscape",
+            "values": [
+              "land/wayfarer"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/outfits.weapon.slot",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Weyland Industries"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/ship.cores",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Basic Ships Cores"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Tarazed Basics Cores"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Tarazed Advanced Cores"
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "outfitter",
+              "Southbound Basics Cores"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/tribute.republic",
+        "entries": [
+          {
+            "key": "tribute",
+            "values": [
+              1700
+            ],
+            "children": [
+              {
+                "key": "threshold",
+                "values": [
+                  5000
+                ],
+                "children": null
+              },
+              {
+                "key": "fleet",
+                "values": [
+                  "Large Militia Rep",
+                  26
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "name": "Wayfarer",
     "_pluginId": "official-game/endless-sky",
     "_internalId": "official-game/endless-sky::Wayfarer",
@@ -105,8 +601,13 @@
       "Corellian Shipyard/corellian-shipyard",
       "Mega Freight/Mega-Freight",
       "POOT/peripherals-or-outstanding-trinkets",
-      "POOT/peripherals-or-outstanding-trinkets_senza_solaria"
+      "POOT/peripherals-or-outstanding-trinkets_senza_solaria",
+      "Zuckungs List/flare.play",
+      "Zuckungs List/landing.images",
+      "Zuckungs List/outfits.weapon.slot",
+      "Zuckungs List/ship.cores",
+      "Zuckungs List/tribute.republic"
     ],
-    "_lastModifiedBy": "POOT/peripherals-or-outstanding-trinkets_senza_solaria"
+    "_lastModifiedBy": "Zuckungs List/tribute.republic"
   }
 ]

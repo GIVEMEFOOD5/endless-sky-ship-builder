@@ -2,18 +2,172 @@
   {
     "name": "Boarding \u0003Crunched Aberrant",
     "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "boarding",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "never",
+            "values": [],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Crunched Aberrant"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Earth"
+        ],
+        "children": null
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "The view is almost surreal. The Aberrant's exoskeleton has been broken brutally, and chunks of it are drifting around, looking like literally have been bitten off. In some places your ship's spotlights shine right through the vessel, as the \"slug\" is outright missing. The traces indicate that it has been cooked and violently sucked out. You can think of only one creature which might have done that.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "scene",
+                "values": [
+                  "outfit/ripping maw"
+                ],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Look for something salvageable.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "salvage"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Flee in horror.)",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "flee"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "flee"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tA primeval fear overcomes you. Instinctively you fire the engines to get out as fast, and as far, as possible.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "depart",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "salvage"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tDeciding to dare a look into that mess, you move your ship as close as possible to the largest biting hole and go for an EVA. While checking out the shell's eerie interior you note, firstly, that all elements for generating and storing energy are gone, leaving you to wonder how the beast will digest them. Secondly, components which have usually been unremovable because they were deeply intertwined with the ship, are now drifting around. You just have to pick them up.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "decline",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "locations": [
       "boarding"
     ],
+    "flags": {
+      "invisible": true
+    },
     "repeatable": true,
     "repeatLimit": null,
-    "minor": false,
-    "priority": false,
-    "invisible": true,
     "illegal": null,
     "deadline": null,
     "cargo": null,
     "passengers": null,
+    "conditions": {
+      "complete": [
+        {
+          "key": "never",
+          "values": [],
+          "children": null
+        }
+      ]
+    },
     "payment": {
       "apparentPayment": null,
       "triggers": {
@@ -22,9 +176,15 @@
     },
     "source": {
       "type": "filter",
-      "value": {
-        "government": "Crunched Aberrant"
-      }
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Crunched Aberrant"
+          ],
+          "children": null
+        }
+      ]
     },
     "destination": {
       "type": "planet",
@@ -42,11 +202,12 @@
       "ships": []
     },
     "hasNpcObjective": false,
+    "npcCount": 0,
     "conditionSideEffects": [],
     "eventTriggers": [],
     "_pluginId": "LixiChronikouOrious list/Jaws",
     "_internalId": "LixiChronikouOrious list/Jaws::Boarding \u0003Crunched Aberrant",
-    "_hash": "d6f8e158346c",
+    "_hash": "7713b848d0fb",
     "sourcePlugin": "LixiChronikouOrious list/Jaws"
   }
 ]

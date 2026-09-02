@@ -125,6 +125,12 @@
                   "count": 1,
                   "pluginId": "official-game/endless-sky",
                   "internalId": "official-game/endless-sky::landscape:land/earthrise"
+                },
+                {
+                  "name": "land/luna",
+                  "count": 1,
+                  "pluginId": "Zuckungs List/landing.images",
+                  "internalId": "Zuckungs List/landing.images::landscape:land/luna"
                 }
               ],
               "music": null,
@@ -222,14 +228,347 @@
               },
               "tributeHails": {},
               "systemName": "Sol",
+              "rawByPlugin": [
+                {
+                  "pluginId": "official-game/endless-sky",
+                  "entries": [
+                    {
+                      "key": "attributes",
+                      "values": [
+                        "factory",
+                        "moon",
+                        "near earth",
+                        "tourism"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "landscape",
+                      "values": [
+                        "land/earthrise"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "description",
+                      "values": [
+                        "In the early days of space travel, back when engines were still so inefficient that escaping from a planet's gravity was costly and difficult, an enormous shipyard was built on the Moon where asteroids, harvested from the asteroid belt, were mined for raw materials for ships."
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "description",
+                      "values": [
+                        "\tThe facility is still in operation, although it is now overshadowed by the far more advanced shipbuilding centers like Geminus in the Castor system."
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "spaceport",
+                      "values": [
+                        "The spaceport is rudimentary, and the main pressurized dome of the facility is probably at least half a millennium old. So many metal foil patches have been cemented to its outer wall to stop slow air leaks that in places they entirely cover the surface."
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "spaceport",
+                      "values": [
+                        "\tEverything is so ancient and ramshackle that it feels almost like you have stepped back in time to the early days of human space flight. Perhaps that's what the tourists come here to experience."
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "shipyard",
+                      "values": [
+                        "Basic Ships"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "shipyard",
+                      "values": [
+                        "Navy Basics"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "shipyard",
+                      "values": [
+                        "Betelgeuse Basics"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "shipyard",
+                      "values": [
+                        "Syndicate Basics"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "shipyard",
+                      "values": [
+                        "Tycho Crater Advanced"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "outfitter",
+                      "values": [
+                        "Common Outfits"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "outfitter",
+                      "values": [
+                        "Lovelace Basics"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "outfitter",
+                      "values": [
+                        "Syndicate Basics"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "outfitter",
+                      "values": [
+                        "Ammo North"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "bribe",
+                      "values": [
+                        0.05
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "security",
+                      "values": [
+                        0.2
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "tribute",
+                      "values": [
+                        2500
+                      ],
+                      "children": [
+                        {
+                          "key": "threshold",
+                          "values": [
+                            7500
+                          ],
+                          "children": null
+                        },
+                        {
+                          "key": "fleet",
+                          "values": [
+                            "Large Republic",
+                            10
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "pluginId": "Mega Freight/Mega-Freight",
+                  "entries": [
+                    {
+                      "key": "add",
+                      "values": [
+                        "shipyard",
+                        "Intrasystem Basic"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "add",
+                      "values": [
+                        "shipyard",
+                        "Intrasystem Advanced"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "pluginId": "Mega Freight/Mega-Freight",
+                  "entries": [
+                    {
+                      "key": "add",
+                      "values": [
+                        "shipyard",
+                        "Freight Galactic Basic"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "add",
+                      "values": [
+                        "shipyard",
+                        "Freight Galactic Advanced"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "pluginId": "Mega Freight/Mega-Freight",
+                  "entries": [
+                    {
+                      "key": "add",
+                      "values": [
+                        "shipyard",
+                        "Bellwing Starship Corporation Advanced"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "pluginId": "Mega Freight/Mega-Freight",
+                  "entries": [
+                    {
+                      "key": "add",
+                      "values": [
+                        "shipyard",
+                        "Najrmalas Shipworks Basic"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "pluginId": "Mega Freight/Mega-Freight",
+                  "entries": [
+                    {
+                      "key": "add",
+                      "values": [
+                        "shipyard",
+                        "MJK Heavy Industries Basic"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "pluginId": "Mega Freight/Mega-Freight",
+                  "entries": [
+                    {
+                      "key": "add",
+                      "values": [
+                        "shipyard",
+                        "Seikron Dockyard Basics"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "pluginId": "Mega Freight/Mega-Freight",
+                  "entries": [
+                    {
+                      "key": "add",
+                      "values": [
+                        "attributes",
+                        "medium factory",
+                        "heavy industry"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "pluginId": "Zuckungs List/landing.images",
+                  "entries": [
+                    {
+                      "key": "landscape",
+                      "values": [
+                        "land/luna"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "pluginId": "Zuckungs List/outfits.weapon.slot",
+                  "entries": [
+                    {
+                      "key": "add",
+                      "values": [
+                        "outfitter",
+                        "Weyland Industries"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "pluginId": "Zuckungs List/ship.cores",
+                  "entries": [
+                    {
+                      "key": "add",
+                      "values": [
+                        "outfitter",
+                        "Basic Ships Cores"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "add",
+                      "values": [
+                        "outfitter",
+                        "Navy Basics Cores"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "add",
+                      "values": [
+                        "outfitter",
+                        "Betelgeuse Basics Cores"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "add",
+                      "values": [
+                        "outfitter",
+                        "Syndicate Basics Cores"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "add",
+                      "values": [
+                        "outfitter",
+                        "Tycho Crater Advanced Cores"
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ],
               "name": "Luna",
               "_pluginId": "official-game/endless-sky",
               "_internalId": "official-game/endless-sky::Luna",
               "_definedBy": [
                 "official-game/endless-sky",
-                "Mega Freight/Mega-Freight"
+                "Mega Freight/Mega-Freight",
+                "Zuckungs List/landing.images",
+                "Zuckungs List/outfits.weapon.slot",
+                "Zuckungs List/ship.cores"
               ],
-              "_lastModifiedBy": "Mega Freight/Mega-Freight"
+              "_lastModifiedBy": "Zuckungs List/ship.cores"
             }
           }
         ],
@@ -253,6 +592,12 @@
               "count": 1,
               "pluginId": "official-game/endless-sky",
               "internalId": "official-game/endless-sky::landscape:land/city20"
+            },
+            {
+              "name": "land/earth",
+              "count": 1,
+              "pluginId": "Zuckungs List/landing.images",
+              "internalId": "Zuckungs List/landing.images::landscape:land/earth"
             }
           ],
           "music": null,
@@ -325,6 +670,302 @@
           },
           "tributeHails": {},
           "systemName": "Sol",
+          "rawByPlugin": [
+            {
+              "pluginId": "official-game/endless-sky",
+              "entries": [
+                {
+                  "key": "attributes",
+                  "values": [
+                    "education",
+                    "factory",
+                    "near earth",
+                    "research",
+                    "tourism",
+                    "urban"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "landscape",
+                  "values": [
+                    "land/city20"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "description",
+                  "values": [
+                    "The ancestral home world of humanity, Earth has a population twice that of any other inhabited planet. Sprawling cities cover large portions of its surface, many of them overcrowded and dangerous. Some people work to scrape together enough money to leave, while at the same time others, born on distant worlds, make a pilgrimage of sorts to see this planet that once cradled the entirety of the human species."
+                  ],
+                  "children": [
+                    {
+                      "key": "to",
+                      "values": [
+                        "display"
+                      ],
+                      "children": [
+                        {
+                          "key": "not",
+                          "values": [
+                            "start: syndicate"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "description",
+                  "values": [
+                    "The ancestral home world of humanity, as well as your own birthplace, Earth has a population twice that of any other planet. Sprawling cities cover its surface, many of them overcrowded and dangerous. Some people work to scrape together enough money to leave, while others, born on distant worlds, make a pilgrimage of sorts to see this planet that once cradled the entirety of the human species."
+                  ],
+                  "children": [
+                    {
+                      "key": "to",
+                      "values": [
+                        "display"
+                      ],
+                      "children": [
+                        {
+                          "key": "has",
+                          "values": [
+                            "start: syndicate"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "description",
+                  "values": [
+                    "\tEarth is also the capital of the Republic. Representative government becomes complicated when one planet has a greater population than a hundred planets elsewhere. As a result, smaller settlements are grouped together into planetary districts that elect a single representative between them - a source of much frustration in the frontier worlds."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    "Earth's spaceport is a series of massive buildings; the gaps between them form narrow concrete canyons a hundred stories deep. From a distance it has the appearance of a bustling termite mound."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    "\tInside the towers is a warren of dim hallways and dingy shops. Hitchhikers sleep in the corners of unused docking bays under old army blankets, a few uniformed cleaners try to keep the litter and dust in check, and rich tourists from other stars cling tightly to their expensive cameras."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "outfitter",
+                  "values": [
+                    "Common Outfits"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "outfitter",
+                  "values": [
+                    "Lovelace Basics"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "outfitter",
+                  "values": [
+                    "Syndicate Basics"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "outfitter",
+                  "values": [
+                    "Ammo North"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "required reputation",
+                  "values": [
+                    2
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "bribe",
+                  "values": [
+                    0.03
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "security",
+                  "values": [
+                    0.3
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "tribute",
+                  "values": [
+                    10000
+                  ],
+                  "children": [
+                    {
+                      "key": "threshold",
+                      "values": [
+                        20000
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "fleet",
+                      "values": [
+                        "Large Republic",
+                        50
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "pluginId": "Blended Ships/blended-ships",
+              "entries": [
+                {
+                  "key": "add",
+                  "values": [
+                    "shipyard",
+                    "Sirius"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
+              "entries": [
+                {
+                  "key": "add",
+                  "values": [
+                    "outfitter",
+                    "Capital Planet"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "pluginId": "Mega Freight/Mega-Freight",
+              "entries": [
+                {
+                  "key": "add",
+                  "values": [
+                    "shipyard",
+                    "Intrasystem Basic"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "add",
+                  "values": [
+                    "shipyard",
+                    "Intrasystem Advanced"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "pluginId": "Mega Freight/Mega-Freight",
+              "entries": [
+                {
+                  "key": "add",
+                  "values": [
+                    "shipyard",
+                    "Bellwing Starship Corporation Advanced"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "pluginId": "Mega Freight/Mega-Freight",
+              "entries": [
+                {
+                  "key": "add",
+                  "values": [
+                    "outfitter",
+                    "Konstantin Design Bureau Advanced"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "add",
+                  "values": [
+                    "shipyard",
+                    "Konstantin Design Bureau Intermediate"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "pluginId": "Mega Freight/Mega-Freight",
+              "entries": [
+                {
+                  "key": "add",
+                  "values": [
+                    "shipyard",
+                    "Seikron Dockyard Advanced"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "pluginId": "Mega Freight/Mega-Freight",
+              "entries": [
+                {
+                  "key": "add",
+                  "values": [
+                    "attributes",
+                    "large factory"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "pluginId": "Quality of Life Outfits/QOL-Outfits",
+              "entries": [
+                {
+                  "key": "outfitter",
+                  "values": [
+                    "Capital Planet"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "pluginId": "Zuckungs List/landing.images",
+              "entries": [
+                {
+                  "key": "landscape",
+                  "values": [
+                    "land/earth"
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
           "name": "Earth",
           "_pluginId": "official-game/endless-sky",
           "_internalId": "official-game/endless-sky::Earth",
@@ -333,9 +974,10 @@
             "Blended Ships/blended-ships",
             "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
             "Mega Freight/Mega-Freight",
-            "Quality of Life Outfits/QOL-Outfits"
+            "Quality of Life Outfits/QOL-Outfits",
+            "Zuckungs List/landing.images"
           ],
-          "_lastModifiedBy": "Quality of Life Outfits/QOL-Outfits"
+          "_lastModifiedBy": "Zuckungs List/landing.images"
         }
       },
       {
@@ -366,6 +1008,12 @@
               "count": 1,
               "pluginId": "official-game/endless-sky",
               "internalId": "official-game/endless-sky::landscape:land/desert0"
+            },
+            {
+              "name": "land/mars",
+              "count": 1,
+              "pluginId": "Zuckungs List/landing.images",
+              "internalId": "Zuckungs List/landing.images::landscape:land/mars"
             }
           ],
           "music": null,
@@ -407,15 +1055,136 @@
           },
           "tributeHails": {},
           "systemName": "Sol",
+          "rawByPlugin": [
+            {
+              "pluginId": "official-game/endless-sky",
+              "entries": [
+                {
+                  "key": "attributes",
+                  "values": [
+                    "farming",
+                    "near earth",
+                    "tourism"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "landscape",
+                  "values": [
+                    "land/desert0"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "description",
+                  "values": [
+                    "Mars was humanity's first attempt at terraforming. Although it remains a dry, cold desert, the air is now breathable without an oxygen tank, and there are sections of the planet where a fair number of plants can grow."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "description",
+                  "values": [
+                    "\tBecause far more hospitable planets are available to those with enough money to pay for interstellar travel, the farms and ranches of Mars are run mostly by poorer Earth families who want to escape the pollution and congestion, along with some young adults who do farm work to help finance their once-in-a-lifetime opportunity to stand on another world."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "spaceport",
+                  "values": [
+                    "The spaceport on Mars is situated next to the northern Polar Basin, one of the few places where, post-terraforming, a natural lake exists. Here, far more trees grow than elsewhere on the planet, and in the few warm months when the lake is not frozen, Mars almost looks like a friendly place."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "security",
+                  "values": [
+                    0.2
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "tribute",
+                  "values": [
+                    1800
+                  ],
+                  "children": [
+                    {
+                      "key": "threshold",
+                      "values": [
+                        4500
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "fleet",
+                      "values": [
+                        "Small Republic",
+                        64
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
+              "entries": [
+                {
+                  "key": "add",
+                  "values": [
+                    "outfitter",
+                    "Hesperian Pub"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "pluginId": "Mega Freight/Mega-Freight",
+              "entries": [
+                {
+                  "key": "add",
+                  "values": [
+                    "shipyard",
+                    "Intrasystem Basic"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "add",
+                  "values": [
+                    "shipyard",
+                    "Intrasystem Advanced"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "pluginId": "Zuckungs List/landing.images",
+              "entries": [
+                {
+                  "key": "landscape",
+                  "values": [
+                    "land/mars"
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
           "name": "Mars",
           "_pluginId": "official-game/endless-sky",
           "_internalId": "official-game/endless-sky::Mars",
           "_definedBy": [
             "official-game/endless-sky",
             "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-            "Mega Freight/Mega-Freight"
+            "Mega Freight/Mega-Freight",
+            "Zuckungs List/landing.images"
           ],
-          "_lastModifiedBy": "Mega Freight/Mega-Freight"
+          "_lastModifiedBy": "Zuckungs List/landing.images"
         }
       },
       {
@@ -509,6 +1278,12 @@
               "count": 1,
               "pluginId": "official-game/endless-sky",
               "internalId": "official-game/endless-sky::landscape:land/nasa32"
+            },
+            {
+              "name": "land/jupiter",
+              "count": 1,
+              "pluginId": "Zuckungs List/landing.images",
+              "internalId": "Zuckungs List/landing.images::landscape:land/jupiter"
             }
           ],
           "music": null,
@@ -535,13 +1310,70 @@
           "tribute": null,
           "tributeHails": {},
           "systemName": "Sol",
+          "rawByPlugin": [
+            {
+              "pluginId": "official-game/endless-sky",
+              "entries": [
+                {
+                  "key": "attributes",
+                  "values": [
+                    "gas giant",
+                    "requires: gaslining",
+                    "uninhabited"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "landscape",
+                  "values": [
+                    "land/nasa32"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "description",
+                  "values": [
+                    "Once called the King of the Solar System, Jupiter is just as impressive even considering the variety of gas giants in the galaxy. Its famous Great Red Spot is still well-known by most of humanity, and you make sure to steer clear of it while taking in the rich yellows and browns of the planet's atmosphere."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "description",
+                  "values": [
+                    "\tFrom your vantage point, deep below the furthest excursions of human probes, you can see the glint of a few sensor balloons and floating deuterium collectors high above you."
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "government",
+                  "values": [
+                    "Uninhabited"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "pluginId": "Zuckungs List/landing.images",
+              "entries": [
+                {
+                  "key": "landscape",
+                  "values": [
+                    "land/jupiter"
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ],
           "name": "Jupiter",
           "_pluginId": "official-game/endless-sky",
           "_internalId": "official-game/endless-sky::Jupiter",
           "_definedBy": [
-            "official-game/endless-sky"
+            "official-game/endless-sky",
+            "Zuckungs List/landing.images"
           ],
-          "_lastModifiedBy": "official-game/endless-sky"
+          "_lastModifiedBy": "Zuckungs List/landing.images"
         }
       },
       {
@@ -668,6 +1500,1413 @@
       }
     ],
     "planets": [],
+    "rawByPlugin": [
+      {
+        "pluginId": "official-game/endless-sky",
+        "entries": [
+          {
+            "key": "pos",
+            "values": [
+              -400,
+              100
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Republic"
+            ],
+            "children": null
+          },
+          {
+            "key": "attributes",
+            "values": [
+              "near earth"
+            ],
+            "children": null
+          },
+          {
+            "key": "belt",
+            "values": [
+              1529
+            ],
+            "children": null
+          },
+          {
+            "key": "haze",
+            "values": [
+              "_menu/haze-67"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "Alpha Centauri"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "Altair"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "Caph"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "Denebola"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "Sirius"
+            ],
+            "children": null
+          },
+          {
+            "key": "link",
+            "values": [
+              "Vega"
+            ],
+            "children": null
+          },
+          {
+            "key": "asteroids",
+            "values": [
+              "small rock",
+              30,
+              2.691
+            ],
+            "children": null
+          },
+          {
+            "key": "asteroids",
+            "values": [
+              "large rock",
+              50,
+              5.0508
+            ],
+            "children": null
+          },
+          {
+            "key": "asteroids",
+            "values": [
+              "medium metal",
+              4,
+              2.8566
+            ],
+            "children": null
+          },
+          {
+            "key": "asteroids",
+            "values": [
+              "large metal",
+              1,
+              2.2356
+            ],
+            "children": null
+          },
+          {
+            "key": "minables",
+            "values": [
+              "iron",
+              8,
+              4.64499
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Clothing",
+              282
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Electronics",
+              745
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Equipment",
+              491
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Food",
+              505
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Heavy Metals",
+              849
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Industrial",
+              635
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Luxury Goods",
+              1159
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Medical",
+              480
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Metal",
+              402
+            ],
+            "children": null
+          },
+          {
+            "key": "trade",
+            "values": [
+              "Plastic",
+              272
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Small Northern Merchants",
+              300
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Northern Merchants",
+              500
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Paradise Merchants",
+              800
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Small Republic",
+              600
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Republic",
+              900
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Republic Logistics",
+              2000
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Small Core Merchants",
+              1000
+            ],
+            "children": null
+          },
+          {
+            "key": "fleet",
+            "values": [
+              "Large Core Merchants",
+              2000
+            ],
+            "children": null
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "star/g0"
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  10
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/mercury"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  289.647
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  60
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/venus"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  533.534
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  150
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "Earth"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/earth"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  965.669
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  365.25
+                ],
+                "children": null
+              },
+              {
+                "key": "object",
+                "values": [
+                  "Luna"
+                ],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/luna"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      201.24
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "period",
+                    "values": [
+                      27.3
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "Mars"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/mars"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  1471.43
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  687.001
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [
+              "Jupiter"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/jupiter"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  3339
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  2348.4
+                ],
+                "children": null
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/io"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      238.221
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "period",
+                    "values": [
+                      10.614
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/europa"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      379.078
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "period",
+                    "values": [
+                      21.306
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/ganymede"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      604.739
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "period",
+                    "values": [
+                      42.93
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/callisto"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      811.717
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "period",
+                    "values": [
+                      66.76
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/saturn"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  5562
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  5048.87
+                ],
+                "children": null
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/tethys"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      590
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "period",
+                    "values": [
+                      1.9
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/rhea"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      791
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "period",
+                    "values": [
+                      4.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/titan"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      1222
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "period",
+                    "values": [
+                      16
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/uranus"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  10373
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  12858.9
+                ],
+                "children": null
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/miranda"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      195
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "period",
+                    "values": [
+                      1.4
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "object",
+                "values": [],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/oberon"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      584
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "period",
+                    "values": [
+                      13
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "object",
+            "values": [],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/neptune"
+                ],
+                "children": null
+              },
+              {
+                "key": "distance",
+                "values": [
+                  15730
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  24012.7
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "pluginId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "minables",
+              "Sulfur",
+              2,
+              8
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "minables",
+              "Basalt",
+              8,
+              8
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "minables",
+              "Coal",
+              4,
+              10
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "minables",
+              "Scrap Metals",
+              4,
+              13
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Blended Ships/blended-ships",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "Pleasure Craft",
+              2500
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Space Shuttle Start/Space-Shuttle-Start",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "object"
+            ],
+            "children": [
+              {
+                "key": "distance",
+                "values": [
+                  965.669
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  365.25
+                ],
+                "children": null
+              },
+              {
+                "key": "object",
+                "values": [
+                  "I.S.S."
+                ],
+                "children": [
+                  {
+                    "key": "sprite",
+                    "values": [
+                      "planet/station-nasa0"
+                    ],
+                    "children": [
+                      {
+                        "key": "scale",
+                        "values": [
+                          0.5
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "distance",
+                    "values": [
+                      201.24
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "period",
+                    "values": [
+                      27.3
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "offset",
+                    "values": [
+                      180
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "Intrasystem Merchants",
+              750
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "MGF: Stiletto Company Small",
+              3000
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "MGF: Bellwing Logistic",
+              3000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "MGF: KDB Supply Force",
+              2500
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "MGF: Reshetka Security Small",
+              2500
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "MGF: Reshetka Security Large",
+              5000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "Sulso LG Shipping",
+              5800
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "MGF: Small Core Food Corp",
+              3000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "MGF: Small Core Nuclear Transport",
+              3000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "MGF: Solacer Juice Tanker",
+              5500
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "MGF: Small Solacer Reefer",
+              4500
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "MGF: Luna Winery",
+              4500
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "MGF: ICS Standard",
+              9500
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "Galactic Express Central Line",
+              8000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "NGK Hauling HeavyFreight",
+              7500
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "NGK Hauling LightFreight",
+              7000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "NGK Hauling RORO",
+              12000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "Maryhal Logistic ArteryLine",
+              7500
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Mega Freight/Mega-Freight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "Rangphenn Transport",
+              3400
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Rumskib/rumskib",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "minables",
+              "gold",
+              5,
+              1.2
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "minables",
+              "silver",
+              7,
+              1.36
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "minables",
+              "copper",
+              13,
+              2.601
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "SpaceCrate/SpaceCrate",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "spacecrate_merchantfleet",
+              400
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "spacecrate_merchantfleet",
+              600
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "spacecrate_merchantfleet",
+              800
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "spacecrate_merchantfleet",
+              1000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Lost In Midnight/Lost-in-Midnight",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "minables",
+              "space junk",
+              1,
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "Republic Police",
+              4000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "POOT/poot-senza-solaria",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "authors-respawn-poot-author",
+              2500000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "POOT/endless_sky_senza_solaria",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "authors-respawn-poot-author",
+              2500000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "POOT/poot-senza-solaria_senza_solaria",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "authors-respawn-poot-author",
+              2500000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/control.station",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "object",
+              "Control Station"
+            ],
+            "children": [
+              {
+                "key": "sprite",
+                "values": [
+                  "planet/admin_station"
+                ],
+                "children": [
+                  {
+                    "key": "scale",
+                    "values": [
+                      0.5
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "distance",
+                "values": [
+                  965
+                ],
+                "children": null
+              },
+              {
+                "key": "period",
+                "values": [
+                  365.25
+                ],
+                "children": null
+              },
+              {
+                "key": "offset",
+                "values": [
+                  25
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/space.fauna",
+        "entries": [
+          {
+            "key": "add",
+            "values": [
+              "fleet",
+              "space fauna 01",
+              20541
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/too.many.asteroids",
+        "entries": [
+          {
+            "key": "remove",
+            "values": [
+              "asteroids",
+              "small rock"
+            ],
+            "children": null
+          },
+          {
+            "key": "remove",
+            "values": [
+              "asteroids",
+              "large rock"
+            ],
+            "children": null
+          },
+          {
+            "key": "remove",
+            "values": [
+              "asteroids",
+              "medium metal"
+            ],
+            "children": null
+          },
+          {
+            "key": "remove",
+            "values": [
+              "asteroids",
+              "large metal"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
     "name": "Sol",
     "_pluginId": "official-game/endless-sky",
     "_internalId": "official-game/endless-sky::Sol",
@@ -682,8 +2921,11 @@
       "Lost In Midnight/Lost-in-Midnight",
       "POOT/poot-senza-solaria",
       "POOT/endless_sky_senza_solaria",
-      "POOT/poot-senza-solaria_senza_solaria"
+      "POOT/poot-senza-solaria_senza_solaria",
+      "Zuckungs List/control.station",
+      "Zuckungs List/space.fauna",
+      "Zuckungs List/too.many.asteroids"
     ],
-    "_lastModifiedBy": "POOT/poot-senza-solaria_senza_solaria"
+    "_lastModifiedBy": "Zuckungs List/too.many.asteroids"
   }
 ]

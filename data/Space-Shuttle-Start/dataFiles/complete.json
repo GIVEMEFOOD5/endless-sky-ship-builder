@@ -922,6 +922,12 @@
                     "count": 1,
                     "pluginId": "official-game/endless-sky",
                     "internalId": "official-game/endless-sky::landscape:land/earthrise"
+                  },
+                  {
+                    "name": "land/luna",
+                    "count": 1,
+                    "pluginId": "Zuckungs List/landing.images",
+                    "internalId": "Zuckungs List/landing.images::landscape:land/luna"
                   }
                 ],
                 "music": null,
@@ -1019,14 +1025,347 @@
                 },
                 "tributeHails": {},
                 "systemName": "Sol",
+                "rawByPlugin": [
+                  {
+                    "pluginId": "official-game/endless-sky",
+                    "entries": [
+                      {
+                        "key": "attributes",
+                        "values": [
+                          "factory",
+                          "moon",
+                          "near earth",
+                          "tourism"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "landscape",
+                        "values": [
+                          "land/earthrise"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "description",
+                        "values": [
+                          "In the early days of space travel, back when engines were still so inefficient that escaping from a planet's gravity was costly and difficult, an enormous shipyard was built on the Moon where asteroids, harvested from the asteroid belt, were mined for raw materials for ships."
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "description",
+                        "values": [
+                          "\tThe facility is still in operation, although it is now overshadowed by the far more advanced shipbuilding centers like Geminus in the Castor system."
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "spaceport",
+                        "values": [
+                          "The spaceport is rudimentary, and the main pressurized dome of the facility is probably at least half a millennium old. So many metal foil patches have been cemented to its outer wall to stop slow air leaks that in places they entirely cover the surface."
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "spaceport",
+                        "values": [
+                          "\tEverything is so ancient and ramshackle that it feels almost like you have stepped back in time to the early days of human space flight. Perhaps that's what the tourists come here to experience."
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "shipyard",
+                        "values": [
+                          "Basic Ships"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "shipyard",
+                        "values": [
+                          "Navy Basics"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "shipyard",
+                        "values": [
+                          "Betelgeuse Basics"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "shipyard",
+                        "values": [
+                          "Syndicate Basics"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "shipyard",
+                        "values": [
+                          "Tycho Crater Advanced"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "outfitter",
+                        "values": [
+                          "Common Outfits"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "outfitter",
+                        "values": [
+                          "Lovelace Basics"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "outfitter",
+                        "values": [
+                          "Syndicate Basics"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "outfitter",
+                        "values": [
+                          "Ammo North"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "bribe",
+                        "values": [
+                          0.05
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "security",
+                        "values": [
+                          0.2
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "tribute",
+                        "values": [
+                          2500
+                        ],
+                        "children": [
+                          {
+                            "key": "threshold",
+                            "values": [
+                              7500
+                            ],
+                            "children": null
+                          },
+                          {
+                            "key": "fleet",
+                            "values": [
+                              "Large Republic",
+                              10
+                            ],
+                            "children": null
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "pluginId": "Mega Freight/Mega-Freight",
+                    "entries": [
+                      {
+                        "key": "add",
+                        "values": [
+                          "shipyard",
+                          "Intrasystem Basic"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "add",
+                        "values": [
+                          "shipyard",
+                          "Intrasystem Advanced"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "pluginId": "Mega Freight/Mega-Freight",
+                    "entries": [
+                      {
+                        "key": "add",
+                        "values": [
+                          "shipyard",
+                          "Freight Galactic Basic"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "add",
+                        "values": [
+                          "shipyard",
+                          "Freight Galactic Advanced"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "pluginId": "Mega Freight/Mega-Freight",
+                    "entries": [
+                      {
+                        "key": "add",
+                        "values": [
+                          "shipyard",
+                          "Bellwing Starship Corporation Advanced"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "pluginId": "Mega Freight/Mega-Freight",
+                    "entries": [
+                      {
+                        "key": "add",
+                        "values": [
+                          "shipyard",
+                          "Najrmalas Shipworks Basic"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "pluginId": "Mega Freight/Mega-Freight",
+                    "entries": [
+                      {
+                        "key": "add",
+                        "values": [
+                          "shipyard",
+                          "MJK Heavy Industries Basic"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "pluginId": "Mega Freight/Mega-Freight",
+                    "entries": [
+                      {
+                        "key": "add",
+                        "values": [
+                          "shipyard",
+                          "Seikron Dockyard Basics"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "pluginId": "Mega Freight/Mega-Freight",
+                    "entries": [
+                      {
+                        "key": "add",
+                        "values": [
+                          "attributes",
+                          "medium factory",
+                          "heavy industry"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "pluginId": "Zuckungs List/landing.images",
+                    "entries": [
+                      {
+                        "key": "landscape",
+                        "values": [
+                          "land/luna"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "pluginId": "Zuckungs List/outfits.weapon.slot",
+                    "entries": [
+                      {
+                        "key": "add",
+                        "values": [
+                          "outfitter",
+                          "Weyland Industries"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "pluginId": "Zuckungs List/ship.cores",
+                    "entries": [
+                      {
+                        "key": "add",
+                        "values": [
+                          "outfitter",
+                          "Basic Ships Cores"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "add",
+                        "values": [
+                          "outfitter",
+                          "Navy Basics Cores"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "add",
+                        "values": [
+                          "outfitter",
+                          "Betelgeuse Basics Cores"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "add",
+                        "values": [
+                          "outfitter",
+                          "Syndicate Basics Cores"
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "add",
+                        "values": [
+                          "outfitter",
+                          "Tycho Crater Advanced Cores"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ],
                 "name": "Luna",
                 "_pluginId": "official-game/endless-sky",
                 "_internalId": "official-game/endless-sky::Luna",
                 "_definedBy": [
                   "official-game/endless-sky",
-                  "Mega Freight/Mega-Freight"
+                  "Mega Freight/Mega-Freight",
+                  "Zuckungs List/landing.images",
+                  "Zuckungs List/outfits.weapon.slot",
+                  "Zuckungs List/ship.cores"
                 ],
-                "_lastModifiedBy": "Mega Freight/Mega-Freight"
+                "_lastModifiedBy": "Zuckungs List/ship.cores"
               }
             }
           ],
@@ -1050,6 +1389,12 @@
                 "count": 1,
                 "pluginId": "official-game/endless-sky",
                 "internalId": "official-game/endless-sky::landscape:land/city20"
+              },
+              {
+                "name": "land/earth",
+                "count": 1,
+                "pluginId": "Zuckungs List/landing.images",
+                "internalId": "Zuckungs List/landing.images::landscape:land/earth"
               }
             ],
             "music": null,
@@ -1122,6 +1467,302 @@
             },
             "tributeHails": {},
             "systemName": "Sol",
+            "rawByPlugin": [
+              {
+                "pluginId": "official-game/endless-sky",
+                "entries": [
+                  {
+                    "key": "attributes",
+                    "values": [
+                      "education",
+                      "factory",
+                      "near earth",
+                      "research",
+                      "tourism",
+                      "urban"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "landscape",
+                    "values": [
+                      "land/city20"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "description",
+                    "values": [
+                      "The ancestral home world of humanity, Earth has a population twice that of any other inhabited planet. Sprawling cities cover large portions of its surface, many of them overcrowded and dangerous. Some people work to scrape together enough money to leave, while at the same time others, born on distant worlds, make a pilgrimage of sorts to see this planet that once cradled the entirety of the human species."
+                    ],
+                    "children": [
+                      {
+                        "key": "to",
+                        "values": [
+                          "display"
+                        ],
+                        "children": [
+                          {
+                            "key": "not",
+                            "values": [
+                              "start: syndicate"
+                            ],
+                            "children": null
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "key": "description",
+                    "values": [
+                      "The ancestral home world of humanity, as well as your own birthplace, Earth has a population twice that of any other planet. Sprawling cities cover its surface, many of them overcrowded and dangerous. Some people work to scrape together enough money to leave, while others, born on distant worlds, make a pilgrimage of sorts to see this planet that once cradled the entirety of the human species."
+                    ],
+                    "children": [
+                      {
+                        "key": "to",
+                        "values": [
+                          "display"
+                        ],
+                        "children": [
+                          {
+                            "key": "has",
+                            "values": [
+                              "start: syndicate"
+                            ],
+                            "children": null
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "key": "description",
+                    "values": [
+                      "\tEarth is also the capital of the Republic. Representative government becomes complicated when one planet has a greater population than a hundred planets elsewhere. As a result, smaller settlements are grouped together into planetary districts that elect a single representative between them - a source of much frustration in the frontier worlds."
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "spaceport",
+                    "values": [
+                      "Earth's spaceport is a series of massive buildings; the gaps between them form narrow concrete canyons a hundred stories deep. From a distance it has the appearance of a bustling termite mound."
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "spaceport",
+                    "values": [
+                      "\tInside the towers is a warren of dim hallways and dingy shops. Hitchhikers sleep in the corners of unused docking bays under old army blankets, a few uniformed cleaners try to keep the litter and dust in check, and rich tourists from other stars cling tightly to their expensive cameras."
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "outfitter",
+                    "values": [
+                      "Common Outfits"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "outfitter",
+                    "values": [
+                      "Lovelace Basics"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "outfitter",
+                    "values": [
+                      "Syndicate Basics"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "outfitter",
+                    "values": [
+                      "Ammo North"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "required reputation",
+                    "values": [
+                      2
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "bribe",
+                    "values": [
+                      0.03
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "security",
+                    "values": [
+                      0.3
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "tribute",
+                    "values": [
+                      10000
+                    ],
+                    "children": [
+                      {
+                        "key": "threshold",
+                        "values": [
+                          20000
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "fleet",
+                        "values": [
+                          "Large Republic",
+                          50
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "pluginId": "Blended Ships/blended-ships",
+                "entries": [
+                  {
+                    "key": "add",
+                    "values": [
+                      "shipyard",
+                      "Sirius"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
+                "entries": [
+                  {
+                    "key": "add",
+                    "values": [
+                      "outfitter",
+                      "Capital Planet"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "pluginId": "Mega Freight/Mega-Freight",
+                "entries": [
+                  {
+                    "key": "add",
+                    "values": [
+                      "shipyard",
+                      "Intrasystem Basic"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "add",
+                    "values": [
+                      "shipyard",
+                      "Intrasystem Advanced"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "pluginId": "Mega Freight/Mega-Freight",
+                "entries": [
+                  {
+                    "key": "add",
+                    "values": [
+                      "shipyard",
+                      "Bellwing Starship Corporation Advanced"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "pluginId": "Mega Freight/Mega-Freight",
+                "entries": [
+                  {
+                    "key": "add",
+                    "values": [
+                      "outfitter",
+                      "Konstantin Design Bureau Advanced"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "add",
+                    "values": [
+                      "shipyard",
+                      "Konstantin Design Bureau Intermediate"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "pluginId": "Mega Freight/Mega-Freight",
+                "entries": [
+                  {
+                    "key": "add",
+                    "values": [
+                      "shipyard",
+                      "Seikron Dockyard Advanced"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "pluginId": "Mega Freight/Mega-Freight",
+                "entries": [
+                  {
+                    "key": "add",
+                    "values": [
+                      "attributes",
+                      "large factory"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "pluginId": "Quality of Life Outfits/QOL-Outfits",
+                "entries": [
+                  {
+                    "key": "outfitter",
+                    "values": [
+                      "Capital Planet"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "pluginId": "Zuckungs List/landing.images",
+                "entries": [
+                  {
+                    "key": "landscape",
+                    "values": [
+                      "land/earth"
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ],
             "name": "Earth",
             "_pluginId": "official-game/endless-sky",
             "_internalId": "official-game/endless-sky::Earth",
@@ -1130,9 +1771,10 @@
               "Blended Ships/blended-ships",
               "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
               "Mega Freight/Mega-Freight",
-              "Quality of Life Outfits/QOL-Outfits"
+              "Quality of Life Outfits/QOL-Outfits",
+              "Zuckungs List/landing.images"
             ],
-            "_lastModifiedBy": "Quality of Life Outfits/QOL-Outfits"
+            "_lastModifiedBy": "Zuckungs List/landing.images"
           }
         },
         {
@@ -1163,6 +1805,12 @@
                 "count": 1,
                 "pluginId": "official-game/endless-sky",
                 "internalId": "official-game/endless-sky::landscape:land/desert0"
+              },
+              {
+                "name": "land/mars",
+                "count": 1,
+                "pluginId": "Zuckungs List/landing.images",
+                "internalId": "Zuckungs List/landing.images::landscape:land/mars"
               }
             ],
             "music": null,
@@ -1204,15 +1852,136 @@
             },
             "tributeHails": {},
             "systemName": "Sol",
+            "rawByPlugin": [
+              {
+                "pluginId": "official-game/endless-sky",
+                "entries": [
+                  {
+                    "key": "attributes",
+                    "values": [
+                      "farming",
+                      "near earth",
+                      "tourism"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "landscape",
+                    "values": [
+                      "land/desert0"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "description",
+                    "values": [
+                      "Mars was humanity's first attempt at terraforming. Although it remains a dry, cold desert, the air is now breathable without an oxygen tank, and there are sections of the planet where a fair number of plants can grow."
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "description",
+                    "values": [
+                      "\tBecause far more hospitable planets are available to those with enough money to pay for interstellar travel, the farms and ranches of Mars are run mostly by poorer Earth families who want to escape the pollution and congestion, along with some young adults who do farm work to help finance their once-in-a-lifetime opportunity to stand on another world."
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "spaceport",
+                    "values": [
+                      "The spaceport on Mars is situated next to the northern Polar Basin, one of the few places where, post-terraforming, a natural lake exists. Here, far more trees grow than elsewhere on the planet, and in the few warm months when the lake is not frozen, Mars almost looks like a friendly place."
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "security",
+                    "values": [
+                      0.2
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "tribute",
+                    "values": [
+                      1800
+                    ],
+                    "children": [
+                      {
+                        "key": "threshold",
+                        "values": [
+                          4500
+                        ],
+                        "children": null
+                      },
+                      {
+                        "key": "fleet",
+                        "values": [
+                          "Small Republic",
+                          64
+                        ],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "pluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
+                "entries": [
+                  {
+                    "key": "add",
+                    "values": [
+                      "outfitter",
+                      "Hesperian Pub"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "pluginId": "Mega Freight/Mega-Freight",
+                "entries": [
+                  {
+                    "key": "add",
+                    "values": [
+                      "shipyard",
+                      "Intrasystem Basic"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "add",
+                    "values": [
+                      "shipyard",
+                      "Intrasystem Advanced"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "pluginId": "Zuckungs List/landing.images",
+                "entries": [
+                  {
+                    "key": "landscape",
+                    "values": [
+                      "land/mars"
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ],
             "name": "Mars",
             "_pluginId": "official-game/endless-sky",
             "_internalId": "official-game/endless-sky::Mars",
             "_definedBy": [
               "official-game/endless-sky",
               "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
-              "Mega Freight/Mega-Freight"
+              "Mega Freight/Mega-Freight",
+              "Zuckungs List/landing.images"
             ],
-            "_lastModifiedBy": "Mega Freight/Mega-Freight"
+            "_lastModifiedBy": "Zuckungs List/landing.images"
           }
         },
         {
@@ -1306,6 +2075,12 @@
                 "count": 1,
                 "pluginId": "official-game/endless-sky",
                 "internalId": "official-game/endless-sky::landscape:land/nasa32"
+              },
+              {
+                "name": "land/jupiter",
+                "count": 1,
+                "pluginId": "Zuckungs List/landing.images",
+                "internalId": "Zuckungs List/landing.images::landscape:land/jupiter"
               }
             ],
             "music": null,
@@ -1332,13 +2107,70 @@
             "tribute": null,
             "tributeHails": {},
             "systemName": "Sol",
+            "rawByPlugin": [
+              {
+                "pluginId": "official-game/endless-sky",
+                "entries": [
+                  {
+                    "key": "attributes",
+                    "values": [
+                      "gas giant",
+                      "requires: gaslining",
+                      "uninhabited"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "landscape",
+                    "values": [
+                      "land/nasa32"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "description",
+                    "values": [
+                      "Once called the King of the Solar System, Jupiter is just as impressive even considering the variety of gas giants in the galaxy. Its famous Great Red Spot is still well-known by most of humanity, and you make sure to steer clear of it while taking in the rich yellows and browns of the planet's atmosphere."
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "description",
+                    "values": [
+                      "\tFrom your vantage point, deep below the furthest excursions of human probes, you can see the glint of a few sensor balloons and floating deuterium collectors high above you."
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "government",
+                    "values": [
+                      "Uninhabited"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "pluginId": "Zuckungs List/landing.images",
+                "entries": [
+                  {
+                    "key": "landscape",
+                    "values": [
+                      "land/jupiter"
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ],
             "name": "Jupiter",
             "_pluginId": "official-game/endless-sky",
             "_internalId": "official-game/endless-sky::Jupiter",
             "_definedBy": [
-              "official-game/endless-sky"
+              "official-game/endless-sky",
+              "Zuckungs List/landing.images"
             ],
-            "_lastModifiedBy": "official-game/endless-sky"
+            "_lastModifiedBy": "Zuckungs List/landing.images"
           }
         },
         {
@@ -1465,6 +2297,1413 @@
         }
       ],
       "planets": [],
+      "rawByPlugin": [
+        {
+          "pluginId": "official-game/endless-sky",
+          "entries": [
+            {
+              "key": "pos",
+              "values": [
+                -400,
+                100
+              ],
+              "children": null
+            },
+            {
+              "key": "government",
+              "values": [
+                "Republic"
+              ],
+              "children": null
+            },
+            {
+              "key": "attributes",
+              "values": [
+                "near earth"
+              ],
+              "children": null
+            },
+            {
+              "key": "belt",
+              "values": [
+                1529
+              ],
+              "children": null
+            },
+            {
+              "key": "haze",
+              "values": [
+                "_menu/haze-67"
+              ],
+              "children": null
+            },
+            {
+              "key": "link",
+              "values": [
+                "Alpha Centauri"
+              ],
+              "children": null
+            },
+            {
+              "key": "link",
+              "values": [
+                "Altair"
+              ],
+              "children": null
+            },
+            {
+              "key": "link",
+              "values": [
+                "Caph"
+              ],
+              "children": null
+            },
+            {
+              "key": "link",
+              "values": [
+                "Denebola"
+              ],
+              "children": null
+            },
+            {
+              "key": "link",
+              "values": [
+                "Sirius"
+              ],
+              "children": null
+            },
+            {
+              "key": "link",
+              "values": [
+                "Vega"
+              ],
+              "children": null
+            },
+            {
+              "key": "asteroids",
+              "values": [
+                "small rock",
+                30,
+                2.691
+              ],
+              "children": null
+            },
+            {
+              "key": "asteroids",
+              "values": [
+                "large rock",
+                50,
+                5.0508
+              ],
+              "children": null
+            },
+            {
+              "key": "asteroids",
+              "values": [
+                "medium metal",
+                4,
+                2.8566
+              ],
+              "children": null
+            },
+            {
+              "key": "asteroids",
+              "values": [
+                "large metal",
+                1,
+                2.2356
+              ],
+              "children": null
+            },
+            {
+              "key": "minables",
+              "values": [
+                "iron",
+                8,
+                4.64499
+              ],
+              "children": null
+            },
+            {
+              "key": "trade",
+              "values": [
+                "Clothing",
+                282
+              ],
+              "children": null
+            },
+            {
+              "key": "trade",
+              "values": [
+                "Electronics",
+                745
+              ],
+              "children": null
+            },
+            {
+              "key": "trade",
+              "values": [
+                "Equipment",
+                491
+              ],
+              "children": null
+            },
+            {
+              "key": "trade",
+              "values": [
+                "Food",
+                505
+              ],
+              "children": null
+            },
+            {
+              "key": "trade",
+              "values": [
+                "Heavy Metals",
+                849
+              ],
+              "children": null
+            },
+            {
+              "key": "trade",
+              "values": [
+                "Industrial",
+                635
+              ],
+              "children": null
+            },
+            {
+              "key": "trade",
+              "values": [
+                "Luxury Goods",
+                1159
+              ],
+              "children": null
+            },
+            {
+              "key": "trade",
+              "values": [
+                "Medical",
+                480
+              ],
+              "children": null
+            },
+            {
+              "key": "trade",
+              "values": [
+                "Metal",
+                402
+              ],
+              "children": null
+            },
+            {
+              "key": "trade",
+              "values": [
+                "Plastic",
+                272
+              ],
+              "children": null
+            },
+            {
+              "key": "fleet",
+              "values": [
+                "Small Northern Merchants",
+                300
+              ],
+              "children": null
+            },
+            {
+              "key": "fleet",
+              "values": [
+                "Large Northern Merchants",
+                500
+              ],
+              "children": null
+            },
+            {
+              "key": "fleet",
+              "values": [
+                "Paradise Merchants",
+                800
+              ],
+              "children": null
+            },
+            {
+              "key": "fleet",
+              "values": [
+                "Small Republic",
+                600
+              ],
+              "children": null
+            },
+            {
+              "key": "fleet",
+              "values": [
+                "Large Republic",
+                900
+              ],
+              "children": null
+            },
+            {
+              "key": "fleet",
+              "values": [
+                "Republic Logistics",
+                2000
+              ],
+              "children": null
+            },
+            {
+              "key": "fleet",
+              "values": [
+                "Small Core Merchants",
+                1000
+              ],
+              "children": null
+            },
+            {
+              "key": "fleet",
+              "values": [
+                "Large Core Merchants",
+                2000
+              ],
+              "children": null
+            },
+            {
+              "key": "object",
+              "values": [],
+              "children": [
+                {
+                  "key": "sprite",
+                  "values": [
+                    "star/g0"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "period",
+                  "values": [
+                    10
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "object",
+              "values": [],
+              "children": [
+                {
+                  "key": "sprite",
+                  "values": [
+                    "planet/mercury"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "distance",
+                  "values": [
+                    289.647
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "period",
+                  "values": [
+                    60
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "object",
+              "values": [],
+              "children": [
+                {
+                  "key": "sprite",
+                  "values": [
+                    "planet/venus"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "distance",
+                  "values": [
+                    533.534
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "period",
+                  "values": [
+                    150
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "object",
+              "values": [
+                "Earth"
+              ],
+              "children": [
+                {
+                  "key": "sprite",
+                  "values": [
+                    "planet/earth"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "distance",
+                  "values": [
+                    965.669
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "period",
+                  "values": [
+                    365.25
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "object",
+                  "values": [
+                    "Luna"
+                  ],
+                  "children": [
+                    {
+                      "key": "sprite",
+                      "values": [
+                        "planet/luna"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "distance",
+                      "values": [
+                        201.24
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "period",
+                      "values": [
+                        27.3
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "object",
+              "values": [
+                "Mars"
+              ],
+              "children": [
+                {
+                  "key": "sprite",
+                  "values": [
+                    "planet/mars"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "distance",
+                  "values": [
+                    1471.43
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "period",
+                  "values": [
+                    687.001
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "object",
+              "values": [
+                "Jupiter"
+              ],
+              "children": [
+                {
+                  "key": "sprite",
+                  "values": [
+                    "planet/jupiter"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "distance",
+                  "values": [
+                    3339
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "period",
+                  "values": [
+                    2348.4
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "object",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "sprite",
+                      "values": [
+                        "planet/io"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "distance",
+                      "values": [
+                        238.221
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "period",
+                      "values": [
+                        10.614
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "object",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "sprite",
+                      "values": [
+                        "planet/europa"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "distance",
+                      "values": [
+                        379.078
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "period",
+                      "values": [
+                        21.306
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "object",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "sprite",
+                      "values": [
+                        "planet/ganymede"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "distance",
+                      "values": [
+                        604.739
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "period",
+                      "values": [
+                        42.93
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "object",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "sprite",
+                      "values": [
+                        "planet/callisto"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "distance",
+                      "values": [
+                        811.717
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "period",
+                      "values": [
+                        66.76
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "object",
+              "values": [],
+              "children": [
+                {
+                  "key": "sprite",
+                  "values": [
+                    "planet/saturn"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "distance",
+                  "values": [
+                    5562
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "period",
+                  "values": [
+                    5048.87
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "object",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "sprite",
+                      "values": [
+                        "planet/tethys"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "distance",
+                      "values": [
+                        590
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "period",
+                      "values": [
+                        1.9
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "object",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "sprite",
+                      "values": [
+                        "planet/rhea"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "distance",
+                      "values": [
+                        791
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "period",
+                      "values": [
+                        4.5
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "object",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "sprite",
+                      "values": [
+                        "planet/titan"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "distance",
+                      "values": [
+                        1222
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "period",
+                      "values": [
+                        16
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "object",
+              "values": [],
+              "children": [
+                {
+                  "key": "sprite",
+                  "values": [
+                    "planet/uranus"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "distance",
+                  "values": [
+                    10373
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "period",
+                  "values": [
+                    12858.9
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "object",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "sprite",
+                      "values": [
+                        "planet/miranda"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "distance",
+                      "values": [
+                        195
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "period",
+                      "values": [
+                        1.4
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "object",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "sprite",
+                      "values": [
+                        "planet/oberon"
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "distance",
+                      "values": [
+                        584
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "period",
+                      "values": [
+                        13
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "key": "object",
+              "values": [],
+              "children": [
+                {
+                  "key": "sprite",
+                  "values": [
+                    "planet/neptune"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "distance",
+                  "values": [
+                    15730
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "period",
+                  "values": [
+                    24012.7
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "pluginId": "Asteroid-Expansion/Asteroid-Expansion_EndlessSky",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "minables",
+                "Sulfur",
+                2,
+                8
+              ],
+              "children": null
+            },
+            {
+              "key": "add",
+              "values": [
+                "minables",
+                "Basalt",
+                8,
+                8
+              ],
+              "children": null
+            },
+            {
+              "key": "add",
+              "values": [
+                "minables",
+                "Coal",
+                4,
+                10
+              ],
+              "children": null
+            },
+            {
+              "key": "add",
+              "values": [
+                "minables",
+                "Scrap Metals",
+                4,
+                13
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Blended Ships/blended-ships",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "Pleasure Craft",
+                2500
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Space Shuttle Start/Space-Shuttle-Start",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "object"
+              ],
+              "children": [
+                {
+                  "key": "distance",
+                  "values": [
+                    965.669
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "period",
+                  "values": [
+                    365.25
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "object",
+                  "values": [
+                    "I.S.S."
+                  ],
+                  "children": [
+                    {
+                      "key": "sprite",
+                      "values": [
+                        "planet/station-nasa0"
+                      ],
+                      "children": [
+                        {
+                          "key": "scale",
+                          "values": [
+                            0.5
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "distance",
+                      "values": [
+                        201.24
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "period",
+                      "values": [
+                        27.3
+                      ],
+                      "children": null
+                    },
+                    {
+                      "key": "offset",
+                      "values": [
+                        180
+                      ],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "pluginId": "Mega Freight/Mega-Freight",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "Intrasystem Merchants",
+                750
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Mega Freight/Mega-Freight",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "MGF: Stiletto Company Small",
+                3000
+              ],
+              "children": null
+            },
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "MGF: Bellwing Logistic",
+                3000
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Mega Freight/Mega-Freight",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "MGF: KDB Supply Force",
+                2500
+              ],
+              "children": null
+            },
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "MGF: Reshetka Security Small",
+                2500
+              ],
+              "children": null
+            },
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "MGF: Reshetka Security Large",
+                5000
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Mega Freight/Mega-Freight",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "Sulso LG Shipping",
+                5800
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Mega Freight/Mega-Freight",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "MGF: Small Core Food Corp",
+                3000
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Mega Freight/Mega-Freight",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "MGF: Small Core Nuclear Transport",
+                3000
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Mega Freight/Mega-Freight",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "MGF: Solacer Juice Tanker",
+                5500
+              ],
+              "children": null
+            },
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "MGF: Small Solacer Reefer",
+                4500
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Mega Freight/Mega-Freight",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "MGF: Luna Winery",
+                4500
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Mega Freight/Mega-Freight",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "MGF: ICS Standard",
+                9500
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Mega Freight/Mega-Freight",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "Galactic Express Central Line",
+                8000
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Mega Freight/Mega-Freight",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "NGK Hauling HeavyFreight",
+                7500
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Mega Freight/Mega-Freight",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "NGK Hauling LightFreight",
+                7000
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Mega Freight/Mega-Freight",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "NGK Hauling RORO",
+                12000
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Mega Freight/Mega-Freight",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "Maryhal Logistic ArteryLine",
+                7500
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Mega Freight/Mega-Freight",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "Rangphenn Transport",
+                3400
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Rumskib/rumskib",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "minables",
+                "gold",
+                5,
+                1.2
+              ],
+              "children": null
+            },
+            {
+              "key": "add",
+              "values": [
+                "minables",
+                "silver",
+                7,
+                1.36
+              ],
+              "children": null
+            },
+            {
+              "key": "add",
+              "values": [
+                "minables",
+                "copper",
+                13,
+                2.601
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "SpaceCrate/SpaceCrate",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "spacecrate_merchantfleet",
+                400
+              ],
+              "children": null
+            },
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "spacecrate_merchantfleet",
+                600
+              ],
+              "children": null
+            },
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "spacecrate_merchantfleet",
+                800
+              ],
+              "children": null
+            },
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "spacecrate_merchantfleet",
+                1000
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Lost In Midnight/Lost-in-Midnight",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "minables",
+                "space junk",
+                1,
+                1
+              ],
+              "children": null
+            },
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "Republic Police",
+                4000
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "POOT/poot-senza-solaria",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "authors-respawn-poot-author",
+                2500000
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "POOT/endless_sky_senza_solaria",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "authors-respawn-poot-author",
+                2500000
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "POOT/poot-senza-solaria_senza_solaria",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "authors-respawn-poot-author",
+                2500000
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Zuckungs List/control.station",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "object",
+                "Control Station"
+              ],
+              "children": [
+                {
+                  "key": "sprite",
+                  "values": [
+                    "planet/admin_station"
+                  ],
+                  "children": [
+                    {
+                      "key": "scale",
+                      "values": [
+                        0.5
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "distance",
+                  "values": [
+                    965
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "period",
+                  "values": [
+                    365.25
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "offset",
+                  "values": [
+                    25
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "pluginId": "Zuckungs List/space.fauna",
+          "entries": [
+            {
+              "key": "add",
+              "values": [
+                "fleet",
+                "space fauna 01",
+                20541
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "pluginId": "Zuckungs List/too.many.asteroids",
+          "entries": [
+            {
+              "key": "remove",
+              "values": [
+                "asteroids",
+                "small rock"
+              ],
+              "children": null
+            },
+            {
+              "key": "remove",
+              "values": [
+                "asteroids",
+                "large rock"
+              ],
+              "children": null
+            },
+            {
+              "key": "remove",
+              "values": [
+                "asteroids",
+                "medium metal"
+              ],
+              "children": null
+            },
+            {
+              "key": "remove",
+              "values": [
+                "asteroids",
+                "large metal"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "name": "Sol",
       "_pluginId": "official-game/endless-sky",
       "_internalId": "official-game/endless-sky::Sol",
@@ -1479,9 +3718,12 @@
         "Lost In Midnight/Lost-in-Midnight",
         "POOT/poot-senza-solaria",
         "POOT/endless_sky_senza_solaria",
-        "POOT/poot-senza-solaria_senza_solaria"
+        "POOT/poot-senza-solaria_senza_solaria",
+        "Zuckungs List/control.station",
+        "Zuckungs List/space.fauna",
+        "Zuckungs List/too.many.asteroids"
       ],
-      "_lastModifiedBy": "POOT/poot-senza-solaria_senza_solaria"
+      "_lastModifiedBy": "Zuckungs List/too.many.asteroids"
     }
   ],
   "planets": [
@@ -1529,6 +3771,50 @@
       "tribute": null,
       "tributeHails": {},
       "systemName": null,
+      "rawByPlugin": [
+        {
+          "pluginId": "Space Shuttle Start/Space-Shuttle-Start",
+          "entries": [
+            {
+              "key": "attributes",
+              "values": [
+                "station",
+                "near earth",
+                "tourism"
+              ],
+              "children": null
+            },
+            {
+              "key": "landscape",
+              "values": [
+                "land/space5ver8"
+              ],
+              "children": null
+            },
+            {
+              "key": "music",
+              "values": [
+                "ambient/machinery"
+              ],
+              "children": null
+            },
+            {
+              "key": "description",
+              "values": [
+                "The construction of the original International Space Station was a milestone of humanity's earliest attempts at gaining a foothold into space. Sadly, it was destroyed during the early Turf Wars. This station was created as a monument to the original. While the exterior matches visual records of what the first I.S.S. looked like, the interior layout has replaced the science and research labs with a museum dedicated to the history of human space exploration."
+              ],
+              "children": null
+            },
+            {
+              "key": "spaceport",
+              "values": [
+                "Many of the visitors are families or students on school field trips. The gift shop next to the docking ports sells various historically accurate models, science kits, and other knick-knacks meant to appeal to parents and teachers looking for something educational to bring home from their visit."
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "name": "I.S.S.",
       "_pluginId": "Space Shuttle Start/Space-Shuttle-Start",
       "_internalId": "Space Shuttle Start/Space-Shuttle-Start::I.S.S.",
@@ -1543,14 +3829,481 @@
     {
       "name": "Intro [0 Space Shuttle]",
       "displayName": "Passenger to <planet>",
+      "description": "This old-timer captain offered to ride along with you to <destination>, and to give you some tips along the way.",
+      "raw": [
+        {
+          "key": "name",
+          "values": [
+            "Passenger to <planet>"
+          ],
+          "children": null
+        },
+        {
+          "key": "description",
+          "values": [
+            "This old-timer captain offered to ride along with you to <destination>, and to give you some tips along the way."
+          ],
+          "children": null
+        },
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "passengers",
+          "values": [
+            1
+          ],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [
+            "Earth"
+          ],
+          "children": null
+        },
+        {
+          "key": "destination",
+          "values": [
+            "Geyser"
+          ],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "or",
+              "values": [],
+              "children": [
+                {
+                  "key": "has",
+                  "values": [
+                    "Space Shuttle Start"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "has",
+                  "values": [
+                    "Space Shuttle Start (Original)"
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "log",
+              "values": [
+                "Finally got my pilot's license. Still have to pay the interest on the mortgage on the space shuttle."
+              ],
+              "children": null
+            },
+            {
+              "key": "log",
+              "values": [
+                "Factions",
+                "Republic",
+                "Hundreds of years ago, the independent territories in different parts of human space agreed to join together into a single democratic government, with Earth as its capital. The rise of the Republic ushered in a long period of peace and prosperity in human history."
+              ],
+              "children": [
+                {
+                  "key": "Representation in the Republic Parliament is based on population. That means that some individual \"Paradise Worlds\" have more representatives than entire regions of space like the Dirt Belt that are more sparsely settled.",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "log",
+              "values": [
+                "Factions",
+                "Syndicate",
+                "The Syndicate is a megacorporation, the largest employer in human space. People who cannot find steady work elsewhere flock to the Syndicate factory worlds, where they are almost guaranteed to find a job. Although the Syndicate is technically part of the Republic, Syndicate worlds are governed directly by the corporation."
+              ],
+              "children": [
+                {
+                  "key": "The Syndicate is a central part of the Republic's economy, but they are also well known for selling shoddy products and for doing damage to the environment on the worlds they control. Their treatment of workers is questionable, and their opposition to organized labor is legendary. Some Syndicate factory towns have even been accused of human rights abuses.",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "log",
+              "values": [
+                "Factions",
+                "Pirates",
+                "In poorer and more remote star systems, where the Navy seldom patrols, pirate attacks on merchant ships are frequent. Pirates are also known to attack large, unguarded convoys of freighters even in more populated areas. Most pirate fleets come from lawless worlds on the outskirts of human space."
+              ],
+              "children": null
+            },
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "With some trepidation, you take your ship for a test drive, piloting it out of the parking hangar and onto a spare landing pad. Then you get out and look the ship over a bit more closely. You are busy polishing out a few rust spots with a piece of steel wool when an old man in grease-stained coveralls walks up.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"The <ship>. That's a grand piece of history,\" he says.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"Yeah, I'm still kind of in shock over how much money I spent.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "money"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"Beat it, old-timer, I've got more important things to do than chat with you.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "decline",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "money"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\tHe grins. \"I know the feeling. It's a crime how much interest the banks charge to first-timers. It's been that way ever since when I first started out.\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "goto",
+                      "values": [
+                        "captain"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "captain"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"You're a captain?\" you ask.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Was,\" he says. \"Sold off my fleet a few days ago, and I already miss it. But it was time. Time for me to retire.\" His voice trails off, then his face lights up. \"Say, any chance I could hitch a ride with you, maybe show you the ropes, give you some pointers? I could pay you, of course.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"Sure, where are you trying to get to?\"",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t\"Sorry, I'd rather figure things out on my own.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "decline",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "\t\"Well,\" he says, \"I've got a spot reserved in a retirement home, but I don't mind taking a roundabout way to get there. For starters, how about you give me a lift to <planet>? It's just one jump away from here; I can mark it on your map.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"Sounds good!\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "end"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"How much will you pay me?\"",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "\t\"That's kind of a rude question,\" he says, \"but I'll pay you ten thousand credits. I guarantee you that's more than any captain ever gets for carrying one passenger for one day.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"That's really generous. Thank you.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "end"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"You're treating me like a charity case? No thanks, I'll earn my money legitimately.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "decline",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "end"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "branch",
+                  "values": [
+                    "original"
+                  ],
+                  "children": [
+                    {
+                      "key": "has",
+                      "values": [
+                        "Space Shuttle Start (Original)"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "\t\"Great,\" he says. \"My name is James, by the way.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"<first> <last>,\" you say.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"I'm looking forward to traveling with you, Captain <last>,\" says James.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tAs you're helping him wheel his luggage aboard and showing him his bunk, he says, \"Before we take off, you might head on over to the trading center and stock up on food or metal goods; we can sell those for a good profit on <planet>. Or take a look at the outfitter if you like. You might want to invest in an extra fuel pod, engines, or shielding. Your ship's ability to run from pirates and withstand attacks can mean the difference between life and death.\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "original"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Great,\" he says. \"My name is James, by the way.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"<first> <last>,\" you say.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"I'm looking forward to traveling with you, Captain <last>,\" says James.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tAs you're helping him wheel his luggage aboard and showing him his bunk, he says, \"Before we take off, you might head on over to the trading center and stock up on food or metal goods; we can sell those for a good profit on <planet>. Or take a look at the outfitter if you like. Since the <ship> doesn't have weapons, you might want to invest in an extra fuel pod, engines, or shielding. Your ship's ability to run from pirates and withstand attacks can mean the difference between life and death.\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "log",
+              "values": [
+                "Getting some basic instructions on making a living as a merchant from an old captain named James."
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "complete"
+          ],
+          "children": [
+            {
+              "key": "clear",
+              "values": [
+                "Intro [0]: declined"
+              ],
+              "children": null
+            },
+            {
+              "key": "set",
+              "values": [
+                "Intro [0]: done"
+              ],
+              "children": null
+            },
+            {
+              "key": "set",
+              "values": [
+                "Intro [1 Freighter]: offered"
+              ],
+              "children": null
+            },
+            {
+              "key": "set",
+              "values": [
+                "Intro [1 Freighter]: declined"
+              ],
+              "children": null
+            },
+            {
+              "key": "payment",
+              "values": [
+                10000
+              ],
+              "children": null
+            },
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "As you land on <planet>, James says, \"Congrats on your first trip through hyperspace! I'm impressed that you didn't throw up; most folks do, the first time.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Including you?\" you ask.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Yeah, and then spent half an hour in orbit cleaning my cabin while hoping the passengers wouldn't come out of their bunk room and see the mess. Not my proudest moment. Anyway, here's your pay.\" He hands you <payment>.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tThen he adds, \"If you're okay with giving me a lift for a while longer, sell off any of that cargo you bought and then meet me in the spaceport. I'll see if I can rustle up any interesting work for you to do.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t(Click the \"Spaceport\" button to continue this mission.)",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {},
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": false,
       "illegal": null,
       "deadline": null,
       "cargo": null,
@@ -1559,6 +4312,30 @@
         "max": 1,
         "mode": "fixed",
         "nbParams": null
+      },
+      "conditions": {
+        "offer": [
+          {
+            "key": "or",
+            "values": [],
+            "children": [
+              {
+                "key": "has",
+                "values": [
+                  "Space Shuttle Start"
+                ],
+                "children": null
+              },
+              {
+                "key": "has",
+                "values": [
+                  "Space Shuttle Start (Original)"
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
       },
       "payment": {
         "apparentPayment": null,
@@ -1598,22 +4375,302 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [],
       "_pluginId": "Space Shuttle Start/Space-Shuttle-Start",
       "_internalId": "Space Shuttle Start/Space-Shuttle-Start::Intro [0 Space Shuttle]",
-      "_hash": "58cb3c54cf6c",
+      "_hash": "c49cac26f215",
       "sourcePlugin": "Space Shuttle Start/Space-Shuttle-Start"
     },
     {
       "name": "Intro [1 Space Shuttle]",
       "displayName": "Rush delivery to <planet>",
+      "description": "Travel with your new friend James to <destination>, and deliver <cargo>, by <date>.",
+      "raw": [
+        {
+          "key": "priority",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "name",
+          "values": [
+            "Rush delivery to <planet>"
+          ],
+          "children": null
+        },
+        {
+          "key": "description",
+          "values": [
+            "Travel with your new friend James to <destination>, and deliver <cargo>, by <date>."
+          ],
+          "children": null
+        },
+        {
+          "key": "blocked",
+          "values": [
+            "When you meet up with James in the spaceport, he says, \"Hi there, <first>! I found you another mission, but it looks like you'll need <capacity> in order to take it on. So, you'll either have to cancel another mission, or come back here later to continue this one. Sorry!\""
+          ],
+          "children": null
+        },
+        {
+          "key": "cargo",
+          "values": [
+            "vaccines",
+            48
+          ],
+          "children": null
+        },
+        {
+          "key": "passengers",
+          "values": [
+            1
+          ],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [
+            "Geyser"
+          ],
+          "children": null
+        },
+        {
+          "key": "destination",
+          "values": [
+            "New Switzerland"
+          ],
+          "children": null
+        },
+        {
+          "key": "deadline",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "Intro [0 Space Shuttle]: done"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "The spaceport on <origin> is small enough that it doesn't take long to find James. He's talking with a man wearing what looks like a doctor's lab coat. \"Captain <last>!\" says James. \"Glad you could join us. It turns out there's been a flu outbreak on <planet>, and they're asking every captain with space to spare to carry some vaccines and other medical supplies over there no later than <day>. Are you willing to help out?\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"Sure, anything I can do to assist them!\"",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t\"Sorry, I've heard bad things about that region of space. I think I'm going to head in the other direction.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "decline",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "\t\"Great!\" he says. \"You might want to stop by the outfitter and buy a local map, by the way. Hyperspace routes aren't always logical, and the last thing you want to do is get lost.\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "complete"
+          ],
+          "children": [
+            {
+              "key": "clear",
+              "values": [
+                "Intro [1 Freighter]: declined"
+              ],
+              "children": null
+            },
+            {
+              "key": "set",
+              "values": [
+                "Intro [1 Freighter]: done"
+              ],
+              "children": null
+            },
+            {
+              "key": "set",
+              "values": [
+                "Intro [2 Freighter]: offered"
+              ],
+              "children": null
+            },
+            {
+              "key": "set",
+              "values": [
+                "Intro [2 Freighter]: declined"
+              ],
+              "children": null
+            },
+            {
+              "key": "payment",
+              "values": [
+                30000
+              ],
+              "children": null
+            },
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "You drop off the shipment of <commodity> on <planet>, and collect your payment of <payment>. \"Hauling freight,\" says James. \"Not the most glamorous job, or the most interesting, but you're always guaranteed steady income. If you can line them up right,\" says James, \"rush deliveries can be your best source of income as a freighter captain. And keep your eye out for missions with large amounts of cargo, too, because <ship>'s hold is definitely big enough to handle them. And if you've got any cargo space to spare and you know what the prices are going to be at your destination, be sure to stock up on something you can sell for a profit. And once you know the galaxy a bit better, instead of taking missions you can find your own trade routes to follow. The only trouble is, build up a fleet with lots of cargo space and not enough defenses and the pirates begin to take notice.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"Did you have a lot of trouble with pirates when you were a captain?\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "pirates"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"But what if I want to earn money more quickly than I can by trading?\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "quick"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "pirates"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Some. That's why you can't just go traipsing around the galaxy in a fleet of unarmed star barges; every pirate within a week's travel will hear you're coming through and come after you. In the long term, having a few heavy freighters with good defenses is more cost effective than losing a star barge or two to the pirates on every journey.\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "goto",
+                      "values": [
+                        "port"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "quick"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"There's no quick road to riches, kid. The more something pays, the riskier it is. If you need to make lots of money in a hurry, bounty hunting is the way to go, but nine out of ten pilots who give bounty hunting a try end up dead. And, no one's going to give you those sorts of missions until you've proved yourself in combat, anyway.\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "goto",
+                      "values": [
+                        "port"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "port"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\tHe picks up his suitcase. \"If you want to run another mission with me, look for me in the spaceport. I'll see if I can find you something with a bit higher profit margin this time.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t(As before, click the \"Spaceport\" button to continue this mission.)",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
       "locations": [],
+      "flags": {
+        "priority": true,
+        "blocked": "When you meet up with James in the spaceport, he says, \"Hi there, <first>! I found you another mission, but it looks like you'll need <capacity> in order to take it on. So, you'll either have to cancel another mission, or come back here later to continue this one. Sorry!\""
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": true,
-      "invisible": false,
       "illegal": null,
       "deadline": {
         "days": 0,
@@ -1631,6 +4688,17 @@
         "max": 1,
         "mode": "fixed",
         "nbParams": null
+      },
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "Intro [0 Space Shuttle]: done"
+            ],
+            "children": null
+          }
+        ]
       },
       "payment": {
         "apparentPayment": null,
@@ -1669,22 +4737,364 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [],
       "_pluginId": "Space Shuttle Start/Space-Shuttle-Start",
       "_internalId": "Space Shuttle Start/Space-Shuttle-Start::Intro [1 Space Shuttle]",
-      "_hash": "20f4e9db3d6b",
+      "_hash": "b6713dcc3433",
       "sourcePlugin": "Space Shuttle Start/Space-Shuttle-Start"
     },
     {
       "name": "Intro [2 Space Shuttle]",
       "displayName": "Delivery to <planet>",
+      "description": "Deliver <commodity> to <destination>, while avoiding pirate attacks.",
+      "raw": [
+        {
+          "key": "priority",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "name",
+          "values": [
+            "Delivery to <planet>"
+          ],
+          "children": null
+        },
+        {
+          "key": "description",
+          "values": [
+            "Deliver <commodity> to <destination>, while avoiding pirate attacks."
+          ],
+          "children": null
+        },
+        {
+          "key": "blocked",
+          "values": [
+            "When you meet up with James in the spaceport, he says, \"Hi there, <first>! I found you another mission, but it looks like you'll need <capacity> in order to take it on. So, you'll either have to cancel another mission, or come back here later to continue this one. Sorry!\""
+          ],
+          "children": null
+        },
+        {
+          "key": "passengers",
+          "values": [
+            1
+          ],
+          "children": null
+        },
+        {
+          "key": "cargo",
+          "values": [
+            "gemstones",
+            15
+          ],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [
+            "New Switzerland"
+          ],
+          "children": null
+        },
+        {
+          "key": "destination",
+          "values": [
+            "Ingot"
+          ],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "Intro [1 Space Shuttle]: done"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "npc",
+          "values": [],
+          "children": [
+            {
+              "key": "government",
+              "values": [
+                "Pirate"
+              ],
+              "children": null
+            },
+            {
+              "key": "personality",
+              "values": [
+                "entering",
+                "plunders"
+              ],
+              "children": null
+            },
+            {
+              "key": "ship",
+              "values": [
+                "Bastion",
+                "Hammer of Thor"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "You find James in the spaceport bar, talking with a woman wearing a business suit. The expression on James's face is growing increasingly concerned as she speaks. Seeing you come in, he waves to you and you join them at the table.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Hello <first>,\" says James. \"This is Marissa, a senior manager at the mines.\" You shake hands with her.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Here's the deal,\" says Marissa. \"Most of the gemstones we mine here are industrial grade, not pretty enough to be worth using as anything but sandpaper grit or drill bits. But every once in a while we happen on some higher quality gems. No one in this sector has the money to spend on jewelry, so we ship them north to the paradise worlds.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"But in the past few months, every shipment we've sent has been attacked by a pirate ship, the Hammer of Thor. We don't have the money to pay a bounty hunter to take out the Hammer, so instead we're going to pay you to outrun it. Is the <ship> a fast ship?\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"As fast as they come. Nothing bigger than a fighter could chase it down.\"",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t\"Not fast enough. I don't think I can risk taking on this mission.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "decline",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "\t\"Great,\" she says. \"My people will load up your ship immediately. Good luck, Captain.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\tAfter she leaves, James says to you, \"Now, get one thing clear. This is not your David and Goliath moment. The Hammer's shields are ten times as strong as yours, and if it's able to bring its weapons to bear, we'll be dead in two seconds. So, the moment we're in the sky, we head straight for hyperspace. Don't even wait around to see if the Hammer is coming or not. Got it?\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"Got it.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "accept",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    },
+                    {
+                      "key": "\t\"I really shouldn't try to fight?\"",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "branch",
+                  "values": [
+                    "original"
+                  ],
+                  "children": [
+                    {
+                      "key": "has",
+                      "values": [
+                        "Space Shuttle Start (Original)"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "\t\"It just isn't feasible,\" he says. \"If their ship has turrets, your Space Shuttle can't get close enough to hit it with your guns without being damaged, and then it's just a matter of whose weapons and shields are stronger. Also, if it has anti-missile turrets, you can't count on hanging back and bombarding it with missiles from long distances. So, don't risk it. It's like rock paper scissors; recognize what your enemy's strengths and weaknesses are, as well as your own.\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "original"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"With what weapons? Your Space Shuttle is unarmed! Now this might seem counterintuitive, but some captains swear that being unarmed makes you less of a target to pirates if there are others in the system that they could be defending themselves against. But I'd rather not stick around to test that theory.\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "complete"
+          ],
+          "children": [
+            {
+              "key": "clear",
+              "values": [
+                "Intro [2 Freighter]: declined"
+              ],
+              "children": null
+            },
+            {
+              "key": "set",
+              "values": [
+                "Intro [2 Freighter]: done"
+              ],
+              "children": null
+            },
+            {
+              "key": "set",
+              "values": [
+                "Intro [3 Freighter]: offered"
+              ],
+              "children": null
+            },
+            {
+              "key": "set",
+              "values": [
+                "Intro [3 Freighter]: declined"
+              ],
+              "children": null
+            },
+            {
+              "key": "payment",
+              "values": [
+                40000
+              ],
+              "children": null
+            },
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "As you land on Ingot, James says, \"Well, you made it in one piece!\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"What would you recommend if I want to do more than just carry cargo?\"",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "\tHe pauses for a moment to think, then says, \"Unless you want to do something really risky like hunting pirates, your best bet is to work with the Navy, or the Syndicate, or one of the local militias. Any of those would be a decent choice, although they've each got their own problems. If any of them offer you a mission, go ahead and take it; that's a good way to build connections and get to know the lay of the land.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"Was that what you did for your whole career?\"",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "\t\"Well,\" he says, \"Back when I was a bit older than you, I piloted a Firebird for a while, escorting merchant convoys up and down the Rim. I used to hope we'd get attacked; I'd disable the pirate ships and rob them blind. Turnabout is fair play, after all.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Then one day I got a bit too greedy and thought I'd try to capture a pirate ship or two, to add more firepower to my fleet. We boarded their ship, and I sent my crew through the airlock to kill off the pirates. And it turns out the pirates had grenades. Four of my men were dead before I even realized what was happening. We had to retreat, and then limp back to port without even enough crew left uninjured to pilot the ship right. After that I decided to stick to less risky jobs.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\"Anyway, let's go get your payment.\" You walk out of the ship and sign the papers to hand off the <commodity> to the dock workers on <planet>. They hand you a credit chip worth <payment>.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"If you're willing to take me on one more journey,\" says James, \"meet me in the spaceport bar in a little while.\"",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
       "locations": [],
+      "flags": {
+        "priority": true,
+        "blocked": "When you meet up with James in the spaceport, he says, \"Hi there, <first>! I found you another mission, but it looks like you'll need <capacity> in order to take it on. So, you'll either have to cancel another mission, or come back here later to continue this one. Sorry!\""
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": true,
-      "invisible": false,
       "illegal": null,
       "deadline": null,
       "cargo": {
@@ -1699,6 +5109,17 @@
         "max": 1,
         "mode": "fixed",
         "nbParams": null
+      },
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "Intro [1 Space Shuttle]: done"
+            ],
+            "children": null
+          }
+        ]
       },
       "payment": {
         "apparentPayment": null,
@@ -1736,23 +5157,206 @@
         "outfits": [],
         "ships": []
       },
-      "hasNpcObjective": false,
+      "hasNpcObjective": true,
+      "npcCount": 1,
       "conditionSideEffects": [],
       "eventTriggers": [],
       "_pluginId": "Space Shuttle Start/Space-Shuttle-Start",
       "_internalId": "Space Shuttle Start/Space-Shuttle-Start::Intro [2 Space Shuttle]",
-      "_hash": "2a837601b22e",
+      "_hash": "228270a3762a",
       "sourcePlugin": "Space Shuttle Start/Space-Shuttle-Start"
     },
     {
       "name": "Intro [3 Space Shuttle]",
       "displayName": "Bring James to <planet>",
+      "description": "Drop James off on <destination>, where he has a spot reserved in a retirement home.",
+      "raw": [
+        {
+          "key": "priority",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "name",
+          "values": [
+            "Bring James to <planet>"
+          ],
+          "children": null
+        },
+        {
+          "key": "description",
+          "values": [
+            "Drop James off on <destination>, where he has a spot reserved in a retirement home."
+          ],
+          "children": null
+        },
+        {
+          "key": "blocked",
+          "values": [
+            "When you meet up with James in the spaceport, he says, \"Hi there, <first>! I found you another mission, but it looks like you'll need <capacity> in order to take it on. So, you'll either have to cancel another mission, or come back here later to continue this one. Sorry!\""
+          ],
+          "children": null
+        },
+        {
+          "key": "passengers",
+          "values": [
+            1
+          ],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [
+            "Ingot"
+          ],
+          "children": null
+        },
+        {
+          "key": "destination",
+          "values": [
+            "Hestia"
+          ],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "has",
+              "values": [
+                "Intro [2 Space Shuttle]: done"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "You find James talking with a group of miners, who seem to be old acquaintances of his. As you approach, he says, \"Well guys, here comes my ride. I should probably say goodbye.\" They head back off to do their work. \"Every time I land here,\" says James, \"I'm amazed that this station hasn't been wiped out yet by a meteorite. Can you imagine spending your life here?\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"It does seem awfully isolated. But some people might enjoy the solitude.\"",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t\"Well, if you need the money, at least it's a steady job.\"",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "\t\"I suppose,\" he says. \"Anyway, I think it's time for the last leg of my journey. Do you think you can give me a lift to <planet>? I'll pay you quite well for your services, of course.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"Sure, I can take you there.\"",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t\"Sorry, I was thinking of heading in a different direction from here.\"",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "decline",
+                          "values": [],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "\tOnce again you walk back to your ship with James. Once you get there, as he's stowing his luggage, you pull up the information your computer has on <planet>. It's one of the \"Paradise Worlds,\" terraformed to have a perfect climate, accessible only to the very wealthy. You wonder whether James is going to be able to fit in there.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "complete"
+          ],
+          "children": [
+            {
+              "key": "clear",
+              "values": [
+                "Intro [3 Freighter]: declined"
+              ],
+              "children": null
+            },
+            {
+              "key": "set",
+              "values": [
+                "Intro [3 Freighter]: done"
+              ],
+              "children": null
+            },
+            {
+              "key": "payment",
+              "values": [
+                30000
+              ],
+              "children": null
+            },
+            {
+              "key": "log",
+              "values": [
+                "Dropped James off on Hestia after running a few missions with him."
+              ],
+              "children": null
+            },
+            {
+              "key": "conversation",
+              "values": [
+                "end of intro missions"
+              ],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [],
+      "flags": {
+        "priority": true,
+        "blocked": "When you meet up with James in the spaceport, he says, \"Hi there, <first>! I found you another mission, but it looks like you'll need <capacity> in order to take it on. So, you'll either have to cancel another mission, or come back here later to continue this one. Sorry!\""
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": true,
-      "invisible": false,
       "illegal": null,
       "deadline": null,
       "cargo": null,
@@ -1761,6 +5365,17 @@
         "max": 1,
         "mode": "fixed",
         "nbParams": null
+      },
+      "conditions": {
+        "offer": [
+          {
+            "key": "has",
+            "values": [
+              "Intro [2 Space Shuttle]: done"
+            ],
+            "children": null
+          }
+        ]
       },
       "payment": {
         "apparentPayment": null,
@@ -1799,28 +5414,276 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [],
       "_pluginId": "Space Shuttle Start/Space-Shuttle-Start",
       "_internalId": "Space Shuttle Start/Space-Shuttle-Start::Intro [3 Space Shuttle]",
-      "_hash": "6ccdfe5af30b",
+      "_hash": "278dcf927808",
       "sourcePlugin": "Space Shuttle Start/Space-Shuttle-Start"
     },
     {
       "name": "Space Shuttle: First Launch",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [
+            "Earth"
+          ],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "or",
+              "values": [],
+              "children": [
+                {
+                  "key": "has",
+                  "values": [
+                    "Space Shuttle Start"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "has",
+                  "values": [
+                    "Space Shuttle Start (Original)"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "not",
+              "values": [
+                "Space Shuttle Left Earth"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "enter"
+          ],
+          "children": [
+            {
+              "key": "set",
+              "values": [
+                "Space Shuttle Left Earth"
+              ],
+              "children": null
+            },
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "scene",
+                  "values": [
+                    "scene/earth orbit"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "Originally, the space shuttle relied on massive booster rockets to launch into space. Like all modern ships, your space shuttle has repulsors installed instead. The ride into orbit is smooth and soon you feel the subtle shift from Earth's gravity to the weightlessness of space. Most ships have artificial gravity. Unfortunately, <ship> isn't one of them. As <ship> passes a few satellites, you look down on the planet. From up here, it doesn't look so bad.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "branch",
+                  "values": [
+                    "james"
+                  ],
+                  "children": [
+                    {
+                      "key": "has",
+                      "values": [
+                        "Intro [0 Space Shuttle]: active"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "goto",
+                      "values": [
+                        "end"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "james"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\tJames asks, \"Is this your first time in space?\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t\"Not really.\"",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t\"I don't remember the last time.\"",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "\tYou explain that you were originally from New Boston, but were too young to remember much about the trip to Earth.",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "\t\"Before we leave, you should head over to the dark side near one of the poles. You won't regret it.\"",
+                  "values": [],
+                  "children": null
+                },
+                {
+                  "key": "choice",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "\t(Go to the dark side.)",
+                      "values": [],
+                      "children": null
+                    },
+                    {
+                      "key": "\t(Don't go to the dark side.)",
+                      "values": [],
+                      "children": [
+                        {
+                          "key": "goto",
+                          "values": [
+                            "end"
+                          ],
+                          "children": null
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "key": "scene",
+                  "values": [
+                    "scene/aurora australis"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\t\"The aurora is quite a site. This is probably the last time I'll see it.\"",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "goto",
+                      "values": [
+                        "end"
+                      ],
+                      "children": null
+                    }
+                  ]
+                },
+                {
+                  "key": "label",
+                  "values": [
+                    "end"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "\tAn entire galaxy is out there waiting to be explored. You put Earth behind you and set your heading before firing up the Hyperdrive. This adventure is just getting started.",
+                  "values": [],
+                  "children": [
+                    {
+                      "key": "accept",
+                      "values": [],
+                      "children": null
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "or",
+            "values": [],
+            "children": [
+              {
+                "key": "has",
+                "values": [
+                  "Space Shuttle Start"
+                ],
+                "children": null
+              },
+              {
+                "key": "has",
+                "values": [
+                  "Space Shuttle Start (Original)"
+                ],
+                "children": null
+              }
+            ]
+          },
+          {
+            "key": "not",
+            "values": [
+              "Space Shuttle Left Earth"
+            ],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -1844,28 +5707,149 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [],
       "_pluginId": "Space Shuttle Start/Space-Shuttle-Start",
       "_internalId": "Space Shuttle Start/Space-Shuttle-Start::Space Shuttle: First Launch",
-      "_hash": "eb7de18e6dee",
+      "_hash": "1f0300b40c96",
       "sourcePlugin": "Space Shuttle Start/Space-Shuttle-Start"
     },
     {
       "name": "Space Shuttle Left Earth",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "source",
+          "values": [],
+          "children": [
+            {
+              "key": "not",
+              "values": [
+                "planet",
+                "Earth"
+              ],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "not",
+              "values": [
+                "Space Shuttle Left Earth"
+              ],
+              "children": null
+            },
+            {
+              "key": "or",
+              "values": [],
+              "children": [
+                {
+                  "key": "has",
+                  "values": [
+                    "Space Shuttle Start"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "has",
+                  "values": [
+                    "Space Shuttle Start (Original)"
+                  ],
+                  "children": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "set",
+              "values": [
+                "Space Shuttle Left Earth"
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [
+                "Space Shuttle: First Launch"
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "not",
+            "values": [
+              "Space Shuttle Left Earth"
+            ],
+            "children": null
+          },
+          {
+            "key": "or",
+            "values": [],
+            "children": [
+              {
+                "key": "has",
+                "values": [
+                  "Space Shuttle Start"
+                ],
+                "children": null
+              },
+              {
+                "key": "has",
+                "values": [
+                  "Space Shuttle Start (Original)"
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -1874,9 +5858,16 @@
       },
       "source": {
         "type": "filter",
-        "value": {
-          "not": "planet Earth"
-        }
+        "value": [
+          {
+            "key": "not",
+            "values": [
+              "planet",
+              "Earth"
+            ],
+            "children": null
+          }
+        ]
       },
       "destination": null,
       "stopovers": [],
@@ -1886,28 +5877,91 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [],
       "_pluginId": "Space Shuttle Start/Space-Shuttle-Start",
       "_internalId": "Space Shuttle Start/Space-Shuttle-Start::Space Shuttle Left Earth",
-      "_hash": "3745ed2949fb",
+      "_hash": "0231090bd884",
       "sourcePlugin": "Space Shuttle Start/Space-Shuttle-Start"
     },
     {
       "name": "Space Shuttle: Add I.S.S.",
       "displayName": null,
+      "description": null,
+      "raw": [
+        {
+          "key": "landing",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "non-blocking",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "invisible",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "to",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "never",
+              "values": [],
+              "children": null
+            }
+          ]
+        },
+        {
+          "key": "on",
+          "values": [
+            "offer"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "space shuttle add I.S.S.",
+                0
+              ],
+              "children": null
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
       "locations": [
         "landing"
       ],
+      "flags": {
+        "non-blocking": true,
+        "invisible": true
+      },
       "repeatable": false,
       "repeatLimit": null,
-      "minor": false,
-      "priority": false,
-      "invisible": true,
       "illegal": null,
       "deadline": null,
       "cargo": null,
       "passengers": null,
+      "conditions": {
+        "offer": [
+          {
+            "key": "never",
+            "values": [],
+            "children": null
+          }
+        ]
+      },
       "payment": {
         "apparentPayment": null,
         "triggers": {
@@ -1923,15 +5977,21 @@
         "ships": []
       },
       "hasNpcObjective": false,
+      "npcCount": 0,
       "conditionSideEffects": [],
       "eventTriggers": [
-        "space shuttle add I.S.S."
+        {
+          "name": "space shuttle add I.S.S.",
+          "delayDays": 0,
+          "delayDaysMax": null,
+          "trigger": "onOffer"
+        }
       ],
       "_pluginId": "Space Shuttle Start/Space-Shuttle-Start",
       "_internalId": "Space Shuttle Start/Space-Shuttle-Start::Space Shuttle: Add I.S.S.",
-      "_hash": "18b9b262a611",
+      "_hash": "4aa7887475c6",
       "sourcePlugin": "Space Shuttle Start/Space-Shuttle-Start"
     }
   ],
-  "parsedAt": "2026-09-01T13:05:46.110Z"
+  "parsedAt": "2026-09-02T07:57:24.322Z"
 }

@@ -1,0 +1,1199 @@
+[
+  {
+    "displayName": null,
+    "attributes": [],
+    "requires": [],
+    "landscapes": [],
+    "music": null,
+    "description": null,
+    "spaceport": null,
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "Planet Map",
+    "governmentInherited": false,
+    "shipyards": [],
+    "outfitters": [],
+    "requiredReputation": null,
+    "bribe": null,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": null,
+    "wormhole": "New Avalon Map",
+    "tribute": null,
+    "tributeHails": {},
+    "systemName": "Theben",
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/planet.map",
+        "entries": [
+          {
+            "key": "wormhole",
+            "values": [
+              "New Avalon Map"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Planet Map"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "name": "New Avalon",
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::New Avalon",
+    "_definedBy": [
+      "Zuckungs List/planet.map"
+    ],
+    "_lastModifiedBy": "Zuckungs List/planet.map"
+  },
+  {
+    "displayName": null,
+    "attributes": [
+      "factory",
+      "research",
+      "urban"
+    ],
+    "requires": [],
+    "landscapes": [
+      {
+        "name": "land/ava_city03",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::landscape:land/ava_city03"
+      }
+    ],
+    "music": null,
+    "description": {
+      "text": "This is a city.",
+      "toDisplay": null
+    },
+    "spaceport": {
+      "text": "This is the landing area",
+      "toDisplay": null
+    },
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "Avalonian",
+    "governmentInherited": false,
+    "shipyards": [
+      {
+        "name": "Avalonian Basics",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::shipyard:Avalonian Basics"
+      }
+    ],
+    "outfitters": [
+      {
+        "name": "Avalonian Basics",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::outfitter:Avalonian Basics"
+      }
+    ],
+    "requiredReputation": null,
+    "bribe": 0.05,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": 0.7,
+    "wormhole": null,
+    "tribute": {
+      "credits": 1000,
+      "threshold": 7000,
+      "fleets": [
+        {
+          "name": "Avalonian Fleet",
+          "count": 39,
+          "pluginId": "Zuckungs List/planet.map",
+          "internalId": "Zuckungs List/planet.map::tributeFleet:Avalonian Fleet"
+        }
+      ],
+      "dailyReputationPenalty": null
+    },
+    "tributeHails": {},
+    "systemName": "The Landing Site",
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/planet.map",
+        "entries": [
+          {
+            "key": "attributes",
+            "values": [
+              "factory",
+              "research",
+              "urban"
+            ],
+            "children": null
+          },
+          {
+            "key": "landscape",
+            "values": [
+              "land/ava_city03"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "This is a city."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "This is the landing area"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Avalonian Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Avalonian Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "bribe",
+            "values": [
+              0.05
+            ],
+            "children": null
+          },
+          {
+            "key": "security",
+            "values": [
+              0.7
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute",
+            "values": [
+              1000
+            ],
+            "children": [
+              {
+                "key": "threshold",
+                "values": [
+                  7000
+                ],
+                "children": null
+              },
+              {
+                "key": "fleet",
+                "values": [
+                  "Avalonian Fleet",
+                  39
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "Center (City)",
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::Center (City)",
+    "_definedBy": [
+      "Zuckungs List/planet.map"
+    ],
+    "_lastModifiedBy": "Zuckungs List/planet.map"
+  },
+  {
+    "displayName": null,
+    "attributes": [
+      "factory",
+      "research",
+      "urban"
+    ],
+    "requires": [],
+    "landscapes": [
+      {
+        "name": "land/ava_city04",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::landscape:land/ava_city04"
+      }
+    ],
+    "music": null,
+    "description": {
+      "text": "This is a city.",
+      "toDisplay": null
+    },
+    "spaceport": {
+      "text": "This is the landing area",
+      "toDisplay": null
+    },
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "Avalonian",
+    "governmentInherited": false,
+    "shipyards": [],
+    "outfitters": [
+      {
+        "name": "Avalonian Basics",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::outfitter:Avalonian Basics"
+      }
+    ],
+    "requiredReputation": null,
+    "bribe": 0.05,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": 0.7,
+    "wormhole": null,
+    "tribute": {
+      "credits": 1000,
+      "threshold": 7000,
+      "fleets": [
+        {
+          "name": "Avalonian Fleet",
+          "count": 39,
+          "pluginId": "Zuckungs List/planet.map",
+          "internalId": "Zuckungs List/planet.map::tributeFleet:Avalonian Fleet"
+        }
+      ],
+      "dailyReputationPenalty": null
+    },
+    "tributeHails": {},
+    "systemName": "The Landing Site",
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/planet.map",
+        "entries": [
+          {
+            "key": "attributes",
+            "values": [
+              "factory",
+              "research",
+              "urban"
+            ],
+            "children": null
+          },
+          {
+            "key": "landscape",
+            "values": [
+              "land/ava_city04"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "This is a city."
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "This is the landing area"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Avalonian Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "bribe",
+            "values": [
+              0.05
+            ],
+            "children": null
+          },
+          {
+            "key": "security",
+            "values": [
+              0.7
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute",
+            "values": [
+              1000
+            ],
+            "children": [
+              {
+                "key": "threshold",
+                "values": [
+                  7000
+                ],
+                "children": null
+              },
+              {
+                "key": "fleet",
+                "values": [
+                  "Avalonian Fleet",
+                  39
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "Lightfall (City)",
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::Lightfall (City)",
+    "_definedBy": [
+      "Zuckungs List/planet.map"
+    ],
+    "_lastModifiedBy": "Zuckungs List/planet.map"
+  },
+  {
+    "displayName": null,
+    "attributes": [
+      "factory",
+      "research",
+      "urban"
+    ],
+    "requires": [],
+    "landscapes": [
+      {
+        "name": "land/ava_city01",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::landscape:land/ava_city01"
+      }
+    ],
+    "music": null,
+    "description": {
+      "text": "This is a city.",
+      "toDisplay": null
+    },
+    "spaceport": {
+      "text": "This is the landing area",
+      "toDisplay": null
+    },
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "Avalonian",
+    "governmentInherited": false,
+    "shipyards": [],
+    "outfitters": [
+      {
+        "name": "Avalonian Basics",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::outfitter:Avalonian Basics"
+      }
+    ],
+    "requiredReputation": null,
+    "bribe": 0.05,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": 0.7,
+    "wormhole": null,
+    "tribute": {
+      "credits": 1000,
+      "threshold": 7000,
+      "fleets": [
+        {
+          "name": "Avalonian Fleet",
+          "count": 39,
+          "pluginId": "Zuckungs List/planet.map",
+          "internalId": "Zuckungs List/planet.map::tributeFleet:Avalonian Fleet"
+        }
+      ],
+      "dailyReputationPenalty": null
+    },
+    "tributeHails": {},
+    "systemName": "The Landing Site",
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/planet.map",
+        "entries": [
+          {
+            "key": "attributes",
+            "values": [
+              "factory",
+              "research",
+              "urban"
+            ],
+            "children": null
+          },
+          {
+            "key": "landscape",
+            "values": [
+              "land/ava_city01"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "This is a city."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "This is the landing area"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Avalonian Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "bribe",
+            "values": [
+              0.05
+            ],
+            "children": null
+          },
+          {
+            "key": "security",
+            "values": [
+              0.7
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute",
+            "values": [
+              1000
+            ],
+            "children": [
+              {
+                "key": "threshold",
+                "values": [
+                  7000
+                ],
+                "children": null
+              },
+              {
+                "key": "fleet",
+                "values": [
+                  "Avalonian Fleet",
+                  39
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "Warsong (City)",
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::Warsong (City)",
+    "_definedBy": [
+      "Zuckungs List/planet.map"
+    ],
+    "_lastModifiedBy": "Zuckungs List/planet.map"
+  },
+  {
+    "displayName": null,
+    "attributes": [
+      "factory",
+      "research",
+      "urban"
+    ],
+    "requires": [],
+    "landscapes": [
+      {
+        "name": "land/ava_city02",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::landscape:land/ava_city02"
+      }
+    ],
+    "music": null,
+    "description": {
+      "text": "This is a city.",
+      "toDisplay": null
+    },
+    "spaceport": {
+      "text": "This is the landing area",
+      "toDisplay": null
+    },
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "Avalonian",
+    "governmentInherited": false,
+    "shipyards": [],
+    "outfitters": [
+      {
+        "name": "Avalonian Basics",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::outfitter:Avalonian Basics"
+      }
+    ],
+    "requiredReputation": null,
+    "bribe": 0.05,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": 0.7,
+    "wormhole": null,
+    "tribute": {
+      "credits": 1000,
+      "threshold": 7000,
+      "fleets": [
+        {
+          "name": "Avalonian Fleet",
+          "count": 39,
+          "pluginId": "Zuckungs List/planet.map",
+          "internalId": "Zuckungs List/planet.map::tributeFleet:Avalonian Fleet"
+        }
+      ],
+      "dailyReputationPenalty": null
+    },
+    "tributeHails": {},
+    "systemName": "The Landing Site",
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/planet.map",
+        "entries": [
+          {
+            "key": "attributes",
+            "values": [
+              "factory",
+              "research",
+              "urban"
+            ],
+            "children": null
+          },
+          {
+            "key": "landscape",
+            "values": [
+              "land/ava_city02"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "This is a city."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "This is the landing area"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Avalonian Basics"
+            ],
+            "children": null
+          },
+          {
+            "key": "bribe",
+            "values": [
+              0.05
+            ],
+            "children": null
+          },
+          {
+            "key": "security",
+            "values": [
+              0.7
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute",
+            "values": [
+              1000
+            ],
+            "children": [
+              {
+                "key": "threshold",
+                "values": [
+                  7000
+                ],
+                "children": null
+              },
+              {
+                "key": "fleet",
+                "values": [
+                  "Avalonian Fleet",
+                  39
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "Ember (City)",
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::Ember (City)",
+    "_definedBy": [
+      "Zuckungs List/planet.map"
+    ],
+    "_lastModifiedBy": "Zuckungs List/planet.map"
+  },
+  {
+    "displayName": null,
+    "attributes": [],
+    "requires": [],
+    "landscapes": [
+      {
+        "name": "land/ava_metallic",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::landscape:land/ava_metallic"
+      }
+    ],
+    "music": null,
+    "description": {
+      "text": "This is a very mysterious object.",
+      "toDisplay": null
+    },
+    "spaceport": {
+      "text": "This is the landing area",
+      "toDisplay": null
+    },
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "Uninhabited",
+    "governmentInherited": false,
+    "shipyards": [],
+    "outfitters": [],
+    "requiredReputation": null,
+    "bribe": null,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": null,
+    "wormhole": null,
+    "tribute": null,
+    "tributeHails": {},
+    "systemName": null,
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/planet.map",
+        "entries": [
+          {
+            "key": "landscape",
+            "values": [
+              "land/ava_metallic"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Uninhabited"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "This is a very mysterious object."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "This is the landing area"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "name": "Mysterious Object",
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::Mysterious Object",
+    "_definedBy": [
+      "Zuckungs List/planet.map"
+    ],
+    "_lastModifiedBy": "Zuckungs List/planet.map"
+  },
+  {
+    "displayName": null,
+    "attributes": [
+      "research"
+    ],
+    "requires": [],
+    "landscapes": [
+      {
+        "name": "land/ava_ship",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::landscape:land/ava_ship"
+      }
+    ],
+    "music": null,
+    "description": {
+      "text": "This is a big expedition ship.",
+      "toDisplay": null
+    },
+    "spaceport": {
+      "text": "This is the landing area",
+      "toDisplay": null
+    },
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "Avalonian",
+    "governmentInherited": false,
+    "shipyards": [],
+    "outfitters": [],
+    "requiredReputation": null,
+    "bribe": 0.05,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": 0.7,
+    "wormhole": null,
+    "tribute": {
+      "credits": 1000,
+      "threshold": 7000,
+      "fleets": [
+        {
+          "name": "Avalonian Fleet",
+          "count": 39,
+          "pluginId": "Zuckungs List/planet.map",
+          "internalId": "Zuckungs List/planet.map::tributeFleet:Avalonian Fleet"
+        }
+      ],
+      "dailyReputationPenalty": null
+    },
+    "tributeHails": {},
+    "systemName": "The Eastern Sea",
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/planet.map",
+        "entries": [
+          {
+            "key": "attributes",
+            "values": [
+              "research"
+            ],
+            "children": null
+          },
+          {
+            "key": "landscape",
+            "values": [
+              "land/ava_ship"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "This is a big expedition ship."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "This is the landing area"
+            ],
+            "children": null
+          },
+          {
+            "key": "bribe",
+            "values": [
+              0.05
+            ],
+            "children": null
+          },
+          {
+            "key": "security",
+            "values": [
+              0.7
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute",
+            "values": [
+              1000
+            ],
+            "children": [
+              {
+                "key": "threshold",
+                "values": [
+                  7000
+                ],
+                "children": null
+              },
+              {
+                "key": "fleet",
+                "values": [
+                  "Avalonian Fleet",
+                  39
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "Expedition Ship",
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::Expedition Ship",
+    "_definedBy": [
+      "Zuckungs List/planet.map"
+    ],
+    "_lastModifiedBy": "Zuckungs List/planet.map"
+  },
+  {
+    "displayName": null,
+    "attributes": [
+      "lumberjack"
+    ],
+    "requires": [],
+    "landscapes": [
+      {
+        "name": "land/ava_lumberjack",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::landscape:land/ava_lumberjack"
+      }
+    ],
+    "music": null,
+    "description": {
+      "text": "This is a small lumberjack camp.",
+      "toDisplay": null
+    },
+    "spaceport": {
+      "text": "This is the landing area.",
+      "toDisplay": null
+    },
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "Avalonian",
+    "governmentInherited": false,
+    "shipyards": [],
+    "outfitters": [],
+    "requiredReputation": null,
+    "bribe": null,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": null,
+    "wormhole": null,
+    "tribute": null,
+    "tributeHails": {},
+    "systemName": "North Woods",
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/planet.map",
+        "entries": [
+          {
+            "key": "attributes",
+            "values": [
+              "lumberjack"
+            ],
+            "children": null
+          },
+          {
+            "key": "landscape",
+            "values": [
+              "land/ava_lumberjack"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "This is a small lumberjack camp."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "This is the landing area."
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "name": "Green Hell (Lumberjack Camp)",
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::Green Hell (Lumberjack Camp)",
+    "_definedBy": [
+      "Zuckungs List/planet.map"
+    ],
+    "_lastModifiedBy": "Zuckungs List/planet.map"
+  },
+  {
+    "displayName": null,
+    "attributes": [
+      "oil",
+      "rig"
+    ],
+    "requires": [],
+    "landscapes": [
+      {
+        "name": "land/ava_oilrig",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::landscape:land/ava_oilrig"
+      }
+    ],
+    "music": null,
+    "description": {
+      "text": "This is an oil rig.",
+      "toDisplay": null
+    },
+    "spaceport": {
+      "text": "This is the landing area.",
+      "toDisplay": null
+    },
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "Avalonian",
+    "governmentInherited": false,
+    "shipyards": [],
+    "outfitters": [],
+    "requiredReputation": null,
+    "bribe": null,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": null,
+    "wormhole": null,
+    "tribute": null,
+    "tributeHails": {},
+    "systemName": "Dunes",
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/planet.map",
+        "entries": [
+          {
+            "key": "attributes",
+            "values": [
+              "oil rig"
+            ],
+            "children": null
+          },
+          {
+            "key": "landscape",
+            "values": [
+              "land/ava_oilrig"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "This is an oil rig."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "This is the landing area."
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "name": "Black Gold (Oil Rig)",
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::Black Gold (Oil Rig)",
+    "_definedBy": [
+      "Zuckungs List/planet.map"
+    ],
+    "_lastModifiedBy": "Zuckungs List/planet.map"
+  },
+  {
+    "displayName": null,
+    "attributes": [
+      "oasis"
+    ],
+    "requires": [],
+    "landscapes": [
+      {
+        "name": "land/ava_oasis",
+        "count": 1,
+        "pluginId": "Zuckungs List/planet.map",
+        "internalId": "Zuckungs List/planet.map::landscape:land/ava_oasis"
+      }
+    ],
+    "music": null,
+    "description": {
+      "text": "This is a small oasis village.",
+      "toDisplay": null
+    },
+    "spaceport": {
+      "text": "This is the landing area.",
+      "toDisplay": null
+    },
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "Avalonian",
+    "governmentInherited": false,
+    "shipyards": [],
+    "outfitters": [],
+    "requiredReputation": null,
+    "bribe": null,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": null,
+    "wormhole": null,
+    "tribute": null,
+    "tributeHails": {},
+    "systemName": "Dunes",
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/planet.map",
+        "entries": [
+          {
+            "key": "attributes",
+            "values": [
+              "oasis"
+            ],
+            "children": null
+          },
+          {
+            "key": "landscape",
+            "values": [
+              "land/ava_oasis"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Avalonian"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "This is a small oasis village."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "This is the landing area."
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "name": "Morgana (Village)",
+    "_pluginId": "Zuckungs List/planet.map",
+    "_internalId": "Zuckungs List/planet.map::Morgana (Village)",
+    "_definedBy": [
+      "Zuckungs List/planet.map"
+    ],
+    "_lastModifiedBy": "Zuckungs List/planet.map"
+  }
+]

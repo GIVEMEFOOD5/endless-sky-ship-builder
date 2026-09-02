@@ -70,6 +70,113 @@
     },
     "tributeHails": {},
     "systemName": "array",
+    "rawByPlugin": [
+      {
+        "pluginId": "sensor/sensor",
+        "entries": [
+          {
+            "key": "landscape",
+            "values": [
+              "land/space2"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "A ringworld seemingly abandoned on some parts"
+            ],
+            "children": null
+          },
+          {
+            "key": "music",
+            "values": [
+              "ambient/machinery"
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "This spaceport is abandoned"
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "sensor"
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "Basic Ships"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Basic Weapons"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Basic Outfits"
+            ],
+            "children": null
+          },
+          {
+            "key": "required reputation",
+            "values": [
+              0
+            ],
+            "children": null
+          },
+          {
+            "key": "bribe",
+            "values": [
+              0.1
+            ],
+            "children": null
+          },
+          {
+            "key": "security",
+            "values": [
+              0.1
+            ],
+            "children": null
+          },
+          {
+            "key": "tribute",
+            "values": [
+              100
+            ],
+            "children": [
+              {
+                "key": "threshold",
+                "values": [
+                  0
+                ],
+                "children": null
+              },
+              {
+                "key": "fleet",
+                "values": [
+                  "sensor guard fleet",
+                  10
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "name": "lidar",
     "_pluginId": "sensor/sensor",
     "_internalId": "sensor/sensor::lidar",
