@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mission Data Viewer</title>
+<link rel="stylesheet" href="../CSS/temp.css">
+<link rel="stylesheet" href="../CSS/main.css">
+</head>
+<body>
+
+  <header>
+    <h1>Mission Data Viewer</h1>
+    <p class="subtitle">Loads a mission JSON export and formats every field into something readable.</p>
+ 
+    <div class="controls">
+      <input type="text" id="searchInput" placeholder="Filter by name, plugin, planet..." disabled>
+      <button id="pluginToggleBtn" disabled>Plugins</button>
+      <span id="countLabel"></span>
+    </div>
+ 
+    <!-- Plugin selector -->
+    <div class="panel search-section">
+        <h2 class="section-title" id="pluginSelectorTitle">Plugin ▼</h2>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+            <button class="btn-action" onclick="openPluginPicker()">
+                ☰ Select Plugins
+            </button>
+            <span style="font-size:0.82rem;color:#64748b;font-style:italic;">
+                First plugin = primary (for image/sprite lookup)
+            </span>
+        </div>
+        <div id="activePluginList">
+            <span class="sorter-empty">Loading plugins…</span>
+        </div>
+    </div>
+  </header>
+
+  <main id="missionList">
+    <p id="status">Loading missions…</p>
+  </main>
+
+    <script src="../JavaScript/generalPluginStuff.js"></script>
+    <script src="../JavaScript/missionLoader.js"></script>
+    <script src="../JavaScript/UserManagerMissionDisplay.js"></script>
+</body>
+</html>

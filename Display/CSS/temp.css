@@ -1,0 +1,225 @@
+:root {
+  --bg: #14161a;
+  --panel: #1c1f26;
+  --panel-alt: #22252d;
+  --border: #2e323c;
+  --text: #d8dbe2;
+  --text-dim: #8b90a0;
+  --accent: #5fb1ff;
+  --good: #6bcf8f;
+  --warn: #e0b04a;
+  --bad: #e0665f;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+header {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 10;
+}
+
+h1 {
+  margin: 0 0 4px;
+  font-size: 1.4rem;
+}
+
+.subtitle {
+  margin: 0 0 14px;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+input[type="file"] {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+}
+
+#searchInput {
+  flex: 1;
+  min-width: 220px;
+  padding: 8px 10px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+#searchInput:disabled { opacity: 0.5; }
+
+#countLabel {
+  color: var(--text-dim);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+main {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+#status {
+  color: var(--text-dim);
+}
+
+.mission-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+
+.mission-head {
+  padding: 14px 16px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.mission-head:hover { background: var(--panel-alt); }
+
+.mission-title {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.mission-plugin {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.mission-body {
+  display: none;
+  padding: 4px 16px 16px;
+  border-top: 1px solid var(--border);
+}
+
+.mission-card.open .mission-body { display: block; }
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0;
+}
+
+.badge {
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+}
+
+.badge.repeatable { color: var(--good); border-color: var(--good); }
+.badge.illegal { color: var(--bad); border-color: var(--bad); }
+.badge.flag { color: var(--accent); border-color: var(--accent); }
+
+.field-grid {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 6px 12px;
+  margin: 10px 0;
+  font-size: 0.88rem;
+}
+
+.field-label {
+  color: var(--text-dim);
+}
+
+.field-value { word-break: break-word; }
+
+.description-box {
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin: 10px 0;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+}
+
+.section-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+  margin: 16px 0 6px;
+}
+
+.reward-list, .ref-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.88rem;
+}
+
+.reward-list li, .ref-list li {
+  padding: 3px 0;
+}
+
+.tag-inline {
+  background: var(--panel-alt);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.82rem;
+}
+
+.raw-toggle {
+  margin-top: 14px;
+  font-size: 0.82rem;
+  color: var(--accent);
+  cursor: pointer;
+  user-select: none;
+  display: inline-block;
+}
+
+.raw-tree {
+  display: none;
+  margin-top: 10px;
+  background: #101216;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8rem;
+  overflow-x: auto;
+}
+
+.raw-tree.open { display: block; }
+
+.raw-line { white-space: pre; }
+.raw-key { color: var(--accent); }
+.raw-value { color: var(--warn); }
+.raw-text { color: var(--text-dim); font-style: italic; }
+
+.empty {
+  color: var(--text-dim);
+  font-style: italic;
+}
