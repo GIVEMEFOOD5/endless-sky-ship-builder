@@ -46,6 +46,14 @@ let _activePlugins = [];
 // window.allMissionData[outputName] = { sourceName, displayName, outputName, missions: [...] }
 window.allMissionData = window.allMissionData || {};
 
+// generalPluginStuff.js (the shared plugin-picker module) reads plugin data
+// through `window.allData` and drives selection through `window.DataLoader`.
+// This page doesn't load the ship builder's dataLoader.js, so MissionLoader
+// stands in for it: `window.allData` is the SAME object as
+// `window.allMissionData` (not a copy), so every plugin.missions write below
+// is automatically visible to generalPluginStuff.js's `_allData()` helper.
+window.allData = window.allMissionData;
+
 // ═════════════════════════════════════════════════════════════
 //  Formatting helpers — ported from the standalone mission
 //  viewer, now living here so the display layer stays dumb.
@@ -56,8 +64,8 @@ function esc(str) {
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
 }
-function mono(text)      { return `<span class="tag-inline">${esc(text)}</span>`; }
-function tag(text, cls)  { return `<span class="badge ${cls}">${esc(text)}</span>`; }
+function mono(text)      { return `<span class="mission-tag">${esc(text)}</span>`; }
+function tag(text, cls)  { return `<span class="mission-badge ${cls ? 'mission-badge--' + cls : ''}">${esc(text)}</span>`; }
 
 function formatRange(r) {
     let out = r.commodity ? `${esc(r.commodity)}: ` : '';
@@ -89,12 +97,12 @@ function summarizeEntry(e) {
 function formatLocationRef(ref) {
     if (ref.type === 'planet') {
         const name = ref.ref ? ref.ref.name : ref.value;
-        const plugin = ref.ref && ref.ref.pluginId ? ` <span class="field-label">(${esc(ref.ref.pluginId)})</span>` : '';
+        const plugin = ref.ref && ref.ref.pluginId ? ` <span class="mission-field-label">(${esc(ref.ref.pluginId)})</span>` : '';
         return mono(name) + plugin;
     }
     if (ref.type === 'filter') {
         const conds = ref.value || [];
-        if (!conds.length) return '<span class="empty">any (unfiltered)</span>';
+        if (!conds.length) return '<span class="mission-empty">any (unfiltered)</span>';
         return 'filtered by: ' + conds.map(c => mono(summarizeEntry(c))).join(', ');
     }
     return esc(JSON.stringify(ref));
@@ -112,7 +120,7 @@ function formatPayment(p) {
             parts.push(`${trigger}: base ${e.base}${e.multiplier ? ` + ${e.multiplier}/distance` : ''}`);
         });
     });
-    return parts.length ? parts.join('<br>') : '<span class="empty">none declared</span>';
+    return parts.length ? parts.join('<br>') : '<span class="mission-empty">none declared</span>';
 }
 
 function formatEventTriggers(list) {
@@ -132,28 +140,48 @@ function flagLabel(key, value) {
     return `${key}: ${value}`;
 }
 
+// Some plugins generate mission bodies with tens of thousands of near-
+// identical lines (e.g. one action per ship in the game) — one mission in
+// the wild has ~37,000 raw nodes. Rendering that eagerly, for every mission,
+// on every page load, is what actually blew up memory during testing. So:
+// raw trees are built lazily (only when a card's toggle is clicked — see
+// UserManagerMissionDisplay.js) AND capped, so even opening that one
+// mission can't freeze the tab.
+const RAW_TREE_NODE_CAP = 1500;
+
 // Generic { key, values, children } tree → HTML string. Used for `raw`
 // and for `conditions`, since missionParser.js gives both the exact same
-// shape. depth just controls indentation.
-function renderTreeHtml(entries, depth = 0) {
-    if (!entries || !entries.length) return '<div class="raw-line empty">(empty)</div>';
+// shape. depth just controls indentation. `budget` tracks how many nodes
+// have been emitted across the whole (possibly recursive) call so the cap
+// applies to the tree as a whole, not per branch.
+function renderTreeHtml(entries, depth = 0, budget) {
+    budget = budget || { count: 0, truncated: false };
+    if (!entries || !entries.length) return '<div class="mission-raw-line mission-empty">(empty)</div>';
     let html = '';
-    entries.forEach(entry => {
+    for (const entry of entries) {
+        if (budget.truncated) break;
+        if (budget.count >= RAW_TREE_NODE_CAP) {
+            budget.truncated = true;
+            html += `<div class="mission-raw-line mission-raw-truncated">… truncated — this structure has 1500+ entries, cut off here to keep the page responsive</div>`;
+            break;
+        }
+        budget.count++;
         const indent = '  '.repeat(depth);
         const looksLikeBareText = entry.values.length === 0 && !entry.children &&
             !/^[a-z][a-z0-9 _-]*$/i.test(entry.key || '');
         if (looksLikeBareText || (entry.key && entry.key.length > 40 && entry.values.length === 0)) {
-            html += `<div class="raw-line">${indent}<span class="raw-text">"${esc(entry.key)}"</span></div>`;
+            html += `<div class="mission-raw-line">${indent}<span class="mission-raw-text">"${esc(entry.key)}"</span></div>`;
         } else {
             const valuesStr = entry.values.length
-                ? ' ' + entry.values.map(v => `<span class="raw-value">${esc(String(v))}</span>`).join(' ')
+                ? ' ' + entry.values.map(v => `<span class="mission-raw-value">${esc(String(v))}</span>`).join(' ')
                 : '';
-            html += `<div class="raw-line">${indent}<span class="raw-key">${esc(entry.key)}</span>${valuesStr}</div>`;
+            html += `<div class="mission-raw-line">${indent}<span class="mission-raw-key">${esc(entry.key)}</span>${valuesStr}</div>`;
         }
         if (entry.children && entry.children.length) {
-            html += renderTreeHtml(entry.children, depth + 1);
+            html += renderTreeHtml(entry.children, depth + 1, budget);
+            if (budget.truncated) break;
         }
-    });
+    }
     return html;
 }
 
@@ -169,8 +197,8 @@ function formatMission(m, pluginId, pluginDisplay) {
     Object.keys(m.flags || {}).forEach(k => badges.push(tag(flagLabel(k, m.flags[k]), 'flag')));
 
     let bodyHtml = '';
-    if (badges.length) bodyHtml += `<div class="badges">${badges.join('')}</div>`;
-    if (m.description) bodyHtml += `<div class="description-box">${esc(m.description)}</div>`;
+    if (badges.length) bodyHtml += `<div class="mission-badges">${badges.join('')}</div>`;
+    if (m.description) bodyHtml += `<div class="mission-description">${esc(m.description)}</div>`;
 
     const rows = [];
     if (m.name) rows.push(['Internal name', mono(m.name)]);
@@ -190,9 +218,9 @@ function formatMission(m, pluginId, pluginDisplay) {
     if (m.conditionSideEffects && m.conditionSideEffects.length) rows.push(['Side effects', formatSideEffects(m.conditionSideEffects)]);
 
     if (rows.length) {
-        bodyHtml += '<div class="field-grid">';
+        bodyHtml += '<div class="mission-field-grid">';
         rows.forEach(([label, value]) => {
-            bodyHtml += `<div class="field-label">${esc(label)}</div><div class="field-value">${value}</div>`;
+            bodyHtml += `<div class="mission-field-label">${esc(label)}</div><div class="mission-field-value">${value}</div>`;
         });
         bodyHtml += '</div>';
     }
@@ -200,39 +228,43 @@ function formatMission(m, pluginId, pluginDisplay) {
     const outfitRewards = (m.rewards && m.rewards.outfits) || [];
     const shipRewards    = (m.rewards && m.rewards.ships) || [];
     if (outfitRewards.length || shipRewards.length) {
-        bodyHtml += '<div class="section-title">Rewards</div><ul class="reward-list">';
+        bodyHtml += '<div class="mission-subhead">Rewards</div><ul class="mission-reward-list">';
         outfitRewards.forEach(o => {
-            bodyHtml += `<li>Outfit: ${mono(o.name)} × ${o.count}${o.grantedIn ? ` <span class="field-label">(on ${esc(o.grantedIn)})</span>` : ''}</li>`;
+            bodyHtml += `<li>Outfit: ${mono(o.name)} × ${o.count}${o.grantedIn ? ` <span class="mission-field-label">(on ${esc(o.grantedIn)})</span>` : ''}</li>`;
         });
         shipRewards.forEach(s => {
-            bodyHtml += `<li>Ship: ${mono(s.name)}${s.customName ? ` named "${esc(s.customName)}"` : ''}${s.grantedIn ? ` <span class="field-label">(on ${esc(s.grantedIn)})</span>` : ''}</li>`;
+            bodyHtml += `<li>Ship: ${mono(s.name)}${s.customName ? ` named "${esc(s.customName)}"` : ''}${s.grantedIn ? ` <span class="mission-field-label">(on ${esc(s.grantedIn)})</span>` : ''}</li>`;
         });
         bodyHtml += '</ul>';
     }
 
     if (m.conditions && Object.keys(m.conditions).length) {
-        bodyHtml += '<div class="section-title">Conditions</div>';
+        bodyHtml += '<div class="mission-subhead">Conditions</div>';
         Object.entries(m.conditions).forEach(([name, tree]) => {
-            bodyHtml += `<div><span class="field-label">to ${esc(name)}</span></div>${renderTreeHtml(tree)}`;
+            bodyHtml += `<div><span class="mission-field-label">to ${esc(name)}</span></div>${renderTreeHtml(tree)}`;
         });
     }
 
     const detailedFlags = Object.entries(m.flags || {}).filter(([, v]) => v !== true);
     if (detailedFlags.length) {
-        bodyHtml += '<div class="section-title">Other declared fields</div>';
+        bodyHtml += '<div class="mission-subhead">Other declared fields</div>';
         detailedFlags.forEach(([k, v]) => {
-            bodyHtml += `<div><span class="field-label">${esc(k)}</span></div>`;
+            bodyHtml += `<div><span class="mission-field-label">${esc(k)}</span></div>`;
             if (Array.isArray(v) && v.length && typeof v[0] === 'object' && v[0] !== null && 'key' in v[0]) {
                 bodyHtml += renderTreeHtml(v);
             } else {
-                bodyHtml += `<div class="field-value">${mono(JSON.stringify(v))}</div>`;
+                bodyHtml += `<div class="mission-field-value">${mono(JSON.stringify(v))}</div>`;
             }
         });
     }
 
     if (m.raw) {
-        bodyHtml += `<span class="raw-toggle">▸ View full raw structure</span>` +
-                    `<div class="raw-tree">${renderTreeHtml(m.raw)}</div>`;
+        // Left empty on purpose — filled in lazily on first click by
+        // UserManagerMissionDisplay.js via MissionLoader.renderRawTree(),
+        // using the `raw` field on this view model. See RAW_TREE_NODE_CAP
+        // above for why this can't be eager.
+        bodyHtml += `<span class="mission-raw-toggle">▸ View full raw structure</span>` +
+                    `<div class="mission-raw-tree" data-lazy="1"></div>`;
     }
 
     const searchText = [
@@ -247,6 +279,7 @@ function formatMission(m, pluginId, pluginDisplay) {
         pluginHtml: esc(pluginDisplay || pluginId || ''),
         searchText,
         bodyHtml,
+        raw: m.raw || null, // rendered lazily — see MissionLoader.renderRawTree()
     };
 }
 
@@ -263,6 +296,16 @@ function _activeMissionData() {
 
 function _fireEvent(name, detail = {}) {
     document.dispatchEvent(new CustomEvent(name, { detail, bubbles: true }));
+}
+
+// Fires MissionLoader's own event AND the generic 'pluginsChanged' event that
+// generalPluginStuff.js (the shared picker module) listens for, so both this
+// page's own display code and the shared picker UI stay in sync off one
+// state change.
+function _firePluginsChanged() {
+    const detail = { active: [..._activePlugins] };
+    _fireEvent('missionPluginsChanged', detail);
+    _fireEvent('pluginsChanged', detail);
 }
 
 function _saveActivePlugins() {
@@ -307,7 +350,16 @@ window.MissionLoader = {
     setActivePlugins(arr) {
         _activePlugins = arr.filter(id => window.allMissionData[id]);
         _saveActivePlugins();
-        _fireEvent('missionPluginsChanged', { active: [..._activePlugins] });
+        _firePluginsChanged();
+    },
+
+    // Sets the active list and persists it WITHOUT firing an event — mirrors
+    // dataLoader.js's own _setActivePluginsSilent. generalPluginStuff.js calls
+    // this after it has already updated its own UI, so MissionLoader doesn't
+    // need to (and shouldn't) trigger another render pass on top of that.
+    _setActivePluginsSilent(arr) {
+        _activePlugins = arr.filter(id => window.allMissionData[id]);
+        _saveActivePlugins();
     },
 
     initDefaultPlugins() {
@@ -316,7 +368,7 @@ window.MissionLoader = {
             const valid = saved.filter(id => window.allMissionData[id]);
             if (valid.length) {
                 _activePlugins = valid;
-                _fireEvent('missionPluginsChanged', { active: [..._activePlugins] });
+                _firePluginsChanged();
                 return;
             }
         }
@@ -324,7 +376,7 @@ window.MissionLoader = {
         // nothing is hidden until the user deliberately narrows it down.
         _activePlugins = Object.keys(window.allMissionData);
         _saveActivePlugins();
-        _fireEvent('missionPluginsChanged', { active: [..._activePlugins] });
+        _firePluginsChanged();
     },
 
     // ── Data accessors (active plugins only, fully formatted) ──
@@ -344,8 +396,36 @@ window.MissionLoader = {
         return (plugin.missions || []).map(m => formatMission(m, pluginId, display));
     },
 
+    // Renders a mission's raw parse tree to HTML on demand. Deliberately
+    // NOT baked into bodyHtml — see RAW_TREE_NODE_CAP above.
+    renderRawTree(rawEntries) {
+        return renderTreeHtml(rawEntries);
+    },
+
     DEFAULT_PLUGIN,
 };
+
+// ═════════════════════════════════════════════════════════════
+//  Compatibility shim for generalPluginStuff.js
+//
+//  generalPluginStuff.js is the app's shared plugin-picker module. It's
+//  written against dataLoader.js's API (window.DataLoader.setActivePlugins,
+//  _setActivePluginsSilent, LOCAL_PLUGIN_ID) rather than MissionLoader's.
+//  This page doesn't load dataLoader.js, so we stand in for it here —
+//  purely so generalPluginStuff.js can be dropped onto this page unmodified.
+//  If a real window.DataLoader is ever also loaded on this page, this shim
+//  steps aside and leaves it alone.
+// ═════════════════════════════════════════════════════════════
+if (!window.DataLoader) {
+    window.DataLoader = {
+        // Missions have no "Local Builds" concept, but generalPluginStuff.js
+        // reads this constant unconditionally, so it needs to exist as a
+        // harmless value that will simply never match a real plugin id.
+        LOCAL_PLUGIN_ID: '__local_builds__',
+        setActivePlugins(arr)        { window.MissionLoader.setActivePlugins(arr); },
+        _setActivePluginsSilent(arr) { window.MissionLoader._setActivePluginsSilent(arr); },
+    };
+}
 
 // ═════════════════════════════════════════════════════════════
 //  Remote data loader — one missions.json per plugin, discovered
@@ -395,6 +475,9 @@ async function _doLoad() {
         _callbacks = [];
 
         _fireEvent('missionsLoaded', { allMissionData: window.allMissionData });
+        // Generic event generalPluginStuff.js listens for as a safety net
+        // (it double-checks a remote plugin is active once data is in).
+        _fireEvent('dataLoaded', { allData: window.allData });
         return window.allMissionData;
 
     } catch (error) {
