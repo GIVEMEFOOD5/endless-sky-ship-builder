@@ -1,225 +1,176 @@
-:root {
-  --bg: #14161a;
-  --panel: #1c1f26;
-  --panel-alt: #22252d;
-  --border: #2e323c;
-  --text: #d8dbe2;
-  --text-dim: #8b90a0;
-  --accent: #5fb1ff;
-  --good: #6bcf8f;
-  --warn: #e0b04a;
-  --bad: #e0665f;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-}
+/* ═══════════════════════════════════════════════════════════════
+   temp.css  —  Mission Data Viewer page-specific styles
 
-* { box-sizing: border-box; }
+   Only covers markup main.css doesn't already style: the mission
+   cards themselves. Everything else on this page (.panel,
+   .section-title, .btn-action, .sorter-row, the plugin picker
+   modal, etc.) comes straight from main.css — nothing here
+   duplicates or overrides it. Uses main.css's own design tokens
+   (--c-*, --r-*, --t-*) so it matches the rest of the app.
 
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.5;
-}
+   NOTE: every class here is prefixed `mission-` specifically to
+   avoid colliding with main.css's own classes (e.g. main.css's
+   .section-title is a 1.5rem page-header style — reusing it inside
+   a mission card would look wrong, hence .mission-subhead instead).
+   ═══════════════════════════════════════════════════════════════ */
 
-header {
-  padding: 24px 20px 16px;
-  border-bottom: 1px solid var(--border);
-  position: sticky;
-  top: 0;
-  background: var(--bg);
-  z-index: 10;
-}
-
-h1 {
-  margin: 0 0 4px;
-  font-size: 1.4rem;
-}
-
-.subtitle {
-  margin: 0 0 14px;
-  color: var(--text-dim);
-  font-size: 0.9rem;
-}
-
-.controls {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-input[type="file"] {
-  color: var(--text-dim);
-  font-size: 0.85rem;
-}
-
-#searchInput {
-  flex: 1;
-  min-width: 220px;
-  padding: 8px 10px;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--text);
-  font-size: 0.9rem;
-}
-
-#searchInput:disabled { opacity: 0.5; }
-
-#countLabel {
-  color: var(--text-dim);
-  font-size: 0.85rem;
-  white-space: nowrap;
-}
-
-main {
-  max-width: 920px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-#status {
-  color: var(--text-dim);
+#missionList {
+    max-width: 920px;
+    margin: 20px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 }
 
 .mission-card {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  margin-bottom: 14px;
-  overflow: hidden;
+    background: var(--c-surface);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
 }
 
 .mission-head {
-  padding: 14px 16px;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    transition: background var(--t-fast);
 }
-
-.mission-head:hover { background: var(--panel-alt); }
+.mission-head:hover { background: var(--c-surface-3); }
 
 .mission-title {
-  font-weight: 600;
-  font-size: 1rem;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--c-text);
 }
 
 .mission-plugin {
-  color: var(--text-dim);
-  font-size: 0.8rem;
-  white-space: nowrap;
+    color: var(--c-text-muted);
+    font-size: 0.8rem;
+    white-space: nowrap;
 }
 
 .mission-body {
-  display: none;
-  padding: 4px 16px 16px;
-  border-top: 1px solid var(--border);
+    display: none;
+    padding: 4px 16px 16px;
+    border-top: 1px solid var(--c-border-2);
 }
-
 .mission-card.open .mission-body { display: block; }
 
-.badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin: 10px 0;
+.mission-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 10px 0;
+}
+.mission-badge {
+    font-size: 0.72rem;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: var(--c-surface-3);
+    border: 1px solid var(--c-border-2);
+    color: var(--c-text-muted);
+}
+.mission-badge--repeatable { color: var(--c-success-text); border-color: var(--c-success-text); }
+.mission-badge--illegal    { color: var(--c-danger-text);  border-color: var(--c-danger-hi); }
+.mission-badge--flag       { color: var(--c-accent-text);  border-color: var(--c-accent); }
+
+.mission-field-grid {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 6px 12px;
+    margin: 10px 0;
+    font-size: 0.88rem;
+}
+.mission-field-label { color: var(--c-text-muted); }
+.mission-field-value { color: var(--c-text-mid); word-break: break-word; }
+
+.mission-description {
+    background: var(--c-surface-3);
+    border: 1px solid var(--c-border-2);
+    border-radius: var(--r-md);
+    padding: 10px 12px;
+    margin: 10px 0;
+    font-size: 0.9rem;
+    color: var(--c-text-mid);
+    white-space: pre-wrap;
 }
 
-.badge {
-  font-size: 0.72rem;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: var(--panel-alt);
-  border: 1px solid var(--border);
-  color: var(--text-dim);
+.mission-subhead {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--c-text-muted);
+    margin: 16px 0 6px;
 }
 
-.badge.repeatable { color: var(--good); border-color: var(--good); }
-.badge.illegal { color: var(--bad); border-color: var(--bad); }
-.badge.flag { color: var(--accent); border-color: var(--accent); }
+.mission-reward-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.88rem;
+    color: var(--c-text-mid);
+}
+.mission-reward-list li { padding: 3px 0; }
 
-.field-grid {
-  display: grid;
-  grid-template-columns: 130px 1fr;
-  gap: 6px 12px;
-  margin: 10px 0;
-  font-size: 0.88rem;
+.mission-tag {
+    background: var(--c-surface-3);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.82rem;
+    color: var(--c-accent-text);
 }
 
-.field-label {
-  color: var(--text-dim);
+.mission-raw-toggle {
+    margin-top: 14px;
+    font-size: 0.82rem;
+    color: var(--c-accent-text);
+    cursor: pointer;
+    user-select: none;
+    display: inline-block;
+}
+.mission-raw-tree {
+    display: none;
+    margin-top: 10px;
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid var(--c-border-2);
+    border-radius: var(--r-md);
+    padding: 10px 14px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.8rem;
+    overflow-x: auto;
+}
+.mission-raw-tree.open { display: block; }
+.mission-raw-line { white-space: pre; color: var(--c-text-mid); }
+.mission-raw-key   { color: var(--c-accent-text); }
+.mission-raw-value { color: var(--c-warn-text); }
+.mission-raw-text  { color: var(--c-text-muted); font-style: italic; }
+.mission-raw-truncated {
+    color: var(--c-warn-text);
+    font-style: italic;
+    margin-top: 6px;
 }
 
-.field-value { word-break: break-word; }
+.mission-empty { color: var(--c-text-muted); font-style: italic; }
 
-.description-box {
-  background: var(--panel-alt);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 10px 12px;
-  margin: 10px 0;
-  font-size: 0.9rem;
-  white-space: pre-wrap;
+/* Search bar + count label alongside the header's other controls */
+#searchInput {
+    flex: 1;
+    min-width: 220px;
 }
-
-.section-title {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--text-dim);
-  margin: 16px 0 6px;
+#countLabel {
+    color: var(--c-text-muted);
+    font-size: 0.85rem;
+    white-space: nowrap;
 }
-
-.reward-list, .ref-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  font-size: 0.88rem;
-}
-
-.reward-list li, .ref-list li {
-  padding: 3px 0;
-}
-
-.tag-inline {
-  background: var(--panel-alt);
-  border-radius: 4px;
-  padding: 1px 6px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.82rem;
-}
-
-.raw-toggle {
-  margin-top: 14px;
-  font-size: 0.82rem;
-  color: var(--accent);
-  cursor: pointer;
-  user-select: none;
-  display: inline-block;
-}
-
-.raw-tree {
-  display: none;
-  margin-top: 10px;
-  background: #101216;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 10px 14px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.8rem;
-  overflow-x: auto;
-}
-
-.raw-tree.open { display: block; }
-
-.raw-line { white-space: pre; }
-.raw-key { color: var(--accent); }
-.raw-value { color: var(--warn); }
-.raw-text { color: var(--text-dim); font-style: italic; }
-
-.empty {
-  color: var(--text-dim);
-  font-style: italic;
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
 }
