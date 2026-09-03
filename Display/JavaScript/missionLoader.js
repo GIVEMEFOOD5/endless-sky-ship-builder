@@ -34,7 +34,15 @@
 
 const REPO_URL  = 'GIVEMEFOOD5/endless-sky-ship-builder';
 const BASE_URL  = `https://raw.githubusercontent.com/${REPO_URL}/main/data`;
-const ACTIVE_KEY = 'es_sb_active_mission_plugins';
+// This is the SAME key dataLoader.js uses for ships/outfits/effects — see
+// generalPluginStuff.js's own header comment: "both systems share a single
+// storage key". Plugin selection is meant to be one app-wide choice, not a
+// separate one per page — a plugin's outputName folder (data/<outputName>/)
+// holds ships.json AND missions.json side by side, so "active plugins" means
+// the same thing on every page. Using a different key here was the bug:
+// whatever was already selected on the ship builder page was invisible to
+// this page, so it always fell back to "every plugin" on its own empty key.
+const ACTIVE_KEY = 'es_sb_active_plugins';
 const DEFAULT_PLUGIN = 'official-game/endless-sky';
 
 // ── Internal state ─────────────────────────────────────────
