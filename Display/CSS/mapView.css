@@ -1,0 +1,265 @@
+/* ═══════════════════════════════════════════════════════════════
+   mapView.css  —  Endless Sky Ship Builder / Systems Map
+   Loaded alongside main.css (not instead of it) — reuses the site's
+   existing design tokens (--c-*, --r-*, --shadow-*, --t-*) so the
+   map page matches DataViewer/ShipBuilder/BattleSim. Only adds the
+   handful of components those pages don't already define: the map
+   viewport, legend, search dropdown, tooltip, and zoom controls.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Map-local tokens ─────────────────────────────────────────── */
+:root {
+    --map-canvas-bg: #05070d;
+    --map-panel-bg:  #0b0f1a;
+    --map-panel-border: rgba(94, 225, 201, 0.18);
+    --map-accent: #5ee1c9;
+    --map-accent-dim: #2c6e63;
+}
+
+/* ── Header row: title + plugin picker share one line on desktop ── */
+.map-header-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+.map-header-row .subtitle { margin-top: 4px; }
+
+/* ── Viewport ─────────────────────────────────────────────────── */
+.map-viewport {
+    position: relative;
+    width: 100%;
+    height: 70vh;
+    min-height: 420px;
+    background: var(--map-canvas-bg);
+    border: 1px solid var(--c-border);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    /* Let our own touch handlers own panning/pinching instead of the browser. */
+    touch-action: none;
+}
+
+#mapCanvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+}
+#mapCanvas.grabbing { cursor: grabbing; }
+
+/* ── Loading overlay (map files can be large) ───────────────────── */
+.map-loading {
+    position: absolute;
+    inset: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: rgba(5, 7, 13, 0.85);
+    color: var(--c-text-mid);
+    font-size: 0.9rem;
+    z-index: 5;
+}
+.map-loading-track {
+    width: 220px;
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(255,255,255,0.10);
+    overflow: hidden;
+}
+.map-loading-bar {
+    height: 100%;
+    width: 4%;
+    background: var(--map-accent);
+    transition: width var(--t-base);
+}
+
+/* ── Search (top-right on desktop, full-width row on mobile) ───── */
+.map-search {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 230px;
+    z-index: 4;
+}
+.map-search input {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--map-panel-bg);
+    border: 1px solid var(--map-panel-border);
+    border-radius: var(--r-md);
+    color: var(--c-text);
+    font-size: 0.85rem;
+    outline: none;
+}
+.map-search input:focus { border-color: var(--map-accent-dim); }
+.map-search-results {
+    margin-top: 6px;
+    max-height: 45vh;
+    overflow-y: auto;
+    background: var(--map-panel-bg);
+    border: 1px solid var(--map-panel-border);
+    border-radius: var(--r-md);
+    display: none;
+}
+.map-search-results div {
+    padding: 8px 12px;
+    font-size: 0.82rem;
+    color: var(--c-text);
+    cursor: pointer;
+    border-bottom: 1px solid var(--map-panel-border);
+}
+.map-search-results div:last-child { border-bottom: none; }
+.map-search-results div:hover, .map-search-results div:active { background: #131a2a; }
+.map-search-results div span { float: right; color: var(--c-text-dim); font-size: 0.72rem; }
+
+/* ── Legend (bottom-left on desktop) ────────────────────────────── */
+.map-legend {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    max-width: 200px;
+    max-height: 42%;
+    overflow-y: auto;
+    background: var(--map-panel-bg);
+    border: 1px solid var(--map-panel-border);
+    border-radius: var(--r-md);
+    padding: 10px 12px;
+    z-index: 4;
+}
+.map-legend h2 {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--c-text-dim);
+    margin-bottom: 6px;
+}
+.map-legend-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 3px 0;
+    font-size: 0.78rem;
+    color: var(--c-text);
+    cursor: pointer;
+    user-select: none;
+    /* generous tap target on touch screens */
+    min-height: 26px;
+}
+.map-legend-row.off { opacity: .35; }
+.map-legend-dot { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.map-legend-name { flex: 1; }
+.map-legend-count { color: var(--c-text-dim); font-size: 0.72rem; }
+
+/* ── Tooltip ──────────────────────────────────────────────────── */
+.map-tooltip {
+    position: absolute;
+    pointer-events: none;
+    display: none;
+    max-width: 230px;
+    background: var(--map-panel-bg);
+    border: 1px solid var(--map-panel-border);
+    border-radius: var(--r-md);
+    padding: 8px 11px;
+    font-size: 0.76rem;
+    line-height: 1.5;
+    color: var(--c-text);
+    box-shadow: var(--shadow-sm);
+    z-index: 6;
+}
+.map-tooltip b { color: #fff; font-size: 0.85rem; }
+.map-tooltip-gov { color: var(--map-accent); }
+.map-tooltip-badge {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 6px;
+    border-radius: 8px;
+    font-size: 0.65rem;
+    background: rgba(180,140,255,0.20);
+    color: #cbb2ff;
+}
+.map-tooltip-links, .map-tooltip-source { color: var(--c-text-dim); margin-top: 3px; }
+
+/* ── Zoom controls ────────────────────────────────────────────── */
+.map-controls {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    z-index: 4;
+}
+.map-controls button {
+    width: 38px;
+    height: 38px;
+    background: var(--map-panel-bg);
+    border: 1px solid var(--map-panel-border);
+    color: var(--c-text);
+    border-radius: var(--r-md);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+}
+.map-controls button:hover, .map-controls button:active {
+    border-color: var(--map-accent-dim);
+    color: var(--map-accent);
+}
+
+.map-hint {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--c-text-dim);
+    font-size: 0.7rem;
+    pointer-events: none;
+    z-index: 4;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — mobile-first adjustments
+   Breakpoints match the site's existing convention (600 / 690 / 768).
+   ═══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+    .map-viewport { height: 62vh; min-height: 360px; }
+    .map-legend { max-width: 160px; font-size: 0.72rem; }
+}
+
+@media (max-width: 690px) {
+    /* Search becomes a full-width bar pinned to the top of the viewport
+       instead of floating top-right, so it doesn't cover systems. */
+    .map-search {
+        position: static;
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    .map-viewport { height: 58vh; min-height: 320px; }
+
+    /* Legend collapses to a short strip; tap to expand. Kept simple —
+       no JS needed, just a details/summary-style max-height toggle
+       driven by a class mapDisplay.js does not need to manage. */
+    .map-legend {
+        max-width: 46%;
+        max-height: 34%;
+        font-size: 0.7rem;
+        padding: 8px 10px;
+    }
+    .map-legend-row { min-height: 24px; }
+
+    .map-controls button { width: 34px; height: 34px; font-size: 16px; }
+    .map-hint { display: none; } /* no room, and touch users don't need the mouse hint */
+    .map-tooltip { max-width: 62vw; }
+}
+
+@media (max-width: 600px) {
+    .map-header-row { flex-direction: column; }
+    .map-viewport { height: 54vh; min-height: 300px; border-radius: var(--r-md); }
+    .map-legend { max-width: 50%; }
+}
