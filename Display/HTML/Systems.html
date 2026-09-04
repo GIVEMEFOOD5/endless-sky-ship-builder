@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endless Sky — Systems Map</title>
+    <link rel="stylesheet" href="../CSS/main.css">
+    <link rel="stylesheet" href="../CSS/mapView.css">
+</head>
+<body>
+
+    <div id="navbar-mount" data-src="NavBar.html"></div>
+    <script src="../JavaScript/navLoader.js"></script>
+
+    <div class="container">
+
+        <header class="panel map-header-row">
+            <div>
+                <h1>🌌 Systems Map</h1>
+                <p class="subtitle" id="mapSubtitle">Loading…</p>
+            </div>
+
+            <div>
+                <button class="btn-action" onclick="openPluginPicker()">
+                    ☰ Select Plugins
+                </button>
+            </div>
+        </header>
+
+        <!-- Active plugins — same shared component every data page uses -->
+        <div class="panel" style="margin-top:16px;">
+            <h2 class="section-title" style="font-size:1.05rem;margin-bottom:10px;">Active Plugins</h2>
+            <div id="activePluginList">
+                <span class="sorter-empty">Loading plugins…</span>
+            </div>
+        </div>
+
+        <!-- Map viewport -->
+        <div class="map-viewport" id="mapWrap" style="margin-top:16px;">
+            <canvas id="mapCanvas"></canvas>
+
+            <div class="map-search">
+                <input id="mapSearchInput" type="text" placeholder="Search systems…" autocomplete="off">
+                <div class="map-search-results" id="mapSearchResults"></div>
+            </div>
+
+            <div class="map-legend">
+                <h2>Governments</h2>
+                <div id="mapLegendList"></div>
+            </div>
+
+            <div class="map-tooltip" id="mapTooltip"></div>
+
+            <div class="map-controls">
+                <button id="mapZoomIn"  title="Zoom in">+</button>
+                <button id="mapZoomOut" title="Zoom out">–</button>
+                <button id="mapReset"   title="Reset view">⟲</button>
+            </div>
+
+            <div class="map-hint">scroll / pinch to zoom · drag to pan · tap or click a system</div>
+
+            <div class="map-loading" id="mapLoading">
+                <span>Fetching system data…</span>
+                <div class="map-loading-track"><div class="map-loading-bar" id="mapLoadingBar"></div></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ── Shared, sitewide plugin selection (unchanged — reused as-is) ── -->
+    <script src="../JavaScript/dataLoader.js"></script>
+    <script src="../JavaScript/generalPluginStuff.js"></script>
+
+    <!-- ── Map pipeline: grab → format → calculate → display ───────────── -->
+    <script src="../JavaScript/mapDataLoader.js"></script>
+    <script src="../JavaScript/mapDataFormatter.js"></script>
+    <script src="../JavaScript/mapCalculations.js"></script>
+    <script src="../JavaScript/mapDisplay.js"></script>
+
+</body>
+</html>
