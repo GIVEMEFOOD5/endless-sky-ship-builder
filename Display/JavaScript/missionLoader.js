@@ -282,6 +282,9 @@ function formatMission(m, pluginId, pluginDisplay) {
 
     return {
         id: m._internalId || `${pluginId}::${m.name}`,
+        name: m.name || '', // exact internal identifier — the join key missionStatusHelper.js
+                             // matches save-file mission/condition names against. Unescaped on
+                             // purpose: this is for exact string comparison, never injected as HTML.
         titleHtml: esc(m.displayName || m.name || '(unnamed mission)'),
         pluginId,
         pluginHtml: esc(pluginDisplay || pluginId || ''),
