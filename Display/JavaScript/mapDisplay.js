@@ -114,6 +114,8 @@ async function _loadAndRender(activeOutputNames, resetView) {
         systemsByName = MapDataFormatter.formatSystems(pluginDataMap, activeOutputNames);
         const wormholeLinks = MapDataFormatter.formatWormholes(pluginDataMap);
         MapDataFormatter.applyWormholeFlags(systemsByName, wormholeLinks);
+        const planetsBySystem = MapDataFormatter.formatPlanets(pluginDataMap, activeOutputNames);
+        MapDataFormatter.attachPlanets(systemsByName, planetsBySystem);
         galaxies = MapDataFormatter.formatGalaxies(pluginDataMap).filter(g => !g.isLabel);
 
         systemsArr = [...systemsByName.values()];
@@ -414,12 +416,34 @@ function _showTooltip(s, clientX, clientY) {
         <span class="map-tooltip-gov">${s.government}</span>
         ${s.wormhole ? '<span class="map-tooltip-badge">wormhole</span>' : ''}
         <div class="map-tooltip-links">links: ${links}</div>
+        ${_planetsHtml(s.planets)}
         <div class="map-tooltip-source">from: ${s.definedBy.join(', ')}</div>
     `;
     tooltipEl.style.display = 'block';
     const wrapRect = wrap.getBoundingClientRect();
     tooltipEl.style.left = Math.min(clientX - wrapRect.left + 14, wrapRect.width - 250) + 'px';
     tooltipEl.style.top = (clientY - wrapRect.top + 14) + 'px';
+}
+
+/**
+ * Renders the planets.json data actually attached to this system:
+ * each planet's own government (which can differ from the system's —
+ * e.g. a pirate-held world in an otherwise Republic system) plus
+ * small badges for shipyard/outfitter/spaceport access.
+ */
+function _planetsHtml(planets) {
+    if (!planets || planets.length === 0) return '';
+    const rows = planets.slice(0, 6).map(p => {
+        const badges = [
+            p.hasSpaceport ? 'port' : null,
+            p.hasShipyard ? 'shipyard' : null,
+            p.hasOutfitter ? 'outfitter' : null,
+        ].filter(Boolean).join(' · ');
+        const govNote = p.government ? ` <span class="map-tooltip-planet-gov">(${p.government})</span>` : '';
+        return `<div class="map-tooltip-planet">• ${p.name}${govNote}${badges ? ` — ${badges}` : ''}</div>`;
+    }).join('');
+    const more = planets.length > 6 ? `<div class="map-tooltip-planet">…and ${planets.length - 6} more</div>` : '';
+    return `<div class="map-tooltip-planets">${rows}${more}</div>`;
 }
 
 function _hideTooltip() {
