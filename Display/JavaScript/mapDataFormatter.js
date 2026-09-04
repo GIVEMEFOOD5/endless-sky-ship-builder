@@ -30,11 +30,19 @@
 //    .formatSystems(pluginDataMap, activeOrder) → Map<name, FormattedSystem>
 //    .formatGalaxies(pluginDataMap)             → FormattedGalaxy[]
 //    .formatWormholes(pluginDataMap)            → FormattedWormholeLink[]
+//    .formatPlanets(pluginDataMap, activeOrder)  → Map<systemName, FormattedPlanet[]>
+//    .attachPlanets(systemsMap, planetsBySystem) → mutates systemsMap in place
 //
 //  FormattedSystem shape:
 //    { name, x, y, government, attributes: string[],
 //      links: string[], wormhole: boolean, hasPlanets: boolean,
-//      definedBy: string[] }
+//      planets: FormattedPlanet[], definedBy: string[] }
+//
+//  FormattedPlanet shape (from planets.json, keyed back to its system
+//  via the `systemName` field the parser already stamps on every
+//  planet — this file just groups by that key):
+//    { name, government, hasSpaceport, hasShipyard, hasOutfitter,
+//      wormhole: string|null, definedBy: string[] }
 // ═══════════════════════════════════════════════════════════
 
 (function () {
@@ -68,6 +76,10 @@ function _readAttributes(raw) {
 function _readGovernment(raw) {
     const g = raw?.government;
     return (typeof g === 'string' && g.trim()) ? g.trim() : 'Uninhabited';
+}
+
+function _readBool(raw, key) {
+    return !!raw?.[key];
 }
 
 // ── Systems ──────────────────────────────────────────────────
@@ -110,6 +122,7 @@ function formatSystems(pluginDataMap, activeOrder) {
                     links: new Set(linkNames),
                     wormhole: false,
                     hasPlanets,
+                    planets: [], // filled in later by attachPlanets(), from planets.json
                     definedBy: [],
                 };
                 merged.set(name, entry);
@@ -138,6 +151,7 @@ function formatSystems(pluginDataMap, activeOrder) {
             links: [...e.links],
             wormhole: e.wormhole,
             hasPlanets: e.hasPlanets,
+            planets: e.planets,
             definedBy: e.definedBy,
         });
     }
@@ -195,11 +209,85 @@ function formatWormholes(pluginDataMap) {
     return out;
 }
 
+// ── Planets ──────────────────────────────────────────────────
+
+/**
+ * planets.json is a flat array of every planet across every system,
+ * each one carrying the name of the system it belongs to. This groups
+ * them back by that `systemName` key and merges duplicates (a planet
+ * redefined by a higher-priority active plugin) the same way systems
+ * merge: scalars last-write-wins, `definedBy` accumulates.
+ *
+ * @param {Map<string, RawPluginMapData>} pluginDataMap
+ * @param {string[]} activeOrder  same priority order used in formatSystems
+ * @returns {Map<string, FormattedPlanet[]>} keyed by systemName
+ */
+function formatPlanets(pluginDataMap, activeOrder) {
+    const byPlanetName = new Map(); // planet name -> merged entry (handles redefinition)
+
+    for (const outputName of activeOrder) {
+        const plugin = pluginDataMap.get(outputName);
+        if (!plugin || !Array.isArray(plugin.planets)) continue;
+
+        for (const raw of plugin.planets) {
+            const name = _readName(raw);
+            const systemName = raw?.systemName;
+            if (!name || !systemName) continue; // an unplaced/abstract planet can't go on the map
+
+            const hasShipyard = Array.isArray(raw.shipyards) && raw.shipyards.length > 0;
+            const hasOutfitter = Array.isArray(raw.outfitters) && raw.outfitters.length > 0;
+            const hasSpaceport = !!raw.spaceport;
+            const government = _readGovernment(raw);
+            const wormhole = (typeof raw.wormhole === 'string' && raw.wormhole) ? raw.wormhole : null;
+
+            let entry = byPlanetName.get(name);
+            if (!entry) {
+                entry = { name, systemName, government, hasSpaceport, hasShipyard, hasOutfitter, wormhole, definedBy: [] };
+                byPlanetName.set(name, entry);
+            } else {
+                entry.systemName = systemName;
+                entry.government = government;
+                entry.hasSpaceport = hasSpaceport;
+                entry.hasShipyard = hasShipyard;
+                entry.hasOutfitter = hasOutfitter;
+                entry.wormhole = wormhole;
+            }
+            if (!entry.definedBy.includes(outputName)) entry.definedBy.push(outputName);
+        }
+    }
+
+    const bySystem = new Map();
+    for (const entry of byPlanetName.values()) {
+        if (!bySystem.has(entry.systemName)) bySystem.set(entry.systemName, []);
+        bySystem.get(entry.systemName).push(entry);
+    }
+    return bySystem;
+}
+
+/**
+ * Attaches each system's planet list (from formatPlanets) onto the
+ * already-merged systems Map, and refines `hasPlanets` — the flag
+ * formatSystems() sets is only a "some plugin listed a planet ref
+ * here" guess from systems.json; this replaces it with the real
+ * count from planets.json when that data is available.
+ */
+function attachPlanets(systemsMap, planetsBySystem) {
+    for (const [systemName, planetList] of planetsBySystem) {
+        const system = systemsMap.get(systemName);
+        if (!system) continue; // planet's system was filtered out (inactive plugin, etc.)
+        system.planets = planetList;
+        system.hasPlanets = planetList.length > 0;
+    }
+    return systemsMap;
+}
+
 window.MapDataFormatter = {
     formatSystems,
     formatGalaxies,
     formatWormholes,
+    formatPlanets,
     applyWormholeFlags,
+    attachPlanets,
 };
 
 })();
