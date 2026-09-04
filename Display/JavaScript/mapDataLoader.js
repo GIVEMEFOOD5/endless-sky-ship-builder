@@ -27,17 +27,20 @@
 //
 //  SLIM FILES (forward-compatible)
 //  --------------------------------
-//  Full `systems.json` files can be tens of megabytes (they carry the
-//  entire objectTree, descriptions, etc. — none of which the map
-//  needs). This loader always tries a slim companion file first:
+//  Full `systems.json` / `planets.json` files can be tens of
+//  megabytes (they carry the entire objectTree, descriptions,
+//  landscape text, etc. — none of which the map needs). This loader
+//  always tries a slim companion file first:
 //      dataFiles/systemsMap.json   →  [{name,pos,government,links,attributes}, ...]
 //      dataFiles/galaxiesMap.json  →  [{name,pos,sprite}, ...]
+//      dataFiles/planetsMap.json   →  [{name,systemName,government,hasSpaceport,
+//                                        hasShipyard,hasOutfitter,wormhole}, ...]
 //  and transparently falls back to the full `systems.json` /
-//  `galaxies.json` if the slim file doesn't exist (404). If the
-//  parser is ever updated to emit these slim files (recommended —
-//  see README note in this repo's mapParser.js), every page using
-//  this loader gets the bandwidth win for free, no code changes
-//  needed elsewhere.
+//  `galaxies.json` / `planets.json` if the slim file doesn't exist
+//  (404). If the parser is ever updated to emit these slim files
+//  (recommended — see this repo's README), every page using this
+//  loader gets the bandwidth win for free, no code changes needed
+//  elsewhere.
 //
 //  Public API on window.MapDataLoader:
 //    .discoverPlugins()            → Promise<{sourceName: [{outputName, displayPluginName}]}>
@@ -48,7 +51,7 @@
 //
 //  RawPluginMapData shape:
 //    { outputName, sourceName, displayName,
-//      systems: [...], galaxies: [...], wormholes: [...],
+//      systems: [...], galaxies: [...], wormholes: [...], planets: [...],
 //      slim: boolean }   // true if the slim map files were used
 //
 //  Custom events fired on document:
@@ -141,11 +144,20 @@ async function _loadOnePlugin(outputName, meta) {
     const wormholesRes = await _fetchJson(`${base}/wormholes.json`);
     const wormholes = wormholesRes.ok ? wormholesRes.data : [];
 
+    let planets = [];
+    const slimPlanets = await _fetchJson(`${base}/planetsMap.json`);
+    if (slimPlanets.ok) {
+        planets = slimPlanets.data;
+    } else {
+        const fullPlanets = await _fetchJson(`${base}/planets.json`);
+        if (fullPlanets.ok) planets = fullPlanets.data;
+    }
+
     return {
         outputName,
         sourceName: meta.sourceName,
         displayName: meta.displayName,
-        systems, galaxies, wormholes,
+        systems, galaxies, wormholes, planets,
         slim,
     };
 }
