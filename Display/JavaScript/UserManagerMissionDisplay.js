@@ -27,7 +27,10 @@
 //                                  OPTIONAL: if not loaded, status
 //                                  badges are simply skipped, nothing
 //                                  else breaks)
-//    4. this file
+//    4. saveCleanupHelper.js     (defines window.SaveCleanupHelper —
+//                                  also OPTIONAL, same deal: no cleanup
+//                                  panel, nothing else breaks)
+//    5. this file
 // ═══════════════════════════════════════════════════════════
 
 (function () {
@@ -40,8 +43,10 @@ const countLabel     = document.getElementById('countLabel');
 // bottom of this file for the exact markup to add for each.
 const statusFilterEl = document.getElementById('statusFilterSelect');
 const noSaveNoticeEl = document.getElementById('noSaveNotice');
+const cleanupPanelEl = document.getElementById('saveCleanupPanel');
 
-const HAS_STATUS_HELPER = typeof window.MissionStatusHelper !== 'undefined';
+const HAS_STATUS_HELPER  = typeof window.MissionStatusHelper !== 'undefined';
+const HAS_CLEANUP_HELPER = typeof window.SaveCleanupHelper   !== 'undefined';
 
 // ── Loader events ────────────────────────────────────────────
 document.addEventListener('missionsLoadStart', () => {
@@ -58,28 +63,12 @@ document.addEventListener('missionsLoadError', (e) => {
 searchInput.addEventListener('input', applyFiltersAndRender);
 if (statusFilterEl) statusFilterEl.addEventListener('change', applyFiltersAndRender);
 
-// Event delegation: one listener handles every card's expand/collapse
-// and every raw-structure toggle, however many cards get rendered.
+// Event delegation: card clicks now open the mission detail modal
+// instead of expanding inline (see MissionModal below) — more room for
+// action buttons than an inline dropdown had.
 listEl.addEventListener('click', (e) => {
-    const toggle = e.target.closest('.mission-raw-toggle');
-    if (toggle) {
-        const box = toggle.nextElementSibling;
-        if (box.dataset.lazy === '1') {
-            // Build the raw tree only now, on first expand — see
-            // missionLoader.js's RAW_TREE_NODE_CAP comment for why.
-            const card = toggle.closest('.mission-card');
-            const m = currentMissions.get(card.dataset.id);
-            box.innerHTML = (m && m.raw)
-                ? MissionLoader.renderRawTree(m.raw)
-                : '<div class="mission-empty">(no raw data)</div>';
-            delete box.dataset.lazy;
-        }
-        box.classList.toggle('open');
-        toggle.textContent = (box.classList.contains('open') ? '▾' : '▸') + ' View full raw structure';
-        return;
-    }
     const head = e.target.closest('.mission-head');
-    if (head) head.parentElement.classList.toggle('open');
+    if (head) MissionModal.open(head.closest('.mission-card').dataset.id);
 });
 
 // ── PluginManager hook ───────────────────────────────────────
@@ -161,7 +150,13 @@ function refreshMissions() {
     let missions = MissionLoader.getAllMissions();
 
     if (HAS_STATUS_HELPER) {
-        const save = MissionStatusHelper.getCurrentSave();
+        // Prefer the cleaned-up "Updated Save" if the cleanup helper has
+        // one, so removing a failed-mission line or a triggered event
+        // actually changes what shows here rather than leaving badges
+        // pointed at the untouched original forever.
+        const save = HAS_CLEANUP_HELPER
+            ? (SaveCleanupHelper.getUpdatedSave() || MissionStatusHelper.getCurrentSave())
+            : MissionStatusHelper.getCurrentSave();
         missions = MissionStatusHelper.decorateMissions(missions, save);
         // Fold the status label into search text too, so typing "failed"
         // or "in progress" filters the list without a dedicated control.
@@ -173,6 +168,7 @@ function refreshMissions() {
 
     allDecoratedMissions = missions;
     applyFiltersAndRender();
+    renderCleanupPanel();
 }
 
 // Cheap: just search text + status dropdown over the already-decorated
@@ -206,8 +202,219 @@ function cardHtml(m) {
             <span class="mission-plugin">${m.pluginHtml}</span>
           </span>
         </div>
-        <div class="mission-body">${m.bodyHtml}</div>
       </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════
+//  Mission detail modal
+//
+//  Clicking a card opens the mission's full content in a modal instead
+//  of expanding it inline — reuses the app's shared .modal-overlay /
+//  .modal-box--detail classes (same ones the ship-detail and plugin-
+//  picker modals already use) so it looks consistent everywhere else.
+//
+//  Built to be extended from OTHER scripts, not just edited here:
+//  call MissionModal.registerAction(fn) any time (even from a script
+//  loaded after this one) and every mission's modal will include
+//  whatever button HTML `fn(mission)` returns. Return null/'' from
+//  `fn` to skip adding a button for missions where it doesn't apply.
+// ═══════════════════════════════════════════════════════════
+const MissionModal = (function () {
+    let overlayEl, titleEl, pluginEl, bodyEl, actionsEl;
+    let openMissionId = null;
+    const actionBuilders = [];
+
+    function inject() {
+        if (document.getElementById('missionModalOverlay')) return;
+
+        overlayEl = document.createElement('div');
+        overlayEl.id = 'missionModalOverlay';
+        overlayEl.className = 'modal-overlay';
+        overlayEl.innerHTML = `
+            <div class="modal-box modal-box--detail">
+                <div class="modal-header">
+                    <div>
+                        <div class="modal-title" id="missionModalTitle"></div>
+                        <div class="mission-plugin" id="missionModalPlugin"></div>
+                    </div>
+                    <button class="modal-close" id="missionModalCloseBtn">✕</button>
+                </div>
+                <div id="missionModalBody"></div>
+                <div id="missionModalActions" class="mission-modal-actions"></div>
+            </div>`;
+        document.body.appendChild(overlayEl);
+
+        titleEl   = document.getElementById('missionModalTitle');
+        pluginEl  = document.getElementById('missionModalPlugin');
+        bodyEl    = document.getElementById('missionModalBody');
+        actionsEl = document.getElementById('missionModalActions');
+
+        overlayEl.addEventListener('click', (e) => { if (e.target === overlayEl) close(); });
+        document.getElementById('missionModalCloseBtn').addEventListener('click', close);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+
+        // Raw-tree lazy-render/toggle now lives inside the modal body,
+        // same lazy-build-on-first-click behaviour as before.
+        bodyEl.addEventListener('click', (e) => {
+            const toggle = e.target.closest('.mission-raw-toggle');
+            if (!toggle) return;
+            const box = toggle.nextElementSibling;
+            if (box.dataset.lazy === '1') {
+                const m = currentMissions.get(openMissionId);
+                box.innerHTML = (m && m.raw)
+                    ? MissionLoader.renderRawTree(m.raw)
+                    : '<div class="mission-empty">(no raw data)</div>';
+                delete box.dataset.lazy;
+            }
+            box.classList.toggle('open');
+            toggle.textContent = (box.classList.contains('open') ? '▾' : '▸') + ' View full raw structure';
+        });
+
+        // One delegated listener covers every action button registered
+        // via registerAction, however many get added over time — a
+        // builder's returned HTML just needs a `data-mission-action="x"`
+        // attribute on its button for this to find it again.
+        actionsEl.addEventListener('click', (e) => {
+            const btn = e.target.closest('[data-mission-action]');
+            if (!btn) return;
+            const m = currentMissions.get(openMissionId);
+            if (m) _fireEvent('missionModalAction', { action: btn.dataset.missionAction, mission: m, button: btn });
+        });
+    }
+
+    function _fireEvent(name, detail) {
+        document.dispatchEvent(new CustomEvent(name, { detail, bubbles: true }));
+    }
+
+    function open(missionId) {
+        const m = currentMissions.get(missionId);
+        if (!m) return;
+        openMissionId = missionId;
+
+        titleEl.innerHTML  = m.titleHtml;
+        pluginEl.innerHTML = m.pluginHtml;
+        bodyEl.innerHTML   = m.bodyHtml;
+        actionsEl.innerHTML = actionBuilders
+            .map(fn => { try { return fn(m) || ''; } catch (err) { console.error('[MissionModal] action builder failed:', err); return ''; } })
+            .join('');
+
+        overlayEl.classList.add('active');
+    }
+
+    function close() {
+        overlayEl.classList.remove('active');
+        openMissionId = null;
+    }
+
+    function registerAction(buildFn) {
+        actionBuilders.push(buildFn);
+    }
+
+    document.addEventListener('DOMContentLoaded', inject);
+    // In case this script runs after DOMContentLoaded already fired
+    // (it's loaded at the end of body, so this is the common case).
+    if (document.readyState !== 'loading') inject();
+
+    return { open, close, registerAction, getOpenMissionId: () => openMissionId };
+})();
+
+window.MissionModal = MissionModal;
+
+// Example of the extension point above — remove this freely, it's just
+// a demonstration. Fires 'missionModalAction' with action:'copy-name',
+// caught nowhere by default; add a document.addEventListener for it
+// (or your own action name) wherever you want the button to actually do
+// something. See `data-mission-action` in the actionsEl listener above.
+MissionModal.registerAction(m => `
+    <button class="btn-cleanup-reset" data-mission-action="copy-name">Copy internal name</button>
+`);
+document.addEventListener('missionModalAction', (e) => {
+    if (e.detail.action !== 'copy-name') return;
+    navigator.clipboard?.writeText(e.detail.mission.name).catch(() => {});
+});
+
+// ═══════════════════════════════════════════════════════════
+//  Save cleanup panel — lists failed-mission conditions and already-
+//  triggered events found in the current save, with buttons to remove
+//  them. Every removal edits the "Updated Save" (see
+//  saveCleanupHelper.js) only — the original imported save is never
+//  touched, so this is always safe to experiment with.
+// ═══════════════════════════════════════════════════════════
+if (cleanupPanelEl && HAS_CLEANUP_HELPER) {
+    cleanupPanelEl.addEventListener('click', (e) => {
+        const removeFailedBtn = e.target.closest('[data-remove-failed]');
+        if (removeFailedBtn) {
+            SaveCleanupHelper.removeFailedCondition(removeFailedBtn.dataset.removeFailed);
+            refreshMissions();
+            return;
+        }
+        const removeEventBtn = e.target.closest('[data-remove-event]');
+        if (removeEventBtn) {
+            SaveCleanupHelper.removeTriggeredEvent(Number(removeEventBtn.dataset.removeEvent));
+            refreshMissions();
+            return;
+        }
+        if (e.target.closest('#cleanupRemoveAllFailed')) {
+            SaveCleanupHelper.removeAllFailedConditions();
+            refreshMissions();
+            return;
+        }
+        if (e.target.closest('#cleanupRemoveAllEvents')) {
+            SaveCleanupHelper.removeAllTriggeredEvents();
+            refreshMissions();
+            return;
+        }
+        if (e.target.closest('#cleanupResetBtn')) {
+            if (window.confirm('Discard all cleanup edits and start again from the original save?')) {
+                SaveCleanupHelper.resetUpdatedSave();
+                refreshMissions();
+            }
+        }
+    });
+}
+
+function renderCleanupPanel() {
+    if (!cleanupPanelEl || !HAS_CLEANUP_HELPER) return;
+
+    const save = SaveCleanupHelper.getUpdatedSave();
+    if (!save) { cleanupPanelEl.innerHTML = ''; return; }
+
+    const failed   = SaveCleanupHelper.listFailedConditions(save);
+    const events   = SaveCleanupHelper.listTriggeredEvents(save);
+
+    const failedRows = failed.length
+        ? failed.map(f => `
+            <li class="cleanup-row">
+              <span>${esc(f.name)}${f.count > 1 ? ` <span class="mission-field-label">(×${f.count})</span>` : ''}</span>
+              <button class="btn-cleanup-remove" data-remove-failed="${esc(f.name)}">Remove</button>
+            </li>`).join('')
+        : '<li class="cleanup-empty">None found.</li>';
+
+    const eventRows = events.length
+        ? events.map(ev => `
+            <li class="cleanup-row">
+              <span>Event dated ${esc(ev.dateText)}</span>
+              <button class="btn-cleanup-remove" data-remove-event="${ev.index}">Remove</button>
+            </li>`).join('')
+        : '<li class="cleanup-empty">None found.</li>';
+
+    cleanupPanelEl.innerHTML = `
+      <div class="cleanup-section">
+        <div class="cleanup-section-head">
+          <span>Failed mission history (${failed.length})</span>
+          ${failed.length ? '<button class="btn-cleanup-remove-all" id="cleanupRemoveAllFailed">Remove all</button>' : ''}
+        </div>
+        <ul class="cleanup-list">${failedRows}</ul>
+      </div>
+      <div class="cleanup-section">
+        <div class="cleanup-section-head">
+          <span>Already-triggered events (${events.length})</span>
+          ${events.length ? '<button class="btn-cleanup-remove-all" id="cleanupRemoveAllEvents">Remove all</button>' : ''}
+        </div>
+        <ul class="cleanup-list">${eventRows}</ul>
+      </div>
+      <button class="btn-cleanup-reset" id="cleanupResetBtn">Discard all cleanup edits</button>
+    `;
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -233,6 +440,10 @@ function cardHtml(m) {
 //      No save loaded — status badges need a save imported on the Save
 //      Reader page first.
 //    </p>
+//
+//  Save cleanup panel — rendered entirely by renderCleanupPanel() above,
+//  just needs an empty container:
+//    <div class="panel" id="saveCleanupPanel"></div>
 // ═══════════════════════════════════════════════════════════
 
 })();

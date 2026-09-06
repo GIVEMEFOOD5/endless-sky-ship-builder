@@ -4533,12 +4533,11 @@ body {
     white-space: nowrap;
 }
 
-.mission-body {
-    display: none;
-    padding: 4px 16px 16px;
-    border-top: 1px solid var(--c-border-2);
-}
-.mission-card.open .mission-body { display: block; }
+/* Mission content now renders inside the shared .modal-box--detail
+   overlay (see UserManagerMissionDisplay.js's MissionModal) rather than
+   an inline card dropdown, so this no longer needs a hide/show toggle —
+   it's just the content wrapper's own spacing now. */
+.mission-body { padding-top: 4px; }
 
 .mission-badges {
     display: flex;
@@ -4675,6 +4674,29 @@ body {
     gap: 8px;
     white-space: nowrap;
 }
+
+/* ── Mission detail modal (reuses the app's shared .modal-overlay /
+   .modal-box--detail / .modal-header / .modal-title / .modal-close —
+   see main.css's "Shared: modal overlay" section — this is only the
+   handful of things specific to mission content) ─────────────────── */
+#missionModalPlugin {
+    margin-top: 2px;
+}
+
+.mission-modal-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--c-border);
+}
+.mission-modal-actions:empty { display: none; }
+.mission-modal-actions .btn,
+.mission-modal-actions button {
+    font-size: 0.85rem;
+}
+
 
 .mission-status-badge {
     font-size: 0.72rem;
