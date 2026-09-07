@@ -37,6 +37,37 @@
 //  Events with a FUTURE date are left alone — they haven't happened
 //  yet, removing them would silently cancel something still pending.
 //
+//  ── What "remove an individual mission" means, precisely ────────────
+//  Confirmed against a real save: for every currently-held mission, its
+//  "<name>: active" and "<name>: offered" conditions sit as ADJACENT
+//  lines in the conditions block (in that order). Fully erasing a
+//  mission — as if it had never been accepted — means removing all
+//  three things together: the `mission "X"` block itself, AND both of
+//  those condition lines. Leaving either condition behind would let
+//  other missions' `to offer`/`to fail` checks (which sometimes test
+//  "<name>: active" or "<name>: offered" directly) see a mission as
+//  still live when its actual data block is gone.
+//
+//  ── What "complete a mission" means, precisely ───────────────────────
+//  Different from removal: this simulates the mission actually
+//  finishing successfully, not un-happening. Confirmed against a real
+//  save (a repeatable mission completed 14 times, failed 2, with no
+//  "active" key left over at all): completion DECREMENTS "active" by
+//  1 (deleting the key entirely if that reaches 0, since Endless Sky
+//  never writes "active" as a literal 0) and INCREMENTS "done" by 1 —
+//  it does NOT touch "offered", which is cumulative history. Rewards
+//  (money, outfits) are taken from the mission's `onComplete`-triggered
+//  grants specifically — confirmed against real plugin data that
+//  `grantedIn` uses exactly that string, alongside onOffer/onAccept/
+//  onVisit/etc. for the OTHER trigger points this deliberately ignores,
+//  since those would have already applied when the mission was offered/
+//  accepted, not now.
+//  Ship rewards are NOT added to the save's ship list — doing that
+//  properly needs the ship's full stat/outfit data, which this page
+//  doesn't load (that lives in dataLoader.js's ship catalog, a
+//  different page entirely). completeMission() reports them back
+//  instead of silently fabricating an incomplete ship entry.
+//
 //  Public API on window.SaveCleanupHelper:
 //    .getUpdatedSave()          → the working copy, or null if no save is loaded
 //    .resetUpdatedSave()        → discard edits, recopy from the current save
@@ -46,6 +77,14 @@
 //    .removeAllFailedConditions()   → remove every one currently listed
 //    .removeTriggeredEvent(index)   → remove one, returns updated save
 //    .removeAllTriggeredEvents()    → remove every one currently listed
+//    .removeMission(name)           → erase a held mission entirely
+//    .completeMission(name, rewards) → simulate completion + apply rewards
+//                                       rewards: { credits, outfits:[{name,count}],
+//                                                  ships:[{name,count}] } — caller
+//                                       (the display layer, which has the plugin
+//                                       catalog) builds this from the mission's
+//                                       own onComplete-triggered payment/rewards.
+//                                       Returns { save, unappliedShips }.
 // ═══════════════════════════════════════════════════════════
 
 (function () {
@@ -207,6 +246,72 @@ function removeAllTriggeredEvents() {
   return save;
 }
 
+// ── Mission removal ───────────────────────────────────────────
+// Strips a mission out of the save entirely — the held `mission` block
+// plus both its "active" and "offered" conditions. See the header note
+// above for why all three need to go together.
+function _pullMissionBlock(save, name) {
+  const idx = (save.missions || []).findIndex(m => m.name === name);
+  if (idx === -1) return null;
+  const [removed] = save.missions.splice(idx, 1);
+  if (save.blocks && Array.isArray(save.blocks.mission)) save.blocks.mission = save.missions;
+  return removed;
+}
+
+function removeMission(name) {
+  const save = getUpdatedSave();
+  if (!save) return null;
+  _pullMissionBlock(save, name);
+  delete save.pilot.conditions[`${name}: active`];
+  delete save.pilot.conditions[`${name}: offered`];
+  _writeJSON(SM_UPDATED_SAVE_KEY, save);
+  return save;
+}
+
+// ── Mission completion ───────────────────────────────────────
+// Simulates finishing a currently-held mission successfully: removes
+// its held block, decrements "active" (deleting the key at 0, never
+// writing a literal 0 — matches confirmed real-save behaviour),
+// increments "done", and applies whatever rewards the caller computed
+// from the mission's onComplete-triggered payment/outfit/ship grants.
+//
+// `rewards` shape: { credits: number, outfits: [{name, count}], ships: [{name, count}] }
+// Ship rewards are reported back in `unappliedShips`, not written to
+// save.ships — see the header note on why.
+function completeMission(name, rewards) {
+  const save = getUpdatedSave();
+  if (!save) return null;
+  rewards = rewards || {};
+
+  const held = _pullMissionBlock(save, name);
+  if (!held) return { save, unappliedShips: [], appliedToHeldMission: false };
+
+  const activeKey = `${name}: active`;
+  const currentActive = save.pilot.conditions[activeKey];
+  const nextActive = (typeof currentActive === 'number' ? currentActive : (currentActive ? 1 : 0)) - 1;
+  if (nextActive > 0) save.pilot.conditions[activeKey] = nextActive;
+  else delete save.pilot.conditions[activeKey];
+
+  const doneKey = `${name}: done`;
+  const currentDone = save.pilot.conditions[doneKey];
+  save.pilot.conditions[doneKey] = (typeof currentDone === 'number' ? currentDone : (currentDone ? 1 : 0)) + 1;
+
+  if (rewards.credits) {
+    save.account = save.account || { credits: 0, score: 0, salaries: {}, history: [] };
+    save.account.credits = (save.account.credits || 0) + rewards.credits;
+  }
+
+  for (const o of (rewards.outfits || [])) {
+    if (!o || !o.name) continue;
+    save.cargo = save.cargo || { outfits: {}, commodities: {} };
+    save.cargo.outfits = save.cargo.outfits || {};
+    save.cargo.outfits[o.name] = (save.cargo.outfits[o.name] || 0) + (o.count || 1);
+  }
+
+  _writeJSON(SM_UPDATED_SAVE_KEY, save);
+  return { save, unappliedShips: rewards.ships || [], appliedToHeldMission: true };
+}
+
 window.SaveCleanupHelper = {
   getUpdatedSave,
   resetUpdatedSave,
@@ -216,6 +321,8 @@ window.SaveCleanupHelper = {
   removeAllFailedConditions,
   removeTriggeredEvent,
   removeAllTriggeredEvents,
+  removeMission,
+  completeMission,
 };
 
 })();
