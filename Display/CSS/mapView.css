@@ -182,6 +182,35 @@
     color: #cbb2ff;
 }
 .map-tooltip-links, .map-tooltip-source { color: var(--c-text-dim); margin-top: 3px; }
+.map-tooltip-planets { margin-top: 5px; padding-top: 5px; border-top: 1px solid var(--map-panel-border); }
+.map-tooltip-planet { color: var(--c-text); font-size: 0.72rem; line-height: 1.6; }
+.map-tooltip-planet-gov { color: var(--c-text-dim); }
+.map-tooltip-missions { margin-top: 5px; padding-top: 5px; border-top: 1px solid var(--map-panel-border); }
+.map-tooltip-mission { color: var(--c-text); font-size: 0.72rem; line-height: 1.6; }
+.map-tooltip-mission-approx { color: var(--c-text-dim); font-size: 0.68rem; font-style: italic; line-height: 1.5; margin-top: 2px; }
+
+/* ── Layers panel (sits above Governments inside the legend box) ── */
+.map-layers {
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid var(--map-panel-border);
+}
+.map-toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.8rem;
+    color: var(--c-text);
+    cursor: pointer;
+    user-select: none;
+    min-height: 26px; /* comfortable tap target on touch screens */
+}
+.map-toggle-row input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    accent-color: var(--map-accent);
+    cursor: pointer;
+}
 
 /* ── Zoom controls ────────────────────────────────────────────── */
 .map-controls {
