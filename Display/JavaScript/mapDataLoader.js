@@ -5,9 +5,9 @@
 //
 //  STAGE 1 of the map pipeline: GRAB THE DATA, PUSH IT FORWARD.
 //  This file's only job is fetching raw map data (systems /
-//  galaxies / wormholes) per plugin and handing it, unmodified,
-//  to whoever asks for it. It does NOT reshape, merge, or
-//  compute anything — see mapDataFormatter.js for that.
+//  galaxies / wormholes / planets / missions) per plugin and handing
+//  it, unmodified, to whoever asks for it. It does NOT reshape,
+//  merge, or compute anything — see mapDataFormatter.js for that.
 //
 //  Mirrors dataLoader.js's plugin-discovery pattern (data/index.json)
 //  so the Systems page lists exactly the same plugins as every other
@@ -27,20 +27,22 @@
 //
 //  SLIM FILES (forward-compatible)
 //  --------------------------------
-//  Full `systems.json` / `planets.json` files can be tens of
-//  megabytes (they carry the entire objectTree, descriptions,
-//  landscape text, etc. — none of which the map needs). This loader
-//  always tries a slim companion file first:
+//  Full `systems.json` / `planets.json` / `missions.json` files can
+//  be tens of megabytes (they carry the entire objectTree,
+//  descriptions, conversation text, etc. — none of which the map
+//  needs). This loader always tries a slim companion file first:
 //      dataFiles/systemsMap.json   →  [{name,pos,government,links,attributes}, ...]
 //      dataFiles/galaxiesMap.json  →  [{name,pos,sprite}, ...]
 //      dataFiles/planetsMap.json   →  [{name,systemName,government,hasSpaceport,
 //                                        hasShipyard,hasOutfitter,wormhole}, ...]
+//      dataFiles/missionsMap.json  →  [{name,displayName,locations,repeatable,
+//                                        payment,source}, ...]
 //  and transparently falls back to the full `systems.json` /
-//  `galaxies.json` / `planets.json` if the slim file doesn't exist
-//  (404). If the parser is ever updated to emit these slim files
-//  (recommended — see this repo's README), every page using this
-//  loader gets the bandwidth win for free, no code changes needed
-//  elsewhere.
+//  `galaxies.json` / `planets.json` / `missions.json` if the slim
+//  file doesn't exist (404). If the parser is ever updated to emit
+//  these slim files (recommended — see this repo's README), every
+//  page using this loader gets the bandwidth win for free, no code
+//  changes needed elsewhere.
 //
 //  Public API on window.MapDataLoader:
 //    .discoverPlugins()            → Promise<{sourceName: [{outputName, displayPluginName}]}>
@@ -52,6 +54,7 @@
 //  RawPluginMapData shape:
 //    { outputName, sourceName, displayName,
 //      systems: [...], galaxies: [...], wormholes: [...], planets: [...],
+//      missions: [...],
 //      slim: boolean }   // true if the slim map files were used
 //
 //  Custom events fired on document:
@@ -153,11 +156,20 @@ async function _loadOnePlugin(outputName, meta) {
         if (fullPlanets.ok) planets = fullPlanets.data;
     }
 
+    let missions = [];
+    const slimMissions = await _fetchJson(`${base}/missionsMap.json`);
+    if (slimMissions.ok) {
+        missions = slimMissions.data;
+    } else {
+        const fullMissions = await _fetchJson(`${base}/missions.json`);
+        if (fullMissions.ok) missions = fullMissions.data;
+    }
+
     return {
         outputName,
         sourceName: meta.sourceName,
         displayName: meta.displayName,
-        systems, galaxies, wormholes, planets,
+        systems, galaxies, wormholes, planets, missions,
         slim,
     };
 }
