@@ -362,18 +362,22 @@ if (HAS_STATUS_HELPER) {
 
 // ═══════════════════════════════════════════════════════════
 //  Complete / remove mission — only shown for a mission the save is
-//  CURRENTLY holding (m.status.isHeld), since both operations start
-//  from "pull the held mission block out." See saveCleanupHelper.js's
-//  header note for exactly what each one does to the save data.
+//  Complete Mission only shows for a mission the save is CURRENTLY
+//  holding (m.status.isHeld) — simulating completion only makes sense
+//  starting from "pull the held mission block out." Remove Mission
+//  shows for ANY mission regardless of status — see
+//  saveCleanupHelper.js's removeMission() for exactly what it clears
+//  in each case (held, available, or already-resolved).
 // ═══════════════════════════════════════════════════════════
 if (HAS_CLEANUP_HELPER && HAS_STATUS_HELPER) {
 
     MissionModal.registerAction(m => {
-        if (!m.status || !m.status.isHeld) return '';
-        return `
-            <button class="btn-cleanup-remove-all" data-mission-action="complete-mission">Complete mission (apply rewards)</button>
-            <button class="btn-cleanup-remove" data-mission-action="remove-mission">Remove mission entirely</button>
-        `;
+        const buttons = [];
+        if (m.status && m.status.isHeld) {
+            buttons.push('<button class="btn-cleanup-remove-all" data-mission-action="complete-mission">Complete mission (apply rewards)</button>');
+        }
+        buttons.push('<button class="btn-cleanup-remove" data-mission-action="remove-mission">Remove mission entirely</button>');
+        return buttons.join('\n');
     });
 
     // Reads the mission's own onComplete-triggered payment/outfit/ship
@@ -399,11 +403,21 @@ if (HAS_CLEANUP_HELPER && HAS_STATUS_HELPER) {
         return { credits, outfits, ships };
     }
 
+    // Builds a confirm-dialog message that actually describes what's
+    // about to happen for THIS mission's current status, rather than a
+    // one-size-fits-all sentence that's only accurate for held missions.
+    function describeRemoval(m) {
+        if (m.status.isHeld)      return 'This deletes its held mission data and clears its tracking conditions.';
+        if (m.status.isAvailable) return 'This removes it from the available-jobs list and clears its tracking conditions.';
+        if (m.status.status === MissionStatusHelper.STATUS.NOT_ENCOUNTERED) return 'This save has no record of it, so there\u2019s nothing to remove.';
+        return 'This clears its recorded history (offered/done/failed/declined counts) from the save.';
+    }
+
     document.addEventListener('missionModalAction', (e) => {
         const { action, mission } = e.detail;
 
         if (action === 'remove-mission') {
-            if (!window.confirm(`Remove "${mission.name}" entirely? This deletes it from the Updated Save's active missions and clears its tracking conditions. The original save is untouched.`)) return;
+            if (!window.confirm(`Remove "${mission.name}"? ${describeRemoval(mission)} The original save is untouched — this only edits the Updated Save.`)) return;
             SaveCleanupHelper.removeMission(mission.name);
             MissionModal.close();
             refreshMissions();
