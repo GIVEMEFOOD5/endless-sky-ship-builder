@@ -27,6 +27,16 @@
 //  PluginManager for the current active list, downloads/merges just
 //  those plugins' map data, and redraws. No other page logic needs
 //  to know the map exists.
+//
+//  JOB BOARD TOGGLE
+//  -----------------
+//  A checkbox (#mapJobBoardToggle, in Systems.html) controls whether
+//  job-related mission markers/badges show at all. Story (non-job)
+//  missions with a concrete source always show — they aren't part of
+//  what's being toggled. See mapCalculations.js's buildMissionIndex()
+//  for how "where could a job start" is computed, including its
+//  documented approximation for generic (filter-based) job-board
+//  templates.
 // ═══════════════════════════════════════════════════════════
 
 (function () {
@@ -35,7 +45,7 @@ const { MapDataLoader, MapDataFormatter, MapCalculations } = window;
 
 // ── DOM refs (grabbed lazily — Systems.html defines these ids) ──
 let canvas, ctx, wrap;
-let searchInput, resultsEl, legendListEl, tooltipEl, subtitleEl, loadingEl, loadingBarEl;
+let searchInput, resultsEl, legendListEl, tooltipEl, subtitleEl, loadingEl, loadingBarEl, jobBoardToggleEl;
 
 let dpr = Math.min(window.devicePixelRatio || 1, 2);
 
@@ -46,6 +56,9 @@ let galaxies = [];
 let linkSegments = [];
 let govPalette = { names: [], counts: {}, colors: {} };
 const activeGovFilters = new Set(); // governments currently hidden by the legend
+
+let missionIndex = { concreteBySystem: new Map(), genericJobMatchCount: new Map(), stats: {} };
+let jobBoardOn = true; // controlled by the Job Board toggle in the UI
 
 let cam = MapCalculations.createCamera();
 let hovered = null;
@@ -67,6 +80,16 @@ function _grabDom() {
     subtitleEl = document.getElementById('mapSubtitle');
     loadingEl = document.getElementById('mapLoading');
     loadingBarEl = document.getElementById('mapLoadingBar');
+    jobBoardToggleEl = document.getElementById('mapJobBoardToggle');
+}
+
+function _wireJobBoardToggle() {
+    if (!jobBoardToggleEl) return;
+    jobBoardToggleEl.checked = jobBoardOn;
+    jobBoardToggleEl.addEventListener('change', () => {
+        jobBoardOn = jobBoardToggleEl.checked;
+        _draw();
+    });
 }
 
 function init() {
@@ -75,6 +98,7 @@ function init() {
     _wireSearch();
     _wireControls();
     _wireLoadProgress();
+    _wireJobBoardToggle();
     window.addEventListener('resize', _resizeCanvas);
     _resizeCanvas();
 
@@ -122,6 +146,9 @@ async function _loadAndRender(activeOutputNames, resetView) {
         linkSegments = MapCalculations.buildLinkSegments(systemsByName);
         govPalette = MapCalculations.buildGovernmentPalette(systemsArr);
 
+        const missions = MapDataFormatter.formatMissions(pluginDataMap, activeOutputNames, planetsBySystem);
+        missionIndex = MapCalculations.buildMissionIndex(missions, systemsArr);
+
         activeGovFilters.clear();
         govPalette.names.forEach(g => activeGovFilters.add(g));
 
@@ -165,11 +192,10 @@ function _showError(message) {
 
 function _updateSubtitle(activeOutputNames) {
     if (!subtitleEl) return;
-    const slimNote = [...systemsByName.values()].length
-        ? ''
-        : '';
     subtitleEl.textContent =
         `${systemsArr.length} systems · ${govPalette.names.length} governments · ` +
+        `${missionIndex.stats.total || 0} missions (${missionIndex.stats.concreteJobs || 0} fixed jobs, ` +
+        `${missionIndex.stats.genericJobTemplates || 0} generic job templates) · ` +
         `${activeOutputNames.length} plugin${activeOutputNames.length === 1 ? '' : 's'} active`;
 }
 
@@ -264,6 +290,7 @@ function _draw() {
             ctx.arc(p.x, p.y, nodeRadius * 1.3 + 2, 0, Math.PI * 2);
             ctx.stroke();
         }
+        _drawMissionMarkers(p, s, nodeRadius);
     }
 
     // Hovered / selected highlight rings + always-on labels
@@ -291,6 +318,51 @@ function _draw() {
             if (p.x < -20 || p.x > w + 20 || p.y < -20 || p.y > h + 20) continue;
             ctx.fillText(s.name, p.x + nodeRadius + 5, p.y + 3);
         }
+    }
+}
+
+/**
+ * Draws small overlay glyphs on top of a system's government dot for
+ * mission activity there:
+ *   - a small white flag  — one or more STORY missions start here
+ *     (always shown; not gated by the Job Board toggle)
+ *   - a small gold diamond — job-board work is available here, either
+ *     a fixed job or a matching generic job template (only shown when
+ *     jobBoardOn — this is exactly the thing the toggle controls)
+ * Both are tiny and offset from the dot so they read as a badge, not
+ * a second system.
+ */
+function _drawMissionMarkers(p, s, nodeRadius) {
+    const bucket = missionIndex.concreteBySystem.get(s.name);
+    const storyCount = bucket ? bucket.story.length : 0;
+    const jobCount = jobBoardOn
+        ? (bucket ? bucket.jobs.length : 0) + (missionIndex.genericJobMatchCount.get(s.name) || 0)
+        : 0;
+
+    if (storyCount > 0) {
+        const fx = p.x - nodeRadius - 3, fy = p.y - nodeRadius - 3;
+        ctx.beginPath();
+        ctx.moveTo(fx, fy - 5);
+        ctx.lineTo(fx, fy + 4);
+        ctx.moveTo(fx, fy - 5);
+        ctx.lineTo(fx + 5, fy - 3);
+        ctx.lineTo(fx, fy - 1);
+        ctx.strokeStyle = '#e8edf7';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+    }
+
+    if (jobCount > 0) {
+        const dx = p.x + nodeRadius + 4, dy = p.y - nodeRadius - 4;
+        const r = 3.2;
+        ctx.beginPath();
+        ctx.moveTo(dx, dy - r);
+        ctx.lineTo(dx + r, dy);
+        ctx.lineTo(dx, dy + r);
+        ctx.lineTo(dx - r, dy);
+        ctx.closePath();
+        ctx.fillStyle = '#ffd166';
+        ctx.fill();
     }
 }
 
@@ -417,12 +489,45 @@ function _showTooltip(s, clientX, clientY) {
         ${s.wormhole ? '<span class="map-tooltip-badge">wormhole</span>' : ''}
         <div class="map-tooltip-links">links: ${links}</div>
         ${_planetsHtml(s.planets)}
+        ${_missionsHtml(s)}
         <div class="map-tooltip-source">from: ${s.definedBy.join(', ')}</div>
     `;
     tooltipEl.style.display = 'block';
     const wrapRect = wrap.getBoundingClientRect();
     tooltipEl.style.left = Math.min(clientX - wrapRect.left + 14, wrapRect.width - 250) + 'px';
     tooltipEl.style.top = (clientY - wrapRect.top + 14) + 'px';
+}
+
+/**
+ * Mission section of the tooltip: names every concrete (fixed-planet)
+ * mission that starts here, split into story vs job-board, plus — only
+ * while the Job Board toggle is on — how many generic job templates
+ * could also spawn here (an approximation; see mapCalculations.js's
+ * evaluateMissionFilter doc comment for exactly what that does and
+ * doesn't check).
+ */
+function _missionsHtml(s) {
+    const bucket = missionIndex.concreteBySystem.get(s.name);
+    const genericCount = missionIndex.genericJobMatchCount.get(s.name) || 0;
+    const hasStory = bucket && bucket.story.length > 0;
+    const hasJobs = bucket && bucket.jobs.length > 0;
+    if (!hasStory && !hasJobs && !(jobBoardOn && genericCount > 0)) return '';
+
+    const rows = [];
+    if (hasStory) {
+        const names = bucket.story.slice(0, 4).map(m => m.displayName).join(', ');
+        const more = bucket.story.length > 4 ? ` +${bucket.story.length - 4} more` : '';
+        rows.push(`<div class="map-tooltip-mission">🚩 ${names}${more}</div>`);
+    }
+    if (jobBoardOn && hasJobs) {
+        const names = bucket.jobs.slice(0, 4).map(m => m.displayName).join(', ');
+        const more = bucket.jobs.length > 4 ? ` +${bucket.jobs.length - 4} more` : '';
+        rows.push(`<div class="map-tooltip-mission">🧾 ${names}${more}</div>`);
+    }
+    if (jobBoardOn && genericCount > 0) {
+        rows.push(`<div class="map-tooltip-mission-approx">🧾 ~${genericCount} generic job template${genericCount === 1 ? '' : 's'} could also appear here (approx.)</div>`);
+    }
+    return `<div class="map-tooltip-missions">${rows.join('')}</div>`;
 }
 
 /**
