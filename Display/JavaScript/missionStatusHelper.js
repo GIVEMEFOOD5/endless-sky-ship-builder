@@ -34,6 +34,12 @@
 //      that as just "failed" (or just "done") would be actively wrong.
 //      So every status result carries the full counts, and `mixed` is
 //      its own explicit status rather than a coin-flip between two.
+//    - "Failed" doesn't always mean the player did something wrong —
+//      some missions can structurally only ever resolve via `to fail`
+//      (a literal always-false `to complete`). `unreachableCompletePath`
+//      flags that narrow, confirmed-real pattern — see
+//      hasUnreachableCompletePath() below for exactly what it does and
+//      doesn't catch.
 //
 //  Public API on window.MissionStatusHelper:
 //    .STATUS                        → the status string constants
@@ -49,6 +55,8 @@
 //                                      output (or any array of objects with
 //                                      a `.name`), returns the same array
 //                                      with `.status` attached to each
+//    .hasUnreachableCompletePath(rawEntries)
+//                                    → pure utility, see the note above
 // ═══════════════════════════════════════════════════════════
 
 (function () {
@@ -70,6 +78,40 @@ const STATUS = {
   OFFERED_ONLY:    'offered_only',
   NOT_ENCOUNTERED: 'not_encountered',
 };
+
+// ── "Failure may be the only real path" detector ────────────────
+//
+// A narrow, specific pattern confirmed against a real save: a mission
+// whose `to complete` trigger is a literal always-false condition (a
+// single child that's just the bare number 0, no values) while a real
+// `to fail` trigger exists. Structurally, such a mission can ONLY ever
+// resolve through `to fail` — so a "Failed" status on one of these may
+// be its designed resolution path, not a genuine failure.
+//
+// This is deliberately narrow. It catches exactly the one pattern
+// that's actually been confirmed in real data, nothing broader —
+// tested against the full plugin catalog and it does NOT generalise
+// to "any unreachable to-complete" (a mission could just as easily
+// rely on an explicit `complete` action fired from a conversation,
+// which looks completely different and isn't detectable this way).
+// So: the ABSENCE of this flag does not mean a failure was genuine —
+// it only means this specific pattern wasn't the cause. Always treat
+// it as "worth a second look", never as a verdict.
+function hasUnreachableCompletePath(rawEntries) {
+  if (!Array.isArray(rawEntries)) return false;
+  const toComplete = rawEntries.find(e => e.key === 'to complete');
+  const toFail     = rawEntries.find(e => e.key === 'to fail');
+  if (!toComplete || !toFail) return false;
+
+  const kids = toComplete.children;
+  const looksAlwaysFalse = Array.isArray(kids) && kids.length === 1 &&
+      kids[0].key === '0' && (!kids[0].values || kids[0].values.length === 0);
+  if (!looksAlwaysFalse) return false;
+
+  // `to fail` needs to actually say something — not itself be an
+  // equally-trivial placeholder.
+  return !!((toFail.children && toFail.children.length) || (toFail.values && toFail.values.length));
+}
 
 // ── Save-file access ─────────────────────────────────────────
 function _readJSON(key) {
@@ -122,6 +164,18 @@ function getMissionStatus(name, save) {
   const isHeld      = !!(save && Array.isArray(save.missions)     && save.missions.some(m => m.name === name));
   const isAvailable = !!(save && Array.isArray(save.availableJobs) && save.availableJobs.some(m => m.name === name));
 
+  // Checked here ONLY against the save's own copy of a currently-held
+  // mission (the live, most-trustworthy source). For missions that have
+  // already resolved (not held), decorateMissions() layers an
+  // additional check against the plugin catalog's static definition,
+  // since the save no longer carries that mission's structure once it's
+  // no longer active.
+  let unreachableCompletePath = false;
+  if (isHeld) {
+    const heldEntry = save.missions.find(m => m.name === name);
+    if (heldEntry) unreachableCompletePath = hasUnreachableCompletePath(heldEntry.raw);
+  }
+
   const resolutionTypes = ['done', 'failed', 'declined'].filter(k => counts[k] > 0);
   const history = resolutionTypes.length > 1
     ? STATUS.MIXED
@@ -140,6 +194,7 @@ function getMissionStatus(name, save) {
     counts,
     isHeld,
     isAvailable,
+    unreachableCompletePath,
   };
 }
 
@@ -197,10 +252,17 @@ function getAllStatuses(save) {
 function decorateMissions(missions, save) {
   save = save === undefined ? getCurrentSave() : save;
   const statuses = getAllStatuses(save);
-  return missions.map(m => ({
-    ...m,
-    status: statuses.get(m.name) || getMissionStatus(m.name, save),
-  }));
+  return missions.map(m => {
+    let status = statuses.get(m.name) || getMissionStatus(m.name, save);
+    // Already-resolved missions (not currently held) have no live save
+    // data to check for the unreachable-complete pattern — fall back to
+    // the plugin catalog's static definition, which is what `m.raw` is
+    // here (missionLoader.js's own raw tree for this catalog entry).
+    if (!status.unreachableCompletePath && !status.isHeld && m.raw && hasUnreachableCompletePath(m.raw)) {
+      status = { ...status, unreachableCompletePath: true };
+    }
+    return { ...m, status };
+  });
 }
 
 window.MissionStatusHelper = {
@@ -211,6 +273,7 @@ window.MissionStatusHelper = {
   getMissionStatus,
   getAllStatuses,
   decorateMissions,
+  hasUnreachableCompletePath,
 };
 
 })();
