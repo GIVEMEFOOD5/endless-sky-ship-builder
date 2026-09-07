@@ -291,6 +291,11 @@ function formatMission(m, pluginId, pluginDisplay) {
         searchText,
         bodyHtml,
         raw: m.raw || null, // rendered lazily — see MissionLoader.renderRawTree()
+        // Structured (not HTML-formatted) reward/payment data — already
+        // baked into bodyHtml for display, but a "complete this mission"
+        // action needs the actual numbers/names, not formatted strings.
+        rewards: m.rewards || { outfits: [], ships: [] },
+        payment: m.payment || { apparentPayment: null, triggers: {} },
     };
 }
 
