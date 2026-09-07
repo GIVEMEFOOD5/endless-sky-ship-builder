@@ -134,8 +134,13 @@ const STATUS_BADGE = HAS_STATUS_HELPER ? {
 function statusBadgeHtml(m) {
     if (!m.status) return '';
     const badge = STATUS_BADGE[m.status.status];
-    if (!badge) return '';
-    return `<span class="mission-status-badge mission-status-badge--${badge.cls}" title="${esc(m.status.label)}">${esc(badge.text)}</span>`;
+    const badgeHtml = badge
+        ? `<span class="mission-status-badge mission-status-badge--${badge.cls}" title="${esc(m.status.label)}">${esc(badge.text)}</span>`
+        : '';
+    const warningHtml = m.status.unreachableCompletePath
+        ? `<span class="mission-status-warning" title="This mission's &quot;to complete&quot; looks structurally unreachable — it may only ever resolve via &quot;to fail&quot;. A Failed status here could be its designed path, not a genuine failure. Open the mission and check its raw structure to judge for yourself.">⚠</span>`
+        : '';
+    return badgeHtml + warningHtml;
 }
 
 function esc(str) {
@@ -223,6 +228,7 @@ const MissionModal = (function () {
     let overlayEl, titleEl, pluginEl, bodyEl, actionsEl;
     let openMissionId = null;
     const actionBuilders = [];
+    const noteBuilders = [];
 
     function inject() {
         if (document.getElementById('missionModalOverlay')) return;
@@ -293,7 +299,10 @@ const MissionModal = (function () {
 
         titleEl.innerHTML  = m.titleHtml;
         pluginEl.innerHTML = m.pluginHtml;
-        bodyEl.innerHTML   = m.bodyHtml;
+        const notes = noteBuilders
+            .map(fn => { try { return fn(m) || ''; } catch (err) { console.error('[MissionModal] note builder failed:', err); return ''; } })
+            .join('');
+        bodyEl.innerHTML   = notes + m.bodyHtml;
         actionsEl.innerHTML = actionBuilders
             .map(fn => { try { return fn(m) || ''; } catch (err) { console.error('[MissionModal] action builder failed:', err); return ''; } })
             .join('');
@@ -310,12 +319,20 @@ const MissionModal = (function () {
         actionBuilders.push(buildFn);
     }
 
+    // Same extension pattern as registerAction, but for informational
+    // banners prepended to the body instead of buttons in the footer —
+    // e.g. the "this mission might only resolve via failure" warning
+    // below. Call from any script, any time.
+    function registerNote(buildFn) {
+        noteBuilders.push(buildFn);
+    }
+
     document.addEventListener('DOMContentLoaded', inject);
     // In case this script runs after DOMContentLoaded already fired
     // (it's loaded at the end of body, so this is the common case).
     if (document.readyState !== 'loading') inject();
 
-    return { open, close, registerAction, getOpenMissionId: () => openMissionId };
+    return { open, close, registerAction, registerNote, getOpenMissionId: () => openMissionId };
 })();
 
 window.MissionModal = MissionModal;
@@ -332,6 +349,88 @@ document.addEventListener('missionModalAction', (e) => {
     if (e.detail.action !== 'copy-name') return;
     navigator.clipboard?.writeText(e.detail.mission.name).catch(() => {});
 });
+
+// Warning banner for the "failure may be the only real path" pattern —
+// see missionStatusHelper.js's hasUnreachableCompletePath() for exactly
+// what this does and doesn't catch.
+if (HAS_STATUS_HELPER) {
+    MissionModal.registerNote(m => {
+        if (!m.status || !m.status.unreachableCompletePath) return '';
+        return `<div class="mission-warning-banner">⚠ This mission's <span class="mission-tag">to complete</span> looks structurally unreachable — it may only ever resolve via <span class="mission-tag">to fail</span>. A "Failed" status here could be this mission's intended path, not a genuine failure. Check the raw structure below to judge for yourself.</div>`;
+    });
+}
+
+// ═══════════════════════════════════════════════════════════
+//  Complete / remove mission — only shown for a mission the save is
+//  CURRENTLY holding (m.status.isHeld), since both operations start
+//  from "pull the held mission block out." See saveCleanupHelper.js's
+//  header note for exactly what each one does to the save data.
+// ═══════════════════════════════════════════════════════════
+if (HAS_CLEANUP_HELPER && HAS_STATUS_HELPER) {
+
+    MissionModal.registerAction(m => {
+        if (!m.status || !m.status.isHeld) return '';
+        return `
+            <button class="btn-cleanup-remove-all" data-mission-action="complete-mission">Complete mission (apply rewards)</button>
+            <button class="btn-cleanup-remove" data-mission-action="remove-mission">Remove mission entirely</button>
+        `;
+    });
+
+    // Reads the mission's own onComplete-triggered payment/outfit/ship
+    // grants — the OTHER trigger points (onOffer, onAccept, onVisit...)
+    // are deliberately excluded since those already fired earlier in a
+    // real playthrough, not at completion. See saveCleanupHelper.js's
+    // header note on "complete a mission" for the full reasoning.
+    function computeOnCompleteRewards(m) {
+        const onCompleteTriggers = (m.payment && m.payment.triggers && m.payment.triggers.onComplete) || [];
+        let credits = onCompleteTriggers.reduce((sum, t) => sum + (t.base || 0), 0);
+        // No onComplete-specific payment entry found — apparentPayment is
+        // the estimate Endless Sky itself shows the player, so it's a
+        // reasonable fallback, just less precise than a real trigger.
+        if (credits === 0 && onCompleteTriggers.length === 0 && m.payment && m.payment.apparentPayment) {
+            credits = m.payment.apparentPayment;
+        }
+        const outfits = (m.rewards.outfits || [])
+            .filter(o => o.grantedIn === 'onComplete')
+            .map(o => ({ name: o.name, count: o.count || 1 }));
+        const ships = (m.rewards.ships || [])
+            .filter(s => s.grantedIn === 'onComplete')
+            .map(s => ({ name: s.name, count: s.count || 1 }));
+        return { credits, outfits, ships };
+    }
+
+    document.addEventListener('missionModalAction', (e) => {
+        const { action, mission } = e.detail;
+
+        if (action === 'remove-mission') {
+            if (!window.confirm(`Remove "${mission.name}" entirely? This deletes it from the Updated Save's active missions and clears its tracking conditions. The original save is untouched.`)) return;
+            SaveCleanupHelper.removeMission(mission.name);
+            MissionModal.close();
+            refreshMissions();
+            return;
+        }
+
+        if (action === 'complete-mission') {
+            const rewards = computeOnCompleteRewards(mission);
+            if (!window.confirm(`Mark "${mission.name}" as completed and apply its rewards to the Updated Save?`)) return;
+            const result = SaveCleanupHelper.completeMission(mission.name, rewards);
+            MissionModal.close();
+            refreshMissions();
+
+            const parts = [];
+            if (rewards.credits) parts.push(`${rewards.credits.toLocaleString()} credits`);
+            rewards.outfits.forEach(o => parts.push(`${o.name}${o.count > 1 ? ` ×${o.count}` : ''} (added to cargo)`));
+            if (result.unappliedShips.length) {
+                result.unappliedShips.forEach(s => parts.push(`${s.name} (SHIP — not added automatically, see note below)`));
+            }
+            let msg = parts.length ? `Applied:\n${parts.join('\n')}` : 'This mission had no onComplete rewards to apply.';
+            if (result.unappliedShips.length) {
+                msg += `\n\nShip rewards aren't added to the save automatically — this page doesn't have full ship stat data loaded (that lives on the Ship Builder page), so adding one here would mean an incomplete/broken entry. Add it manually if needed.`;
+            }
+            window.alert(msg);
+        }
+    });
+}
 
 // ═══════════════════════════════════════════════════════════
 //  Save cleanup panel — lists failed-mission conditions and already-
