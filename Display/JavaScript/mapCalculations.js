@@ -23,6 +23,8 @@
 //    .search(systemsArr, query, limit?)
 //    .lod(cam)
 //    .clampScale(scale)
+//    .evaluateMissionFilter(filterEntries, system)   → boolean
+//    .buildMissionIndex(missions, systemsArr)        → MissionIndex
 // ═══════════════════════════════════════════════════════════
 
 (function () {
@@ -209,6 +211,148 @@ function lod(cam) {
     };
 }
 
+// ── Mission source filters ──────────────────────────────────
+//
+// A job-board mission's `source` is often a FILTER, not one fixed
+// planet — e.g. "any planet in a system with the 'avgi diaspora'
+// attribute" — so the game can offer a fresh, randomised job every
+// time you land somewhere matching. `evaluateMissionFilter` re-checks
+// that same filter against one of our systems.
+//
+// HONEST LIMITATION: Endless Sky's mission-location filters also
+// support `near <system> <min> <max>` (jump-distance from a named
+// system), `distance <min> <max>` (jump-distance from wherever the
+// mission is currently being offered), and `neighbor { ... }`
+// (any adjacent system matches). Jump-distance requires walking the
+// whole link graph outward, and `distance` specifically depends on
+// a "current system" this map has no concept of. Implementing those
+// exactly risks confidently-wrong pins, so this evaluator supports
+// the two unambiguous, position-independent filter keys — `attributes`
+// and `government` — plus `not`, and treats `near`/`distance`/`neighbor`
+// as automatically satisfied (permissive). That means filter-matched
+// systems are an UPPER BOUND — every system shown genuinely could host
+// the job, but a few more may be filtered out in-game by a proximity
+// clause this doesn't evaluate. buildMissionIndex() additionally
+// requires at least one spaceport-bearing planet before counting a
+// system at all (jobs can't be offered anywhere you can't land), which
+// is what keeps fully-permissive filters from lighting up every
+// uninhabited system in the galaxy. mapDisplay.js labels the remaining
+// approximation clearly rather than presenting it as exact.
+
+function evaluateMissionFilter(filterEntries, system) {
+    if (!Array.isArray(filterEntries) || filterEntries.length === 0) return true; // no constraints = matches anywhere
+    // Sibling entries at the same level all have to hold (AND).
+    return filterEntries.every(entry => _evalFilterEntry(entry, system));
+}
+
+/** Falls back to computing the union of a system's planets' attributes
+ *  when it hasn't already been precomputed onto `system._planetAttributes`
+ *  (buildMissionIndex precomputes it once per system for performance). */
+function _planetAttributeSet(system) {
+    const set = new Set();
+    for (const p of (system.planets || [])) {
+        for (const a of (p.attributes || [])) set.add(a);
+    }
+    return set;
+}
+
+function _evalFilterEntry(entry, system) {
+    const { key, values, children } = entry;
+    switch (key) {
+        case 'attributes': {
+            // One `attributes` line matches if the system OR any of its
+            // planets has ANY of the listed attributes (ES tests both
+            // levels) — OR within the line; separate `attributes` lines
+            // AND together via the .every() in evaluateMissionFilter.
+            const planetAttrs = system._planetAttributes || _planetAttributeSet(system);
+            return values.some(v => system.attributes.includes(v) || planetAttrs.has(v));
+        }
+
+        case 'government':
+            return values.includes(system.government);
+
+        case 'not':
+            // `not` wraps a nested filter (its own children) — matches if
+            // that nested filter does NOT match.
+            return !evaluateMissionFilter(children || [], system);
+
+        case 'near':
+        case 'distance':
+        case 'neighbor':
+            // Not evaluated — see the limitation note above. Permissive.
+            return true;
+
+        default:
+            // Unknown/future filter key: permissive rather than silently
+            // over-excluding systems as the parser's filter vocabulary grows.
+            return true;
+    }
+}
+
+// ── Mission index ───────────────────────────────────────────
+//
+// Builds, once per active-plugin-set change (not per frame), everything
+// mapDisplay.js needs to draw mission markers and answer "what starts
+// here?" on hover:
+//   - concreteBySystem: systems with a mission whose source resolved to
+//     exactly one system (both job-board and story missions land here).
+//   - genericJobMatchCount: for filter-sourced JOB missions only (the
+//     vast majority of job-board content), how many distinct job
+//     templates COULD spawn at each system. Story missions with a
+//     filter source aren't indexed here — there are hundreds of them
+//     and, unlike jobs, they aren't the thing being toggled.
+//   - stats: totals for the legend/subtitle.
+
+function buildMissionIndex(missions, systemsArr) {
+    const concreteBySystem = new Map(); // systemName -> { jobs: FormattedMission[], story: FormattedMission[] }
+    const genericJobMatchCount = new Map(); // systemName -> count
+    const genericJobFilters = missions.filter(m => m.isJob && m.sourceType === 'filter');
+
+    let concreteJobs = 0, concreteStory = 0;
+
+    for (const m of missions) {
+        if (m.sourceType !== 'planet' || !m.sourceSystem) continue;
+        if (!concreteBySystem.has(m.sourceSystem)) concreteBySystem.set(m.sourceSystem, { jobs: [], story: [] });
+        const bucket = concreteBySystem.get(m.sourceSystem);
+        if (m.isJob) { bucket.jobs.push(m); concreteJobs++; }
+        else { bucket.story.push(m); concreteStory++; }
+    }
+
+    if (genericJobFilters.length > 0) {
+        for (const system of systemsArr) {
+            // Baseline rule regardless of any filter: a job can only be
+            // offered where you can land at a spaceport. This alone
+            // correctly excludes uninhabited/spaceport-less systems even
+            // when a filter's other clauses are fully permissive (e.g. a
+            // template with only a `near`/`distance` constraint, which
+            // this evaluator can't check — see evaluateMissionFilter's
+            // doc comment).
+            const hasSpaceport = (system.planets || []).some(p => p.hasSpaceport);
+            if (!hasSpaceport) continue;
+
+            system._planetAttributes = _planetAttributeSet(system); // precomputed once, not per filter
+            let count = 0;
+            for (const m of genericJobFilters) {
+                if (evaluateMissionFilter(m.sourceFilter, system)) count++;
+            }
+            if (count > 0) genericJobMatchCount.set(system.name, count);
+        }
+    }
+
+    return {
+        concreteBySystem,
+        genericJobMatchCount,
+        stats: {
+            total: missions.length,
+            concreteJobs,
+            concreteStory,
+            genericJobTemplates: genericJobFilters.length,
+            unplaceable: missions.length - concreteJobs - concreteStory - genericJobFilters.length
+                - missions.filter(m => !m.isJob && m.sourceType === 'filter').length,
+        },
+    };
+}
+
 window.MapCalculations = {
     createCamera,
     fitToSystems,
@@ -222,6 +366,8 @@ window.MapCalculations = {
     search,
     lod,
     clampScale,
+    evaluateMissionFilter,
+    buildMissionIndex,
     MIN_SCALE,
     MAX_SCALE,
 };
