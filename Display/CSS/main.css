@@ -4714,6 +4714,24 @@ body {
 .mission-status-badge--mixed     { background: rgba(234,179,8,0.15);   color: var(--c-warn-text);    border-color: var(--c-warn-text); }
 .mission-status-badge--offered   { background: var(--c-surface-3);     color: var(--c-text-muted);   border-color: var(--c-border-2); }
 
+.mission-status-warning {
+    font-size: 0.85rem;
+    cursor: help;
+}
+
+.mission-warning-banner {
+    background: rgba(234,179,8,0.10);
+    border: 1px solid var(--c-warn-text);
+    color: var(--c-warn-text);
+    border-radius: var(--r-md);
+    padding: 10px 14px;
+    font-size: 0.85rem;
+    margin-bottom: 14px;
+}
+.mission-warning-banner .mission-tag {
+    color: inherit;
+}
+
 #statusFilterSelect {
     background: var(--c-surface);
     border: 1px solid var(--c-border);
