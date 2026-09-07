@@ -27,11 +27,12 @@
 //  it) so the display layer can show provenance on hover.
 //
 //  Public API on window.MapDataFormatter:
-//    .formatSystems(pluginDataMap, activeOrder) → Map<name, FormattedSystem>
-//    .formatGalaxies(pluginDataMap)             → FormattedGalaxy[]
-//    .formatWormholes(pluginDataMap)            → FormattedWormholeLink[]
+//    .formatSystems(pluginDataMap, activeOrder)  → Map<name, FormattedSystem>
+//    .formatGalaxies(pluginDataMap)              → FormattedGalaxy[]
+//    .formatWormholes(pluginDataMap)             → FormattedWormholeLink[]
 //    .formatPlanets(pluginDataMap, activeOrder)  → Map<systemName, FormattedPlanet[]>
 //    .attachPlanets(systemsMap, planetsBySystem) → mutates systemsMap in place
+//    .formatMissions(pluginDataMap, activeOrder, planetsBySystem) → FormattedMission[]
 //
 //  FormattedSystem shape:
 //    { name, x, y, government, attributes: string[],
@@ -42,7 +43,16 @@
 //  via the `systemName` field the parser already stamps on every
 //  planet — this file just groups by that key):
 //    { name, government, hasSpaceport, hasShipyard, hasOutfitter,
-//      wormhole: string|null, definedBy: string[] }
+//      wormhole: string|null, attributes: string[], definedBy: string[] }
+//
+//  FormattedMission shape (from missions.json — see formatMissions()'s
+//  own doc comment for how `source` gets split into these fields):
+//    { name, displayName, isJob, repeatable, payment: number|null,
+//      sourceType: 'planet'|'filter'|'unresolved'|'none',
+//      sourceSystem: string|null,   // set only when sourceType === 'planet'
+//      sourcePlanet: string|null,
+//      sourceFilter: rawFilterTree|null,  // set only when sourceType === 'filter'
+//      definedBy: string[] }
 // ═══════════════════════════════════════════════════════════
 
 (function () {
@@ -239,10 +249,11 @@ function formatPlanets(pluginDataMap, activeOrder) {
             const hasSpaceport = !!raw.spaceport;
             const government = _readGovernment(raw);
             const wormhole = (typeof raw.wormhole === 'string' && raw.wormhole) ? raw.wormhole : null;
+            const attributes = _readAttributes(raw);
 
             let entry = byPlanetName.get(name);
             if (!entry) {
-                entry = { name, systemName, government, hasSpaceport, hasShipyard, hasOutfitter, wormhole, definedBy: [] };
+                entry = { name, systemName, government, hasSpaceport, hasShipyard, hasOutfitter, wormhole, attributes, definedBy: [] };
                 byPlanetName.set(name, entry);
             } else {
                 entry.systemName = systemName;
@@ -251,6 +262,7 @@ function formatPlanets(pluginDataMap, activeOrder) {
                 entry.hasShipyard = hasShipyard;
                 entry.hasOutfitter = hasOutfitter;
                 entry.wormhole = wormhole;
+                entry.attributes = attributes;
             }
             if (!entry.definedBy.includes(outputName)) entry.definedBy.push(outputName);
         }
@@ -281,11 +293,97 @@ function attachPlanets(systemsMap, planetsBySystem) {
     return systemsMap;
 }
 
+// ── Missions ─────────────────────────────────────────────────
+
+/**
+ * A mission's `source` is one of:
+ *   { type: 'planet', ref: { name } }   — concrete: exactly one planet
+ *   { type: 'filter', value: [...raw filter tree...] }  — generic: any
+ *                                          planet/system matching the filter
+ *                                          (job-board template missions
+ *                                          mostly look like this)
+ *   null                                 — no explicit source (chained /
+ *                                          event-triggered; not placeable)
+ * This reads that + the `job` location tag and hands back a flat,
+ * still-plugin-merged-by-priority list. Concrete sources are resolved
+ * to a system name right here (using the planet→system map
+ * formatPlanets() already built) so mapCalculations.js never needs to
+ * know planets.json exists; filter trees are left untouched for
+ * mapCalculations.evaluateMissionFilter() to walk.
+ *
+ * @param {Map<string, RawPluginMapData>} pluginDataMap
+ * @param {string[]} activeOrder
+ * @param {Map<string, FormattedPlanet[]>} planetsBySystem  from formatPlanets()
+ * @returns {FormattedMission[]}
+ */
+function formatMissions(pluginDataMap, activeOrder, planetsBySystem) {
+    // planet name -> system name, built once from the same grouped data
+    // attachPlanets() uses, so this is guaranteed consistent with it.
+    const systemOfPlanet = new Map();
+    for (const [systemName, planets] of planetsBySystem) {
+        for (const p of planets) systemOfPlanet.set(p.name, systemName);
+    }
+
+    const byName = new Map(); // mission name -> merged entry (redefinition handling)
+
+    for (const outputName of activeOrder) {
+        const plugin = pluginDataMap.get(outputName);
+        if (!plugin || !Array.isArray(plugin.missions)) continue;
+
+        for (const raw of plugin.missions) {
+            const name = _readName(raw);
+            if (!name) continue;
+
+            const isJob = Array.isArray(raw.locations) && raw.locations.includes('job');
+            const src = raw.source;
+
+            let sourceType = 'none', sourceSystem = null, sourcePlanet = null, sourceFilter = null;
+            if (src && src.type === 'planet') {
+                sourcePlanet = src.ref?.name ?? src.value ?? null;
+                sourceSystem = sourcePlanet ? (systemOfPlanet.get(sourcePlanet) ?? null) : null;
+                sourceType = sourceSystem ? 'planet' : 'unresolved';
+            } else if (src && src.type === 'filter') {
+                sourceFilter = Array.isArray(src.value) ? src.value : [];
+                sourceType = 'filter';
+            }
+
+            const payment = _readMissionPayment(raw);
+
+            const entry = {
+                name,
+                displayName: raw.displayName || name,
+                isJob,
+                repeatable: !!raw.repeatable,
+                payment,
+                sourceType, sourceSystem, sourcePlanet, sourceFilter,
+                definedBy: [outputName],
+            };
+
+            const existing = byName.get(name);
+            if (existing) entry.definedBy = [...existing.definedBy, outputName];
+            byName.set(name, entry); // last-write-wins, same as system scalars
+        }
+    }
+
+    return [...byName.values()];
+}
+
+/** Best-effort single payment figure for tooltip display — Endless Sky
+ *  payments are base + multiplier*distance, evaluated at mission-accept
+ *  time, so this can only report the flat "onComplete" base amount, not
+ *  the true final payout. Good enough as a rough guide, not a promise. */
+function _readMissionPayment(raw) {
+    const triggers = raw?.payment?.triggers?.onComplete;
+    if (!Array.isArray(triggers) || triggers.length === 0) return null;
+    return triggers.reduce((sum, t) => sum + (t.base || 0), 0) || null;
+}
+
 window.MapDataFormatter = {
     formatSystems,
     formatGalaxies,
     formatWormholes,
     formatPlanets,
+    formatMissions,
     applyWormholeFlags,
     attachPlanets,
 };
