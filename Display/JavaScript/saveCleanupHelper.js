@@ -40,13 +40,15 @@
 //  ── What "remove an individual mission" means, precisely ────────────
 //  Confirmed against a real save: for every currently-held mission, its
 //  "<name>: active" and "<name>: offered" conditions sit as ADJACENT
-//  lines in the conditions block (in that order). Fully erasing a
-//  mission — as if it had never been accepted — means removing all
-//  three things together: the `mission "X"` block itself, AND both of
-//  those condition lines. Leaving either condition behind would let
-//  other missions' `to offer`/`to fail` checks (which sometimes test
-//  "<name>: active" or "<name>: offered" directly) see a mission as
-//  still live when its actual data block is gone.
+//  lines in the conditions block (in that order). That confirmed the
+//  mechanism, but removal isn't limited to held missions — it strips
+//  every trace of a mission regardless of its current status: the held
+//  `mission` block if it has one, an `"available job"` entry if it has
+//  one instead, and every condition key that exists for that name
+//  (offered/active/done/failed/declined). A mission that's already
+//  resolved (done or failed, no longer held) only has condition
+//  entries left — removing just active/offered wouldn't touch those,
+//  so all five get checked and cleared, whichever are actually present.
 //
 //  ── What "complete a mission" means, precisely ───────────────────────
 //  Different from removal: this simulates the mission actually
@@ -247,9 +249,17 @@ function removeAllTriggeredEvents() {
 }
 
 // ── Mission removal ───────────────────────────────────────────
-// Strips a mission out of the save entirely — the held `mission` block
-// plus both its "active" and "offered" conditions. See the header note
-// above for why all three need to go together.
+// Strips a mission out of the save entirely, whatever state it's
+// currently in — not just currently-held ones:
+//   - a held `mission` block, if it has one
+//   - an `"available job"` entry, if it has one instead
+//   - EVERY condition key for that name — offered/active/done/failed/
+//     declined, whichever exist. A resolved mission (done or failed,
+//     no longer held) only has condition entries, no data block, so
+//     removing just "active"/"offered" alone wouldn't touch it — this
+//     covers a mission at any point in its lifecycle, not only the
+//     "just accepted" case the offered/active pairing was confirmed
+//     against.
 function _pullMissionBlock(save, name) {
   const idx = (save.missions || []).findIndex(m => m.name === name);
   if (idx === -1) return null;
@@ -258,12 +268,22 @@ function _pullMissionBlock(save, name) {
   return removed;
 }
 
+function _pullAvailableJob(save, name) {
+  const idx = (save.availableJobs || []).findIndex(m => m.name === name);
+  if (idx === -1) return null;
+  const [removed] = save.availableJobs.splice(idx, 1);
+  if (save.blocks && Array.isArray(save.blocks['available job'])) save.blocks['available job'] = save.availableJobs;
+  return removed;
+}
+
 function removeMission(name) {
   const save = getUpdatedSave();
   if (!save) return null;
   _pullMissionBlock(save, name);
-  delete save.pilot.conditions[`${name}: active`];
-  delete save.pilot.conditions[`${name}: offered`];
+  _pullAvailableJob(save, name);
+  for (const suffix of ['offered', 'active', 'done', 'failed', 'declined']) {
+    delete save.pilot.conditions[`${name}: ${suffix}`];
+  }
   _writeJSON(SM_UPDATED_SAVE_KEY, save);
   return save;
 }
