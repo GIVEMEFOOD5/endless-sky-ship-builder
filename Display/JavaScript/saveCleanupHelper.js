@@ -289,11 +289,18 @@ function removeMission(name) {
 }
 
 // ── Mission completion ───────────────────────────────────────
-// Simulates finishing a currently-held mission successfully: removes
-// its held block, decrements "active" (deleting the key at 0, never
-// writing a literal 0 — matches confirmed real-save behaviour),
-// increments "done", and applies whatever rewards the caller computed
-// from the mission's onComplete-triggered payment/outfit/ship grants.
+// Simulates a mission finishing successfully — from WHATEVER state it's
+// currently in, not only currently-held ones:
+//   - held        → pulls the block, decrements "active" (deleting the
+//                    key at 0, never writing a literal 0 — matches
+//                    confirmed real-save behaviour)
+//   - available   → pulls it out of the available-jobs list instead
+//   - anything else (declined, offered-only, never encountered, or
+//     already done/failed before on a repeatable) → no block/listing to
+//     pull, "active" is left alone since it was never incremented in
+//     the first place
+// In every case, "done" is incremented and rewards are applied — see
+// the header note on rewards for what "applied" means precisely.
 //
 // `rewards` shape: { credits: number, outfits: [{name, count}], ships: [{name, count}] }
 // Ship rewards are reported back in `unappliedShips`, not written to
@@ -303,14 +310,16 @@ function completeMission(name, rewards) {
   if (!save) return null;
   rewards = rewards || {};
 
-  const held = _pullMissionBlock(save, name);
-  if (!held) return { save, unappliedShips: [], appliedToHeldMission: false };
+  const wasHeld = !!_pullMissionBlock(save, name);
+  _pullAvailableJob(save, name); // clear it either way — it's resolved now, not "still available"
 
-  const activeKey = `${name}: active`;
-  const currentActive = save.pilot.conditions[activeKey];
-  const nextActive = (typeof currentActive === 'number' ? currentActive : (currentActive ? 1 : 0)) - 1;
-  if (nextActive > 0) save.pilot.conditions[activeKey] = nextActive;
-  else delete save.pilot.conditions[activeKey];
+  if (wasHeld) {
+    const activeKey = `${name}: active`;
+    const currentActive = save.pilot.conditions[activeKey];
+    const nextActive = (typeof currentActive === 'number' ? currentActive : (currentActive ? 1 : 0)) - 1;
+    if (nextActive > 0) save.pilot.conditions[activeKey] = nextActive;
+    else delete save.pilot.conditions[activeKey];
+  }
 
   const doneKey = `${name}: done`;
   const currentDone = save.pilot.conditions[doneKey];
@@ -329,7 +338,7 @@ function completeMission(name, rewards) {
   }
 
   _writeJSON(SM_UPDATED_SAVE_KEY, save);
-  return { save, unappliedShips: rewards.ships || [], appliedToHeldMission: true };
+  return { save, unappliedShips: rewards.ships || [], appliedToHeldMission: wasHeld };
 }
 
 window.SaveCleanupHelper = {
