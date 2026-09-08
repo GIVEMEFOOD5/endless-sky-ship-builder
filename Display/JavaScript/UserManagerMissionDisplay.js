@@ -362,10 +362,12 @@ if (HAS_STATUS_HELPER) {
 
 // ═══════════════════════════════════════════════════════════
 //  Complete / remove mission — only shown for a mission the save is
-//  Complete Mission only shows for a mission the save is CURRENTLY
-//  holding (m.status.isHeld) — simulating completion only makes sense
-//  starting from "pull the held mission block out." Remove Mission
-//  shows for ANY mission regardless of status — see
+//  Complete Mission shows for any mission NOT already fully completed —
+//  in progress, available, declined, offered-only, never encountered,
+//  or resolved with a mixed history. It only hides once a mission's
+//  status is a clean "completed successfully" with nothing else mixed
+//  in, since completing it again would just be redundant. Remove
+//  Mission shows for ANY mission regardless of status — see
 //  saveCleanupHelper.js's removeMission() for exactly what it clears
 //  in each case (held, available, or already-resolved).
 // ═══════════════════════════════════════════════════════════
@@ -373,7 +375,8 @@ if (HAS_CLEANUP_HELPER && HAS_STATUS_HELPER) {
 
     MissionModal.registerAction(m => {
         const buttons = [];
-        if (m.status && m.status.isHeld) {
+        const alreadyCleanlyDone = m.status && m.status.status === MissionStatusHelper.STATUS.DONE;
+        if (!alreadyCleanlyDone) {
             buttons.push('<button class="btn-cleanup-remove-all" data-mission-action="complete-mission">Complete mission (apply rewards)</button>');
         }
         buttons.push('<button class="btn-cleanup-remove" data-mission-action="remove-mission">Remove mission entirely</button>');
@@ -426,7 +429,12 @@ if (HAS_CLEANUP_HELPER && HAS_STATUS_HELPER) {
 
         if (action === 'complete-mission') {
             const rewards = computeOnCompleteRewards(mission);
-            if (!window.confirm(`Mark "${mission.name}" as completed and apply its rewards to the Updated Save?`)) return;
+            const context = mission.status.isHeld
+                ? 'currently active'
+                : mission.status.isAvailable
+                    ? 'available but not yet accepted'
+                    : `not currently tracked in the save (status: ${mission.status.label})`;
+            if (!window.confirm(`Mark "${mission.name}" (${context}) as completed and apply its rewards to the Updated Save?`)) return;
             const result = SaveCleanupHelper.completeMission(mission.name, rewards);
             MissionModal.close();
             refreshMissions();
