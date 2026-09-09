@@ -33,17 +33,27 @@
 //    .formatPlanets(pluginDataMap, activeOrder)  → Map<systemName, FormattedPlanet[]>
 //    .attachPlanets(systemsMap, planetsBySystem) → mutates systemsMap in place
 //    .formatMissions(pluginDataMap, activeOrder, planetsBySystem) → FormattedMission[]
+//    .formatStars(pluginDataMap, activeOrder)    → Map<spriteName, StarAttributes>
 //
 //  FormattedSystem shape:
 //    { name, x, y, government, attributes: string[],
 //      links: string[], wormhole: boolean, hasPlanets: boolean,
-//      planets: FormattedPlanet[], definedBy: string[] }
+//      planets: FormattedPlanet[], objectTree: RawObjectNode[],
+//      ramscoopModifier: {universal,addend,multiplier}|null,
+//      habitableOverride: number|null, definedBy: string[] }
+//  `objectTree` is kept verbatim from systems.json (star + planet + moon
+//  nodes, recursively) — mapCalculations.js's computeSolarAttributes()
+//  walks it to find which nodes are stars, and this file's own
+//  attachPlanets() walks it to match each planet to its map-icon sprite.
 //
 //  FormattedPlanet shape (from planets.json, keyed back to its system
 //  via the `systemName` field the parser already stamps on every
 //  planet — this file just groups by that key):
 //    { name, government, hasSpaceport, hasShipyard, hasOutfitter,
-//      wormhole: string|null, attributes: string[], definedBy: string[] }
+//      wormhole: string|null, attributes: string[],
+//      landscapes: string[],   // landing-screen art, e.g. "land/earthrise"
+//      sprite: string|null,    // map-icon sprite, e.g. "planet/earth" — attached by attachPlanets()
+//      definedBy: string[] }
 //
 //  FormattedMission shape (from missions.json — see formatMissions()'s
 //  own doc comment for how `source` gets split into these fields):
@@ -53,6 +63,13 @@
 //      sourcePlanet: string|null,
 //      sourceFilter: rawFilterTree|null,  // set only when sourceType === 'filter'
 //      definedBy: string[] }
+//
+//  StarAttributes shape (from stars.json — see mapCalculations.js's
+//  BASELINE_STAR_TABLE doc comment for where the vanilla numbers
+//  ultimately come from, and why this file's output takes priority
+//  over that baseline when both exist for the same sprite):
+//    { power: number|null, wind: number|null, icon: string|null,
+//      habitable: number|null, mass: number|null }
 // ═══════════════════════════════════════════════════════════
 
 (function () {
@@ -92,6 +109,29 @@ function _readBool(raw, key) {
     return !!raw?.[key];
 }
 
+function _readObjectTree(raw) {
+    return Array.isArray(raw?.objectTree) ? raw.objectTree : [];
+}
+
+/** System-level `ramscoop` override — universal/addend/multiplier, each
+ *  defaulting per the wiki when the system doesn't define that particular
+ *  sub-field (not when the whole block is absent, which instead means
+ *  "no override at all", kept as null so the display layer can tell the
+ *  difference between "default because unset" and "explicitly default"). */
+function _readRamscoopModifier(raw) {
+    const rs = raw?.ramscoop;
+    if (!rs || typeof rs !== 'object') return null;
+    return {
+        universal: typeof rs.universal === 'number' ? rs.universal : 1,
+        addend: typeof rs.addend === 'number' ? rs.addend : 0,
+        multiplier: typeof rs.multiplier === 'number' ? rs.multiplier : 1,
+    };
+}
+
+function _readHabitableOverride(raw) {
+    return typeof raw?.habitable === 'number' ? raw.habitable : null;
+}
+
 // ── Systems ──────────────────────────────────────────────────
 
 /**
@@ -121,6 +161,9 @@ function formatSystems(pluginDataMap, activeOrder) {
             const attrs = _readAttributes(raw);
             const government = _readGovernment(raw);
             const hasPlanets = Array.isArray(raw.planets) && raw.planets.length > 0;
+            const objectTree = _readObjectTree(raw);
+            const ramscoopModifier = _readRamscoopModifier(raw);
+            const habitableOverride = _readHabitableOverride(raw);
 
             let entry = merged.get(name);
             if (!entry) {
@@ -133,6 +176,9 @@ function formatSystems(pluginDataMap, activeOrder) {
                     wormhole: false,
                     hasPlanets,
                     planets: [], // filled in later by attachPlanets(), from planets.json
+                    objectTree,
+                    ramscoopModifier,
+                    habitableOverride,
                     definedBy: [],
                 };
                 merged.set(name, entry);
@@ -142,6 +188,9 @@ function formatSystems(pluginDataMap, activeOrder) {
                 entry.y = pos.y;
                 entry.government = government;
                 entry.hasPlanets = entry.hasPlanets || hasPlanets;
+                if (objectTree.length) entry.objectTree = objectTree;
+                if (ramscoopModifier) entry.ramscoopModifier = ramscoopModifier;
+                if (habitableOverride != null) entry.habitableOverride = habitableOverride;
                 // List fields: union.
                 attrs.forEach(a => entry.attributes.add(a));
                 linkNames.forEach(l => entry.links.add(l));
@@ -162,6 +211,9 @@ function formatSystems(pluginDataMap, activeOrder) {
             wormhole: e.wormhole,
             hasPlanets: e.hasPlanets,
             planets: e.planets,
+            objectTree: e.objectTree,
+            ramscoopModifier: e.ramscoopModifier,
+            habitableOverride: e.habitableOverride,
             definedBy: e.definedBy,
         });
     }
@@ -250,10 +302,13 @@ function formatPlanets(pluginDataMap, activeOrder) {
             const government = _readGovernment(raw);
             const wormhole = (typeof raw.wormhole === 'string' && raw.wormhole) ? raw.wormhole : null;
             const attributes = _readAttributes(raw);
+            const landscapes = Array.isArray(raw.landscapes)
+                ? raw.landscapes.map(l => (typeof l === 'string' ? l : l?.name)).filter(Boolean)
+                : [];
 
             let entry = byPlanetName.get(name);
             if (!entry) {
-                entry = { name, systemName, government, hasSpaceport, hasShipyard, hasOutfitter, wormhole, attributes, definedBy: [] };
+                entry = { name, systemName, government, hasSpaceport, hasShipyard, hasOutfitter, wormhole, attributes, landscapes, sprite: null, definedBy: [] };
                 byPlanetName.set(name, entry);
             } else {
                 entry.systemName = systemName;
@@ -263,6 +318,7 @@ function formatPlanets(pluginDataMap, activeOrder) {
                 entry.hasOutfitter = hasOutfitter;
                 entry.wormhole = wormhole;
                 entry.attributes = attributes;
+                if (landscapes.length) entry.landscapes = landscapes;
             }
             if (!entry.definedBy.includes(outputName)) entry.definedBy.push(outputName);
         }
@@ -281,7 +337,10 @@ function formatPlanets(pluginDataMap, activeOrder) {
  * already-merged systems Map, and refines `hasPlanets` — the flag
  * formatSystems() sets is only a "some plugin listed a planet ref
  * here" guess from systems.json; this replaces it with the real
- * count from planets.json when that data is available.
+ * count from planets.json when that data is available. Also attaches
+ * each planet's map-icon `sprite` (e.g. "planet/earth"), read from the
+ * system's objectTree and matched back to the planet by name — that
+ * sprite lives on the system's object definition, not in planets.json.
  */
 function attachPlanets(systemsMap, planetsBySystem) {
     for (const [systemName, planetList] of planetsBySystem) {
@@ -289,6 +348,16 @@ function attachPlanets(systemsMap, planetsBySystem) {
         if (!system) continue; // planet's system was filtered out (inactive plugin, etc.)
         system.planets = planetList;
         system.hasPlanets = planetList.length > 0;
+
+        const spriteByName = new Map();
+        const walk = (nodes) => {
+            for (const obj of (nodes || [])) {
+                if (obj.name && obj.sprite) spriteByName.set(obj.name, obj.sprite);
+                walk(obj.children);
+            }
+        };
+        walk(system.objectTree);
+        for (const p of planetList) p.sprite = spriteByName.get(p.name) ?? null;
     }
     return systemsMap;
 }
@@ -378,12 +447,46 @@ function _readMissionPayment(raw) {
     return triggers.reduce((sum, t) => sum + (t.base || 0), 0) || null;
 }
 
+// ── Stars (solar power/wind attributes, per sprite) ─────────
+
+/**
+ * stars.json is one entry per distinct star sprite a plugin defines —
+ * vanilla's own star types (g0, m3, black-hole, ...) plus anything a
+ * mod adds. Later-active plugins can override a sprite's numbers
+ * (last-write-wins), which is how a mod could reasonably reskin a
+ * star type's behaviour, not just its picture.
+ *
+ * @param {Map<string, RawPluginMapData>} pluginDataMap
+ * @param {string[]} activeOrder
+ * @returns {Map<string, {power:number|null, wind:number|null, icon:string|null, habitable:number|null, mass:number|null}>}
+ */
+function formatStars(pluginDataMap, activeOrder) {
+    const out = new Map();
+    for (const outputName of activeOrder) {
+        const plugin = pluginDataMap.get(outputName);
+        if (!plugin || !Array.isArray(plugin.stars)) continue;
+        for (const raw of plugin.stars) {
+            const sprite = raw?.sprite;
+            if (!sprite) continue;
+            out.set(sprite, {
+                power: typeof raw.power === 'number' ? raw.power : null,
+                wind: typeof raw.wind === 'number' ? raw.wind : null,
+                icon: raw.icon || null,
+                habitable: typeof raw.habitable === 'number' ? raw.habitable : null,
+                mass: typeof raw.mass === 'number' ? raw.mass : null,
+            });
+        }
+    }
+    return out;
+}
+
 window.MapDataFormatter = {
     formatSystems,
     formatGalaxies,
     formatWormholes,
     formatPlanets,
     formatMissions,
+    formatStars,
     applyWormholeFlags,
     attachPlanets,
 };

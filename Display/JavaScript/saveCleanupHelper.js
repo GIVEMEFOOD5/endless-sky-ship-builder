@@ -299,16 +299,30 @@ function removeMission(name) {
 //     already done/failed before on a repeatable) → no block/listing to
 //     pull, "active" is left alone since it was never incremented in
 //     the first place
-// In every case, "done" is incremented and rewards are applied — see
-// the header note on rewards for what "applied" means precisely.
+//
+// `opts.repeatable` matters for what happens to any EXISTING failed/
+// declined history:
+//   - repeatable missions can legitimately have mixed history (done
+//     some times, failed others) — that history is left alone, "done"
+//     is just incremented on top, matching a real repeatable mission's
+//     own condition counters.
+//   - non-repeatable missions can only ever resolve ONE way, ever — a
+//     real save can never have both "done" and "failed"/"declined" set
+//     for the same non-repeatable mission at once. So completing one
+//     that currently shows failed/declined CLEARS those first, since
+//     leaving them would create a state the actual game can't produce
+//     (and other missions' `to offer`/`to fail` checks sometimes test
+//     these condition names directly — see esSaveParser.js's mission-
+//     block note on why that's not just cosmetic).
 //
 // `rewards` shape: { credits: number, outfits: [{name, count}], ships: [{name, count}] }
 // Ship rewards are reported back in `unappliedShips`, not written to
 // save.ships — see the header note on why.
-function completeMission(name, rewards) {
+function completeMission(name, rewards, opts) {
   const save = getUpdatedSave();
   if (!save) return null;
   rewards = rewards || {};
+  const repeatable = !!(opts && opts.repeatable);
 
   const wasHeld = !!_pullMissionBlock(save, name);
   _pullAvailableJob(save, name); // clear it either way — it's resolved now, not "still available"
@@ -321,9 +335,21 @@ function completeMission(name, rewards) {
     else delete save.pilot.conditions[activeKey];
   }
 
-  const doneKey = `${name}: done`;
-  const currentDone = save.pilot.conditions[doneKey];
-  save.pilot.conditions[doneKey] = (typeof currentDone === 'number' ? currentDone : (currentDone ? 1 : 0)) + 1;
+  const doneKey   = `${name}: done`;
+  const failedKey = `${name}: failed`;
+  const declinedKey = `${name}: declined`;
+  let clearedFailed = false, clearedDeclined = false;
+
+  if (repeatable) {
+    const currentDone = save.pilot.conditions[doneKey];
+    save.pilot.conditions[doneKey] = (typeof currentDone === 'number' ? currentDone : (currentDone ? 1 : 0)) + 1;
+  } else {
+    clearedFailed   = failedKey   in save.pilot.conditions;
+    clearedDeclined = declinedKey in save.pilot.conditions;
+    delete save.pilot.conditions[failedKey];
+    delete save.pilot.conditions[declinedKey];
+    save.pilot.conditions[doneKey] = 1;
+  }
 
   if (rewards.credits) {
     save.account = save.account || { credits: 0, score: 0, salaries: {}, history: [] };
@@ -338,7 +364,13 @@ function completeMission(name, rewards) {
   }
 
   _writeJSON(SM_UPDATED_SAVE_KEY, save);
-  return { save, unappliedShips: rewards.ships || [], appliedToHeldMission: wasHeld };
+  return {
+    save,
+    unappliedShips: rewards.ships || [],
+    appliedToHeldMission: wasHeld,
+    clearedFailed,
+    clearedDeclined,
+  };
 }
 
 window.SaveCleanupHelper = {

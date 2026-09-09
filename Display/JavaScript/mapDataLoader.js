@@ -5,9 +5,10 @@
 //
 //  STAGE 1 of the map pipeline: GRAB THE DATA, PUSH IT FORWARD.
 //  This file's only job is fetching raw map data (systems /
-//  galaxies / wormholes / planets / missions) per plugin and handing
-//  it, unmodified, to whoever asks for it. It does NOT reshape,
-//  merge, or compute anything — see mapDataFormatter.js for that.
+//  galaxies / wormholes / planets / missions / stars) per plugin and
+//  handing it, unmodified, to whoever asks for it. It does NOT
+//  reshape, merge, or compute anything — see mapDataFormatter.js
+//  for that.
 //
 //  Mirrors dataLoader.js's plugin-discovery pattern (data/index.json)
 //  so the Systems page lists exactly the same plugins as every other
@@ -54,7 +55,7 @@
 //  RawPluginMapData shape:
 //    { outputName, sourceName, displayName,
 //      systems: [...], galaxies: [...], wormholes: [...], planets: [...],
-//      missions: [...],
+//      missions: [...], stars: [...],
 //      slim: boolean }   // true if the slim map files were used
 //
 //  Custom events fired on document:
@@ -165,11 +166,19 @@ async function _loadOnePlugin(outputName, meta) {
         if (fullMissions.ok) missions = fullMissions.data;
     }
 
+    // No slim variant needed here — stars.json is one entry per distinct
+    // star sprite the plugin defines/uses (power/wind/icon/habitable/mass),
+    // not one per system, so it's already tiny. Added by a parser fix:
+    // mapParser.js parsed `star <sprite>` blocks all along, but the output
+    // stage never wrote them to disk per plugin — see README.
+    const starsRes = await _fetchJson(`${base}/stars.json`);
+    const stars = starsRes.ok ? starsRes.data : [];
+
     return {
         outputName,
         sourceName: meta.sourceName,
         displayName: meta.displayName,
-        systems, galaxies, wormholes, planets, missions,
+        systems, galaxies, wormholes, planets, missions, stars,
         slim,
     };
 }

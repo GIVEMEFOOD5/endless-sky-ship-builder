@@ -193,6 +193,38 @@ function renderTreeHtml(entries, depth = 0, budget) {
     return html;
 }
 
+// Same reasoning as RAW_TREE_NODE_CAP above, applied to search text
+// instead of rendered HTML: the one real mission with ~37,000 raw nodes
+// would otherwise dwarf every other mission's searchText combined, for
+// zero practical benefit (nobody searches for node #30,000 of a bulk-
+// action mission). Capped in characters here rather than node count
+// since that's what actually matters for memory/string-search cost.
+const SEARCH_TEXT_CHAR_CAP = 4000;
+
+// Walks a raw tree collecting anything text-like — bare narrative/
+// dialogue lines (which show up as the entry's own `key`, per
+// renderTreeHtml's isBareText handling) and string values — so a
+// mission can be found by searching for a line of dialogue, a
+// condition name, or any other detail buried in its structure, not
+// just its name/description. Numeric-only keys/values are skipped;
+// they're never what someone is searching for.
+function _extractSearchableText(entries, budget) {
+    budget = budget || { text: '' };
+    if (!entries) return budget.text;
+    for (const entry of entries) {
+        if (budget.text.length >= SEARCH_TEXT_CHAR_CAP) break;
+        if (entry.key && !/^-?[\d.]+$/.test(entry.key)) budget.text += ' ' + entry.key;
+        if (entry.values) {
+            for (const v of entry.values) {
+                if (typeof v === 'string') budget.text += ' ' + v;
+            }
+        }
+        if (entry.children && entry.children.length) _extractSearchableText(entry.children, budget);
+        if (budget.text.length >= SEARCH_TEXT_CHAR_CAP) break;
+    }
+    return budget.text;
+}
+
 // ═════════════════════════════════════════════════════════════
 //  Mission → view model. Everything the display layer needs,
 //  pre-built. `bodyHtml` is a complete, ready-to-inject string.
@@ -275,9 +307,17 @@ function formatMission(m, pluginId, pluginDisplay) {
                     `<div class="mission-raw-tree" data-lazy="1"></div>`;
     }
 
+    const rewardNames = [
+        ...(m.rewards && m.rewards.outfits || []).map(o => o.name),
+        ...(m.rewards && m.rewards.ships   || []).map(s => s.name),
+    ];
+
     const searchText = [
         m.name, m.displayName, m.description, pluginId, pluginDisplay,
         planetName(m.source), planetName(m.destination),
+        ...(m.locations || []),
+        ...rewardNames,
+        m.raw ? _extractSearchableText(m.raw) : '',
     ].filter(Boolean).join(' ').toLowerCase();
 
     return {
@@ -296,6 +336,15 @@ function formatMission(m, pluginId, pluginDisplay) {
         // action needs the actual numbers/names, not formatted strings.
         rewards: m.rewards || { outfits: [], ships: [] },
         payment: m.payment || { apparentPayment: null, triggers: {} },
+        // Whether this mission can be completed more than once — needed
+        // by saveCleanupHelper.js's completeMission() to decide whether
+        // leftover failed/declined history should be cleared (non-
+        // repeatable) or preserved alongside the new done (repeatable).
+        repeatable: !!m.repeatable,
+        repeatLimit: m.repeatLimit || null,
+        // Location tags (job, spaceport, landing, ...) — lets a consumer
+        // filter for e.g. job-board missions specifically.
+        locations: m.locations || [],
     };
 }
 

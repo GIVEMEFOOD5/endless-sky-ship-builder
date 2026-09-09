@@ -268,14 +268,22 @@ function _esBuildRawTree(rawLines, baseIndent) {
     // space" rule would wrongly treat these as key="to"/value="offer" —
     // so they're special-cased here first, before falling through to
     // the generic attribute-line parser for everything else.
+    //
+    // Shape matches the plugin catalog's own convention (missionParser.js,
+    // confirmed against real parsed data) rather than merging into one
+    // compound key — key: "to"/"on", values: ["offer", ...] — so a raw
+    // tree built from a save's held mission and one from the plugin
+    // catalog are structurally identical, and anything that inspects
+    // trigger blocks (like missionStatusHelper.js's pattern detectors)
+    // works the same regardless of which source it came from.
     const bareTwoWord = text.match(/^(to|on)\s+([a-zA-Z][a-zA-Z]*)\b\s*(.*)$/);
     if (bareTwoWord) {
       const [, lead, second, rest] = bareTwoWord;
-      const key = `${lead} ${second}`;
-      // A trailing argument, e.g. `on enter "Some System"`, becomes the
-      // value; a bare structural line like `to offer` has none.
-      const values = rest ? [_esName(rest)] : [];
-      return { indent, key, values };
+      const values = [second];
+      // A trailing argument, e.g. `on enter "Some System"`, becomes an
+      // additional value; a bare structural line like `to offer` has none.
+      if (rest) values.push(_esName(rest));
+      return { indent, key: lead, values };
     }
     const [key, values] = _esAttrLine(text) || [text, []];
     return { indent, key, values: values === true ? [] : (Array.isArray(values) ? values.filter(v => v !== true) : []) };

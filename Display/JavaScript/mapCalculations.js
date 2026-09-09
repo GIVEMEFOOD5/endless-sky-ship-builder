@@ -25,6 +25,8 @@
 //    .clampScale(scale)
 //    .evaluateMissionFilter(filterEntries, system)   → boolean
 //    .buildMissionIndex(missions, systemsArr)        → MissionIndex
+//    .buildStarTable(formattedStars)                 → Map<sprite, StarAttributes>
+//    .computeSolarAttributes(system, starTable)      → {power, wind, stars}
 // ═══════════════════════════════════════════════════════════
 
 (function () {
@@ -39,6 +41,115 @@ const PALETTE = [
     '#c47fe0', '#e0d14d', '#4d7fe0', '#e07f4d', '#7fe04d', '#e04d67',
 ];
 const UNINHABITED_COLOR = '#4a5670';
+
+// ── Star attribute table (baseline) ─────────────────────────
+//
+// Every star sprite's Power and Wind values, straight from the real
+// endless-sky/endless-sky repo's data/stars.txt (fetched and
+// transcribed directly from source — not estimated). A system's
+// total Solar Power / Solar Wind is the SUM of every star object it
+// contains (confirmed on the project's own MapData wiki page: "If a
+// system has multiple stars, then the values of each star are added
+// together"). Power affects both solar-collection AND solar-heat ship
+// outfits; Wind affects ramscoop fuel regen — see computeSolarAttributes().
+//
+// This is a FALLBACK. Since the parser fix accompanying this feature,
+// every plugin now emits its own dataFiles/stars.json with the exact
+// same shape (see mapDataFormatter.formatStars()) — including vanilla's
+// own numbers, and anything a mod adds or overrides. buildStarTable()
+// merges fetched data over this baseline, so a mod's custom "star/xyz"
+// sprite works correctly even before this table is ever touched, and
+// vanilla numbers stay correct even if a plugin run hasn't happened yet.
+const BASELINE_STAR_TABLE = {
+    "star/o0": { power: 4.2, wind: 0.46, icon: "map/o-large-star", habitable: 13720, mass: 85750 },
+    "star/o3": { power: 3.9, wind: 0.46, icon: "map/o-large-star", habitable: 11500, mass: 71875 },
+    "star/o5": { power: 3.6, wind: 0.47, icon: "map/o-large-star", habitable: 10000, mass: 62500 },
+    "star/o8": { power: 3.3, wind: 0.48, icon: "map/o-large-star", habitable: 8650, mass: 54062.5 },
+    "star/b0": { power: 3.1, wind: 0.49, icon: "map/b-large-star", habitable: 7000, mass: 43750 },
+    "star/b3": { power: 2.8, wind: 0.5, icon: "map/b-large-star", habitable: 6300, mass: 39375 },
+    "star/b5": { power: 2.5, wind: 0.51, icon: "map/b-large-star", habitable: 5600, mass: 35000 },
+    "star/b8": { power: 2.2, wind: 0.52, icon: "map/b-large-star", habitable: 5000, mass: 31250 },
+    "star/a0": { power: 2, wind: 0.53, icon: "map/a-star", habitable: 3650, mass: 22812.5 },
+    "star/a3": { power: 1.85, wind: 0.54, icon: "map/a-star", habitable: 3400, mass: 21250 },
+    "star/a5": { power: 1.7, wind: 0.55, icon: "map/a-star", habitable: 3200, mass: 20000 },
+    "star/a8": { power: 1.5, wind: 0.56, icon: "map/a-star", habitable: 3000, mass: 18750 },
+    "star/f0": { power: 1.4, wind: 0.57, icon: "map/f-star", habitable: 2560, mass: 16000 },
+    "star/f3": { power: 1.3, wind: 0.59, icon: "map/f-star", habitable: 2200, mass: 13750 },
+    "star/f5": { power: 1.2, wind: 0.6, icon: "map/f-star", habitable: 1715, mass: 10718.75 },
+    "star/f8": { power: 1.1, wind: 0.62, icon: "map/f-star", habitable: 1310, mass: 8187.5 },
+    "star/g0": { power: 1, wind: 0.64, icon: "map/g-star", habitable: 1080, mass: 6750 },
+    "star/g3": { power: 0.95, wind: 0.66, icon: "map/g-star", habitable: 700, mass: 4375 },
+    "star/g5": { power: 0.9, wind: 0.69, icon: "map/g-star", habitable: 625, mass: 3906.25 },
+    "star/g8": { power: 0.85, wind: 0.72, icon: "map/g-star", habitable: 550, mass: 3437.5 },
+    "star/k0": { power: 0.8, wind: 0.75, icon: "map/k-small-star", habitable: 490, mass: 3062.5 },
+    "star/k3": { power: 0.76, wind: 0.78, icon: "map/k-small-star", habitable: 450, mass: 2812.5 },
+    "star/k5": { power: 0.72, wind: 0.82, icon: "map/k-small-star", habitable: 425, mass: 2656.25 },
+    "star/k8": { power: 0.7, wind: 0.86, icon: "map/k-small-star", habitable: 370, mass: 2312.5 },
+    "star/m0": { power: 0.66, wind: 0.9, icon: "map/m-dwarf-star", habitable: 320, mass: 2000 },
+    "star/m3": { power: 0.64, wind: 0.95, icon: "map/m-dwarf-star", habitable: 230, mass: 1437.5 },
+    "star/m5": { power: 0.61, wind: 1.05, icon: "map/m-dwarf-star", habitable: 160, mass: 1000 },
+    "star/m8": { power: 0.6, wind: 1.1, icon: "map/m-dwarf-star", habitable: 135, mass: 843.75 },
+    "star/f5-old": { power: 0.8, wind: 0.9, icon: "map/f-old-star", habitable: 3430, mass: 10718.75 },
+    "star/g0-old": { power: 0.7, wind: 1.0, icon: "map/g-old-star", habitable: 2160, mass: 6750 },
+    "star/g5-old": { power: 0.65, wind: 1.1, icon: "map/g-old-star", habitable: 1250, mass: 3906.25 },
+    "star/k0-old": { power: 0.62, wind: 1.3, icon: "map/k-old-star", habitable: 980, mass: 3062.5 },
+    "star/k5-old": { power: 0.6, wind: 1.5, icon: "map/k-old-star", habitable: 950, mass: 2656.25 },
+    "star/o-giant": { power: 4.8, wind: 1.5, icon: "map/o-giant-star", habitable: 22300, mass: 139375 },
+    "star/b-giant": { power: 3.7, wind: 1.6, icon: "map/b-giant-star", habitable: 11350, mass: 70937.5 },
+    "star/a-giant": { power: 2.6, wind: 1.7, icon: "map/a-giant-star", habitable: 7900, mass: 49375 },
+    "star/f-giant": { power: 2.0, wind: 1.8, icon: "map/f-giant-star", habitable: 5600, mass: 35000 },
+    "star/g-giant": { power: 1.6, wind: 1.9, icon: "map/g-giant-star", habitable: 4050, mass: 25312.5 },
+    "star/k-giant": { power: 1.4, wind: 2, icon: "map/k-giant-star", habitable: 3000, mass: 18750 },
+    "star/m-giant": { power: 1.2, wind: 2.1, icon: "map/m-giant-star", habitable: 2300, mass: 14375 },
+    "star/o-supergiant": { power: 5.2, wind: 2.5, icon: "map/o-supergiant-star", habitable: 33450, mass: 209062.5 },
+    "star/b-supergiant": { power: 4.1, wind: 2.6, icon: "map/b-supergiant-star", habitable: 17025, mass: 106406.25 },
+    "star/a-supergiant": { power: 3, wind: 2.7, icon: "map/a-supergiant-star", habitable: 11850, mass: 74062.5 },
+    "star/f-supergiant": { power: 2.4, wind: 2.8, icon: "map/f-supergiant-star", habitable: 8400, mass: 52500 },
+    "star/g-supergiant": { power: 2, wind: 2.9, icon: "map/g-supergiant-star", habitable: 6075, mass: 37968.75 },
+    "star/k-supergiant": { power: 1.8, wind: 3, icon: "map/k-supergiant-star", habitable: 4500, mass: 28125 },
+    "star/m-supergiant": { power: 1.6, wind: 3.1, icon: "map/m-supergiant-star", habitable: 3450, mass: 21562.5 },
+    "star/a-eater": { power: 1.84, wind: 0.45, icon: "map/a-star", habitable: 3000, mass: 18750 },
+    "star/carbon": { power: 0.1, wind: 10, icon: "map/carbon-star", habitable: 3000, mass: 18750 },
+    "star/nova": { power: 0.2, wind: 8, icon: "map/nova-star", habitable: 10, mass: 31250 },
+    "star/nova-old": { power: 0.3, wind: 6, icon: "map/nova-old-star", habitable: 10, mass: 31250 },
+    "star/nova-small": { power: 0.2, wind: 4, icon: "map/nova-small-star", habitable: 10, mass: 25000 },
+    "star/wr": { power: 5, wind: 4, icon: "map/wr-star", habitable: 50000, mass: 31250 },
+    "star/protostar-orange": { power: 0.5, wind: 3, icon: "map/k-small-star", habitable: 550, mass: 3437.5 },
+    "star/protostar-yellow": { power: 0.4, wind: 5, icon: "map/g-small-star", habitable: 370, mass: 2312.5 },
+    "star/patir": { power: 0.2, wind: 8, icon: "map/patir-star", habitable: 10, mass: 31250 },
+    "star/neutron": { power: 4, wind: 0.4, icon: "map/neutron-star", habitable: 10, mass: 31250 },
+    "star/neutron-small": { power: 2, wind: 0.2, icon: "map/small-neutron-star", habitable: 10, mass: 31250 },
+    "star/magnetar": { power: 4, wind: 0.8, icon: "map/magnetar-star", habitable: 10, mass: 31250 },
+    "star/black-hole": { power: 0, wind: 0, icon: "map/black-hole-star", habitable: 10000, mass: 62500 },
+    "star/small-black-hole": { power: 0, wind: 0, icon: "map/small-black-hole-star", habitable: 10000, mass: 35000 },
+    "star/coal-black-hole": { power: 0, wind: 0, icon: "map/coal-black-hole-star", habitable: 10000, mass: 62500 },
+    "star/twilight-black-hole": { power: 2.4, wind: 0.3, icon: "map/twilight-black-hole-star", habitable: 10000, mass: 62500 },
+    "star/big black hole": { power: null, wind: null, icon: "map/big black hole", habitable: 10000, mass: 625000 },
+    "star/black hole 3": { power: null, wind: null, icon: "map/black hole 3", habitable: 10000, mass: 62500 },
+    "star/black hole 4": { power: null, wind: null, icon: "map/black hole 4", habitable: 10000, mass: 62500 },
+    "star/black hole 5": { power: null, wind: null, icon: "map/black hole 5", habitable: 10000, mass: 62500 },
+    "star/black hole 6": { power: null, wind: null, icon: "map/black hole 6", habitable: 10000, mass: 62500 },
+    "star/black hole corona": { power: null, wind: null, icon: "map/black hole corona", habitable: 10000, mass: 62500 },
+    "star/black hole star": { power: null, wind: null, icon: "map/black hole star", habitable: 10000, mass: 62500 },
+    "star/black-hole-still": { power: null, wind: null, icon: "map/black-hole-still", habitable: 10000, mass: 62500 },
+    "star/o-dwarf": { power: 1.1, wind: 0.5, icon: "map/o-small-star", habitable: 1325, mass: 8281.25 },
+    "star/b-dwarf": { power: 1, wind: 0.6, icon: "map/b-small-star", habitable: 1125, mass: 7031.25 },
+    "star/a-dwarf": { power: 0.9, wind: 0.7, icon: "map/a-small-star", habitable: 750, mass: 4687.5 },
+    "star/f-dwarf": { power: 0.8, wind: 0.8, icon: "map/f-small-star", habitable: 355, mass: 2218.75 },
+    "star/g-dwarf": { power: 0.7, wind: 0.9, icon: "map/g-small-star", habitable: 150, mass: 937.5 },
+    "star/k-dwarf": { power: 0.6, wind: 1, icon: "map/k-small-star", habitable: 100, mass: 625 },
+    "star/m-dwarf": { power: 0.5, wind: 1.2, icon: "map/m-small-star", habitable: 35, mass: 218.75 },
+    "star/l-dwarf": { power: 0.4, wind: 1.3, icon: "map/brown-dwarf-star", habitable: 30, mass: 187.5 },
+    "planet/browndwarf-l": { power: 0.4, wind: 0.5, icon: null, habitable: 10, mass: 125 },
+    "planet/browndwarf-l-rogue": { power: 0.4, wind: 0.5, icon: "map/brown-dwarf-star", habitable: 10, mass: 125 },
+    "planet/browndwarf-t": { power: 0.3, wind: 0.4, icon: null, habitable: 10, mass: 125 },
+    "planet/browndwarf-t-rogue": { power: 0.3, wind: 0.4, icon: "map/brown-dwarf-star", habitable: 10, mass: 125 },
+    "planet/browndwarf-y": { power: 0.1, wind: 0.3, icon: null, habitable: 10, mass: 125 },
+    "planet/browndwarf-y-rogue": { power: 0.1, wind: 0.3, icon: "map/brown-dwarf-star", habitable: 10, mass: 125 },
+    "star/m4": { power: 0.62, wind: 1.0, icon: "map/m-small-star", habitable: null, mass: null },
+    "star/giant": { power: 1.4, wind: 2, icon: "map/m-star", habitable: null, mass: null },
+};
+
 
 // ── Camera ───────────────────────────────────────────────────
 
@@ -211,7 +322,66 @@ function lod(cam) {
     };
 }
 
-// ── Mission source filters ──────────────────────────────────
+// ── Solar attributes (Power / Wind — "ramscoop" and "heat") ─
+//
+// "Ramscoop" and "heat" aren't separate numbers Endless Sky tracks —
+// they're both downstream of a system's total Solar Wind and Solar
+// Power. This merges the baseline table with whatever a plugin's own
+// stars.json contributes, then sums across every star object in a
+// system to get those two totals.
+
+/**
+ * Merges fetched per-plugin star data over the hardcoded baseline —
+ * fetched wins, so a mod can override a vanilla star type's numbers
+ * or add an entirely new sprite. Call once per active-plugin-set
+ * change, same as everything else in the pipeline, not per frame.
+ */
+function buildStarTable(formattedStars) {
+    const table = new Map(Object.entries(BASELINE_STAR_TABLE));
+    if (formattedStars) for (const [sprite, attrs] of formattedStars) table.set(sprite, attrs);
+    return table;
+}
+
+/**
+ * Walks a system's objectTree looking for star objects — identified
+ * by "is this object's sprite a key in the star table", which is the
+ * ES wiki's own classification rule in practice (a sprite only has
+ * Power/Wind numbers at all if it's a star), and correctly catches
+ * the handful of vanilla "stars" that are actually sprited under
+ * "planet/" (brown dwarfs) rather than "star/" — a plain prefix check
+ * would miss those.
+ *
+ * Returns null (not zeros) when no star in the system is recognised
+ * by the table at all, so the display layer can say "unknown" rather
+ * than a possibly-wrong "0" for a mod's custom star this table (even
+ * merged with that plugin's own stars.json) still doesn't cover.
+ */
+function computeSolarAttributes(system, starTable) {
+    const stars = [];
+    const walk = (nodes) => {
+        for (const obj of (nodes || [])) {
+            const attrs = starTable.get(obj.sprite);
+            if (attrs) stars.push({ sprite: obj.sprite, ...attrs });
+            walk(obj.children);
+        }
+    };
+    walk(system.objectTree);
+
+    if (stars.length === 0) return { power: null, wind: null, stars: [] };
+
+    let power = 0, wind = 0, anyPowerKnown = false, anyWindKnown = false;
+    for (const s of stars) {
+        if (s.power != null) { power += s.power; anyPowerKnown = true; }
+        if (s.wind != null) { wind += s.wind; anyWindKnown = true; }
+    }
+    return {
+        power: anyPowerKnown ? power : null,
+        wind: anyWindKnown ? wind : null,
+        stars,
+    };
+}
+
+
 //
 // A job-board mission's `source` is often a FILTER, not one fixed
 // planet — e.g. "any planet in a system with the 'avgi diaspora'
@@ -368,6 +538,9 @@ window.MapCalculations = {
     clampScale,
     evaluateMissionFilter,
     buildMissionIndex,
+    buildStarTable,
+    computeSolarAttributes,
+    BASELINE_STAR_TABLE,
     MIN_SCALE,
     MAX_SCALE,
 };

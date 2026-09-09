@@ -343,6 +343,37 @@
 .map-mission-row { color: var(--c-text-mid); font-size: 0.82rem; line-height: 1.5; }
 .map-mission-approx-note { color: var(--c-text-dim); font-size: 0.76rem; font-style: italic; margin-top: 6px; }
 
+/* ── Sprite thumbnails (planet icons, planet landscapes, star images) ──
+   Hydrated asynchronously by mapDisplay.js's _hydrateSpriteThumbs() —
+   these start empty (dark placeholder box) and fill in once
+   window.fetchSprite resolves, so the panel itself never blocks on
+   image loading. */
+.map-sprite-thumb {
+    background: #0a0e18;
+    border: 1px solid var(--map-panel-border);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    overflow: hidden;
+}
+.map-sprite-thumb--missing {
+    background: repeating-linear-gradient(45deg, #0a0e18, #0a0e18 6px, #10162400 6px, #10162400 12px);
+}
+
+.map-planet-row-thumb { width: 34px; height: 34px; }
+
+.map-planet-landscape {
+    width: 100%;
+    height: 160px;
+    margin: 10px 0;
+    border-radius: var(--r-md);
+}
+
+.map-star-images { display: flex; gap: 8px; margin-bottom: 8px; }
+.map-star-thumb { width: 56px; height: 56px; border-radius: 50%; }
+
 /* ═══════════════════════════════════════════════════════════════
    RESPONSIVE — mobile-first adjustments
    Breakpoints match the site's existing convention (600 / 690 / 768).
@@ -377,6 +408,7 @@
     .map-controls button { width: 34px; height: 34px; font-size: 16px; }
     .map-hint { display: none; } /* no room, and touch users don't need the mouse hint */
     .map-tooltip { max-width: 62vw; }
+    .map-planet-landscape { height: 130px; }
 }
 
 @media (max-width: 600px) {

@@ -79,28 +79,52 @@ const STATUS = {
   NOT_ENCOUNTERED: 'not_encountered',
 };
 
-// ── "Failure may be the only real path" detector ────────────────
+// ── "This status may not mean what it looks like" detector ──────
 //
-// A narrow, specific pattern confirmed against a real save: a mission
-// whose `to complete` trigger is a literal always-false condition (a
-// single child that's just the bare number 0, no values) while a real
-// `to fail` trigger exists. Structurally, such a mission can ONLY ever
-// resolve through `to fail` — so a "Failed" status on one of these may
-// be its designed resolution path, not a genuine failure.
+// Two separate, narrow, confirmed-real patterns where a mission's
+// "Failed" or "Declined" status doesn't necessarily mean genuine
+// failure or a player choosing to decline:
 //
-// This is deliberately narrow. It catches exactly the one pattern
-// that's actually been confirmed in real data, nothing broader —
-// tested against the full plugin catalog and it does NOT generalise
-// to "any unreachable to-complete" (a mission could just as easily
-// rely on an explicit `complete` action fired from a conversation,
-// which looks completely different and isn't detectable this way).
-// So: the ABSENCE of this flag does not mean a failure was genuine —
-// it only means this specific pattern wasn't the cause. Always treat
-// it as "worth a second look", never as a verdict.
-function hasUnreachableCompletePath(rawEntries) {
-  if (!Array.isArray(rawEntries)) return false;
-  const toComplete = rawEntries.find(e => e.key === 'to complete');
-  const toFail     = rawEntries.find(e => e.key === 'to fail');
+// PATTERN A — unreachable `to complete`: a mission whose `to complete`
+// trigger is a literal always-false condition (a single child that's
+// just the bare number 0) while a real `to fail` trigger exists.
+// Structurally, such a mission can only ever resolve through `to fail`.
+//
+// PATTERN B — reward-then-self-resolve: an `on X` action block (on
+// accept, on offer, on visit, ...) contains a bare `fail` or `decline`
+// ACTION alongside real reward-granting actions (payment/outfit/ship/
+// log) in that same block. Confirmed against a real mission
+// ("Unfettered: Jump Drive Source"): its `on accept` grants a log
+// entry, swaps an outfit, pays 1,000,000 credits, raises reputation —
+// then calls `fail` as the very next action, purely to remove the
+// mission from the active list once its one-time payout already
+// happened. That's a deliberate "grant reward, then dismiss" pattern,
+// not a failure — but it does leave a real "<name>: failed" condition
+// behind, same as a genuine failure would.
+//
+// IMPORTANT — raw-tree shape: both patterns key off the exact { key,
+// values, children } convention missionParser.js's catalog data uses:
+// `to offer` / `on accept` are NOT merged into one string key — they're
+// `{ key: "to"/"on", values: ["offer"/"accept", ...] }`. esSaveParser.js
+// builds save-file mission trees the same way (confirmed, and fixed
+// here after finding a mismatch), so this works identically whichever
+// source the raw tree came from.
+//
+// This is deliberately narrow — it catches exactly these two confirmed
+// patterns, nothing broader. A mission could resolve unusually in some
+// OTHER way this doesn't recognise (there's no way to enumerate every
+// possible mission script). So: the ABSENCE of a flag does NOT mean a
+// failure/decline was genuine — it only means neither known pattern was
+// the cause. Always treat a flag as "worth a second look", never a
+// verdict, and treat its absence as "nothing detected", not "confirmed
+// genuine."
+function _triggerBlock(rawEntries, lead, subtype) {
+  return (rawEntries || []).find(e => e.key === lead && e.values && e.values[0] === subtype);
+}
+
+function _unreachableCompletePath(rawEntries) {
+  const toComplete = _triggerBlock(rawEntries, 'to', 'complete');
+  const toFail      = _triggerBlock(rawEntries, 'to', 'fail');
   if (!toComplete || !toFail) return false;
 
   const kids = toComplete.children;
@@ -110,7 +134,47 @@ function hasUnreachableCompletePath(rawEntries) {
 
   // `to fail` needs to actually say something — not itself be an
   // equally-trivial placeholder.
-  return !!((toFail.children && toFail.children.length) || (toFail.values && toFail.values.length));
+  return !!((toFail.children && toFail.children.length) || (toFail.values && toFail.values.length > 1));
+}
+
+const REWARD_ACTION_KEYS = new Set(['payment', 'outfit', 'give', 'log', 'ship']);
+const SELF_RESOLVE_KEYS  = new Set(['fail', 'decline']);
+
+function _rewardThenSelfResolve(rawEntries) {
+  for (const entry of (rawEntries || [])) {
+    if (entry.key !== 'on') continue; // action blocks only, not "to" declarative triggers
+    const kids = entry.children || [];
+    const resolveAction = kids.find(c => SELF_RESOLVE_KEYS.has(c.key) && (!c.values || c.values.length === 0));
+    if (!resolveAction) continue;
+    const hasReward = kids.some(c => REWARD_ACTION_KEYS.has(c.key));
+    if (hasReward) {
+      return { trigger: entry.values && entry.values[0], resolveAction: resolveAction.key };
+    }
+  }
+  return null;
+}
+
+// Combines both patterns into one flag + a human-readable reason, since
+// a consumer just needs "should I double-check this one" plus enough
+// context to know where to look — not two separate booleans to juggle.
+function detectQuestionableResolution(rawEntries) {
+  if (!Array.isArray(rawEntries)) return { flagged: false, reason: null };
+
+  if (_unreachableCompletePath(rawEntries)) {
+    return { flagged: true, reason: 'Its "to complete" condition looks unreachable — it may only ever resolve via "to fail".' };
+  }
+
+  const b = _rewardThenSelfResolve(rawEntries);
+  if (b) {
+    return { flagged: true, reason: `Its "on ${b.trigger}" block grants a reward and then calls "${b.resolveAction}" right after — that looks like a deliberate way to end the mission after a one-time payout, not a real ${b.resolveAction === 'fail' ? 'failure' : 'decline'}.` };
+  }
+
+  return { flagged: false, reason: null };
+}
+
+// Kept as a thin alias — some callers may already reference this name.
+function hasUnreachableCompletePath(rawEntries) {
+  return detectQuestionableResolution(rawEntries).flagged;
 }
 
 // ── Save-file access ─────────────────────────────────────────
@@ -169,11 +233,18 @@ function getMissionStatus(name, save) {
   // already resolved (not held), decorateMissions() layers an
   // additional check against the plugin catalog's static definition,
   // since the save no longer carries that mission's structure once it's
-  // no longer active.
+  // no longer active (in particular, pattern B below needs the on-accept/
+  // on-offer blocks, which a held save copy typically no longer has —
+  // those already fired once, back when the mission was accepted).
   let unreachableCompletePath = false;
+  let unreachableCompletePathReason = null;
   if (isHeld) {
     const heldEntry = save.missions.find(m => m.name === name);
-    if (heldEntry) unreachableCompletePath = hasUnreachableCompletePath(heldEntry.raw);
+    if (heldEntry) {
+      const detected = detectQuestionableResolution(heldEntry.raw);
+      unreachableCompletePath = detected.flagged;
+      unreachableCompletePathReason = detected.reason;
+    }
   }
 
   const resolutionTypes = ['done', 'failed', 'declined'].filter(k => counts[k] > 0);
@@ -195,6 +266,7 @@ function getMissionStatus(name, save) {
     isHeld,
     isAvailable,
     unreachableCompletePath,
+    unreachableCompletePathReason,
   };
 }
 
@@ -255,11 +327,17 @@ function decorateMissions(missions, save) {
   return missions.map(m => {
     let status = statuses.get(m.name) || getMissionStatus(m.name, save);
     // Already-resolved missions (not currently held) have no live save
-    // data to check for the unreachable-complete pattern — fall back to
-    // the plugin catalog's static definition, which is what `m.raw` is
-    // here (missionLoader.js's own raw tree for this catalog entry).
-    if (!status.unreachableCompletePath && !status.isHeld && m.raw && hasUnreachableCompletePath(m.raw)) {
-      status = { ...status, unreachableCompletePath: true };
+    // data to check for these patterns — fall back to the plugin
+    // catalog's static definition, which is what `m.raw` is here
+    // (missionLoader.js's own raw tree for this catalog entry). This is
+    // also the ONLY place pattern B (reward-then-fail/decline) can
+    // realistically fire, since a held save copy no longer carries the
+    // on-accept/on-offer blocks it needs once they've already run once.
+    if (!status.unreachableCompletePath && !status.isHeld && m.raw) {
+      const detected = detectQuestionableResolution(m.raw);
+      if (detected.flagged) {
+        status = { ...status, unreachableCompletePath: true, unreachableCompletePathReason: detected.reason };
+      }
     }
     return { ...m, status };
   });
@@ -274,6 +352,7 @@ window.MissionStatusHelper = {
   getAllStatuses,
   decorateMissions,
   hasUnreachableCompletePath,
+  detectQuestionableResolution,
 };
 
 })();

@@ -42,6 +42,7 @@ const countLabel     = document.getElementById('countLabel');
 // Both optional — only used if present in the page's HTML. See the
 // bottom of this file for the exact markup to add for each.
 const statusFilterEl = document.getElementById('statusFilterSelect');
+const jobBoardFilterEl = document.getElementById('jobBoardFilterCheckbox');
 const noSaveNoticeEl = document.getElementById('noSaveNotice');
 const cleanupPanelEl = document.getElementById('saveCleanupPanel');
 
@@ -62,6 +63,7 @@ document.addEventListener('missionsLoadError', (e) => {
 
 searchInput.addEventListener('input', applyFiltersAndRender);
 if (statusFilterEl) statusFilterEl.addEventListener('change', applyFiltersAndRender);
+if (jobBoardFilterEl) jobBoardFilterEl.addEventListener('change', applyFiltersAndRender);
 
 // Event delegation: card clicks now open the mission detail modal
 // instead of expanding inline (see MissionModal below) — more room for
@@ -138,7 +140,7 @@ function statusBadgeHtml(m) {
         ? `<span class="mission-status-badge mission-status-badge--${badge.cls}" title="${esc(m.status.label)}">${esc(badge.text)}</span>`
         : '';
     const warningHtml = m.status.unreachableCompletePath
-        ? `<span class="mission-status-warning" title="This mission's &quot;to complete&quot; looks structurally unreachable — it may only ever resolve via &quot;to fail&quot;. A Failed status here could be its designed path, not a genuine failure. Open the mission and check its raw structure to judge for yourself.">⚠</span>`
+        ? `<span class="mission-status-warning" title="${esc(m.status.unreachableCompletePathReason || '')} Open the mission and check its raw structure to judge for yourself.">⚠</span>`
         : '';
     return badgeHtml + warningHtml;
 }
@@ -176,8 +178,8 @@ function refreshMissions() {
     renderCleanupPanel();
 }
 
-// Cheap: just search text + status dropdown over the already-decorated
-// catalog. Safe to call on every keystroke.
+// Cheap: just search text + status dropdown + job-board checkbox over
+// the already-decorated catalog. Safe to call on every keystroke.
 function applyFiltersAndRender() {
     const q = searchInput.value.trim().toLowerCase();
     let filtered = q ? allDecoratedMissions.filter(m => m.searchText.includes(q)) : allDecoratedMissions;
@@ -187,6 +189,10 @@ function applyFiltersAndRender() {
         filtered = statusPick === 'has_status'
             ? filtered.filter(m => m.status.status !== MissionStatusHelper.STATUS.NOT_ENCOUNTERED)
             : filtered.filter(m => m.status.status === statusPick);
+    }
+
+    if (jobBoardFilterEl && jobBoardFilterEl.checked) {
+        filtered = filtered.filter(m => (m.locations || []).includes('job'));
     }
 
     currentMissions = new Map(filtered.map(m => [m.id, m]));
@@ -350,13 +356,13 @@ document.addEventListener('missionModalAction', (e) => {
     navigator.clipboard?.writeText(e.detail.mission.name).catch(() => {});
 });
 
-// Warning banner for the "failure may be the only real path" pattern —
-// see missionStatusHelper.js's hasUnreachableCompletePath() for exactly
-// what this does and doesn't catch.
+// Warning banner for the "this status may not mean what it looks like"
+// patterns — see missionStatusHelper.js's detectQuestionableResolution()
+// for exactly what this does and doesn't catch.
 if (HAS_STATUS_HELPER) {
     MissionModal.registerNote(m => {
         if (!m.status || !m.status.unreachableCompletePath) return '';
-        return `<div class="mission-warning-banner">⚠ This mission's <span class="mission-tag">to complete</span> looks structurally unreachable — it may only ever resolve via <span class="mission-tag">to fail</span>. A "Failed" status here could be this mission's intended path, not a genuine failure. Check the raw structure below to judge for yourself.</div>`;
+        return `<div class="mission-warning-banner">⚠ ${esc(m.status.unreachableCompletePathReason || '')} Check the raw structure below to judge for yourself — and consider using "Complete mission" instead if this looks like your case.</div>`;
     });
 }
 
@@ -434,8 +440,13 @@ if (HAS_CLEANUP_HELPER && HAS_STATUS_HELPER) {
                 : mission.status.isAvailable
                     ? 'available but not yet accepted'
                     : `not currently tracked in the save (status: ${mission.status.label})`;
-            if (!window.confirm(`Mark "${mission.name}" (${context}) as completed and apply its rewards to the Updated Save?`)) return;
-            const result = SaveCleanupHelper.completeMission(mission.name, rewards);
+            const repeatNote = mission.repeatable
+                ? ''
+                : (mission.status.counts.failed || mission.status.counts.declined)
+                    ? '\n\nThis mission isn\u2019t repeatable, so its existing failed/declined history will be cleared — a non-repeatable mission can\u2019t have both in a real save.'
+                    : '';
+            if (!window.confirm(`Mark "${mission.name}" (${context}) as completed and apply its rewards to the Updated Save?${repeatNote}`)) return;
+            const result = SaveCleanupHelper.completeMission(mission.name, rewards, { repeatable: mission.repeatable });
             MissionModal.close();
             refreshMissions();
 
@@ -446,6 +457,9 @@ if (HAS_CLEANUP_HELPER && HAS_STATUS_HELPER) {
                 result.unappliedShips.forEach(s => parts.push(`${s.name} (SHIP — not added automatically, see note below)`));
             }
             let msg = parts.length ? `Applied:\n${parts.join('\n')}` : 'This mission had no onComplete rewards to apply.';
+            if (result.clearedFailed || result.clearedDeclined) {
+                msg += `\n\nCleared prior ${[result.clearedFailed && 'failed', result.clearedDeclined && 'declined'].filter(Boolean).join(' and ')} record (non-repeatable mission).`;
+            }
             if (result.unappliedShips.length) {
                 msg += `\n\nShip rewards aren't added to the save automatically — this page doesn't have full ship stat data loaded (that lives on the Ship Builder page), so adding one here would mean an incomplete/broken entry. Add it manually if needed.`;
             }
@@ -539,8 +553,9 @@ function renderCleanupPanel() {
 }
 
 // ═══════════════════════════════════════════════════════════
-//  Optional HTML this file looks for (both are safe to omit — status
-//  badges/filtering just won't appear if they're not on the page):
+//  Optional HTML this file looks for (all safe to omit — the
+//  corresponding badges/filtering just won't appear if they're not on
+//  the page):
 //
 //  Status filter dropdown, next to the search box:
 //    <select id="statusFilterSelect">
@@ -554,6 +569,12 @@ function renderCleanupPanel() {
 //      <option value="mixed">Mixed history</option>
 //      <option value="offered_only">Offered only</option>
 //    </select>
+//
+//  Job-board-only checkbox, next to the search box:
+//    <label>
+//      <input type="checkbox" id="jobBoardFilterCheckbox">
+//      Job board only
+//    </label>
 //
 //  "No save loaded" notice, shown only when MissionStatusHelper has no
 //  current save to cross-reference against:

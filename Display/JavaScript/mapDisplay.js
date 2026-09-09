@@ -17,6 +17,11 @@
 //    generalPluginStuff.js — window.PluginManager  (which plugins are active)
 //    dataLoader.js         — window.DataLoader     (populates window.allData
 //                             so the shared plugin picker has something to list)
+//    Animator.js, ImageGrabber.js — window.fetchSprite / initImageIndex /
+//                             setCurrentPlugin, for planet & star art. Optional
+//                             in the sense that this file checks `typeof` before
+//                             calling them, so the map still works without images
+//                             if they're ever left out — it just won't have art.
 //
 //  INTEGRATION WITH GeneralPluginStuff
 //  ------------------------------------
@@ -77,6 +82,7 @@ const activeGovFilters = new Set(); // governments currently hidden by the legen
 
 let missionIndex = { concreteBySystem: new Map(), genericJobMatchCount: new Map(), stats: {} };
 let jobBoardOn = true; // controlled by the Job Board toggle in the UI
+let starTable = MapCalculations.buildStarTable(new Map()); // baseline until plugin stars.json data arrives
 
 let cam = MapCalculations.createCamera();
 let hovered = null;
@@ -133,6 +139,7 @@ function init() {
     // plugin picker (PluginManager) reads to build its list.
     window.DataLoader.onReady(() => {
         window.PluginManager.initDefaultPlugin();
+        if (typeof initImageIndex === 'function') initImageIndex(); // for planet/star art
     });
     window.DataLoader.load().catch(err => _showError(err.message));
 
@@ -155,6 +162,8 @@ window._renderCardsFromManager = async function (resetView) {
 async function _loadAndRender(activeOutputNames, resetView) {
     _setLoading(true, activeOutputNames.length);
     try {
+        if (typeof setCurrentPlugin === 'function') setCurrentPlugin(activeOutputNames[0]);
+
         const pluginDataMap = await MapDataLoader.loadPlugins(activeOutputNames);
 
         systemsByName = MapDataFormatter.formatSystems(pluginDataMap, activeOutputNames);
@@ -163,6 +172,9 @@ async function _loadAndRender(activeOutputNames, resetView) {
         const planetsBySystem = MapDataFormatter.formatPlanets(pluginDataMap, activeOutputNames);
         MapDataFormatter.attachPlanets(systemsByName, planetsBySystem);
         galaxies = MapDataFormatter.formatGalaxies(pluginDataMap).filter(g => !g.isLabel);
+
+        const fetchedStars = MapDataFormatter.formatStars(pluginDataMap, activeOutputNames);
+        starTable = MapCalculations.buildStarTable(fetchedStars);
 
         systemsArr = [...systemsByName.values()];
         linkSegments = MapCalculations.buildLinkSegments(systemsByName);
@@ -632,12 +644,15 @@ function _renderDetailsPanel() {
     detailsPanelEl.innerHTML = selectedPlanet
         ? _renderPlanetDetails(selected, selectedPlanet)
         : _renderSystemDetails(selected);
+    _hydrateSpriteThumbs();
 }
 
 function _renderSystemDetails(s) {
     const links = s.links.length ? s.links.map(_esc).join(', ') : '—';
     const bucket = missionIndex.concreteBySystem.get(s.name);
     const genericCount = missionIndex.genericJobMatchCount.get(s.name) || 0;
+
+    const starSection = _starSolarHtml(s);
 
     const planetsSection = s.planets.length
         ? `<div class="map-details-section">
@@ -656,9 +671,96 @@ function _renderSystemDetails(s) {
             <h3>Jump links</h3>
             <div class="map-details-links">${links}</div>
         </div>
+        ${starSection}
         ${planetsSection}
         ${missionsSection}
     `;
+}
+
+/**
+ * Star image(s) plus Solar Power / Solar Wind for the system, computed
+ * via MapCalculations.computeSolarAttributes() from each star object's
+ * catalog entry (see mapCalculations.js's BASELINE_STAR_TABLE doc
+ * comment for where those numbers come from). There's no separate
+ * "heat" number in Endless Sky — Power is what governs both solar
+ * collection AND solar-heat outfits, which is stated here rather than
+ * inventing a second figure. The system-level `ramscoop` override
+ * (universal/addend/multiplier) is shown as its own raw fact, not
+ * folded into a single combined "fuel rate" — the exact interaction
+ * between it and the wind-based formula below isn't something I could
+ * independently verify, so it's shown separately rather than guessed.
+ */
+function _starSolarHtml(s) {
+    const solar = MapCalculations.computeSolarAttributes(s, starTable);
+    if (solar.stars.length === 0) {
+        return `<div class="map-details-section"><h3>Star</h3><div class="map-details-links">No star on record for this system.</div></div>`;
+    }
+
+    const images = solar.stars.map(st => _spriteThumbHtml(st.sprite, st.sprite, 'map-star-thumb')).join('');
+
+    const powerText = solar.power != null ? solar.power.toFixed(2) : 'unknown';
+    const windText = solar.wind != null ? solar.wind.toFixed(2) : 'unknown';
+
+    const habitableParts = [];
+    if (s.habitableOverride != null) habitableParts.push(`system override: ${s.habitableOverride}`);
+    for (const st of solar.stars) {
+        if (st.habitable != null) habitableParts.push(`${_esc(st.sprite)}: ${st.habitable}`);
+    }
+    const habitableText = habitableParts.length ? habitableParts.join(' · ') : 'not on record';
+
+    const ramscoopText = s.ramscoopModifier
+        ? `universal ${s.ramscoopModifier.universal} · addend ${s.ramscoopModifier.addend} · multiplier ${s.ramscoopModifier.multiplier} <span class="map-tooltip-planet-gov">(overrides this system's default of 1/0/1)</span>`
+        : 'default (no system override — universal 1, addend 0, multiplier 1)';
+
+    return `
+        <div class="map-details-section">
+            <h3>Star${solar.stars.length > 1 ? 's' : ''} & Solar</h3>
+            <div class="map-star-images">${images}</div>
+            <div class="map-details-links">
+                Solar Power: <b>${powerText}</b> <span class="map-tooltip-planet-gov">(solar collection & solar-heat outfits)</span><br>
+                Solar Wind: <b>${windText}</b> <span class="map-tooltip-planet-gov">(ramscoop fuel regen)</span><br>
+                Ramscoop modifier: ${ramscoopText}<br>
+                Habitable zone: ${habitableText}
+            </div>
+        </div>
+    `;
+}
+
+/**
+ * Placeholder for a sprite image, hydrated asynchronously after the
+ * innerHTML containing it is set — see _hydrateSpriteThumbs(). Doing
+ * it this way (render text/structure synchronously, fill in images
+ * after) keeps the details panel responsive even though fetchSprite()
+ * is async and can be slow on a first-time image-index build.
+ */
+function _spriteThumbHtml(sprite, altText, sizeClass) {
+    if (!sprite) return '';
+    return `<div class="map-sprite-thumb ${sizeClass || ''}" data-sprite="${_esc(sprite)}" title="${_esc(altText || sprite)}"></div>`;
+}
+
+/** Finds every not-yet-loaded sprite placeholder in the details panel
+ *  and fills it in via window.fetchSprite. Fire-and-forget per image —
+ *  one missing/slow sprite doesn't block the others. */
+function _hydrateSpriteThumbs() {
+    if (typeof fetchSprite !== 'function' || !detailsPanelEl) return;
+    const placeholders = detailsPanelEl.querySelectorAll('[data-sprite]');
+    placeholders.forEach(async el => {
+        const sprite = el.getAttribute('data-sprite');
+        try {
+            const element = await fetchSprite(sprite, null);
+            if (!el.isConnected) return; // panel re-rendered before this resolved
+            if (element) {
+                element.style.cssText = 'max-width:100%;max-height:100%;object-fit:contain;image-rendering:pixelated;display:block;margin:auto;';
+                el.innerHTML = '';
+                el.appendChild(element);
+            } else {
+                el.classList.add('map-sprite-thumb--missing');
+            }
+        } catch (err) {
+            console.warn('[mapDisplay] sprite fetch failed for', sprite, err);
+            el.classList.add('map-sprite-thumb--missing');
+        }
+    });
 }
 
 function _planetRowHtml(p) {
@@ -668,8 +770,10 @@ function _planetRowHtml(p) {
         p.hasOutfitter ? '<span class="map-badge-chip">outfitter</span>' : null,
         p.wormhole ? '<span class="map-badge-chip wormhole">wormhole</span>' : null,
     ].filter(Boolean).join('');
+    const thumb = _spriteThumbHtml(p.sprite || p.landscapes[0], p.name, 'map-planet-row-thumb');
     return `
         <button class="map-planet-row" data-planet="${_esc(p.name)}">
+            ${thumb}
             <span>${_esc(p.name)}</span>
             <span class="map-planet-row-gov">${_esc(p.government)}</span>
             <span class="map-planet-row-badges">${badges}</span>
@@ -697,6 +801,13 @@ function _renderPlanetDetails(system, planetName) {
         ? ` <span class="map-details-links">(differs from ${_esc(system.name)}'s ${_esc(system.government)})</span>`
         : '';
 
+    // Landing-screen art (the actual "picture of the planet"), falling
+    // back to the small map-icon sprite if this plugin has no landscape
+    // art recorded for it.
+    const landscapeImage = p.landscapes.length
+        ? _spriteThumbHtml(p.landscapes[0], p.name, 'map-planet-landscape')
+        : _spriteThumbHtml(p.sprite, p.name, 'map-planet-landscape');
+
     // Missions whose source resolved to exactly this planet, not just
     // somewhere else in the same system.
     const bucket = missionIndex.concreteBySystem.get(system.name);
@@ -709,6 +820,7 @@ function _renderPlanetDetails(system, planetName) {
         <div class="map-details-header">
             <h2 class="map-details-title">${_esc(p.name)}<span class="map-details-gov">${_esc(p.government)}${govNote}</span></h2>
         </div>
+        ${landscapeImage}
         <div class="map-details-section">
             <h3>Facilities</h3>
             <div class="map-details-links">${badges || 'No spaceport facilities on record.'}</div>
@@ -803,4 +915,4 @@ function _wireControls() {
 
 document.addEventListener('DOMContentLoaded', init);
 
-})();
+})();   
