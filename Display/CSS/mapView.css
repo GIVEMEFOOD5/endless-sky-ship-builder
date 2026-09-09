@@ -251,6 +251,98 @@
     white-space: nowrap;
 }
 
+/* ── Details panel (below the viewport, not a popup) ──────────────
+   Click/tap a system to fill this in; click a planet row to drill in.
+   Nothing here is modal — a stray click just replaces the contents,
+   there's no overlay to dismiss and no focus trap. */
+.map-details-panel {
+    min-height: 88px;
+}
+.map-details-empty {
+    color: var(--c-text-dim);
+    font-size: 0.85rem;
+    padding: 8px 2px;
+}
+
+.map-details-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+.map-details-title { font-size: 1.25rem; color: var(--c-text); margin: 0; }
+.map-details-title .map-details-gov { color: var(--map-accent); font-size: 0.85rem; font-weight: 400; margin-left: 8px; }
+
+.map-details-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: none;
+    border: 1px solid var(--map-panel-border);
+    color: var(--c-text-mid);
+    border-radius: var(--r-md);
+    padding: 6px 12px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    margin-bottom: 12px;
+}
+.map-details-back:hover { border-color: var(--map-accent-dim); color: var(--map-accent); }
+
+.map-details-section { margin-top: 14px; }
+.map-details-section h3 {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--c-text-dim);
+    margin-bottom: 8px;
+}
+.map-details-links { color: var(--c-text-mid); font-size: 0.85rem; line-height: 1.6; }
+
+/* Clickable planet rows — generous tap target, obviously interactive
+   but low-stakes: clicking the wrong one just swaps this panel's
+   contents, nothing more. */
+.map-planet-list { display: flex; flex-direction: column; gap: 6px; }
+.map-planet-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    text-align: left;
+    background: var(--map-panel-bg);
+    border: 1px solid var(--map-panel-border);
+    border-radius: var(--r-md);
+    padding: 10px 12px;
+    color: var(--c-text);
+    font-size: 0.85rem;
+    cursor: pointer;
+    min-height: 40px; /* comfortable tap target on mobile */
+}
+.map-planet-row:hover, .map-planet-row:active {
+    border-color: var(--map-accent-dim);
+    background: #111a2c;
+}
+.map-planet-row .map-planet-row-gov { color: var(--c-text-dim); font-size: 0.76rem; }
+.map-planet-row .map-planet-row-badges { margin-left: auto; display: flex; gap: 5px; }
+
+.map-badge-chip {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-size: 0.68rem;
+    background: rgba(94,225,201,0.12);
+    color: var(--map-accent);
+    white-space: nowrap;
+}
+.map-badge-chip.job { background: rgba(255,209,102,0.15); color: #ffd166; }
+.map-badge-chip.story { background: rgba(232,237,247,0.12); color: #e8edf7; }
+.map-badge-chip.wormhole { background: rgba(180,140,255,0.18); color: #cbb2ff; }
+
+.map-mission-list { display: flex; flex-direction: column; gap: 4px; }
+.map-mission-row { color: var(--c-text-mid); font-size: 0.82rem; line-height: 1.5; }
+.map-mission-approx-note { color: var(--c-text-dim); font-size: 0.76rem; font-style: italic; margin-top: 6px; }
+
 /* ═══════════════════════════════════════════════════════════════
    RESPONSIVE — mobile-first adjustments
    Breakpoints match the site's existing convention (600 / 690 / 768).
@@ -291,4 +383,6 @@
     .map-header-row { flex-direction: column; }
     .map-viewport { height: 54vh; min-height: 300px; border-radius: var(--r-md); }
     .map-legend { max-width: 50%; }
+    .map-details-title { font-size: 1.1rem; }
+    .map-planet-row { flex-wrap: wrap; }
 }
