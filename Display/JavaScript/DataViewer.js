@@ -110,6 +110,14 @@ window._renderCardsFromManager = async function (resetTab = false) {
 // ─── Tab switching ────────────────────────────────────────────────────────────
 
 function switchTab(tab) {
+    if (currentTab !== tab && (tab !== "ships" && tab !== "variants")) {
+        const searchBar = document.getElementById('searchInput');
+        searchBar.value = "";
+    } else if (currentTab !== tab && (tab !== "outfits")) {
+        const searchBar = document.getElementById('searchInput');
+        searchBar.value = "";
+    }
+
     currentTab = tab;
     document.querySelectorAll('.tab').forEach(t => {
         t.classList.toggle('active', t.dataset.tab === tab);
