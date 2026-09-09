@@ -45,9 +45,27 @@ const { MapDataLoader, MapDataFormatter, MapCalculations } = window;
 
 // ── DOM refs (grabbed lazily — Systems.html defines these ids) ──
 let canvas, ctx, wrap;
-let searchInput, resultsEl, legendListEl, tooltipEl, subtitleEl, loadingEl, loadingBarEl, jobBoardToggleEl;
+let searchInput, resultsEl, legendListEl, tooltipEl, subtitleEl, loadingEl, loadingBarEl, jobBoardToggleEl, detailsPanelEl;
 
 let dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+/**
+ * Escapes text before it goes into an innerHTML template. Everything
+ * rendered by this file — system/planet/mission names, governments,
+ * plugin ids — ultimately comes from plugin data, which can contain
+ * anything, including Endless Sky's own templating placeholders like
+ * "<planet>" in an unresolved mission name. Without escaping, the
+ * browser reads that as an actual (unknown) HTML tag and silently
+ * drops it, which is exactly the kind of "why did half this mission
+ * name disappear" bug that's easy to miss without real data — this
+ * showed up in testing with the real missions.json and is why every
+ * interpolation site in this file uses this.
+ */
+function _esc(str) {
+    return String(str ?? '').replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+    }[c]));
+}
 
 // ── Map state (rebuilt every time the active plugin set changes) ──
 let systemsByName = new Map();  // FormattedSystem, keyed by name
@@ -63,6 +81,7 @@ let jobBoardOn = true; // controlled by the Job Board toggle in the UI
 let cam = MapCalculations.createCamera();
 let hovered = null;
 let selected = null;
+let selectedPlanet = null; // planet name, scoped to `selected` — cleared whenever the system selection changes
 let hasFitCamera = false;
 
 // ═══════════════════════════════════════════════════════════
@@ -81,6 +100,7 @@ function _grabDom() {
     loadingEl = document.getElementById('mapLoading');
     loadingBarEl = document.getElementById('mapLoadingBar');
     jobBoardToggleEl = document.getElementById('mapJobBoardToggle');
+    detailsPanelEl = document.getElementById('mapDetailsPanel');
 }
 
 function _wireJobBoardToggle() {
@@ -88,6 +108,7 @@ function _wireJobBoardToggle() {
     jobBoardToggleEl.checked = jobBoardOn;
     jobBoardToggleEl.addEventListener('change', () => {
         jobBoardOn = jobBoardToggleEl.checked;
+        _renderDetailsPanel();
         _draw();
     });
 }
@@ -99,6 +120,7 @@ function init() {
     _wireControls();
     _wireLoadProgress();
     _wireJobBoardToggle();
+    _wireDetailsPanel();
     window.addEventListener('resize', _resizeCanvas);
     _resizeCanvas();
 
@@ -159,7 +181,16 @@ async function _loadAndRender(activeOutputNames, resetView) {
             cam = MapCalculations.fitToSystems(systemsArr, canvas.clientWidth, canvas.clientHeight);
             hasFitCamera = true;
             selected = null;
+            selectedPlanet = null;
+        } else if (selected) {
+            // A plugin toggle may have re-shaped or removed the previously
+            // selected system — re-point at the fresh object, or clear the
+            // selection (and the details panel with it) if it's gone.
+            const fresh = systemsByName.get(selected.name) || null;
+            selected = fresh;
+            if (!fresh || !fresh.planets.some(p => p.name === selectedPlanet)) selectedPlanet = null;
         }
+        _renderDetailsPanel();
         _draw();
     } catch (err) {
         console.error('[mapDisplay] render failed:', err);
@@ -211,7 +242,7 @@ function _renderLegend() {
         row.className = 'map-legend-row';
         row.innerHTML = `
             <span class="map-legend-dot" style="background:${govPalette.colors[g]}"></span>
-            <span class="map-legend-name">${g}</span>
+            <span class="map-legend-name">${_esc(g)}</span>
             <span class="map-legend-count">${govPalette.counts[g]}</span>
         `;
         row.addEventListener('click', () => {
@@ -395,7 +426,7 @@ function _wireCanvasInput() {
     });
     canvas.addEventListener('click', () => {
         if (moved) return;
-        if (hovered) { selected = hovered; _draw(); }
+        if (hovered) _selectSystem(hovered);
     });
     canvas.addEventListener('wheel', e => {
         e.preventDefault();
@@ -458,9 +489,8 @@ function _wireCanvasInput() {
             const thresh = (MapCalculations.lod(cam).nodeRadius + 10) / cam.scale;
             const nearest = MapCalculations.findNearest(_visibleSet(), world.x, world.y, thresh);
             if (nearest) {
-                selected = nearest;
+                _selectSystem(nearest);
                 _showTooltip(nearest, e.changedTouches[0].clientX, e.changedTouches[0].clientY);
-                _draw();
             }
         }
         touchMode = null;
@@ -482,15 +512,15 @@ function _updateHover(sx, sy, clientX, clientY) {
 
 function _showTooltip(s, clientX, clientY) {
     if (!tooltipEl) return;
-    const links = s.links.length ? s.links.slice(0, 6).join(', ') + (s.links.length > 6 ? '…' : '') : '—';
+    const links = s.links.length ? s.links.map(_esc).slice(0, 6).join(', ') + (s.links.length > 6 ? '…' : '') : '—';
     tooltipEl.innerHTML = `
-        <b>${s.name}</b><br>
-        <span class="map-tooltip-gov">${s.government}</span>
+        <b>${_esc(s.name)}</b><br>
+        <span class="map-tooltip-gov">${_esc(s.government)}</span>
         ${s.wormhole ? '<span class="map-tooltip-badge">wormhole</span>' : ''}
         <div class="map-tooltip-links">links: ${links}</div>
         ${_planetsHtml(s.planets)}
         ${_missionsHtml(s)}
-        <div class="map-tooltip-source">from: ${s.definedBy.join(', ')}</div>
+        <div class="map-tooltip-source">from: ${s.definedBy.map(_esc).join(', ')}</div>
     `;
     tooltipEl.style.display = 'block';
     const wrapRect = wrap.getBoundingClientRect();
@@ -515,12 +545,12 @@ function _missionsHtml(s) {
 
     const rows = [];
     if (hasStory) {
-        const names = bucket.story.slice(0, 4).map(m => m.displayName).join(', ');
+        const names = bucket.story.slice(0, 4).map(m => _esc(m.displayName)).join(', ');
         const more = bucket.story.length > 4 ? ` +${bucket.story.length - 4} more` : '';
         rows.push(`<div class="map-tooltip-mission">🚩 ${names}${more}</div>`);
     }
     if (jobBoardOn && hasJobs) {
-        const names = bucket.jobs.slice(0, 4).map(m => m.displayName).join(', ');
+        const names = bucket.jobs.slice(0, 4).map(m => _esc(m.displayName)).join(', ');
         const more = bucket.jobs.length > 4 ? ` +${bucket.jobs.length - 4} more` : '';
         rows.push(`<div class="map-tooltip-mission">🧾 ${names}${more}</div>`);
     }
@@ -544,8 +574,8 @@ function _planetsHtml(planets) {
             p.hasShipyard ? 'shipyard' : null,
             p.hasOutfitter ? 'outfitter' : null,
         ].filter(Boolean).join(' · ');
-        const govNote = p.government ? ` <span class="map-tooltip-planet-gov">(${p.government})</span>` : '';
-        return `<div class="map-tooltip-planet">• ${p.name}${govNote}${badges ? ` — ${badges}` : ''}</div>`;
+        const govNote = p.government ? ` <span class="map-tooltip-planet-gov">(${_esc(p.government)})</span>` : '';
+        return `<div class="map-tooltip-planet">• ${_esc(p.name)}${govNote}${badges ? ` — ${badges}` : ''}</div>`;
     }).join('');
     const more = planets.length > 6 ? `<div class="map-tooltip-planet">…and ${planets.length - 6} more</div>` : '';
     return `<div class="map-tooltip-planets">${rows}${more}</div>`;
@@ -554,6 +584,169 @@ function _planetsHtml(planets) {
 function _hideTooltip() {
     if (tooltipEl) tooltipEl.style.display = 'none';
 }
+
+// ═══════════════════════════════════════════════════════════
+//  Details panel (below the viewport — not a popup)
+//
+//  Clicking/tapping a system fills this in. It's deliberately a
+//  plain section on the page rather than a modal or floating popup:
+//  a mis-click just replaces its contents, there's nothing to
+//  dismiss and no focus trap, so it can't turn an accidental tap
+//  into a frustrating dead end. Clicking a planet row inside it
+//  drills into that planet; a "back" link returns to the system view.
+// ═══════════════════════════════════════════════════════════
+
+/** Single entry point for "the user picked this system" — used by
+ *  mouse click, touch tap, and search-result selection alike, so the
+ *  details panel and camera-selection state never drift out of sync. */
+function _selectSystem(system) {
+    selected = system;
+    selectedPlanet = null;
+    _renderDetailsPanel();
+    _draw();
+}
+
+function _wireDetailsPanel() {
+    if (!detailsPanelEl) return;
+    detailsPanelEl.addEventListener('click', e => {
+        const planetRow = e.target.closest('[data-planet]');
+        if (planetRow) {
+            selectedPlanet = planetRow.getAttribute('data-planet');
+            _renderDetailsPanel();
+            return;
+        }
+        const backBtn = e.target.closest('[data-back-to-system]');
+        if (backBtn) {
+            selectedPlanet = null;
+            _renderDetailsPanel();
+        }
+    });
+}
+
+function _renderDetailsPanel() {
+    if (!detailsPanelEl) return;
+    if (!selected) {
+        detailsPanelEl.innerHTML = '<div class="map-details-empty">Click or tap a system on the map to see its details here.</div>';
+        return;
+    }
+    detailsPanelEl.innerHTML = selectedPlanet
+        ? _renderPlanetDetails(selected, selectedPlanet)
+        : _renderSystemDetails(selected);
+}
+
+function _renderSystemDetails(s) {
+    const links = s.links.length ? s.links.map(_esc).join(', ') : '—';
+    const bucket = missionIndex.concreteBySystem.get(s.name);
+    const genericCount = missionIndex.genericJobMatchCount.get(s.name) || 0;
+
+    const planetsSection = s.planets.length
+        ? `<div class="map-details-section">
+             <h3>Planets (${s.planets.length}) — click one for details</h3>
+             <div class="map-planet-list">${s.planets.map(p => _planetRowHtml(p)).join('')}</div>
+           </div>`
+        : `<div class="map-details-section"><h3>Planets</h3><div class="map-details-links">No planets on record here.</div></div>`;
+
+    const missionsSection = _systemMissionsHtml(s, bucket, genericCount);
+
+    return `
+        <div class="map-details-header">
+            <h2 class="map-details-title">${_esc(s.name)}<span class="map-details-gov">${_esc(s.government)}${s.wormhole ? ' · wormhole' : ''}</span></h2>
+        </div>
+        <div class="map-details-section">
+            <h3>Jump links</h3>
+            <div class="map-details-links">${links}</div>
+        </div>
+        ${planetsSection}
+        ${missionsSection}
+    `;
+}
+
+function _planetRowHtml(p) {
+    const badges = [
+        p.hasSpaceport ? '<span class="map-badge-chip">port</span>' : null,
+        p.hasShipyard ? '<span class="map-badge-chip">shipyard</span>' : null,
+        p.hasOutfitter ? '<span class="map-badge-chip">outfitter</span>' : null,
+        p.wormhole ? '<span class="map-badge-chip wormhole">wormhole</span>' : null,
+    ].filter(Boolean).join('');
+    return `
+        <button class="map-planet-row" data-planet="${_esc(p.name)}">
+            <span>${_esc(p.name)}</span>
+            <span class="map-planet-row-gov">${_esc(p.government)}</span>
+            <span class="map-planet-row-badges">${badges}</span>
+        </button>
+    `;
+}
+
+function _renderPlanetDetails(system, planetName) {
+    const p = system.planets.find(pl => pl.name === planetName);
+    if (!p) {
+        // Data changed out from under the selection (e.g. plugin toggled off
+        // mid-view) — fall back to the system view rather than show nothing.
+        selectedPlanet = null;
+        return _renderSystemDetails(system);
+    }
+
+    const badges = [
+        p.hasSpaceport ? '<span class="map-badge-chip">spaceport</span>' : null,
+        p.hasShipyard ? '<span class="map-badge-chip">shipyard</span>' : null,
+        p.hasOutfitter ? '<span class="map-badge-chip">outfitter</span>' : null,
+        p.wormhole ? `<span class="map-badge-chip wormhole">wormhole: ${_esc(p.wormhole)}</span>` : null,
+    ].filter(Boolean).join('');
+
+    const govNote = p.government !== system.government
+        ? ` <span class="map-details-links">(differs from ${_esc(system.name)}'s ${_esc(system.government)})</span>`
+        : '';
+
+    // Missions whose source resolved to exactly this planet, not just
+    // somewhere else in the same system.
+    const bucket = missionIndex.concreteBySystem.get(system.name);
+    const storyHere = bucket ? bucket.story.filter(m => m.sourcePlanet === planetName) : [];
+    const jobsHere = bucket ? bucket.jobs.filter(m => m.sourcePlanet === planetName) : [];
+    const missionsSection = _planetMissionsHtml(storyHere, jobsHere);
+
+    return `
+        <button class="map-details-back" data-back-to-system>← Back to ${_esc(system.name)}</button>
+        <div class="map-details-header">
+            <h2 class="map-details-title">${_esc(p.name)}<span class="map-details-gov">${_esc(p.government)}${govNote}</span></h2>
+        </div>
+        <div class="map-details-section">
+            <h3>Facilities</h3>
+            <div class="map-details-links">${badges || 'No spaceport facilities on record.'}</div>
+        </div>
+        ${missionsSection}
+        <div class="map-details-section">
+            <h3>Source</h3>
+            <div class="map-details-links">from: ${p.definedBy.map(_esc).join(', ')}</div>
+        </div>
+    `;
+}
+
+function _systemMissionsHtml(s, bucket, genericCount) {
+    const hasStory = bucket && bucket.story.length > 0;
+    const hasJobs = bucket && bucket.jobs.length > 0;
+    if (!hasStory && !hasJobs && !(jobBoardOn && genericCount > 0)) {
+        return `<div class="map-details-section"><h3>Missions</h3><div class="map-details-links">Nothing on record starting here.</div></div>`;
+    }
+    const rows = [];
+    if (hasStory) rows.push(...bucket.story.map(m => `<div class="map-mission-row">🚩 ${_esc(m.displayName)}${m.sourcePlanet ? ` <span class="map-tooltip-planet-gov">(${_esc(m.sourcePlanet)})</span>` : ''}</div>`));
+    if (jobBoardOn && hasJobs) rows.push(...bucket.jobs.map(m => `<div class="map-mission-row">🧾 ${_esc(m.displayName)}${m.sourcePlanet ? ` <span class="map-tooltip-planet-gov">(${_esc(m.sourcePlanet)})</span>` : ''}</div>`));
+    const approxNote = (jobBoardOn && genericCount > 0)
+        ? `<div class="map-mission-approx-note">🧾 ~${genericCount} generic job template${genericCount === 1 ? '' : 's'} could also appear here (approx. — see README for what this does and doesn't check).</div>`
+        : '';
+    return `<div class="map-details-section"><h3>Missions</h3><div class="map-mission-list">${rows.join('')}</div>${approxNote}</div>`;
+}
+
+function _planetMissionsHtml(storyHere, jobsHere) {
+    if (storyHere.length === 0 && jobsHere.length === 0) {
+        return `<div class="map-details-section"><h3>Missions starting here</h3><div class="map-details-links">None on record for this exact planet.</div></div>`;
+    }
+    const rows = [
+        ...storyHere.map(m => `<div class="map-mission-row">🚩 ${_esc(m.displayName)}</div>`),
+        ...(jobBoardOn ? jobsHere.map(m => `<div class="map-mission-row">🧾 ${_esc(m.displayName)}</div>`) : []),
+    ];
+    return `<div class="map-details-section"><h3>Missions starting here</h3><div class="map-mission-list">${rows.join('')}</div></div>`;
+}
+
 
 // ═══════════════════════════════════════════════════════════
 //  Search
@@ -566,7 +759,7 @@ function _wireSearch() {
         if (!q) { resultsEl.style.display = 'none'; resultsEl.innerHTML = ''; return; }
         const matches = MapCalculations.search(_visibleSet(), q, 20);
         resultsEl.innerHTML = matches.map(s =>
-            `<div data-n="${s.name.replace(/"/g, '&quot;')}"><b>${s.name}</b><span>${s.government}</span></div>`
+            `<div data-n="${_esc(s.name)}"><b>${_esc(s.name)}</b><span>${_esc(s.government)}</span></div>`
         ).join('');
         resultsEl.style.display = matches.length ? 'block' : 'none';
     });
@@ -575,7 +768,7 @@ function _wireSearch() {
         if (!row) return;
         const s = systemsByName.get(row.getAttribute('data-n'));
         if (!s) return;
-        selected = s;
+        _selectSystem(s);
         cam.x = s.x; cam.y = s.y; cam.scale = Math.max(cam.scale, 3);
         resultsEl.style.display = 'none';
         searchInput.value = s.name;
