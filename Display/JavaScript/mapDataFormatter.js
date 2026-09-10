@@ -34,6 +34,7 @@
 //    .attachPlanets(systemsMap, planetsBySystem) → mutates systemsMap in place
 //    .formatMissions(pluginDataMap, activeOrder, planetsBySystem) → FormattedMission[]
 //    .formatStars(pluginDataMap, activeOrder)    → Map<spriteName, StarAttributes>
+//    .formatGovernments(pluginDataMap, activeOrder) → Map<govName, {color, swizzle}>
 //
 //  FormattedSystem shape:
 //    { name, x, y, government, attributes: string[],
@@ -480,6 +481,37 @@ function formatStars(pluginDataMap, activeOrder) {
     return out;
 }
 
+// ── Governments (real map colors, per name) ─────────────────
+
+/**
+ * governments.json is one entry per distinct government name a plugin
+ * defines or overrides — vanilla's own factions (Republic, Free Worlds,
+ * Pirate, ...) plus anything a mod adds or re-colors. Later-active
+ * plugins win on conflict, same merge rule as stars.
+ *
+ * Not every government defines a `color` line (many vanilla ones don't
+ * — e.g. "Alpha", "Author", "Escort"), so `color` can legitimately be
+ * null here; mapCalculations.buildGovernmentPalette() falls back to an
+ * assigned palette color for those rather than guessing a real one.
+ *
+ * @returns {Map<string, {color:[r,g,b]|null, swizzle:number|string|null}>}
+ */
+function formatGovernments(pluginDataMap, activeOrder) {
+    const out = new Map();
+    for (const outputName of activeOrder) {
+        const plugin = pluginDataMap.get(outputName);
+        if (!plugin || !Array.isArray(plugin.governments)) continue;
+        for (const raw of plugin.governments) {
+            if (!raw?.name) continue;
+            out.set(raw.name, {
+                color: Array.isArray(raw.color) && raw.color.length === 3 ? raw.color : null,
+                swizzle: raw.swizzle ?? null,
+            });
+        }
+    }
+    return out;
+}
+
 window.MapDataFormatter = {
     formatSystems,
     formatGalaxies,
@@ -487,6 +519,7 @@ window.MapDataFormatter = {
     formatPlanets,
     formatMissions,
     formatStars,
+    formatGovernments,
     applyWormholeFlags,
     attachPlanets,
 };
