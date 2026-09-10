@@ -266,15 +266,41 @@ function buildLinkSegments(systemsByName) {
 
 // ── Government colour palette ───────────────────────────────
 
-function buildGovernmentPalette(systems) {
+/**
+ * Converts Endless Sky's 0–1 float RGB (as written in governments.txt,
+ * e.g. `color .78 0 0`) into a CSS hex string.
+ */
+function govColorToHex([r, g, b]) {
+    const c = v => Math.max(0, Math.min(255, Math.round(v * 255))).toString(16).padStart(2, '0');
+    return `#${c(r)}${c(g)}${c(b)}`;
+}
+
+/**
+ * Builds the map's government→color legend, preferring each
+ * government's REAL color — the exact one the actual game uses to
+ * shade its own galaxy map, per governments.json (see
+ * mapDataFormatter.formatGovernments()). Not every government defines
+ * one (several vanilla factions genuinely don't, e.g. "Alpha"), so
+ * this falls back to the same assigned palette as before for those —
+ * a fallback, not a replacement, so nothing regresses for governments
+ * this data doesn't cover yet (including before the parser fix that
+ * added governments.json is ever run).
+ *
+ * @param {Array} systems
+ * @param {Map<string, {color:[r,g,b]|null}>} [governmentColors] from formatGovernments()
+ */
+function buildGovernmentPalette(systems, governmentColors) {
     const counts = {};
     for (const s of systems) counts[s.government] = (counts[s.government] || 0) + 1;
     const names = Object.keys(counts).sort((a, b) => counts[b] - counts[a]);
     const colors = {};
     let paletteIdx = 0;
     for (const g of names) {
+        const real = governmentColors?.get(g)?.color;
         if (g === 'Uninhabited' || g === 'None' || g === '') {
             colors[g] = UNINHABITED_COLOR;
+        } else if (real) {
+            colors[g] = govColorToHex(real);
         } else {
             colors[g] = PALETTE[paletteIdx % PALETTE.length];
             paletteIdx++;
