@@ -57822,10 +57822,10 @@
     "large explosion": 40,
     "huge explosion": 10,
     "final explode": "final explosion large",
-    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters and enough crew to fill a small village. Although designed primarily for engaging enemies from a distance, a Carrier can also do significant damage in close combat.",
+    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters, and enough crew to fill a small village. It is designed to hang back during engagements, relying on its carried drones and fighters to directly engage enemies while providing fire support with its long-ranged weaponry.",
     "_internalId": "official-game/endless-sky::Carrier",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "1dc510eaa308",
+    "_hash": "b22f0e4a5383",
     "variant": "Carrier (Jump)",
     "baseShip": "Carrier",
     "_variantPluginId": "official-game/endless-sky",
@@ -58188,10 +58188,10 @@
     "large explosion": 40,
     "huge explosion": 10,
     "final explode": "final explosion large",
-    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters and enough crew to fill a small village. Although designed primarily for engaging enemies from a distance, a Carrier can also do significant damage in close combat.",
+    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters, and enough crew to fill a small village. It is designed to hang back during engagements, relying on its carried drones and fighters to directly engage enemies while providing fire support with its long-ranged weaponry.",
     "_internalId": "official-game/endless-sky::Carrier",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "1dc510eaa308",
+    "_hash": "b22f0e4a5383",
     "variant": "Carrier (Mark II)",
     "baseShip": "Carrier",
     "_variantPluginId": "official-game/endless-sky",
@@ -128909,7 +128909,8 @@
     "_variantPluginId": "official-game/endless-sky",
     "governments": {
       "official-game/endless-sky": {
-        "People's Houses": true
+        "People's Houses": true,
+        "People's Houses (Hostile)": true
       }
     },
     "governmentEvents": [],
@@ -130031,6 +130032,655 @@
         "count": 1,
         "pluginId": "official-game/endless-sky",
         "internalId": "official-game/endless-sky::Hyperdrive"
+      }
+    }
+  },
+  {
+    "name": "Seiitej (Keystone)",
+    "engines": [
+      {
+        "x": -25,
+        "y": 44
+      },
+      {
+        "x": 25,
+        "y": 44
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -25,
+        "y": -35,
+        "zoom": 0.7
+      },
+      {
+        "x": 25,
+        "y": -35,
+        "zoom": 0.7
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -44,
+        "y": 34,
+        "left": true,
+        "angle": 90,
+        "zoom": 0.5,
+        "over": true
+      },
+      {
+        "x": 44,
+        "y": 34,
+        "right": true,
+        "angle": 270,
+        "zoom": 0.5,
+        "over": true
+      },
+      {
+        "x": -5,
+        "y": -89,
+        "right": true,
+        "angle": 90,
+        "zoom": 0.4
+      },
+      {
+        "x": 5,
+        "y": -89,
+        "left": true,
+        "angle": 270,
+        "zoom": 0.4
+      }
+    ],
+    "guns": [
+      {
+        "x": -10,
+        "y": -78,
+        "gun": ""
+      },
+      {
+        "x": -5,
+        "y": -86,
+        "gun": ""
+      },
+      {
+        "x": 5,
+        "y": -86,
+        "gun": ""
+      },
+      {
+        "x": 10,
+        "y": -78,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -29,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      }
+    ],
+    "plural": "Seiitejen",
+    "sprite": "ship/seiitej",
+    "thumbnail": "thumbnail/seiitej",
+    "administrative cost": 4,
+    "attributes": {
+      "licenses": {
+        "High Houses": true
+      },
+      "category": "Utility",
+      "cost": 9250000,
+      "shields": 8000,
+      "hull": 19000,
+      "required crew": 8,
+      "bunks": 36,
+      "mass": 320,
+      "drag": 5.2,
+      "heat dissipation": 0.6,
+      "fuel capacity": 800,
+      "cargo space": 130,
+      "outfit space": 370,
+      "weapon capacity": 90,
+      "engine capacity": 110,
+      "multimodal armor": 1,
+      "hull repair rate": 0.95,
+      "hull energy": 1.045,
+      "hull heat": 1.045,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "The Seiitej is the High Houses' vessel of choice for transporting small amounts of cargo and passengers throughout Successor space. Though less spacious than a dedicated civilian freighter or transport vessel, it is much more durable while remaining fast and maneuverable. While these vessels support a relatively light armament (by the standards of the High Houses), their speed and flexible internals allow them to frequently serve as patrol craft as well. \tTheir lighter armor and smaller combat systems also make them significantly less expensive to manufacture than the High Houses' purpose-built warships, which contributes to their growing ubiquity.",
+    "_internalId": "official-game/endless-sky::Seiitej",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "5989b0c41fdf",
+    "variant": "Seiitej (Keystone)",
+    "baseShip": "Seiitej",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "official-game/endless-sky": {
+        "House Aqrabe": true,
+        "House Kaatrij": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "official-game/endless-sky": {
+        "Missions": [
+          "Successors: Ghosts Aqrabe 2"
+        ]
+      }
+    },
+    "outfits": {
+      "\"Ojet\" Bimodal Coilgun": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Ojet\" Bimodal Coilgun"
+      },
+      "\"Ryuit\" Fusion Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Ryuit\" Fusion Core"
+      },
+      "Auxiliary Power Reserve": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Auxiliary Power Reserve"
+      },
+      "\"Jaase\" Shield Cortex": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Jaase\" Shield Cortex"
+      },
+      "Successor Cooling": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Successor Cooling"
+      },
+      "Multimodal Armor: Light": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Multimodal Armor: Light"
+      },
+      "Kinetic Rail Rifle": {
+        "count": 15,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Kinetic Rail Rifle"
+      },
+      "\"Veusa\" Inductive Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Veusa\" Inductive Thruster"
+      },
+      "\"Veusa\" Inductive Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Veusa\" Inductive Steering"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Hyperdrive"
+      },
+      "Quantum Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Quantum Keystone"
+      }
+    }
+  },
+  {
+    "name": "Seiitej (Armor Keystone)",
+    "engines": [
+      {
+        "x": -25,
+        "y": 44
+      },
+      {
+        "x": 25,
+        "y": 44
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -25,
+        "y": -35,
+        "zoom": 0.7
+      },
+      {
+        "x": 25,
+        "y": -35,
+        "zoom": 0.7
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -44,
+        "y": 34,
+        "left": true,
+        "angle": 90,
+        "zoom": 0.5,
+        "over": true
+      },
+      {
+        "x": 44,
+        "y": 34,
+        "right": true,
+        "angle": 270,
+        "zoom": 0.5,
+        "over": true
+      },
+      {
+        "x": -5,
+        "y": -89,
+        "right": true,
+        "angle": 90,
+        "zoom": 0.4
+      },
+      {
+        "x": 5,
+        "y": -89,
+        "left": true,
+        "angle": 270,
+        "zoom": 0.4
+      }
+    ],
+    "guns": [
+      {
+        "x": -10,
+        "y": -78,
+        "gun": ""
+      },
+      {
+        "x": -5,
+        "y": -86,
+        "gun": ""
+      },
+      {
+        "x": 5,
+        "y": -86,
+        "gun": ""
+      },
+      {
+        "x": 10,
+        "y": -78,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -29,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      }
+    ],
+    "plural": "Seiitejen",
+    "sprite": "ship/seiitej",
+    "thumbnail": "thumbnail/seiitej",
+    "administrative cost": 4,
+    "attributes": {
+      "licenses": {
+        "High Houses": true
+      },
+      "category": "Utility",
+      "cost": 9250000,
+      "shields": 8000,
+      "hull": 19000,
+      "required crew": 8,
+      "bunks": 36,
+      "mass": 320,
+      "drag": 5.2,
+      "heat dissipation": 0.6,
+      "fuel capacity": 800,
+      "cargo space": 130,
+      "outfit space": 370,
+      "weapon capacity": 90,
+      "engine capacity": 110,
+      "multimodal armor": 1,
+      "hull repair rate": 0.95,
+      "hull energy": 1.045,
+      "hull heat": 1.045,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "The Seiitej is the High Houses' vessel of choice for transporting small amounts of cargo and passengers throughout Successor space. Though less spacious than a dedicated civilian freighter or transport vessel, it is much more durable while remaining fast and maneuverable. While these vessels support a relatively light armament (by the standards of the High Houses), their speed and flexible internals allow them to frequently serve as patrol craft as well. \tTheir lighter armor and smaller combat systems also make them significantly less expensive to manufacture than the High Houses' purpose-built warships, which contributes to their growing ubiquity.",
+    "_internalId": "official-game/endless-sky::Seiitej",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "5989b0c41fdf",
+    "variant": "Seiitej (Armor Keystone)",
+    "baseShip": "Seiitej",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "official-game/endless-sky": {
+        "House Aqrabe": true,
+        "House Kaatrij": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "official-game/endless-sky": {
+        "Missions": [
+          "Successors: Ghosts Aqrabe 2"
+        ]
+      }
+    },
+    "outfits": {
+      "\"Ojet\" Bimodal Coilgun": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Ojet\" Bimodal Coilgun"
+      },
+      "\"Ryuit\" Fusion Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Ryuit\" Fusion Core"
+      },
+      "Auxiliary Power Reserve": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Auxiliary Power Reserve"
+      },
+      "\"Jaase\" Shield Cortex": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Jaase\" Shield Cortex"
+      },
+      "Successor Cooling": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Successor Cooling"
+      },
+      "Multimodal Armor: Light": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Multimodal Armor: Light"
+      },
+      "Kinetic Rail Rifle": {
+        "count": 15,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Kinetic Rail Rifle"
+      },
+      "\"Veusa\" Inductive Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Veusa\" Inductive Thruster"
+      },
+      "\"Veusa\" Inductive Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Veusa\" Inductive Steering"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Hyperdrive"
+      }
+    }
+  },
+  {
+    "name": "Seiitej (Expeditionary)",
+    "engines": [
+      {
+        "x": -25,
+        "y": 44
+      },
+      {
+        "x": 25,
+        "y": 44
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -25,
+        "y": -35,
+        "zoom": 0.7
+      },
+      {
+        "x": 25,
+        "y": -35,
+        "zoom": 0.7
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -44,
+        "y": 34,
+        "left": true,
+        "angle": 90,
+        "zoom": 0.5,
+        "over": true
+      },
+      {
+        "x": 44,
+        "y": 34,
+        "right": true,
+        "angle": 270,
+        "zoom": 0.5,
+        "over": true
+      },
+      {
+        "x": -5,
+        "y": -89,
+        "right": true,
+        "angle": 90,
+        "zoom": 0.4
+      },
+      {
+        "x": 5,
+        "y": -89,
+        "left": true,
+        "angle": 270,
+        "zoom": 0.4
+      }
+    ],
+    "guns": [
+      {
+        "x": -10,
+        "y": -78,
+        "gun": ""
+      },
+      {
+        "x": -5,
+        "y": -86,
+        "gun": ""
+      },
+      {
+        "x": 5,
+        "y": -86,
+        "gun": ""
+      },
+      {
+        "x": 10,
+        "y": -78,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": -29,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      }
+    ],
+    "plural": "Seiitejen",
+    "sprite": "ship/seiitej",
+    "thumbnail": "thumbnail/seiitej",
+    "administrative cost": 4,
+    "attributes": {
+      "licenses": {
+        "High Houses": true
+      },
+      "category": "Utility",
+      "cost": 9250000,
+      "shields": 8000,
+      "hull": 19000,
+      "required crew": 8,
+      "bunks": 36,
+      "mass": 320,
+      "drag": 5.2,
+      "heat dissipation": 0.6,
+      "fuel capacity": 800,
+      "cargo space": 130,
+      "outfit space": 370,
+      "weapon capacity": 90,
+      "engine capacity": 110,
+      "multimodal armor": 1,
+      "hull repair rate": 0.95,
+      "hull energy": 1.045,
+      "hull heat": 1.045,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "The Seiitej is the High Houses' vessel of choice for transporting small amounts of cargo and passengers throughout Successor space. Though less spacious than a dedicated civilian freighter or transport vessel, it is much more durable while remaining fast and maneuverable. While these vessels support a relatively light armament (by the standards of the High Houses), their speed and flexible internals allow them to frequently serve as patrol craft as well. \tTheir lighter armor and smaller combat systems also make them significantly less expensive to manufacture than the High Houses' purpose-built warships, which contributes to their growing ubiquity.",
+    "_internalId": "official-game/endless-sky::Seiitej",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "5989b0c41fdf",
+    "variant": "Seiitej (Expeditionary)",
+    "baseShip": "Seiitej",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "official-game/endless-sky": {
+        "House Kaatrij": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "official-game/endless-sky": {
+        "Missions": [
+          "Successors: Ghosts Salvage Fleet"
+        ]
+      }
+    },
+    "outfits": {
+      "\"Ojet\" Bimodal Coilgun": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Ojet\" Bimodal Coilgun"
+      },
+      "\"Ryuit\" Fusion Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Ryuit\" Fusion Core"
+      },
+      "Auxiliary Power Reserve": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Auxiliary Power Reserve"
+      },
+      "\"Jaase\" Shield Cortex": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Jaase\" Shield Cortex"
+      },
+      "Successor Cooling": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Successor Cooling"
+      },
+      "Multimodal Armor: Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Multimodal Armor: Keystone"
+      },
+      "Kinetic Rail Rifle": {
+        "count": 15,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Kinetic Rail Rifle"
+      },
+      "\"Veusa\" Inductive Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Veusa\" Inductive Thruster"
+      },
+      "\"Veusa\" Inductive Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Veusa\" Inductive Steering"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Hyperdrive"
+      },
+      "\"Veldt\" Combat Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Veldt\" Combat Scanner"
+      },
+      "\"Tuur\" Scanning Suite": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Tuur\" Scanning Suite"
+      },
+      "Harmonic Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Harmonic Keystone"
       }
     }
   },
@@ -131202,6 +131852,496 @@
         "count": 1,
         "pluginId": "official-game/endless-sky",
         "internalId": "official-game/endless-sky::Hyperdrive"
+      }
+    }
+  },
+  {
+    "name": "Vujlet (Stellar)",
+    "engines": [
+      {
+        "x": -16,
+        "y": 49,
+        "zoom": 0.9
+      },
+      {
+        "x": 16,
+        "y": 49,
+        "zoom": 0.9
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -16,
+        "y": -6,
+        "zoom": 0.9,
+        "over": true
+      },
+      {
+        "x": 16,
+        "y": -5,
+        "zoom": 0.9,
+        "over": true
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -4,
+        "y": -53,
+        "right": true,
+        "angle": 90,
+        "zoom": 0.5,
+        "over": true
+      },
+      {
+        "x": 4,
+        "y": -53,
+        "left": true,
+        "angle": 270,
+        "zoom": 0.5,
+        "over": true
+      },
+      {
+        "x": -28,
+        "y": 34,
+        "left": true,
+        "angle": 90,
+        "zoom": 0.5,
+        "over": true
+      },
+      {
+        "x": 28,
+        "y": 34,
+        "right": true,
+        "angle": 270,
+        "zoom": 0.5,
+        "over": true
+      }
+    ],
+    "guns": [
+      {
+        "x": -6,
+        "y": -46,
+        "gun": "\"Ojet\" Bimodal Coilgun"
+      },
+      {
+        "x": 6,
+        "y": -46,
+        "gun": "\"Ojet\" Bimodal Coilgun"
+      },
+      {
+        "x": -9,
+        "y": -30,
+        "gun": ""
+      },
+      {
+        "x": 9,
+        "y": -30,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      }
+    ],
+    "plural": "Vujleten",
+    "sprite": "ship/vujlet",
+    "thumbnail": "thumbnail/vujlet",
+    "administrative cost": 3,
+    "attributes": {
+      "licenses": {
+        "High Houses": true
+      },
+      "category": "Light Warship",
+      "cost": 8200000,
+      "shields": 3000,
+      "hull": 17500,
+      "required crew": 2,
+      "bunks": 6,
+      "mass": 230,
+      "drag": 3.8,
+      "heat dissipation": 0.68,
+      "fuel capacity": 600,
+      "cargo space": 10,
+      "outfit space": 280,
+      "weapon capacity": 105,
+      "engine capacity": 85,
+      "exclusive: Vujlet": 1,
+      "multimodal armor": 1,
+      "hull repair rate": 0.875,
+      "hull energy": 0.9625,
+      "hull heat": 0.9625,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "Navigating the stars with the grace of a flitting bird, the compact Vujlet is a mass-produced High Houses warship flexible enough to serve in a variety of light-duty roles. Large enough to operate as a self-sufficient unit, these vessels serve as a useful bridge between short-ranged and relatively vulnerable interceptors, and larger, more resource-intensive warships that can be much more expensive to build and operate. \tThe design was originally employed by House Kaatrij as a stealth reconnaissance vessel that made use of their then-recently-developed cloaking technology. As the alliance between the New Houses strengthened, the plans for the Vujlet were distributed among them, and the light warship rapidly became a mainstay of their fleets. Unfortunately, without the materials present in their Predecessors' domain, House Kaatrij has been unable to manufacture stealth equipment for the Vujlet in the modern era.",
+    "_internalId": "official-game/endless-sky::Vujlet",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "cc1d2ceec510",
+    "variant": "Vujlet (Stellar)",
+    "baseShip": "Vujlet",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "official-game/endless-sky": {
+        "New Houses": true,
+        "House Aqrabe": true,
+        "House Seineq": true
+      },
+      "Blended Ships/blended-ships": {
+        "New Houses": true
+      },
+      "Lost In Midnight/Lost-in-Midnight": {
+        "New Houses": true
+      },
+      "POOT/poot-senza-solaria": {
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
+      },
+      "POOT/endless_sky_senza_solaria": {
+        "Syndicate": true,
+        "Republic": true,
+        "Uninhabited": true
+      }
+    },
+    "governmentEvents": [
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Republic → -0.02",
+      "Event \"Oathbreaker Piracy\": Oathbreaker attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian resistance\": Pug attitude toward Syndicate → -0.01",
+      "Event \"ScS civilian submission\": Pug attitude toward Syndicate → 0.01",
+      "Event \"ScS syndicate against alphas\": Syndicate attitude toward Alpha → -0.01",
+      "Event \"ScS syndicate neutral to alphas\": Syndicate attitude toward Alpha → 0",
+      "Event \"at war with the pug\": Pug attitude toward Republic → -0.01",
+      "Event \"at war with the pug\": Pug attitude toward Syndicate → -0.01",
+      "Event \"battle of algenib\": Republic attitude toward Syndicate (Extremist) → -0.1",
+      "Event \"fw armistice\": Free Worlds attitude toward Republic → 0",
+      "Event \"fw armistice\": Republic attitude toward Free Worlds → 0",
+      "Event \"fw armistice\": Republic attitude toward Merchant → 0.25",
+      "Event \"fw armistice\": Republic attitude toward Pirate → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Free Worlds → -0.3",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Korath → -0.01",
+      "Event \"fw at war with Syndicate\": Syndicate attitude toward Pirate → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Deep Security → -0.01",
+      "Event \"fw begin syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → -0.01",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Deep Security → 0",
+      "Event \"fw end syndicate capture\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Free Worlds → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Korath → -0.5",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Navy (Oathkeeper) → 0",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Pirate → -0.4",
+      "Event \"fw syndicate welcoming\": Syndicate attitude toward Republic → 0",
+      "Event \"fwc battle for rasalhague\": Pug attitude toward Republic → -0.01",
+      "Event \"fwc peace with the navy\": Free Worlds attitude toward Republic → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Free Worlds → 0",
+      "Event \"fwc peace with the navy\": Republic attitude toward Merchant → 0.25",
+      "Event \"fwc peace with the navy\": Republic attitude toward Pirate → -0.3",
+      "Event \"mgf: navy attack antimhl bountyhunter\": Republic attitude toward MGF: Bounty Hunter (AntiMHL) → -0.1",
+      "Event \"start of hostilities (ScS)\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities (ScS)\": Republic attitude toward Pirate → -0.01",
+      "Event \"start of hostilities\": Free Worlds attitude toward Republic → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Free Worlds → -0.2",
+      "Event \"start of hostilities\": Republic attitude toward Merchant → 0.01",
+      "Event \"start of hostilities\": Republic attitude toward Pirate → -0.01",
+      "Event \"temporary ceasefire\": Free Worlds attitude toward Republic → 0",
+      "Event \"temporary ceasefire\": Republic attitude toward Free Worlds → 0"
+    ],
+    "locations": {
+      "official-game/endless-sky": {
+        "Missions": [
+          "Successors: Ghosts Aqrabe 5"
+        ]
+      }
+    },
+    "outfits": {
+      "3-\"Kaska\" Betavoltaic Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::3-\"Kaska\" Betavoltaic Cell"
+      },
+      "Primary Power Reserve": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Primary Power Reserve"
+      },
+      "\"Ej\" Shield Cortex": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Ej\" Shield Cortex"
+      },
+      "Successor Cooling": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Successor Cooling"
+      },
+      "Multimodal Armor: Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Multimodal Armor: Keystone"
+      },
+      "\"Chyyra\" Inductive Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Chyyra\" Inductive Thruster"
+      },
+      "\"Chyyra\" Inductive Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Chyyra\" Inductive Steering"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Hyperdrive"
+      },
+      "Successor Fuel Sail": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Successor Fuel Sail"
+      },
+      "Cargo Expansion": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Cargo Expansion"
+      },
+      "Radiant Shield Shunt": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Radiant Shield Shunt"
+      }
+    }
+  },
+  {
+    "name": "Vujlet (Stellar Light Armor)",
+    "engines": [
+      {
+        "x": -16,
+        "y": 49,
+        "zoom": 0.9
+      },
+      {
+        "x": 16,
+        "y": 49,
+        "zoom": 0.9
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -16,
+        "y": -6,
+        "zoom": 0.9,
+        "over": true
+      },
+      {
+        "x": 16,
+        "y": -5,
+        "zoom": 0.9,
+        "over": true
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -4,
+        "y": -53,
+        "right": true,
+        "angle": 90,
+        "zoom": 0.5,
+        "over": true
+      },
+      {
+        "x": 4,
+        "y": -53,
+        "left": true,
+        "angle": 270,
+        "zoom": 0.5,
+        "over": true
+      },
+      {
+        "x": -28,
+        "y": 34,
+        "left": true,
+        "angle": 90,
+        "zoom": 0.5,
+        "over": true
+      },
+      {
+        "x": 28,
+        "y": 34,
+        "right": true,
+        "angle": 270,
+        "zoom": 0.5,
+        "over": true
+      }
+    ],
+    "guns": [
+      {
+        "x": -6,
+        "y": -46,
+        "gun": "\"Ojet\" Bimodal Coilgun"
+      },
+      {
+        "x": 6,
+        "y": -46,
+        "gun": "\"Ojet\" Bimodal Coilgun"
+      },
+      {
+        "x": -9,
+        "y": -30,
+        "gun": ""
+      },
+      {
+        "x": 9,
+        "y": -30,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      }
+    ],
+    "plural": "Vujleten",
+    "sprite": "ship/vujlet",
+    "thumbnail": "thumbnail/vujlet",
+    "administrative cost": 3,
+    "attributes": {
+      "licenses": {
+        "High Houses": true
+      },
+      "category": "Light Warship",
+      "cost": 8200000,
+      "shields": 3000,
+      "hull": 17500,
+      "required crew": 2,
+      "bunks": 6,
+      "mass": 230,
+      "drag": 3.8,
+      "heat dissipation": 0.68,
+      "fuel capacity": 600,
+      "cargo space": 10,
+      "outfit space": 280,
+      "weapon capacity": 105,
+      "engine capacity": 85,
+      "exclusive: Vujlet": 1,
+      "multimodal armor": 1,
+      "hull repair rate": 0.875,
+      "hull energy": 0.9625,
+      "hull heat": 0.9625,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "Navigating the stars with the grace of a flitting bird, the compact Vujlet is a mass-produced High Houses warship flexible enough to serve in a variety of light-duty roles. Large enough to operate as a self-sufficient unit, these vessels serve as a useful bridge between short-ranged and relatively vulnerable interceptors, and larger, more resource-intensive warships that can be much more expensive to build and operate. \tThe design was originally employed by House Kaatrij as a stealth reconnaissance vessel that made use of their then-recently-developed cloaking technology. As the alliance between the New Houses strengthened, the plans for the Vujlet were distributed among them, and the light warship rapidly became a mainstay of their fleets. Unfortunately, without the materials present in their Predecessors' domain, House Kaatrij has been unable to manufacture stealth equipment for the Vujlet in the modern era.",
+    "_internalId": "official-game/endless-sky::Vujlet",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "cc1d2ceec510",
+    "variant": "Vujlet (Stellar Light Armor)",
+    "baseShip": "Vujlet",
+    "_variantPluginId": "official-game/endless-sky",
+    "governments": {
+      "official-game/endless-sky": {
+        "House Kaatrij": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "official-game/endless-sky": {
+        "Missions": [
+          "Successors: Ghosts Aqrabe 5"
+        ]
+      }
+    },
+    "outfits": {
+      "3-\"Kaska\" Betavoltaic Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::3-\"Kaska\" Betavoltaic Cell"
+      },
+      "Primary Power Reserve": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Primary Power Reserve"
+      },
+      "\"Ej\" Shield Cortex": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Ej\" Shield Cortex"
+      },
+      "Successor Cooling": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Successor Cooling"
+      },
+      "Multimodal Armor: Light": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Multimodal Armor: Light"
+      },
+      "\"Chyyra\" Inductive Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Chyyra\" Inductive Thruster"
+      },
+      "\"Chyyra\" Inductive Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Chyyra\" Inductive Steering"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Hyperdrive"
+      },
+      "Successor Fuel Sail": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Successor Fuel Sail"
+      },
+      "Cargo Expansion": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Cargo Expansion"
+      },
+      "Radiant Shield Shunt": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Radiant Shield Shunt"
       }
     }
   },
@@ -135780,10 +136920,10 @@
     "large explosion": 40,
     "huge explosion": 10,
     "final explode": "final explosion large",
-    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters and enough crew to fill a small village. Although designed primarily for engaging enemies from a distance, a Carrier can also do significant damage in close combat.",
+    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters, and enough crew to fill a small village. It is designed to hang back during engagements, relying on its carried drones and fighters to directly engage enemies while providing fire support with its long-ranged weaponry.",
     "_internalId": "official-game/endless-sky::Carrier",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "1dc510eaa308",
+    "_hash": "b22f0e4a5383",
     "variant": "Carrier (Alpha)",
     "baseShip": "Carrier",
     "_variantPluginId": "official-game/endless-sky",
@@ -143654,10 +144794,10 @@
     "large explosion": 40,
     "huge explosion": 10,
     "final explode": "final explosion large",
-    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters and enough crew to fill a small village. Although designed primarily for engaging enemies from a distance, a Carrier can also do significant damage in close combat.",
+    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters, and enough crew to fill a small village. It is designed to hang back during engagements, relying on its carried drones and fighters to directly engage enemies while providing fire support with its long-ranged weaponry.",
     "_internalId": "official-game/endless-sky::Carrier",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "1dc510eaa308",
+    "_hash": "b22f0e4a5383",
     "variant": "Carrier (KGS Particle Turret)",
     "baseShip": "Carrier",
     "_variantPluginId": "Kai's list/KGS",
@@ -144005,10 +145145,10 @@
     "large explosion": 40,
     "huge explosion": 10,
     "final explode": "final explosion large",
-    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters and enough crew to fill a small village. Although designed primarily for engaging enemies from a distance, a Carrier can also do significant damage in close combat.",
+    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters, and enough crew to fill a small village. It is designed to hang back during engagements, relying on its carried drones and fighters to directly engage enemies while providing fire support with its long-ranged weaponry.",
     "_internalId": "official-game/endless-sky::Carrier",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "1dc510eaa308",
+    "_hash": "b22f0e4a5383",
     "variant": "Carrier (KGS Particle Turret Mark II)",
     "baseShip": "Carrier",
     "_variantPluginId": "Kai's list/KGS",
@@ -190869,10 +192009,10 @@
     "large explosion": 40,
     "huge explosion": 10,
     "final explode": "final explosion large",
-    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters and enough crew to fill a small village. Although designed primarily for engaging enemies from a distance, a Carrier can also do significant damage in close combat.",
+    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters, and enough crew to fill a small village. It is designed to hang back during engagements, relying on its carried drones and fighters to directly engage enemies while providing fire support with its long-ranged weaponry.",
     "_internalId": "official-game/endless-sky::Carrier",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "1dc510eaa308",
+    "_hash": "b22f0e4a5383",
     "variant": "Carrier (FOE)",
     "baseShip": "Carrier",
     "_variantPluginId": "LixiChronikouOrious list/Fundamental.Outfit.Expansion",
@@ -211930,10 +213070,10 @@
     "large explosion": 40,
     "huge explosion": 10,
     "final explode": "final explosion large",
-    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters and enough crew to fill a small village. Although designed primarily for engaging enemies from a distance, a Carrier can also do significant damage in close combat.",
+    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters, and enough crew to fill a small village. It is designed to hang back during engagements, relying on its carried drones and fighters to directly engage enemies while providing fire support with its long-ranged weaponry.",
     "_internalId": "official-game/endless-sky::Carrier",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "1dc510eaa308",
+    "_hash": "b22f0e4a5383",
     "variant": "SPA Carrier (Combat)",
     "baseShip": "Carrier",
     "_variantPluginId": "Lemurias Extra ES Stuff/Lemurias-Extra-ES-Stuff",
@@ -264864,10 +266004,10 @@
     "large explosion": 40,
     "huge explosion": 10,
     "final explode": "final explosion large",
-    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters and enough crew to fill a small village. Although designed primarily for engaging enemies from a distance, a Carrier can also do significant damage in close combat.",
+    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters, and enough crew to fill a small village. It is designed to hang back during engagements, relying on its carried drones and fighters to directly engage enemies while providing fire support with its long-ranged weaponry.",
     "_internalId": "official-game/endless-sky::Carrier",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "1dc510eaa308",
+    "_hash": "b22f0e4a5383",
     "variant": "Carrier (Truthseekers)",
     "baseShip": "Carrier",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
@@ -267769,10 +268909,10 @@
     "large explosion": 40,
     "huge explosion": 10,
     "final explode": "final explosion large",
-    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters and enough crew to fill a small village. Although designed primarily for engaging enemies from a distance, a Carrier can also do significant damage in close combat.",
+    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters, and enough crew to fill a small village. It is designed to hang back during engagements, relying on its carried drones and fighters to directly engage enemies while providing fire support with its long-ranged weaponry.",
     "_internalId": "official-game/endless-sky::Carrier",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "1dc510eaa308",
+    "_hash": "b22f0e4a5383",
     "variant": "Carrier (Pirate Warlord)",
     "baseShip": "Carrier",
     "_variantPluginId": "Tugderic's Addons/Tugderics-Addons",
@@ -336707,6 +337847,7 @@
         "Bounty Hunter": true,
         "Merchant": true,
         "Pirate": true,
+        "Bounty (Midnight)": true,
         "Bounty": true,
         "Oathbreaker": true,
         "Pirate (Rivals)": true
@@ -340757,10 +341898,10 @@
     "large explosion": 40,
     "huge explosion": 10,
     "final explode": "final explosion large",
-    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters and enough crew to fill a small village. Although designed primarily for engaging enemies from a distance, a Carrier can also do significant damage in close combat.",
+    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters, and enough crew to fill a small village. It is designed to hang back during engagements, relying on its carried drones and fighters to directly engage enemies while providing fire support with its long-ranged weaponry.",
     "_internalId": "official-game/endless-sky::Carrier",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "1dc510eaa308",
+    "_hash": "b22f0e4a5383",
     "variant": "Carrier (Coalition)",
     "baseShip": "Carrier",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
@@ -341146,10 +342287,10 @@
     "large explosion": 40,
     "huge explosion": 10,
     "final explode": "final explosion large",
-    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters and enough crew to fill a small village. Although designed primarily for engaging enemies from a distance, a Carrier can also do significant damage in close combat.",
+    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters, and enough crew to fill a small village. It is designed to hang back during engagements, relying on its carried drones and fighters to directly engage enemies while providing fire support with its long-ranged weaponry.",
     "_internalId": "official-game/endless-sky::Carrier",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "1dc510eaa308",
+    "_hash": "b22f0e4a5383",
     "variant": "Carrier (Pug)",
     "baseShip": "Carrier",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
@@ -341522,10 +342663,10 @@
     "large explosion": 40,
     "huge explosion": 10,
     "final explode": "final explosion large",
-    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters and enough crew to fill a small village. Although designed primarily for engaging enemies from a distance, a Carrier can also do significant damage in close combat.",
+    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters, and enough crew to fill a small village. It is designed to hang back during engagements, relying on its carried drones and fighters to directly engage enemies while providing fire support with its long-ranged weaponry.",
     "_internalId": "official-game/endless-sky::Carrier",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "1dc510eaa308",
+    "_hash": "b22f0e4a5383",
     "variant": "Carrier (Sabotaged)",
     "baseShip": "Carrier",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
@@ -341850,10 +342991,10 @@
     "large explosion": 40,
     "huge explosion": 10,
     "final explode": "final explosion large",
-    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters and enough crew to fill a small village. Although designed primarily for engaging enemies from a distance, a Carrier can also do significant damage in close combat.",
+    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters, and enough crew to fill a small village. It is designed to hang back during engagements, relying on its carried drones and fighters to directly engage enemies while providing fire support with its long-ranged weaponry.",
     "_internalId": "official-game/endless-sky::Carrier",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "1dc510eaa308",
+    "_hash": "b22f0e4a5383",
     "variant": "Carrier (Shield Suppressor)",
     "baseShip": "Carrier",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
@@ -342220,10 +343361,10 @@
     "large explosion": 40,
     "huge explosion": 10,
     "final explode": "final explosion large",
-    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters and enough crew to fill a small village. Although designed primarily for engaging enemies from a distance, a Carrier can also do significant damage in close combat.",
+    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters, and enough crew to fill a small village. It is designed to hang back during engagements, relying on its carried drones and fighters to directly engage enemies while providing fire support with its long-ranged weaponry.",
     "_internalId": "official-game/endless-sky::Carrier",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "1dc510eaa308",
+    "_hash": "b22f0e4a5383",
     "variant": "Carrier (Troops)",
     "baseShip": "Carrier",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
@@ -342629,10 +343770,10 @@
     "large explosion": 40,
     "huge explosion": 10,
     "final explode": "final explosion large",
-    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters and enough crew to fill a small village. Although designed primarily for engaging enemies from a distance, a Carrier can also do significant damage in close combat.",
+    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters, and enough crew to fill a small village. It is designed to hang back during engagements, relying on its carried drones and fighters to directly engage enemies while providing fire support with its long-ranged weaponry.",
     "_internalId": "official-game/endless-sky::Carrier",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "1dc510eaa308",
+    "_hash": "b22f0e4a5383",
     "variant": "Modified Carrier (Surprise Party)",
     "baseShip": "Carrier",
     "_variantPluginId": "Lost In Midnight/Lost-in-Midnight",
@@ -428840,10 +429981,10 @@
     "large explosion": 40,
     "huge explosion": 10,
     "final explode": "final explosion large",
-    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters and enough crew to fill a small village. Although designed primarily for engaging enemies from a distance, a Carrier can also do significant damage in close combat.",
+    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters, and enough crew to fill a small village. It is designed to hang back during engagements, relying on its carried drones and fighters to directly engage enemies while providing fire support with its long-ranged weaponry.",
     "_internalId": "official-game/endless-sky::Carrier",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "1dc510eaa308",
+    "_hash": "b22f0e4a5383",
     "variant": "Carrier (Flare)",
     "baseShip": "Carrier",
     "_variantPluginId": "Zuckungs List/flare.play",

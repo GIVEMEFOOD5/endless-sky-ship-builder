@@ -1,0 +1,268 @@
+[
+  {
+    "name": "Untangle the shroud",
+    "displayName": null,
+    "description": "Untangle the shroud?",
+    "raw": [
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Untangle the shroud?"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "not",
+            "values": [
+              "event: Untangle"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "Untangled Shroud.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "action",
+                "values": [],
+                "children": [
+                  {
+                    "key": "event",
+                    "values": [
+                      "Untangle"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "clear",
+                    "values": [
+                      "event: Tangle"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "fail",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "job"
+    ],
+    "flags": {},
+    "repeatable": true,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "not",
+          "values": [
+            "event: Untangle"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onAccept": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      {
+        "name": "Untangle",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
+    ],
+    "_pluginId": "Nova1422s list/unshrouded",
+    "_internalId": "Nova1422s list/unshrouded::Untangle the shroud",
+    "_hash": "664accff5f53",
+    "sourcePlugin": "Nova1422s list/unshrouded"
+  },
+  {
+    "name": "Tangle shroud?",
+    "displayName": null,
+    "description": "Tangle the shroud?",
+    "raw": [
+      {
+        "key": "job",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "repeat",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Tangle the shroud?"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: Untangle"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "Tangled Shroud.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "action",
+                "values": [],
+                "children": [
+                  {
+                    "key": "event",
+                    "values": [
+                      "Tangle"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "clear",
+                    "values": [
+                      "event: Untangle"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "fail",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "job"
+    ],
+    "flags": {},
+    "repeatable": true,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: Untangle"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onAccept": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      {
+        "name": "Tangle",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
+    ],
+    "_pluginId": "Nova1422s list/unshrouded",
+    "_internalId": "Nova1422s list/unshrouded::Tangle shroud?",
+    "_hash": "7e1223b9beec",
+    "sourcePlugin": "Nova1422s list/unshrouded"
+  }
+]

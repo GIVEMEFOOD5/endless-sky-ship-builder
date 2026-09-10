@@ -6273,8 +6273,7 @@
       {
         "key": "npc",
         "values": [
-          "accompany",
-          "save"
+          "kill"
         ],
         "children": [
           {
@@ -6301,6 +6300,83 @@
             "values": [
               "Garbage Scow (Heavy)",
               "Venomous Manticore"
+            ],
+            "children": null
+          },
+          {
+            "key": "on",
+            "values": [
+              "kill"
+            ],
+            "children": [
+              {
+                "key": "reputation: Bounty (Disguised)",
+                "values": [
+                  ">?=",
+                  1
+                ],
+                "children": null
+              },
+              {
+                "key": "dialog",
+                "values": [
+                  "You survived the trecherous attack by Venomous Manticore. Check with the authorities on <destination> for any outstanding bounties on Captain Geryon's crew."
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "abort"
+        ],
+        "children": [
+          {
+            "key": "reputation: Bounty (Disguised)",
+            "values": [
+              ">?=",
+              1
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "fail"
+        ],
+        "children": [
+          {
+            "key": "reputation: Bounty (Disguised)",
+            "values": [
+              ">?=",
+              1
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [
+              200000
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "You report the incident with Venomous Manticore to the <planet> government and are rewarded with a bounty of <payment>."
             ],
             "children": null
           }
@@ -6383,7 +6459,15 @@
         "onOffer": [],
         "onDefer": [],
         "onAccept": [],
-        "onEnter": []
+        "onEnter": [],
+        "onAbort": [],
+        "onFail": [],
+        "onComplete": [
+          {
+            "base": 200000,
+            "multiplier": 0
+          }
+        ]
       }
     },
     "source": {
@@ -6461,7 +6545,7 @@
     "eventTriggers": [],
     "_pluginId": "Midnight Expansion/Midnight-Expansion",
     "_internalId": "Midnight Expansion/Midnight-Expansion::Midnight Expansion: Garbage Escort (Double Cross)",
-    "_hash": "e722c30acae7",
+    "_hash": "9f98f439f20d",
     "sourcePlugin": "Midnight Expansion/Midnight-Expansion"
   },
   {

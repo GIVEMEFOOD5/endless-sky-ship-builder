@@ -30564,10 +30564,10 @@
     "large explosion": 40,
     "huge explosion": 10,
     "final explode": "final explosion large",
-    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters and enough crew to fill a small village. Although designed primarily for engaging enemies from a distance, a Carrier can also do significant damage in close combat.",
+    "description": "The Carrier is more than just a warship: it is practically a mobile space station, with docking bays for an entire squadron of drones and fighters, and enough crew to fill a small village. It is designed to hang back during engagements, relying on its carried drones and fighters to directly engage enemies while providing fire support with its long-ranged weaponry.",
     "_internalId": "official-game/endless-sky::Carrier",
     "_pluginId": "official-game/endless-sky",
-    "_hash": "1dc510eaa308",
+    "_hash": "b22f0e4a5383",
     "governments": {
       "official-game/endless-sky": {
         "Republic": true,
@@ -71338,6 +71338,749 @@
     }
   },
   {
+    "name": "Resja, of the Nine Eyes",
+    "engines": [
+      {
+        "x": 0,
+        "y": 0,
+        "zoom": 1.1
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 4,
+        "y": -73,
+        "gun": ""
+      },
+      {
+        "x": -4,
+        "y": -73,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": -72,
+        "gun": ""
+      },
+      {
+        "x": 7,
+        "y": -72,
+        "gun": ""
+      },
+      {
+        "x": -7,
+        "y": -72,
+        "gun": ""
+      },
+      {
+        "x": 34,
+        "y": -20,
+        "gun": ""
+      },
+      {
+        "x": -34,
+        "y": -20,
+        "gun": ""
+      },
+      {
+        "x": 32,
+        "y": -19,
+        "gun": ""
+      },
+      {
+        "x": -32,
+        "y": -19,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [],
+    "plural": "Resjan, of the Nine Eyes",
+    "sprite": "ship/resja of the nine eyes",
+    "thumbnail": "thumbnail/resja of the nine eyes",
+    "never disabled": true,
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 55000000,
+      "shields": 4000,
+      "hull": 62500,
+      "automaton": 1,
+      "bunks": 18,
+      "mass": 440,
+      "drag": 4.2,
+      "heat dissipation": 0.5,
+      "fuel capacity": 400,
+      "cargo space": 10,
+      "outfit space": 382,
+      "weapon capacity": 153,
+      "hull repair rate": 1.25,
+      "hull energy": 1.75,
+      "hull heat": 1.75,
+      "multimodal armor": 1,
+      "shield generation multiplier": 1,
+      "high shield permeability": 1,
+      "low shield permeability": 1,
+      "heat protection": 1,
+      "ion protection": 1,
+      "scramble protection": 1,
+      "slowing protection": 1,
+      "corrosion protection": 1,
+      "discharge protection": 1,
+      "burn protection": 1,
+      "radar jamming": 80,
+      "optical jamming": 80,
+      "thrust": 82,
+      "thrusting shields": 1.4,
+      "thrusting heat": 3.15,
+      "flare sprite": "effect/predecessor flare",
+      "flare sprite data": {
+        "frame rate": 3,
+        "rewind": true
+      },
+      "flare sound": "ion large",
+      "turn": 1850,
+      "turning shields": 0.95,
+      "turning energy": 3.15,
+      "turning heat": 2.54,
+      "steering flare sound": "ion large",
+      "afterburner thrust": 123,
+      "afterburner shields": 12.2,
+      "afterburner heat": 8.3,
+      "afterburner energy": 4.8,
+      "afterburner effect": "resja afterburner",
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "Resja engraved the hull of each of the ships that bore their name personally, carving into the squirming metal a poem that they came to know by heart: Four eyes for Houses who're no longer there, Three for the cursed stars' shimmering flare, Two for the bitter rings, blinking with light, And a final one missing, lost to the night.",
+    "_internalId": "official-game/endless-sky::Resja, of the Nine Eyes",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "a8b4574199f5",
+    "governments": {
+      "official-game/endless-sky": {
+        "Solitude Enforcer": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "official-game/endless-sky": {
+        "Missions": [
+          "Successors: Ghosts 17"
+        ]
+      }
+    },
+    "outfits": {
+      "\"Iasa,\" Lethal Word": {
+        "count": 9,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Iasa,\" Lethal Word"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Hyperdrive"
+      },
+      "\"Jiita\" Heirloom Shielding": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Jiita\" Heirloom Shielding"
+      },
+      "Heirloom Cooling": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Heirloom Cooling"
+      },
+      "\"Ija\" Heirloom Reactor": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Ija\" Heirloom Reactor"
+      },
+      "Heirloom Power Reserve": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Heirloom Power Reserve"
+      },
+      "Auxiliary Power Reserve": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Auxiliary Power Reserve"
+      },
+      "Multimodal Armor: Regen": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Multimodal Armor: Regen"
+      }
+    }
+  },
+  {
+    "name": "Hasur, Vowsworn",
+    "engines": [
+      {
+        "x": 0,
+        "y": 0,
+        "zoom": 0.8
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": -12,
+        "y": -64,
+        "gun": ""
+      },
+      {
+        "x": -7,
+        "y": -60,
+        "gun": ""
+      },
+      {
+        "x": 7,
+        "y": -60,
+        "gun": ""
+      },
+      {
+        "x": 12,
+        "y": -64,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [],
+    "plural": "Hasuran, Vowsworn",
+    "sprite": "ship/hasur vowsworn",
+    "thumbnail": "thumbnail/hasur vowsworn",
+    "never disabled": true,
+    "attributes": {
+      "category": "Light Warship",
+      "cost": 55000000,
+      "shields": 2500,
+      "hull": 39200,
+      "automaton": 1,
+      "bunks": 10,
+      "mass": 280,
+      "drag": 3.2,
+      "heat dissipation": 0.6,
+      "fuel capacity": 400,
+      "cargo space": 10,
+      "outfit space": 310,
+      "weapon capacity": 96,
+      "hull repair rate": 1.25,
+      "hull energy": 1.75,
+      "hull heat": 1.75,
+      "multimodal armor": 1,
+      "shield generation multiplier": 1,
+      "high shield permeability": 1,
+      "low shield permeability": 1,
+      "heat protection": 1,
+      "ion protection": 1,
+      "scramble protection": 1,
+      "slowing protection": 1,
+      "corrosion protection": 1,
+      "discharge protection": 1,
+      "burn protection": 1,
+      "radar jamming": 80,
+      "optical jamming": 80,
+      "thrust": 49,
+      "thrusting shields": 0.84,
+      "thrusting heat": 1.9,
+      "flare sprite": "effect/predecessor flare",
+      "flare sprite data": {
+        "frame rate": 3,
+        "rewind": true
+      },
+      "flare sound": "ion large",
+      "turn": 1110,
+      "turning shields": 0.55,
+      "turning energy": 1.9,
+      "turning heat": 1.5,
+      "steering flare sound": "ion large",
+      "afterburner thrust": 74,
+      "afterburner shields": 7.3,
+      "afterburner heat": 5,
+      "afterburner energy": 2.9,
+      "afterburner effect": "hasur afterburner",
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "One would think that, immured deep within those hostile, rotting abscesses of the stars, the constructs of the foolish Myiara would prove themselves inadequate; that their artificial minds would splinter and falter and crumble like their so-false flesh, festering on the bone. And yet they remain, eternally dying but never dead, consumed by programmed rage and unknowable perception. The constructs will keep their promises, interloper: \tThey'll kill you. They'll do it quick.",
+    "_internalId": "official-game/endless-sky::Hasur, Vowsworn",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "432497fff353",
+    "governments": {
+      "official-game/endless-sky": {
+        "Solitude Enforcer": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "official-game/endless-sky": {
+        "Missions": [
+          "Successors: Ghosts Aqrabe 7"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Successors: Ghosts Aqrabe 7\" → event \"successors: ghosts keystones finished\""
+        ]
+      }
+    },
+    "outfits": {
+      "\"Kis,\" Lethal Wish": {
+        "count": 4,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Kis,\" Lethal Wish"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Hyperdrive"
+      },
+      "\"Jiita\" Heirloom Shielding": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Jiita\" Heirloom Shielding"
+      },
+      "Successor Cooling": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Successor Cooling"
+      },
+      "\"Ija\" Heirloom Reactor": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Ija\" Heirloom Reactor"
+      },
+      "Heirloom Power Reserve": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Heirloom Power Reserve"
+      },
+      "Multimodal Armor: Regen": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Multimodal Armor: Regen"
+      }
+    }
+  },
+  {
+    "name": "Queru, Luminous Gaze",
+    "engines": [
+      {
+        "x": 0,
+        "y": 0,
+        "zoom": 0.5
+      }
+    ],
+    "reverseEngines": [],
+    "steeringEngines": [],
+    "guns": [
+      {
+        "x": 0,
+        "y": -70,
+        "gun": "",
+        "under": true
+      }
+    ],
+    "turrets": [
+      {
+        "x": 32,
+        "y": -21,
+        "turret": ""
+      },
+      {
+        "x": -32,
+        "y": -21,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [],
+    "plural": "Querun, Luminous Gazes",
+    "sprite": "ship/queru luminous gaze",
+    "thumbnail": "thumbnail/queru luminous gaze",
+    "never disabled": true,
+    "attributes": {
+      "category": "Light Warship",
+      "cost": 55000000,
+      "shields": 4200,
+      "hull": 32500,
+      "automaton": 1,
+      "bunks": 14,
+      "mass": 260,
+      "drag": 3.2,
+      "heat dissipation": 0.65,
+      "fuel capacity": 400,
+      "cargo space": 10,
+      "outfit space": 320,
+      "weapon capacity": 116,
+      "hull repair rate": 1.25,
+      "hull energy": 1.75,
+      "hull heat": 1.75,
+      "multimodal armor": 1,
+      "shield generation multiplier": 1,
+      "high shield permeability": 1,
+      "low shield permeability": 1,
+      "heat protection": 1,
+      "ion protection": 1,
+      "scramble protection": 1,
+      "slowing protection": 1,
+      "corrosion protection": 1,
+      "discharge protection": 1,
+      "burn protection": 1,
+      "radar jamming": 80,
+      "optical jamming": 80,
+      "thrust": 49,
+      "thrusting shields": 0.84,
+      "thrusting heat": 1.9,
+      "flare sprite": "effect/predecessor flare",
+      "flare sprite data": {
+        "frame rate": 3,
+        "rewind": true
+      },
+      "flare sound": "ion large",
+      "turn": 1110,
+      "turning shields": 0.55,
+      "turning energy": 1.9,
+      "turning heat": 1.5,
+      "steering flare sound": "ion large",
+      "afterburner thrust": 74,
+      "afterburner shields": 7.3,
+      "afterburner heat": 5,
+      "afterburner energy": 2.9,
+      "afterburner effect": "queru afterburner",
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "Queru came last, and was the most inspired of the three, eviscerating at a distance before it could even be seen. For their part, Resja hated it - but by then, Resja's fate had long been sealed.",
+    "_internalId": "official-game/endless-sky::Queru, Luminous Gaze",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "c9f6244a8e9f",
+    "governments": {
+      "official-game/endless-sky": {
+        "Solitude Enforcer": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "official-game/endless-sky": {
+        "Missions": [
+          "Successors: Ghosts Myurej 6"
+        ]
+      }
+    },
+    "outfits": {
+      "\"Torji,\" Lethal Sight": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Torji,\" Lethal Sight"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Hyperdrive"
+      },
+      "\"Jiita\" Heirloom Shielding": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Jiita\" Heirloom Shielding"
+      },
+      "Visions of Rime": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Visions of Rime"
+      },
+      "Successor Cooling": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Successor Cooling"
+      },
+      "\"Ija\" Heirloom Reactor": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Ija\" Heirloom Reactor"
+      },
+      "Heirloom Power Reserve": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Heirloom Power Reserve"
+      },
+      "Multimodal Armor: Regen": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Multimodal Armor: Regen"
+      }
+    }
+  },
+  {
+    "name": "Valkkyiara-Khorasaqra",
+    "engines": [
+      {
+        "x": -5,
+        "y": 69
+      },
+      {
+        "x": 5,
+        "y": 69
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -28,
+        "y": 0,
+        "zoom": 0.6,
+        "over": true
+      },
+      {
+        "x": 28,
+        "y": 0,
+        "zoom": 0.6,
+        "over": true
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -10,
+        "y": -65,
+        "zoom": 0.5,
+        "angle": 90,
+        "right": true
+      },
+      {
+        "x": 10,
+        "y": -65,
+        "zoom": 0.5,
+        "angle": 270,
+        "left": true
+      },
+      {
+        "x": -28,
+        "y": 0,
+        "left": true,
+        "angle": 180,
+        "zoom": 0.6,
+        "over": true
+      },
+      {
+        "x": 28,
+        "y": 0,
+        "right": true,
+        "angle": 180,
+        "zoom": 0.6,
+        "over": true
+      }
+    ],
+    "guns": [
+      {
+        "x": -31,
+        "y": -22,
+        "gun": ""
+      },
+      {
+        "x": -27,
+        "y": -28,
+        "gun": ""
+      },
+      {
+        "x": -22,
+        "y": -36,
+        "gun": ""
+      },
+      {
+        "x": 31,
+        "y": -22,
+        "gun": ""
+      },
+      {
+        "x": 27,
+        "y": -28,
+        "gun": ""
+      },
+      {
+        "x": 21,
+        "y": -36,
+        "gun": ""
+      },
+      {
+        "x": 0,
+        "y": -110,
+        "gun": "\"Tijra\" Heirloom Lance"
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 36,
+        "turret": ""
+      },
+      {
+        "x": 0,
+        "y": -26,
+        "turret": ""
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      }
+    ],
+    "sprite": "ship/valkkyiara-khorasaqra",
+    "thumbnail": "thumbnail/valkkyiara-khorasaqra",
+    "plural": "Valkkyiara-Khorasaqran",
+    "never disabled": true,
+    "attributes": {
+      "category": "Medium Warship",
+      "cost": 400000000,
+      "shields": 12500,
+      "hull": 95000,
+      "hull repair rate": 4.75,
+      "hull energy": 4.75,
+      "hull heat": 4.75,
+      "required crew": 22,
+      "bunks": 30,
+      "mass": 775,
+      "drag": 8,
+      "heat dissipation": 0.5,
+      "fuel capacity": 1200,
+      "cargo space": 25,
+      "outfit space": 606,
+      "weapon capacity": 285,
+      "engine capacity": 120,
+      "spinal mount": 1,
+      "ramscoop": 6,
+      "multimodal armor": 1,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "During the collapse of their Predecessors' empire, the High Houses of the Myiara stored away as much of their wealth and property as they could manage. Included in this were their private fleets of warships, by now passed down for over a thousand years as priceless family heirlooms. Despite being far more powerful than anything else in Successor space, these vessels almost never leave the ground, since the High Houses have no desire to risk these irreplaceable ships that are so deeply intertwined with their family history. \tBy the time of the collapse, the Valkkyiara-Khorasaqra was already a time-proven design; a clean and elegant expression of Myiaran martial artistry. Clad in dense mirrored armor, these mostly saw action in conflicts between the Houses, using their high speed and long-ranged weapons to menace colonies and outmaneuver more lumbering warships.",
+    "_internalId": "official-game/endless-sky::Valkkyiara-Khorasaqra",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "ea482a982126",
+    "governments": {
+      "official-game/endless-sky": {
+        "High Houses (Unknown)": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "official-game/endless-sky": {
+        "Missions": [
+          "Successors: Ghosts 19"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Successors: Ghosts 19\" → event \"successors: ghosts abandoned kaatrij\""
+        ]
+      }
+    },
+    "outfits": {
+      "\"Veusa\" Inductive Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Veusa\" Inductive Thruster"
+      },
+      "\"Veusa\" Inductive Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Veusa\" Inductive Steering"
+      },
+      "\"Ija\" Heirloom Reactor": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Ija\" Heirloom Reactor"
+      },
+      "Heirloom Power Reserve": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Heirloom Power Reserve"
+      },
+      "\"Jiita\" Heirloom Shielding": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Jiita\" Heirloom Shielding"
+      },
+      "Heirloom Cooling": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Heirloom Cooling"
+      },
+      "\"Sarija\" Heirloom Coilgun": {
+        "count": 6,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Sarija\" Heirloom Coilgun"
+      },
+      "\"Tijra\" Heirloom Lance": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Tijra\" Heirloom Lance"
+      },
+      "High-Velocity Spike": {
+        "count": 30,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::High-Velocity Spike"
+      },
+      "Multimodal Armor: Keystone": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Multimodal Armor: Keystone"
+      },
+      "Point Drive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Point Drive"
+      },
+      "Stolen Cloak (Deactivated)": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Stolen Cloak (Deactivated)"
+      }
+    }
+  },
+  {
     "name": "Aaulqra",
     "engines": [
       {
@@ -71794,6 +72537,245 @@
         "count": 1,
         "pluginId": "official-game/endless-sky",
         "internalId": "official-game/endless-sky::Hyperdrive"
+      }
+    }
+  },
+  {
+    "name": "Ejniisde-Khora",
+    "engines": [
+      {
+        "x": 25,
+        "y": 67,
+        "zoom": 0.8
+      },
+      {
+        "x": -25,
+        "y": 67,
+        "zoom": 0.8
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": 26,
+        "y": -22,
+        "zoom": 0.8
+      },
+      {
+        "x": -26,
+        "y": -22,
+        "zoom": 0.8
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": 7,
+        "y": -83,
+        "zoom": 0.5,
+        "over": true,
+        "left": true,
+        "angle": 270
+      },
+      {
+        "x": -7,
+        "y": -83,
+        "zoom": 0.5,
+        "over": true,
+        "right": true,
+        "angle": 90
+      },
+      {
+        "x": -6,
+        "y": 99,
+        "zoom": 0.5,
+        "left": true,
+        "angle": 90
+      },
+      {
+        "x": 6,
+        "y": 99,
+        "zoom": 0.5,
+        "right": true,
+        "angle": 270
+      }
+    ],
+    "guns": [
+      {
+        "x": 0,
+        "y": -106,
+        "gun": ""
+      },
+      {
+        "x": 18,
+        "y": -35,
+        "gun": ""
+      },
+      {
+        "x": -18,
+        "y": -35,
+        "gun": ""
+      },
+      {
+        "x": 22,
+        "y": -30,
+        "gun": ""
+      },
+      {
+        "x": -18,
+        "y": -35,
+        "gun": ""
+      }
+    ],
+    "turrets": [
+      {
+        "x": 0,
+        "y": 24,
+        "turret": "",
+        "over": true
+      },
+      {
+        "x": 22,
+        "y": 10,
+        "turret": "",
+        "over": true
+      },
+      {
+        "x": -22,
+        "y": 10,
+        "turret": "",
+        "over": true
+      }
+    ],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      }
+    ],
+    "plural": "Ejniisden-Khora",
+    "sprite": "ship/ejniisde-khora",
+    "thumbnail": "thumbnail/ejniisde-khora",
+    "attributes": {
+      "licenses": {
+        "Successor": true
+      },
+      "category": "Medium Warship",
+      "cost": 4100000,
+      "shields": 4240,
+      "hull": 28650,
+      "required crew": 29,
+      "bunks": 44,
+      "mass": 612,
+      "drag": 4.9,
+      "heat dissipation": 0.6,
+      "fuel capacity": 700,
+      "cargo space": 40,
+      "outfit space": 355,
+      "weapon capacity": 146,
+      "engine capacity": 100,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "Only very few figures within the largely destitute People's Houses have the resources to assemble such an extensively-modified vessel. The comfortable passenger quarters of the stock Ejniisde have been replaced with barracks and the star liner's lightweight hull has been laid over with heavy, multi-layered armor that shields a substantially expanded weapons suite. \tThe construction of illegal warships such as these by the People's Houses has been a noted concern in many recent councils between the High Houses, prompting an increase in the size and prominence of their own military fleets.",
+    "_internalId": "official-game/endless-sky::Ejniisde-Khora",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "6cd086741347",
+    "governments": {
+      "endless-sky": {
+        "endless-sky": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "official-game/endless-sky": {
+        "_deprecated/unused": true
+      }
+    },
+    "outfits": {
+      "Overcharged Pulse Laser": {
+        "count": 5,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Overcharged Pulse Laser"
+      },
+      "Overcharged Laser Turret": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Overcharged Laser Turret"
+      },
+      "1-\"Uurau\" Betavoltaic Cell": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::1-\"Uurau\" Betavoltaic Cell"
+      },
+      "OC-\"Mavra\" Betavoltaic Cell": {
+        "count": 3,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::OC-\"Mavra\" Betavoltaic Cell"
+      },
+      "Auxiliary Power Reserve": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Auxiliary Power Reserve"
+      },
+      "Primary Power Reserve": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Primary Power Reserve"
+      },
+      "\"Ej\" Shield Cortex": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Ej\" Shield Cortex"
+      },
+      "\"Veldt\" Combat Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Veldt\" Combat Scanner"
+      },
+      "Successor Cooling": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Successor Cooling"
+      },
+      "\"Veusa\" Inductive Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Veusa\" Inductive Thruster"
+      },
+      "\"Chyyra\" Inductive Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Chyyra\" Inductive Steering"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Hyperdrive"
+      },
+      "Outfits Expansion": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Outfits Expansion"
+      },
+      "Kinetic Rail Rifle": {
+        "count": 15,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Kinetic Rail Rifle"
       }
     }
   },
@@ -72397,6 +73379,9 @@
         ],
         "Planets": [
           "Kasii-Tuur-Saqru"
+        ],
+        "Missions": [
+          "Successors: Ghosts Myurej 4"
         ]
       }
     },
@@ -73401,6 +74386,12 @@
           "O-Vasa-Oa",
           "Raaqa-Puan-Uuoru",
           "Yoqqa-Vasa-Vasa"
+        ],
+        "Missions": [
+          "Successors: Ghosts 10"
+        ],
+        "TriggeredByMissionEvents": [
+          "\"Successors: Ghosts 10\" → event \"successors: ghosts unrestrict\""
         ]
       }
     },
@@ -74146,6 +75137,235 @@
         "count": 1,
         "pluginId": "official-game/endless-sky",
         "internalId": "official-game/endless-sky::\"Chyyra\" Inductive Reverser"
+      },
+      "Hyperdrive": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Hyperdrive"
+      }
+    }
+  },
+  {
+    "name": "Vujlet-Usaqri",
+    "engines": [
+      {
+        "x": -16,
+        "y": 49,
+        "zoom": 0.9
+      },
+      {
+        "x": 16,
+        "y": 49,
+        "zoom": 0.9
+      }
+    ],
+    "reverseEngines": [
+      {
+        "x": -16,
+        "y": -6,
+        "zoom": 0.9,
+        "over": true
+      },
+      {
+        "x": 16,
+        "y": -5,
+        "zoom": 0.9,
+        "over": true
+      }
+    ],
+    "steeringEngines": [
+      {
+        "x": -4,
+        "y": -53,
+        "right": true,
+        "angle": 90,
+        "zoom": 0.5,
+        "over": true
+      },
+      {
+        "x": 4,
+        "y": -53,
+        "left": true,
+        "angle": 270,
+        "zoom": 0.5,
+        "over": true
+      },
+      {
+        "x": -28,
+        "y": 34,
+        "left": true,
+        "angle": 90,
+        "zoom": 0.5,
+        "over": true
+      },
+      {
+        "x": 28,
+        "y": 34,
+        "right": true,
+        "angle": 270,
+        "zoom": 0.5,
+        "over": true
+      }
+    ],
+    "guns": [
+      {
+        "x": -6,
+        "y": -46,
+        "gun": "\"Ojet\" Bimodal Coilgun"
+      },
+      {
+        "x": 6,
+        "y": -46,
+        "gun": "\"Ojet\" Bimodal Coilgun"
+      },
+      {
+        "x": -9,
+        "y": -30,
+        "gun": ""
+      },
+      {
+        "x": 9,
+        "y": -30,
+        "gun": ""
+      }
+    ],
+    "turrets": [],
+    "bays": [],
+    "leaks": [
+      {
+        "effect": "leak",
+        "openChance": 50,
+        "spreadChance": 50
+      },
+      {
+        "effect": "flame",
+        "openChance": 30,
+        "spreadChance": 80
+      }
+    ],
+    "plural": "Vujleten-Usaqri",
+    "sprite": "ship/vujlet modified",
+    "thumbnail": "thumbnail/vujlet modified",
+    "attributes": {
+      "licenses": {
+        "High Houses": true
+      },
+      "category": "Light Warship",
+      "cost": 10350000,
+      "shields": 4200,
+      "hull": 16300,
+      "required crew": 4,
+      "bunks": 6,
+      "mass": 245,
+      "drag": 3.8,
+      "heat dissipation": 0.65,
+      "fuel capacity": 600,
+      "cargo space": 10,
+      "outfit space": 280,
+      "weapon capacity": 105,
+      "engine capacity": 85,
+      "multimodal armor": 1,
+      "hull repair rate": 0.815,
+      "hull energy": 1.18,
+      "hull heat": 1.18,
+      "cloak": 0.02,
+      "cloaking fuel": 0.04,
+      "cloaking shields": 4,
+      "weapon": {
+        "blast radius": 100,
+        "shield damage": 1000,
+        "hull damage": 500,
+        "hit force": 1500
+      }
+    },
+    "tiny explosion": 18,
+    "small explosion": 36,
+    "medium explosion": 24,
+    "large explosion": 8,
+    "final explode": "final explosion medium",
+    "description": "The first prototype cloaks produced by the old House Kaatrij nearly eighteen hundred years ago were far from the adaptable and reliable technology they are today, each one consuming the power output of a large fusion reactor. Only once the House's engineers started to incorporate a ship's shielding into the cloak's operation was it made truly practical; hence, even today, the efficient cloak of the Vujlet-Usaqri relies on a steady stream of shield energy to operate. As a result, this modified variant of the Vujlet features a higher-capacity shield grid and more crew to maintain it. \tThe Vujlet-Usaqri's cloaking technology is integrated with its hull and cannot be removed. Optimized for general use, it draws a moderate amount of fuel and shields while active.",
+    "_internalId": "official-game/endless-sky::Vujlet-Usaqri",
+    "_pluginId": "official-game/endless-sky",
+    "_hash": "b374f760039e",
+    "governments": {
+      "official-game/endless-sky": {
+        "House Kaatrij": true
+      }
+    },
+    "governmentEvents": [],
+    "locations": {
+      "official-game/endless-sky": {
+        "Planets": [
+          "Raaqa-Puan-Uuoru",
+          "Shassa-Wyra-Orrou"
+        ]
+      }
+    },
+    "outfits": {
+      "\"Ojet\" Bimodal Coilgun": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Ojet\" Bimodal Coilgun"
+      },
+      "\"Nnesa\" Fusion Core": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Nnesa\" Fusion Core"
+      },
+      "Auxiliary Power Reserve": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Auxiliary Power Reserve"
+      },
+      "\"Jaase\" Shield Cortex": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Jaase\" Shield Cortex"
+      },
+      "Successor Cooling": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Successor Cooling"
+      },
+      "\"Veldt\" Combat Scanner": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Veldt\" Combat Scanner"
+      },
+      "Multimodal Armor: Light": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Multimodal Armor: Light"
+      },
+      "Successor Fuel Sail": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Successor Fuel Sail"
+      },
+      "Fuel Pod": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Fuel Pod"
+      },
+      "Kinetic Rail Rifle": {
+        "count": 2,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Kinetic Rail Rifle"
+      },
+      "\"Chyyra\" Inductive Thruster": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Chyyra\" Inductive Thruster"
+      },
+      "\"Chyyra\" Inductive Steering": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Chyyra\" Inductive Steering"
+      },
+      "\"Aqra\" Inductive Reverser": {
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::\"Aqra\" Inductive Reverser"
       },
       "Hyperdrive": {
         "count": 1,

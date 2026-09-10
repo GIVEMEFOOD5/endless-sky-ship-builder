@@ -1,0 +1,105 @@
+{
+  "plugin": "map.reveal",
+  "repository": "https://github.com/Nova1422/plugins",
+  "ships": [],
+  "variants": [],
+  "outfits": [],
+  "effects": [],
+  "galaxies": [],
+  "systems": [],
+  "planets": [],
+  "wormholes": [],
+  "missions": [
+    {
+      "name": "Map Reveal",
+      "displayName": null,
+      "description": "Reveal Map?",
+      "raw": [
+        {
+          "key": "description",
+          "values": [
+            "Reveal Map?"
+          ],
+          "children": null
+        },
+        {
+          "key": "job",
+          "values": [],
+          "children": null
+        },
+        {
+          "key": "on",
+          "values": [
+            "accept"
+          ],
+          "children": [
+            {
+              "key": "event",
+              "values": [
+                "Map Reveal"
+              ],
+              "children": null
+            },
+            {
+              "key": "conversation",
+              "values": [],
+              "children": [
+                {
+                  "key": "Done.",
+                  "values": [],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "fail",
+              "values": [],
+              "children": null
+            }
+          ]
+        }
+      ],
+      "locations": [
+        "job"
+      ],
+      "flags": {},
+      "repeatable": false,
+      "repeatLimit": null,
+      "illegal": null,
+      "deadline": null,
+      "cargo": null,
+      "passengers": null,
+      "conditions": {},
+      "payment": {
+        "apparentPayment": null,
+        "triggers": {
+          "onAccept": []
+        }
+      },
+      "source": null,
+      "destination": null,
+      "stopovers": [],
+      "waypoints": [],
+      "rewards": {
+        "outfits": [],
+        "ships": []
+      },
+      "hasNpcObjective": false,
+      "npcCount": 0,
+      "conditionSideEffects": [],
+      "eventTriggers": [
+        {
+          "name": "Map Reveal",
+          "delayDays": null,
+          "delayDaysMax": null,
+          "trigger": "onAccept"
+        }
+      ],
+      "_pluginId": "Nova1422s list/map.reveal",
+      "_internalId": "Nova1422s list/map.reveal::Map Reveal",
+      "_hash": "750a8828b15b",
+      "sourcePlugin": "Nova1422s list/map.reveal"
+    }
+  ],
+  "parsedAt": "2026-09-10T08:05:53.484Z"
+}

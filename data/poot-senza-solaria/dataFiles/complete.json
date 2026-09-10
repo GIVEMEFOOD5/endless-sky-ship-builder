@@ -67708,13 +67708,6 @@
                     2197.72
                   ],
                   "children": null
-                },
-                {
-                  "key": "period",
-                  "values": [
-                    1942.72
-                  ],
-                  "children": null
                 }
               ]
             },
@@ -67736,13 +67729,6 @@
                   "key": "distance",
                   "values": [
                     2197.72
-                  ],
-                  "children": null
-                },
-                {
-                  "key": "period",
-                  "values": [
-                    1942.72
                   ],
                   "children": null
                 }
@@ -73795,13 +73781,6 @@
                     966.7
                   ],
                   "children": null
-                },
-                {
-                  "key": "period",
-                  "values": [
-                    290.312
-                  ],
-                  "children": null
                 }
               ]
             },
@@ -73827,13 +73806,6 @@
                   "children": null
                 },
                 {
-                  "key": "period",
-                  "values": [
-                    290.312
-                  ],
-                  "children": null
-                },
-                {
                   "key": "object",
                   "values": [],
                   "children": [
@@ -73848,13 +73820,6 @@
                       "key": "distance",
                       "values": [
                         220
-                      ],
-                      "children": null
-                    },
-                    {
-                      "key": "period",
-                      "values": [
-                        10.5884
                       ],
                       "children": null
                     }
@@ -73875,13 +73840,6 @@
                       "key": "distance",
                       "values": [
                         305
-                      ],
-                      "children": null
-                    },
-                    {
-                      "key": "period",
-                      "values": [
-                        17.2841
                       ],
                       "children": null
                     }
@@ -311209,6 +311167,102 @@
           "_planetData": null
         },
         {
+          "name": "Exotic Metal Garden",
+          "isLandable": true,
+          "sprite": "planet/exotic-metal-garden",
+          "spriteScale": null,
+          "distance": 80,
+          "period": null,
+          "offset": null,
+          "visibility": null,
+          "hazards": [],
+          "children": [],
+          "pluginId": "official-game/endless-sky",
+          "internalId": "official-game/endless-sky::object:Exotic Metal Garden",
+          "_planetData": {
+            "displayName": null,
+            "attributes": [
+              "predecessor",
+              "station",
+              "uninhabited",
+              "starlining"
+            ],
+            "requires": [
+              ""
+            ],
+            "landscapes": [
+              {
+                "name": "land/space6",
+                "count": 1,
+                "pluginId": "official-game/endless-sky",
+                "internalId": "official-game/endless-sky::landscape:land/space6"
+              }
+            ],
+            "music": null,
+            "description": {
+              "text": "Eerily quiet, the small habitable areas of this station are dominated by the view of a tangled nest of enormous metallic ribbons that stretch away from the Kasii-Cavasaa star. Deep in the bowels of the facility, these are spooled into strings of exotic stellar metal which, despite their small size, are improbably heavy and uncomfortably cold to the touch. Having not been harvested in many hundreds of years, the spools are silent and still - apart from a single one, which slowly revolves and holds almost no material.",
+              "toDisplay": null
+            },
+            "spaceport": null,
+            "toKnow": null,
+            "toLand": null,
+            "toAccessOutfitter": null,
+            "toAccessShipyard": null,
+            "port": null,
+            "government": "Uninhabited",
+            "governmentInherited": true,
+            "shipyards": [],
+            "outfitters": [],
+            "requiredReputation": null,
+            "bribe": null,
+            "bribeThreshold": null,
+            "bribeFraction": null,
+            "security": null,
+            "wormhole": null,
+            "tribute": null,
+            "tributeHails": {},
+            "systemName": "Kasii-Cavaasa",
+            "rawByPlugin": [
+              {
+                "pluginId": "official-game/endless-sky",
+                "entries": [
+                  {
+                    "key": "attributes",
+                    "values": [
+                      "predecessor",
+                      "station",
+                      "uninhabited",
+                      "requires: starlining"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "landscape",
+                    "values": [
+                      "land/space6"
+                    ],
+                    "children": null
+                  },
+                  {
+                    "key": "description",
+                    "values": [
+                      "Eerily quiet, the small habitable areas of this station are dominated by the view of a tangled nest of enormous metallic ribbons that stretch away from the Kasii-Cavasaa star. Deep in the bowels of the facility, these are spooled into strings of exotic stellar metal which, despite their small size, are improbably heavy and uncomfortably cold to the touch. Having not been harvested in many hundreds of years, the spools are silent and still - apart from a single one, which slowly revolves and holds almost no material."
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ],
+            "name": "Exotic Metal Garden",
+            "_pluginId": "official-game/endless-sky",
+            "_internalId": "official-game/endless-sky::Exotic Metal Garden",
+            "_definedBy": [
+              "official-game/endless-sky"
+            ],
+            "_lastModifiedBy": "official-game/endless-sky"
+          }
+        },
+        {
           "name": null,
           "isLandable": false,
           "sprite": "planet/lava0",
@@ -311462,6 +311516,28 @@
                   "key": "sprite",
                   "values": [
                     "star/b-supergiant"
+                  ],
+                  "children": null
+                }
+              ]
+            },
+            {
+              "key": "object",
+              "values": [
+                "Exotic Metal Garden"
+              ],
+              "children": [
+                {
+                  "key": "sprite",
+                  "values": [
+                    "planet/exotic-metal-garden"
+                  ],
+                  "children": null
+                },
+                {
+                  "key": "distance",
+                  "values": [
+                    80
                   ],
                   "children": null
                 }
@@ -315226,7 +315302,7 @@
                   }
                 ],
                 "requiredReputation": 2,
-                "bribe": 0,
+                "bribe": null,
                 "bribeThreshold": null,
                 "bribeFraction": null,
                 "security": null,
@@ -315328,13 +315404,6 @@
                         "key": "required reputation",
                         "values": [
                           2
-                        ],
-                        "children": null
-                      },
-                      {
-                        "key": "bribe",
-                        "values": [
-                          0
                         ],
                         "children": null
                       }
@@ -345319,13 +345388,6 @@
                     680.25
                   ],
                   "children": null
-                },
-                {
-                  "key": "period",
-                  "values": [
-                    203.598
-                  ],
-                  "children": null
                 }
               ]
             },
@@ -345350,13 +345412,6 @@
                   "children": null
                 },
                 {
-                  "key": "period",
-                  "values": [
-                    203.598
-                  ],
-                  "children": null
-                },
-                {
                   "key": "object",
                   "values": [
                     "Iamal"
@@ -345373,13 +345428,6 @@
                       "key": "distance",
                       "values": [
                         242
-                      ],
-                      "children": null
-                    },
-                    {
-                      "key": "period",
-                      "values": [
-                        14.5028
                       ],
                       "children": null
                     }
@@ -345400,13 +345448,6 @@
                       "key": "distance",
                       "values": [
                         381
-                      ],
-                      "children": null
-                    },
-                    {
-                      "key": "period",
-                      "values": [
-                        28.6494
                       ],
                       "children": null
                     }
@@ -600523,13 +600564,6 @@
                     1318.13
                   ],
                   "children": null
-                },
-                {
-                  "key": "period",
-                  "values": [
-                    606.856
-                  ],
-                  "children": null
                 }
               ]
             },
@@ -600555,13 +600589,6 @@
                   "children": null
                 },
                 {
-                  "key": "period",
-                  "values": [
-                    606.856
-                  ],
-                  "children": null
-                },
-                {
                   "key": "object",
                   "values": [],
                   "children": [
@@ -600575,14 +600602,7 @@
                     {
                       "key": "distance",
                       "values": [
-                        165
-                      ],
-                      "children": null
-                    },
-                    {
-                      "key": "period",
-                      "values": [
-                        24.185
+                        16
                       ],
                       "children": null
                     }
@@ -615805,5 +615825,5 @@
       "sourcePlugin": "POOT/poot-senza-solaria_senza_solaria"
     }
   ],
-  "parsedAt": "2026-09-02T07:57:25.724Z"
+  "parsedAt": "2026-09-10T08:05:56.261Z"
 }

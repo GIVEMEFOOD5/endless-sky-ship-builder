@@ -1,0 +1,96 @@
+[
+  {
+    "name": "Pug Warning Mego Pug",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "never",
+            "values": [],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "enter",
+          "Mego Pug"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "When you enter the Mego Pug system you receive a transmission: \"Human, leave this system immediately or we will attack. You are not welcome here.\""
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {
+      "invisible": true
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "complete": [
+        {
+          "key": "never",
+          "values": [],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onEnter": []
+      }
+    },
+    "source": null,
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/more.arfectas",
+    "_internalId": "Zuckungs List/more.arfectas::Pug Warning Mego Pug",
+    "_hash": "b82c478f2316",
+    "sourcePlugin": "Zuckungs List/more.arfectas"
+  }
+]

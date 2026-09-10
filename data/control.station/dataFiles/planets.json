@@ -1,0 +1,119 @@
+[
+  {
+    "displayName": "Space Administration",
+    "attributes": [],
+    "requires": [],
+    "landscapes": [
+      {
+        "name": "land/inside_station",
+        "count": 1,
+        "pluginId": "Zuckungs List/control.station",
+        "internalId": "Zuckungs List/control.station::landscape:land/inside_station"
+      }
+    ],
+    "music": null,
+    "description": {
+      "text": "This is the Endless Sky Space Administration station. Here you can see some info about the game, activate quality of life features, configure plugin options, or do some cheaty stuff.",
+      "toDisplay": null
+    },
+    "spaceport": {
+      "text": "This is the Endless Sky Space Administration station. Here you can see some info about the game, activate quality of life features, configure plugin options, or do some cheaty stuff.",
+      "toDisplay": null
+    },
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "control.station.administration",
+    "governmentInherited": false,
+    "shipyards": [
+      {
+        "name": "control.station.empty",
+        "count": 1,
+        "pluginId": "Zuckungs List/control.station",
+        "internalId": "Zuckungs List/control.station::shipyard:control.station.empty"
+      }
+    ],
+    "outfitters": [
+      {
+        "name": "control.station.empty",
+        "count": 1,
+        "pluginId": "Zuckungs List/control.station",
+        "internalId": "Zuckungs List/control.station::outfitter:control.station.empty"
+      }
+    ],
+    "requiredReputation": null,
+    "bribe": null,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": null,
+    "wormhole": null,
+    "tribute": null,
+    "tributeHails": {},
+    "systemName": null,
+    "rawByPlugin": [
+      {
+        "pluginId": "Zuckungs List/control.station",
+        "entries": [
+          {
+            "key": "display name",
+            "values": [
+              "Space Administration"
+            ],
+            "children": null
+          },
+          {
+            "key": "landscape",
+            "values": [
+              "land/inside_station"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "This is the Endless Sky Space Administration station. Here you can see some info about the game, activate quality of life features, configure plugin options, or do some cheaty stuff."
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "control.station.administration"
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "This is the Endless Sky Space Administration station. Here you can see some info about the game, activate quality of life features, configure plugin options, or do some cheaty stuff."
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "control.station.empty"
+            ],
+            "children": null
+          },
+          {
+            "key": "shipyard",
+            "values": [
+              "control.station.empty"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "name": "Control Station",
+    "_pluginId": "Zuckungs List/control.station",
+    "_internalId": "Zuckungs List/control.station::Control Station",
+    "_definedBy": [
+      "Zuckungs List/control.station"
+    ],
+    "_lastModifiedBy": "Zuckungs List/control.station"
+  }
+]

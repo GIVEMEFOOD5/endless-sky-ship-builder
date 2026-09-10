@@ -1,0 +1,717 @@
+[
+  {
+    "name": "get heliarch",
+    "displayName": "New Equipment",
+    "description": "Head to <destination> to check out the shipyards and outfitter you've paid to get access to.",
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "New Equipment"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Head to <destination> to check out the shipyards and outfitter you've paid to get access to."
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Coalition"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "planet",
+              "Far Home"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Far Home"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "joined the lunarium"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "joined the heliarchs"
+            ],
+            "children": null
+          },
+          {
+            "key": "credits",
+            "values": [
+              ">",
+              6000000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "scene/kimek_spaceport"
+                ],
+                "children": null
+              },
+              {
+                "key": "As you enter <origin>'s spaceport, a suspiciously nervous Kimek approaches. \"Hello Captain <last>. Interesting offer, I would like to make you. Inside your ship we talk maybe?\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Sure.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "yes"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"I'm not interested.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "decline",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "yes"
+                ],
+                "children": null
+              },
+              {
+                "key": "scene",
+                "values": [
+                  "scene/kimek_sitting"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tOnce in the ship, the Kimek begins to relax. \"A few shipyards and outfitters in the 'Far Home' system, my client has already built. Some with unlicensed ships and equipment, and now looking for paying customers, he is. Granted with access to these difficult-to-access technologies, you would be, for a small fee of five million credits. More precisely, about Heliarch and Lunarium technologies, it is. The payment would be made now and with a Heliarch license, you would also be provided. Are you interested?\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Sure, I'll just fetch my bribery suitcase.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "yesyes"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"Get out, or I'll call the Heliarch... umm, what number do I have to dial?\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "decline",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "yesyes"
+                ],
+                "children": null
+              },
+              {
+                "key": "scene",
+                "values": [
+                  "scene/kimek_sitting"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tSome minutes later the Kimek puts the credit transfer chip into his pad, and confirms the payment. \"Keep the suitcase,\" you say. Without an answer he pulls a golden Heliarch circlet out of his pocket, puts it on your head and connects it to a small electronic box with a cable. After about twenty seconds the whole procedure is over and the Heliarch license is activated. \"That is it,\" he says, and leaves your ship. You should head to <destination> to take a look at the new equipment.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [
+              -5000000
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "both sides"
+            ],
+            "children": null
+          },
+          {
+            "key": "set",
+            "values": [
+              "license: Heliarch"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "You've reached <planet>. The local outfitters and shipyards should have all the equipment the Coalition, the Heliarch, and the Lunarium can offer.",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {},
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "joined the lunarium"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "joined the heliarchs"
+          ],
+          "children": null
+        },
+        {
+          "key": "credits",
+          "values": [
+            ">",
+            6000000
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onAccept": [
+          {
+            "base": -5000000,
+            "multiplier": 0
+          }
+        ],
+        "onComplete": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Coalition"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "planet",
+            "Far Home"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Far Home",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Far Home"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      {
+        "name": "both sides",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
+    ],
+    "_pluginId": "Zuckungs List/coalition.shopping",
+    "_internalId": "Zuckungs List/coalition.shopping::get heliarch",
+    "_hash": "bc92bad1ec64",
+    "sourcePlugin": "Zuckungs List/coalition.shopping"
+  },
+  {
+    "name": "get lunarium",
+    "displayName": "New Equipment",
+    "description": "Head to <destination> to check out the shipyards and outfitter you've paid to get access to.",
+    "raw": [
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "name",
+        "values": [
+          "New Equipment"
+        ],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Head to <destination> to check out the shipyards and outfitter you've paid to get access to."
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Coalition"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "planet",
+              "Far Home"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Far Home"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "not",
+            "values": [
+              "joined the lunarium"
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "joined the heliarchs"
+            ],
+            "children": null
+          },
+          {
+            "key": "credits",
+            "values": [
+              ">",
+              6000000
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "scene",
+                "values": [
+                  "scene/kimek_spaceport"
+                ],
+                "children": null
+              },
+              {
+                "key": "As you enter <origin>'s spaceport, a suspiciously nervous Kimek approaches. \"Hello Captain <last>. Interesting offer, I would like to make you. Inside your ship we talk maybe?\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Sure.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "yes"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"I'm not interested.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "decline",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "yes"
+                ],
+                "children": null
+              },
+              {
+                "key": "scene",
+                "values": [
+                  "scene/kimek_sitting"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tOnce in the ship, the Kimek begins to relax. \"A few shipyards and outfitters in the 'Far Home' system, my client has already built. Some with unlicensed ships and equipment, and now looking for paying customers, he is. Granted with access to these difficult-to-access technologies, you would be, for a small fee of five million credits. More precisely, about Heliarch and Lunarium technologies, it is. Now, the payment would be made. Are you interested?\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Sure, I'll just fetch my bribery suitcase.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "yesyes"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"Get out, or I'll call the Heliarch... umm, what number do I have to dial?\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "decline",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "yesyes"
+                ],
+                "children": null
+              },
+              {
+                "key": "scene",
+                "values": [
+                  "scene/kimek_sitting"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tSome minutes later the Kimek puts the credit transfer chip into his pad, and confirms the payment. \"Keep the suitcase,\" you say. Without an answer he pulls a golden Heliarch circlet out of his pocket, puts it on your head and connects it to a small electronic box with a cable. After about twenty seconds the whole procedure is over and the Heliarch license is activated. \"That is it,\" he says, and leaves your ship. You should head to <destination> to take a look at the new equipment.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "accept"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [
+              -5000000
+            ],
+            "children": null
+          },
+          {
+            "key": "event",
+            "values": [
+              "both sides"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "You've reached <planet>. The local outfitters and shipyards should have all equipment the Coalition, the Heliarch, and the Lunarium can offer.",
+                "values": [],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {},
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "not",
+          "values": [
+            "joined the lunarium"
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "joined the heliarchs"
+          ],
+          "children": null
+        },
+        {
+          "key": "credits",
+          "values": [
+            ">",
+            6000000
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onAccept": [
+          {
+            "base": -5000000,
+            "multiplier": 0
+          }
+        ],
+        "onComplete": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Coalition"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "planet",
+            "Far Home"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Far Home",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Far Home"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      {
+        "name": "both sides",
+        "delayDays": null,
+        "delayDaysMax": null,
+        "trigger": "onAccept"
+      }
+    ],
+    "_pluginId": "Zuckungs List/coalition.shopping",
+    "_internalId": "Zuckungs List/coalition.shopping::get lunarium",
+    "_hash": "37742d8c9f45",
+    "sourcePlugin": "Zuckungs List/coalition.shopping"
+  }
+]

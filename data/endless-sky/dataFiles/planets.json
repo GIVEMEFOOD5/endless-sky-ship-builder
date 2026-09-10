@@ -25681,6 +25681,88 @@
   {
     "displayName": null,
     "attributes": [
+      "predecessor",
+      "station",
+      "uninhabited",
+      "starlining"
+    ],
+    "requires": [
+      ""
+    ],
+    "landscapes": [
+      {
+        "name": "land/space6",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::landscape:land/space6"
+      }
+    ],
+    "music": null,
+    "description": {
+      "text": "Eerily quiet, the small habitable areas of this station are dominated by the view of a tangled nest of enormous metallic ribbons that stretch away from the Kasii-Cavasaa star. Deep in the bowels of the facility, these are spooled into strings of exotic stellar metal which, despite their small size, are improbably heavy and uncomfortably cold to the touch. Having not been harvested in many hundreds of years, the spools are silent and still - apart from a single one, which slowly revolves and holds almost no material.",
+      "toDisplay": null
+    },
+    "spaceport": null,
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "Uninhabited",
+    "governmentInherited": true,
+    "shipyards": [],
+    "outfitters": [],
+    "requiredReputation": null,
+    "bribe": null,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": null,
+    "wormhole": null,
+    "tribute": null,
+    "tributeHails": {},
+    "systemName": "Kasii-Cavaasa",
+    "rawByPlugin": [
+      {
+        "pluginId": "official-game/endless-sky",
+        "entries": [
+          {
+            "key": "attributes",
+            "values": [
+              "predecessor",
+              "station",
+              "uninhabited",
+              "requires: starlining"
+            ],
+            "children": null
+          },
+          {
+            "key": "landscape",
+            "values": [
+              "land/space6"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "Eerily quiet, the small habitable areas of this station are dominated by the view of a tangled nest of enormous metallic ribbons that stretch away from the Kasii-Cavasaa star. Deep in the bowels of the facility, these are spooled into strings of exotic stellar metal which, despite their small size, are improbably heavy and uncomfortably cold to the touch. Having not been harvested in many hundreds of years, the spools are silent and still - apart from a single one, which slowly revolves and holds almost no material."
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "name": "Exotic Metal Garden",
+    "_pluginId": "official-game/endless-sky",
+    "_internalId": "official-game/endless-sky::Exotic Metal Garden",
+    "_definedBy": [
+      "official-game/endless-sky"
+    ],
+    "_lastModifiedBy": "official-game/endless-sky"
+  },
+  {
+    "displayName": null,
+    "attributes": [
       "arach",
       "factory",
       "mining"
@@ -41488,6 +41570,133 @@
   {
     "displayName": null,
     "attributes": [
+      "predecessor",
+      "station",
+      "uninhabited"
+    ],
+    "requires": [],
+    "landscapes": [
+      {
+        "name": "land/station42",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::landscape:land/station42"
+      }
+    ],
+    "music": null,
+    "description": {
+      "text": "\tHaving been labeled as an ally by the station's security systems, your ship is able to land inside an empty docking bay within, but without a way of interfacing with the station's damaged computer systems, the further depths of its vast interior remain inscrutable for now. Though it still appears damaged, your previous visit seems to have activated some of its self-repair functions: tiny, ant-sized robots are hard at work performing maintenance on the bay's systems.",
+      "toDisplay": [
+        "has \"Successors: Ghosts 16: done\""
+      ]
+    },
+    "spaceport": null,
+    "toKnow": null,
+    "toLand": [
+      "has \"Successors: Ghosts 16: offered\""
+    ],
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "Predecessor",
+    "governmentInherited": false,
+    "shipyards": [],
+    "outfitters": [],
+    "requiredReputation": null,
+    "bribe": null,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": null,
+    "wormhole": null,
+    "tribute": null,
+    "tributeHails": {},
+    "systemName": null,
+    "rawByPlugin": [
+      {
+        "pluginId": "official-game/endless-sky",
+        "entries": [
+          {
+            "key": "attributes",
+            "values": [
+              "predecessor",
+              "station",
+              "uninhabited"
+            ],
+            "children": null
+          },
+          {
+            "key": "landscape",
+            "values": [
+              "land/station42"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "Uncomfortably vast, this ancient citadel of House Kaatrij seems to remain in a state of partial cloaking; sections of it shimmer in and out of view. Because of this, it shows up only intermittently on long-range sensors despite its great size."
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "\tHaving been labeled as an ally by the station's security systems, your ship is able to land inside an empty docking bay within, but without a way of interfacing with the station's damaged computer systems, the further depths of its vast interior remain inscrutable for now. Though it still appears damaged, your previous visit seems to have activated some of its self-repair functions: tiny, ant-sized robots are hard at work performing maintenance on the bay's systems."
+            ],
+            "children": [
+              {
+                "key": "to",
+                "values": [
+                  "display"
+                ],
+                "children": [
+                  {
+                    "key": "has",
+                    "values": [
+                      "Successors: Ghosts 16: done"
+                    ],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "key": "government",
+            "values": [
+              "Predecessor"
+            ],
+            "children": null
+          },
+          {
+            "key": "to",
+            "values": [
+              "land"
+            ],
+            "children": [
+              {
+                "key": "has",
+                "values": [
+                  "Successors: Ghosts 16: offered"
+                ],
+                "children": null
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "name": "Ijra-Ea, Shimmering Veil",
+    "_pluginId": "official-game/endless-sky",
+    "_internalId": "official-game/endless-sky::Ijra-Ea, Shimmering Veil",
+    "_definedBy": [
+      "official-game/endless-sky"
+    ],
+    "_lastModifiedBy": "official-game/endless-sky"
+  },
+  {
+    "displayName": null,
+    "attributes": [
       "bunrodea",
       "military",
       "moon"
@@ -44713,7 +44922,7 @@
       }
     ],
     "requiredReputation": 2,
-    "bribe": 0,
+    "bribe": null,
     "bribeThreshold": null,
     "bribeFraction": null,
     "security": null,
@@ -44815,13 +45024,6 @@
             "key": "required reputation",
             "values": [
               2
-            ],
-            "children": null
-          },
-          {
-            "key": "bribe",
-            "values": [
-              0
             ],
             "children": null
           }

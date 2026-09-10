@@ -1,0 +1,868 @@
+[
+  {
+    "name": "Unwanted Cargo Trigger",
+    "displayName": null,
+    "description": null,
+    "raw": [
+      {
+        "key": "invisible",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Hai"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "attributes",
+              "uninhabited"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              1
+            ],
+            "children": null
+          },
+          {
+            "key": "cargo space",
+            "values": [
+              ">",
+              0
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "event",
+            "values": [
+              "hai in cargo",
+              14
+            ],
+            "children": null
+          },
+          {
+            "key": "fail",
+            "values": [],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {
+      "invisible": true
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            1
+          ],
+          "children": null
+        },
+        {
+          "key": "cargo space",
+          "values": [
+            ">",
+            0
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": []
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Hai"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "attributes",
+            "uninhabited"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": null,
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [
+      {
+        "name": "hai in cargo",
+        "delayDays": 14,
+        "delayDaysMax": null,
+        "trigger": "onOffer"
+      }
+    ],
+    "_pluginId": "Zuckungs List/hai.side.mission.unlocker",
+    "_internalId": "Zuckungs List/hai.side.mission.unlocker::Unwanted Cargo Trigger",
+    "_hash": "f2fa65fa2f46",
+    "sourcePlugin": "Zuckungs List/hai.side.mission.unlocker"
+  },
+  {
+    "name": "Unwanted Cargo",
+    "displayName": null,
+    "description": "Bring a Hai child who hid in your cargo hold back to <destination>.",
+    "raw": [
+      {
+        "key": "minor",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "landing",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "description",
+        "values": [
+          "Bring a Hai child who hid in your cargo hold back to <destination>."
+        ],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "not",
+            "values": [
+              "government",
+              "Hai",
+              "Hai (Unfettered)"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "near",
+              "Heia Due",
+              0,
+              100
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Allhome"
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "has",
+            "values": [
+              "event: hai in cargo"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "The \"Check Cargo\" light for your ship begins blinking when you land, meaning that a cargo crate may have come loose in flight. You shut off the ship's engines and walk to the cargo hold.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "\tYou check every cargo crate in the hold, but can't find anything wrong. Right as you decide to leave, one of the smaller crates begins rocking back and forth.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "branch",
+                "values": [
+                  "translator"
+                ],
+                "children": [
+                  {
+                    "key": "has",
+                    "values": [
+                      "language: Hai"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "\tYou hear a voice come from the crate, but it is not a language you understand. The voice continues to speak, and you recognize it as the Hai language.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Open the crate.)",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "\tYou open the crate and are met face to face with a Hai child. You aren't sure how old they are, but they look to be about the size of a one-year-old human child. They try to communicate with you, but begins to cry when they see the confused look on your face.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Don't cry, little guy.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "goto",
+                        "values": [
+                          "cry"
+                        ],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t(Pick up the Hai.)",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "\tThe child waves its hands around when you try to pick them up, making it impossible to grab on to. After waiting for a few minutes, the child finally calms down, eventually going to sleep in the crate.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "goto",
+                    "values": [
+                      "end"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "cry"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tThe child begins to cry even louder than before. After waiting for a few minutes, the child finally calms down, eventually going to sleep in the crate.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "goto",
+                    "values": [
+                      "end"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "translator"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tYou hear a voice come from the crate, and surprisingly your Hai translator begins speaking. \"Let me out! I want to go home!\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t(Open the crate.)",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "\tYou open the crate and are met eye to eye with a Hai child. You aren't sure how old they are, but it looks to be about the size of a one-year-old human child. \"I want my mommy!\" they say as its eyes begin to tear up.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Where's your mommy?\"",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t\"Don't cry, little guy.\"",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "\tThe child looks surprised when your translation device speaks to them in Hai. \"Take me home!\" they yell back at you. You attempt to find out where the child's home is, but they continue to cry for its mother without giving any important information.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "label",
+                "values": [
+                  "end"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tThis child must have somehow gotten into your cargo hold while you were in Hai space. Leaving a Hai child on this world would be an extremely bad idea. Perhaps someone on <destination> will be able to bring the child back to its family.",
+                "values": [],
+                "children": [
+                  {
+                    "key": "accept",
+                    "values": [],
+                    "children": null
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [
+              50000
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "You contact the spaceport authorities of <planet> and ask them if they are looking for a lost Hai child. It turns out that the family was so worried that they put up a <payment> reward for finding their son. A Hai spaceport worker takes the child from your ship and thanks you for finding him for the family."
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [
+      "landing"
+    ],
+    "flags": {
+      "minor": true
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": null,
+    "cargo": null,
+    "passengers": null,
+    "conditions": {
+      "offer": [
+        {
+          "key": "has",
+          "values": [
+            "event: hai in cargo"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onComplete": [
+          {
+            "base": 50000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "not",
+          "values": [
+            "government",
+            "Hai",
+            "Hai (Unfettered)"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "near",
+            "Heia Due",
+            0,
+            100
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Allhome",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Allhome"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/hai.side.mission.unlocker",
+    "_internalId": "Zuckungs List/hai.side.mission.unlocker::Unwanted Cargo",
+    "_hash": "5909bd84d104",
+    "sourcePlugin": "Zuckungs List/hai.side.mission.unlocker"
+  },
+  {
+    "name": "Hiding in Plain Sight",
+    "displayName": null,
+    "description": "Bring Arthur and his Hai friend Kiru to <destination> for a gaming convention by <date>.",
+    "raw": [
+      {
+        "key": "description",
+        "values": [
+          "Bring Arthur and his Hai friend Kiru to <destination> for a gaming convention by <date>."
+        ],
+        "children": null
+      },
+      {
+        "key": "minor",
+        "values": [],
+        "children": null
+      },
+      {
+        "key": "source",
+        "values": [],
+        "children": [
+          {
+            "key": "government",
+            "values": [
+              "Hai"
+            ],
+            "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "attributes",
+              "station"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "destination",
+        "values": [
+          "Vinci"
+        ],
+        "children": null
+      },
+      {
+        "key": "passengers",
+        "values": [
+          2
+        ],
+        "children": null
+      },
+      {
+        "key": "deadline",
+        "values": [
+          30
+        ],
+        "children": null
+      },
+      {
+        "key": "to",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "random",
+            "values": [
+              "<",
+              30
+            ],
+            "children": null
+          },
+          {
+            "key": "has",
+            "values": [
+              "First Contact: Hai: offered"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "offer"
+        ],
+        "children": [
+          {
+            "key": "conversation",
+            "values": [],
+            "children": [
+              {
+                "key": "While eating in a spaceport cafeteria that serves both Hai and human cuisine, you are approached by a teenage human and Hai. \"Hello. Do you know how to get to <destination>?\" the Hai asks.",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"I do. Why do you want to go there?\"",
+                    "values": [],
+                    "children": null
+                  },
+                  {
+                    "key": "\t\"I don't. You'll have to ask someone else.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "decline",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "key": "branch",
+                "values": [
+                  "public"
+                ],
+                "children": [
+                  {
+                    "key": "has",
+                    "values": [
+                      "event: hai-human resolution announced"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "\tThe human responds, \"There's a massive convention on <planet> for a game called 'Boundless Frontiers.' The convention has a huge cosplaying scene, and I think Kiru would fit right in.\"",
+                "values": [],
+                "children": [
+                  {
+                    "key": "goto",
+                    "values": [
+                      "return"
+                    ],
+                    "children": null
+                  }
+                ]
+              },
+              {
+                "key": "label",
+                "values": [
+                  "public"
+                ],
+                "children": null
+              },
+              {
+                "key": "\tThe human responds, \"There's a massive convention on <planet> for a game called 'Boundless Frontiers.' Now that Kiru doesn't have to worry about pretending to be a cosplayer the whole time, we're really keen to go.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "label",
+                "values": [
+                  "return"
+                ],
+                "children": null
+              },
+              {
+                "key": "\t\"Arthur and I have <payment> to give you if you bring us to the <planet>,\" Kiru says. \"We can find our own way back to the Hai space, as well.\"",
+                "values": [],
+                "children": null
+              },
+              {
+                "key": "choice",
+                "values": [],
+                "children": [
+                  {
+                    "key": "\t\"Alright, I can take you there.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "accept",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  },
+                  {
+                    "key": "\t\"Sorry, you'll have to find someone else to bring you.\"",
+                    "values": [],
+                    "children": [
+                      {
+                        "key": "decline",
+                        "values": [],
+                        "children": null
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "visit"
+        ],
+        "children": [
+          {
+            "key": "dialog",
+            "values": [
+              "You look for Arthur and Kiru, but realize that they took a ride on one of your escorts! Better depart and wait for your escorts to arrive in this star system."
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "key": "on",
+        "values": [
+          "complete"
+        ],
+        "children": [
+          {
+            "key": "payment",
+            "values": [
+              75000
+            ],
+            "children": null
+          },
+          {
+            "key": "dialog",
+            "values": [
+              "Arthur and Kiru pay you <payment> before running off to the convention center. As they run away, you notice that Kiru is drawing a number of eyes from the crowd, but no one seems to suspect that he is an actual alien."
+            ],
+            "children": null
+          },
+          {
+            "key": "log",
+            "values": [
+              "Minor People",
+              "Arthur and Kiru",
+              "Human and Hai respectively, both attended the Vinci cosplay convention without a costume, gaining much attention."
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "locations": [],
+    "flags": {
+      "minor": true
+    },
+    "repeatable": false,
+    "repeatLimit": null,
+    "illegal": null,
+    "deadline": {
+      "days": 30,
+      "multiplier": 2
+    },
+    "cargo": null,
+    "passengers": {
+      "min": 2,
+      "max": 2,
+      "mode": "fixed",
+      "nbParams": null
+    },
+    "conditions": {
+      "offer": [
+        {
+          "key": "random",
+          "values": [
+            "<",
+            30
+          ],
+          "children": null
+        },
+        {
+          "key": "has",
+          "values": [
+            "First Contact: Hai: offered"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "payment": {
+      "apparentPayment": null,
+      "triggers": {
+        "onOffer": [],
+        "onVisit": [],
+        "onComplete": [
+          {
+            "base": 75000,
+            "multiplier": 0
+          }
+        ]
+      }
+    },
+    "source": {
+      "type": "filter",
+      "value": [
+        {
+          "key": "government",
+          "values": [
+            "Hai"
+          ],
+          "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "attributes",
+            "station"
+          ],
+          "children": null
+        }
+      ]
+    },
+    "destination": {
+      "type": "planet",
+      "ref": {
+        "name": "Vinci",
+        "count": 1,
+        "pluginId": "official-game/endless-sky",
+        "internalId": "official-game/endless-sky::Vinci"
+      }
+    },
+    "stopovers": [],
+    "waypoints": [],
+    "rewards": {
+      "outfits": [],
+      "ships": []
+    },
+    "hasNpcObjective": false,
+    "npcCount": 0,
+    "conditionSideEffects": [],
+    "eventTriggers": [],
+    "_pluginId": "Zuckungs List/hai.side.mission.unlocker",
+    "_internalId": "Zuckungs List/hai.side.mission.unlocker::Hiding in Plain Sight",
+    "_hash": "25cc6f0f4fd5",
+    "sourcePlugin": "Zuckungs List/hai.side.mission.unlocker"
+  }
+]

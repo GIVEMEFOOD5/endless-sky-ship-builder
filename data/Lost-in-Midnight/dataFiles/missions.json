@@ -5228,6 +5228,14 @@
             "children": null
           },
           {
+            "key": "reputation: Bounty Hunter (licensed)",
+            "values": [
+              ">=",
+              0
+            ],
+            "children": null
+          },
+          {
             "key": "combat rating",
             "values": [
               "<",
@@ -5448,7 +5456,7 @@
           {
             "key": "government",
             "values": [
-              "Bounty"
+              "Bounty (Midnight)"
             ],
             "children": null
           },
@@ -5474,7 +5482,6 @@
               "staying",
               "disables",
               "harvests",
-              "marked",
               "tracked"
             ],
             "children": [
@@ -5748,6 +5755,14 @@
           "children": null
         },
         {
+          "key": "reputation: Bounty Hunter (licensed)",
+          "values": [
+            ">=",
+            0
+          ],
+          "children": null
+        },
+        {
           "key": "combat rating",
           "values": [
             "<",
@@ -5806,7 +5821,7 @@
     "eventTriggers": [],
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Intro Bounty Hunting: Tweedledee & Tweedledum",
-    "_hash": "654bfd07ff06",
+    "_hash": "52f89271aed0",
     "sourcePlugin": "Lost In Midnight/Lost-in-Midnight"
   },
   {
@@ -388178,6 +388193,17 @@
             "children": null
           },
           {
+            "key": "not",
+            "values": [
+              "government",
+              "Ka'het",
+              "Ka'het (Infighting)",
+              "Ka'sei",
+              "Aberrant"
+            ],
+            "children": null
+          },
+          {
             "key": "category",
             "values": [
               "Utility",
@@ -389078,6 +389104,17 @@
           "children": null
         },
         {
+          "key": "not",
+          "values": [
+            "government",
+            "Ka'het",
+            "Ka'het (Infighting)",
+            "Ka'sei",
+            "Aberrant"
+          ],
+          "children": null
+        },
+        {
           "key": "category",
           "values": [
             "Utility",
@@ -389195,7 +389232,7 @@
     "eventTriggers": [],
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Midnight Boarding Pillagers",
-    "_hash": "04099fdbfa53",
+    "_hash": "4a2444549ba8",
     "sourcePlugin": "Lost In Midnight/Lost-in-Midnight"
   },
   {
@@ -398276,6 +398313,15 @@
         ],
         "children": [
           {
+            "key": "log",
+            "values": [
+              "Minor People",
+              "Kudgel",
+              "Kudgel is the captain of Kudgel's Cudgel, a Mule outfitted for mining."
+            ],
+            "children": null
+          },
+          {
             "key": "clear",
             "values": [
               "randomize Kudgel's Cudgel"
@@ -398310,6 +398356,15 @@
             "values": [
               "<?=",
               -1000
+            ],
+            "children": null
+          },
+          {
+            "key": "log",
+            "values": [
+              "Minor People",
+              "Kudgel",
+              "Kudgel turned out to be a pirate. His request for a protective escort was a lure to ambush my ship."
             ],
             "children": null
           },
@@ -398707,7 +398762,7 @@
     "eventTriggers": [],
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Kudgel's Cudgel",
-    "_hash": "6119b661b1d3",
+    "_hash": "97e8e2ba7a29",
     "sourcePlugin": "Lost In Midnight/Lost-in-Midnight"
   },
   {
@@ -398769,7 +398824,7 @@
           {
             "key": "has",
             "values": [
-              "license: militia"
+              "license: Militia"
             ],
             "children": null
           },
@@ -399159,7 +399214,7 @@
         {
           "key": "has",
           "values": [
-            "license: militia"
+            "license: Militia"
           ],
           "children": null
         },
@@ -399217,7 +399272,7 @@
     "eventTriggers": [],
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Midnight Smugglers False Hope 1",
-    "_hash": "2e6d16b04152",
+    "_hash": "cef5b547204f",
     "sourcePlugin": "Lost In Midnight/Lost-in-Midnight"
   },
   {
@@ -466363,6 +466418,13 @@
               70
             ],
             "children": null
+          },
+          {
+            "key": "not",
+            "values": [
+              "outfit: Plasma Charge Cannon"
+            ],
+            "children": null
           }
         ]
       },
@@ -466371,145 +466433,7 @@
         "values": [
           "offer"
         ],
-        "children": [
-          {
-            "key": "require",
-            "values": [
-              "Plasma Charge Cannon",
-              0
-            ],
-            "children": null
-          },
-          {
-            "key": "conversation",
-            "values": [],
-            "children": [
-              {
-                "key": "scene",
-                "values": [
-                  "outfit/plasma cluster cannon"
-                ],
-                "children": null
-              },
-              {
-                "key": "branch",
-                "values": [
-                  "liberator"
-                ],
-                "children": [
-                  {
-                    "key": "has",
-                    "values": [
-                      "Oathbreaker Liberator 4: done"
-                    ],
-                    "children": null
-                  }
-                ]
-              },
-              {
-                "key": "You bump into Barmy Edwards at the spaceport convenience store. \"Oh, <first>! I forgot to mention we have a spare set of Plasma Charge Cannons set aside. Since production of the Vindicator was cancelled, Kraz has no plans to add them to our regular inventory. So they're just gathering dust. Would you be interested in buying them? They're the same price as regular Plasma Cannons, so the full set comes to 1,330,000 credits.\"",
-                "values": [],
-                "children": null
-              },
-              {
-                "key": "choice",
-                "values": [],
-                "children": [
-                  {
-                    "key": "\t(Buy them.)",
-                    "values": [],
-                    "children": [
-                      {
-                        "key": "accept",
-                        "values": [],
-                        "children": null
-                      }
-                    ]
-                  },
-                  {
-                    "key": "\t(Don't buy them.)",
-                    "values": [],
-                    "children": [
-                      {
-                        "key": "decline",
-                        "values": [],
-                        "children": null
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "key": "label",
-                "values": [
-                  "liberator"
-                ],
-                "children": null
-              },
-              {
-                "key": "You bump into Barmy Edwards at the spaceport convenience store. \"Oh, <first>! I forgot to mention we have a spare set of Plasma Charge Cannons set aside. Since production of the Liberator was cancelled, Kraz has no plans to add them to our regular inventory. So they're just gathering dust. Would you be interested in buying them? They're the same price as regular Plasma Cannons, so the full set comes to 1,330,000 credits.\"",
-                "values": [],
-                "children": null
-              },
-              {
-                "key": "choice",
-                "values": [],
-                "children": [
-                  {
-                    "key": "\t(Buy them.)",
-                    "values": [],
-                    "children": [
-                      {
-                        "key": "accept",
-                        "values": [],
-                        "children": null
-                      }
-                    ]
-                  },
-                  {
-                    "key": "\t(Don't buy them.)",
-                    "values": [],
-                    "children": [
-                      {
-                        "key": "decline",
-                        "values": [],
-                        "children": null
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "key": "on",
-        "values": [
-          "accept"
-        ],
-        "children": [
-          {
-            "key": "payment",
-            "values": [
-              1330000
-            ],
-            "children": null
-          },
-          {
-            "key": "outfit",
-            "values": [
-              "Plasma Charge Cannon",
-              7
-            ],
-            "children": null
-          },
-          {
-            "key": "fail",
-            "values": [],
-            "children": null
-          }
-        ]
+        "children": null
       }
     ],
     "locations": [],
@@ -466560,19 +466484,20 @@
             70
           ],
           "children": null
+        },
+        {
+          "key": "not",
+          "values": [
+            "outfit: Plasma Charge Cannon"
+          ],
+          "children": null
         }
       ]
     },
     "payment": {
       "apparentPayment": null,
       "triggers": {
-        "onOffer": [],
-        "onAccept": [
-          {
-            "base": 1330000,
-            "multiplier": 0
-          }
-        ]
+        "onOffer": []
       }
     },
     "source": {
@@ -466588,15 +466513,7 @@
     "stopovers": [],
     "waypoints": [],
     "rewards": {
-      "outfits": [
-        {
-          "name": "Plasma Charge Cannon",
-          "count": 7,
-          "pluginId": "Lost In Midnight/Lost-in-Midnight",
-          "internalId": "Lost In Midnight/Lost-in-Midnight::Plasma Charge Cannon",
-          "grantedIn": "onAccept"
-        }
-      ],
+      "outfits": [],
       "ships": []
     },
     "hasNpcObjective": false,
@@ -466605,7 +466522,7 @@
     "eventTriggers": [],
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Plasma Cluster Cannons",
-    "_hash": "a5b7a2ab6554",
+    "_hash": "156308c84300",
     "sourcePlugin": "Lost In Midnight/Lost-in-Midnight"
   },
   {
@@ -506587,7 +506504,8 @@
               "uninterested",
               "forbearing",
               "waiting",
-              "staying"
+              "staying",
+              "mute"
             ],
             "children": null
           },
@@ -506784,7 +506702,7 @@
     "eventTriggers": [],
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Rogue Asteroid (Pirate)",
-    "_hash": "39c71a96c328",
+    "_hash": "34fdf0b7e7b6",
     "sourcePlugin": "Lost In Midnight/Lost-in-Midnight"
   },
   {
@@ -512670,6 +512588,14 @@
             "children": null
           },
           {
+            "key": "reputation: Bounty Hunter (licensed)",
+            "values": [
+              ">=",
+              0
+            ],
+            "children": null
+          },
+          {
             "key": "random",
             "values": [
               "<",
@@ -512930,7 +512856,7 @@
           {
             "key": "government",
             "values": [
-              "Bounty"
+              "Bounty (Midnight)"
             ],
             "children": null
           },
@@ -512956,7 +512882,6 @@
               "staying",
               "disables",
               "harvests",
-              "marked",
               "tracked"
             ],
             "children": [
@@ -513045,6 +512970,14 @@
           "children": null
         },
         {
+          "key": "reputation: Bounty Hunter (licensed)",
+          "values": [
+            ">=",
+            0
+          ],
+          "children": null
+        },
+        {
           "key": "random",
           "values": [
             "<",
@@ -513095,7 +513028,7 @@
     "eventTriggers": [],
     "_pluginId": "Lost In Midnight/Lost-in-Midnight",
     "_internalId": "Lost In Midnight/Lost-in-Midnight::Bounty Hunting: Angry Chicken",
-    "_hash": "96038ec8087e",
+    "_hash": "e7bffd19e048",
     "sourcePlugin": "Lost In Midnight/Lost-in-Midnight"
   },
   {

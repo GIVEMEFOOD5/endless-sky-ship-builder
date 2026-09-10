@@ -1,0 +1,156 @@
+[
+  {
+    "displayName": null,
+    "attributes": [
+      "gaslining"
+    ],
+    "requires": [
+      ""
+    ],
+    "landscapes": [],
+    "music": null,
+    "description": {
+      "text": "\tThe Incipias have adjusted perfectly to this harsh environment. Their cities are built like them: large balloon-like structures which hold spheres of buildings in the air. The Incipias themselves can move freely through the atmosphere, so the cities have no roads. To travel larger distances, they use gliders that can fly against the powerful winds.",
+      "toDisplay": null
+    },
+    "spaceport": {
+      "text": "\tThe spaceports themselves are giant circular platforms with a few of the Incipias' housing spheres at the bottom. Traffic is negligible because only one ship can land at each spaceport at a time.",
+      "toDisplay": null
+    },
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "Conlatio",
+    "governmentInherited": false,
+    "shipyards": [
+      {
+        "name": "Hicemus",
+        "count": 1,
+        "pluginId": "Zuckungs List/licenses",
+        "internalId": "Zuckungs List/licenses::shipyard:Hicemus"
+      }
+    ],
+    "outfitters": [
+      {
+        "name": "Hicemus",
+        "count": 1,
+        "pluginId": "Zuckungs List/licenses",
+        "internalId": "Zuckungs List/licenses::outfitter:Hicemus"
+      }
+    ],
+    "requiredReputation": 10,
+    "bribe": null,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": null,
+    "wormhole": null,
+    "tribute": null,
+    "tributeHails": {},
+    "systemName": "Dom'us",
+    "rawByPlugin": [
+      {
+        "pluginId": "official-game/endless-sky",
+        "entries": [
+          {
+            "key": "attributes",
+            "values": [
+              "requires: gaslining"
+            ],
+            "children": null
+          },
+          {
+            "key": "landscape",
+            "values": [
+              "land/redias"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "The home planet of the Incipias is ruled by powerful storms. Lightning and thunder appear without pause and a powerful wind moves the clouds at a disorienting speed."
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "\tThe Incipias have adjusted perfectly to this harsh environment. Their cities are built like them: large balloon-like structures which hold spheres of buildings in the air. The Incipias themselves can move freely through the atmosphere, so the cities have no roads. To travel larger distances, they use gliders that can fly against the powerful winds."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "Because of the size of their homeworld, the Incipias have built not one but four spaceports. These spaceports are the only platforms on the planet with fixed positions. They were built at an atmospheric level where the planet's storms are not so strong, but they still require a great deal of energy to be held in place."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "\tThe spaceports themselves are giant circular platforms with a few of the Incipias' housing spheres at the bottom. Traffic is negligible because only one ship can land at each spaceport at a time."
+            ],
+            "children": null
+          },
+          {
+            "key": "government",
+            "values": [
+              "Conlatio"
+            ],
+            "children": null
+          },
+          {
+            "key": "required reputation",
+            "values": [
+              10
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/landing.images",
+        "entries": [
+          {
+            "key": "landscape",
+            "values": [
+              "land/redias"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/licenses",
+        "entries": [
+          {
+            "key": "shipyard",
+            "values": [
+              "Hicemus"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Hicemus"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "name": "Redias",
+    "_pluginId": "official-game/endless-sky",
+    "_internalId": "official-game/endless-sky::Redias",
+    "_definedBy": [
+      "official-game/endless-sky",
+      "Zuckungs List/landing.images",
+      "Zuckungs List/licenses"
+    ],
+    "_lastModifiedBy": "Zuckungs List/licenses"
+  }
+]

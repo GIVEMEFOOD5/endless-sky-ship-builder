@@ -1,0 +1,135 @@
+[
+  {
+    "displayName": null,
+    "attributes": [
+      "efret",
+      "korath"
+    ],
+    "requires": [],
+    "landscapes": [],
+    "music": null,
+    "description": {
+      "text": "This is an old factory world, so shrouded in smog that only tiny glimpses of the land are visible from above. Deep under the oceans of Laki Nemparu are oil reservoirs so vast that centuries of industry have not yet drained them dry. All but the hardiest of the native vegetation and wildlife is now long extinct from lack of direct sunlight or from pollution and chemical exposure.",
+      "toDisplay": null
+    },
+    "spaceport": {
+      "text": "All the Korath you encounter in the spaceport are wearing ventilator masks, and if you were staying here for longer you would probably do the same. The air leaves a metallic taste in your mouth, and your eyes feel dry and sting when the wind hits them. On the outskirts of the city, factory smokestacks are belching more pollution into the air; the Korath have either given up on preserving this planet, or simply have too great a need for the goods manufactured here to be willing to shut the factories down.",
+      "toDisplay": null
+    },
+    "toKnow": null,
+    "toLand": null,
+    "toAccessOutfitter": null,
+    "toAccessShipyard": null,
+    "port": null,
+    "government": "Kor Efret",
+    "governmentInherited": true,
+    "shipyards": [
+      {
+        "name": "korefret",
+        "count": 1,
+        "pluginId": "Zuckungs List/kor.efret.shipyard",
+        "internalId": "Zuckungs List/kor.efret.shipyard::shipyard:korefret"
+      }
+    ],
+    "outfitters": [
+      {
+        "name": "korefret",
+        "count": 1,
+        "pluginId": "Zuckungs List/kor.efret.shipyard",
+        "internalId": "Zuckungs List/kor.efret.shipyard::outfitter:korefret"
+      }
+    ],
+    "requiredReputation": null,
+    "bribe": null,
+    "bribeThreshold": null,
+    "bribeFraction": null,
+    "security": null,
+    "wormhole": null,
+    "tribute": null,
+    "tributeHails": {},
+    "systemName": "Kashikt",
+    "rawByPlugin": [
+      {
+        "pluginId": "official-game/endless-sky",
+        "entries": [
+          {
+            "key": "attributes",
+            "values": [
+              "efret",
+              "korath"
+            ],
+            "children": null
+          },
+          {
+            "key": "landscape",
+            "values": [
+              "land/sea2"
+            ],
+            "children": null
+          },
+          {
+            "key": "description",
+            "values": [
+              "This is an old factory world, so shrouded in smog that only tiny glimpses of the land are visible from above. Deep under the oceans of Laki Nemparu are oil reservoirs so vast that centuries of industry have not yet drained them dry. All but the hardiest of the native vegetation and wildlife is now long extinct from lack of direct sunlight or from pollution and chemical exposure."
+            ],
+            "children": null
+          },
+          {
+            "key": "spaceport",
+            "values": [
+              "All the Korath you encounter in the spaceport are wearing ventilator masks, and if you were staying here for longer you would probably do the same. The air leaves a metallic taste in your mouth, and your eyes feel dry and sting when the wind hits them. On the outskirts of the city, factory smokestacks are belching more pollution into the air; the Korath have either given up on preserving this planet, or simply have too great a need for the goods manufactured here to be willing to shut the factories down."
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "Korath Basics"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/kor.efret.shipyard",
+        "entries": [
+          {
+            "key": "shipyard",
+            "values": [
+              "korefret"
+            ],
+            "children": null
+          },
+          {
+            "key": "outfitter",
+            "values": [
+              "korefret"
+            ],
+            "children": null
+          }
+        ]
+      },
+      {
+        "pluginId": "Zuckungs List/landing.images",
+        "entries": [
+          {
+            "key": "landscape",
+            "values": [
+              "land/lakinemparu"
+            ],
+            "children": null
+          }
+        ]
+      }
+    ],
+    "name": "Laki Nemparu",
+    "_pluginId": "official-game/endless-sky",
+    "_internalId": "official-game/endless-sky::Laki Nemparu",
+    "_definedBy": [
+      "official-game/endless-sky",
+      "Zuckungs List/kor.efret.shipyard",
+      "Zuckungs List/landing.images"
+    ],
+    "_lastModifiedBy": "Zuckungs List/landing.images"
+  }
+]
