@@ -176,9 +176,11 @@ async function _loadAndRender(activeOutputNames, resetView) {
         const fetchedStars = MapDataFormatter.formatStars(pluginDataMap, activeOutputNames);
         starTable = MapCalculations.buildStarTable(fetchedStars);
 
+        const governmentColors = MapDataFormatter.formatGovernments(pluginDataMap, activeOutputNames);
+
         systemsArr = [...systemsByName.values()];
         linkSegments = MapCalculations.buildLinkSegments(systemsByName);
-        govPalette = MapCalculations.buildGovernmentPalette(systemsArr);
+        govPalette = MapCalculations.buildGovernmentPalette(systemsArr, governmentColors);
 
         const missions = MapDataFormatter.formatMissions(pluginDataMap, activeOutputNames, planetsBySystem);
         missionIndex = MapCalculations.buildMissionIndex(missions, systemsArr);
@@ -915,4 +917,4 @@ function _wireControls() {
 
 document.addEventListener('DOMContentLoaded', init);
 
-})();   
+})();
