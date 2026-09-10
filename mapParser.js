@@ -314,6 +314,8 @@ class EndlessSkyMapParser {
     this.planets   = new Map(); // name -> planet node
     this.wormholes = new Map(); // name -> wormhole node
     this.stars     = [];        // solar-attribute blocks, order doesn't matter
+    this.governments = [];      // government color/swizzle blocks, order doesn't matter
+    this.namedColors = new Map(); // name -> [r,g,b], from standalone `color "Name" r g b` lines
     this.landingMessages = [];
 
     this._sourcePriority = new Map();
@@ -1033,6 +1035,66 @@ class EndlessSkyMapParser {
     return ni;
   }
 
+  // =========================================================================
+  // government <name> ... — standalone, defines the color the real game
+  // itself uses to shade that government's systems on its own galaxy map
+  // (per the project's own CreatingGovernments wiki page), plus swizzle
+  // and diplomacy data this file doesn't need. Previously not parsed at
+  // all: only *references* to a government by name (inside system/planet
+  // blocks) were being read, never the block that defines what that name
+  // actually looks like.
+  //
+  // IMPORTANT: `color` on a government can be either literal RGB
+  // (`color 1 .6 .7`) OR a reference to a NAMED color defined elsewhere
+  // as its own standalone top-level statement (`color "governments: Hai"`,
+  // referencing a `color "governments: Hai" .86 .48 .79` line — often in
+  // the same file, sometimes not). This is actually the MORE common form
+  // in the real, current governments.txt — most factions (Hai, Free
+  // Worlds, every Gegno/Avgi variant, ...) use it. A first pass at this
+  // fix treated any non-numeric `color` value as "no color", which
+  // would have silently dropped the real, intended color for most of
+  // the governments that have one. Resolved properly in
+  // resolveGovernmentColors(), run after all plugins are parsed (a
+  // referenced name isn't guaranteed to already be known yet at parse
+  // time, especially across files within a plugin).
+  // =========================================================================
+  parseGovernmentBlock(lines, i, pluginId) {
+    const name = matchNamedLine(lines[i].trim(), 'government');
+    const baseIndent = indentOf(lines[i]);
+    const [data, ni] = parseGenericBlock(lines, i + 1, baseIndent);
+
+    let color = null, colorRef = null;
+    if (Array.isArray(data.color) && data.color.length === 3 && data.color.every(v => typeof v === 'number')) {
+      color = data.color;
+    } else if (typeof data.color === 'string') {
+      colorRef = data.color; // resolved later against namedColors
+    }
+
+    this.governments.push({
+      name, color, colorRef, swizzle: data.swizzle ?? null,
+      pluginId, internalId: name ? `${pluginId}::government:${name}` : null,
+    });
+    return ni;
+  }
+
+  /**
+   * Standalone `color "Name" <r> <g> <b>` — a top-level statement (NOT
+   * nested inside a government block) that defines a reusable named
+   * color. Government blocks elsewhere then reference it by name
+   * instead of repeating the literal RGB. One line, no children.
+   */
+  parseNamedColorLine(lines, i, pluginId) {
+    const stripped = lines[i].trim();
+    const parsed = matchNamedLinePrefix(stripped, 'color');
+    if (parsed?.name && parsed.rest) {
+      const nums = parsed.rest.split(/\s+/).filter(Boolean).map(Number);
+      if (nums.length === 3 && nums.every(n => !Number.isNaN(n))) {
+        this.namedColors.set(parsed.name, nums);
+      }
+    }
+    return i + 1;
+  }
+
   parseLandingMessageBlock(lines, i, pluginId) {
     const [msg, ni] = parseTextBlock(lines, i, indentOf(lines[i]), '"landing message"');
     const baseIndent = indentOf(lines[i]);
@@ -1135,12 +1197,34 @@ class EndlessSkyMapParser {
     return graph;
   }
 
+  /** Resolves each government's `colorRef` (a name like "governments: Hai")
+   *  against namedColors, filling in the real RGB. Run after all plugins
+   *  are parsed rather than inline during parsing, since the named color
+   *  a government references isn't guaranteed to already be known yet —
+   *  vanilla usually defines it just before, but that's not guaranteed
+   *  for every plugin/file ordering. */
+  resolveGovernmentColors() {
+    let resolved = 0, unresolved = 0;
+    for (const gov of this.governments) {
+      if (gov.color != null || !gov.colorRef) continue;
+      const rgb = this.namedColors.get(gov.colorRef);
+      if (rgb) { gov.color = rgb; resolved++; }
+      else unresolved++;
+    }
+    return { resolved, unresolved };
+  }
+
   runAllResolvers() {
     const linkResult = this.resolveLinks();
     const objResult = this.resolveObjectPlanets();
     const govResult = this.resolveGovernmentInheritance();
     const wormholeGraph = this.resolveWormholes();
-    return { inferredLinks: linkResult, ...objResult, governmentsInherited: govResult, wormholeLinks: wormholeGraph.length };
+    const govColorResult = this.resolveGovernmentColors();
+    return {
+      inferredLinks: linkResult, ...objResult, governmentsInherited: govResult,
+      wormholeLinks: wormholeGraph.length, governmentColorsResolved: govColorResult.resolved,
+      governmentColorsUnresolved: govColorResult.unresolved,
+    };
   }
 
   // =========================================================================
@@ -1156,6 +1240,7 @@ class EndlessSkyMapParser {
       wormholes: [...this.wormholes.values()],
       wormholeGraph: this.wormholeGraph || [],
       stars: this.stars,
+      governments: this.governments,
       landingMessages: this.landingMessages,
     };
   }
@@ -1190,6 +1275,7 @@ class EndlessSkyMapParser {
       planets:   [...this.planets.values()].filter(p => p._definedBy.includes(pluginId)).map(slicePlanet),
       wormholes: [...this.wormholes.values()].filter(w => w._definedBy.includes(pluginId)),
       stars: this.stars.filter(s => s.pluginId === pluginId),
+      governments: this.governments.filter(g => g.pluginId === pluginId),
       landingMessages: this.landingMessages.filter(m => m.pluginId === pluginId),
     };
   }
