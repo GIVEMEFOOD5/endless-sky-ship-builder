@@ -666,73 +666,53 @@ class EndlessSkyParser {
     return plugins;
   }
 
-  async copyMatchingImages(sourceDir, destDir, imagePath) {
-    const norm      = imagePath.replace(/\\/g, '/');
-    const parts     = norm.split('/');
-    const basename  = parts[parts.length - 1];
-    const parentDir = parts.slice(0, -1).join('/');
-    const escaped   = basename.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const searchPaths = [
-      { dir: path.join(sourceDir, parentDir), relative: parentDir },
-      { dir: path.join(sourceDir, norm),      relative: norm      }
-    ];
-    for (const sp of searchPaths) {
-      try {
-        const stat = await fs.stat(sp.dir);
-        if (!stat.isDirectory()) continue;
-        const files    = await fs.readdir(sp.dir);
-        const patterns = [
-          new RegExp(`^${escaped}$`),
-          new RegExp(`^${escaped}-\\d+$`),
-          new RegExp(`^${escaped}\\.\\d+$`),
-          new RegExp(`^${escaped}-.+\\d+$`),
-          new RegExp(`^${escaped}.+\\d+$`),
-          new RegExp(`^${escaped}.$`),
-          new RegExp(`^${escaped}-.+$`),
-          new RegExp(`^${escaped}.+$`)
-        ];
-        const validExts = new Set(['.png','.jpg','.jpeg','.gif','.avif','.webp']);
-        const matches = files.filter(f => {
-          const ext  = path.extname(f).toLowerCase();
-          const base = path.basename(f, ext);
-          return validExts.has(ext) && patterns.some(p => p.test(base));
-        });
-        if (matches.length > 0) {
-          const outDir = path.join(destDir, sp.relative);
-          await fs.mkdir(outDir, { recursive: true });
-          for (const f of matches) {
-            await fs.copyFile(path.join(sp.dir, f), path.join(outDir, f));
-          }
-          return;
+  /**
+   * Recursively copies every image file under sourceDir into destDir,
+   * preserving the folder structure exactly (images/ship/..., images/
+   * planet/..., images/star/..., images/land/..., images/map/..., etc.)
+   *
+   * Replaces the old sprite-by-sprite matching approach (previously
+   * copyMatchingImages + a hand-maintained list of "which fields on
+   * which parsed objects might reference a sprite"). That approach
+   * necessarily missed anything not explicitly enumerated — UI chrome,
+   * unreferenced-but-real art, and every new asset category the parser
+   * hadn't been taught about yet (this is literally how star/planet/
+   * landscape art got missed the first time around). Copying the whole
+   * folder means any future asset type just works, with no parser
+   * change needed the next time something new shows up in images/.
+   */
+  async copyAllImages(sourceDir, destDir) {
+    const validExts = new Set(['.png', '.jpg', '.jpeg', '.gif', '.avif', '.webp']);
+    let fileCount = 0;
+
+    const walk = async (srcDir, outDir) => {
+      let entries;
+      try { entries = await fs.readdir(srcDir, { withFileTypes: true }); }
+      catch { return; } // folder vanished or was never there — nothing to copy
+      let madeDir = false;
+      for (const e of entries) {
+        if (e.name.startsWith('.')) continue;
+        const srcPath = path.join(srcDir, e.name);
+        if (e.isDirectory()) {
+          await walk(srcPath, path.join(outDir, e.name));
+          continue;
         }
-      } catch { continue; }
-    }
+        if (!validExts.has(path.extname(e.name).toLowerCase())) continue;
+        if (!madeDir) { await fs.mkdir(outDir, { recursive: true }); madeDir = true; }
+        await fs.copyFile(srcPath, path.join(outDir, e.name));
+        fileCount++;
+      }
+    };
+
+    await walk(sourceDir, destDir);
+    return fileCount;
   }
 
-  async copyImagesForPlugin(sourceImagesDir, destImagesDir, ships, variants, outfits, effects) {
+  async copyImagesForPlugin(sourceImagesDir, destImagesDir) {
     if (!sourceImagesDir) { console.log('  No images folder, skipping.'); return; }
-    await fs.mkdir(destImagesDir, { recursive: true });
-    const paths = new Set();
-    const add = p => { if (p) paths.add(p); };
-    for (const s of ships) {
-      add(s.sprite); add(s.thumbnail);
-      add(s['flare sprite']); add(s['steering flare sprite']); add(s['reverse flare sprite']);
-      add(s['afterburner effect']);
-    }
-    for (const v of variants) {
-      add(v.sprite); add(v.thumbnail);
-      add(v['flare sprite']); add(v['steering flare sprite']); add(v['reverse flare sprite']);
-      add(v['afterburner effect']);
-    }
-    for (const o of outfits) {
-      add(o.sprite); add(o.thumbnail);
-      add(o['flare sprite']); add(o['steering flare sprite']); add(o['reverse flare sprite']);
-      if (o.weapon) { add(o.weapon['hardpoint sprite']); add(o.weapon.sprite); }
-    }
-    for (const e of effects) { add(e.sprite); }
-    console.log(`  Copying images (${paths.size} paths referenced)...`);
-    for (const p of paths) await this.copyMatchingImages(sourceImagesDir, destImagesDir, p);
-    console.log('  ✓ Images done');
+    console.log('  Copying entire images/ folder...');
+    const fileCount = await this.copyAllImages(sourceImagesDir, destImagesDir);
+    console.log(`  ✓ Copied ${fileCount} image files`);
   }
 
   /**
@@ -811,18 +791,37 @@ class EndlessSkyParser {
         pluginShipNames.has(v.baseShip) || (v._variantPluginId === meta.pluginId)
       );
 
+      // A plugin with map or mission content but zero ships/outfits (a
+      // pure system-expansion or mission-pack plugin — a real, common
+      // category) was previously being dropped here entirely: `isEmpty`
+      // only checked ships/variants/outfits/effects, so `continue` below
+      // skipped it before it ever reached the later step that writes
+      // dataFiles/*.json or copies images. Both parsers have already
+      // recorded which plugin touched what by this point (mapParser's
+      // `_definedBy` and missionParser's `_pluginId` are set synchronously
+      // during parsing, not deferred to the later cross-plugin resolvers),
+      // so it's safe to check here.
+      const metaMapSlice = this.mapParser.toPluginSlice(meta.pluginId);
+      const metaMissionSlice = this.missionParser2.toPluginSlice(meta.pluginId);
+      const hasMapOrMissionContent =
+        metaMapSlice.systems.length > 0 || metaMapSlice.galaxies.length > 0 ||
+        metaMapSlice.planets.length > 0 || metaMapSlice.wormholes.length > 0 ||
+        metaMapSlice.stars.length > 0 || metaMapSlice.governments.length > 0 ||
+        metaMissionSlice.length > 0;
+
       const isEmpty = pluginShips.length === 0 && pluginVariants.length === 0 &&
-                      pluginOutfits.length === 0 && pluginEffects.length === 0;
+                      pluginOutfits.length === 0 && pluginEffects.length === 0 &&
+                      !hasMapOrMissionContent;
 
       if (isEmpty) {
         console.log(`  Skipping "${meta.name}" - no parseable content found.`);
         continue;
       }
 
-      console.log(`  Plugin "${meta.name}": ${pluginShips.length} ships, ${pluginVariants.length} variants, ${pluginOutfits.length} outfits, ${pluginEffects.length} effects`);
+      console.log(`  Plugin "${meta.name}": ${pluginShips.length} ships, ${pluginVariants.length} variants, ${pluginOutfits.length} outfits, ${pluginEffects.length} effects, ${metaMapSlice.systems.length} systems, ${metaMissionSlice.length} missions`);
 
       const destImagesDir = path.join(process.cwd(), 'data', meta.name, 'images');
-      await this.copyImagesForPlugin(meta.imagesDir, destImagesDir, pluginShips, pluginVariants, pluginOutfits, pluginEffects);
+      await this.copyImagesForPlugin(meta.imagesDir, destImagesDir);
 
       results.push({
         name:       meta.name,
@@ -1039,6 +1038,10 @@ class EndlessSkyParser {
           i = this.mapParser.parseWormholeBlock(lines, i, this._currentPluginId); continue;
         } else if (trimmed.startsWith('star ')) {
           i = this.mapParser.parseStarBlock(lines, i, this._currentPluginId); continue;
+        } else if (trimmed.startsWith('government ')) {
+          i = this.mapParser.parseGovernmentBlock(lines, i, this._currentPluginId); continue;
+        } else if (trimmed.startsWith('color ')) {
+          i = this.mapParser.parseNamedColorLine(lines, i, this._currentPluginId); continue;
         } else if (trimmed.startsWith('"landing message"')) {
           i = this.mapParser.parseLandingMessageBlock(lines, i, this._currentPluginId); continue;
         }
@@ -2927,6 +2930,8 @@ async function main() {
       await fs.writeFile(path.join(dataFilesDir, 'systems.json'),   JSON.stringify(mapSlice.systems,   null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'planets.json'),   JSON.stringify(mapSlice.planets,   null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'wormholes.json'), JSON.stringify(mapSlice.wormholes, null, 2));
+      await fs.writeFile(path.join(dataFilesDir, 'stars.json'),     JSON.stringify(mapSlice.stars,     null, 2));
+      await fs.writeFile(path.join(dataFilesDir, 'governments.json'), JSON.stringify(mapSlice.governments, null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'missions.json'), JSON.stringify(missionSlice, null, 2));
       await fs.writeFile(path.join(dataFilesDir, 'complete.json'), JSON.stringify({
         plugin:      plugin.name,
