@@ -55,7 +55,7 @@
 //  RawPluginMapData shape:
 //    { outputName, sourceName, displayName,
 //      systems: [...], galaxies: [...], wormholes: [...], planets: [...],
-//      missions: [...], stars: [...],
+//      missions: [...], stars: [...], governments: [...],
 //      slim: boolean }   // true if the slim map files were used
 //
 //  Custom events fired on document:
@@ -174,11 +174,20 @@ async function _loadOnePlugin(outputName, meta) {
     const starsRes = await _fetchJson(`${base}/stars.json`);
     const stars = starsRes.ok ? starsRes.data : [];
 
+    // No slim variant needed here — governments.json is one entry per
+    // distinct government a plugin defines/overrides, not per system, so
+    // it's already tiny. Added by a parser fix: mapParser.js previously
+    // never parsed the top-level `government "Name"` block at all (only
+    // *references* to a government by name inside system/planet blocks) —
+    // see README.
+    const govsRes = await _fetchJson(`${base}/governments.json`);
+    const governments = govsRes.ok ? govsRes.data : [];
+
     return {
         outputName,
         sourceName: meta.sourceName,
         displayName: meta.displayName,
-        systems, galaxies, wormholes, planets, missions, stars,
+        systems, galaxies, wormholes, planets, missions, stars, governments,
         slim,
     };
 }
