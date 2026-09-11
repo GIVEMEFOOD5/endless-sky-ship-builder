@@ -31,7 +31,7 @@
 import { upload } from 'https://esm.sh/@vercel/blob@2.6.1/client';
 
 /* ── Paths ───────────────────────────────────────────────────── */
-const PLUGINS_JSON_PATH = 'https://givemefood5.github.io/endless-sky-ship-builder/plugins.json';
+const PLUGINS_JSON_PATH = 'https://raw.githubusercontent.com/givemefood5/endless-sky-ship-builder/main/plugins.json';
 const PARSE_STATUS_PATH = 'https://api.github.com/repos/givemefood5/endless-sky-ship-builder/contents/parse-status.json';
 
 /* ── Vercel backend endpoints ────────────────────────────────── */
@@ -407,8 +407,8 @@ const PARSE_STATUS_API_PATH =
     'https://api.github.com/repos/givemefood5/endless-sky-ship-builder/contents/parse-status.json';
 
 const PARSE_STATUS_PAGES_PATH =
-    'https://givemefood5.github.io/endless-sky-ship-builder/parse-status.json';
-
+    'https://raw.githubusercontent.com/givemefood5/endless-sky-ship-builder/main/parse-status.json';
+    
 const PAGES_POLL_INTERVAL = 15_000; // 15 s — while job is running
 
 class ParseStatusMonitor {

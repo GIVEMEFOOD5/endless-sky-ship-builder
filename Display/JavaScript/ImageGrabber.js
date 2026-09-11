@@ -40,10 +40,8 @@
 const GITHUB_REPO   = 'GIVEMEFOOD5/endless-sky-ship-builder';
 const GITHUB_BRANCH = 'main';
 
-// Base URL for GitHub Pages (raw image serving)
-const GITHUB_PAGES_BASE = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost'
-    ? `https://raw.githubusercontent.com/GIVEMEFOOD5/endless-sky-ship-builder/main/data/`
-    : `https://GIVEMEFOOD5.github.io/endless-sky-ship-builder/data/`;
+// Base URL for raw image serving — works from any host, no GitHub Pages dependency
+const GITHUB_PAGES_BASE = `https://raw.githubusercontent.com/GIVEMEFOOD5/endless-sky-ship-builder/main/data/`;
     
 // Raw GitHub URL base for API
 const GITHUB_API_BASE = `https://api.github.com/repos/${GITHUB_REPO}/git/trees/${GITHUB_BRANCH}?recursive=1`;
