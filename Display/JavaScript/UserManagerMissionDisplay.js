@@ -223,7 +223,7 @@ function applyFiltersAndRender() {
     }
 
     if (jobBoardFilterEl && jobBoardFilterEl.checked) {
-        filtered = filtered.filter(m => (m.locations || []).includes('job'));
+        filtered = filtered.filter(m => !(m.locations || []).includes('job'));
     }
 
     currentMissions = new Map(filtered.map(m => [m.id, m]));
@@ -605,10 +605,10 @@ function renderCleanupPanel() {
 //      <option value="offered_only">Offered only</option>
 //    </select>
 //
-//  Job-board-only checkbox, next to the search box:
+//  Hide-job-board checkbox, next to the search box:
 //    <label>
 //      <input type="checkbox" id="jobBoardFilterCheckbox">
-//      Job board only
+//      Hide job board missions
 //    </label>
 //
 //  "No save loaded" notice, shown only when MissionStatusHelper has no
