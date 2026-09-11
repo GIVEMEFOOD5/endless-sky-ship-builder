@@ -10,16 +10,35 @@
 
   <div id="navbar-mount" data-src="NavBar.html"></div>
   <script src="../JavaScript/navLoader.js"></script>
-  
+
   <header>
     <h1>Mission Data Viewer</h1>
     <p class="subtitle">Loads a mission JSON export and formats every field into something readable.</p>
- 
+
     <div class="controls">
       <input type="text" id="searchInput" placeholder="Filter by name, plugin, planet..." disabled>
+      <select id="statusFilterSelect">
+        <option value="">All statuses</option>
+        <option value="has_status">Has any save data</option>
+        <option value="in_progress">In progress</option>
+        <option value="available_not_accepted">Available</option>
+        <option value="completed_successfully">Completed</option>
+        <option value="completed_unsuccessfully">Failed</option>
+        <option value="declined">Declined</option>
+        <option value="mixed">Mixed history</option>
+        <option value="offered_only">Offered only</option>
+      </select>
+      <label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;color:var(--c-text-muted);white-space:nowrap;">
+        <input type="checkbox" id="jobBoardFilterCheckbox">
+        Job board only
+      </label>
       <span id="countLabel"></span>
     </div>
- 
+
+    <p id="noSaveNotice" class="hidden">
+      No save loaded — status badges need a save imported on the Save Reader page first.
+    </p>
+
     <!-- Plugin selector -->
     <div class="panel search-section">
         <h2 class="section-title" id="pluginSelectorTitle">Plugin ▼</h2>
@@ -34,6 +53,16 @@
         <div id="activePluginList">
             <span class="sorter-empty">Loading plugins…</span>
         </div>
+    </div>
+
+    <!-- Save cleanup: failed-mission conditions and already-triggered events
+         found in the current save, with buttons to remove them. Every
+         removal edits the "Updated Save" only — the original imported
+         save is never touched. Rendered entirely by
+         UserManagerMissionDisplay.js's renderCleanupPanel(). -->
+    <div class="panel search-section">
+        <h2 class="section-title" id="saveCleanupTitle">Save Cleanup ▼</h2>
+        <div id="saveCleanupPanel"></div>
     </div>
   </header>
 
