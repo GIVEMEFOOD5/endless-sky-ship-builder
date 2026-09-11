@@ -133,14 +133,37 @@ const STATUS_BADGE = HAS_STATUS_HELPER ? {
     // statusBadgeHtml below), not an error.
 } : {};
 
+// When a mission is flagged (unreachableCompletePath) AND its literal
+// status is Failed or Declined specifically, the detected pattern means
+// that status is very likely not genuine — see missionStatusHelper.js's
+// detectQuestionableResolution() for the two confirmed patterns this
+// covers. Rather than showing an alarming "Failed" badge next to a
+// warning icon explaining it's probably fine, the badge itself shows
+// "Completed" in that case — the warning icon stays, so it's still
+// clear this is an inferred read, not a literal engine-reported one.
+// Left as MIXED/OFFERED_ONLY/NOT_ENCOUNTERED as-is even when flagged —
+// those aren't a clean single "this looks like failure" to override.
+function effectiveStatus(m) {
+    if (!m.status) return null;
+    if (m.status.unreachableCompletePath &&
+        (m.status.status === MissionStatusHelper.STATUS.FAILED || m.status.status === MissionStatusHelper.STATUS.DECLINED)) {
+        return MissionStatusHelper.STATUS.DONE;
+    }
+    return m.status.status;
+}
+
 function statusBadgeHtml(m) {
     if (!m.status) return '';
-    const badge = STATUS_BADGE[m.status.status];
+    const overridden = effectiveStatus(m) !== m.status.status;
+    const badge = STATUS_BADGE[effectiveStatus(m)];
+    const badgeTitle = overridden
+        ? `Recorded as "${m.status.label}" in the save, but ${m.status.unreachableCompletePathReason} Shown as Completed based on that.`
+        : m.status.label;
     const badgeHtml = badge
-        ? `<span class="mission-status-badge mission-status-badge--${badge.cls}" title="${esc(m.status.label)}">${esc(badge.text)}</span>`
+        ? `<span class="mission-status-badge mission-status-badge--${badge.cls}" title="${esc(badgeTitle)}">${esc(badge.text)}</span>`
         : '';
     const warningHtml = m.status.unreachableCompletePath
-        ? `<span class="mission-status-warning" title="${esc(m.status.unreachableCompletePathReason || '')} Open the mission and check its raw structure to judge for yourself.">⚠</span>`
+        ? `<span class="mission-status-warning" title="${esc(m.status.unreachableCompletePathReason || '')}${overridden ? ' Shown as Completed above based on this.' : ' Open the mission and check its raw structure to judge for yourself.'}">⚠</span>`
         : '';
     return badgeHtml + warningHtml;
 }
@@ -186,9 +209,17 @@ function applyFiltersAndRender() {
 
     const statusPick = statusFilterEl ? statusFilterEl.value : '';
     if (statusPick && HAS_STATUS_HELPER) {
+        // Uses effectiveStatus() rather than the literal m.status.status,
+        // so a mission showing as "Completed" (because of the failed/
+        // declined-may-not-be-genuine override — see effectiveStatus
+        // above) actually shows up under the Completed filter, and
+        // doesn't show up under Failed/Declined even though that's its
+        // literal recorded status. Keeping the filter and the badges
+        // agreeing with each other matters more here than keeping the
+        // filter tied to the raw underlying data.
         filtered = statusPick === 'has_status'
-            ? filtered.filter(m => m.status.status !== MissionStatusHelper.STATUS.NOT_ENCOUNTERED)
-            : filtered.filter(m => m.status.status === statusPick);
+            ? filtered.filter(m => effectiveStatus(m) !== MissionStatusHelper.STATUS.NOT_ENCOUNTERED)
+            : filtered.filter(m => effectiveStatus(m) === statusPick);
     }
 
     if (jobBoardFilterEl && jobBoardFilterEl.checked) {
@@ -362,7 +393,11 @@ document.addEventListener('missionModalAction', (e) => {
 if (HAS_STATUS_HELPER) {
     MissionModal.registerNote(m => {
         if (!m.status || !m.status.unreachableCompletePath) return '';
-        return `<div class="mission-warning-banner">⚠ ${esc(m.status.unreachableCompletePathReason || '')} Check the raw structure below to judge for yourself — and consider using "Complete mission" instead if this looks like your case.</div>`;
+        const overridden = effectiveStatus(m) !== m.status.status;
+        const followUp = overridden
+            ? `Already shown as Completed above based on this — no action needed unless you disagree.`
+            : `Check the raw structure below to judge for yourself — and consider using "Complete mission" instead if this looks like your case.`;
+        return `<div class="mission-warning-banner">⚠ ${esc(m.status.unreachableCompletePathReason || '')} ${followUp}</div>`;
     });
 }
 
@@ -381,7 +416,7 @@ if (HAS_CLEANUP_HELPER && HAS_STATUS_HELPER) {
 
     MissionModal.registerAction(m => {
         const buttons = [];
-        const alreadyCleanlyDone = m.status && m.status.status === MissionStatusHelper.STATUS.DONE;
+        const alreadyCleanlyDone = m.status && effectiveStatus(m) === MissionStatusHelper.STATUS.DONE;
         if (!alreadyCleanlyDone) {
             buttons.push('<button class="btn-cleanup-remove-all" data-mission-action="complete-mission">Complete mission (apply rewards)</button>');
         }
