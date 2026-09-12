@@ -2978,6 +2978,7 @@ async function main() {
           allEffectRows = [], allStarRows = [], allGalaxyRows = [], allGovernmentRows = [],
           allWormholeRows = [], allPlanetRows = [], allSystemRows = [], allMissionRows = [];
     const rawWormholesByPlugin = [], rawPlanetsByPlugin = [], rawSystemsByPlugin = [];
+    let skippedGovernmentsWithoutName = 0;
 
     for (const { source, plugin } of allResults) {
       const pluginDataToWrite = plugin.pluginData ?? { name: plugin.outputName };
@@ -3053,9 +3054,10 @@ async function main() {
         plugin_id: g._pluginId ?? plugin.pluginId, internal_id: g._internalId, name: g.name,
         sprite: g.sprite, pos_x: toNumeric(g.pos?.x), pos_y: toNumeric(g.pos?.y),
       });
-      for (const gv of mapSlice.governments ?? []) allGovernmentRows.push({
-        plugin_id: gv.pluginId ?? plugin.pluginId, name: gv.name,
-      });
+      for (const gv of mapSlice.governments ?? []) {
+        if (gv.name) allGovernmentRows.push({ plugin_id: gv.pluginId ?? plugin.pluginId, name: gv.name });
+        else skippedGovernmentsWithoutName++;
+      }
 
       for (const w of mapSlice.wormholes ?? []) allWormholeRows.push({
         plugin_id: w._pluginId ?? plugin.pluginId, internal_id: w._internalId, name: w.name,
@@ -3129,6 +3131,7 @@ async function main() {
       + allSystemRows.length - dedupedSystemRows.length
       + allPlanetRows.length - dedupedPlanetRows.length;
     if (droppedDuplicates > 0) console.log(`  ⚠ dropped ${droppedDuplicates} duplicate internal_id row(s) before pushing`);
+    if (skippedGovernmentsWithoutName > 0) console.log(`  ⚠ skipped ${skippedGovernmentsWithoutName} government entrie(s) with no name`);
 
     await upsertChunked('plugins', allPluginRows);
     const outfitIdRows  = await upsertChunked('outfits', dedupedOutfitRows, { onConflict: 'internal_id', select: 'id, internal_id' });
