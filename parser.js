@@ -73,6 +73,21 @@ const { promisify }   = require('util');
 const exec            = promisify(execCallback);
 const AdmZip          = require('adm-zip');
 const tar             = require('tar');
+const { createClient } = require('@supabase/supabase-js');
+
+// ── Supabase: replaces the per-plugin JSON files as the parser's output ──
+// SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY are set as GitHub Actions secrets.
+// The service-role key bypasses Row-Level Security by design — this script
+// is the only writer, everything else (the frontend) only ever reads with
+// the public anon key, which RLS restricts to select-only.
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+
+// internal_id -> database id, filled in as each plugin is written, used to
+// build the ship_outfits / variant_outfits junction rows in a second pass
+// once every plugin (and therefore every outfit) has been inserted.
+const shipIdByInternalId    = new Map();
+const outfitIdByInternalId  = new Map();
+const variantIdByInternalId = new Map();
 
 // ---------------------------------------------------------------------------
 // Helper: sparse-clone specific folders from a repo
@@ -2895,17 +2910,18 @@ async function main() {
     }
 
     for (const { source, plugin } of allResults) {
-      console.log(`\nSaving → data/${plugin.outputName}/`);
-      const pluginDir    = path.join(process.cwd(), 'data', plugin.outputName);
-      const dataFilesDir = path.join(pluginDir, 'dataFiles');
-      await fs.mkdir(dataFilesDir, { recursive: true });
+      console.log(`\nSaving → Supabase: ${plugin.outputName}`);
 
-      // ── Write pluginData.json — always, falling back to outputName if no plugin.txt ──
+      // ── plugins ──
       const pluginDataToWrite = plugin.pluginData ?? { name: plugin.outputName };
-      await fs.writeFile(
-        path.join(pluginDir, 'pluginData.json'),
-        JSON.stringify(pluginDataToWrite, null, 2)
-      );
+      await supabase.from('plugins').upsert({
+        plugin_id:    plugin.pluginId,
+        source_name:  plugin.name,
+        output_name:  plugin.outputName,
+        display_name: pluginDataToWrite.name ?? plugin.outputName,
+        repository:   source.repository,
+        plugin_data:  pluginDataToWrite,
+      });
 
       const shipsOut = plugin.ships.map(s => ({
         ...s, outfits: outfitMapToOutputFormat(s.outfitMap), outfitMap: undefined,
@@ -2922,41 +2938,326 @@ async function main() {
       const mapSlice = sharedParser.mapParser.toPluginSlice(plugin.pluginId);
       const missionSlice = sharedParser.missionParser2.toPluginSlice(plugin.pluginId);
 
-      await fs.writeFile(path.join(dataFilesDir, 'ships.json'),    JSON.stringify(shipsOut,    null, 2));
-      await fs.writeFile(path.join(dataFilesDir, 'variants.json'), JSON.stringify(variantsOut, null, 2));
-      await fs.writeFile(path.join(dataFilesDir, 'outfits.json'),  JSON.stringify(outfitsOut,  null, 2));
-      await fs.writeFile(path.join(dataFilesDir, 'effects.json'),  JSON.stringify(effectsOut,  null, 2));
-      await fs.writeFile(path.join(dataFilesDir, 'galaxies.json'),  JSON.stringify(mapSlice.galaxies,  null, 2));
-      await fs.writeFile(path.join(dataFilesDir, 'systems.json'),   JSON.stringify(mapSlice.systems,   null, 2));
-      await fs.writeFile(path.join(dataFilesDir, 'planets.json'),   JSON.stringify(mapSlice.planets,   null, 2));
-      await fs.writeFile(path.join(dataFilesDir, 'wormholes.json'), JSON.stringify(mapSlice.wormholes, null, 2));
-      await fs.writeFile(path.join(dataFilesDir, 'stars.json'),     JSON.stringify(mapSlice.stars,     null, 2));
-      await fs.writeFile(path.join(dataFilesDir, 'governments.json'), JSON.stringify(mapSlice.governments, null, 2));
-      await fs.writeFile(path.join(dataFilesDir, 'missions.json'), JSON.stringify(missionSlice, null, 2));
-      await fs.writeFile(path.join(dataFilesDir, 'complete.json'), JSON.stringify({
-        plugin:      plugin.name,
-        repository:  source.repository,
-        ships:       shipsOut,
-        variants:    variantsOut,
-        outfits:     outfitsOut,
-        effects:     effectsOut,
-        galaxies:    mapSlice.galaxies,
-        systems:     mapSlice.systems,
-        planets:     mapSlice.planets,
-        wormholes:   mapSlice.wormholes,
-        missions:    missionSlice,
-        parsedAt:    new Date().toISOString(),
-      }, null, 2));
+      // ── outfits (written before ships so ship_outfits can look up ids later) ──
+      const outfitRows = outfitsOut.map(o => ({
+        plugin_id:   o.pluginId ?? plugin.pluginId,
+        internal_id: o.internalId,
+        name:        o.name,
+        category:    o.category ?? null,
+        cost:        o.cost ?? null,
+        mass:        o.mass ?? null,
+        thumbnail:   o.thumbnail,
+        description: o.description,
+        attributes:  { ...o, name: undefined, description: undefined, thumbnail: undefined,
+                       category: undefined, cost: undefined, mass: undefined,
+                       pluginId: undefined, internalId: undefined,
+                       governments: undefined, governmentEvents: undefined },
+      }));
+      if (outfitRows.length) {
+        const { data } = await supabase.from('outfits')
+          .upsert(outfitRows, { onConflict: 'internal_id' }).select('id, internal_id');
+        for (const row of data ?? []) outfitIdByInternalId.set(row.internal_id, row.id);
+      }
+
+      // ── ships ──
+      const shipRows = shipsOut.map(s => ({
+        plugin_id:   s._pluginId ?? plugin.pluginId,
+        internal_id: s._internalId,
+        name:        s.name,
+        category:    s.attributes?.category ?? null,
+        cost:        s.attributes?.cost ?? null,
+        mass:        s.attributes?.mass ?? null,
+        sprite:      s.sprite,
+        thumbnail:   s.thumbnail,
+        description: s.description,
+        attributes:  s.attributes,
+        hardpoints:  { guns: s.guns, turrets: s.turrets, bays: s.bays, engines: s.engines,
+                       leaks: s.leaks, reverseEngines: s.reverseEngines, steeringEngines: s.steeringEngines },
+        explosions:  { tiny: s['tiny explosion'], small: s['small explosion'],
+                       medium: s['medium explosion'], large: s['large explosion'],
+                       huge: s['huge explosion'], final: s['final explode'] },
+        locations:   s.locations,
+      }));
+      if (shipRows.length) {
+        const { data } = await supabase.from('ships')
+          .upsert(shipRows, { onConflict: 'internal_id' }).select('id, internal_id');
+        for (const row of data ?? []) shipIdByInternalId.set(row.internal_id, row.id);
+      }
+
+      // ── variants ──
+      const variantRows = variantsOut.map(v => ({
+        plugin_id:         v._pluginId ?? plugin.pluginId,
+        variant_plugin_id: v._variantPluginId ?? null,
+        internal_id:       v._internalId,
+        name:              v.name,
+        base_ship_name:    v.baseShip,
+        category:          v.attributes?.category ?? null,
+        cost:              v.attributes?.cost ?? null,
+        mass:              v.attributes?.mass ?? null,
+        sprite:            v.sprite,
+        thumbnail:         v.thumbnail,
+        description:       v.description,
+        attributes:        v.attributes,
+        hardpoints:        { guns: v.guns, turrets: v.turrets, bays: v.bays, engines: v.engines,
+                             leaks: v.leaks, reverseEngines: v.reverseEngines, steeringEngines: v.steeringEngines },
+        explosions:        { tiny: v['tiny explosion'], small: v['small explosion'],
+                             medium: v['medium explosion'], large: v['large explosion'],
+                             huge: v['huge explosion'], final: v['final explode'] },
+        locations:         v.locations,
+      }));
+      if (variantRows.length) {
+        const { data } = await supabase.from('variants')
+          .upsert(variantRows, { onConflict: 'internal_id' }).select('id, internal_id');
+        for (const row of data ?? []) variantIdByInternalId.set(row.internal_id, row.id);
+        // base_ship_id is filled in the second pass below, once every plugin's
+        // ships (which may live in a different plugin than the variant) exist.
+      }
+
+      // ── effects ──
+      const effectRows = effectsOut.map(e => ({
+        plugin_id:         e.pluginId ?? plugin.pluginId,
+        name:              e.name,
+        sprite:            e.sprite,
+        sound:             e.sound,
+        lifetime:          e.lifetime ?? null,
+        random_angle:      e['random angle'] ?? null,
+        random_frame_rate: e['random frame rate'] ?? null,
+        random_spin:       e['random spin'] ?? null,
+        random_velocity:   e['random velocity'] ?? null,
+        velocity_scale:    e['velocity scale'] ?? null,
+        sprite_data:       e['sprite data'] ?? null,
+      }));
+      if (effectRows.length) await supabase.from('effects').upsert(effectRows);
+
+      // ── stars, galaxies, governments ──
+      const starRows = (mapSlice.stars ?? []).map(s => ({
+        plugin_id:   s.pluginId ?? plugin.pluginId,
+        internal_id: s.internalId,
+        sprite:      s.sprite,
+        icon:        s.icon,
+        power:       s.power ?? null,
+        wind:        s.wind ?? null,
+        habitable:   s.habitable ?? null,
+        mass:        s.mass ?? null,
+      }));
+      if (starRows.length) await supabase.from('stars').upsert(starRows, { onConflict: 'internal_id' });
+
+      const galaxyRows = (mapSlice.galaxies ?? []).map(g => ({
+        plugin_id:   g._pluginId ?? plugin.pluginId,
+        internal_id: g._internalId,
+        name:        g.name,
+        sprite:      g.sprite,
+        pos_x:       g.pos?.x ?? null,
+        pos_y:       g.pos?.y ?? null,
+      }));
+      if (galaxyRows.length) await supabase.from('galaxies').upsert(galaxyRows, { onConflict: 'internal_id' });
+
+      const governmentRows = (mapSlice.governments ?? []).map(gv => ({
+        plugin_id: gv.pluginId ?? plugin.pluginId,
+        name:      gv.name,
+      }));
+      if (governmentRows.length) await supabase.from('governments').upsert(governmentRows);
+
+      // ── wormholes + links ──
+      for (const w of mapSlice.wormholes ?? []) {
+        const { data: wRows } = await supabase.from('wormholes').upsert({
+          plugin_id:    w._pluginId ?? plugin.pluginId,
+          internal_id:  w._internalId,
+          name:         w.name,
+          display_name: w.displayName,
+          mappable:     w.mappable ?? null,
+          color:        w.color ?? null,
+        }, { onConflict: 'internal_id' }).select('id');
+        const wormholeId = wRows?.[0]?.id;
+        if (wormholeId && Array.isArray(w.links) && w.links.length) {
+          await supabase.from('wormhole_links').delete().eq('wormhole_id', wormholeId);
+          await supabase.from('wormhole_links').insert(
+            w.links.map(l => ({ wormhole_id: wormholeId, from_system: l.from, to_system: l.to, count: l.count ?? 1 }))
+          );
+        }
+      }
+
+      // ── planets + shipyards/outfitters ──
+      for (const p of mapSlice.planets ?? []) {
+        const { data: pRows } = await supabase.from('planets').upsert({
+          plugin_id:            p._pluginId ?? plugin.pluginId,
+          internal_id:          p._internalId,
+          name:                 p.name,
+          display_name:         p.displayName,
+          system_name:          p.systemName,
+          government:           p.government,
+          government_inherited: p.governmentInherited ?? null,
+          security:             p.security ?? null,
+          bribe:                p.bribe ?? null,
+          bribe_threshold:      p.bribeThreshold ?? null,
+          bribe_fraction:       p.bribeFraction ?? null,
+          required_reputation:  p.requiredReputation ?? null,
+          wormhole:             p.wormhole ?? null,
+          attributes:           p.attributes ?? null,
+          requires:             p.requires ?? null,
+          description:          p.description ?? null,
+          spaceport:            p.spaceport ?? null,
+          port:                 p.port ?? null,
+          landscapes:           p.landscapes ?? null,
+          tribute:              typeof p.tribute === 'number' ? p.tribute : null,
+          tribute_hails:        p.tributeHails ?? null,
+          music:                p.music ?? null,
+          to_know:              p.toKnow ?? null,
+          to_land:              p.toLand ?? null,
+          to_access_outfitter:  p.toAccessOutfitter ?? null,
+          to_access_shipyard:   p.toAccessShipyard ?? null,
+        }, { onConflict: 'internal_id' }).select('id');
+        const planetId = pRows?.[0]?.id;
+        if (planetId) {
+          await supabase.from('planet_shipyards').delete().eq('planet_id', planetId);
+          await supabase.from('planet_outfitters').delete().eq('planet_id', planetId);
+          if (Array.isArray(p.shipyards) && p.shipyards.length) {
+            await supabase.from('planet_shipyards').insert(
+              p.shipyards.map(sy => ({ planet_id: planetId, ship_name: sy.name }))
+            );
+          }
+          if (Array.isArray(p.outfitters) && p.outfitters.length) {
+            await supabase.from('planet_outfitters').insert(
+              p.outfitters.map(of => ({ planet_id: planetId, outfit_name: of.name }))
+            );
+          }
+        }
+      }
+
+      // ── systems + fleets/hazards/asteroids/minables/links/planets/trade ──
+      for (const sy of mapSlice.systems ?? []) {
+        const { data: sysRows } = await supabase.from('systems').upsert({
+          plugin_id:          sy._pluginId ?? plugin.pluginId,
+          internal_id:        sy._internalId,
+          name:               sy.name,
+          display_name:       sy.displayName,
+          government:         sy.government,
+          pos_x:              sy.pos?.x ?? null,
+          pos_y:              sy.pos?.y ?? null,
+          habitable:          sy.habitable ?? null,
+          jump_range:         sy.jumpRange ?? null,
+          haze:               sy.haze ?? null,
+          music:              sy.music ?? null,
+          starfield_density:  sy.starfieldDensity ?? null,
+          ramscoop:           sy.ramscoop ?? null,
+          invisible_fence:    sy.invisibleFence ?? null,
+          no_raids:           sy.noRaids ?? null,
+          attributes:         { attributes: sy.attributes, belts: sy.belts, arrival: sy.arrival, departure: sy.departure },
+          flags:              sy.flags ?? null,
+          raids:              sy.raids ?? null,
+          object_tree:        sy.objectTree ?? null,
+        }, { onConflict: 'internal_id' }).select('id');
+        const systemId = sysRows?.[0]?.id;
+        if (systemId) {
+          await Promise.all([
+            supabase.from('system_fleets').delete().eq('system_id', systemId),
+            supabase.from('system_hazards').delete().eq('system_id', systemId),
+            supabase.from('system_asteroids').delete().eq('system_id', systemId),
+            supabase.from('system_minables').delete().eq('system_id', systemId),
+            supabase.from('system_links').delete().eq('system_id', systemId),
+            supabase.from('system_planets').delete().eq('system_id', systemId),
+            supabase.from('system_trade').delete().eq('system_id', systemId),
+          ]);
+          if (sy.fleets?.length) await supabase.from('system_fleets').insert(
+            sy.fleets.map(f => ({ system_id: systemId, fleet_name: f.name, period: f.period ?? null, to_spawn: f.toSpawn ?? null })));
+          if (sy.hazards?.length) await supabase.from('system_hazards').insert(
+            sy.hazards.map(h => ({ system_id: systemId, hazard_name: h.name, period: h.period ?? null, to_spawn: h.toSpawn ?? null })));
+          if (sy.asteroids?.length) await supabase.from('system_asteroids').insert(
+            sy.asteroids.map(a => ({ system_id: systemId, asteroid_name: a.name, asteroid_count: a.count ?? null, energy: a.energy ?? null })));
+          if (sy.minables?.length) await supabase.from('system_minables').insert(
+            sy.minables.map(m => ({ system_id: systemId, minable_name: m.name, asteroid_count: m.count ?? null, energy: m.energy ?? null })));
+          if (sy.links?.length) await supabase.from('system_links').insert(
+            sy.links.map(l => ({ system_id: systemId, linked_system_name: l.name ?? l, explicit: l.explicit ?? null })));
+          if (sy.planets?.length) await supabase.from('system_planets').insert(
+            sy.planets.map(p => ({ system_id: systemId, planet_name: p.name })));
+          if (sy.trade?.length) await supabase.from('system_trade').insert(
+            sy.trade.map(t => ({ system_id: systemId, commodity_name: t.name, cost: t.cost ?? null })));
+        }
+      }
+
+      // ── missions ──
+      const missionRows = (missionSlice ?? []).map(m => ({
+        plugin_id:               m._pluginId ?? plugin.pluginId,
+        internal_id:             m._internalId,
+        name:                    m.name,
+        display_name:            m.displayName,
+        source_plugin:           m.sourcePlugin,
+        source:                  m.source ?? null,
+        destination:             m.destination ?? null,
+        stopovers:               m.stopovers ?? null,
+        waypoints:               m.waypoints ?? null,
+        cargo:                   m.cargo ?? null,
+        passengers:              m.passengers ?? null,
+        payment:                 m.payment ?? null,
+        rewards:                 m.rewards ?? null,
+        deadline:                m.deadline ?? null,
+        illegal:                 m.illegal ?? null,
+        repeatable:              m.repeatable ?? null,
+        repeat_limit:            m.repeatLimit ?? null,
+        npc_count:               m.npcCount ?? null,
+        has_npc_objective:       m.hasNpcObjective ?? null,
+        flags:                   m.flags ?? null,
+        conditions:              m.conditions ?? null,
+        condition_side_effects:  m.conditionSideEffects ?? null,
+        event_triggers:          m.eventTriggers ?? null,
+        locations:               m.locations ?? null,
+        raw:                     m.raw ?? null,
+      }));
+      if (missionRows.length) await supabase.from('missions').upsert(missionRows, { onConflict: 'internal_id' });
 
       console.log(`  ✓ ${shipsOut.length} ships | ${variantsOut.length} variants | ${outfitsOut.length} outfits | ${effectsOut.length} effects`);
       console.log(`  ✓ ${mapSlice.systems.length} systems | ${mapSlice.planets.length} planets | ${mapSlice.wormholes.length} wormholes | ${missionSlice.length} missions`);
-      
+
       if (!dataIndex[source.name]) dataIndex[source.name] = [];
       const indexEntry = {
         outputName: plugin.outputName,
         displayPluginName: plugin.pluginData?.name ?? plugin.outputName,
       };
       dataIndex[source.name].push(indexEntry);
+    }
+
+    // ── Second pass: junction tables ──
+    // Done after every plugin above has been written, because a ship in one
+    // plugin can equip an outfit defined in a different plugin — its id
+    // wouldn't exist yet if we tried to build this during the loop above.
+    console.log(`\nBuilding ship_outfits / variant_outfits junction rows...`);
+    const shipOutfitRows = [];
+    const variantOutfitRows = [];
+    for (const { plugin } of allResults) {
+      for (const s of plugin.ships) {
+        const shipId = shipIdByInternalId.get(s._internalId);
+        if (!shipId) continue;
+        for (const info of Object.values(outfitMapToOutputFormat(s.outfitMap))) {
+          const outfitId = outfitIdByInternalId.get(info.internalId);
+          if (outfitId) shipOutfitRows.push({ ship_id: shipId, outfit_id: outfitId, count: info.count });
+        }
+      }
+      for (const v of plugin.variants) {
+        const variantId = variantIdByInternalId.get(v._internalId);
+        if (!variantId) continue;
+        for (const info of Object.values(outfitMapToOutputFormat(v.outfitMap))) {
+          const outfitId = outfitIdByInternalId.get(info.internalId);
+          if (outfitId) variantOutfitRows.push({ variant_id: variantId, outfit_id: outfitId, count: info.count });
+        }
+      }
+    }
+    if (shipOutfitRows.length) await supabase.from('ship_outfits').upsert(shipOutfitRows, { onConflict: 'ship_id,outfit_id' });
+    if (variantOutfitRows.length) await supabase.from('variant_outfits').upsert(variantOutfitRows, { onConflict: 'variant_id,outfit_id' });
+    console.log(`  ✓ ${shipOutfitRows.length} ship_outfits | ${variantOutfitRows.length} variant_outfits rows`);
+
+    // Link each variant back to its base ship now that every ship (which may
+    // live in a different plugin than the variant) has an id.
+    const variantBaseUpdates = [];
+    for (const { plugin } of allResults) {
+      for (const v of plugin.variants) {
+        const variantId = variantIdByInternalId.get(v._internalId);
+        const baseId = [...shipIdByInternalId.entries()]
+          .find(([internalId]) => internalId?.endsWith(`::${v.baseShip}`))?.[1];
+        if (variantId && baseId) variantBaseUpdates.push({ id: variantId, base_ship_id: baseId });
+      }
+    }
+    for (const u of variantBaseUpdates) {
+      await supabase.from('variants').update({ base_ship_id: u.base_ship_id }).eq('id', u.id);
     }
 
     const indexPath = path.join(process.cwd(), 'data', 'index.json');
