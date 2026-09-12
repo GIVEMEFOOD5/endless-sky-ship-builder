@@ -3058,121 +3058,142 @@ async function main() {
       }));
       if (governmentRows.length) await supabase.from('governments').upsert(governmentRows);
 
-      // ── wormholes + links ──
-      for (const w of mapSlice.wormholes ?? []) {
-        const { data: wRows } = await supabase.from('wormholes').upsert({
-          plugin_id:    w._pluginId ?? plugin.pluginId,
-          internal_id:  w._internalId,
-          name:         w.name,
-          display_name: w.displayName,
-          mappable:     w.mappable ?? null,
-          color:        w.color ?? null,
-        }, { onConflict: 'internal_id' }).select('id');
-        const wormholeId = wRows?.[0]?.id;
-        if (wormholeId && Array.isArray(w.links) && w.links.length) {
-          await supabase.from('wormhole_links').delete().eq('wormhole_id', wormholeId);
-          await supabase.from('wormhole_links').insert(
-            w.links.map(l => ({ wormhole_id: wormholeId, from_system: l.from, to_system: l.to, count: l.count ?? 1 }))
-          );
-        }
-      }
-
-      // ── planets + shipyards/outfitters ──
-      for (const p of mapSlice.planets ?? []) {
-        const { data: pRows } = await supabase.from('planets').upsert({
-          plugin_id:            p._pluginId ?? plugin.pluginId,
-          internal_id:          p._internalId,
-          name:                 p.name,
-          display_name:         p.displayName,
-          system_name:          p.systemName,
-          government:           p.government,
-          government_inherited: p.governmentInherited ?? null,
-          security:             p.security ?? null,
-          bribe:                p.bribe ?? null,
-          bribe_threshold:      p.bribeThreshold ?? null,
-          bribe_fraction:       p.bribeFraction ?? null,
-          required_reputation:  p.requiredReputation ?? null,
-          wormhole:             p.wormhole ?? null,
-          attributes:           p.attributes ?? null,
-          requires:             p.requires ?? null,
-          description:          p.description ?? null,
-          spaceport:            p.spaceport ?? null,
-          port:                 p.port ?? null,
-          landscapes:           p.landscapes ?? null,
-          tribute:              typeof p.tribute === 'number' ? p.tribute : null,
-          tribute_hails:        p.tributeHails ?? null,
-          music:                p.music ?? null,
-          to_know:              p.toKnow ?? null,
-          to_land:              p.toLand ?? null,
-          to_access_outfitter:  p.toAccessOutfitter ?? null,
-          to_access_shipyard:   p.toAccessShipyard ?? null,
-        }, { onConflict: 'internal_id' }).select('id');
-        const planetId = pRows?.[0]?.id;
-        if (planetId) {
-          await supabase.from('planet_shipyards').delete().eq('planet_id', planetId);
-          await supabase.from('planet_outfitters').delete().eq('planet_id', planetId);
-          if (Array.isArray(p.shipyards) && p.shipyards.length) {
-            await supabase.from('planet_shipyards').insert(
-              p.shipyards.map(sy => ({ planet_id: planetId, ship_name: sy.name }))
-            );
-          }
-          if (Array.isArray(p.outfitters) && p.outfitters.length) {
-            await supabase.from('planet_outfitters').insert(
-              p.outfitters.map(of => ({ planet_id: planetId, outfit_name: of.name }))
-            );
+      // ── wormholes + links (batched: one upsert, one delete, one insert) ──
+      const wormholeRows = (mapSlice.wormholes ?? []).map(w => ({
+        plugin_id:    w._pluginId ?? plugin.pluginId,
+        internal_id:  w._internalId,
+        name:         w.name,
+        display_name: w.displayName,
+        mappable:     w.mappable ?? null,
+        color:        w.color ?? null,
+      }));
+      if (wormholeRows.length) {
+        const { data } = await supabase.from('wormholes')
+          .upsert(wormholeRows, { onConflict: 'internal_id' }).select('id, internal_id');
+        const wormholeIdByInternalId = new Map((data ?? []).map(r => [r.internal_id, r.id]));
+        const wormholeIds = [...wormholeIdByInternalId.values()];
+        const linkRows = [];
+        for (const w of mapSlice.wormholes ?? []) {
+          const wormholeId = wormholeIdByInternalId.get(w._internalId);
+          if (wormholeId && Array.isArray(w.links)) {
+            for (const l of w.links) linkRows.push({ wormhole_id: wormholeId, from_system: l.from, to_system: l.to, count: l.count ?? 1 });
           }
         }
+        if (wormholeIds.length) await supabase.from('wormhole_links').delete().in('wormhole_id', wormholeIds);
+        if (linkRows.length) await supabase.from('wormhole_links').insert(linkRows);
       }
 
-      // ── systems + fleets/hazards/asteroids/minables/links/planets/trade ──
-      for (const sy of mapSlice.systems ?? []) {
-        const { data: sysRows } = await supabase.from('systems').upsert({
-          plugin_id:          sy._pluginId ?? plugin.pluginId,
-          internal_id:        sy._internalId,
-          name:               sy.name,
-          display_name:       sy.displayName,
-          government:         sy.government,
-          pos_x:              sy.pos?.x ?? null,
-          pos_y:              sy.pos?.y ?? null,
-          habitable:          sy.habitable ?? null,
-          jump_range:         sy.jumpRange ?? null,
-          haze:               sy.haze ?? null,
-          music:              sy.music ?? null,
-          starfield_density:  sy.starfieldDensity ?? null,
-          ramscoop:           sy.ramscoop ?? null,
-          invisible_fence:    sy.invisibleFence ?? null,
-          no_raids:           sy.noRaids ?? null,
-          attributes:         { attributes: sy.attributes, belts: sy.belts, arrival: sy.arrival, departure: sy.departure },
-          flags:              sy.flags ?? null,
-          raids:              sy.raids ?? null,
-          object_tree:        sy.objectTree ?? null,
-        }, { onConflict: 'internal_id' }).select('id');
-        const systemId = sysRows?.[0]?.id;
-        if (systemId) {
+      // ── planets + shipyards/outfitters (batched) ──
+      const planetRows = (mapSlice.planets ?? []).map(p => ({
+        plugin_id:            p._pluginId ?? plugin.pluginId,
+        internal_id:          p._internalId,
+        name:                 p.name,
+        display_name:         p.displayName,
+        system_name:          p.systemName,
+        government:           p.government,
+        government_inherited: p.governmentInherited ?? null,
+        security:             p.security ?? null,
+        bribe:                p.bribe ?? null,
+        bribe_threshold:      p.bribeThreshold ?? null,
+        bribe_fraction:       p.bribeFraction ?? null,
+        required_reputation:  p.requiredReputation ?? null,
+        wormhole:             p.wormhole ?? null,
+        attributes:           p.attributes ?? null,
+        requires:             p.requires ?? null,
+        description:          p.description ?? null,
+        spaceport:            p.spaceport ?? null,
+        port:                 p.port ?? null,
+        landscapes:           p.landscapes ?? null,
+        tribute:              typeof p.tribute === 'number' ? p.tribute : null,
+        tribute_hails:        p.tributeHails ?? null,
+        music:                p.music ?? null,
+        to_know:              p.toKnow ?? null,
+        to_land:              p.toLand ?? null,
+        to_access_outfitter:  p.toAccessOutfitter ?? null,
+        to_access_shipyard:   p.toAccessShipyard ?? null,
+      }));
+      if (planetRows.length) {
+        const { data } = await supabase.from('planets')
+          .upsert(planetRows, { onConflict: 'internal_id' }).select('id, internal_id');
+        const planetIdByInternalId = new Map((data ?? []).map(r => [r.internal_id, r.id]));
+        const planetIds = [...planetIdByInternalId.values()];
+        const shipyardRows = [];
+        const outfitterRows = [];
+        for (const p of mapSlice.planets ?? []) {
+          const planetId = planetIdByInternalId.get(p._internalId);
+          if (!planetId) continue;
+          for (const sy of p.shipyards ?? []) shipyardRows.push({ planet_id: planetId, ship_name: sy.name });
+          for (const of_ of p.outfitters ?? []) outfitterRows.push({ planet_id: planetId, outfit_name: of_.name });
+        }
+        if (planetIds.length) {
+          await supabase.from('planet_shipyards').delete().in('planet_id', planetIds);
+          await supabase.from('planet_outfitters').delete().in('planet_id', planetIds);
+        }
+        if (shipyardRows.length) await supabase.from('planet_shipyards').insert(shipyardRows);
+        if (outfitterRows.length) await supabase.from('planet_outfitters').insert(outfitterRows);
+      }
+
+      // ── systems + fleets/hazards/asteroids/minables/links/planets/trade (batched) ──
+      const systemRows = (mapSlice.systems ?? []).map(sy => ({
+        plugin_id:          sy._pluginId ?? plugin.pluginId,
+        internal_id:        sy._internalId,
+        name:               sy.name,
+        display_name:       sy.displayName,
+        government:         sy.government,
+        pos_x:              sy.pos?.x ?? null,
+        pos_y:              sy.pos?.y ?? null,
+        habitable:          sy.habitable ?? null,
+        jump_range:         sy.jumpRange ?? null,
+        haze:               sy.haze ?? null,
+        music:              sy.music ?? null,
+        starfield_density:  sy.starfieldDensity ?? null,
+        ramscoop:           sy.ramscoop ?? null,
+        invisible_fence:    sy.invisibleFence ?? null,
+        no_raids:           sy.noRaids ?? null,
+        attributes:         { attributes: sy.attributes, belts: sy.belts, arrival: sy.arrival, departure: sy.departure },
+        flags:              sy.flags ?? null,
+        raids:              sy.raids ?? null,
+        object_tree:        sy.objectTree ?? null,
+      }));
+      if (systemRows.length) {
+        const { data } = await supabase.from('systems')
+          .upsert(systemRows, { onConflict: 'internal_id' }).select('id, internal_id');
+        const systemIdByInternalId = new Map((data ?? []).map(r => [r.internal_id, r.id]));
+        const systemIds = [...systemIdByInternalId.values()];
+
+        const fleetRows = [], hazardRows = [], asteroidRows = [], minableRows = [], linkRows = [], sysPlanetRows = [], tradeRows = [];
+        for (const sy of mapSlice.systems ?? []) {
+          const systemId = systemIdByInternalId.get(sy._internalId);
+          if (!systemId) continue;
+          for (const f of sy.fleets ?? []) fleetRows.push({ system_id: systemId, fleet_name: f.name, period: f.period ?? null, to_spawn: f.toSpawn ?? null });
+          for (const h of sy.hazards ?? []) hazardRows.push({ system_id: systemId, hazard_name: h.name, period: h.period ?? null, to_spawn: h.toSpawn ?? null });
+          for (const a of sy.asteroids ?? []) asteroidRows.push({ system_id: systemId, asteroid_name: a.name, asteroid_count: a.count ?? null, energy: a.energy ?? null });
+          for (const m of sy.minables ?? []) minableRows.push({ system_id: systemId, minable_name: m.name, asteroid_count: m.count ?? null, energy: m.energy ?? null });
+          for (const l of sy.links ?? []) linkRows.push({ system_id: systemId, linked_system_name: l.name ?? l, explicit: l.explicit ?? null });
+          for (const p of sy.planets ?? []) sysPlanetRows.push({ system_id: systemId, planet_name: p.name });
+          for (const t of sy.trade ?? []) tradeRows.push({ system_id: systemId, commodity_name: t.name, cost: t.cost ?? null });
+        }
+
+        if (systemIds.length) {
           await Promise.all([
-            supabase.from('system_fleets').delete().eq('system_id', systemId),
-            supabase.from('system_hazards').delete().eq('system_id', systemId),
-            supabase.from('system_asteroids').delete().eq('system_id', systemId),
-            supabase.from('system_minables').delete().eq('system_id', systemId),
-            supabase.from('system_links').delete().eq('system_id', systemId),
-            supabase.from('system_planets').delete().eq('system_id', systemId),
-            supabase.from('system_trade').delete().eq('system_id', systemId),
+            supabase.from('system_fleets').delete().in('system_id', systemIds),
+            supabase.from('system_hazards').delete().in('system_id', systemIds),
+            supabase.from('system_asteroids').delete().in('system_id', systemIds),
+            supabase.from('system_minables').delete().in('system_id', systemIds),
+            supabase.from('system_links').delete().in('system_id', systemIds),
+            supabase.from('system_planets').delete().in('system_id', systemIds),
+            supabase.from('system_trade').delete().in('system_id', systemIds),
           ]);
-          if (sy.fleets?.length) await supabase.from('system_fleets').insert(
-            sy.fleets.map(f => ({ system_id: systemId, fleet_name: f.name, period: f.period ?? null, to_spawn: f.toSpawn ?? null })));
-          if (sy.hazards?.length) await supabase.from('system_hazards').insert(
-            sy.hazards.map(h => ({ system_id: systemId, hazard_name: h.name, period: h.period ?? null, to_spawn: h.toSpawn ?? null })));
-          if (sy.asteroids?.length) await supabase.from('system_asteroids').insert(
-            sy.asteroids.map(a => ({ system_id: systemId, asteroid_name: a.name, asteroid_count: a.count ?? null, energy: a.energy ?? null })));
-          if (sy.minables?.length) await supabase.from('system_minables').insert(
-            sy.minables.map(m => ({ system_id: systemId, minable_name: m.name, asteroid_count: m.count ?? null, energy: m.energy ?? null })));
-          if (sy.links?.length) await supabase.from('system_links').insert(
-            sy.links.map(l => ({ system_id: systemId, linked_system_name: l.name ?? l, explicit: l.explicit ?? null })));
-          if (sy.planets?.length) await supabase.from('system_planets').insert(
-            sy.planets.map(p => ({ system_id: systemId, planet_name: p.name })));
-          if (sy.trade?.length) await supabase.from('system_trade').insert(
-            sy.trade.map(t => ({ system_id: systemId, commodity_name: t.name, cost: t.cost ?? null })));
         }
+        await Promise.all([
+          fleetRows.length     && supabase.from('system_fleets').insert(fleetRows),
+          hazardRows.length    && supabase.from('system_hazards').insert(hazardRows),
+          asteroidRows.length  && supabase.from('system_asteroids').insert(asteroidRows),
+          minableRows.length   && supabase.from('system_minables').insert(minableRows),
+          linkRows.length      && supabase.from('system_links').insert(linkRows),
+          sysPlanetRows.length && supabase.from('system_planets').insert(sysPlanetRows),
+          tradeRows.length     && supabase.from('system_trade').insert(tradeRows),
+        ]);
       }
 
       // ── missions ──
