@@ -3039,19 +3039,19 @@ async function main() {
 
       for (const e of effectsOut) allEffectRows.push({
         plugin_id: e.pluginId ?? plugin.pluginId, name: e.name, sprite: e.sprite, sound: e.sound,
-        lifetime: e.lifetime ?? null, random_angle: e['random angle'] ?? null,
-        random_frame_rate: e['random frame rate'] ?? null, random_spin: e['random spin'] ?? null,
-        random_velocity: e['random velocity'] ?? null, velocity_scale: e['velocity scale'] ?? null,
+        lifetime: toNumeric(e.lifetime), random_angle: toNumeric(e['random angle']),
+        random_frame_rate: toNumeric(e['random frame rate']), random_spin: toNumeric(e['random spin']),
+        random_velocity: toNumeric(e['random velocity']), velocity_scale: toNumeric(e['velocity scale']),
         sprite_data: e['sprite data'] ?? null,
       });
 
       for (const s of mapSlice.stars ?? []) allStarRows.push({
         plugin_id: s.pluginId ?? plugin.pluginId, internal_id: s.internalId, sprite: s.sprite,
-        icon: s.icon, power: s.power ?? null, wind: s.wind ?? null, habitable: s.habitable ?? null, mass: s.mass ?? null,
+        icon: s.icon, power: toNumeric(s.power), wind: toNumeric(s.wind), habitable: toNumeric(s.habitable), mass: toNumeric(s.mass),
       });
       for (const g of mapSlice.galaxies ?? []) allGalaxyRows.push({
         plugin_id: g._pluginId ?? plugin.pluginId, internal_id: g._internalId, name: g.name,
-        sprite: g.sprite, pos_x: g.pos?.x ?? null, pos_y: g.pos?.y ?? null,
+        sprite: g.sprite, pos_x: toNumeric(g.pos?.x), pos_y: toNumeric(g.pos?.y),
       });
       for (const gv of mapSlice.governments ?? []) allGovernmentRows.push({
         plugin_id: gv.pluginId ?? plugin.pluginId, name: gv.name,
@@ -3066,12 +3066,12 @@ async function main() {
       for (const p of mapSlice.planets ?? []) allPlanetRows.push({
         plugin_id: p._pluginId ?? plugin.pluginId, internal_id: p._internalId, name: p.name,
         display_name: p.displayName, system_name: p.systemName, government: p.government,
-        government_inherited: p.governmentInherited ?? null, security: p.security ?? null,
-        bribe: p.bribe ?? null, bribe_threshold: p.bribeThreshold ?? null, bribe_fraction: p.bribeFraction ?? null,
-        required_reputation: p.requiredReputation ?? null, wormhole: p.wormhole ?? null,
+        government_inherited: p.governmentInherited ?? null, security: toNumeric(p.security),
+        bribe: toNumeric(p.bribe), bribe_threshold: toNumeric(p.bribeThreshold), bribe_fraction: toNumeric(p.bribeFraction),
+        required_reputation: toNumeric(p.requiredReputation), wormhole: p.wormhole ?? null,
         attributes: p.attributes ?? null, requires: p.requires ?? null, description: p.description ?? null,
         spaceport: p.spaceport ?? null, port: p.port ?? null, landscapes: p.landscapes ?? null,
-        tribute: typeof p.tribute === 'number' ? p.tribute : null, tribute_hails: p.tributeHails ?? null,
+        tribute: toNumeric(p.tribute), tribute_hails: p.tributeHails ?? null,
         music: p.music ?? null, to_know: p.toKnow ?? null, to_land: p.toLand ?? null,
         to_access_outfitter: p.toAccessOutfitter ?? null, to_access_shipyard: p.toAccessShipyard ?? null,
       });
@@ -3079,10 +3079,10 @@ async function main() {
 
       for (const sy of mapSlice.systems ?? []) allSystemRows.push({
         plugin_id: sy._pluginId ?? plugin.pluginId, internal_id: sy._internalId, name: sy.name,
-        display_name: sy.displayName, government: sy.government, pos_x: sy.pos?.x ?? null, pos_y: sy.pos?.y ?? null,
-        habitable: sy.habitable ?? null, jump_range: sy.jumpRange ?? null, haze: sy.haze ?? null, music: sy.music ?? null,
-        starfield_density: sy.starfieldDensity ?? null, ramscoop: sy.ramscoop ?? null,
-        invisible_fence: sy.invisibleFence ?? null, no_raids: sy.noRaids ?? null,
+        display_name: sy.displayName, government: sy.government, pos_x: toNumeric(sy.pos?.x), pos_y: toNumeric(sy.pos?.y),
+        habitable: toNumeric(sy.habitable), jump_range: toNumeric(sy.jumpRange), haze: sy.haze ?? null, music: sy.music ?? null,
+        starfield_density: toNumeric(sy.starfieldDensity), ramscoop: toNumeric(sy.ramscoop),
+        invisible_fence: toNumeric(sy.invisibleFence), no_raids: sy.noRaids ?? null,
         attributes: { attributes: sy.attributes, belts: sy.belts, arrival: sy.arrival, departure: sy.departure },
         flags: sy.flags ?? null, raids: sy.raids ?? null, object_tree: sy.objectTree ?? null,
       });
@@ -3094,7 +3094,7 @@ async function main() {
         destination: m.destination ?? null, stopovers: m.stopovers ?? null, waypoints: m.waypoints ?? null,
         cargo: m.cargo ?? null, passengers: m.passengers ?? null, payment: m.payment ?? null,
         rewards: m.rewards ?? null, deadline: m.deadline ?? null, illegal: m.illegal ?? null,
-        repeatable: m.repeatable ?? null, repeat_limit: m.repeatLimit ?? null, npc_count: m.npcCount ?? null,
+        repeatable: m.repeatable ?? null, repeat_limit: toNumeric(m.repeatLimit), npc_count: toNumeric(m.npcCount),
         has_npc_objective: m.hasNpcObjective ?? null, flags: m.flags ?? null, conditions: m.conditions ?? null,
         condition_side_effects: m.conditionSideEffects ?? null, event_triggers: m.eventTriggers ?? null,
         locations: m.locations ?? null, raw: m.raw ?? null,
@@ -3221,13 +3221,13 @@ async function main() {
       for (const sy of systems) {
         const systemId = systemIdByInternalId.get(sy._internalId);
         if (!systemId) continue;
-        for (const f of sy.fleets ?? []) fleetRows.push({ system_id: systemId, fleet_name: f.name, period: f.period ?? null, to_spawn: f.toSpawn ?? null });
-        for (const h of sy.hazards ?? []) hazardRows.push({ system_id: systemId, hazard_name: h.name, period: h.period ?? null, to_spawn: h.toSpawn ?? null });
-        for (const a of sy.asteroids ?? []) asteroidRows.push({ system_id: systemId, asteroid_name: a.name, asteroid_count: a.count ?? null, energy: a.energy ?? null });
-        for (const m of sy.minables ?? []) minableRows.push({ system_id: systemId, minable_name: m.name, asteroid_count: m.count ?? null, energy: m.energy ?? null });
+        for (const f of sy.fleets ?? []) fleetRows.push({ system_id: systemId, fleet_name: f.name, period: toNumeric(f.period), to_spawn: f.toSpawn ?? null });
+        for (const h of sy.hazards ?? []) hazardRows.push({ system_id: systemId, hazard_name: h.name, period: toNumeric(h.period), to_spawn: h.toSpawn ?? null });
+        for (const a of sy.asteroids ?? []) asteroidRows.push({ system_id: systemId, asteroid_name: a.name, asteroid_count: toNumeric(a.count), energy: toNumeric(a.energy) });
+        for (const m of sy.minables ?? []) minableRows.push({ system_id: systemId, minable_name: m.name, asteroid_count: toNumeric(m.count), energy: toNumeric(m.energy) });
         for (const l of sy.links ?? []) sysLinkRows.push({ system_id: systemId, linked_system_name: l.name ?? l, explicit: l.explicit ?? null });
         for (const p of sy.planets ?? []) sysPlanetRows.push({ system_id: systemId, planet_name: p.name });
-        for (const t of sy.trade ?? []) tradeRows.push({ system_id: systemId, commodity_name: t.name, cost: t.cost ?? null });
+        for (const t of sy.trade ?? []) tradeRows.push({ system_id: systemId, commodity_name: t.name, cost: toNumeric(t.cost) });
       }
     }
     const allSystemIds = [...systemIdByInternalId.values()];
