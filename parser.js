@@ -2931,6 +2931,16 @@ async function main() {
       for (const row of rows) map.set(row[key], row);
       return [...map.values()];
     }
+    // cost/mass are sometimes an array (e.g. [1073000, 584150]) rather than a
+    // plain number — this happens when the same item is genuinely redefined
+    // with a different value across plugins/files and the merge step keeps
+    // both instead of picking one. Postgres's numeric column can't store an
+    // array, so take the first value for the filterable column; the full
+    // original value (array and all) still lives untouched in `attributes`.
+    function toNumeric(val) {
+      if (Array.isArray(val)) return typeof val[0] === 'number' ? val[0] : null;
+      return typeof val === 'number' ? val : null;
+    }
     async function upsertChunked(table, rows, { onConflict, select } = {}) {
       const results = [];
       for (const part of chunk(rows, CHUNK_SIZE)) {
@@ -2997,17 +3007,16 @@ async function main() {
 
       for (const o of outfitsOut) allOutfitRows.push({
         plugin_id: o.pluginId ?? plugin.pluginId, internal_id: o.internalId, name: o.name,
-        category: o.category ?? null, cost: o.cost ?? null, mass: o.mass ?? null,
+        category: o.category ?? null, cost: toNumeric(o.cost), mass: toNumeric(o.mass),
         thumbnail: o.thumbnail, description: o.description,
         attributes: { ...o, name: undefined, description: undefined, thumbnail: undefined,
-                      category: undefined, cost: undefined, mass: undefined,
                       pluginId: undefined, internalId: undefined,
                       governments: undefined, governmentEvents: undefined },
       });
 
       for (const s of shipsOut) allShipRows.push({
         plugin_id: s._pluginId ?? plugin.pluginId, internal_id: s._internalId, name: s.name,
-        category: s.attributes?.category ?? null, cost: s.attributes?.cost ?? null, mass: s.attributes?.mass ?? null,
+        category: s.attributes?.category ?? null, cost: toNumeric(s.attributes?.cost), mass: toNumeric(s.attributes?.mass),
         sprite: s.sprite, thumbnail: s.thumbnail, description: s.description, attributes: s.attributes,
         hardpoints: { guns: s.guns, turrets: s.turrets, bays: s.bays, engines: s.engines,
                       leaks: s.leaks, reverseEngines: s.reverseEngines, steeringEngines: s.steeringEngines },
@@ -3019,7 +3028,7 @@ async function main() {
       for (const v of variantsOut) allVariantRows.push({
         plugin_id: v._pluginId ?? plugin.pluginId, variant_plugin_id: v._variantPluginId ?? null,
         internal_id: v._internalId, name: v.name, base_ship_name: v.baseShip,
-        category: v.attributes?.category ?? null, cost: v.attributes?.cost ?? null, mass: v.attributes?.mass ?? null,
+        category: v.attributes?.category ?? null, cost: toNumeric(v.attributes?.cost), mass: toNumeric(v.attributes?.mass),
         sprite: v.sprite, thumbnail: v.thumbnail, description: v.description, attributes: v.attributes,
         hardpoints: { guns: v.guns, turrets: v.turrets, bays: v.bays, engines: v.engines,
                       leaks: v.leaks, reverseEngines: v.reverseEngines, steeringEngines: v.steeringEngines },
