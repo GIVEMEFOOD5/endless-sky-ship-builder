@@ -2919,6 +2919,18 @@ async function main() {
       for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
       return out;
     }
+    // If the same internal_id ends up in an array twice — most likely because
+    // a plugin got processed more than once (e.g. listed directly AND pulled
+    // in as another plugin's dependency) — a single upsert touching that key
+    // twice makes Postgres error with "ON CONFLICT DO UPDATE command cannot
+    // affect row a second time". Everything here IS uniquely keyed by design;
+    // this just guards against the same key appearing twice in one batch.
+    // Keeps the last occurrence, so a later/more-complete copy wins.
+    function dedupeByKey(rows, key) {
+      const map = new Map();
+      for (const row of rows) map.set(row[key], row);
+      return [...map.values()];
+    }
     async function upsertChunked(table, rows, { onConflict, select } = {}) {
       const results = [];
       for (const part of chunk(rows, CHUNK_SIZE)) {
@@ -3093,18 +3105,34 @@ async function main() {
     // across the whole dataset — this is the actual "one go at the end".
     // ══════════════════════════════════════════════════════════════════
     console.log(`\nPhase 2: bulk-pushing to Supabase...`);
+    const dedupedOutfitRows   = dedupeByKey(allOutfitRows, 'internal_id');
+    const dedupedShipRows     = dedupeByKey(allShipRows, 'internal_id');
+    const dedupedVariantRows  = dedupeByKey(allVariantRows, 'internal_id');
+    const dedupedStarRows     = dedupeByKey(allStarRows, 'internal_id');
+    const dedupedGalaxyRows   = dedupeByKey(allGalaxyRows, 'internal_id');
+    const dedupedWormholeRows = dedupeByKey(allWormholeRows, 'internal_id');
+    const dedupedPlanetRows   = dedupeByKey(allPlanetRows, 'internal_id');
+    const dedupedSystemRows   = dedupeByKey(allSystemRows, 'internal_id');
+    const dedupedMissionRows  = dedupeByKey(allMissionRows, 'internal_id');
+    const droppedDuplicates = allOutfitRows.length - dedupedOutfitRows.length
+      + allShipRows.length - dedupedShipRows.length
+      + allVariantRows.length - dedupedVariantRows.length
+      + allSystemRows.length - dedupedSystemRows.length
+      + allPlanetRows.length - dedupedPlanetRows.length;
+    if (droppedDuplicates > 0) console.log(`  ⚠ dropped ${droppedDuplicates} duplicate internal_id row(s) before pushing`);
+
     await upsertChunked('plugins', allPluginRows);
-    const outfitIdRows = await upsertChunked('outfits', allOutfitRows, { onConflict: 'internal_id', select: 'id, internal_id' });
-    const shipIdRows   = await upsertChunked('ships',   allShipRows,   { onConflict: 'internal_id', select: 'id, internal_id' });
-    const variantIdRows = await upsertChunked('variants', allVariantRows, { onConflict: 'internal_id', select: 'id, internal_id' });
+    const outfitIdRows  = await upsertChunked('outfits', dedupedOutfitRows, { onConflict: 'internal_id', select: 'id, internal_id' });
+    const shipIdRows    = await upsertChunked('ships', dedupedShipRows, { onConflict: 'internal_id', select: 'id, internal_id' });
+    const variantIdRows = await upsertChunked('variants', dedupedVariantRows, { onConflict: 'internal_id', select: 'id, internal_id' });
     await upsertChunked('effects', allEffectRows);
-    await upsertChunked('stars', allStarRows, { onConflict: 'internal_id' });
-    await upsertChunked('galaxies', allGalaxyRows, { onConflict: 'internal_id' });
+    await upsertChunked('stars', dedupedStarRows, { onConflict: 'internal_id' });
+    await upsertChunked('galaxies', dedupedGalaxyRows, { onConflict: 'internal_id' });
     await upsertChunked('governments', allGovernmentRows);
-    const wormholeIdRows = await upsertChunked('wormholes', allWormholeRows, { onConflict: 'internal_id', select: 'id, internal_id' });
-    const planetIdRows   = await upsertChunked('planets',   allPlanetRows,   { onConflict: 'internal_id', select: 'id, internal_id' });
-    const systemIdRows   = await upsertChunked('systems',   allSystemRows,   { onConflict: 'internal_id', select: 'id, internal_id' });
-    await upsertChunked('missions', allMissionRows, { onConflict: 'internal_id' });
+    const wormholeIdRows = await upsertChunked('wormholes', dedupedWormholeRows, { onConflict: 'internal_id', select: 'id, internal_id' });
+    const planetIdRows   = await upsertChunked('planets', dedupedPlanetRows, { onConflict: 'internal_id', select: 'id, internal_id' });
+    const systemIdRows   = await upsertChunked('systems', dedupedSystemRows, { onConflict: 'internal_id', select: 'id, internal_id' });
+    await upsertChunked('missions', dedupedMissionRows, { onConflict: 'internal_id' });
 
     for (const row of outfitIdRows)  outfitIdByInternalId.set(row.internal_id, row.id);
     for (const row of shipIdRows)    shipIdByInternalId.set(row.internal_id, row.id);
