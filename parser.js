@@ -2931,6 +2931,13 @@ async function main() {
       for (const row of rows) map.set(row[key], row);
       return [...map.values()];
     }
+    // Same idea as dedupeByKey, but for junction tables whose uniqueness is
+    // two columns together (e.g. ship_id + outfit_id) rather than one.
+    function dedupeByComposite(rows, keys) {
+      const map = new Map();
+      for (const row of rows) map.set(keys.map(k => row[k]).join('|'), row);
+      return [...map.values()];
+    }
     // cost/mass are sometimes an array (e.g. [1073000, 584150]) rather than a
     // plain number — this happens when the same item is genuinely redefined
     // with a different value across plugins/files and the merge step keeps
@@ -3181,8 +3188,8 @@ async function main() {
         }
       }
     }
-    await upsertChunked('ship_outfits', shipOutfitRows, { onConflict: 'ship_id,outfit_id' });
-    await upsertChunked('variant_outfits', variantOutfitRows, { onConflict: 'variant_id,outfit_id' });
+    await upsertChunked('ship_outfits', dedupeByComposite(shipOutfitRows, ['ship_id', 'outfit_id']), { onConflict: 'ship_id,outfit_id' });
+    await upsertChunked('variant_outfits', dedupeByComposite(variantOutfitRows, ['variant_id', 'outfit_id']), { onConflict: 'variant_id,outfit_id' });
 
     const variantBaseUpdates = [];
     for (const { plugin } of allResults) {
@@ -3193,7 +3200,7 @@ async function main() {
         if (variantId && baseId) variantBaseUpdates.push({ id: variantId, base_ship_id: baseId });
       }
     }
-    await upsertChunked('variants', variantBaseUpdates, { onConflict: 'id' });
+    await upsertChunked('variants', dedupeByKey(variantBaseUpdates, 'id'), { onConflict: 'id' });
 
     const linkRows = [];
     for (const wormholes of rawWormholesByPlugin) {
