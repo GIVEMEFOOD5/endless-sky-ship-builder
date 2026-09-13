@@ -3200,7 +3200,12 @@ async function main() {
         if (variantId && baseId) variantBaseUpdates.push({ id: variantId, base_ship_id: baseId });
       }
     }
-    await upsertChunked('variants', dedupeByKey(variantBaseUpdates, 'id'), { onConflict: 'id' });
+    const dedupedBaseUpdates = dedupeByKey(variantBaseUpdates, 'id');
+    for (const part of chunk(dedupedBaseUpdates, CHUNK_SIZE)) {
+      if (!part.length) continue;
+      const { error } = await supabase.rpc('bulk_update_variant_base_ship', { updates: part });
+      if (error) throw new Error(`Supabase RPC failed for bulk_update_variant_base_ship: ${error.message}`);
+    }
 
     const linkRows = [];
     for (const wormholes of rawWormholesByPlugin) {
