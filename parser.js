@@ -2948,9 +2948,9 @@ async function main() {
       if (Array.isArray(val)) return typeof val[0] === 'number' ? val[0] : null;
       return typeof val === 'number' ? val : null;
     }
-    async function upsertChunked(table, rows, { onConflict, select } = {}) {
+    async function upsertChunked(table, rows, { onConflict, select, size = CHUNK_SIZE } = {}) {
       const results = [];
-      for (const part of chunk(rows, CHUNK_SIZE)) {
+      for (const part of chunk(rows, size)) {
         if (!part.length) continue;
         let query = supabase.from(table).upsert(part, onConflict ? { onConflict } : undefined);
         if (select) query = query.select(select);
@@ -3151,7 +3151,7 @@ async function main() {
     const wormholeIdRows = await upsertChunked('wormholes', dedupedWormholeRows, { onConflict: 'internal_id', select: 'id, internal_id' });
     const planetIdRows   = await upsertChunked('planets', dedupedPlanetRows, { onConflict: 'internal_id', select: 'id, internal_id' });
     const systemIdRows   = await upsertChunked('systems', dedupedSystemRows, { onConflict: 'internal_id', select: 'id, internal_id' });
-    await upsertChunked('missions', dedupedMissionRows, { onConflict: 'internal_id' });
+    await upsertChunked('missions', dedupedMissionRows, { onConflict: 'internal_id', size: 50 });
 
     for (const row of outfitIdRows)  outfitIdByInternalId.set(row.internal_id, row.id);
     for (const row of shipIdRows)    shipIdByInternalId.set(row.internal_id, row.id);
