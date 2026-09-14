@@ -405,6 +405,16 @@ function _loadActivePlugins() {
 }
 
 // ── Remote data loader ───────────────────────────────────────
+//
+// Was: one fetch() per plugin per file (ships.json, outfits.json, ...) —
+// hundreds of requests, downloading every plugin whether it was used or
+// not. Now: one bulk query per TABLE, across every plugin at once, then
+// grouped client-side into the exact same window.allData[outputName]
+// shape everything downstream (shipBuilder.js, computedStats.js, etc.)
+// already expects. Ships/outfits/variants are still small enough in
+// total to load eagerly like this; if that ever changes, this is the
+// place to switch to per-plugin filtered queries instead (see
+// mapDataLoader.js for that pattern, which already loads on demand).
 async function _doLoad() {
     _loading = true;
     _fireEvent('dataLoadStart');
@@ -413,7 +423,8 @@ async function _doLoad() {
     _refreshLocalPlugin();
 
     try {
-        // 1 — Attribute definitions
+        // 1 — Attribute definitions. Not migrated to a table (it's a small,
+        // static lookup file), so this one still comes from the repo.
         try {
             const res = await fetch(`${BASE_URL}/attributeDefinitions.json`);
             if (res.ok) window.attrDefs = await res.json();
@@ -421,45 +432,117 @@ async function _doLoad() {
             console.warn('[DataLoader] Could not load attributeDefinitions.json');
         }
 
-        // 2 — Index
-        const indexRes = await fetch(`${BASE_URL}/index.json`);
-        if (!indexRes.ok) throw new Error('Could not load data/index.json');
-        const dataIndex = await indexRes.json();
+        const { fetchAllRows } = window.SupabaseHelpers;
 
-        // 3 — Load each plugin
-        for (const [sourceName, pluginList] of Object.entries(dataIndex)) {
-            for (const { outputName, displayName } of pluginList) {
-                const plugin = {
-                    sourceName,
-                    displayName: displayName || outputName,
-                    outputName,
-                    ships: [], variants: [], outfits: [], effects: [],
+        // 2 — Bulk-fetch every table Supabase holds for ships/outfits/effects
+        const [pluginRows, shipRows, variantRows, outfitRows, effectRows, shipOutfitRows, variantOutfitRows] =
+            await Promise.all([
+                fetchAllRows('plugins'),
+                fetchAllRows('ships'),
+                fetchAllRows('variants'),
+                fetchAllRows('outfits'),
+                fetchAllRows('effects'),
+                fetchAllRows('ship_outfits'),
+                fetchAllRows('variant_outfits'),
+            ]);
+
+        const pluginByPluginId = new Map(pluginRows.map(p => [p.plugin_id, p]));
+        const outfitById       = new Map(outfitRows.map(o => [o.id, o]));
+
+        // ship_outfits/variant_outfits are junction rows (ship_id, outfit_id,
+        // count) — this rebuilds them into the { "Outfit Name": {count,
+        // pluginId, internalId} } map shape a ship object used to carry
+        // directly, so reconstructShip() below can attach it exactly as
+        // shipBuilder.js and computedStats.js already expect.
+        function buildOutfitMaps(junctionRows, ownerKey) {
+            const byOwner = new Map();
+            for (const row of junctionRows) {
+                const outfit = outfitById.get(row.outfit_id);
+                if (!outfit) continue;
+                if (!byOwner.has(row[ownerKey])) byOwner.set(row[ownerKey], {});
+                byOwner.get(row[ownerKey])[outfit.name] = {
+                    count: row.count,
+                    pluginId: outfit.plugin_id,
+                    internalId: outfit.internal_id,
                 };
-                let loaded = false;
-                try {
-                    const base = `${BASE_URL}/${outputName}/dataFiles`;
-                    const [shipsRes, variantsRes, outfitsRes, effectsRes] = await Promise.all([
-                        fetch(`${base}/ships.json`),
-                        fetch(`${base}/variants.json`),
-                        fetch(`${base}/outfits.json`),
-                        fetch(`${base}/effects.json`),
-                    ]);
-                    if (shipsRes.ok)    { plugin.ships    = await shipsRes.json();    loaded = true; }
-                    if (variantsRes.ok) { plugin.variants = await variantsRes.json(); loaded = true; }
-                    if (outfitsRes.ok)  { plugin.outfits  = await outfitsRes.json();  loaded = true; }
-                    if (effectsRes.ok)  { plugin.effects  = await effectsRes.json();  loaded = true; }
-                    if (loaded) window.allData[outputName] = plugin;
-                    else console.warn(`[DataLoader] ${outputName}: no data files, skipping`);
-                } catch (err) {
-                    console.warn(`[DataLoader] Failed loading "${outputName}":`, err);
-                }
             }
+            return byOwner;
         }
+        const shipOutfitsByShipId       = buildOutfitMaps(shipOutfitRows, 'ship_id');
+        const variantOutfitsByVariantId = buildOutfitMaps(variantOutfitRows, 'variant_id');
+
+        function reconstructShip(row, outfitsByOwnerId) {
+            const h  = row.hardpoints || {};
+            const ex = row.explosions || {};
+            return {
+                name: row.name,
+                sprite: row.sprite,
+                thumbnail: row.thumbnail,
+                description: row.description,
+                attributes: row.attributes || {},
+                guns: h.guns || [], turrets: h.turrets || [], bays: h.bays || [],
+                engines: h.engines || [], leaks: h.leaks || [],
+                reverseEngines: h.reverseEngines || [], steeringEngines: h.steeringEngines || [],
+                'tiny explosion': ex.tiny, 'small explosion': ex.small,
+                'medium explosion': ex.medium, 'large explosion': ex.large,
+                'huge explosion': ex.huge, 'final explode': ex.final,
+                locations: row.locations || {},
+                outfits: outfitsByOwnerId.get(row.id) || {},
+                _pluginId: row.plugin_id,
+                _internalId: row.internal_id,
+            };
+        }
+        function reconstructVariant(row) {
+            const v = reconstructShip(row, variantOutfitsByVariantId);
+            v.baseShip = row.base_ship_name;
+            v._variantPluginId = row.variant_plugin_id;
+            return v;
+        }
+        function reconstructOutfit(row) {
+            // Note: outfits use non-underscore "pluginId"/"internalId" — this
+            // matches the original JSON output's (slightly inconsistent)
+            // naming, kept as-is so nothing downstream that reads o.pluginId
+            // (vs. a ship's s._pluginId) silently breaks.
+            return {
+                ...(row.attributes || {}),
+                name: row.name, category: row.category, cost: row.cost, mass: row.mass,
+                thumbnail: row.thumbnail, description: row.description,
+                pluginId: row.plugin_id, internalId: row.internal_id,
+            };
+        }
+        function reconstructEffect(row) {
+            return {
+                name: row.name, sprite: row.sprite, sound: row.sound,
+                lifetime: row.lifetime,
+                'random angle': row.random_angle, 'random frame rate': row.random_frame_rate,
+                'random spin': row.random_spin, 'random velocity': row.random_velocity,
+                'velocity scale': row.velocity_scale, 'sprite data': row.sprite_data,
+                pluginId: row.plugin_id,
+            };
+        }
+
+        // 3 — Group everything by plugin, matching the old per-plugin-folder shape
+        for (const p of pluginRows) {
+            window.allData[p.output_name] = {
+                sourceName: p.source_name,
+                displayName: p.display_name || p.output_name,
+                outputName: p.output_name,
+                ships: [], variants: [], outfits: [], effects: [],
+            };
+        }
+        function pluginBucketFor(row) {
+            const plugin = pluginByPluginId.get(row.plugin_id);
+            return plugin ? window.allData[plugin.output_name] : null;
+        }
+        for (const row of shipRows)    { const b = pluginBucketFor(row); if (b) b.ships.push(reconstructShip(row, shipOutfitsByShipId)); }
+        for (const row of variantRows) { const b = pluginBucketFor(row); if (b) b.variants.push(reconstructVariant(row)); }
+        for (const row of outfitRows)  { const b = pluginBucketFor(row); if (b) b.outfits.push(reconstructOutfit(row)); }
+        for (const row of effectRows)  { const b = pluginBucketFor(row); if (b) b.effects.push(reconstructEffect(row)); }
 
         const hasData = Object.values(window.allData).some(p =>
             (p.ships?.length > 0) || (p.variants?.length > 0) || (p.outfits?.length > 0)
         );
-        if (!hasData) throw new Error('No data could be loaded from any plugin');
+        if (!hasData) throw new Error('No data could be loaded from Supabase');
 
         _ready   = true;
         _loading = false;
