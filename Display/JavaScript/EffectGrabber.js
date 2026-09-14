@@ -23,8 +23,6 @@
  *     → Promise<HTMLCanvasElement | HTMLImageElement | null>
  */
 
-const EFFECTS_BASE_URL = 'https://raw.githubusercontent.com/GIVEMEFOOD5/endless-sky-ship-builder/main/data/';
-
 // Per-plugin effect maps: outputName → { map: { name → effect }, ready: bool }
 const _pluginEffects  = {};
 const _pluginLoading  = {}; // outputName → Promise while loading
@@ -41,19 +39,39 @@ async function _loadPluginEffects(outputName) {
 
     _pluginLoading[outputName] = (async () => {
         try {
-            const url = `${EFFECTS_BASE_URL}${outputName}/dataFiles/effects.json`;
-            const res = await fetch(url);
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            const { fetchAllRows } = window.SupabaseHelpers;
 
-            const effects = await res.json();
+            const { data: pluginRow, error: pluginErr } = await window.supabaseClient
+                .from('plugins').select('plugin_id').eq('output_name', outputName).single();
+            if (pluginErr || !pluginRow) throw new Error(`unknown plugin`);
+
+            const rows = await fetchAllRows('effects', { filters: q => q.eq('plugin_id', pluginRow.plugin_id) });
+
             const map = {};
-            effects.forEach(e => { if (e.name) map[e.name] = e; });
+            rows.forEach(row => {
+                if (!row.name) return;
+                map[row.name] = {
+                    name: row.name,
+                    sprite: row.sprite,
+                    sound: row.sound,
+                    lifetime: row.lifetime,
+                    'random angle': row.random_angle,
+                    'random frame rate': row.random_frame_rate,
+                    'random spin': row.random_spin,
+                    'random velocity': row.random_velocity,
+                    'velocity scale': row.velocity_scale,
+                    // Both spellings kept — this file reads .spriteData below,
+                    // other code may read the space-separated form instead.
+                    spriteData: row.sprite_data,
+                    'sprite data': row.sprite_data,
+                };
+            });
 
             _pluginEffects[outputName] = { map, ready: true };
-            console.log(`EffectGrabber: loaded ${effects.length} effects from "${outputName}"`);
+            console.log(`EffectGrabber: loaded ${rows.length} effects from "${outputName}"`);
         } catch (err) {
             // Plugin may not have effects — that's fine
-            console.log(`EffectGrabber: no effects.json for "${outputName}" (${err.message})`);
+            console.log(`EffectGrabber: no effects for "${outputName}" (${err.message})`);
             _pluginEffects[outputName] = { map: {}, ready: true };
         }
         delete _pluginLoading[outputName];

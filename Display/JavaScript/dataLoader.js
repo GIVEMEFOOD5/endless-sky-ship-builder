@@ -516,7 +516,8 @@ async function _doLoad() {
                 lifetime: row.lifetime,
                 'random angle': row.random_angle, 'random frame rate': row.random_frame_rate,
                 'random spin': row.random_spin, 'random velocity': row.random_velocity,
-                'velocity scale': row.velocity_scale, 'sprite data': row.sprite_data,
+                'velocity scale': row.velocity_scale,
+                spriteData: row.sprite_data, 'sprite data': row.sprite_data,
                 pluginId: row.plugin_id,
             };
         }
