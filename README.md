@@ -1,6 +1,11 @@
 # Endless Sky Data Parser
 
+Prefered Link:
+https://endless-sky-nexus.ravenslittlesis.workers.dev
+
+use:
 https://givemefood5.github.io/endless-sky-ship-builder/
+If neccassary
 
 Automatically parses ship and outfit data from Endless Sky GitHub repositories.
 
