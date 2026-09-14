@@ -493,41 +493,48 @@ if (!window.DataLoader) {
 }
 
 // ═════════════════════════════════════════════════════════════
-//  Remote data loader — one missions.json per plugin, discovered
-//  via the same data/index.json convention as dataLoader.js.
+//  Remote data loader — bulk Supabase queries instead of one
+//  missions.json fetch per plugin. Formatting (formatMission, etc.
+//  above) is untouched — it only ever receives a plain mission object.
 // ═════════════════════════════════════════════════════════════
 async function _doLoad() {
     _loading = true;
     _fireEvent('missionsLoadStart');
 
     try {
-        const indexRes = await fetch(`${BASE_URL}/index.json`);
-        if (!indexRes.ok) throw new Error('Could not load data/index.json');
-        const dataIndex = await indexRes.json();
+        const { fetchAllRows } = window.SupabaseHelpers;
+        const [pluginRows, missionRows] = await Promise.all([
+            fetchAllRows('plugins'),
+            fetchAllRows('missions'),
+        ]);
+        const pluginByPluginId = new Map(pluginRows.map(p => [p.plugin_id, p]));
 
-        for (const [sourceName, pluginList] of Object.entries(dataIndex)) {
-            for (const { outputName, displayPluginName } of pluginList) {
-                const plugin = {
-                    sourceName,
-                    displayName: displayPluginName || outputName,
-                    outputName,
-                    missions: [],
-                };
-                try {
-                    const res = await fetch(`${BASE_URL}/${outputName}/dataFiles/missions.json`);
-                    if (res.ok) {
-                        const json = await res.json();
-                        plugin.missions = Array.isArray(json) ? json : (json.missions || []);
-                        window.allMissionData[outputName] = plugin;
-                    }
-                } catch (err) {
-                    console.warn(`[MissionLoader] Failed loading missions for "${outputName}":`, err);
-                }
-            }
+        for (const p of pluginRows) {
+            window.allMissionData[p.output_name] = {
+                sourceName: p.source_name,
+                displayName: p.display_name || p.output_name,
+                outputName: p.output_name,
+                missions: [],
+            };
+        }
+        for (const m of missionRows) {
+            const plugin = pluginByPluginId.get(m.plugin_id);
+            const bucket = plugin && window.allMissionData[plugin.output_name];
+            if (!bucket) continue;
+            bucket.missions.push({
+                name: m.name, displayName: m.display_name, sourcePlugin: m.source_plugin,
+                source: m.source, destination: m.destination, stopovers: m.stopovers, waypoints: m.waypoints,
+                cargo: m.cargo, passengers: m.passengers, payment: m.payment, rewards: m.rewards,
+                deadline: m.deadline, illegal: m.illegal, repeatable: m.repeatable, repeatLimit: m.repeat_limit,
+                npcCount: m.npc_count, hasNpcObjective: m.has_npc_objective, flags: m.flags,
+                conditions: m.conditions, conditionSideEffects: m.condition_side_effects,
+                eventTriggers: m.event_triggers, locations: m.locations, raw: m.raw,
+                _pluginId: m.plugin_id, _internalId: m.internal_id,
+            });
         }
 
         const hasData = Object.values(window.allMissionData).some(p => (p.missions || []).length > 0);
-        if (!hasData) throw new Error('No mission data could be loaded from any plugin');
+        if (!hasData) throw new Error('No mission data could be loaded from Supabase');
 
         _ready   = true;
         _loading = false;
