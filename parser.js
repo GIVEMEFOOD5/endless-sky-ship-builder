@@ -2948,30 +2948,57 @@ async function main() {
       if (Array.isArray(val)) return typeof val[0] === 'number' ? val[0] : null;
       return typeof val === 'number' ? val : null;
     }
+    // Wraps any Supabase call so a transient network blip (dropped
+    // connection, DNS hiccup, connection-pool exhaustion under a burst of
+    // concurrent requests) gets retried automatically instead of failing
+    // the whole run. Only retries — it never swallows a real data/schema
+    // error, those still throw immediately.
+    async function withRetry(fn, { retries = 4, label = 'request' } = {}) {
+      let lastErr;
+      for (let attempt = 1; attempt <= retries; attempt++) {
+        try {
+          return await fn();
+        } catch (err) {
+          lastErr = err;
+          const isNetworkError = /fetch failed|ECONNRESET|ETIMEDOUT|network/i.test(err.message ?? '');
+          if (!isNetworkError || attempt === retries) throw err;
+          const delayMs = 1000 * attempt;
+          console.log(`  ↻ ${label}: transient network error, retrying in ${delayMs}ms (attempt ${attempt}/${retries})`);
+          await new Promise(r => setTimeout(r, delayMs));
+        }
+      }
+      throw lastErr;
+    }
     async function upsertChunked(table, rows, { onConflict, select, size = CHUNK_SIZE } = {}) {
       const results = [];
       for (const part of chunk(rows, size)) {
         if (!part.length) continue;
-        let query = supabase.from(table).upsert(part, onConflict ? { onConflict } : undefined);
-        if (select) query = query.select(select);
-        const { data, error } = await query;
-        if (error) throw new Error(`Supabase upsert failed for ${table}: ${error.message}`);
-        if (data) results.push(...data);
+        await withRetry(async () => {
+          let query = supabase.from(table).upsert(part, onConflict ? { onConflict } : undefined);
+          if (select) query = query.select(select);
+          const { data, error } = await query;
+          if (error) throw new Error(`Supabase upsert failed for ${table}: ${error.message}`);
+          if (data) results.push(...data);
+        }, { label: `upsert ${table}` });
       }
       return results;
     }
     async function insertChunked(table, rows) {
       for (const part of chunk(rows, CHUNK_SIZE)) {
         if (!part.length) continue;
-        const { error } = await supabase.from(table).insert(part);
-        if (error) throw new Error(`Supabase insert failed for ${table}: ${error.message}`);
+        await withRetry(async () => {
+          const { error } = await supabase.from(table).insert(part);
+          if (error) throw new Error(`Supabase insert failed for ${table}: ${error.message}`);
+        }, { label: `insert ${table}` });
       }
     }
     async function deleteInChunked(table, column, ids) {
       for (const part of chunk(ids, CHUNK_SIZE)) {
         if (!part.length) continue;
-        const { error } = await supabase.from(table).delete().in(column, part);
-        if (error) throw new Error(`Supabase delete failed for ${table}: ${error.message}`);
+        await withRetry(async () => {
+          const { error } = await supabase.from(table).delete().in(column, part);
+          if (error) throw new Error(`Supabase delete failed for ${table}: ${error.message}`);
+        }, { label: `delete ${table}` });
       }
     }
 
