@@ -89,11 +89,19 @@ function _fireEvent(name, detail) {
 }
 
 // ── Plugin discovery (same source of truth as dataLoader.js) ───
+// Was a fetch of data/index.json; now a query against the plugins table,
+// grouped back into the same {sourceName: [{outputName, displayPluginName}]}
+// shape _findPluginMeta below already expects.
 async function discoverPlugins() {
     if (_pluginIndex) return _pluginIndex;
-    const res = await fetch(`${BASE_URL}/index.json`);
-    if (!res.ok) throw new Error(`Could not load ${BASE_URL}/index.json`);
-    _pluginIndex = await res.json();
+    const { fetchAllRows } = window.SupabaseHelpers;
+    const pluginRows = await fetchAllRows('plugins');
+    const index = {};
+    for (const p of pluginRows) {
+        if (!index[p.source_name]) index[p.source_name] = [];
+        index[p.source_name].push({ outputName: p.output_name, displayPluginName: p.display_name || p.output_name });
+    }
+    _pluginIndex = index;
     return _pluginIndex;
 }
 
@@ -105,90 +113,121 @@ function _findPluginMeta(index, outputName) {
     return { sourceName: outputName, displayName: outputName };
 }
 
-// ── Fetch helpers ────────────────────────────────────────────
-async function _fetchJson(url) {
-    const res = await fetch(url);
-    if (!res.ok) return { ok: false, status: res.status };
-    try {
-        return { ok: true, data: await res.json() };
-    } catch (err) {
-        return { ok: false, status: 'parse-error', error: err };
-    }
-}
-
 /**
- * Loads one plugin's map data, preferring slim files and falling back
- * to the full parser output. Never throws for a single missing file —
- * missing pieces just come back as empty arrays so one bad plugin
- * doesn't block the others.
+ * Loads one plugin's map data via filtered Supabase queries instead of
+ * fetching JSON files. No "slim" variant needed anymore — a filtered
+ * query already only pulls this one plugin's rows, which is the same
+ * bandwidth win the slim files existed for, without needing a second
+ * parser output format to maintain.
  */
 async function _loadOnePlugin(outputName, meta) {
-    const base = `${BASE_URL}/${outputName}/dataFiles`;
+    const { fetchAllRows, groupBy } = window.SupabaseHelpers;
 
-    let systems = [];
-    let slim = false;
-    const slimSystems = await _fetchJson(`${base}/systemsMap.json`);
-    if (slimSystems.ok) {
-        systems = slimSystems.data;
-        slim = true;
-    } else {
-        const fullSystems = await _fetchJson(`${base}/systems.json`);
-        if (fullSystems.ok) systems = fullSystems.data;
-    }
+    const { data: pluginRow, error: pluginErr } = await window.supabaseClient
+        .from('plugins').select('plugin_id').eq('output_name', outputName).single();
+    if (pluginErr || !pluginRow) throw new Error(`Unknown plugin "${outputName}"`);
+    const pluginId = pluginRow.plugin_id;
+    const byPlugin = q => q.eq('plugin_id', pluginId);
 
-    let galaxies = [];
-    const slimGalaxies = await _fetchJson(`${base}/galaxiesMap.json`);
-    if (slimGalaxies.ok) {
-        galaxies = slimGalaxies.data;
-    } else {
-        const fullGalaxies = await _fetchJson(`${base}/galaxies.json`);
-        if (fullGalaxies.ok) galaxies = fullGalaxies.data;
-    }
+    const [systemRows, galaxyRows, wormholeRows, planetRows, missionRows, starRows, governmentRows] =
+        await Promise.all([
+            fetchAllRows('systems',     { filters: byPlugin }),
+            fetchAllRows('galaxies',    { filters: byPlugin }),
+            fetchAllRows('wormholes',   { filters: byPlugin }),
+            fetchAllRows('planets',     { filters: byPlugin }),
+            fetchAllRows('missions',    { filters: byPlugin }),
+            fetchAllRows('stars',       { filters: byPlugin }),
+            fetchAllRows('governments', { filters: byPlugin }),
+        ]);
 
-    const wormholesRes = await _fetchJson(`${base}/wormholes.json`);
-    const wormholes = wormholesRes.ok ? wormholesRes.data : [];
+    const systemIds   = systemRows.map(s => s.id);
+    const wormholeIds = wormholeRows.map(w => w.id);
+    const [fleetRows, hazardRows, asteroidRows, minableRows, linkRows, sysPlanetRows, tradeRows, whLinkRows] =
+        await Promise.all([
+            fetchAllRows('system_fleets',    { filters: q => q.in('system_id', systemIds) }),
+            fetchAllRows('system_hazards',   { filters: q => q.in('system_id', systemIds) }),
+            fetchAllRows('system_asteroids', { filters: q => q.in('system_id', systemIds) }),
+            fetchAllRows('system_minables',  { filters: q => q.in('system_id', systemIds) }),
+            fetchAllRows('system_links',     { filters: q => q.in('system_id', systemIds) }),
+            fetchAllRows('system_planets',   { filters: q => q.in('system_id', systemIds) }),
+            fetchAllRows('system_trade',     { filters: q => q.in('system_id', systemIds) }),
+            fetchAllRows('wormhole_links',   { filters: q => q.in('wormhole_id', wormholeIds) }),
+        ]);
 
-    let planets = [];
-    const slimPlanets = await _fetchJson(`${base}/planetsMap.json`);
-    if (slimPlanets.ok) {
-        planets = slimPlanets.data;
-    } else {
-        const fullPlanets = await _fetchJson(`${base}/planets.json`);
-        if (fullPlanets.ok) planets = fullPlanets.data;
-    }
+    const fleetsBySystem    = groupBy(fleetRows, 'system_id');
+    const hazardsBySystem   = groupBy(hazardRows, 'system_id');
+    const asteroidsBySystem = groupBy(asteroidRows, 'system_id');
+    const minablesBySystem  = groupBy(minableRows, 'system_id');
+    const linksBySystem     = groupBy(linkRows, 'system_id');
+    const planetsBySystem   = groupBy(sysPlanetRows, 'system_id');
+    const tradeBySystem     = groupBy(tradeRows, 'system_id');
+    const linksByWormhole   = groupBy(whLinkRows, 'wormhole_id');
 
-    let missions = [];
-    const slimMissions = await _fetchJson(`${base}/missionsMap.json`);
-    if (slimMissions.ok) {
-        missions = slimMissions.data;
-    } else {
-        const fullMissions = await _fetchJson(`${base}/missions.json`);
-        if (fullMissions.ok) missions = fullMissions.data;
-    }
+    const systems = systemRows.map(sy => ({
+        name: sy.name, displayName: sy.display_name, government: sy.government,
+        pos: { x: sy.pos_x, y: sy.pos_y }, habitable: sy.habitable, jumpRange: sy.jump_range,
+        haze: sy.haze, music: sy.music, starfieldDensity: sy.starfield_density,
+        ramscoop: sy.ramscoop, invisibleFence: sy.invisible_fence, noRaids: sy.no_raids,
+        attributes: sy.attributes?.attributes, belts: sy.attributes?.belts,
+        arrival: sy.attributes?.arrival, departure: sy.attributes?.departure,
+        flags: sy.flags, raids: sy.raids, objectTree: sy.object_tree,
+        fleets: (fleetsBySystem.get(sy.id) || []).map(f => ({ name: f.fleet_name, period: f.period, toSpawn: f.to_spawn })),
+        hazards: (hazardsBySystem.get(sy.id) || []).map(h => ({ name: h.hazard_name, period: h.period, toSpawn: h.to_spawn })),
+        asteroids: (asteroidsBySystem.get(sy.id) || []).map(a => ({ name: a.asteroid_name, count: a.asteroid_count, energy: a.energy })),
+        minables: (minablesBySystem.get(sy.id) || []).map(m => ({ name: m.minable_name, count: m.asteroid_count, energy: m.energy })),
+        links: (linksBySystem.get(sy.id) || []).map(l => ({ name: l.linked_system_name, explicit: l.explicit })),
+        planets: (planetsBySystem.get(sy.id) || []).map(p => ({ name: p.planet_name })),
+        trade: (tradeBySystem.get(sy.id) || []).map(t => ({ name: t.commodity_name, cost: t.cost })),
+        _pluginId: sy.plugin_id, _internalId: sy.internal_id,
+    }));
 
-    // No slim variant needed here — stars.json is one entry per distinct
-    // star sprite the plugin defines/uses (power/wind/icon/habitable/mass),
-    // not one per system, so it's already tiny. Added by a parser fix:
-    // mapParser.js parsed `star <sprite>` blocks all along, but the output
-    // stage never wrote them to disk per plugin — see README.
-    const starsRes = await _fetchJson(`${base}/stars.json`);
-    const stars = starsRes.ok ? starsRes.data : [];
+    const galaxies = galaxyRows.map(g => ({
+        name: g.name, sprite: g.sprite, pos: { x: g.pos_x, y: g.pos_y },
+        _pluginId: g.plugin_id, _internalId: g.internal_id,
+    }));
 
-    // No slim variant needed here — governments.json is one entry per
-    // distinct government a plugin defines/overrides, not per system, so
-    // it's already tiny. Added by a parser fix: mapParser.js previously
-    // never parsed the top-level `government "Name"` block at all (only
-    // *references* to a government by name inside system/planet blocks) —
-    // see README.
-    const govsRes = await _fetchJson(`${base}/governments.json`);
-    const governments = govsRes.ok ? govsRes.data : [];
+    const wormholes = wormholeRows.map(w => ({
+        name: w.name, displayName: w.display_name, mappable: w.mappable, color: w.color,
+        links: (linksByWormhole.get(w.id) || []).map(l => ({ from: l.from_system, to: l.to_system, count: l.count })),
+        _pluginId: w.plugin_id, _internalId: w.internal_id,
+    }));
+
+    const planets = planetRows.map(p => ({
+        name: p.name, displayName: p.display_name, systemName: p.system_name,
+        government: p.government, governmentInherited: p.government_inherited,
+        security: p.security, bribe: p.bribe, bribeThreshold: p.bribe_threshold,
+        bribeFraction: p.bribe_fraction, requiredReputation: p.required_reputation,
+        wormhole: p.wormhole, attributes: p.attributes, requires: p.requires,
+        description: p.description, spaceport: p.spaceport, port: p.port,
+        landscapes: p.landscapes, tribute: p.tribute, tributeHails: p.tribute_hails,
+        music: p.music, toKnow: p.to_know, toLand: p.to_land,
+        toAccessOutfitter: p.to_access_outfitter, toAccessShipyard: p.to_access_shipyard,
+        _pluginId: p.plugin_id, _internalId: p.internal_id,
+    }));
+
+    const missions = missionRows.map(m => ({
+        name: m.name, displayName: m.display_name, sourcePlugin: m.source_plugin,
+        source: m.source, destination: m.destination, stopovers: m.stopovers, waypoints: m.waypoints,
+        cargo: m.cargo, passengers: m.passengers, payment: m.payment, rewards: m.rewards,
+        deadline: m.deadline, illegal: m.illegal, repeatable: m.repeatable, repeatLimit: m.repeat_limit,
+        npcCount: m.npc_count, hasNpcObjective: m.has_npc_objective, flags: m.flags,
+        conditions: m.conditions, conditionSideEffects: m.condition_side_effects,
+        eventTriggers: m.event_triggers, locations: m.locations, raw: m.raw,
+        _pluginId: m.plugin_id, _internalId: m.internal_id,
+    }));
+
+    const stars = starRows.map(s => ({
+        internalId: s.internal_id, pluginId: s.plugin_id, sprite: s.sprite,
+        icon: s.icon, power: s.power, wind: s.wind, habitable: s.habitable, mass: s.mass,
+    }));
+    const governments = governmentRows.map(g => ({ name: g.name, pluginId: g.plugin_id }));
 
     return {
         outputName,
         sourceName: meta.sourceName,
         displayName: meta.displayName,
         systems, galaxies, wormholes, planets, missions, stars, governments,
-        slim,
+        slim: false,
     };
 }
 
