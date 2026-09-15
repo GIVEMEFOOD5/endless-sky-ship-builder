@@ -113,12 +113,9 @@ async function _ensurePluginOrder(baseUrl) {
     if (_pluginOrder) return;
     _indexBaseUrl = baseUrl;
     try {
-        const res = await fetch(`${baseUrl}/index.json`);
-        if (!res.ok) { _pluginOrder = []; return; }
-        const idx = await res.json();
-        _pluginOrder = [];
-        for (const pluginList of Object.values(idx))
-            for (const { outputName } of pluginList) _pluginOrder.push(outputName);
+        const { data, error } = await window.supabaseClient
+            .from('plugins').select('output_name').order('source_priority', { ascending: true });
+        _pluginOrder = (!error && data) ? data.map(r => r.output_name) : [];
     } catch (_) { _pluginOrder = []; }
 }
 
