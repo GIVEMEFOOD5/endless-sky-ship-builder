@@ -205,26 +205,20 @@ function _smWithBranchSuffixes(name) {
   return [base + '-main', base + '-master'];
 }
 
-const ES_DATA_INDEX_URL = 'https://raw.githubusercontent.com/GIVEMEFOOD5/endless-sky-ship-builder/main/data/index.json';
 let _indexDisplayNameCache = null;
 
 async function smLoadIndexDisplayNames() {
   if (_indexDisplayNameCache) return _indexDisplayNameCache;
   const map = {};
   try {
-    const res = await fetch(ES_DATA_INDEX_URL);
-    if (res.ok) {
-      const dataIndex = await res.json();
-      for (const pluginList of Object.values(dataIndex)) {
-        for (const entry of (pluginList || [])) {
-          if (entry?.outputName && entry?.displayPluginName) {
-            map[entry.outputName] = entry.displayPluginName;
-          }
-        }
+    const { data, error } = await window.supabaseClient.from('plugins').select('output_name, display_name');
+    if (!error && data) {
+      for (const row of data) {
+        if (row.output_name && row.display_name) map[row.output_name] = row.display_name;
       }
     }
   } catch (e) {
-    console.warn('[saveManager] Could not load index.json for display names:', e);
+    console.warn('[saveManager] Could not load plugin display names from Supabase:', e);
   }
   _indexDisplayNameCache = map;
   return _indexDisplayNameCache;
