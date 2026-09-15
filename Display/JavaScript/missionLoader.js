@@ -504,8 +504,8 @@ async function _doLoad() {
     try {
         const { fetchAllRows } = window.SupabaseHelpers;
         const [pluginRows, missionRows] = await Promise.all([
-            fetchAllRows('plugins'),
-            fetchAllRows('missions'),
+            fetchAllRows('plugins', { orderBy: 'source_priority' }),
+            fetchAllRows('missions', { orderBy: 'id' }),
         ]);
         const pluginByPluginId = new Map(pluginRows.map(p => [p.plugin_id, p]));
 
