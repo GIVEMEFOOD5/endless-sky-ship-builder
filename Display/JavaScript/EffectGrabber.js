@@ -41,11 +41,12 @@ async function _loadPluginEffects(outputName) {
         try {
             const { fetchAllRows } = window.SupabaseHelpers;
 
-            const { data: pluginRow, error: pluginErr } = await window.supabaseClient
-                .from('plugins').select('plugin_id').eq('output_name', outputName).single();
-            if (pluginErr || !pluginRow) throw new Error(`unknown plugin`);
+            const { data: pluginRows, error: pluginErr } = await window.supabaseClient
+                .from('plugins').select('plugin_id').eq('output_name', outputName);
+            if (pluginErr || !pluginRows?.length) throw new Error(`unknown plugin`);
+            const pluginRow = pluginRows[0];
 
-            const rows = await fetchAllRows('effects', { filters: q => q.eq('plugin_id', pluginRow.plugin_id) });
+            const rows = await fetchAllRows('effects', { filters: q => q.eq('plugin_id', pluginRow.plugin_id), orderBy: 'id' });
 
             const map = {};
             rows.forEach(row => {
