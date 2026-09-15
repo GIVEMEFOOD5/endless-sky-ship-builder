@@ -36,12 +36,14 @@ window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON
  *        with .eq()/.in()/etc. applied — e.g. filters: q => q.eq('plugin_id', id)
  */
 async function fetchAllRows(table, opts = {}) {
-    const { select = '*', filters } = opts;
+    const { select = '*', filters, orderBy } = opts;
     const PAGE_SIZE = 1000;
     let from = 0;
     let rows = [];
     for (;;) {
-        let query = window.supabaseClient.from(table).select(select).range(from, from + PAGE_SIZE - 1);
+        let query = window.supabaseClient.from(table).select(select);
+        if (orderBy) query = query.order(orderBy, { ascending: true });
+        query = query.range(from, from + PAGE_SIZE - 1);
         if (filters) query = filters(query);
         const { data, error } = await query;
         if (error) throw new Error(`Supabase fetch failed for "${table}": ${error.message}`);
