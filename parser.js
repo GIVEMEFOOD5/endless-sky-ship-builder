@@ -645,7 +645,28 @@ class EndlessSkyParser {
         const hasImages = allPaths.includes(imagesPath);
         plugins.push({ name: pluginName, pluginRootInRepo, hasImages });
       }
-      return plugins;
+      // Some plugins bundle a full nested copy of another plugin's data
+      // inside their own data/ folder (e.g. so they work standalone without
+      // requiring a separate install) — literally another "data/" +
+      // ".txt files" pair, one level deeper. The scan above finds every
+      // folder named "data" regardless of depth, so it correctly-but-
+      // wrongly also detects that nested copy as its own separate plugin.
+      // The outer plugin's own data/ scan already includes everything in
+      // its subfolders, so keep only the outermost match in any nested
+      // chain — the deeper ones would otherwise get parsed twice.
+      plugins.sort((a, b) => a.pluginRootInRepo.split('/').length - b.pluginRootInRepo.split('/').length);
+      const kept = [];
+      for (const p of plugins) {
+        const isNestedInsideKept = kept.some(k =>
+          k.pluginRootInRepo !== '.' && p.pluginRootInRepo.startsWith(k.pluginRootInRepo + '/')
+        );
+        if (isNestedInsideKept) {
+          console.log(`  Skipping "${p.name}" — nested inside an already-detected plugin, would duplicate its content.`);
+        } else {
+          kept.push(p);
+        }
+      }
+      return kept;
     } finally {
       await fs.rm(tmpDir, { recursive: true, force: true });
     }
