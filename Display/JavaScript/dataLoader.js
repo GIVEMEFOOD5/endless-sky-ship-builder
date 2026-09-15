@@ -439,11 +439,11 @@ async function _doLoad() {
         // 2 — Bulk-fetch every table Supabase holds for ships/outfits/effects
         const [pluginRows, shipRows, variantRows, outfitRows, effectRows, shipOutfitRows, variantOutfitRows] =
             await Promise.all([
-                fetchAllRows('plugins'),
-                fetchAllRows('ships'),
-                fetchAllRows('variants'),
-                fetchAllRows('outfits'),
-                fetchAllRows('effects'),
+                fetchAllRows('plugins', { orderBy: 'source_priority' }),
+                fetchAllRows('ships', { orderBy: 'id' }),
+                fetchAllRows('variants', { orderBy: 'id' }),
+                fetchAllRows('outfits', { orderBy: 'id' }),
+                fetchAllRows('effects', { orderBy: 'id' }),
                 fetchAllRows('ship_outfits'),
                 fetchAllRows('variant_outfits'),
             ]);
