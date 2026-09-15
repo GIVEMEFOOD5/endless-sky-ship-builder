@@ -2834,7 +2834,6 @@ async function main() {
     const config = JSON.parse(await fs.readFile(path.join(process.cwd(), 'plugins.json'), 'utf8'));
     console.log(`Found ${config.plugins.length} repository source(s)\n`);
 
-    const dataIndex  = {};
     const sharedParser = new EndlessSkyParser();
     sharedParser.setSourcePriority(config.plugins);
     sharedParser.setOverrides(config.plugins);
@@ -3034,6 +3033,7 @@ async function main() {
           allWormholeRows = [], allPlanetRows = [], allSystemRows = [], allMissionRows = [];
     const rawWormholesByPlugin = [], rawPlanetsByPlugin = [], rawSystemsByPlugin = [];
     let skippedGovernmentsWithoutName = 0;
+    let pluginOrderCounter = 0;
 
     for (const { source, plugin } of allResults) {
       const pluginDataToWrite = plugin.pluginData ?? { name: plugin.outputName };
@@ -3044,6 +3044,7 @@ async function main() {
         display_name: pluginDataToWrite.name ?? plugin.outputName,
         repository:   source.repository,
         plugin_data:  pluginDataToWrite,
+        source_priority: pluginOrderCounter++,
       });
 
       const shipsOut = plugin.ships.map(s => ({
@@ -3157,11 +3158,8 @@ async function main() {
         locations: m.locations ?? null, raw: m.raw ?? null,
       });
 
-      if (!dataIndex[source.name]) dataIndex[source.name] = [];
-      dataIndex[source.name].push({
-        outputName: plugin.outputName,
-        displayPluginName: plugin.pluginData?.name ?? plugin.outputName,
-      });
+      // (plugin ordering/display-name lookups now live in the plugins table
+      // itself via source_priority, rather than a separate index structure)
     }
     console.log(`  ✓ gathered ${allShipRows.length} ships | ${allVariantRows.length} variants | ${allOutfitRows.length} outfits | ${allEffectRows.length} effects`);
     console.log(`  ✓ gathered ${allSystemRows.length} systems | ${allPlanetRows.length} planets | ${allWormholeRows.length} wormholes | ${allMissionRows.length} missions`);
@@ -3315,27 +3313,33 @@ async function main() {
     console.log(`  ✓ ${shipOutfitRows.length} ship_outfits | ${variantOutfitRows.length} variant_outfits | ${linkRows.length} wormhole_links rows`);
     console.log(`\nAll Supabase writes complete.`);
 
-    const indexPath = path.join(process.cwd(), 'data', 'index.json');
-    await fs.mkdir(path.join(process.cwd(), 'data'), { recursive: true });
-    await fs.writeFile(indexPath, JSON.stringify(dataIndex, null, 2));
-    console.log(`\nWrote data/index.json with ${Object.keys(dataIndex).length} source(s)`);
+    // index.json, eventGovernmentImpact.json, map.json, and missionCollisions.json
+    // used to be written here. index.json's only two real consumers
+    // (computedStats.js, saveManager.js) now query the `plugins` table
+    // directly instead — see source_priority above, which replaces the
+    // ordering index.json used to encode. The other three had no frontend
+    // consumer at all (checked across every file in Display/JavaScript),
+    // so they're just not generated any more rather than migrated.
 
-    // Cross-plugin data, same tier as index.json — not tied to any single
-    // plugin's output folder, since an event in one plugin can reference a
-    // fleet defined in another.
-    const eventGovImpactPath = path.join(process.cwd(), 'data', 'eventGovernmentImpact.json');
-    await fs.writeFile(eventGovImpactPath, JSON.stringify(sharedParser.eventGovernmentImpacts, null, 2));
-    console.log(`Wrote data/eventGovernmentImpact.json with ${sharedParser.eventGovernmentImpacts.length} event→fleet→government record(s)`);
+    const dataDir = path.join(process.cwd(), 'data');
+    await fs.mkdir(dataDir, { recursive: true });
+    await parseAttributes(dataDir);
 
-    await fs.writeFile(path.join(process.cwd(), 'data', 'map.json'),
-      JSON.stringify(sharedParser.mapParser.toJSON(), null, 2));
-    console.log(`Wrote data/map.json (merged galaxy/system/planet/wormhole view)`);
-
-    await fs.writeFile(path.join(process.cwd(), 'data', 'missionCollisions.json'),
-      JSON.stringify(sharedParser.missionParser2.collisions, null, 2));
-    console.log(`Wrote data/missionCollisions.json with ${sharedParser.missionParser2.collisions.length} collision record(s)`);
-    
-    await parseAttributes(path.join(process.cwd(), 'data'));
+    // attributeDefinitions.json is config/formula data, not entity data —
+    // nothing joins against it, it's read wholesale by the stat-calculation
+    // JS. Rather than force it into relational columns, it's parked as one
+    // JSON blob in app_config, which just gets it out of the git-committed
+    // data/ folder. Read the file parseAttributes() just wrote, push it to
+    // Supabase, then delete the local copy so it never gets committed.
+    const attrDefsPath = path.join(dataDir, 'attributeDefinitions.json');
+    try {
+      const attrDefsJson = JSON.parse(await fs.readFile(attrDefsPath, 'utf8'));
+      await supabase.from('app_config').upsert({ key: 'attributeDefinitions', value: attrDefsJson });
+      await fs.unlink(attrDefsPath);
+      console.log(`\nPushed attributeDefinitions.json to app_config and removed the local copy.`);
+    } catch (err) {
+      console.warn(`Could not push attributeDefinitions.json to Supabase: ${err.message}`);
+    }
 
     console.log(`\n${'='.repeat(60)}\n✓ All done!\n${'='.repeat(60)}\n`);
   } catch (err) {
