@@ -123,21 +123,21 @@ function _findPluginMeta(index, outputName) {
 async function _loadOnePlugin(outputName, meta) {
     const { fetchAllRows, groupBy } = window.SupabaseHelpers;
 
-    const { data: pluginRow, error: pluginErr } = await window.supabaseClient
-        .from('plugins').select('plugin_id').eq('output_name', outputName).single();
-    if (pluginErr || !pluginRow) throw new Error(`Unknown plugin "${outputName}"`);
-    const pluginId = pluginRow.plugin_id;
+    const { data: pluginRows, error: pluginErr } = await window.supabaseClient
+        .from('plugins').select('plugin_id').eq('output_name', outputName);
+    if (pluginErr || !pluginRows?.length) throw new Error(`Unknown plugin "${outputName}"`);
+    const pluginId = pluginRows[0].plugin_id;
     const byPlugin = q => q.eq('plugin_id', pluginId);
 
     const [systemRows, galaxyRows, wormholeRows, planetRows, missionRows, starRows, governmentRows] =
         await Promise.all([
-            fetchAllRows('systems',     { filters: byPlugin }),
-            fetchAllRows('galaxies',    { filters: byPlugin }),
-            fetchAllRows('wormholes',   { filters: byPlugin }),
-            fetchAllRows('planets',     { filters: byPlugin }),
-            fetchAllRows('missions',    { filters: byPlugin }),
-            fetchAllRows('stars',       { filters: byPlugin }),
-            fetchAllRows('governments', { filters: byPlugin }),
+            fetchAllRows('systems',     { filters: byPlugin, orderBy: 'id' }),
+            fetchAllRows('galaxies',    { filters: byPlugin, orderBy: 'id' }),
+            fetchAllRows('wormholes',   { filters: byPlugin, orderBy: 'id' }),
+            fetchAllRows('planets',     { filters: byPlugin, orderBy: 'id' }),
+            fetchAllRows('missions',    { filters: byPlugin, orderBy: 'id' }),
+            fetchAllRows('stars',       { filters: byPlugin, orderBy: 'id' }),
+            fetchAllRows('governments', { filters: byPlugin, orderBy: 'id' }),
         ]);
 
     const systemIds   = systemRows.map(s => s.id);
