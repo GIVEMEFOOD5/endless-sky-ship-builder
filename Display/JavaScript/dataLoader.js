@@ -423,13 +423,15 @@ async function _doLoad() {
     _refreshLocalPlugin();
 
     try {
-        // 1 — Attribute definitions. Not migrated to a table (it's a small,
-        // static lookup file), so this one still comes from the repo.
+        // 1 — Attribute definitions. Config/formula data, not entity data —
+        // parked as one JSON blob in app_config rather than split into
+        // relational columns, since nothing joins against it.
         try {
-            const res = await fetch(`${BASE_URL}/attributeDefinitions.json`);
-            if (res.ok) window.attrDefs = await res.json();
+            const { data, error } = await window.supabaseClient
+                .from('app_config').select('value').eq('key', 'attributeDefinitions').maybeSingle();
+            if (!error && data) window.attrDefs = data.value;
         } catch (_) {
-            console.warn('[DataLoader] Could not load attributeDefinitions.json');
+            console.warn('[DataLoader] Could not load attributeDefinitions from app_config');
         }
 
         const { fetchAllRows } = window.SupabaseHelpers;
