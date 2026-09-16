@@ -121,6 +121,7 @@ function _findPluginMeta(index, outputName) {
  * parser output format to maintain.
  */
 async function _loadOnePlugin(outputName, meta) {
+    async function buildFresh() {
     const { fetchAllRows, groupBy } = window.SupabaseHelpers;
 
     const { data: pluginRows, error: pluginErr } = await window.supabaseClient
@@ -229,6 +230,11 @@ async function _loadOnePlugin(outputName, meta) {
         systems, galaxies, wormholes, planets, missions, stars, governments,
         slim: false,
     };
+    } // end buildFresh
+
+    return window.EsCache
+        ? await window.EsCache.loadWithCache(`mapData:${outputName}`, buildFresh)
+        : await buildFresh(); // graceful fallback if esCache.js isn't on this page yet
 }
 
 /**
