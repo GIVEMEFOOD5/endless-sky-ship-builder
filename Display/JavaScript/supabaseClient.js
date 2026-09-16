@@ -36,20 +36,32 @@ window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON
  *        with .eq()/.in()/etc. applied — e.g. filters: q => q.eq('plugin_id', id)
  */
 async function fetchAllRows(table, opts = {}) {
-    const { select = '*', filters, orderBy } = opts;
-    const PAGE_SIZE = 1000;
+    const { select = '*', filters, orderBy, pageSize = 1000 } = opts;
     let from = 0;
     let rows = [];
     for (;;) {
         let query = window.supabaseClient.from(table).select(select);
         if (orderBy) query = query.order(orderBy, { ascending: true });
-        query = query.range(from, from + PAGE_SIZE - 1);
+        query = query.range(from, from + pageSize - 1);
         if (filters) query = filters(query);
-        const { data, error } = await query;
+
+        // A timeout here is usually transient (a slow moment on shared
+        // compute), not a real failure — retry a couple of times before
+        // giving up, same idea as the parser's own retry logic.
+        let data, error;
+        for (let attempt = 1; attempt <= 3; attempt++) {
+            ({ data, error } = await query);
+            if (!error) break;
+            const isTimeout = /timeout/i.test(error.message ?? '');
+            if (!isTimeout || attempt === 3) break;
+            console.warn(`[fetchAllRows] "${table}" page timed out, retrying (attempt ${attempt}/3)...`);
+            await new Promise(r => setTimeout(r, 1000 * attempt));
+        }
         if (error) throw new Error(`Supabase fetch failed for "${table}": ${error.message}`);
+
         rows = rows.concat(data || []);
-        if (!data || data.length < PAGE_SIZE) break;
-        from += PAGE_SIZE;
+        if (!data || data.length < pageSize) break;
+        from += pageSize;
     }
     return rows;
 }
