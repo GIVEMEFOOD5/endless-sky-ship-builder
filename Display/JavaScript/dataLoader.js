@@ -447,7 +447,7 @@ async function _doLoad() {
                 fetchAllRows('plugins', { orderBy: 'source_priority' }),
                 fetchAllRows('ships', { orderBy: 'id' }),
                 fetchAllRows('variants', { orderBy: 'id' }),
-                fetchAllRows('outfits', { orderBy: 'id' }),
+                fetchAllRows('outfits', { orderBy: 'id', pageSize: 200 }),
                 fetchAllRows('effects', { orderBy: 'id' }),
                 fetchAllRows('ship_outfits'),
                 fetchAllRows('variant_outfits'),
