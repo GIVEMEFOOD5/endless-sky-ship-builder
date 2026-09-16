@@ -136,7 +136,7 @@ async function _loadOnePlugin(outputName, meta) {
             fetchAllRows('galaxies',    { filters: byPlugin, orderBy: 'id' }),
             fetchAllRows('wormholes',   { filters: byPlugin, orderBy: 'id' }),
             fetchAllRows('planets',     { filters: byPlugin, orderBy: 'id' }),
-            fetchAllRows('missions',    { filters: byPlugin, orderBy: 'id' }),
+            fetchAllRows('missions',    { filters: byPlugin, orderBy: 'id', pageSize: 100 }),
             fetchAllRows('stars',       { filters: byPlugin, orderBy: 'id' }),
             fetchAllRows('governments', { filters: byPlugin, orderBy: 'id' }),
         ]);
