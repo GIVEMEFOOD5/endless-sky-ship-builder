@@ -3335,6 +3335,11 @@ async function main() {
     try {
       const attrDefsJson = JSON.parse(await fs.readFile(attrDefsPath, 'utf8'));
       await supabase.from('app_config').upsert({ key: 'attributeDefinitions', value: attrDefsJson });
+
+      // A single cheap value the frontend can check before doing its big
+      // bulk fetch — if this matches what it already has cached, it can
+      // skip re-fetching everything entirely.
+      await supabase.from('app_config').upsert({ key: 'dataVersion', value: { updatedAt: new Date().toISOString() } });
       await fs.unlink(attrDefsPath);
       console.log(`\nPushed attributeDefinitions.json to app_config and removed the local copy.`);
     } catch (err) {
