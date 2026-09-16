@@ -39,37 +39,44 @@ async function _loadPluginEffects(outputName) {
 
     _pluginLoading[outputName] = (async () => {
         try {
-            const { fetchAllRows } = window.SupabaseHelpers;
+            async function buildFresh() {
+                const { fetchAllRows } = window.SupabaseHelpers;
 
-            const { data: pluginRows, error: pluginErr } = await window.supabaseClient
-                .from('plugins').select('plugin_id').eq('output_name', outputName);
-            if (pluginErr || !pluginRows?.length) throw new Error(`unknown plugin`);
-            const pluginRow = pluginRows[0];
+                const { data: pluginRows, error: pluginErr } = await window.supabaseClient
+                    .from('plugins').select('plugin_id').eq('output_name', outputName);
+                if (pluginErr || !pluginRows?.length) throw new Error(`unknown plugin`);
+                const pluginRow = pluginRows[0];
 
-            const rows = await fetchAllRows('effects', { filters: q => q.eq('plugin_id', pluginRow.plugin_id), orderBy: 'id' });
+                const rows = await fetchAllRows('effects', { filters: q => q.eq('plugin_id', pluginRow.plugin_id), orderBy: 'id' });
 
-            const map = {};
-            rows.forEach(row => {
-                if (!row.name) return;
-                map[row.name] = {
-                    name: row.name,
-                    sprite: row.sprite,
-                    sound: row.sound,
-                    lifetime: row.lifetime,
-                    'random angle': row.random_angle,
-                    'random frame rate': row.random_frame_rate,
-                    'random spin': row.random_spin,
-                    'random velocity': row.random_velocity,
-                    'velocity scale': row.velocity_scale,
-                    // Both spellings kept — this file reads .spriteData below,
-                    // other code may read the space-separated form instead.
-                    spriteData: row.sprite_data,
-                    'sprite data': row.sprite_data,
-                };
-            });
+                const map = {};
+                rows.forEach(row => {
+                    if (!row.name) return;
+                    map[row.name] = {
+                        name: row.name,
+                        sprite: row.sprite,
+                        sound: row.sound,
+                        lifetime: row.lifetime,
+                        'random angle': row.random_angle,
+                        'random frame rate': row.random_frame_rate,
+                        'random spin': row.random_spin,
+                        'random velocity': row.random_velocity,
+                        'velocity scale': row.velocity_scale,
+                        // Both spellings kept — this file reads .spriteData below,
+                        // other code may read the space-separated form instead.
+                        spriteData: row.sprite_data,
+                        'sprite data': row.sprite_data,
+                    };
+                });
+                return { map, count: rows.length };
+            }
 
-            _pluginEffects[outputName] = { map, ready: true };
-            console.log(`EffectGrabber: loaded ${rows.length} effects from "${outputName}"`);
+            const built = window.EsCache
+                ? await window.EsCache.loadWithCache(`effects:${outputName}`, buildFresh)
+                : await buildFresh();
+
+            _pluginEffects[outputName] = { map: built.map, ready: true };
+            console.log(`EffectGrabber: loaded ${built.count} effects from "${outputName}"`);
         } catch (err) {
             // Plugin may not have effects — that's fine
             console.log(`EffectGrabber: no effects for "${outputName}" (${err.message})`);
