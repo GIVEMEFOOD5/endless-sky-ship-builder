@@ -507,7 +507,7 @@ async function _doLoad() {
         async function buildRemoteBuckets() {
         const [pluginRows, missionRows] = await Promise.all([
             fetchAllRows('plugins', { orderBy: 'source_priority' }),
-            fetchAllRows('missions', { orderBy: 'id' }),
+            fetchAllRows('missions', { orderBy: 'id', pageSize: 100 }),
         ]);
         const pluginByPluginId = new Map(pluginRows.map(p => [p.plugin_id, p]));
 
