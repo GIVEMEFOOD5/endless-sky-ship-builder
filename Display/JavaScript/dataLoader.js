@@ -436,6 +436,11 @@ async function _doLoad() {
 
         const { fetchAllRows } = window.SupabaseHelpers;
 
+        // Everything from here down — the big bulk fetch plus reconstructing
+        // it all back into the old per-plugin shape — is what EsCache lets
+        // us skip entirely on a cache hit. Wrapped as its own function so
+        // loadWithCache() can call it only when the cached version is stale.
+        async function buildRemoteBuckets() {
         // 2 — Bulk-fetch every table Supabase holds for ships/outfits/effects
         const [pluginRows, shipRows, variantRows, outfitRows, effectRows, shipOutfitRows, variantOutfitRows] =
             await Promise.all([
@@ -525,8 +530,9 @@ async function _doLoad() {
         }
 
         // 3 — Group everything by plugin, matching the old per-plugin-folder shape
+        const remoteBuckets = {};
         for (const p of pluginRows) {
-            window.allData[p.output_name] = {
+            remoteBuckets[p.output_name] = {
                 sourceName: p.source_name,
                 displayName: p.display_name || p.output_name,
                 outputName: p.output_name,
@@ -535,12 +541,20 @@ async function _doLoad() {
         }
         function pluginBucketFor(row) {
             const plugin = pluginByPluginId.get(row.plugin_id);
-            return plugin ? window.allData[plugin.output_name] : null;
+            return plugin ? remoteBuckets[plugin.output_name] : null;
         }
         for (const row of shipRows)    { const b = pluginBucketFor(row); if (b) b.ships.push(reconstructShip(row, shipOutfitsByShipId)); }
         for (const row of variantRows) { const b = pluginBucketFor(row); if (b) b.variants.push(reconstructVariant(row)); }
         for (const row of outfitRows)  { const b = pluginBucketFor(row); if (b) b.outfits.push(reconstructOutfit(row)); }
         for (const row of effectRows)  { const b = pluginBucketFor(row); if (b) b.effects.push(reconstructEffect(row)); }
+
+        return remoteBuckets;
+        } // end buildRemoteBuckets
+
+        const remoteBuckets = window.EsCache
+            ? await window.EsCache.loadWithCache('shipBuilderData', buildRemoteBuckets)
+            : await buildRemoteBuckets(); // graceful fallback if esCache.js isn't on this page yet
+        Object.assign(window.allData, remoteBuckets);
 
         const hasData = Object.values(window.allData).some(p =>
             (p.ships?.length > 0) || (p.variants?.length > 0) || (p.outfits?.length > 0)
