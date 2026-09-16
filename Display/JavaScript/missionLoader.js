@@ -503,14 +503,17 @@ async function _doLoad() {
 
     try {
         const { fetchAllRows } = window.SupabaseHelpers;
+
+        async function buildRemoteBuckets() {
         const [pluginRows, missionRows] = await Promise.all([
             fetchAllRows('plugins', { orderBy: 'source_priority' }),
             fetchAllRows('missions', { orderBy: 'id' }),
         ]);
         const pluginByPluginId = new Map(pluginRows.map(p => [p.plugin_id, p]));
 
+        const remoteBuckets = {};
         for (const p of pluginRows) {
-            window.allMissionData[p.output_name] = {
+            remoteBuckets[p.output_name] = {
                 sourceName: p.source_name,
                 displayName: p.display_name || p.output_name,
                 outputName: p.output_name,
@@ -519,7 +522,7 @@ async function _doLoad() {
         }
         for (const m of missionRows) {
             const plugin = pluginByPluginId.get(m.plugin_id);
-            const bucket = plugin && window.allMissionData[plugin.output_name];
+            const bucket = plugin && remoteBuckets[plugin.output_name];
             if (!bucket) continue;
             bucket.missions.push({
                 name: m.name, displayName: m.display_name, sourcePlugin: m.source_plugin,
@@ -532,6 +535,13 @@ async function _doLoad() {
                 _pluginId: m.plugin_id, _internalId: m.internal_id,
             });
         }
+        return remoteBuckets;
+        } // end buildRemoteBuckets
+
+        const remoteBuckets = window.EsCache
+            ? await window.EsCache.loadWithCache('missionData', buildRemoteBuckets)
+            : await buildRemoteBuckets();
+        Object.assign(window.allMissionData, remoteBuckets);
 
         const hasData = Object.values(window.allMissionData).some(p => (p.missions || []).length > 0);
         if (!hasData) throw new Error('No mission data could be loaded from Supabase');
