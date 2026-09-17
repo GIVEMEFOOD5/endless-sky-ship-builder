@@ -305,13 +305,20 @@ window.DataLoader = {
             id === LOCAL_PLUGIN_ID || window.allData[id]
         );
         _saveActivePlugins();
+        if (window.EsAuth) window.EsAuth.saveActivePluginsPreference(_activePlugins);
         _fireEvent('pluginsChanged', { active: [..._activePlugins] });
     },
 
-    initDefaultPlugins() {
-        const saved = _loadActivePlugins();
-        console.log('[DataLoader] initDefaultPlugins — saved:', saved);
-        console.log('[DataLoader] allData keys:', Object.keys(window.allData));
+    async initDefaultPlugins() {
+        // Account preference takes priority when logged in; falls through
+        // to localStorage if signed out or nothing saved yet, so anonymous
+        // use still works exactly as before.
+        let saved = null;
+        if (window.EsAuth) {
+            try { saved = await window.EsAuth.getActivePluginsPreference(); } catch (_) { /* fall through */ }
+        }
+        if (!saved) saved = _loadActivePlugins();
+
         if (saved && saved.length > 0) {
             const valid = saved.filter(id =>
                 id === LOCAL_PLUGIN_ID
@@ -324,13 +331,24 @@ window.DataLoader = {
                 return;
             }
         }
-        const defaultRemote = window.allData[DEFAULT_PLUGIN]
-            ? DEFAULT_PLUGIN
+        // FIX: DEFAULT_PLUGIN is written in plugin_id format
+        // ("official-game/endless-sky"), but window.allData is keyed by
+        // output_name ("endless-sky") — those never matched, so this
+        // silently fell through to "whichever plugin happens to be
+        // first" instead of actually picking the base game. Match on
+        // sourceName instead, which is reliably "official-game" for the
+        // base game regardless of its output folder name.
+        const baseGameEntry = Object.values(window.allData).find(p =>
+            p && p.outputName && (p.sourceName === 'official-game' || p.outputName === DEFAULT_PLUGIN)
+        );
+        const defaultRemote = baseGameEntry
+            ? baseGameEntry.outputName
             : Object.keys(window.allData).find(k => k !== LOCAL_PLUGIN_ID);
         _activePlugins = defaultRemote
             ? [LOCAL_PLUGIN_ID, defaultRemote]
             : [LOCAL_PLUGIN_ID];
         _saveActivePlugins();
+        if (window.EsAuth) window.EsAuth.saveActivePluginsPreference(_activePlugins);
         _fireEvent('pluginsChanged', { active: [..._activePlugins] });
     },
 
@@ -602,16 +620,24 @@ async function _doLoad() {
         const pluginRows = await fetchAllRows('plugins', { orderBy: 'source_priority' });
         if (!pluginRows.length) throw new Error('No plugins found in Supabase');
 
-        // 3 — Phase A: whichever plugins are already active (saved from
-        // last visit), or a sensible default if this is the first visit
-        // ever. This is the ONLY thing standing between page load and the
-        // page being usable — everything else happens after.
-        const saved = _loadActivePlugins() || [];
+        // 3 — Phase A: whichever plugins are already active — preferring
+        // the logged-in user's account preference over localStorage, so
+        // it follows them across devices — or a sensible default if
+        // nothing's saved anywhere yet. This is the ONLY thing standing
+        // between page load and the page being usable — everything else
+        // happens after.
+        let saved = null;
+        if (window.EsAuth) {
+            try { saved = await window.EsAuth.getActivePluginsPreference(); } catch (_) { /* fall through */ }
+        }
+        if (!saved) saved = _loadActivePlugins();
+        saved = saved || [];
         let phaseANames = new Set(saved.filter(id => id !== LOCAL_PLUGIN_ID));
         phaseANames = new Set([...phaseANames].filter(n => pluginRows.some(p => p.output_name === n)));
         if (phaseANames.size === 0) {
-            const def = pluginRows.find(p => p.plugin_id === DEFAULT_PLUGIN || p.output_name === DEFAULT_PLUGIN)
-                     || pluginRows[0];
+            const def = pluginRows.find(p =>
+                p.plugin_id === DEFAULT_PLUGIN || p.output_name === DEFAULT_PLUGIN || p.source_name === 'official-game'
+            ) || pluginRows[0];
             if (def) phaseANames.add(def.output_name);
         }
 
@@ -632,7 +658,7 @@ async function _doLoad() {
         // local plugin's outfit index is populated for ComputedStats.
         _refreshLocalPlugin();
 
-        window.DataLoader.initDefaultPlugins();
+        await window.DataLoader.initDefaultPlugins();
 
         for (const fn of _callbacks) {
             try { fn(window.allData); } catch(e) { console.error('[DataLoader] callback error:', e); }
