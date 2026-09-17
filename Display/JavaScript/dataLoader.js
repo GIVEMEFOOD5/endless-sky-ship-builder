@@ -241,6 +241,12 @@ window.DataLoader = {
         return _doLoad();
     },
 
+    // Safety net: call this before switching to / displaying a plugin that
+    // might not have loaded yet (Phase A only loads what was already
+    // active, Phase B fills the rest in the background and may not have
+    // reached this one). Resolves instantly if it's already loaded.
+    ensurePluginLoaded(outputName) { return ensurePluginLoaded(outputName); },
+
     onReady(fn) {
         if (_ready) { fn(window.allData); return; }
         _callbacks.push(fn);
@@ -283,8 +289,18 @@ window.DataLoader = {
 
     getActivePlugins() { return [..._activePlugins]; },
 
-    setActivePlugins(arr) {
+    async setActivePlugins(arr) {
         const withLocal = arr.includes(LOCAL_PLUGIN_ID) ? arr : [LOCAL_PLUGIN_ID, ...arr];
+        // Same safety net as generalPluginStuff.js's setActivePlugins —
+        // this is a separate call path (saveManager.js calls it directly),
+        // so it needs its own copy of the "load it if it's missing" check.
+        await Promise.all(
+            withLocal
+                .filter(id => id !== LOCAL_PLUGIN_ID)
+                .map(id => ensurePluginLoaded(id).catch(err =>
+                    console.warn(`[DataLoader] Could not load "${id}":`, err)
+                ))
+        );
         _activePlugins = withLocal.filter(id =>
             id === LOCAL_PLUGIN_ID || window.allData[id]
         );
@@ -406,15 +422,159 @@ function _loadActivePlugins() {
 
 // ── Remote data loader ───────────────────────────────────────
 //
-// Was: one fetch() per plugin per file (ships.json, outfits.json, ...) —
-// hundreds of requests, downloading every plugin whether it was used or
-// not. Now: one bulk query per TABLE, across every plugin at once, then
-// grouped client-side into the exact same window.allData[outputName]
-// shape everything downstream (shipBuilder.js, computedStats.js, etc.)
-// already expects. Ships/outfits/variants are still small enough in
-// total to load eagerly like this; if that ever changes, this is the
-// place to switch to per-plugin filtered queries instead (see
-// mapDataLoader.js for that pattern, which already loads on demand).
+// Two phases:
+//   Phase A — fetch only the plugins the user actually has active
+//   (read from the same localStorage key initDefaultPlugins() uses),
+//   reconstruct them, and let the page render. This is what the user
+//   sees load.
+//   Phase B — everything else loads afterward, in the background,
+//   without blocking anything already on screen. Each plugin's bundle
+//   is cached independently (not as one giant blob), so if the user
+//   navigates to another page before Phase B finishes — which kills
+//   this background work entirely, since a page navigation is a fresh
+//   JS context — the next page just resumes from whatever's already
+//   cached and fetches only what it's still missing. No plugin is ever
+//   blocked waiting on a background process it can't see.
+
+function reconstructShip(row, outfitsByOwnerId) {
+    const h  = row.hardpoints || {};
+    const ex = row.explosions || {};
+    return {
+        name: row.name,
+        sprite: row.sprite,
+        thumbnail: row.thumbnail,
+        description: row.description,
+        attributes: row.attributes || {},
+        guns: h.guns || [], turrets: h.turrets || [], bays: h.bays || [],
+        engines: h.engines || [], leaks: h.leaks || [],
+        reverseEngines: h.reverseEngines || [], steeringEngines: h.steeringEngines || [],
+        'tiny explosion': ex.tiny, 'small explosion': ex.small,
+        'medium explosion': ex.medium, 'large explosion': ex.large,
+        'huge explosion': ex.huge, 'final explode': ex.final,
+        locations: row.locations || {},
+        outfits: outfitsByOwnerId.get(row.id) || {},
+        _pluginId: row.plugin_id,
+        _internalId: row.internal_id,
+    };
+}
+function reconstructVariant(row, outfitsByOwnerId) {
+    const v = reconstructShip(row, outfitsByOwnerId);
+    v.baseShip = row.base_ship_name;
+    v._variantPluginId = row.variant_plugin_id;
+    return v;
+}
+function reconstructOutfit(row) {
+    // Note: outfits use non-underscore "pluginId"/"internalId" — matches
+    // the original JSON output's naming, kept as-is so nothing downstream
+    // that reads o.pluginId (vs. a ship's s._pluginId) silently breaks.
+    return {
+        ...(row.attributes || {}),
+        name: row.name, category: row.category, cost: row.cost, mass: row.mass,
+        thumbnail: row.thumbnail, description: row.description,
+        pluginId: row.plugin_id, internalId: row.internal_id,
+    };
+}
+function reconstructEffect(row) {
+    return {
+        name: row.name, sprite: row.sprite, sound: row.sound,
+        lifetime: row.lifetime,
+        'random angle': row.random_angle, 'random frame rate': row.random_frame_rate,
+        'random spin': row.random_spin, 'random velocity': row.random_velocity,
+        'velocity scale': row.velocity_scale,
+        spriteData: row.sprite_data, 'sprite data': row.sprite_data,
+        pluginId: row.plugin_id,
+    };
+}
+
+/**
+ * Fetches and reconstructs ONE plugin's ships/variants/outfits/effects.
+ * A ship can equip an outfit defined by a *different* plugin (that's the
+ * whole reason ship_outfits is a separate table) — so this doesn't just
+ * filter outfits by this plugin's own id, it also resolves whichever
+ * outfits this plugin's ships/variants actually reference, wherever
+ * they're defined, via one small extra by-id lookup.
+ */
+async function _fetchPluginBundleFresh(outputName, pluginRow) {
+    const { fetchAllRows } = window.SupabaseHelpers;
+    if (!pluginRow) {
+        return { sourceName: outputName, displayName: outputName, outputName, ships: [], variants: [], outfits: [], effects: [] };
+    }
+    const byPlugin = q => q.eq('plugin_id', pluginRow.plugin_id);
+
+    const [shipRows, variantRows, ownOutfitRows, effectRows] = await Promise.all([
+        fetchAllRows('ships',    { filters: byPlugin, orderBy: 'id' }),
+        fetchAllRows('variants', { filters: byPlugin, orderBy: 'id' }),
+        fetchAllRows('outfits',  { filters: byPlugin, orderBy: 'id', pageSize: 200 }),
+        fetchAllRows('effects',  { filters: byPlugin, orderBy: 'id' }),
+    ]);
+
+    const shipIds    = shipRows.map(s => s.id);
+    const variantIds  = variantRows.map(v => v.id);
+    const [shipOutfitRows, variantOutfitRows] = await Promise.all([
+        shipIds.length    ? fetchAllRows('ship_outfits',    { filters: q => q.in('ship_id', shipIds) })    : [],
+        variantIds.length ? fetchAllRows('variant_outfits', { filters: q => q.in('variant_id', variantIds) }) : [],
+    ]);
+
+    // Which referenced outfits aren't already covered by this plugin's own outfits?
+    const ownOutfitIds  = new Set(ownOutfitRows.map(o => o.id));
+    const referencedIds = new Set([...shipOutfitRows.map(r => r.outfit_id), ...variantOutfitRows.map(r => r.outfit_id)]);
+    const missingIds    = [...referencedIds].filter(id => !ownOutfitIds.has(id));
+    const crossPluginOutfitRows = missingIds.length
+        ? await fetchAllRows('outfits', { filters: q => q.in('id', missingIds), pageSize: 200 })
+        : [];
+
+    const outfitById = new Map([...ownOutfitRows, ...crossPluginOutfitRows].map(o => [o.id, o]));
+    function buildOutfitMaps(junctionRows, ownerKey) {
+        const byOwner = new Map();
+        for (const row of junctionRows) {
+            const outfit = outfitById.get(row.outfit_id);
+            if (!outfit) continue;
+            if (!byOwner.has(row[ownerKey])) byOwner.set(row[ownerKey], {});
+            byOwner.get(row[ownerKey])[outfit.name] = { count: row.count, pluginId: outfit.plugin_id, internalId: outfit.internal_id };
+        }
+        return byOwner;
+    }
+    const shipOutfitsByShipId       = buildOutfitMaps(shipOutfitRows, 'ship_id');
+    const variantOutfitsByVariantId = buildOutfitMaps(variantOutfitRows, 'variant_id');
+
+    return {
+        sourceName: pluginRow.source_name,
+        displayName: pluginRow.display_name || outputName,
+        outputName,
+        ships:    shipRows.map(row => reconstructShip(row, shipOutfitsByShipId)),
+        variants: variantRows.map(row => reconstructVariant(row, variantOutfitsByVariantId)),
+        outfits:  ownOutfitRows.map(reconstructOutfit),
+        effects:  effectRows.map(reconstructEffect),
+    };
+}
+
+async function _loadPluginBundle(outputName, pluginRow) {
+    const build = () => _fetchPluginBundleFresh(outputName, pluginRow);
+    return window.EsCache
+        ? await window.EsCache.loadWithCache(`pluginBundle:${outputName}`, build)
+        : await build();
+}
+
+/** Phase B — loads whatever Phase A didn't, one plugin at a time, without
+ * blocking. Only runs for as long as this page stays open; the per-plugin
+ * cache is what carries progress forward if the user navigates away. */
+async function _backgroundFillRemainingPlugins(pluginRows, alreadyLoaded) {
+    const remaining = pluginRows.filter(p => !alreadyLoaded.has(p.output_name));
+    if (!remaining.length) return;
+    console.log(`[DataLoader] Background: loading ${remaining.length} remaining plugin(s)...`);
+    for (const pluginRow of remaining) {
+        try {
+            const bundle = await _loadPluginBundle(pluginRow.output_name, pluginRow);
+            window.allData[pluginRow.output_name] = bundle;
+            _fireEvent('pluginDataAvailable', { outputName: pluginRow.output_name });
+        } catch (err) {
+            console.warn(`[DataLoader] Background load failed for "${pluginRow.output_name}":`, err);
+        }
+    }
+    console.log('[DataLoader] Background fill complete — every plugin is now loaded.');
+    _fireEvent('allPluginsLoaded', {});
+}
+
 async function _doLoad() {
     _loading = true;
     _fireEvent('dataLoadStart');
@@ -436,125 +596,29 @@ async function _doLoad() {
 
         const { fetchAllRows } = window.SupabaseHelpers;
 
-        // Everything from here down — the big bulk fetch plus reconstructing
-        // it all back into the old per-plugin shape — is what EsCache lets
-        // us skip entirely on a cache hit. Wrapped as its own function so
-        // loadWithCache() can call it only when the cached version is stale.
-        async function buildRemoteBuckets() {
-        // 2 — Bulk-fetch every table Supabase holds for ships/outfits/effects
-        const [pluginRows, shipRows, variantRows, outfitRows, effectRows, shipOutfitRows, variantOutfitRows] =
-            await Promise.all([
-                fetchAllRows('plugins', { orderBy: 'source_priority' }),
-                fetchAllRows('ships', { orderBy: 'id' }),
-                fetchAllRows('variants', { orderBy: 'id' }),
-                fetchAllRows('outfits', { orderBy: 'id', pageSize: 200 }),
-                fetchAllRows('effects', { orderBy: 'id' }),
-                fetchAllRows('ship_outfits'),
-                fetchAllRows('variant_outfits'),
-            ]);
+        // 2 — The plugin list itself is small (~110 rows, no heavy JSON
+        // columns) — always cheap enough to fetch in full up front, so we
+        // know what exists and can decide what Phase A actually needs.
+        const pluginRows = await fetchAllRows('plugins', { orderBy: 'source_priority' });
+        if (!pluginRows.length) throw new Error('No plugins found in Supabase');
 
-        const pluginByPluginId = new Map(pluginRows.map(p => [p.plugin_id, p]));
-        const outfitById       = new Map(outfitRows.map(o => [o.id, o]));
-
-        // ship_outfits/variant_outfits are junction rows (ship_id, outfit_id,
-        // count) — this rebuilds them into the { "Outfit Name": {count,
-        // pluginId, internalId} } map shape a ship object used to carry
-        // directly, so reconstructShip() below can attach it exactly as
-        // shipBuilder.js and computedStats.js already expect.
-        function buildOutfitMaps(junctionRows, ownerKey) {
-            const byOwner = new Map();
-            for (const row of junctionRows) {
-                const outfit = outfitById.get(row.outfit_id);
-                if (!outfit) continue;
-                if (!byOwner.has(row[ownerKey])) byOwner.set(row[ownerKey], {});
-                byOwner.get(row[ownerKey])[outfit.name] = {
-                    count: row.count,
-                    pluginId: outfit.plugin_id,
-                    internalId: outfit.internal_id,
-                };
-            }
-            return byOwner;
-        }
-        const shipOutfitsByShipId       = buildOutfitMaps(shipOutfitRows, 'ship_id');
-        const variantOutfitsByVariantId = buildOutfitMaps(variantOutfitRows, 'variant_id');
-
-        function reconstructShip(row, outfitsByOwnerId) {
-            const h  = row.hardpoints || {};
-            const ex = row.explosions || {};
-            return {
-                name: row.name,
-                sprite: row.sprite,
-                thumbnail: row.thumbnail,
-                description: row.description,
-                attributes: row.attributes || {},
-                guns: h.guns || [], turrets: h.turrets || [], bays: h.bays || [],
-                engines: h.engines || [], leaks: h.leaks || [],
-                reverseEngines: h.reverseEngines || [], steeringEngines: h.steeringEngines || [],
-                'tiny explosion': ex.tiny, 'small explosion': ex.small,
-                'medium explosion': ex.medium, 'large explosion': ex.large,
-                'huge explosion': ex.huge, 'final explode': ex.final,
-                locations: row.locations || {},
-                outfits: outfitsByOwnerId.get(row.id) || {},
-                _pluginId: row.plugin_id,
-                _internalId: row.internal_id,
-            };
-        }
-        function reconstructVariant(row) {
-            const v = reconstructShip(row, variantOutfitsByVariantId);
-            v.baseShip = row.base_ship_name;
-            v._variantPluginId = row.variant_plugin_id;
-            return v;
-        }
-        function reconstructOutfit(row) {
-            // Note: outfits use non-underscore "pluginId"/"internalId" — this
-            // matches the original JSON output's (slightly inconsistent)
-            // naming, kept as-is so nothing downstream that reads o.pluginId
-            // (vs. a ship's s._pluginId) silently breaks.
-            return {
-                ...(row.attributes || {}),
-                name: row.name, category: row.category, cost: row.cost, mass: row.mass,
-                thumbnail: row.thumbnail, description: row.description,
-                pluginId: row.plugin_id, internalId: row.internal_id,
-            };
-        }
-        function reconstructEffect(row) {
-            return {
-                name: row.name, sprite: row.sprite, sound: row.sound,
-                lifetime: row.lifetime,
-                'random angle': row.random_angle, 'random frame rate': row.random_frame_rate,
-                'random spin': row.random_spin, 'random velocity': row.random_velocity,
-                'velocity scale': row.velocity_scale,
-                spriteData: row.sprite_data, 'sprite data': row.sprite_data,
-                pluginId: row.plugin_id,
-            };
+        // 3 — Phase A: whichever plugins are already active (saved from
+        // last visit), or a sensible default if this is the first visit
+        // ever. This is the ONLY thing standing between page load and the
+        // page being usable — everything else happens after.
+        const saved = _loadActivePlugins() || [];
+        let phaseANames = new Set(saved.filter(id => id !== LOCAL_PLUGIN_ID));
+        phaseANames = new Set([...phaseANames].filter(n => pluginRows.some(p => p.output_name === n)));
+        if (phaseANames.size === 0) {
+            const def = pluginRows.find(p => p.plugin_id === DEFAULT_PLUGIN || p.output_name === DEFAULT_PLUGIN)
+                     || pluginRows[0];
+            if (def) phaseANames.add(def.output_name);
         }
 
-        // 3 — Group everything by plugin, matching the old per-plugin-folder shape
-        const remoteBuckets = {};
-        for (const p of pluginRows) {
-            remoteBuckets[p.output_name] = {
-                sourceName: p.source_name,
-                displayName: p.display_name || p.output_name,
-                outputName: p.output_name,
-                ships: [], variants: [], outfits: [], effects: [],
-            };
-        }
-        function pluginBucketFor(row) {
-            const plugin = pluginByPluginId.get(row.plugin_id);
-            return plugin ? remoteBuckets[plugin.output_name] : null;
-        }
-        for (const row of shipRows)    { const b = pluginBucketFor(row); if (b) b.ships.push(reconstructShip(row, shipOutfitsByShipId)); }
-        for (const row of variantRows) { const b = pluginBucketFor(row); if (b) b.variants.push(reconstructVariant(row)); }
-        for (const row of outfitRows)  { const b = pluginBucketFor(row); if (b) b.outfits.push(reconstructOutfit(row)); }
-        for (const row of effectRows)  { const b = pluginBucketFor(row); if (b) b.effects.push(reconstructEffect(row)); }
-
-        return remoteBuckets;
-        } // end buildRemoteBuckets
-
-        const remoteBuckets = window.EsCache
-            ? await window.EsCache.loadWithCache('shipBuilderData', buildRemoteBuckets)
-            : await buildRemoteBuckets(); // graceful fallback if esCache.js isn't on this page yet
-        Object.assign(window.allData, remoteBuckets);
+        await Promise.all([...phaseANames].map(async outputName => {
+            const pluginRow = pluginRows.find(p => p.output_name === outputName);
+            window.allData[outputName] = await _loadPluginBundle(outputName, pluginRow);
+        }));
 
         const hasData = Object.values(window.allData).some(p =>
             (p.ships?.length > 0) || (p.variants?.length > 0) || (p.outfits?.length > 0)
@@ -564,8 +628,8 @@ async function _doLoad() {
         _ready   = true;
         _loading = false;
 
-        // FIX: rebuild local plugin now that remote outfits are loaded,
-        // so the local plugin's outfit index is populated for ComputedStats.
+        // Rebuild local plugin now that remote outfits are loaded, so the
+        // local plugin's outfit index is populated for ComputedStats.
         _refreshLocalPlugin();
 
         window.DataLoader.initDefaultPlugins();
@@ -576,6 +640,15 @@ async function _doLoad() {
         _callbacks = [];
 
         _fireEvent('dataLoaded', { allData: window.allData, attrDefs: window.attrDefs });
+
+        // 4 — Phase B: fill in everything else in the background. Not
+        // awaited — the page is already usable at this point, this just
+        // keeps going quietly so switching to a plugin that wasn't in
+        // Phase A is instant (or close to it) if it finishes in time.
+        _backgroundFillRemainingPlugins(pluginRows, phaseANames).catch(err =>
+            console.warn('[DataLoader] Background fill errored:', err)
+        );
+
         return window.allData;
 
     } catch (error) {
@@ -584,6 +657,27 @@ async function _doLoad() {
         _fireEvent('dataLoadError', { message: error.message });
         throw error;
     }
+}
+
+/**
+ * Safety net for code that needs a SPECIFIC plugin's data right now —
+ * e.g. the user switches to a plugin that wasn't in Phase A and whose
+ * background load (this page's or a previous page's) hasn't reached it
+ * yet. Loads it directly in the foreground rather than waiting on
+ * whatever background progress may or may not exist.
+ */
+async function ensurePluginLoaded(outputName) {
+    if (outputName === LOCAL_PLUGIN_ID) return window.allData[LOCAL_PLUGIN_ID];
+    if (window.allData[outputName]?.ships || window.allData[outputName]?.outfits) {
+        return window.allData[outputName]; // already loaded, nothing to do
+    }
+    const { fetchAllRows } = window.SupabaseHelpers;
+    const pluginRows = await fetchAllRows('plugins', { filters: q => q.eq('output_name', outputName) });
+    const pluginRow = pluginRows[0];
+    const bundle = await _loadPluginBundle(outputName, pluginRow);
+    window.allData[outputName] = bundle;
+    _fireEvent('pluginDataAvailable', { outputName });
+    return bundle;
 }
 
 })();
