@@ -186,6 +186,21 @@ async function setActivePlugins(plugins) {
     if (!Array.isArray(plugins) || plugins.length === 0) return;
     _refreshLocalBuilds();
 
+    // Any of these might not be loaded yet — Phase A only loads whatever
+    // was already active, and Phase B fills the rest in the background,
+    // which may not have reached this one yet (or may have been cut short
+    // entirely by a page navigation). ensurePluginLoaded() loads it
+    // directly if needed, or resolves instantly if it's already there.
+    if (window.DataLoader && typeof window.DataLoader.ensurePluginLoaded === 'function') {
+        await Promise.all(
+            plugins
+                .filter(p => p !== LOCAL_PLUGIN_ID)
+                .map(p => window.DataLoader.ensurePluginLoaded(p).catch(err =>
+                    console.warn(`[PluginManager] Could not load "${p}":`, err)
+                ))
+        );
+    }
+
     const filtered = plugins.filter(p => p === LOCAL_PLUGIN_ID || _allData()[p]);
 
     if (_localBuildsHasShips() && !filtered.includes(LOCAL_PLUGIN_ID)) {
