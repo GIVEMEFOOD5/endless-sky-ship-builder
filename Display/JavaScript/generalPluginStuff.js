@@ -211,6 +211,7 @@ async function setActivePlugins(plugins) {
     if (_activePlugins.length === 0) return;
 
     _persistActivePlugins();
+    if (window.EsAuth) window.EsAuth.saveActivePluginsPreference(_activePlugins);
     await _notifyChange();
 }
 
