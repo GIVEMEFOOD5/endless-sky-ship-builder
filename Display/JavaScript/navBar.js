@@ -155,4 +155,74 @@
   buildDrawer();
   markActive();
 
+  /* ── Account widget ─────────────────────────────────────────────
+     Waits for window.EsAuth to exist rather than assuming exact script
+     order between pages — auth.js/supabaseClient.js are expected to
+     load early on every page, but this degrades gracefully (just
+     doesn't show the widget) if they're missing rather than erroring. */
+  function waitForAuth(retriesLeft) {
+    if (window.EsAuth) { initAccountWidget(); return; }
+    if (retriesLeft <= 0) return; // no auth.js on this page — nothing to do
+    setTimeout(function () { waitForAuth(retriesLeft - 1); }, 100);
+  }
+
+  function initAccountWidget() {
+    var mount = document.getElementById('es-nav-account');
+    var modal = document.getElementById('es-nav-auth-modal');
+    var form  = document.getElementById('es-nav-auth-form');
+    var errorBox = document.getElementById('es-nav-auth-error');
+    if (!mount || !modal || !form) return;
+
+    function renderSignedOut() {
+      mount.innerHTML = '<button type="button" class="es-nav__link" id="es-nav-login-btn">👤 Log in</button>';
+      document.getElementById('es-nav-login-btn').addEventListener('click', function () {
+        errorBox.hidden = true;
+        form.reset();
+        modal.hidden = false;
+      });
+    }
+
+    function renderSignedIn(user) {
+      var email = user.email || 'Account';
+      mount.innerHTML =
+        '<span class="es-nav__account-email" title="' + email + '">👤 ' + email + '</span>' +
+        '<button type="button" class="es-nav__link" id="es-nav-logout-btn">Log out</button>';
+      document.getElementById('es-nav-logout-btn').addEventListener('click', function () {
+        window.EsAuth.signOut();
+      });
+    }
+
+    window.EsAuth.onAuthChange(function (user) {
+      if (user) renderSignedIn(user); else renderSignedOut();
+    });
+
+    modal.querySelector('.es-nav__auth-modal-close').addEventListener('click', function () {
+      modal.hidden = true;
+    });
+    modal.querySelector('.es-nav__auth-modal-backdrop').addEventListener('click', function () {
+      modal.hidden = true;
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var action = e.submitter ? e.submitter.dataset.action : 'signin';
+      var email = document.getElementById('es-nav-auth-email').value.trim();
+      var password = document.getElementById('es-nav-auth-password').value;
+      errorBox.hidden = true;
+
+      var task = action === 'signup'
+        ? window.EsAuth.signUp(email, password)
+        : window.EsAuth.signIn(email, password);
+
+      task.then(function () {
+        modal.hidden = true;
+      }).catch(function (err) {
+        errorBox.textContent = err.message || 'Something went wrong — try again.';
+        errorBox.hidden = false;
+      });
+    });
+  }
+
+  waitForAuth(30); // ~3 seconds total before giving up
+
 })();
