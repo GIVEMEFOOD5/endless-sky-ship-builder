@@ -167,59 +167,146 @@
   }
 
   function initAccountWidget() {
-    var mount = document.getElementById('es-nav-account');
-    var modal = document.getElementById('es-nav-auth-modal');
-    var form  = document.getElementById('es-nav-auth-form');
-    var errorBox = document.getElementById('es-nav-auth-error');
-    if (!mount || !modal || !form) return;
+    var mount    = document.getElementById('es-nav-account');
+    var overlay  = document.getElementById('es-nav-auth-overlay');
+    var closeBtn = document.getElementById('es-nav-auth-close');
+    var tabs     = overlay ? overlay.querySelectorAll('.modal-tab') : [];
+    var signinForm = document.getElementById('es-nav-signin-form');
+    var signupForm = document.getElementById('es-nav-signup-form');
+    if (!mount || !overlay || !signinForm || !signupForm) return;
+
+    function openModal(mode) {
+      setMode(mode || 'signin');
+      overlay.classList.add('active');
+      var firstInput = (mode === 'signup' ? signupForm : signinForm).querySelector('input');
+      if (firstInput) setTimeout(function () { firstInput.focus(); }, 50);
+    }
+    function closeModal() {
+      overlay.classList.remove('active');
+      signinForm.reset();
+      signupForm.reset();
+      setFieldError('signin', '');
+      setFieldError('signup', '');
+      setUsernameHint('', '');
+    }
+    function setMode(mode) {
+      tabs.forEach(function (t) { t.classList.toggle('active', t.dataset.tab === mode); });
+      signinForm.style.display = mode === 'signin' ? 'block' : 'none';
+      signupForm.style.display = mode === 'signup' ? 'block' : 'none';
+      overlay.querySelector('[data-mode-for="signin"]').style.display = mode === 'signin' ? 'inline' : 'none';
+      overlay.querySelector('[data-mode-for="signup"]').style.display = mode === 'signup' ? 'inline' : 'none';
+    }
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () { setMode(tab.dataset.tab); });
+    });
+    overlay.querySelectorAll('[data-switch-to]').forEach(function (btn) {
+      btn.addEventListener('click', function () { setMode(btn.dataset.switchTo); });
+    });
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', function (e) { if (e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && overlay.classList.contains('active')) closeModal();
+    });
+
+    function setFieldError(form, message, isSuccess) {
+      var box = document.getElementById('es-nav-' + form + '-error');
+      if (!box) return;
+      if (!message) { box.innerHTML = ''; return; }
+      box.innerHTML = '<div class="' + (isSuccess ? 'auth-form-success' : 'auth-form-error') + '">' + message + '</div>';
+    }
+
+    function setUsernameHint(text, kind) {
+      var hint = document.getElementById('es-nav-signup-username-hint');
+      if (!hint) return;
+      hint.textContent = text;
+      hint.className = 'auth-field-hint' + (kind ? ' auth-field-hint--' + kind : '');
+    }
+
+    function setLoading(form, loading, defaultLabel) {
+      var btn = form.querySelector('button[type="submit"]');
+      if (!btn) return;
+      btn.disabled = loading;
+      btn.textContent = loading ? 'Please wait…' : defaultLabel;
+    }
+
+    // Live username availability check, debounced so it doesn't fire a
+    // Supabase query on every single keystroke.
+    var usernameInput = document.getElementById('es-nav-signup-username');
+    var usernameCheckTimer = null;
+    usernameInput.addEventListener('input', function () {
+      var value = usernameInput.value.trim();
+      clearTimeout(usernameCheckTimer);
+      if (value.length < 3) { setUsernameHint('', ''); return; }
+      setUsernameHint('Checking…', 'checking');
+      usernameCheckTimer = setTimeout(function () {
+        window.EsAuth.isUsernameAvailable(value).then(function (available) {
+          if (usernameInput.value.trim() !== value) return; // stale — value changed since the check started
+          setUsernameHint(available ? '✓ Available' : '✗ Already taken', available ? 'ok' : 'bad');
+        }).catch(function () { setUsernameHint('', ''); });
+      }, 350);
+    });
 
     function renderSignedOut() {
       mount.innerHTML = '<button type="button" class="es-nav__link" id="es-nav-login-btn">👤 Log in</button>';
-      document.getElementById('es-nav-login-btn').addEventListener('click', function () {
-        errorBox.hidden = true;
-        form.reset();
-        modal.hidden = false;
-      });
+      document.getElementById('es-nav-login-btn').addEventListener('click', function () { openModal('signin'); });
     }
 
-    function renderSignedIn(user) {
-      var email = user.email || 'Account';
+    function renderSignedIn(user, profile) {
+      var name = (profile && profile.username) || user.email || 'Account';
       mount.innerHTML =
-        '<span class="es-nav__account-email" title="' + email + '">👤 ' + email + '</span>' +
+        '<span class="es-nav__account-email" title="' + name + '">👤 ' + name + '</span>' +
         '<button type="button" class="es-nav__link" id="es-nav-logout-btn">Log out</button>';
       document.getElementById('es-nav-logout-btn').addEventListener('click', function () {
         window.EsAuth.signOut();
       });
     }
 
-    window.EsAuth.onAuthChange(function (user) {
-      if (user) renderSignedIn(user); else renderSignedOut();
+    window.EsAuth.onAuthChange(function (user, profile) {
+      if (user) renderSignedIn(user, profile); else renderSignedOut();
     });
 
-    modal.querySelector('.es-nav__auth-modal-close').addEventListener('click', function () {
-      modal.hidden = true;
-    });
-    modal.querySelector('.es-nav__auth-modal-backdrop').addEventListener('click', function () {
-      modal.hidden = true;
-    });
-
-    form.addEventListener('submit', function (e) {
+    signinForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      var action = e.submitter ? e.submitter.dataset.action : 'signin';
-      var email = document.getElementById('es-nav-auth-email').value.trim();
-      var password = document.getElementById('es-nav-auth-password').value;
-      errorBox.hidden = true;
+      setFieldError('signin', '');
+      var email = document.getElementById('es-nav-signin-email').value.trim();
+      var password = document.getElementById('es-nav-signin-password').value;
 
-      var task = action === 'signup'
-        ? window.EsAuth.signUp(email, password)
-        : window.EsAuth.signIn(email, password);
+      setLoading(signinForm, true, 'Log in');
+      window.EsAuth.signIn(email, password)
+        .then(function () { closeModal(); })
+        .catch(function (err) {
+          setFieldError('signin', err.message || 'Could not log in — check your email and password.');
+        })
+        .finally(function () { setLoading(signinForm, false, 'Log in'); });
+    });
 
-      task.then(function () {
-        modal.hidden = true;
-      }).catch(function (err) {
-        errorBox.textContent = err.message || 'Something went wrong — try again.';
-        errorBox.hidden = false;
-      });
+    signupForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      setFieldError('signup', '');
+      var username = usernameInput.value.trim();
+      var email = document.getElementById('es-nav-signup-email').value.trim();
+      var password = document.getElementById('es-nav-signup-password').value;
+      var confirm = document.getElementById('es-nav-signup-password-confirm').value;
+
+      if (password !== confirm) {
+        setFieldError('signup', "Passwords don't match.");
+        return;
+      }
+
+      setLoading(signupForm, true, 'Create account');
+      window.EsAuth.signUp(email, password, username)
+        .then(function () {
+          setFieldError('signup', 'Account created! You\'re logged in.', true);
+          setTimeout(closeModal, 900);
+        })
+        .catch(function (err) {
+          // isProfileError: the account itself was created fine, only the
+          // username failed to save — worth saying so rather than
+          // implying signup as a whole failed.
+          setFieldError('signup', err.message || 'Could not create an account — try again.');
+        })
+        .finally(function () { setLoading(signupForm, false, 'Create account'); });
     });
   }
 
