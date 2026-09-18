@@ -212,29 +212,25 @@ function _buildLocalPlugin() {
     };
 }
 
-// ── Public builds pseudo-plugin ────────────────────────────────
+// ── Public builds pseudo-plugins ───────────────────────────────
 //
-// Ships anyone has marked public, from any user — shown as a browsable
-// "plugin" the same way Local Builds is, except each ship is tagged with
-// its creator's username instead of belonging to one shared source. The
-// per-ship _ownerUsername is what the UI should display in place of a
-// plugin name on these cards (see DataViewer.js for that wiring).
-const PUBLIC_BUILDS_ID = '__public_builds__';
+// Each user who has at least one public ship becomes their OWN pseudo-
+// plugin, named after their username — not one shared "Public Builds"
+// bucket. This means the existing plugin picker (generalPluginStuff.js)
+// handles them as real, individually-selectable plugins with zero
+// changes: it already groups by sourceName and labels a single-plugin
+// group by that name directly, so sourceName = username is all it takes.
+const PUBLIC_PLUGIN_PREFIX = 'public:';
 
-async function _buildPublicBuildsPlugin() {
+async function _fetchPublicBuildPlugins() {
+    const buckets = {};
     try {
         const { data: shipRows, error } = await window.supabaseClient
             .from('saved_ships').select('id, name, build_data, user_id, created_at')
             .eq('is_public', true)
             .order('created_at', { ascending: false });
-        if (error || !shipRows?.length) {
-            return { sourceName: 'Public Builds', displayName: 'Public Builds', outputName: PUBLIC_BUILDS_ID, ships: [], variants: [], outfits: [], effects: [], _isPublicBuilds: true };
-        }
+        if (error || !shipRows?.length) return buckets;
 
-        // Two flat queries + stitch in JS, rather than a nested select —
-        // same pattern used everywhere else in this codebase, and avoids
-        // depending on PostgREST inferring a relationship between two
-        // tables that both merely reference auth.users separately.
         const userIds = [...new Set(shipRows.map(r => r.user_id))];
         const { data: profileRows } = await window.supabaseClient
             .from('profiles').select('id, username').in('id', userIds);
@@ -242,25 +238,35 @@ async function _buildPublicBuildsPlugin() {
 
         const remoteOutfits = [];
         for (const [id, plugin] of Object.entries(window.allData)) {
-            if (id === LOCAL_PLUGIN_ID || id === PUBLIC_BUILDS_ID) continue;
+            if (id === LOCAL_PLUGIN_ID || id.startsWith(PUBLIC_PLUGIN_PREFIX)) continue;
             for (const o of (plugin.outfits || [])) remoteOutfits.push(o);
         }
 
-        const ships = shipRows.map(row => _normaliseSavedShip(row.build_data || {}, {
-            name: row.build_data?.name || row.name || 'Unnamed',
-            _isPublicBuild: true,
-            _publicShipId: row.id,
-            _ownerUsername: usernameByUserId.get(row.user_id) || 'Unknown',
-        }));
+        const shipsByUsername = new Map();
+        for (const row of shipRows) {
+            const username = usernameByUserId.get(row.user_id);
+            if (!username) continue; // no profile/username set — nothing sensible to label this plugin with
+            if (!shipsByUsername.has(username)) shipsByUsername.set(username, []);
+            shipsByUsername.get(username).push(_normaliseSavedShip(row.build_data || {}, {
+                name: row.build_data?.name || row.name || 'Unnamed',
+                _isPublicBuild: true,
+                _publicShipId: row.id,
+                _ownerUsername: username,
+            }));
+        }
 
-        return {
-            sourceName: 'Public Builds', displayName: 'Public Builds', outputName: PUBLIC_BUILDS_ID,
-            ships, variants: [], outfits: remoteOutfits, effects: [], _isPublicBuilds: true,
-        };
+        for (const [username, ships] of shipsByUsername) {
+            const outputName = PUBLIC_PLUGIN_PREFIX + username;
+            buckets[outputName] = {
+                sourceName: username, displayName: username, outputName,
+                ships, variants: [], outfits: remoteOutfits, effects: [],
+                _isPublicUserPlugin: true,
+            };
+        }
     } catch (err) {
         console.warn('[DataLoader] Could not load public builds:', err);
-        return { sourceName: 'Public Builds', displayName: 'Public Builds', outputName: PUBLIC_BUILDS_ID, ships: [], variants: [], outfits: [], effects: [], _isPublicBuilds: true };
     }
+    return buckets;
 }
 
 function _refreshLocalPlugin() {
@@ -698,7 +704,7 @@ async function _doLoad() {
                 const pluginRow = pluginRows.find(p => p.output_name === outputName);
                 window.allData[outputName] = await _loadPluginBundle(outputName, pluginRow);
             }),
-            (async () => { window.allData[PUBLIC_BUILDS_ID] = await _buildPublicBuildsPlugin(); })(),
+            (async () => { Object.assign(window.allData, await _fetchPublicBuildPlugins()); })(),
         ]);
 
         const hasData = Object.values(window.allData).some(p =>
@@ -751,6 +757,17 @@ async function ensurePluginLoaded(outputName) {
     if (outputName === LOCAL_PLUGIN_ID) return window.allData[LOCAL_PLUGIN_ID];
     if (window.allData[outputName]?.ships || window.allData[outputName]?.outfits) {
         return window.allData[outputName]; // already loaded, nothing to do
+    }
+    // Public-build pseudo-plugins have no row in the plugins table (they're
+    // synthetic, built from saved_ships) — querying for one would find
+    // nothing and silently produce an empty bundle. These are normally
+    // already loaded eagerly during Phase A; this only matters if one
+    // became public after this page's load already ran.
+    if (outputName.startsWith(PUBLIC_PLUGIN_PREFIX)) {
+        const buckets = await _fetchPublicBuildPlugins();
+        Object.assign(window.allData, buckets);
+        _fireEvent('pluginDataAvailable', { outputName });
+        return window.allData[outputName];
     }
     const { fetchAllRows } = window.SupabaseHelpers;
     const pluginRows = await fetchAllRows('plugins', { filters: q => q.eq('output_name', outputName) });
