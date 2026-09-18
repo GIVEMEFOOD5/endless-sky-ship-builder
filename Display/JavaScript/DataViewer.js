@@ -253,7 +253,14 @@ function createCardPlaceholder(item) {
         compareBtn.classList.toggle('btn-compare--active', inList);
     });
     card.appendChild(compareBtn);
-    
+
+    if (item._ownerUsername) {
+        const ownerLine = document.createElement('div');
+        ownerLine.className = 'card-owner-line';
+        ownerLine.textContent = `by ${item._ownerUsername}`;
+        card.appendChild(ownerLine);
+    }
+
     return card;
 }
 
@@ -357,10 +364,17 @@ async function showDetails(item) {
 
     modalTitle.textContent = item.name || 'Unknown';
 
+    modalBody.innerHTML = '';
+
+    if (item._ownerUsername) {
+        const ownerLine = document.createElement('div');
+        ownerLine.className = 'modal-owner-line';
+        ownerLine.textContent = `by ${item._ownerUsername}`;
+        modalBody.appendChild(ownerLine);
+    }
+
     const availableTabs = getAvailableTabs(item);
     currentModalTab = availableTabs.length > 0 ? availableTabs[0].id : 'attributes';
-
-    modalBody.innerHTML = '';
 
     if (availableTabs.length > 0) {
         const tabBar = document.createElement('div');
