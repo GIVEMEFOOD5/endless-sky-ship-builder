@@ -4825,3 +4825,91 @@ body {
     cursor: pointer;
 }
 .btn-cleanup-reset:hover { color: var(--c-text); }
+
+/* ── Account / auth widget ─────────────────────────────────────── */
+/* Built from the existing .overlay / .modal-box / .modal-tabs /
+   .text-input / .btn utilities above rather than a separate system —
+   these are just the few extra pieces those didn't already cover. */
+
+.modal-box--auth {
+    width: min(400px, 92vw);
+    padding: 28px;
+}
+
+.es-nav__account {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+.es-nav__account-email {
+    color: var(--c-text-mid);
+    font-size: 0.9rem;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.auth-field {
+    margin-bottom: 16px;
+}
+.auth-field label {
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+}
+.auth-field-hint {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.8rem;
+    min-height: 1.1em; /* reserves space so layout doesn't jump when a hint appears */
+    transition: color var(--t-fast);
+}
+.auth-field-hint--checking { color: var(--c-text-dim); }
+.auth-field-hint--ok       { color: var(--c-success-text); }
+.auth-field-hint--bad      { color: var(--c-danger-text); }
+
+.auth-form-error {
+    background: var(--c-danger);
+    border: 1px solid var(--c-danger-hi);
+    color: var(--c-danger-text);
+    border-radius: var(--r-md);
+    padding: 10px 12px;
+    font-size: 0.88rem;
+    margin-bottom: 16px;
+}
+.auth-form-success {
+    background: var(--c-success);
+    border: 1px solid var(--c-success-text);
+    color: var(--c-success-text);
+    border-radius: var(--r-md);
+    padding: 10px 12px;
+    font-size: 0.88rem;
+    margin-bottom: 16px;
+}
+
+.auth-submit {
+    width: 100%;
+    margin-top: 4px;
+}
+.auth-submit:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.auth-switch {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 0.88rem;
+    color: var(--c-text-muted);
+}
+.auth-switch button {
+    background: none;
+    border: none;
+    color: var(--c-accent-text);
+    cursor: pointer;
+    font-size: inherit;
+    text-decoration: underline;
+    padding: 0;
+}
+.auth-switch button:hover { color: var(--c-text); }
