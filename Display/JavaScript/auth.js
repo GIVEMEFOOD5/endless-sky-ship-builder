@@ -14,32 +14,75 @@
 (function () {
 
 let _currentUser = null;
+let _currentProfile = null; // { username } — fetched once per session, cached
 let _authReadyResolve;
 const _authReady = new Promise(resolve => { _authReadyResolve = resolve; });
 const _listeners = [];
 
+async function _loadProfile(userId) {
+    if (!userId) { _currentProfile = null; return; }
+    try {
+        const { data } = await window.supabaseClient
+            .from('profiles').select('username').eq('id', userId).maybeSingle();
+        _currentProfile = data || null;
+    } catch (_) {
+        _currentProfile = null;
+    }
+}
+
 function _fireAuthChange() {
     for (const fn of _listeners) {
-        try { fn(_currentUser); } catch (e) { console.error('[Auth] listener error:', e); }
+        try { fn(_currentUser, _currentProfile); } catch (e) { console.error('[Auth] listener error:', e); }
     }
 }
 
 // getSession() reads the persisted session token — cheap, no network
 // round trip in the common case — so this resolves fast on every page.
-window.supabaseClient.auth.getSession().then(({ data }) => {
+window.supabaseClient.auth.getSession().then(async ({ data }) => {
     _currentUser = data?.session?.user ?? null;
+    await _loadProfile(_currentUser?.id);
     _authReadyResolve();
     _fireAuthChange();
 });
 
-window.supabaseClient.auth.onAuthStateChange((_event, session) => {
+window.supabaseClient.auth.onAuthStateChange(async (_event, session) => {
     _currentUser = session?.user ?? null;
+    await _loadProfile(_currentUser?.id);
     _fireAuthChange();
 });
 
-async function signUp(email, password) {
+/** Checks whether a username is free to take — used for inline validation
+ * before submitting, so "taken" feedback shows up before the user hits
+ * submit rather than only as a server error after. Not a hard guarantee
+ * (someone could take it a moment later) — signUp() below still handles
+ * the unique-constraint error as the real source of truth. */
+async function isUsernameAvailable(username) {
+    const { data } = await window.supabaseClient
+        .from('profiles').select('id').eq('username', username).maybeSingle();
+    return !data;
+}
+
+async function signUp(email, password, username) {
     const { data, error } = await window.supabaseClient.auth.signUp({ email, password });
     if (error) throw error;
+    if (data.user && username) {
+        const { error: profileErr } = await window.supabaseClient
+            .from('profiles').insert({ id: data.user.id, username });
+        if (profileErr) {
+            // Most likely cause: username taken in the split second between
+            // the availability check and this insert. Signup itself still
+            // succeeded — surface this distinctly so the UI can say so
+            // rather than implying the whole signup failed.
+            const err = new Error(
+                profileErr.message.includes('duplicate') || profileErr.code === '23505'
+                    ? 'That username was just taken — your account was created, but pick a different username to finish setting up your profile.'
+                    : profileErr.message
+            );
+            err.isProfileError = true;
+            throw err;
+        }
+        _currentProfile = { username };
+    }
     return data.user;
 }
 
@@ -51,6 +94,11 @@ async function signIn(email, password) {
 
 async function signOut() {
     await window.supabaseClient.auth.signOut();
+    // The active-plugins localStorage key is shared/global on this browser
+    // (dataLoader.js and generalPluginStuff.js both write to it) — clear it
+    // on sign-out so this account's picks don't linger as the "remembered"
+    // selection for whoever uses this browser next, logged in or not.
+    try { localStorage.removeItem('es_sb_active_plugins'); } catch (_) { /* ignore */ }
 }
 
 /** Resolves once the initial session check has completed (page load only). */
@@ -63,7 +111,19 @@ function getCurrentUser() {
     return _currentUser;
 }
 
-/** Fires immediately with current state, then again on every login/logout. */
+function getCurrentProfile() {
+    return _currentProfile;
+}
+
+/** What the UI should actually show — the username if one's set, the
+ * email otherwise (covers accounts created before usernames existed, or
+ * anyone who skipped setting one). */
+function getDisplayName() {
+    return _currentProfile?.username || _currentUser?.email || null;
+}
+
+/** Fires immediately with current state, then again on every login/logout.
+ * Listener receives (user, profile) — profile is null if none is set. */
 function onAuthChange(fn) {
     _listeners.push(fn);
     if (_currentUser !== null || _listeners.length) fn(_currentUser);
@@ -97,7 +157,8 @@ async function saveActivePluginsPreference(activePlugins) {
 }
 
 window.EsAuth = {
-    signUp, signIn, signOut, ready, getCurrentUser, onAuthChange,
+    signUp, signIn, signOut, ready, getCurrentUser, getCurrentProfile, getDisplayName,
+    isUsernameAvailable, onAuthChange,
     getActivePluginsPreference, saveActivePluginsPreference,
 };
 
