@@ -126,6 +126,59 @@ function _normaliseOutfitMap(outfits) {
 // Without this, every outfit lookup returned undefined and all
 // computed stats were zero.
 
+// Shared by both Local Builds and Public Builds — a saved ship (whether
+// from localStorage or a saved_ships.build_data row) is stored as this
+// same raw flat object; both callers normalize it identically so a ship
+// looks and behaves the same whether it's yours or someone else's public
+// build.
+function _normaliseSavedShip(s, extra) {
+    const rawAttrs = Object.assign({}, s.attributes || {});
+    if (s.mass != null && s.mass !== '') rawAttrs.mass = s.mass;
+    if (s.drag != null && s.drag !== '') rawAttrs.drag = s.drag;
+    const attributes = _coerceAttrs(rawAttrs);
+    const outfitsMap = _normaliseOutfitMap(s.outfits);
+
+    return Object.assign({
+        name:        s.name || 'Unnamed',
+        variant:     s.variant || '',
+        sprite:      s.sprite || '',
+        thumbnail:   s.thumbnail || '',
+        description: s.description || '',
+        attributes,
+        outfits:   outfitsMap,
+        outfitMap: outfitsMap,
+        guns: (s.guns || []).map(g => ({
+            x:   parseFloat((g.coords || '0 0').split(' ')[0]) || 0,
+            y:   parseFloat((g.coords || '0 0').split(' ')[1]) || 0,
+            gun: g.over || '',
+        })),
+        turrets: (s.turrets || []).map(g => ({
+            x:      parseFloat((g.coords || '0 0').split(' ')[0]) || 0,
+            y:      parseFloat((g.coords || '0 0').split(' ')[1]) || 0,
+            turret: g.over || '',
+        })),
+        bays: [
+            ...(s.drones || []).map(b => ({
+                type:            'Drone',
+                x:               parseFloat((b.coords || '0 0').split(' ')[0]) || 0,
+                y:               parseFloat((b.coords || '0 0').split(' ')[1]) || 0,
+                'launch effect': b.launchEffect || '',
+            })),
+            ...(s.fighters || []).map(b => ({
+                type:            'Fighter',
+                x:               parseFloat((b.coords || '0 0').split(' ')[0]) || 0,
+                y:               parseFloat((b.coords || '0 0').split(' ')[1]) || 0,
+                'launch effect': b.launchEffect || '',
+            })),
+        ],
+        engines: (s.engines || []).map(e => ({
+            x:    parseFloat((e.coords || '0 0').split(' ')[0]) || 0,
+            y:    parseFloat((e.coords || '0 0').split(' ')[1]) || 0,
+            zoom: parseFloat(e.zoom) || 1,
+        })),
+    }, extra);
+}
+
 function _buildLocalPlugin() {
     let fleet = [];
     try {
@@ -133,59 +186,7 @@ function _buildLocalPlugin() {
         if (raw) fleet = JSON.parse(raw);
     } catch (_) {}
 
-    const ships = fleet.map(s => {
-        const rawAttrs = Object.assign({}, s.attributes || {});
-        if (s.mass != null && s.mass !== '') rawAttrs.mass = s.mass;
-        if (s.drag != null && s.drag !== '') rawAttrs.drag = s.drag;
-        const attributes = _coerceAttrs(rawAttrs);
-
-        // FIX: normalise outfits into a consistent map regardless of
-        // whether localStorage holds map or array format.
-        const outfitsMap = _normaliseOutfitMap(s.outfits);
-
-        return {
-            name:        s.name || 'Unnamed',
-            variant:     s.variant || '',
-            sprite:      s.sprite || '',
-            thumbnail:   s.thumbnail || '',
-            description: s.description || '',
-            attributes,
-            // FIX: provide both keys; ComputedStats uses outfitMap || outfits
-            outfits:   outfitsMap,
-            outfitMap: outfitsMap,
-            guns: (s.guns || []).map(g => ({
-                x:   parseFloat((g.coords || '0 0').split(' ')[0]) || 0,
-                y:   parseFloat((g.coords || '0 0').split(' ')[1]) || 0,
-                gun: g.over || '',
-            })),
-            turrets: (s.turrets || []).map(g => ({
-                x:      parseFloat((g.coords || '0 0').split(' ')[0]) || 0,
-                y:      parseFloat((g.coords || '0 0').split(' ')[1]) || 0,
-                turret: g.over || '',
-            })),
-            bays: [
-                ...(s.drones || []).map(b => ({
-                    type:            'Drone',
-                    x:               parseFloat((b.coords || '0 0').split(' ')[0]) || 0,
-                    y:               parseFloat((b.coords || '0 0').split(' ')[1]) || 0,
-                    'launch effect': b.launchEffect || '',
-                })),
-                ...(s.fighters || []).map(b => ({
-                    type:            'Fighter',
-                    x:               parseFloat((b.coords || '0 0').split(' ')[0]) || 0,
-                    y:               parseFloat((b.coords || '0 0').split(' ')[1]) || 0,
-                    'launch effect': b.launchEffect || '',
-                })),
-            ],
-            engines: (s.engines || []).map(e => ({
-                x:    parseFloat((e.coords || '0 0').split(' ')[0]) || 0,
-                y:    parseFloat((e.coords || '0 0').split(' ')[1]) || 0,
-                zoom: parseFloat(e.zoom) || 1,
-            })),
-            _isLocalBuild: true,
-            _localId: s.id,
-        };
-    });
+    const ships = fleet.map(s => _normaliseSavedShip(s, { _isLocalBuild: true, _localId: s.id }));
 
     // FIX: populate the local plugin's outfits array from ALL active remote
     // plugins so ComputedStats.getOutfitIndex can find outfit attribute data.
@@ -209,6 +210,57 @@ function _buildLocalPlugin() {
         effects:  [],
         _isLocal: true,
     };
+}
+
+// ── Public builds pseudo-plugin ────────────────────────────────
+//
+// Ships anyone has marked public, from any user — shown as a browsable
+// "plugin" the same way Local Builds is, except each ship is tagged with
+// its creator's username instead of belonging to one shared source. The
+// per-ship _ownerUsername is what the UI should display in place of a
+// plugin name on these cards (see DataViewer.js for that wiring).
+const PUBLIC_BUILDS_ID = '__public_builds__';
+
+async function _buildPublicBuildsPlugin() {
+    try {
+        const { data: shipRows, error } = await window.supabaseClient
+            .from('saved_ships').select('id, name, build_data, user_id, created_at')
+            .eq('is_public', true)
+            .order('created_at', { ascending: false });
+        if (error || !shipRows?.length) {
+            return { sourceName: 'Public Builds', displayName: 'Public Builds', outputName: PUBLIC_BUILDS_ID, ships: [], variants: [], outfits: [], effects: [], _isPublicBuilds: true };
+        }
+
+        // Two flat queries + stitch in JS, rather than a nested select —
+        // same pattern used everywhere else in this codebase, and avoids
+        // depending on PostgREST inferring a relationship between two
+        // tables that both merely reference auth.users separately.
+        const userIds = [...new Set(shipRows.map(r => r.user_id))];
+        const { data: profileRows } = await window.supabaseClient
+            .from('profiles').select('id, username').in('id', userIds);
+        const usernameByUserId = new Map((profileRows || []).map(p => [p.id, p.username]));
+
+        const remoteOutfits = [];
+        for (const [id, plugin] of Object.entries(window.allData)) {
+            if (id === LOCAL_PLUGIN_ID || id === PUBLIC_BUILDS_ID) continue;
+            for (const o of (plugin.outfits || [])) remoteOutfits.push(o);
+        }
+
+        const ships = shipRows.map(row => _normaliseSavedShip(row.build_data || {}, {
+            name: row.build_data?.name || row.name || 'Unnamed',
+            _isPublicBuild: true,
+            _publicShipId: row.id,
+            _ownerUsername: usernameByUserId.get(row.user_id) || 'Unknown',
+        }));
+
+        return {
+            sourceName: 'Public Builds', displayName: 'Public Builds', outputName: PUBLIC_BUILDS_ID,
+            ships, variants: [], outfits: remoteOutfits, effects: [], _isPublicBuilds: true,
+        };
+    } catch (err) {
+        console.warn('[DataLoader] Could not load public builds:', err);
+        return { sourceName: 'Public Builds', displayName: 'Public Builds', outputName: PUBLIC_BUILDS_ID, ships: [], variants: [], outfits: [], effects: [], _isPublicBuilds: true };
+    }
 }
 
 function _refreshLocalPlugin() {
@@ -641,10 +693,13 @@ async function _doLoad() {
             if (def) phaseANames.add(def.output_name);
         }
 
-        await Promise.all([...phaseANames].map(async outputName => {
-            const pluginRow = pluginRows.find(p => p.output_name === outputName);
-            window.allData[outputName] = await _loadPluginBundle(outputName, pluginRow);
-        }));
+        await Promise.all([
+            ...[...phaseANames].map(async outputName => {
+                const pluginRow = pluginRows.find(p => p.output_name === outputName);
+                window.allData[outputName] = await _loadPluginBundle(outputName, pluginRow);
+            }),
+            (async () => { window.allData[PUBLIC_BUILDS_ID] = await _buildPublicBuildsPlugin(); })(),
+        ]);
 
         const hasData = Object.values(window.allData).some(p =>
             (p.ships?.length > 0) || (p.variants?.length > 0) || (p.outfits?.length > 0)
