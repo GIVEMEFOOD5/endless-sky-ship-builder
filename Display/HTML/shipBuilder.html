@@ -440,13 +440,49 @@
   </div>
 </div>
 
+<!-- Save a built ship to the user's account, optionally sharing it publicly -->
+<div id="modal-cloud-save" class="modal-overlay">
+  <div class="modal-box" style="width:min(420px,96vw);">
+    <div class="modal-header">
+      <div class="modal-title">Save to Account</div>
+      <button class="modal-close" onclick="closeModal('modal-cloud-save')">×</button>
+    </div>
+
+    <div id="cloud-save-logged-out" style="display:none;">
+      <p style="color:var(--c-text-mid);margin-bottom:16px;">You'll need to be logged in to save ships to your account.</p>
+      <div class="btn-group btn-group-right">
+        <button class="btn btn-secondary" onclick="closeModal('modal-cloud-save')">Cancel</button>
+        <button class="btn btn-primary" onclick="closeModal('modal-cloud-save'); window.openAuthModal && window.openAuthModal('signin');">Log in</button>
+      </div>
+    </div>
+
+    <form id="cloud-save-form" style="display:none;">
+      <div id="cloud-save-error"></div>
+      <label for="cloud-save-name" style="display:block;font-size:0.85rem;margin-bottom:6px;">Ship name</label>
+      <input type="text" id="cloud-save-name" class="text-input" required style="margin-bottom:16px;">
+
+      <label style="display:flex;align-items:center;gap:8px;margin-bottom:4px;cursor:pointer;">
+        <input type="checkbox" id="cloud-save-public">
+        <span>Make this build public</span>
+      </label>
+      <p style="color:var(--c-text-dim);font-size:0.8rem;margin:0 0 18px 26px;">
+        Public builds appear under your username in the plugin list, visible to everyone.
+      </p>
+
+      <div class="btn-group btn-group-right">
+        <button type="button" class="btn btn-secondary" onclick="closeModal('modal-cloud-save')">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="cloud-save-submit-btn">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <!-- Toast -->
 <div id="toast" class="toast"></div>
 <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 <script src="../JavaScript/supabaseClient.js"></script>
-<script src="../JavaScript/auth.js"></script>
-<script src="../JavaScript/esCache.js"></script>
 <script src="../JavaScript/dataLoader.js"></script>
+<script src="../JavaScript/esCache.js"></script>
 <script src="../JavaScript/Animator.js"></script>
 <script src="../JavaScript/EffectGrabber.js"></script>
 <script src="../JavaScript/ImageGrabber.js"></script>

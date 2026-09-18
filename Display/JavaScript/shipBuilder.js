@@ -656,6 +656,7 @@ function renderFleet() {
         <div class="fleet-card__actions" onclick="event.stopPropagation()">
           <button class="btn btn-primary btn-sm"   onclick="sbEditFleetShip(${i})">✏️ Edit</button>
           <button class="btn btn-secondary btn-sm" onclick="sbDuplicate(${i})">⧉ Copy</button>
+          <button class="btn btn-secondary btn-sm" onclick="sbOpenCloudSaveModal(${i})" title="Save to your account, optionally sharing it publicly">☁️ Save</button>
           <button class="btn btn-danger btn-sm"    onclick="sbConfirmDelete(${i})">🗑</button>
         </div>
       </div>`;
@@ -808,6 +809,109 @@ function sbConfirmDelete(i) {
   };
   openModal('modal-confirm');
 }
+
+// ═══════════════════════════════════════════════════════════
+//  SAVE TO ACCOUNT — uploads one built ship into the logged-in
+//  user's save_files/saved_ships, optionally marking it public.
+//  Entirely separate from sbSave() above, which only auto-persists
+//  the whole local fleet to localStorage — this is an explicit,
+//  per-ship action the user opts into.
+// ═══════════════════════════════════════════════════════════
+
+let _sbCloudSaveIndex = null;
+
+function sbOpenCloudSaveModal(i) {
+  if (!window.EsAuth) {
+    sbToast('Account features are not available on this page.', 'danger');
+    return;
+  }
+  _sbCloudSaveIndex = i;
+  const ship = sbFleet[i];
+  const loggedOutBox = document.getElementById('cloud-save-logged-out');
+  const form = document.getElementById('cloud-save-form');
+  const user = window.EsAuth.getCurrentUser();
+
+  if (!user) {
+    loggedOutBox.style.display = 'block';
+    form.style.display = 'none';
+  } else {
+    loggedOutBox.style.display = 'none';
+    form.style.display = 'block';
+    document.getElementById('cloud-save-name').value = ship.name || ship.variant || 'My Ship';
+    document.getElementById('cloud-save-public').checked = false;
+    document.getElementById('cloud-save-error').innerHTML = '';
+  }
+  openModal('modal-cloud-save');
+}
+
+/** Every user gets one default save file, created on first cloud save and
+ * reused after that — the schema supports multiple save files per user,
+ * but a dedicated "manage save files" UI is a separate feature; this
+ * keeps the common case (just save my ship) to one click. */
+async function _sbEnsureDefaultSaveFile(userId) {
+  const { data: existing } = await window.supabaseClient
+    .from('save_files').select('id').eq('user_id', userId).order('created_at', { ascending: true }).limit(1);
+  if (existing && existing.length) return existing[0].id;
+
+  const { data: created, error } = await window.supabaseClient
+    .from('save_files').insert({ user_id: userId, name: 'My Save' }).select('id').single();
+  if (error) throw error;
+  return created.id;
+}
+
+(function initCloudSaveForm() {
+  const form = document.getElementById('cloud-save-form');
+  if (!form) return;
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const errorBox = document.getElementById('cloud-save-error');
+    const submitBtn = document.getElementById('cloud-save-submit-btn');
+    errorBox.innerHTML = '';
+
+    const user = window.EsAuth.getCurrentUser();
+    if (!user || _sbCloudSaveIndex == null) return;
+    const ship = sbFleet[_sbCloudSaveIndex];
+    if (!ship) return;
+
+    const name = document.getElementById('cloud-save-name').value.trim() || 'My Ship';
+    const isPublic = document.getElementById('cloud-save-public').checked;
+
+    // Same shape sbSave() already writes for local persistence, so a
+    // build read back from the cloud looks identical to a local one.
+    const buildData = {
+      ...ship,
+      name,
+      outfits: Object.fromEntries(
+        (ship.outfits || []).map(o => [
+          o.name.replace(/^"|"$/g, ''),
+          { count: o.count ?? 1, pluginId: o.pluginId ?? null, internalId: o.internalId ?? null },
+        ])
+      ),
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Saving…';
+    try {
+      const saveFileId = await _sbEnsureDefaultSaveFile(user.id);
+      const { error } = await window.supabaseClient.from('saved_ships').insert({
+        save_file_id: saveFileId,
+        user_id: user.id,
+        name,
+        build_data: buildData,
+        is_public: isPublic,
+      });
+      if (error) throw error;
+
+      closeModal('modal-cloud-save');
+      sbToast(isPublic ? 'Saved and shared publicly!' : 'Saved to your account!', 'success');
+    } catch (err) {
+      errorBox.innerHTML = `<div class="auth-form-error">${err.message || 'Could not save — try again.'}</div>`;
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Save';
+    }
+  });
+})();
 
 // ═══════════════════════════════════════════════════════════
 //  MODE ENTRY POINTS

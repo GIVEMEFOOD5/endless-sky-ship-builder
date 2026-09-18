@@ -181,6 +181,9 @@
       var firstInput = (mode === 'signup' ? signupForm : signinForm).querySelector('input');
       if (firstInput) setTimeout(function () { firstInput.focus(); }, 50);
     }
+    // Lets other files (e.g. shipBuilder.js's "save to account" flow)
+    // trigger the login modal directly rather than duplicating it.
+    window.openAuthModal = openModal;
     function closeModal() {
       overlay.classList.remove('active');
       signinForm.reset();
