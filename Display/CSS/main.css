@@ -4913,3 +4913,18 @@ body {
     padding: 0;
 }
 .auth-switch button:hover { color: var(--c-text); }
+
+/* ── Public build attribution ──────────────────────────────────── */
+.card-owner-line {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--c-text-muted);
+    font-style: italic;
+    margin-top: 8px;
+}
+.modal-owner-line {
+    font-size: 0.9rem;
+    color: var(--c-text-muted);
+    font-style: italic;
+    margin-bottom: 16px;
+}
