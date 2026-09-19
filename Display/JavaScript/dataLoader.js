@@ -678,6 +678,25 @@ async function _doLoad() {
         const pluginRows = await fetchAllRows('plugins', { orderBy: 'source_priority' });
         if (!pluginRows.length) throw new Error('No plugins found in Supabase');
 
+        // The picker (generalPluginStuff.js) reads plugin names from
+        // window.allData's keys, and only shows what's actually there —
+        // so without this, it'd only show whatever Phase A/B happened to
+        // have loaded so far, not every plugin that exists. A placeholder
+        // with empty arrays is enough for it to show up as selectable;
+        // Phase A/B/ensurePluginLoaded below replace it with real data
+        // the moment that plugin actually loads (they just assign over
+        // window.allData[outputName] wholesale, so this is never stale
+        // once real data arrives).
+        for (const p of pluginRows) {
+            if (!window.allData[p.output_name]) {
+                window.allData[p.output_name] = {
+                    sourceName: p.source_name, displayName: p.display_name || p.output_name,
+                    outputName: p.output_name, ships: [], variants: [], outfits: [], effects: [],
+                    _placeholder: true,
+                };
+            }
+        }
+
         // 3 — Phase A: whichever plugins are already active — preferring
         // the logged-in user's account preference over localStorage, so
         // it follows them across devices — or a sensible default if

@@ -415,6 +415,7 @@ window.MissionLoader = {
     setActivePlugins(arr) {
         _activePlugins = arr.filter(id => window.allMissionData[id]);
         _saveActivePlugins();
+        if (window.EsAuth) window.EsAuth.saveActivePluginsPreference(_activePlugins);
         _firePluginsChanged();
     },
 
@@ -425,10 +426,18 @@ window.MissionLoader = {
     _setActivePluginsSilent(arr) {
         _activePlugins = arr.filter(id => window.allMissionData[id]);
         _saveActivePlugins();
+        if (window.EsAuth) window.EsAuth.saveActivePluginsPreference(_activePlugins);
     },
 
-    initDefaultPlugins() {
-        const saved = _loadActivePlugins();
+    async initDefaultPlugins() {
+        // Account preference takes priority when logged in, same as
+        // dataLoader.js — falls back to localStorage if signed out.
+        let saved = null;
+        if (window.EsAuth) {
+            try { saved = await window.EsAuth.getActivePluginsPreference(); } catch (_) { /* fall through */ }
+        }
+        if (!saved) saved = _loadActivePlugins();
+
         if (saved && saved.length) {
             const valid = saved.filter(id => window.allMissionData[id]);
             if (valid.length) {

@@ -84,68 +84,6 @@
        when signed in. -->
   <div id="es-nav-account" class="es-nav__account"></div>
 
-  <!-- Hidden until "Log in" is clicked. Built from the site's existing
-       .overlay / .modal-box / .modal-tabs utilities. -->
-  <div id="es-nav-auth-overlay" class="overlay">
-    <div class="modal-box modal-box--auth">
-      <div class="modal-header">
-        <span class="modal-title" style="font-size: 1.4rem;">Account</span>
-        <button type="button" id="es-nav-auth-close" class="btn-close btn-close--sm" aria-label="Close">&times;</button>
-      </div>
-
-      <div class="modal-tabs">
-        <div class="modal-tab active" data-tab="signin">Log in</div>
-        <div class="modal-tab" data-tab="signup">Sign up</div>
-      </div>
-
-      <div class="modal-tab-contents">
-
-        <!-- Log in -->
-        <form id="es-nav-signin-form" class="modal-tab-content" style="display:block;">
-          <div id="es-nav-signin-error"></div>
-          <div class="auth-field">
-            <label for="es-nav-signin-email">Email</label>
-            <input type="email" id="es-nav-signin-email" class="text-input" required autocomplete="email">
-          </div>
-          <div class="auth-field">
-            <label for="es-nav-signin-password">Password</label>
-            <input type="password" id="es-nav-signin-password" class="text-input" required autocomplete="current-password">
-          </div>
-          <button type="submit" class="btn btn-primary auth-submit">Log in</button>
-        </form>
-
-        <!-- Sign up -->
-        <form id="es-nav-signup-form" class="modal-tab-content" style="display:none;">
-          <div id="es-nav-signup-error"></div>
-          <div class="auth-field">
-            <label for="es-nav-signup-username">Username</label>
-            <input type="text" id="es-nav-signup-username" class="text-input" required minlength="3" maxlength="24" autocomplete="username">
-            <span id="es-nav-signup-username-hint" class="auth-field-hint"></span>
-          </div>
-          <div class="auth-field">
-            <label for="es-nav-signup-email">Email</label>
-            <input type="email" id="es-nav-signup-email" class="text-input" required autocomplete="email">
-          </div>
-          <div class="auth-field">
-            <label for="es-nav-signup-password">Password</label>
-            <input type="password" id="es-nav-signup-password" class="text-input" required minlength="6" autocomplete="new-password">
-          </div>
-          <div class="auth-field">
-            <label for="es-nav-signup-password-confirm">Confirm password</label>
-            <input type="password" id="es-nav-signup-password-confirm" class="text-input" required minlength="6" autocomplete="new-password">
-          </div>
-          <button type="submit" class="btn btn-primary auth-submit">Create account</button>
-        </form>
-
-      </div>
-
-      <div class="auth-switch">
-        <span data-mode-for="signin">New here? <button type="button" data-switch-to="signup">Create an account</button></span>
-        <span data-mode-for="signup" style="display:none;">Already have one? <button type="button" data-switch-to="signin">Log in</button></span>
-      </div>
-    </div>
-  </div>
-
   <button class="es-nav__hamburger" aria-label="Toggle menu">
     <span></span><span></span><span></span>
   </button>
@@ -153,3 +91,68 @@
 </nav>
 
 <div class="es-nav__drawer"></div>
+
+<!-- Hidden until "Log in" is clicked. MUST stay outside <nav> — .es-nav
+     has backdrop-filter, which creates a new containing block for any
+     position:fixed descendant, pinning it to the 56px navbar strip
+     instead of the viewport. Built from the site's existing
+     .overlay / .modal-box / .modal-tabs utilities. -->
+<div id="es-nav-auth-overlay" class="overlay">
+  <div class="modal-box modal-box--auth">
+    <div class="modal-header">
+      <span class="modal-title" style="font-size: 1.4rem;">Account</span>
+      <button type="button" id="es-nav-auth-close" class="btn-close btn-close--sm" aria-label="Close">&times;</button>
+    </div>
+
+    <div class="modal-tabs">
+      <div class="modal-tab active" data-tab="signin">Log in</div>
+      <div class="modal-tab" data-tab="signup">Sign up</div>
+    </div>
+
+    <div class="modal-tab-contents">
+
+      <!-- Log in -->
+      <form id="es-nav-signin-form" class="modal-tab-content" style="display:block;">
+        <div id="es-nav-signin-error"></div>
+        <div class="auth-field">
+          <label for="es-nav-signin-email">Email</label>
+          <input type="email" id="es-nav-signin-email" class="text-input" required autocomplete="email">
+        </div>
+        <div class="auth-field">
+          <label for="es-nav-signin-password">Password</label>
+          <input type="password" id="es-nav-signin-password" class="text-input" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn btn-primary auth-submit">Log in</button>
+      </form>
+
+      <!-- Sign up -->
+      <form id="es-nav-signup-form" class="modal-tab-content" style="display:none;">
+        <div id="es-nav-signup-error"></div>
+        <div class="auth-field">
+          <label for="es-nav-signup-username">Username</label>
+          <input type="text" id="es-nav-signup-username" class="text-input" required minlength="3" maxlength="24" autocomplete="username">
+          <span id="es-nav-signup-username-hint" class="auth-field-hint"></span>
+        </div>
+        <div class="auth-field">
+          <label for="es-nav-signup-email">Email</label>
+          <input type="email" id="es-nav-signup-email" class="text-input" required autocomplete="email">
+        </div>
+        <div class="auth-field">
+          <label for="es-nav-signup-password">Password</label>
+          <input type="password" id="es-nav-signup-password" class="text-input" required minlength="6" autocomplete="new-password">
+        </div>
+        <div class="auth-field">
+          <label for="es-nav-signup-password-confirm">Confirm password</label>
+          <input type="password" id="es-nav-signup-password-confirm" class="text-input" required minlength="6" autocomplete="new-password">
+        </div>
+        <button type="submit" class="btn btn-primary auth-submit">Create account</button>
+      </form>
+
+    </div>
+
+    <div class="auth-switch">
+      <span data-mode-for="signin">New here? <button type="button" data-switch-to="signup">Create an account</button></span>
+      <span data-mode-for="signup" style="display:none;">Already have one? <button type="button" data-switch-to="signin">Log in</button></span>
+    </div>
+  </div>
+</div>
