@@ -156,9 +156,49 @@ async function saveActivePluginsPreference(activePlugins) {
     }
 }
 
+/** Changes the current user's username. Rejects with a friendly message
+ * on a uniqueness conflict, same as signUp()'s profile-creation step. */
+async function updateUsername(newUsername) {
+    const user = getCurrentUser();
+    if (!user) throw new Error('You need to be logged in to do that.');
+
+    const { error } = await window.supabaseClient
+        .from('profiles').update({ username: newUsername }).eq('id', user.id);
+    if (error) {
+        throw new Error(
+            error.code === '23505' || /duplicate/i.test(error.message)
+                ? 'That username is already taken.'
+                : error.message
+        );
+    }
+    _currentProfile = { ..._currentProfile, username: newUsername };
+    _fireAuthChange();
+}
+
+/** Changes the current user's password. Supabase's own session token
+ * authorizes this — no re-entry of the old password required. */
+async function updatePassword(newPassword) {
+    const user = getCurrentUser();
+    if (!user) throw new Error('You need to be logged in to do that.');
+    const { error } = await window.supabaseClient.auth.updateUser({ password: newPassword });
+    if (error) throw error;
+}
+
+/** Changes the account email. Supabase sends a confirmation link to the
+ * NEW address by default — the change only takes effect once that's
+ * clicked, so the caller should tell the user to check their inbox
+ * rather than assume this took effect immediately. */
+async function updateEmail(newEmail) {
+    const user = getCurrentUser();
+    if (!user) throw new Error('You need to be logged in to do that.');
+    const { error } = await window.supabaseClient.auth.updateUser({ email: newEmail });
+    if (error) throw error;
+}
+
 window.EsAuth = {
     signUp, signIn, signOut, ready, getCurrentUser, getCurrentProfile, getDisplayName,
     isUsernameAvailable, onAuthChange,
+    updateUsername, updatePassword, updateEmail,
     getActivePluginsPreference, saveActivePluginsPreference,
 };
 

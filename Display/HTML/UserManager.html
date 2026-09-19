@@ -17,7 +17,52 @@
     <h1>💾 Save Reader</h1>
     <p class="subtitle">Drop in a pilot save file to inspect your fleet, outfits, and account.</p>
   </header>
- 
+
+  <!-- ════════════ MY ACCOUNT ════════════
+       Shown regardless of the loading gate below — changing your
+       username/password doesn't depend on plugin data being loaded. -->
+  <section class="panel" id="accountPanel">
+    <h2 class="section-title">👤 My Account</h2>
+
+    <div id="account-logged-out" style="display:none;">
+      <p style="color:var(--c-text-mid);">Log in to manage your username and password.</p>
+      <button class="btn btn-primary" onclick="window.openAuthModal && window.openAuthModal('signin');">Log in</button>
+    </div>
+
+    <div id="account-logged-in" style="display:none;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+
+        <div>
+          <label for="account-username" style="display:block;font-size:0.85rem;margin-bottom:6px;">Username</label>
+          <input type="text" id="account-username" class="text-input" minlength="3" maxlength="24" autocomplete="username">
+          <span id="account-username-hint" class="auth-field-hint"></span>
+          <div id="account-username-error" style="margin-top:8px;"></div>
+          <button class="btn btn-secondary" id="account-username-save" style="margin-top:10px;">Save Username</button>
+        </div>
+
+        <div>
+          <label style="display:block;font-size:0.85rem;margin-bottom:6px;">Email</label>
+          <input type="email" id="account-email" class="text-input" autocomplete="email">
+          <p style="color:var(--c-text-dim);font-size:0.8rem;margin:6px 0 0;">Changing this sends a confirmation link to the new address — it only takes effect once you click it.</p>
+          <div id="account-email-error" style="margin-top:8px;"></div>
+          <button class="btn btn-secondary" id="account-email-save" style="margin-top:10px;">Update Email</button>
+        </div>
+
+      </div>
+
+      <hr style="border-color:var(--c-border);margin:24px 0;">
+
+      <div style="max-width:340px;">
+        <label for="account-new-password" style="display:block;font-size:0.85rem;margin-bottom:6px;">New password</label>
+        <input type="password" id="account-new-password" class="text-input" minlength="6" autocomplete="new-password" style="margin-bottom:12px;">
+        <label for="account-confirm-password" style="display:block;font-size:0.85rem;margin-bottom:6px;">Confirm new password</label>
+        <input type="password" id="account-confirm-password" class="text-input" minlength="6" autocomplete="new-password">
+        <div id="account-password-error" style="margin-top:8px;"></div>
+        <button class="btn btn-secondary" id="account-password-save" style="margin-top:10px;">Save Password</button>
+      </div>
+    </div>
+  </section>
+
   <!-- ════════════ LOADING GATE ════════════
        Shown until window.DataLoader finishes its initial load. Nothing
        else on this page (uploading, switching saves, viewing results)
@@ -154,6 +199,7 @@
 <script src="../JavaScript/dataLoader.js"></script>
 <script src="../JavaScript/esSaveParser.js"></script>
 <script src="../JavaScript/saveManager.js"></script>
+<script src="../JavaScript/accountSettings.js"></script>
 <script>
   // dataLoader.js exposes window.DataLoader but doesn't fetch anything until
   // .load() is called. The whole page is gated behind this — nothing here
