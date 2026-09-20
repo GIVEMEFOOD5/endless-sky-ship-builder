@@ -250,19 +250,86 @@
       }, 350);
     });
 
+    // Mobile: the top-bar widget hides at ≤600px (see main.css) since
+    // there's no room for it alongside the brand and hamburger. This is
+    // its replacement inside the drawer instead — appended now rather
+    // than in the static HTML, so it lands AFTER the flattened nav
+    // links (buildDrawer() already ran before initAccountWidget() is
+    // reached, so appending here puts it at the bottom, not the top).
+    var drawer = document.querySelector('.es-nav__drawer');
+    var drawerMount = null;
+    if (drawer) {
+      drawerMount = document.createElement('div');
+      drawerMount.id = 'es-nav-drawer-account';
+      drawerMount.className = 'nav-drawer-account';
+      drawer.appendChild(drawerMount);
+    }
+
     function renderSignedOut() {
       mount.innerHTML = '<button type="button" class="es-nav__link" id="es-nav-login-btn">👤 Log in</button>';
       document.getElementById('es-nav-login-btn').addEventListener('click', function () { openModal('signin'); });
+
+      if (drawerMount) {
+        drawerMount.innerHTML = '<button type="button" class="es-nav__link" id="es-nav-drawer-login-btn">👤 Log in</button>';
+        document.getElementById('es-nav-drawer-login-btn').addEventListener('click', function () {
+          closeDrawerIfOpen();
+          openModal('signin');
+        });
+      }
+      scheduleNavOverflowCheck();
     }
 
     function renderSignedIn(user, profile) {
-      var name = (profile && profile.username) || user.email || 'Account';
-      mount.innerHTML =
-        '<span class="es-nav__account-email" title="' + name + '">👤 ' + name + '</span>' +
-        '<button type="button" class="es-nav__link" id="es-nav-logout-btn">Log out</button>';
-      document.getElementById('es-nav-logout-btn').addEventListener('click', function () {
-        window.EsAuth.signOut();
+      // Text label again ("Log out"), but still no username shown in the
+      // top bar itself — that stays in the drawer only, where there's
+      // room for it.
+      mount.innerHTML = '<button type="button" class="es-nav__link" id="es-nav-account-btn">👤 Log out</button>';
+      document.getElementById('es-nav-account-btn').addEventListener('click', promptLogoutConfirm);
+
+      if (drawerMount) {
+        var name = (profile && profile.username) || user.email || 'Account';
+        drawerMount.innerHTML =
+          '<span class="nav-drawer-account-email" title="' + name + '">👤 ' + name + '</span>' +
+          '<button type="button" class="es-nav__link" id="es-nav-drawer-logout-btn">Log out</button>';
+        document.getElementById('es-nav-drawer-logout-btn').addEventListener('click', promptLogoutConfirm);
+      }
+      scheduleNavOverflowCheck();
+    }
+
+    // Shared by both the top-bar and drawer logout buttons — one accidental
+    // tap shouldn't sign someone out with no way back.
+    function promptLogoutConfirm() {
+      closeDrawerIfOpen();
+      var overlay = document.getElementById('es-nav-logout-confirm-overlay');
+      if (!overlay) { window.EsAuth.signOut(); return; } // fallback if the markup's missing somehow
+      overlay.classList.add('active');
+    }
+
+    var logoutOverlay = document.getElementById('es-nav-logout-confirm-overlay');
+    if (logoutOverlay) {
+      document.getElementById('es-nav-logout-cancel').addEventListener('click', function () {
+        logoutOverlay.classList.remove('active');
       });
+      document.getElementById('es-nav-logout-confirm').addEventListener('click', function () {
+        overlay_signOutAndClose();
+      });
+      logoutOverlay.addEventListener('click', function (e) {
+        if (e.target === logoutOverlay) logoutOverlay.classList.remove('active');
+      });
+    }
+    function overlay_signOutAndClose() {
+      window.EsAuth.signOut();
+      if (logoutOverlay) logoutOverlay.classList.remove('active');
+    }
+
+    // Closing the drawer before opening the auth modal avoids having
+    // both open at once on a small screen, which would stack two
+    // full-screen-ish overlays on top of each other.
+    function closeDrawerIfOpen() {
+      var d = document.querySelector('.es-nav__drawer');
+      var nav = document.querySelector('.es-nav');
+      if (d) d.classList.remove('nav-drawer-open');
+      if (nav) nav.classList.remove('nav-open');
     }
 
     window.EsAuth.onAuthChange(function (user, profile) {
@@ -314,5 +381,30 @@
   }
 
   waitForAuth(30); // ~3 seconds total before giving up
+
+  /* ── Content-aware collapse ─────────────────────────────────────
+     Instead of a fixed pixel breakpoint, actually measure whether the
+     bar's content fits. Checked on load, on resize, and whenever the
+     account button's content changes (login/logout changes its width,
+     which can tip the balance either way). */
+  var navOverflowCheckTimer = null;
+  function checkNavOverflow() {
+    var nav = document.querySelector('.es-nav');
+    if (!nav) return;
+    // Measure with everything shown first — checking while already
+    // collapsed would always report "fits", since there'd be nothing
+    // left to overflow.
+    nav.classList.remove('es-nav--collapsed');
+    var overflowing = nav.scrollWidth > nav.clientWidth + 1; // +1: rounding tolerance
+    if (overflowing) nav.classList.add('es-nav--collapsed');
+  }
+  function scheduleNavOverflowCheck() {
+    clearTimeout(navOverflowCheckTimer);
+    navOverflowCheckTimer = setTimeout(checkNavOverflow, 50);
+  }
+  window.addEventListener('resize', scheduleNavOverflowCheck);
+  window.addEventListener('load', scheduleNavOverflowCheck);
+  scheduleNavOverflowCheck(); // initial check — covers the case where auth.js isn't on
+                              // this page at all, so renderSignedIn/Out never fire
 
 })();

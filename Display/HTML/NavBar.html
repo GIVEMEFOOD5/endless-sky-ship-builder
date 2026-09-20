@@ -156,3 +156,17 @@
     </div>
   </div>
 </div>
+
+<!-- Confirmation before actually signing out — same .overlay/.modal-box
+     styling as the login modal above, so it doesn't look like a
+     different UI system. Kept outside <nav> for the same
+     containing-block reason as the auth overlay. -->
+<div id="es-nav-logout-confirm-overlay" class="overlay">
+  <div class="modal-box" style="width:min(360px,92vw);padding:24px;">
+    <p style="color:var(--c-text-mid);margin:0 0 20px;">Log out of your account?</p>
+    <div class="btn-group btn-group-right">
+      <button type="button" class="btn btn-secondary" id="es-nav-logout-cancel">Cancel</button>
+      <button type="button" class="btn btn-danger" id="es-nav-logout-confirm">Log out</button>
+    </div>
+  </div>
+</div>
