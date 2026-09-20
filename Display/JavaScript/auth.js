@@ -162,8 +162,14 @@ async function updateUsername(newUsername) {
     const user = getCurrentUser();
     if (!user) throw new Error('You need to be logged in to do that.');
 
+    // FIX: was .update(...).eq('id', user.id) — that only touches a row
+    // that already exists. Any account without a profiles row yet (e.g.
+    // created before usernames existed) would match zero rows and return
+    // success with no error, looking like it worked while nothing was
+    // actually written. upsert creates the row if it's missing, updates
+    // it if it's already there.
     const { error } = await window.supabaseClient
-        .from('profiles').update({ username: newUsername }).eq('id', user.id);
+        .from('profiles').upsert({ id: user.id, username: newUsername });
     if (error) {
         throw new Error(
             error.code === '23505' || /duplicate/i.test(error.message)
