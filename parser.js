@@ -3190,7 +3190,7 @@ async function main() {
     if (skippedGovernmentsWithoutName > 0) console.log(`  ⚠ skipped ${skippedGovernmentsWithoutName} government entrie(s) with no name`);
 
     await upsertChunked('plugins', allPluginRows);
-    const outfitIdRows  = await upsertChunked('outfits', dedupedOutfitRows, { onConflict: 'internal_id', select: 'id, internal_id' });
+    const outfitIdRows  = await upsertChunked('outfits', dedupedOutfitRows, { onConflict: 'internal_id', select: 'id, internal_id', size: 100 });
     const shipIdRows    = await upsertChunked('ships', dedupedShipRows, { onConflict: 'internal_id', select: 'id, internal_id' });
     const variantIdRows = await upsertChunked('variants', dedupedVariantRows, { onConflict: 'internal_id', select: 'id, internal_id' });
     await upsertChunked('effects', allEffectRows);
