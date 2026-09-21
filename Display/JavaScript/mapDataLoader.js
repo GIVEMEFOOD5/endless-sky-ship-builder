@@ -221,7 +221,10 @@ async function _loadOnePlugin(outputName, meta) {
         internalId: s.internal_id, pluginId: s.plugin_id, sprite: s.sprite,
         icon: s.icon, power: s.power, wind: s.wind, habitable: s.habitable, mass: s.mass,
     }));
-    const governments = governmentRows.map(g => ({ name: g.name, pluginId: g.plugin_id }));
+    const governments = governmentRows.map(g => ({
+        name: g.name, pluginId: g.plugin_id,
+        color: g.color, colorRef: g.color_ref, swizzle: g.swizzle,
+    }));
 
     return {
         outputName,
