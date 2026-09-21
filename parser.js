@@ -3111,7 +3111,10 @@ async function main() {
         sprite: g.sprite, pos_x: toNumeric(g.pos?.x), pos_y: toNumeric(g.pos?.y),
       });
       for (const gv of mapSlice.governments ?? []) {
-        if (gv.name) allGovernmentRows.push({ plugin_id: gv.pluginId ?? plugin.pluginId, name: gv.name });
+        if (gv.name) allGovernmentRows.push({
+          plugin_id: gv.pluginId ?? plugin.pluginId, name: gv.name,
+          color: gv.color ?? null, color_ref: gv.colorRef ?? null, swizzle: toNumeric(gv.swizzle),
+        });
         else skippedGovernmentsWithoutName++;
       }
 
