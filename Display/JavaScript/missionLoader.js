@@ -412,7 +412,10 @@ window.MissionLoader = {
 
     getActivePlugins() { return [..._activePlugins]; },
 
-    setActivePlugins(arr) {
+    async setActivePlugins(arr) {
+        await Promise.all(arr.map(id => ensureMissionPluginLoaded(id).catch(err =>
+            console.warn(`[MissionLoader] Could not load "${id}":`, err)
+        )));
         _activePlugins = arr.filter(id => window.allMissionData[id]);
         _saveActivePlugins();
         if (window.EsAuth) window.EsAuth.saveActivePluginsPreference(_activePlugins);
@@ -423,7 +426,10 @@ window.MissionLoader = {
     // dataLoader.js's own _setActivePluginsSilent. generalPluginStuff.js calls
     // this after it has already updated its own UI, so MissionLoader doesn't
     // need to (and shouldn't) trigger another render pass on top of that.
-    _setActivePluginsSilent(arr) {
+    async _setActivePluginsSilent(arr) {
+        await Promise.all(arr.map(id => ensureMissionPluginLoaded(id).catch(err =>
+            console.warn(`[MissionLoader] Could not load "${id}":`, err)
+        )));
         _activePlugins = arr.filter(id => window.allMissionData[id]);
         _saveActivePlugins();
         if (window.EsAuth) window.EsAuth.saveActivePluginsPreference(_activePlugins);
@@ -446,9 +452,13 @@ window.MissionLoader = {
                 return;
             }
         }
-        // No usable saved selection — default to EVERY loaded plugin, so
-        // nothing is hidden until the user deliberately narrows it down.
-        _activePlugins = Object.keys(window.allMissionData);
+        // No usable saved selection — default to every plugin that's
+        // ACTUALLY loaded so far (excludes placeholders for plugins
+        // Phase B hasn't reached yet), so nothing appears "active" before
+        // it really has data.
+        _activePlugins = Object.entries(window.allMissionData)
+            .filter(([, p]) => !p._placeholder)
+            .map(([id]) => id);
         _saveActivePlugins();
         _firePluginsChanged();
     },
@@ -502,10 +512,89 @@ if (!window.DataLoader) {
 }
 
 // ═════════════════════════════════════════════════════════════
-//  Remote data loader — bulk Supabase queries instead of one
-//  missions.json fetch per plugin. Formatting (formatMission, etc.
-//  above) is untouched — it only ever receives a plain mission object.
+//  Remote data loader — per-plugin, same shape as dataLoader.js.
+//  Was: one bulk fetch of every mission across every plugin, always —
+//  missions are the heaviest row-for-row data type in this whole
+//  project (raw AST trees, conditions, rewards), so doing that
+//  unconditionally on every page load was the actual cause of
+//  UserMissionHelper.html loading much slower than everywhere else.
+//  Formatting (formatMission, etc. above) is untouched — it only ever
+//  receives a plain mission object regardless of how it got fetched.
 // ═════════════════════════════════════════════════════════════
+
+function _reconstructMission(m) {
+    return {
+        name: m.name, displayName: m.display_name, sourcePlugin: m.source_plugin,
+        source: m.source, destination: m.destination, stopovers: m.stopovers, waypoints: m.waypoints,
+        cargo: m.cargo, passengers: m.passengers, payment: m.payment, rewards: m.rewards,
+        deadline: m.deadline, illegal: m.illegal, repeatable: m.repeatable, repeatLimit: m.repeat_limit,
+        npcCount: m.npc_count, hasNpcObjective: m.has_npc_objective, flags: m.flags,
+        conditions: m.conditions, conditionSideEffects: m.condition_side_effects,
+        eventTriggers: m.event_triggers, locations: m.locations, raw: m.raw,
+        _pluginId: m.plugin_id, _internalId: m.internal_id,
+    };
+}
+
+async function _fetchMissionBundleFresh(outputName, pluginRow) {
+    const { fetchAllRows } = window.SupabaseHelpers;
+    if (!pluginRow) {
+        return { sourceName: outputName, displayName: outputName, outputName, missions: [] };
+    }
+    const missionRows = await fetchAllRows('missions', {
+        filters: q => q.eq('plugin_id', pluginRow.plugin_id), orderBy: 'id', pageSize: 100,
+    });
+    return {
+        sourceName: pluginRow.source_name,
+        displayName: pluginRow.display_name || outputName,
+        outputName,
+        missions: missionRows.map(_reconstructMission),
+    };
+}
+
+async function _loadMissionBundle(outputName, pluginRow) {
+    const build = () => _fetchMissionBundleFresh(outputName, pluginRow);
+    return window.EsCache
+        ? await window.EsCache.loadWithCache(`missionBundle:${outputName}`, build)
+        : await build();
+}
+
+/** Phase B — loads whatever Phase A didn't, one plugin at a time, without
+ * blocking. Same reasoning as dataLoader.js's version: only runs for as
+ * long as this page stays open, and per-plugin caching is what carries
+ * progress forward if the user navigates away before it finishes. */
+async function _backgroundFillRemainingMissionPlugins(pluginRows, alreadyLoaded) {
+    const remaining = pluginRows.filter(p => !alreadyLoaded.has(p.output_name));
+    if (!remaining.length) return;
+    console.log(`[MissionLoader] Background: loading ${remaining.length} remaining plugin(s)...`);
+    for (const pluginRow of remaining) {
+        try {
+            const bundle = await _loadMissionBundle(pluginRow.output_name, pluginRow);
+            window.allMissionData[pluginRow.output_name] = bundle;
+            _fireEvent('missionPluginDataAvailable', { outputName: pluginRow.output_name });
+        } catch (err) {
+            console.warn(`[MissionLoader] Background load failed for "${pluginRow.output_name}":`, err);
+        }
+    }
+    console.log('[MissionLoader] Background fill complete — every plugin is now loaded.');
+    _fireEvent('allMissionPluginsLoaded', {});
+}
+
+/** Safety net for code that needs a SPECIFIC plugin's missions right now —
+ * e.g. the user switches to a plugin that wasn't in Phase A and whose
+ * background load hasn't reached it yet. Mirrors dataLoader.js's
+ * ensurePluginLoaded exactly. */
+async function ensureMissionPluginLoaded(outputName) {
+    if (window.allMissionData[outputName]?.missions?.length) {
+        return window.allMissionData[outputName];
+    }
+    const { fetchAllRows } = window.SupabaseHelpers;
+    const pluginRows = await fetchAllRows('plugins', { filters: q => q.eq('output_name', outputName) });
+    const bundle = await _loadMissionBundle(outputName, pluginRows[0]);
+    window.allMissionData[outputName] = bundle;
+    _fireEvent('missionPluginDataAvailable', { outputName });
+    return bundle;
+}
+
 async function _doLoad() {
     _loading = true;
     _fireEvent('missionsLoadStart');
@@ -513,44 +602,44 @@ async function _doLoad() {
     try {
         const { fetchAllRows } = window.SupabaseHelpers;
 
-        async function buildRemoteBuckets() {
-        const [pluginRows, missionRows] = await Promise.all([
-            fetchAllRows('plugins', { orderBy: 'source_priority' }),
-            fetchAllRows('missions', { orderBy: 'id', pageSize: 100 }),
-        ]);
-        const pluginByPluginId = new Map(pluginRows.map(p => [p.plugin_id, p]));
+        // The plugin list itself is small (~110 rows, no heavy columns) —
+        // always cheap to fetch in full, so the picker can show every
+        // plugin immediately even before its missions have loaded.
+        const pluginRows = await fetchAllRows('plugins', { orderBy: 'source_priority' });
+        if (!pluginRows.length) throw new Error('No plugins found in Supabase');
 
-        const remoteBuckets = {};
         for (const p of pluginRows) {
-            remoteBuckets[p.output_name] = {
-                sourceName: p.source_name,
-                displayName: p.display_name || p.output_name,
-                outputName: p.output_name,
-                missions: [],
-            };
+            if (!window.allMissionData[p.output_name]) {
+                window.allMissionData[p.output_name] = {
+                    sourceName: p.source_name, displayName: p.display_name || p.output_name,
+                    outputName: p.output_name, missions: [], _placeholder: true,
+                };
+            }
         }
-        for (const m of missionRows) {
-            const plugin = pluginByPluginId.get(m.plugin_id);
-            const bucket = plugin && remoteBuckets[plugin.output_name];
-            if (!bucket) continue;
-            bucket.missions.push({
-                name: m.name, displayName: m.display_name, sourcePlugin: m.source_plugin,
-                source: m.source, destination: m.destination, stopovers: m.stopovers, waypoints: m.waypoints,
-                cargo: m.cargo, passengers: m.passengers, payment: m.payment, rewards: m.rewards,
-                deadline: m.deadline, illegal: m.illegal, repeatable: m.repeatable, repeatLimit: m.repeat_limit,
-                npcCount: m.npc_count, hasNpcObjective: m.has_npc_objective, flags: m.flags,
-                conditions: m.conditions, conditionSideEffects: m.condition_side_effects,
-                eventTriggers: m.event_triggers, locations: m.locations, raw: m.raw,
-                _pluginId: m.plugin_id, _internalId: m.internal_id,
-            });
-        }
-        return remoteBuckets;
-        } // end buildRemoteBuckets
 
-        const remoteBuckets = window.EsCache
-            ? await window.EsCache.loadWithCache('missionData', buildRemoteBuckets)
-            : await buildRemoteBuckets();
-        Object.assign(window.allMissionData, remoteBuckets);
+        // Phase A: whichever plugins are already active (account
+        // preference, then localStorage), or just the default plugin if
+        // this is the first visit ever. This is the only thing standing
+        // between page load and the page being usable.
+        let saved = null;
+        if (window.EsAuth) {
+            try { saved = await window.EsAuth.getActivePluginsPreference(); } catch (_) { /* fall through */ }
+        }
+        if (!saved) saved = _loadActivePlugins();
+        saved = saved || [];
+
+        let phaseANames = new Set(saved.filter(n => pluginRows.some(p => p.output_name === n)));
+        if (phaseANames.size === 0) {
+            const def = pluginRows.find(p =>
+                p.plugin_id === DEFAULT_PLUGIN || p.output_name === DEFAULT_PLUGIN || p.source_name === 'official-game'
+            ) || pluginRows[0];
+            if (def) phaseANames.add(def.output_name);
+        }
+
+        await Promise.all([...phaseANames].map(async outputName => {
+            const pluginRow = pluginRows.find(p => p.output_name === outputName);
+            window.allMissionData[outputName] = await _loadMissionBundle(outputName, pluginRow);
+        }));
 
         const hasData = Object.values(window.allMissionData).some(p => (p.missions || []).length > 0);
         if (!hasData) throw new Error('No mission data could be loaded from Supabase');
@@ -558,7 +647,7 @@ async function _doLoad() {
         _ready   = true;
         _loading = false;
 
-        window.MissionLoader.initDefaultPlugins();
+        await window.MissionLoader.initDefaultPlugins();
 
         for (const fn of _callbacks) {
             try { fn(window.allMissionData); } catch (e) { console.error('[MissionLoader] callback error:', e); }
@@ -569,6 +658,13 @@ async function _doLoad() {
         // Generic event generalPluginStuff.js listens for as a safety net
         // (it double-checks a remote plugin is active once data is in).
         _fireEvent('dataLoaded', { allData: window.allData });
+
+        // Phase B: fill in everything else in the background, unawaited —
+        // the page is already usable at this point.
+        _backgroundFillRemainingMissionPlugins(pluginRows, phaseANames).catch(err =>
+            console.warn('[MissionLoader] Background fill errored:', err)
+        );
+
         return window.allMissionData;
 
     } catch (error) {
