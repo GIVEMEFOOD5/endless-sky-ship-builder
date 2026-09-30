@@ -1714,6 +1714,148 @@ function mergeDataUsageIntoAttributes(attrs, perKey) {
 }
 
 // ---------------------------------------------------------------------------
+// NEW: deriveShipRequirements(attrs, shipCppSrc, shipCoverage)
+//
+// Answers "must this attribute be present on a ship?" and tags each
+// attribute with `shipRequirement` so the ship builder can lock it.
+// Two independent evidence sources, no hardcoded attribute names:
+//
+//   1. ENGINE ENFORCEMENT — parsed from Ship::FinishLoading(), the block
+//      the source itself comments as "Issue warnings if this ship ... is
+//      missing required values or has negative ... capacity":
+//        - `if(attributes.Get("X") <= 0.) { warning ...; Set("X", N); }`
+//          → X is REQUIRED, must be > 0, engine falls back to N.
+//        - `for(attr : set<string>{"a","b"}) if(Get(attr) < 0) warning`
+//          → each key must be ≥ 0 (min constraint only; missing = 0 is legal).
+//        - `baseAttributes.Set("X", <non-literal expr>)`
+//          → X is ENGINE-DERIVED (e.g. gun ports from hardpoints). The
+//            builder must never require the user to type it.
+//
+//   2. DATA COVERAGE — fraction of base-game ship definitions that set the
+//      key (dataFolderScanner aggregateShipCoverage). Covers things the
+//      engine uses without a warning (mass is a divisor in TurnRate /
+//      Acceleration, hull 0 means no durability, category decides the
+//      shipyard tab and whether bays can carry it, ...).
+//        coverage ≥ REQUIRED_COVERAGE     → required
+//        coverage ≥ RECOMMENDED_COVERAGE  → recommended
+//      Thresholds are the only tunables. Real ships that legitimately omit
+//      a "recommended" key exist (e.g. sail ships with no engine capacity,
+//      drones with no bunks), which is exactly why they aren't locked.
+//
+// Output on each affected attribute:
+//   shipRequirement: {
+//     level: 'required' | 'recommended' | 'engineDerived',
+//     reasons: [...human-readable evidence...],
+//     coverage: 0..1 | null,
+//     min: number | undefined, minExclusive: bool | undefined,
+//     engineDefault: number | undefined,
+//   }
+// plus flat conveniences isRequiredOnShip / isRecommendedOnShip.
+// ---------------------------------------------------------------------------
+
+const REQUIRED_COVERAGE    = 0.98;
+const RECOMMENDED_COVERAGE = 0.80;
+
+function parseFinishLoadingRequirements(shipCppSrc) {
+  const result = { required: {}, nonNegative: new Set(), derived: {} };
+  if (!shipCppSrc) return result;
+  const fl = extractFunctionBodies(shipCppSrc, 'Ship::').FinishLoading;
+  if (!fl) return result;
+  const body = fl.body;
+  let m;
+
+  // if(attributes.Get("X") <= 0.) { ...warning...; attributes.Set("X", N); }
+  const reDefault = /if\s*\(\s*\w+\.Get\(\s*"([^"]+)"\s*\)\s*(<=|<)\s*0\.?\s*\)\s*\{([\s\S]*?)\n\t\}/g;
+  while ((m = reDefault.exec(body)) !== null) {
+    const [, key, op, block] = m;
+    if (!/warning|Log/.test(block)) continue;
+    const esc = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const set = block.match(new RegExp(`\\.Set\\(\\s*"${esc}"\\s*,\\s*([-\\d.]+)`));
+    result.required[key] = {
+      min: 0, minExclusive: op === '<=',
+      engineDefault: set ? parseFloat(set[1]) : undefined,
+    };
+  }
+
+  // for(auto &&attr : set<string>{"a", "b"}) { if(Get(attr) < 0) warning ... }
+  const reLoop = /for\s*\(\s*auto\s*&*\s*(\w+)\s*:\s*(?:std::)?set<(?:std::)?string>\s*\{([^}]*)\}\s*\)\s*\{([\s\S]*?)\n\t\}/g;
+  while ((m = reLoop.exec(body)) !== null) {
+    const [, v, list, block] = m;
+    if (!new RegExp(`Get\\(\\s*${v}\\s*\\)`).test(block) || !/<\s*0/.test(block) || !/warning/.test(block)) continue;
+    for (const q of list.match(/"([^"]+)"/g) || []) result.nonNegative.add(q.slice(1, -1));
+  }
+
+  // baseAttributes.Set("X", armament.GunCount()) — computed, not authored
+  const reSet = /\w+\.Set\(\s*"([^"]+)"\s*,\s*([^;]+)\);/g;
+  while ((m = reSet.exec(body)) !== null) {
+    const expr = m[2].trim();
+    if (/^[-\d.]+$/.test(expr)) continue;          // literal: a default, not a derivation
+    if (result.required[m[1]]) continue;            // the drag-style fallback above
+    result.derived[m[1]] = expr;
+  }
+  return result;
+}
+
+function deriveShipRequirements(attrs, shipCppSrc, shipCoverage) {
+  const engine   = parseFinishLoadingRequirements(shipCppSrc);
+  const total    = shipCoverage?.baseShipCount || 0;
+  const coverage = shipCoverage?.perKey || {};
+  const ensure   = key => attrs[key] || (attrs[key] = { key, dataOnly: true });
+  const summary  = { required: [], recommended: [], engineDerived: [], baseShipCount: total,
+                     thresholds: { required: REQUIRED_COVERAGE, recommended: RECOMMENDED_COVERAGE } };
+
+  const keys = new Set([
+    ...Object.keys(engine.required), ...engine.nonNegative, ...Object.keys(engine.derived),
+    ...Object.keys(coverage),
+  ]);
+
+  for (const key of keys) {
+    const cov = total ? (coverage[key] || 0) / total : null;
+    const req = { level: null, reasons: [], coverage: cov };
+
+    if (engine.derived[key]) {
+      req.level = 'engineDerived';
+      req.reasons.push(`Ship::FinishLoading overwrites it with ${engine.derived[key]}`);
+    } else {
+      if (engine.required[key]) {
+        const r = engine.required[key];
+        req.level = 'required';
+        req.min = r.min; req.minExclusive = r.minExclusive;
+        if (r.engineDefault !== undefined) req.engineDefault = r.engineDefault;
+        req.reasons.push(`Ship::FinishLoading warns and defaults it${r.engineDefault !== undefined ? ` to ${r.engineDefault}` : ''} when ${r.minExclusive ? '≤ 0 or missing' : '< 0'}`);
+      }
+      if (engine.nonNegative.has(key)) {
+        req.min = 0; req.minExclusive = false;
+        req.reasons.push('Ship::FinishLoading warns when negative (ship is misconfigured)');
+      }
+      if (cov !== null && cov >= REQUIRED_COVERAGE) {
+        req.level = 'required';
+        req.reasons.push(`set on ${(cov * 100).toFixed(1)}% of ${total} base-game ships`);
+      } else if (cov !== null && cov >= RECOMMENDED_COVERAGE) {
+        if (!req.level) req.level = 'recommended';
+        req.reasons.push(`set on ${(cov * 100).toFixed(1)}% of ${total} base-game ships`);
+      }
+    }
+
+    // Constraint-only keys (min ≥ 0 but not common enough) still get the
+    // min recorded so validators can use it, without a level.
+    if (!req.level && req.min === undefined) continue;
+
+    const a = ensure(key);
+    a.shipRequirement     = req;
+    a.isRequiredOnShip    = req.level === 'required';
+    a.isRecommendedOnShip = req.level === 'recommended';
+    if (req.level === 'required')      summary.required.push(key);
+    if (req.level === 'recommended')   summary.recommended.push(key);
+    if (req.level === 'engineDerived') summary.engineDerived.push(key);
+  }
+
+  for (const list of [summary.required, summary.recommended, summary.engineDerived]) list.sort();
+  summary.coverageAvailable = total > 0;
+  return summary;
+}
+
+// ---------------------------------------------------------------------------
 // NEW: deriveFrontendArea(attrs, categoryAreaHints)
 //
 // Implements attribute-area-classification.md §3's priority list verbatim,
@@ -2030,6 +2172,14 @@ async function parseAttributes(outputDir, cliOpts = {}) {
     console.log('     ' + dataOnlyKeys.slice(0, 20).join(', ') + (dataOnlyKeys.length > 20 ? ', …' : ''));
   }
 
+  // ── NEW: which attributes must be present on a ship ──────────────────────
+  const shipRequirements = deriveShipRequirements(attributes, sources.shipCpp, dataScan.shipCoverage);
+  console.log(`\n  Ship requirements  required: ${shipRequirements.required.join(', ') || '(none)'}`);
+  console.log(`                     recommended: ${shipRequirements.recommended.join(', ') || '(none)'}`);
+  console.log(`                     engine-derived: ${shipRequirements.engineDerived.join(', ') || '(none)'}`);
+  if (!shipRequirements.coverageAvailable)
+    console.log('  ⚠  No ship coverage data (data/ scan failed or old cache) — only engine-enforced keys were flagged.');
+
   const categoryAreaHints = deriveCategoryAreaHints(dataScan.perKey || {});
   console.log(`  ${Object.keys(categoryAreaHints).length} attribute keys have an unambiguous category → area hint`);
 
@@ -2104,6 +2254,13 @@ async function parseAttributes(outputDir, cliOpts = {}) {
           'the dictionary by key name against the source-derived entries above; a key with dataOnly:true ' +
           'has real shipped usage but is never referenced by attributes.Get()/Set() anywhere in source.',
       },
+      shipRequirements: {
+        ...shipRequirements,
+        note: 'shipRequirement / isRequiredOnShip / isRecommendedOnShip on each attribute come from ' +
+          'deriveShipRequirements(): Ship::FinishLoading validation checks plus base-game ship coverage ' +
+          '(fraction of base ship definitions that set the key). engineDerived keys are computed by the ' +
+          'engine (e.g. from hardpoints) and should not be hand-authored.',
+      },
       areaClassification: {
         counts: areaCounts,
         uncategorizedCount,
@@ -2138,6 +2295,7 @@ async function parseAttributes(outputDir, cliOpts = {}) {
     },
     systemContext,
     systemAwareFormulas,
+    shipRequirements, // ← NEW: { required, recommended, engineDerived, baseShipCount, thresholds }
     attributes,
     tooltips: tooltipsObject,
     shipFunctions: shipFns,
@@ -2202,4 +2360,5 @@ module.exports = {
   deriveMovementSystem, deriveFrontendArea, mergeDataUsageIntoAttributes,
   scanDataFolderUsage, deriveCategoryAreaHints,
   deriveDamageTypesStructurally,
+  deriveShipRequirements, parseFinishLoadingRequirements,
 };
