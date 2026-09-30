@@ -1,0 +1,696 @@
+'use strict';
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  esSaveFile.js — lossless Endless Sky save-file reader / writer
+//
+//  WHY THIS EXISTS
+//  esSaveParser.js turns a save into a convenient JSON view, but that view
+//  is one-way: lines it doesn't model are dropped or moved, so an edited
+//  save can never be written back to a .txt the game will load. This file
+//  keeps the save as the same node tree the game itself builds
+//  (DataFile::LoadData), edits that tree in place, and writes it back with
+//  the same quoting rules as DataWriter::Quote. Anything this file doesn't
+//  understand is carried through untouched.
+//
+//  FORMAT (from endless-sky/source/DataFile.cpp + DataWriter.cpp)
+//   - One node per line. Depth = number of leading whitespace characters
+//     (the game writes tabs). A line deeper than the previous one is its
+//     child; the game compares separator COUNTS, not "+1 levels".
+//   - Tokens are separated by whitespace. A token that starts with " runs
+//     to the next ", one that starts with ` runs to the next `. There are
+//     NO escape characters.
+//   - The writer quotes a token with `...` if it contains ", otherwise with
+//     "..." if it contains whitespace or a backtick or is empty, otherwise
+//     writes it bare. A token containing BOTH " and ` cannot be written.
+//   - '#' starts a comment at the start of a line or between tokens (never
+//     inside a token). A UTF-8 BOM at the start is skipped.
+//   - Numbers are plain tokens. The game writes doubles with C++ ostream
+//     defaults (6 significant digits, e.g. 1.23457e+06), so readers must
+//     accept exponents. Token strings are kept verbatim here, so values
+//     are never re-rounded unless you edit them.
+//
+//  SAVE LAYOUT (PlayerInfo::Save) — top-level keys, in the order written:
+//   pilot, original name, date, marked event changes today, system entry
+//   method, previous system/planet, system, planet, clearance, playtime,
+//   launching, cloaked, travel*, travel destination, flagship index, map
+//   coloring, map zoom, collapsed*, reputation with, tribute received, max
+//   escort count/crew, admin cap, (ship + optional groups)*, storage,
+//   licenses, account, cargo, basis, stock, fleet depreciation, stock
+//   depreciation, mission*, mission cargo, mission passengers, available
+//   job*, available mission*, sort type, sort descending, separate deadline,
+//   separate possible, conditions, gifted ships, event*, changes, economy,
+//   destroyed*, visited*, visited planet*, harvested, logbook, start,
+//   plugins, message log.
+//   NOTE: `groups N` is written AFTER the ship it belongs to and applies to
+//   the previous ship on load (PlayerInfo::Load: groups[ships.back()]).
+//
+//  Works in the browser (window.EsSaveFile) and in Node (module.exports).
+// ═══════════════════════════════════════════════════════════════════════════
+
+(function (root, factory) {
+  const api = factory();
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  else root.EsSaveFile = api;
+})(typeof self !== 'undefined' ? self : this, function () {
+
+  // ───────────────────────────────────────────────────────────────────────
+  //  Node tree
+  //    data node:    { tokens: string[], children: Node[], line }
+  //    comment node: { comment: string, children: [], line }   (text after '#')
+  //    blank node:   { blank: true, children: [] }
+  // ───────────────────────────────────────────────────────────────────────
+
+  const isData = n => Array.isArray(n.tokens);
+  const key    = n => (isData(n) ? n.tokens[0] : undefined);
+
+  function makeNode(tokens, children) {
+    return { tokens: tokens.map(String), children: children || [] };
+  }
+
+  // ───────────────────────────────────────────────────────────────────────
+  //  PARSE — mirrors DataFile::LoadData token-for-token
+  // ───────────────────────────────────────────────────────────────────────
+  function parse(text) {
+    const root = { tokens: [], children: [], line: 0 };
+    const warnings = [];
+    if (typeof text !== 'string') throw new TypeError('parse() expects a string');
+    if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+
+    const stack = [root];
+    const seps  = [-1];
+    let indentChar = null;
+    let pendingBlanks = 0;
+    const lines = text.split('\n');
+    const isWs = c => c !== undefined && c <= ' ';   // same test as the game (c <= ' ')
+
+    for (let ln = 0; ln < lines.length; ln++) {
+      const line = lines[ln];
+      let i = 0, sepCount = 0, mixed = false;
+      while (i < line.length && isWs(line[i])) {
+        const c = line[i];
+        if (c === '\t' || c === ' ') {
+          if (indentChar === null) indentChar = c;
+          else if (c !== indentChar) mixed = true;
+        }
+        sepCount++; i++;
+      }
+      if (mixed) warnings.push(`line ${ln + 1}: mixed tabs and spaces in indentation`);
+
+      if (i >= line.length) {                    // empty / whitespace-only line
+        // Remember it; it's kept only if the next real line is top-level,
+        // so output diffs cleanly against the game's own layout.
+        if (ln < lines.length - 1) pendingBlanks++;
+        continue;
+      }
+      if (sepCount === 0) for (; pendingBlanks > 0; pendingBlanks--) root.children.push({ blank: true, children: [] });
+      pendingBlanks = 0;
+
+      if (line[i] === '#') {                     // full-line comment
+        const commentNode = { comment: line.slice(i + 1).replace(/\r$/, ''), children: [], line: ln + 1 };
+        // attach at the depth its indentation implies, without opening a scope
+        let s = stack.length - 1;
+        while (seps[s] >= sepCount) s--;
+        stack[s].children.push(commentNode);
+        continue;
+      }
+
+      while (seps[seps.length - 1] >= sepCount) { seps.pop(); stack.pop(); }
+      const node = { tokens: [], children: [], line: ln + 1 };
+      stack[stack.length - 1].children.push(node);
+      stack.push(node); seps.push(sepCount);
+
+      // tokenize the rest of the line
+      while (i < line.length) {
+        const c = line[i];
+        if (c === '"' || c === '`') {
+          const end = line.indexOf(c, i + 1);
+          if (end === -1) {
+            warnings.push(`line ${ln + 1}: closing ${c} is missing`);
+            node.tokens.push(line.slice(i + 1).replace(/\r$/, ''));
+            i = line.length;
+            break;
+          }
+          node.tokens.push(line.slice(i + 1, end));
+          i = end + 1;
+        } else {
+          let j = i;
+          while (j < line.length && !isWs(line[j])) j++;
+          node.tokens.push(line.slice(i, j));
+          i = j;
+        }
+        while (i < line.length && isWs(line[i])) i++;
+        if (line[i] === '#') break;              // trailing comment
+      }
+    }
+    return { root, warnings };
+  }
+
+  // ───────────────────────────────────────────────────────────────────────
+  //  WRITE — mirrors DataWriter::Quote and tab indentation
+  // ───────────────────────────────────────────────────────────────────────
+  function quote(tok) {
+    tok = String(tok);
+    const hasQuote = tok.includes('"');
+    const hasTick  = tok.includes('`');
+    if (hasQuote && hasTick) throw new Error(`Token cannot be written (contains both " and \`): ${tok}`);
+    if (hasQuote) return '`' + tok + '`';
+    // A bare token starting with '#' would read back as a comment; the game's
+    // own writer doesn't guard this, but a quoted one loads correctly.
+    if (tok === '' || hasTick || /\s/.test(tok) || tok[0] === '#') return '"' + tok + '"';
+    return tok;
+  }
+
+  function stringify(root) {
+    const out = [];
+    const walk = (nodes, depth) => {
+      const indent = '\t'.repeat(depth);
+      for (const n of nodes) {
+        if (n.blank)                 { out.push(''); continue; }
+        if (n.comment !== undefined) { out.push(indent + '#' + n.comment); continue; }
+        out.push(indent + n.tokens.map(quote).join(' '));
+        if (n.children.length) walk(n.children, depth + 1);
+      }
+    };
+    walk(root.children, 0);
+    return out.join('\n') + '\n';
+  }
+
+  // Number → token. Integers stay integers; everything else uses the
+  // shortest round-trippable form (the game's parser accepts exponents).
+  function num(v) {
+    const n = Number(v);
+    if (!Number.isFinite(n)) throw new Error(`Not a finite number: ${v}`);
+    return String(Object.is(n, -0) ? 0 : n);
+  }
+  const toNum = (tok, fallback = 0) => {
+    if (tok === undefined || tok === null || tok === '') return fallback;
+    const n = Number(tok);
+    return Number.isFinite(n) ? n : fallback;
+  };
+
+  // ───────────────────────────────────────────────────────────────────────
+  //  Tree helpers
+  // ───────────────────────────────────────────────────────────────────────
+  const kids    = (n, k) => n.children.filter(c => isData(c) && c.tokens[0] === k);
+  const kid     = (n, k) => n.children.find(c => isData(c) && c.tokens[0] === k) || null;
+  const val     = (n, k, i = 1) => { const c = kid(n, k); return c ? c.tokens[i] : undefined; };
+  function setVal(n, k, ...values) {
+    let c = kid(n, k);
+    if (!c) { c = makeNode([k]); n.children.push(c); }
+    c.tokens = [k, ...values.map(String)];
+    return c;
+  }
+  function removeKid(n, k) {
+    const before = n.children.length;
+    n.children = n.children.filter(c => !(isData(c) && c.tokens[0] === k));
+    return before !== n.children.length;
+  }
+  const clone = n => JSON.parse(JSON.stringify(n));
+
+  function uuidV4() {
+    if (typeof crypto !== 'undefined' && crypto.randomUUID) return crypto.randomUUID();
+    const b = [];
+    for (let i = 0; i < 16; i++) b.push(Math.floor(Math.random() * 256));
+    b[6] = (b[6] & 0x0f) | 0x40; b[8] = (b[8] & 0x3f) | 0x80;
+    const h = b.map(x => x.toString(16).padStart(2, '0')).join('');
+    return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20)}`;
+  }
+
+  // Canonical top-level order (PlayerInfo::Save). Used only when a block
+  // has to be CREATED, so it lands where the game would have written it.
+  const TOP_ORDER = [
+    'pilot', 'original name', 'date', 'marked event changes today', 'system entry method',
+    'previous system', 'previous planet', 'system', 'planet', 'clearance', 'playtime', 'launching',
+    'cloaked', 'travel', 'travel destination', 'flagship index', 'map coloring', 'map zoom',
+    'collapsed', 'reputation with', 'tribute received', 'max escort count', 'max escort crew',
+    'admin cap', 'ship', 'groups', 'storage', 'licenses', 'account', 'cargo', 'basis', 'stock',
+    'fleet depreciation', 'stock depreciation', 'mission', 'mission cargo', 'mission passengers',
+    'available job', 'available mission', 'sort type', 'sort descending', 'separate deadline',
+    'separate possible', 'conditions', 'gifted ships', 'event', 'changes', 'economy', 'destroyed',
+    'visited', 'visited planet', 'harvested', 'logbook', 'start', 'plugins', 'message log',
+  ];
+  const MISSION_KEYS = ['mission', 'available job', 'available mission'];
+  // Ship::Save order: identity lines first, per-instance state after the hardpoints.
+  const SHIP_HEAD_KEYS = ['name', 'display name', 'plural', 'noun', 'never disabled', 'uncapturable',
+    'swizzle', 'administrative cost', 'uuid'];
+  const SHIP_TAIL_KEYS = ['crew', 'fuel', 'shields', 'hull', 'position', 'formation', 'system', 'planet',
+    'destination system', 'parked'];
+  const SHIP_STATE_KEYS = [...SHIP_HEAD_KEYS, ...SHIP_TAIL_KEYS];
+
+  // ───────────────────────────────────────────────────────────────────────
+  //  SaveFile — typed view + edits over the tree
+  // ───────────────────────────────────────────────────────────────────────
+  class SaveFile {
+    constructor(text) {
+      const { root, warnings } = parse(text);
+      this.root = root;
+      this.warnings = warnings;
+    }
+    static fromText(text) { return new SaveFile(text); }
+    toString() { return stringify(this.root); }
+
+    // ── generic access ───────────────────────────────────────────────────
+    top(k)     { return kid(this.root, k); }
+    topAll(k)  { return kids(this.root, k); }
+    topKeys()  { return [...new Set(this.root.children.filter(isData).map(key))]; }
+
+    /** Find or create a top-level node, inserted at its canonical position. */
+    ensureTop(k, tokens) {
+      let n = this.top(k);
+      if (n) return n;
+      n = makeNode(tokens || [k]);
+      const rank = TOP_ORDER.indexOf(k);
+      const idx = rank === -1 ? -1 : this.root.children.findIndex(c => {
+        const r = TOP_ORDER.indexOf(key(c));
+        return r > rank;
+      });
+      if (idx === -1) this.root.children.push(n); else this.root.children.splice(idx, 0, n);
+      return n;
+    }
+    _setTopValue(k, ...values) {
+      const n = this.ensureTop(k);
+      n.tokens = [k, ...values.map(String)];
+      return n;
+    }
+
+    // ── pilot / location / time ──────────────────────────────────────────
+    get pilot() {
+      const n = this.top('pilot');
+      return { first: n ? n.tokens[1] || '' : '', last: n ? n.tokens[2] || '' : '' };
+    }
+    setPilot(first, last) { this._setTopValue('pilot', first, last); }
+
+    get date() {
+      const n = this.top('date');
+      return n ? { day: toNum(n.tokens[1]), month: toNum(n.tokens[2]), year: toNum(n.tokens[3]) } : null;
+    }
+    setDate(day, month, year) { this._setTopValue('date', num(day), num(month), num(year)); }
+
+    get system()   { return val(this.root, 'system'); }
+    get planet()   { return val(this.root, 'planet'); }
+    setLocation(system, planet) {
+      this._setTopValue('system', system);
+      if (planet) this._setTopValue('planet', planet); else removeKid(this.root, 'planet');
+    }
+    get playtime() { return toNum(val(this.root, 'playtime')); }
+    get flagshipIndex() { const v = val(this.root, 'flagship index'); return v === undefined ? null : toNum(v, -1); }
+    setFlagshipIndex(i) { this._setTopValue('flagship index', num(i)); }
+
+    // ── account ──────────────────────────────────────────────────────────
+    // Credits are int64 in the game; kept as BigInt-safe strings.
+    get credits() { const a = this.top('account'); return a ? BigInt(val(a, 'credits') || '0') : 0n; }
+    setCredits(amount) {
+      const a = this.ensureTop('account');
+      const v = BigInt(typeof amount === 'number' ? Math.trunc(amount) : amount);
+      const c = kid(a, 'credits');
+      if (c) c.tokens = ['credits', v.toString()];
+      else a.children.unshift(makeNode(['credits', v.toString()]));
+    }
+    addCredits(delta) { this.setCredits(this.credits + BigInt(delta)); }
+    get account() {
+      const a = this.top('account');
+      if (!a) return null;
+      const income = kid(a, 'salaries income');
+      return {
+        credits: this.credits,
+        score: toNum(val(a, 'score')),
+        salariesOwed: toNum(val(a, 'salaries')),
+        maintenanceDue: toNum(val(a, 'maintenance')),
+        salariesIncome: income ? Object.fromEntries(income.children.filter(isData).map(c => [c.tokens[0], toNum(c.tokens[1])])) : {},
+        history: (kid(a, 'history')?.children || []).filter(isData).map(c => toNum(c.tokens[0])),
+        mortgages: kids(a, 'mortgage').map(m => ({
+          type: m.tokens[1] || 'Mortgage',
+          principal: toNum(val(m, 'principal')),
+          interest: toNum(val(m, 'interest')),
+          term: toNum(val(m, 'term')),
+          node: m,
+        })),
+      };
+    }
+
+    // ── conditions ───────────────────────────────────────────────────────
+    // Game rule (ConditionsStore::Save): value 0 is not written, value 1
+    // is written as the bare name, anything else as `name value`.
+    get conditions() {
+      const c = this.top('conditions');
+      const out = {};
+      if (c) for (const n of c.children.filter(isData)) out[n.tokens[0]] = n.tokens.length > 1 ? toNum(n.tokens[1]) : 1;
+      return out;
+    }
+    getCondition(name) { return this.conditions[name] || 0; }
+    setCondition(name, value) {
+      const c = this.ensureTop('conditions');
+      const v = Math.trunc(Number(value) || 0);
+      const i = c.children.findIndex(n => isData(n) && n.tokens[0] === name);
+      if (v === 0) { if (i !== -1) c.children.splice(i, 1); return; }
+      const tokens = v === 1 ? [name] : [name, String(v)];
+      if (i === -1) c.children.push(makeNode(tokens)); else c.children[i].tokens = tokens;
+    }
+    deleteCondition(name) { this.setCondition(name, 0); }
+
+    // ── reputation ───────────────────────────────────────────────────────
+    get reputations() {
+      const r = this.top('reputation with');
+      return r ? Object.fromEntries(r.children.filter(isData).map(n => [n.tokens[0], toNum(n.tokens[1])])) : {};
+    }
+    setReputation(government, value) {
+      const r = this.ensureTop('reputation with');
+      const n = kid(r, government);
+      if (n) n.tokens = [government, num(value)]; else r.children.push(makeNode([government, num(value)]));
+    }
+
+    // ── licenses ─────────────────────────────────────────────────────────
+    get licenses() { return (this.top('licenses')?.children || []).filter(isData).map(n => n.tokens[0]); }
+    addLicense(name) {
+      const l = this.ensureTop('licenses');
+      if (!kid(l, name)) l.children.push(makeNode([name]));
+    }
+    removeLicense(name) {
+      const l = this.top('licenses');
+      if (!l) return;
+      removeKid(l, name);
+      if (!l.children.some(isData)) this.root.children = this.root.children.filter(c => c !== l);
+    }
+
+    // ── player cargo (commodities + outfits) ─────────────────────────────
+    get cargo() { return readCargoHold(this.top('cargo')); }
+    setCargoCommodity(name, tons)  { writeCargoItem(this.ensureTop('cargo'), 'commodities', name, tons); }
+    setCargoOutfit(name, count)    { writeCargoItem(this.ensureTop('cargo'), 'outfits', name, count); }
+
+    // ── planetary storage ────────────────────────────────────────────────
+    get storage() {
+      const s = this.top('storage');
+      return (s?.children || []).filter(n => isData(n) && n.tokens[0] === 'planet').map(p => ({
+        planet: p.tokens[1], ...readCargoHold(kid(p, 'cargo')),
+      }));
+    }
+    setStoredOutfit(planet, outfit, count) {
+      const s = this.ensureTop('storage');
+      let p = s.children.find(n => isData(n) && n.tokens[0] === 'planet' && n.tokens[1] === planet);
+      if (!p) { p = makeNode(['planet', planet]); s.children.push(p); }
+      let c = kid(p, 'cargo');
+      if (!c) { c = makeNode(['cargo']); p.children.push(c); }
+      writeCargoItem(c, 'outfits', outfit, count);
+      if (!c.children.some(isData)) p.children = p.children.filter(x => x !== c);
+      if (!p.children.some(isData)) s.children = s.children.filter(x => x !== p);
+    }
+
+    // ── ships ────────────────────────────────────────────────────────────
+    /** Ship views, in save order. `index` is what "flagship index" refers to. */
+    get ships() {
+      const nodes = this.root.children;
+      const out = [];
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i];
+        if (!isData(n) || n.tokens[0] !== 'ship') continue;
+        // groups line applies to the ship BEFORE it
+        let groups = null;
+        for (let j = i + 1; j < nodes.length; j++) {
+          if (!isData(nodes[j])) continue;
+          if (nodes[j].tokens[0] === 'groups') groups = toNum(nodes[j].tokens[1]);
+          break;
+        }
+        out.push(new ShipView(this, n, out.length, groups));
+      }
+      return out;
+    }
+    ship(indexOrUuid) {
+      const all = this.ships;
+      return typeof indexOrUuid === 'number' ? all[indexOrUuid] || null : all.find(s => s.uuid === indexOrUuid) || null;
+    }
+    get flagship() { const i = this.flagshipIndex; return i === null || i < 0 ? null : this.ship(i); }
+
+    /** Remove a ship, its `groups` line, its mission-cargo allocations, and fix flagship index. */
+    removeShip(indexOrUuid) {
+      const s = this.ship(indexOrUuid);
+      if (!s) return false;
+      const nodes = this.root.children;
+      const at = nodes.indexOf(s.node);
+      let end = at + 1;
+      while (end < nodes.length && !isData(nodes[end])) end++;
+      const removeCount = (end < nodes.length && key(nodes[end]) === 'groups') ? end - at + 1 : 1;
+      nodes.splice(at, removeCount);
+
+      const fi = this.flagshipIndex;
+      if (fi !== null && fi >= 0) {
+        if (fi === s.index) this.setFlagshipIndex(this.ships.length ? 0 : -1);
+        else if (fi > s.index) this.setFlagshipIndex(fi - 1);
+      }
+      if (s.uuid) this._dropCargoAllocations(n => n.tokens[1] === s.uuid);
+      return true;
+    }
+
+    /** Copy a ship with a fresh uuid. Returns the new ShipView. */
+    duplicateShip(indexOrUuid, newName) {
+      const s = this.ship(indexOrUuid);
+      if (!s) return null;
+      const copy = clone(s.node);
+      setVal(copy, 'uuid', uuidV4());
+      if (newName !== undefined) setVal(copy, 'name', newName);
+      // insert after the last ship (and its groups line) so indices of existing ships don't shift
+      const nodes = this.root.children;
+      let insertAt = -1;
+      nodes.forEach((n, i) => { if (key(n) === 'ship' || key(n) === 'groups') insertAt = i; });
+      nodes.splice(insertAt + 1, 0, copy);
+      return this.ships[this.ships.length - 1];
+    }
+
+    /**
+     * Swap a save ship's design for a ship definition (e.g. the ship
+     * builder's sbGenerateES() output) while keeping everything that makes
+     * it THIS player's ship: its name, uuid, crew/fuel/shields/hull,
+     * position, location, parked flag, formation and similar state.
+     * The definition's `ship "Model" "Variant"` line becomes `ship "Model"`
+     * — save ships never carry a variant name.
+     */
+    replaceShipDefinition(indexOrUuid, definitionText) {
+      const s = this.ship(indexOrUuid);
+      if (!s) throw new Error('Ship not found');
+      const def = parse(definitionText).root.children.find(n => isData(n) && n.tokens[0] === 'ship');
+      if (!def) throw new Error('No ship block found in the definition text');
+      const old = s.node;
+      const kept = new Map();
+      for (const k of SHIP_STATE_KEYS) { const n = kid(old, k); if (n) kept.set(k, clone(n)); }
+      const body = def.children.filter(n => !(isData(n) && SHIP_STATE_KEYS.includes(n.tokens[0])));
+      const head = SHIP_HEAD_KEYS.filter(k => kept.has(k)).map(k => kept.get(k));
+      const tail = SHIP_TAIL_KEYS.filter(k => kept.has(k)).map(k => kept.get(k));
+      old.tokens = ['ship', def.tokens[1] || s.model];
+      old.children = [...head, ...body, ...tail];
+      return this.ship(s.index);
+    }
+
+    // ── missions ─────────────────────────────────────────────────────────
+    /** kind: 'mission' (held/accepted), 'available job', 'available mission' */
+    get missions() {
+      return this.root.children.filter(n => isData(n) && MISSION_KEYS.includes(n.tokens[0])).map(n => ({
+        kind: n.tokens[0],
+        id: n.tokens[1],                                  // internal name — condition prefix
+        displayName: val(n, 'name') || n.tokens[1],
+        uuid: val(n, 'uuid') || null,
+        deadline: (() => { const d = kid(n, 'deadline'); return d && d.tokens.length >= 4
+          ? { day: toNum(d.tokens[1]), month: toNum(d.tokens[2]), year: toNum(d.tokens[3]) } : null; })(),
+        destination: val(n, 'destination') || null,
+        node: n,
+      }));
+    }
+
+    /**
+     * Remove a mission by internal name.
+     *   kinds:       which lists to remove from (default all three)
+     *   conditions:  also clear "<name>: offered/active/done/failed/declined"
+     */
+    removeMission(id, { kinds = MISSION_KEYS, conditions = false } = {}) {
+      const gone = this.missions.filter(m => m.id === id && kinds.includes(m.kind));
+      if (!gone.length && !conditions) return 0;
+      const drop = new Set(gone.map(m => m.node));
+      this.root.children = this.root.children.filter(n => !drop.has(n));
+      const uuids = new Set(gone.map(m => m.uuid).filter(Boolean));
+      if (uuids.size) this._dropCargoAllocations(n => uuids.has(n.tokens[0]));
+      if (conditions) for (const s of ['offered', 'active', 'done', 'failed', 'declined']) this.deleteCondition(`${id}: ${s}`);
+      return gone.length;
+    }
+
+    // `mission cargo` / `mission passengers` > `player ships` > `<missionUUID> <shipUUID> <count>`
+    _dropCargoAllocations(match) {
+      for (const k of ['mission cargo', 'mission passengers']) {
+        const block = this.top(k);
+        if (!block) continue;
+        for (const ps of kids(block, 'player ships')) ps.children = ps.children.filter(n => !(isData(n) && match(n)));
+        if (!kids(block, 'player ships').some(ps => ps.children.some(isData)))
+          this.root.children = this.root.children.filter(n => n !== block);
+      }
+    }
+
+    // ── scheduled events ─────────────────────────────────────────────────
+    // `event "Name"` + child `date` = scheduled, not yet happened. Anything
+    // with a date <= today fires on the NEXT day advance (PlayerInfo::
+    // AdvanceDate), so it is pending, not stale. `event` with no name is a
+    // full inline event block (GameEvent::Save).
+    get events() {
+      return this.topAll('event').map(n => {
+        const d = kid(n, 'date');
+        return {
+          name: n.tokens[1] || null,
+          date: d ? { day: toNum(d.tokens[1]), month: toNum(d.tokens[2]), year: toNum(d.tokens[3]) } : null,
+          inline: n.tokens.length < 2,
+          node: n,
+        };
+      });
+    }
+    removeEvent(node) { const before = this.root.children.length; this.root.children = this.root.children.filter(n => n !== node); return before !== this.root.children.length; }
+
+    // ── map knowledge ────────────────────────────────────────────────────
+    get visitedSystems() { return this.topAll('visited').map(n => n.tokens[1]).filter(Boolean); }
+    get visitedPlanets() { return this.topAll('visited planet').map(n => n.tokens[1]).filter(Boolean); }
+    setVisitedSystem(name, visited = true) { this._setFlagLine('visited', name, visited); }
+    setVisitedPlanet(name, visited = true) { this._setFlagLine('visited planet', name, visited); }
+    _setFlagLine(k, name, on) {
+      const has = this.root.children.some(n => isData(n) && n.tokens[0] === k && n.tokens[1] === name);
+      if (on && !has) {
+        // keep the game's sorted order within the run of lines
+        const nodes = this.root.children;
+        const run = nodes.map((n, i) => [n, i]).filter(([n]) => key(n) === k);
+        const node = makeNode([k, name]);
+        if (!run.length) {
+          const anchor = this.ensureTop(k, [k, name]);     // creates at canonical position
+          anchor.tokens = [k, name];
+          return;
+        }
+        const after = run.find(([n]) => n.tokens[1] > name);
+        nodes.splice(after ? after[1] : run[run.length - 1][1] + 1, 0, node);
+      } else if (!on && has) {
+        this.root.children = this.root.children.filter(n => !(isData(n) && n.tokens[0] === k && n.tokens[1] === name));
+      }
+    }
+    /** harvested: [{ system, outfit }] */
+    get harvested() {
+      return (this.top('harvested')?.children || []).filter(isData).map(n => ({ system: n.tokens[0], outfit: n.tokens[1] }));
+    }
+
+    get plugins() { return (this.top('plugins')?.children || []).filter(isData).map(n => n.tokens[0]); }
+
+    // ── sanity checks before download ────────────────────────────────────
+    validate() {
+      const problems = [];
+      const ships = this.ships;
+      const fi = this.flagshipIndex;
+      if (fi !== null && fi >= ships.length) problems.push(`flagship index ${fi} is out of range (${ships.length} ships)`);
+      const seen = new Map();
+      for (const s of ships) {
+        if (!s.uuid) continue;
+        if (seen.has(s.uuid)) problems.push(`ships ${seen.get(s.uuid)} and ${s.index} share uuid ${s.uuid}`);
+        else seen.set(s.uuid, s.index);
+      }
+      if (!this.top('pilot')) problems.push('missing "pilot" line');
+      if (!this.top('date'))  problems.push('missing "date" line');
+      try { stringify(this.root); } catch (e) { problems.push(e.message); }
+      return problems;
+    }
+  }
+
+  // ───────────────────────────────────────────────────────────────────────
+  //  Cargo helpers (CargoHold::Save: cargo > commodities|outfits > name count)
+  // ───────────────────────────────────────────────────────────────────────
+  function readCargoHold(cargoNode) {
+    const out = { commodities: {}, outfits: {} };
+    if (!cargoNode) return out;
+    for (const section of ['commodities', 'outfits']) {
+      const s = kid(cargoNode, section);
+      if (s) for (const n of s.children.filter(isData)) out[section][n.tokens[0]] = (out[section][n.tokens[0]] || 0) + toNum(n.tokens[1], 1);
+    }
+    return out;
+  }
+  function writeCargoItem(cargoNode, section, name, count) {
+    let s = kid(cargoNode, section);
+    const c = Math.trunc(Number(count) || 0);
+    if (!s) { if (c <= 0) return; s = makeNode([section]); cargoNode.children.push(s); }
+    const i = s.children.findIndex(n => isData(n) && n.tokens[0] === name);
+    if (c <= 0) { if (i !== -1) s.children.splice(i, 1); }
+    else if (i === -1) s.children.push(makeNode([name, String(c)]));
+    else s.children[i].tokens = [name, String(c)];
+    if (!s.children.some(isData)) cargoNode.children = cargoNode.children.filter(x => x !== s);
+  }
+
+  // ───────────────────────────────────────────────────────────────────────
+  //  ShipView — live view onto one `ship` node (Ship::Save layout)
+  // ───────────────────────────────────────────────────────────────────────
+  class ShipView {
+    constructor(save, node, index, groups) { this.save = save; this.node = node; this.index = index; this.groups = groups; }
+    get model()  { return this.node.tokens[1]; }
+    get name()   { return val(this.node, 'name') || ''; }
+    set name(v)  { setVal(this.node, 'name', v); }
+    get uuid()   { return val(this.node, 'uuid') || null; }
+    get isFlagship() { return this.save.flagshipIndex === this.index; }
+    get crew()   { return toNum(val(this.node, 'crew')); }
+    set crew(v)  { setVal(this.node, 'crew', num(Math.trunc(v))); }
+    get fuel()   { return toNum(val(this.node, 'fuel')); }
+    set fuel(v)  { setVal(this.node, 'fuel', num(v)); }
+    get shields(){ return toNum(val(this.node, 'shields')); }
+    set shields(v){ setVal(this.node, 'shields', num(v)); }
+    get hull()   { return toNum(val(this.node, 'hull')); }
+    set hull(v)  { setVal(this.node, 'hull', num(v)); }
+    get system() { return val(this.node, 'system') || null; }
+    get planet() { return val(this.node, 'planet') || null; }
+    setLocation(system, planet) {
+      setVal(this.node, 'system', system);
+      if (planet) setVal(this.node, 'planet', planet); else removeKid(this.node, 'planet');
+    }
+    get parked() { return !!kid(this.node, 'parked'); }
+    set parked(on) {
+      if (on && !this.parked) this.node.children.push(makeNode(['parked']));
+      if (!on) removeKid(this.node, 'parked');
+    }
+    /** Base attributes as { key: number|string } (first value of each line). */
+    get attributes() {
+      const a = kid(this.node, 'attributes');
+      const out = {};
+      if (a) for (const n of a.children.filter(isData)) if (!n.children.length) out[n.tokens[0]] = n.tokens.length > 1 ? (Number.isFinite(Number(n.tokens[1])) ? Number(n.tokens[1]) : n.tokens[1]) : true;
+      return out;
+    }
+    setAttribute(k, v) {
+      const a = kid(this.node, 'attributes') || (() => { const n = makeNode(['attributes']); this.node.children.push(n); return n; })();
+      if (v === null || v === undefined || v === 0) { removeKid(a, k); return; }
+      const n = kid(a, k);
+      const tok = typeof v === 'number' ? num(v) : String(v);
+      if (n) n.tokens = [k, tok]; else a.children.push(makeNode([k, tok]));
+    }
+    /** Installed outfits as { name: count } (Ship::Save writes count only when > 1). */
+    get outfits() {
+      const o = kid(this.node, 'outfits');
+      const out = {};
+      if (o) for (const n of o.children.filter(isData)) out[n.tokens[0]] = (out[n.tokens[0]] || 0) + toNum(n.tokens[1], 1);
+      return out;
+    }
+    setOutfit(name, count) {
+      let o = kid(this.node, 'outfits');
+      const c = Math.trunc(Number(count) || 0);
+      if (!o) {
+        if (c <= 0) return;
+        o = makeNode(['outfits']);
+        const attrAt = this.node.children.findIndex(n => key(n) === 'attributes');
+        this.node.children.splice(attrAt === -1 ? this.node.children.length : attrAt + 1, 0, o);
+      }
+      const first = o.children.findIndex(n => isData(n) && n.tokens[0] === name);
+      o.children = o.children.filter(n => !(isData(n) && n.tokens[0] === name));
+      if (c > 0) o.children.splice(first === -1 ? o.children.length : first, 0, makeNode(c === 1 ? [name] : [name, String(c)]));
+    }
+    /** Hardpoints in save order: [{ type:'gun'|'turret', x, y, outfit|null }] */
+    get hardpoints() {
+      return this.node.children.filter(n => isData(n) && (n.tokens[0] === 'gun' || n.tokens[0] === 'turret'))
+        .map(n => ({ type: n.tokens[0], x: toNum(n.tokens[1]), y: toNum(n.tokens[2]), outfit: n.tokens[3] || null, node: n }));
+    }
+    mountOutfit(hardpointIndex, outfitName) {
+      const hp = this.hardpoints[hardpointIndex];
+      if (!hp) return false;
+      hp.node.tokens = outfitName ? [hp.type, hp.node.tokens[1], hp.node.tokens[2], outfitName] : hp.node.tokens.slice(0, 3);
+      return true;
+    }
+    /** Bays: [{ category, x, y }] — category is free text (Fighter, Drone, or plugin-defined). */
+    get bays() {
+      return kids(this.node, 'bay').map(n => ({ category: n.tokens[1], x: toNum(n.tokens[2]), y: toNum(n.tokens[3]), node: n }));
+    }
+    toText() { return stringify({ children: [this.node] }); }
+  }
+
+  return { parse, stringify, quote, num, SaveFile, ShipView, uuidV4, TOP_ORDER };
+});
