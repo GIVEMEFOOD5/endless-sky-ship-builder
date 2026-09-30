@@ -3327,20 +3327,14 @@ async function main() {
 
     const dataDir = path.join(process.cwd(), 'data');
     await fs.mkdir(dataDir, { recursive: true });
-    await parseAttributes(dataDir);
-
-    // attributeDefinitions.json is config/formula data, not entity data —
-    // nothing joins against it, it's read wholesale by the stat-calculation
-    // JS. Rather than force it into relational columns, it's parked as one
-    // JSON blob in app_config, which just gets it out of the git-committed
-    // data/ folder. Read the file parseAttributes() just wrote, push it to
-    // Supabase, then delete the local copy so it never gets committed.
-    const attrDefsPath = path.join(dataDir, 'attributeDefinitions.json');
+    // Attribute definitions go straight from memory into Supabase — no
+    // attributeDefinitions.json is written. (data/ is still passed because
+    // the attribute parser keeps its source-discovery caches there.)
     try {
-      const attrDefsJson = JSON.parse(await fs.readFile(attrDefsPath, 'utf8'));
+      const attrDefsJson = await parseAttributes(dataDir);
 
       // Relational copy (attribute_definitions, attribute_flags, …) — what
-      // the front end now reads first. See attributeSync.js.
+      // the front end reads first. See attributeSync.js.
       try {
         await withRetry(() => syncAttributeTables(supabase, attrDefsJson, { shipRows: dedupedShipRows }),
           { label: 'sync attribute tables' });
@@ -3356,10 +3350,9 @@ async function main() {
       // bulk fetch — if this matches what it already has cached, it can
       // skip re-fetching everything entirely.
       await supabase.from('app_config').upsert({ key: 'dataVersion', value: { updatedAt: new Date().toISOString() } });
-      await fs.unlink(attrDefsPath);
-      console.log(`\nPushed attributeDefinitions.json to app_config and removed the local copy.`);
+      console.log(`\nPushed attribute definitions to Supabase.`);
     } catch (err) {
-      console.warn(`Could not push attributeDefinitions.json to Supabase: ${err.message}`);
+      console.warn(`Could not build or push attribute definitions: ${err.message}`);
     }
 
     console.log(`\n${'='.repeat(60)}\n✓ All done!\n${'='.repeat(60)}\n`);
