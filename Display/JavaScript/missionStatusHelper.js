@@ -129,7 +129,7 @@ function _unreachableCompletePath(rawEntries) {
 
   const kids = toComplete.children;
   const looksAlwaysFalse = Array.isArray(kids) && kids.length === 1 &&
-      kids[0].key === '0' && (!kids[0].values || kids[0].values.length === 0);
+      (kids[0].key === '0' || kids[0].key === 'never') && (!kids[0].values || kids[0].values.length === 0);
   if (!looksAlwaysFalse) return false;
 
   // `to fail` needs to actually say something — not itself be an
@@ -175,6 +175,83 @@ function detectQuestionableResolution(rawEntries) {
 // Kept as a thin alias — some callers may already reference this name.
 function hasUnreachableCompletePath(rawEntries) {
   return detectQuestionableResolution(rawEntries).flagged;
+}
+
+// ── "Is its completion condition met?" ───────────────────────
+//
+// Evaluates a mission's `to complete` condition set against the save's
+// conditions, following Endless Sky's ConditionSet rules: top-level lines
+// are ANDed; `has X` / `not X` / `never`; `and` / `or` blocks; comparisons
+// like `"x" >= 3` with + and - arithmetic. Anything it can't evaluate
+// (other operators, built-in conditions it can't know) makes the whole
+// result `null` — never a guess.
+//
+// Returns { value: true|false|null, positives } where `positives` counts
+// checks that were satisfied by a condition the save actually HAS. A
+// mission is only treated as complete when value is true AND positives > 0,
+// so a block made only of `not "..."` checks can't mark it complete just
+// because the save lacks those conditions.
+const _CMP = ['==', '!=', '<=', '>=', '<', '>'];
+function _condValue(conds, name) {
+  const v = conds ? conds[name] : undefined;
+  return typeof v === 'number' ? v : (v ? 1 : 0);
+}
+function _evalExpr(tokens, conds) {
+  // term ((+|-) term)*   — terms are numbers or condition names
+  if (!tokens.length) return null;
+  let total = 0, sign = 1, expectTerm = true, usedPresent = false;
+  for (const t of tokens) {
+    if (expectTerm) {
+      if (t === '(' || t === ')' || t === '*' || t === '/' || t === '%') return null;
+      const n = Number(t);
+      if (Number.isFinite(n) && String(t).trim() !== '') total += sign * n;
+      else { const v = _condValue(conds, t); if (v !== 0) usedPresent = true; total += sign * v; }
+      expectTerm = false;
+    } else {
+      if (t === '+') sign = 1; else if (t === '-') sign = -1; else return null;
+      expectTerm = true;
+    }
+  }
+  return expectTerm ? null : { value: total, usedPresent };
+}
+function _evalLine(entry, conds) {
+  const tokens = [entry.key, ...(entry.values || [])].map(String);
+  const head = tokens[0];
+  if (head === 'never') return { value: false, positives: 0 };
+  if (head === 'and' || head === 'or') {
+    const kids = (entry.children || []).map(c => _evalLine(c, conds));
+    if (head === 'and') return _combineAnd(kids);
+    if (kids.some(k => k.value === true)) return { value: true, positives: kids.filter(k => k.value === true).reduce((n, k) => n + k.positives, 0) };
+    return kids.some(k => k.value === null) ? { value: null, positives: 0 } : { value: false, positives: 0 };
+  }
+  if (head === 'has' && tokens.length === 2) { const v = _condValue(conds, tokens[1]) !== 0; return { value: v, positives: v ? 1 : 0 }; }
+  if (head === 'not' && tokens.length === 2) return { value: _condValue(conds, tokens[1]) === 0, positives: 0 };
+  const opAt = tokens.findIndex((t, i) => i > 0 && _CMP.includes(t));
+  if (opAt === -1) {
+    const e = _evalExpr(tokens, conds);
+    return e ? { value: e.value !== 0, positives: e.value !== 0 && e.usedPresent ? 1 : 0 } : { value: null, positives: 0 };
+  }
+  const l = _evalExpr(tokens.slice(0, opAt), conds), r = _evalExpr(tokens.slice(opAt + 1), conds);
+  if (!l || !r) return { value: null, positives: 0 };
+  const a = l.value, b = r.value;
+  const v = { '==': a === b, '!=': a !== b, '<': a < b, '>': a > b, '<=': a <= b, '>=': a >= b }[tokens[opAt]];
+  return { value: v, positives: v && (l.usedPresent || r.usedPresent) && a !== 0 ? 1 : 0 };
+}
+function _combineAnd(results) {
+  if (results.some(r => r.value === false)) return { value: false, positives: 0 };
+  if (results.some(r => r.value === null)) return { value: null, positives: 0 };
+  return { value: true, positives: results.reduce((n, r) => n + r.positives, 0) };
+}
+function evaluateConditionSet(children, conds) {
+  if (!Array.isArray(children) || !children.length) return { value: null, positives: 0 };
+  return _combineAnd(children.map(c => _evalLine(c, conds)));
+}
+/** true when the mission's own `to complete` is satisfied by this save. */
+function completeConditionMet(rawEntries, conds) {
+  const block = _triggerBlock(rawEntries, 'to', 'complete');
+  if (!block) return false;
+  const r = evaluateConditionSet(block.children, conds);
+  return r.value === true && r.positives > 0;
 }
 
 // ── Save-file access ─────────────────────────────────────────
@@ -339,6 +416,15 @@ function decorateMissions(missions, save) {
         status = { ...status, unreachableCompletePath: true, unreachableCompletePathReason: detected.reason };
       }
     }
+    // Resolved as failed/declined/mixed, but the mission's own "to complete"
+    // condition is met in this save → it was completed in practice (some
+    // missions end through `fail` once their goal is reached).
+    const resolvedOtherwise = [STATUS.FAILED, STATUS.DECLINED, STATUS.MIXED, STATUS.OFFERED_ONLY].includes(status.status);
+    if (resolvedOtherwise && !status.isHeld && m.raw && save && save.pilot &&
+        completeConditionMet(m.raw, save.pilot.conditions)) {
+      status = { ...status, completedByCondition: true,
+        completedByConditionReason: 'Its "to complete" condition is met in this save, so it counts as completed.' };
+    }
     return { ...m, status };
   });
 }
@@ -353,6 +439,15 @@ window.MissionStatusHelper = {
   decorateMissions,
   hasUnreachableCompletePath,
   detectQuestionableResolution,
+  evaluateConditionSet,
+  completeConditionMet,
+  /** Shown status after both overrides above — use this for display. */
+  effectiveStatus(status) {
+    if (!status) return null;
+    if (status.completedByCondition) return STATUS.DONE;
+    if (status.unreachableCompletePath && (status.status === STATUS.FAILED || status.status === STATUS.DECLINED)) return STATUS.DONE;
+    return status.status;
+  },
 };
 
 })();
