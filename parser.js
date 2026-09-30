@@ -1063,6 +1063,7 @@ class EndlessSkyParser {
           this.mapParser.parsePlanetBlock(lines, i, this._currentPluginId);
           i = this.parsePlanetBlock(lines, i); continue;
         } else if (trimmed.startsWith('event ') || trimmed === 'event') {
+          this._captureRawEvent(lines, i);
           i = this.parseEventBlock(lines, i); continue;
         } else if (trimmed.startsWith('system ')) {
           this.mapParser.parseSystemBlock(lines, i, this._currentPluginId);
@@ -1741,6 +1742,26 @@ class EndlessSkyParser {
    *   - threads the event's name through to parsePlanetBlock/parseNpcBlock
    *     so every change is traceable back to the event that caused it
    */
+  /**
+   * Keeps the verbatim text of every named `event "X"` block so the site
+   * can replay a save file's `changes` (which mostly store just
+   * `event "X"`) the same way the game does. Stored in `game_events`.
+   */
+  _captureRawEvent(lines, i) {
+    const header = lines[i].trim();
+    const m = header.match(/^event\s+"([^"]+)"/) || header.match(/^event\s+`([^`]+)`/) || header.match(/^event\s+(\S+)/);
+    if (!m || !this._currentPluginId) return;
+    const out = [lines[i].replace(/\r$/, '')];
+    for (let j = i + 1; j < lines.length; j++) {
+      const line = lines[j].replace(/\r$/, '');
+      if (line.trim() && !/^\s/.test(line)) break;            // next top-level node
+      out.push(line);
+    }
+    while (out.length && !out[out.length - 1].trim()) out.pop();
+    if (!this.rawEvents) this.rawEvents = [];
+    this.rawEvents.push({ plugin_id: this._currentPluginId, name: m[1], raw: out.join('\n') });
+  }
+
   parseEventBlock(lines, i) {
     const headerMatch = lines[i].trim().match(/^event\s+"([^"]+)"/) || lines[i].trim().match(/^event\s+`([^`]+)`/);
     const eventName = headerMatch ? headerMatch[1] : null;
@@ -3206,6 +3227,25 @@ async function main() {
     const planetIdRows   = await upsertChunked('planets', dedupedPlanetRows, { onConflict: 'internal_id', select: 'id, internal_id' });
     const systemIdRows   = await upsertChunked('systems', dedupedSystemRows, { onConflict: 'internal_id', select: 'id, internal_id' });
     await upsertChunked('missions', dedupedMissionRows, { onConflict: 'internal_id', size: 50 });
+
+    // Raw event definitions (for replaying a save's changes on the Systems
+    // map). One row per plugin + event name; if a plugin defines the same
+    // event twice the blocks are joined, like the game merging them.
+    // Needs supabase/game_events.sql.
+    try {
+      const knownPlugins = new Set(allPluginRows.map(p => p.plugin_id));
+      const merged = new Map();
+      for (const ev of sharedParser.rawEvents || []) {
+        if (!knownPlugins.has(ev.plugin_id)) continue;
+        const k = `${ev.plugin_id}\u0000${ev.name}`;
+        const prev = merged.get(k);
+        merged.set(k, prev ? { ...prev, raw: prev.raw + '\n' + ev.raw } : { ...ev });
+      }
+      await upsertChunked('game_events', [...merged.values()], { onConflict: 'plugin_id,name', size: 200 });
+      console.log(`  ✓ ${merged.size} event definitions`);
+    } catch (err) {
+      console.warn(`  Could not store event definitions (run supabase/game_events.sql?): ${err.message}`);
+    }
 
     for (const row of outfitIdRows)  outfitIdByInternalId.set(row.internal_id, row.id);
     for (const row of shipIdRows)    shipIdByInternalId.set(row.internal_id, row.id);
