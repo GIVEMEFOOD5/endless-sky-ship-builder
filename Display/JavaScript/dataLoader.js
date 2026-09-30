@@ -651,6 +651,80 @@ async function _backgroundFillRemainingPlugins(pluginRows, alreadyLoaded) {
     _fireEvent('allPluginsLoaded', {});
 }
 
+// ─────────────────────────────────────────────────────────────────────────
+//  ATTRIBUTE TABLES → window.attrDefs
+//  Inverse of attrDefsToRows() in attributeSync.js — keep the two in step.
+// ─────────────────────────────────────────────────────────────────────────
+
+const _DB_TO_LEVEL = { required: 'required', recommended: 'recommended', engine_derived: 'engineDerived' };
+
+function rebuildAttrDefsFromTables({ definitions, flags, badges, navFns, tooltips, calculations }) {
+    const tooltipMap = {};
+    for (const t of tooltips || []) tooltipMap[t.key] = t.tooltip;
+
+    const attributes = {};
+    for (const d of definitions || []) {
+        const a = { key: d.key, ...(d.extra || {}) };
+        if (d.display_unit         != null) a.displayUnit         = d.display_unit;
+        if (d.display_multiplier   != null) a.displayMultiplier   = Number(d.display_multiplier);
+        if (d.is_boolean)                   a.isBoolean           = true;
+        if (d.description          != null) a.description         = d.description;
+        a.area = d.area ?? null;
+        if (d.ship_panel_label     != null) a.shipPanelLabel      = d.ship_panel_label;
+        if (d.stacking             != null) a.stacking            = d.stacking;
+        if (d.stacking_description != null) a.stackingDescription = d.stacking_description;
+        a.areaBadges = [];
+
+        const tip = tooltipMap[d.key.toLowerCase()];
+        if (tip) a.tooltip = tip;
+
+        if (d.ship_requirement || d.min_value != null) {
+            const req = {
+                level:    _DB_TO_LEVEL[d.ship_requirement] || null,
+                reasons:  d.requirement_reasons || [],
+                coverage: d.presence_pct_official != null ? Number(d.presence_pct_official) / 100 : null,
+            };
+            if (d.min_value      != null) req.min           = Number(d.min_value);
+            if (d.min_exclusive  != null) req.minExclusive  = !!d.min_exclusive;
+            if (d.engine_default != null) req.engineDefault = Number(d.engine_default);
+            a.shipRequirement     = req;
+            a.isRequiredOnShip    = req.level === 'required';
+            a.isRecommendedOnShip = req.level === 'recommended';
+        }
+        if (d.presence_pct_all != null) a.presencePctAll = Number(d.presence_pct_all);
+        attributes[d.key] = a;
+    }
+
+    for (const f of flags  || []) if (attributes[f.attribute_key]) attributes[f.attribute_key][f.flag_name] = true;
+    for (const b of badges || []) if (attributes[b.attribute_key]) attributes[b.attribute_key].areaBadges.push(b.badge);
+    for (const n of navFns || []) {
+        const a = attributes[n.attribute_key];
+        if (a) (a.usedInNavFunctions = a.usedInNavFunctions || []).push(n.function_name);
+    }
+
+    const out = {};
+    for (const c of calculations || []) out[c.section] = c.value;
+    out.attributes = attributes;
+    out.tooltips   = tooltipMap;
+    return out;
+}
+
+async function _loadAttrDefsFromTables() {
+    const { fetchAllRows } = window.SupabaseHelpers;
+    const [definitions, flags, badges, navFns, tooltips, calculations] = await Promise.all([
+        fetchAllRows('attribute_definitions',   { orderBy: 'key' }),
+        fetchAllRows('attribute_flags',         { select: 'attribute_key, flag_name', orderBy: 'id' }),
+        fetchAllRows('attribute_area_badges',   { select: 'attribute_key, badge', orderBy: 'id' }),
+        fetchAllRows('attribute_nav_functions', { select: 'attribute_key, function_name', orderBy: 'id' }),
+        fetchAllRows('attribute_tooltips',      { orderBy: 'key' }),
+        fetchAllRows('attribute_calculations',  { orderBy: 'section' }),
+    ]);
+    if (!definitions.length) return null;   // tables not populated yet → caller falls back
+    return rebuildAttrDefsFromTables({ definitions, flags, badges, navFns, tooltips, calculations });
+}
+
+window.rebuildAttrDefsFromTables = rebuildAttrDefsFromTables;
+
 async function _doLoad() {
     _loading = true;
     _fireEvent('dataLoadStart');
@@ -659,15 +733,25 @@ async function _doLoad() {
     _refreshLocalPlugin();
 
     try {
-        // 1 — Attribute definitions. Config/formula data, not entity data —
-        // parked as one JSON blob in app_config rather than split into
-        // relational columns, since nothing joins against it.
+        // 1 — Attribute definitions. Read from the relational attribute_*
+        // tables (written by attributeSync.js) and rebuilt into the same
+        // window.attrDefs shape every page already uses. Falls back to the
+        // legacy app_config blob if the tables are empty or unreachable.
         try {
-            const { data, error } = await window.supabaseClient
-                .from('app_config').select('value').eq('key', 'attributeDefinitions').maybeSingle();
-            if (!error && data) window.attrDefs = data.value;
-        } catch (_) {
-            console.warn('[DataLoader] Could not load attributeDefinitions from app_config');
+            window.attrDefs = await _loadAttrDefsFromTables();
+            if (window.attrDefs) console.log(`[DataLoader] attrDefs loaded from attribute tables (${Object.keys(window.attrDefs.attributes).length} attributes)`);
+        } catch (err) {
+            console.warn('[DataLoader] Attribute tables unavailable, falling back to app_config:', err.message);
+            window.attrDefs = null;
+        }
+        if (!window.attrDefs) {
+            try {
+                const { data, error } = await window.supabaseClient
+                    .from('app_config').select('value').eq('key', 'attributeDefinitions').maybeSingle();
+                if (!error && data) window.attrDefs = data.value;
+            } catch (_) {
+                console.warn('[DataLoader] Could not load attributeDefinitions from app_config');
+            }
         }
 
         const { fetchAllRows } = window.SupabaseHelpers;
