@@ -3194,10 +3194,14 @@ async function main() {
     const outfitIdRows  = await upsertChunked('outfits', dedupedOutfitRows, { onConflict: 'internal_id', select: 'id, internal_id', size: 100 });
     const shipIdRows    = await upsertChunked('ships', dedupedShipRows, { onConflict: 'internal_id', select: 'id, internal_id' });
     const variantIdRows = await upsertChunked('variants', dedupedVariantRows, { onConflict: 'internal_id', select: 'id, internal_id' });
-    await upsertChunked('effects', allEffectRows);
+    // effects/governments have no internal_id, so (plugin_id, name) is their
+    // natural key — without onConflict these were plain INSERTs and every
+    // run added another full copy. Needs the unique constraints from
+    // supabase/schema_fixes.sql.
+    await upsertChunked('effects', dedupeByComposite(allEffectRows, ['plugin_id', 'name']), { onConflict: 'plugin_id,name' });
     await upsertChunked('stars', dedupedStarRows, { onConflict: 'internal_id' });
     await upsertChunked('galaxies', dedupedGalaxyRows, { onConflict: 'internal_id' });
-    await upsertChunked('governments', allGovernmentRows);
+    await upsertChunked('governments', dedupeByComposite(allGovernmentRows, ['plugin_id', 'name']), { onConflict: 'plugin_id,name' });
     const wormholeIdRows = await upsertChunked('wormholes', dedupedWormholeRows, { onConflict: 'internal_id', select: 'id, internal_id' });
     const planetIdRows   = await upsertChunked('planets', dedupedPlanetRows, { onConflict: 'internal_id', select: 'id, internal_id' });
     const systemIdRows   = await upsertChunked('systems', dedupedSystemRows, { onConflict: 'internal_id', select: 'id, internal_id' });
