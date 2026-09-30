@@ -165,6 +165,10 @@ async function _loadAndRender(activeOutputNames, resetView) {
         if (typeof setCurrentPlugin === 'function') setCurrentPlugin(activeOutputNames[0]);
 
         const pluginDataMap = await MapDataLoader.loadPlugins(activeOutputNames);
+        // The selected save's story changes (mapSaveState.js) — loaded before
+        // formatting so the synchronous apply() below has what it needs.
+        const saveState = window.MapSaveState || null;
+        if (saveState) await saveState.prepare(activeOutputNames);
 
         systemsByName = MapDataFormatter.formatSystems(pluginDataMap, activeOutputNames);
         const wormholeLinks = MapDataFormatter.formatWormholes(pluginDataMap);
@@ -177,12 +181,14 @@ async function _loadAndRender(activeOutputNames, resetView) {
         starTable = MapCalculations.buildStarTable(fetchedStars);
 
         const governmentColors = MapDataFormatter.formatGovernments(pluginDataMap, activeOutputNames);
+        if (saveState) saveState.apply({ systemsByName, planetsBySystem, governmentColors, pluginDataMap, activeOutputNames });
 
         systemsArr = [...systemsByName.values()];
         linkSegments = MapCalculations.buildLinkSegments(systemsByName);
         govPalette = MapCalculations.buildGovernmentPalette(systemsArr, governmentColors);
 
-        const missions = MapDataFormatter.formatMissions(pluginDataMap, activeOutputNames, planetsBySystem);
+        let missions = MapDataFormatter.formatMissions(pluginDataMap, activeOutputNames, planetsBySystem);
+        if (saveState) missions = saveState.filterMissions(missions, pluginDataMap, activeOutputNames);
         missionIndex = MapCalculations.buildMissionIndex(missions, systemsArr);
 
         activeGovFilters.clear();
@@ -241,7 +247,8 @@ function _updateSubtitle(activeOutputNames) {
         `${systemsArr.length} systems · ${govPalette.names.length} governments · ` +
         `${missionIndex.stats.total || 0} missions (${missionIndex.stats.concreteJobs || 0} fixed jobs, ` +
         `${missionIndex.stats.genericJobTemplates || 0} generic job templates) · ` +
-        `${activeOutputNames.length} plugin${activeOutputNames.length === 1 ? '' : 's'} active`;
+        `${activeOutputNames.length} plugin${activeOutputNames.length === 1 ? '' : 's'} active` +
+        (window.MapSaveState ? window.MapSaveState.subtitleSuffix() : '');
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -673,6 +680,7 @@ function _renderSystemDetails(s) {
             <h3>Jump links</h3>
             <div class="map-details-links">${links}</div>
         </div>
+        ${window.MapSaveState ? window.MapSaveState.detailsHtml(s) : ''}
         ${starSection}
         ${planetsSection}
         ${missionsSection}
