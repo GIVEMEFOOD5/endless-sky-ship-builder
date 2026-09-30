@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilot profile — Endless Sky Nexus</title>
+<link rel="stylesheet" href="../CSS/main.css">
+</head>
+<body>
+
+<div id="navbar-mount" data-src="NavBar.html"></div>
+<script src="../JavaScript/navLoader.js"></script>
+
+<div class="container">
+  <header class="panel">
+    <h1 id="pf-title">Pilot profile</h1>
+    <p class="subtitle" id="pf-sub">Ships this pilot has chosen to share.</p>
+    <div class="btn-group" id="pf-actions" style="margin-top:8px;"></div>
+  </header>
+  <section class="panel">
+    <div id="pf-ships" class="fleet-grid"><p style="color:var(--c-text-dim);">Loading…</p></div>
+  </section>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+<script src="../JavaScript/supabaseClient.js"></script>
+<script src="../JavaScript/auth.js"></script>
+<script src="../JavaScript/reportDialog.js"></script>
+<script src="../JavaScript/profilePage.js"></script>
+</body>
+</html>
