@@ -2339,8 +2339,15 @@ async function parseAttributes(outputDir, cliOpts = {}) {
     navigation: jumpNavFns,
   };
 
-  await fs.writeFile(outFile, JSON.stringify(result, null, 2), 'utf8');
-  console.log(`\n✓  Written → ${outFile}`);
+  // No JSON file by default — parser.js takes the returned object and
+  // syncs it straight into Supabase (attributeSync.js). Pass
+  // { writeFile: true } (CLI: --write) to dump a local copy for debugging.
+  if (cliOpts.writeFile) {
+    await fs.writeFile(outFile, JSON.stringify(result, null, 2), 'utf8');
+    console.log(`\n✓  Written → ${outFile}`);
+  } else {
+    console.log('\n✓  Attribute definitions built (not written to disk)');
+  }
   console.log(`   attributes: ${Object.keys(result.attributes).length}  ` +
     `shipFunctions: ${Object.keys(result.shipFunctions).length}  ` +
     `otherSystems classes: ${Object.keys(result.otherSystems).length}  ` +
@@ -2350,7 +2357,7 @@ async function parseAttributes(outputDir, cliOpts = {}) {
 }
 
 if (require.main === module) {
-  const cliOpts = { rescan: process.argv.includes('--rescan') };
+  const cliOpts = { rescan: process.argv.includes('--rescan'), writeFile: process.argv.includes('--write') };
   parseAttributes(undefined, cliOpts).catch(err => { console.error('Error:', err); process.exit(1); });
 }
 
