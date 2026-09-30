@@ -444,12 +444,12 @@
 <div id="modal-cloud-save" class="modal-overlay">
   <div class="modal-box" style="width:min(420px,96vw);">
     <div class="modal-header">
-      <div class="modal-title">Save to Account</div>
+      <div class="modal-title">Share ship</div>
       <button class="modal-close" onclick="closeModal('modal-cloud-save')">×</button>
     </div>
 
     <div id="cloud-save-logged-out" style="display:none;">
-      <p style="color:var(--c-text-mid);margin-bottom:16px;">You'll need to be logged in to save ships to your account.</p>
+      <p style="color:var(--c-text-mid);margin-bottom:16px;">Log in to share ships.</p>
       <div class="btn-group btn-group-right">
         <button class="btn btn-secondary" onclick="closeModal('modal-cloud-save')">Cancel</button>
         <button class="btn btn-primary" onclick="closeModal('modal-cloud-save'); window.openAuthModal && window.openAuthModal('signin');">Log in</button>
@@ -463,10 +463,10 @@
 
       <label style="display:flex;align-items:center;gap:8px;margin-bottom:4px;cursor:pointer;">
         <input type="checkbox" id="cloud-save-public">
-        <span>Make this build public</span>
+        <span>Public — anyone with the link can see it</span>
       </label>
       <p style="color:var(--c-text-dim);font-size:0.8rem;margin:0 0 18px 26px;">
-        Public builds appear under your username in the plugin list, visible to everyone.
+        Public ships also appear on your profile and under your username in the plugin list. Leave this off to keep the ship private — only you will see it.
       </p>
 
       <div class="btn-group btn-group-right">
@@ -499,6 +499,8 @@
 <script src="../JavaScript/shipBuilderStats.js"></script>
 <script src="../JavaScript/shipBuilder.js"></script>
 <script src="../JavaScript/shipBuilderFleets.js"></script>
+<script src="../JavaScript/reportDialog.js"></script>
+<script src="../JavaScript/shipBuilderShared.js"></script>
 <script src="../JavaScript/shipBuilderRequiredAttrs.js"></script>
 <script src="../JavaScript/shipBuilderAttrValidation.js"></script>
 <script src="../JavaScript/shipBuilderCapacityGuard.js"></script>
