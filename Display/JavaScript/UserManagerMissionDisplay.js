@@ -145,11 +145,10 @@ const STATUS_BADGE = HAS_STATUS_HELPER ? {
 // those aren't a clean single "this looks like failure" to override.
 function effectiveStatus(m) {
     if (!m.status) return null;
-    if (m.status.unreachableCompletePath &&
-        (m.status.status === MissionStatusHelper.STATUS.FAILED || m.status.status === MissionStatusHelper.STATUS.DECLINED)) {
-        return MissionStatusHelper.STATUS.DONE;
-    }
-    return m.status.status;
+    return MissionStatusHelper.effectiveStatus(m.status);
+}
+function overrideReason(m) {
+    return m.status.completedByCondition ? m.status.completedByConditionReason : m.status.unreachableCompletePathReason;
 }
 
 function statusBadgeHtml(m) {
@@ -157,7 +156,7 @@ function statusBadgeHtml(m) {
     const overridden = effectiveStatus(m) !== m.status.status;
     const badge = STATUS_BADGE[effectiveStatus(m)];
     const badgeTitle = overridden
-        ? `Recorded as "${m.status.label}" in the save, but ${m.status.unreachableCompletePathReason} Shown as Completed based on that.`
+        ? `Recorded as "${m.status.label}" in the save, but ${overrideReason(m)} Shown as Completed based on that.`
         : m.status.label;
     const badgeHtml = badge
         ? `<span class="mission-status-badge mission-status-badge--${badge.cls}" title="${esc(badgeTitle)}">${esc(badge.text)}</span>`
