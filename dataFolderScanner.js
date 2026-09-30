@@ -210,6 +210,47 @@ function aggregateDataUsage(fileEntries) {
 }
 
 // ---------------------------------------------------------------------------
+// NEW: ship attribute COVERAGE — "how many base ships define this key?"
+//
+// perKey (above) counts every occurrence across outfits AND ships, which
+// can't answer "is this attribute present on essentially every ship?".
+// This pass counts, per key, the number of distinct BASE ship definitions
+// whose `attributes` block contains it. That fraction is the data-side
+// evidence used by attributeParser.js deriveShipRequirements().
+//
+//   - Only base ships count: `ship "Name"` (2 tokens). Variants
+//     (`ship "Base" "Variant"`) inherit their base's attributes, so
+//     counting them would double-weight popular hulls.
+//   - Unlike perKey this DOES record `category` (it's excluded from
+//     NON_ATTRIBUTE_KEYS for area hints, but it matters for requiredness).
+//   - Nested blocks (e.g. `weapon`, `licenses`) are skipped — they are
+//     sub-structures, not scalar ship attributes.
+// ---------------------------------------------------------------------------
+
+function aggregateShipCoverage(fileEntries) {
+    const perKey = {};
+    let baseShipCount = 0;
+    for (const { content } of fileEntries) {
+        let roots;
+        try { roots = buildTree(content); } catch (_) { continue; }
+        for (const root of roots) {
+            if (root.tokens[0] !== 'ship' || root.tokens.length !== 2) continue;
+            const attrNode = findChild(root, 'attributes');
+            if (!attrNode) continue;
+            baseShipCount++;
+            const seen = new Set();
+            for (const child of attrNode.children) {
+                const key = child.tokens[0];
+                if (!key || child.children.length) continue;
+                seen.add(key);
+            }
+            for (const key of seen) perKey[key] = (perKey[key] || 0) + 1;
+        }
+    }
+    return { baseShipCount, perKey };
+}
+
+// ---------------------------------------------------------------------------
 // Category → area hints — the strongest area-classification signal, but
 // only trusted when unambiguous (see module doc above).
 // ---------------------------------------------------------------------------
@@ -267,7 +308,9 @@ function createDataFolderScanner({ fetchText, withPool }) {
         if (!forceRescan) {
             try {
                 const cached = JSON.parse(await fs.readFile(cacheFile, 'utf8'));
-                if ((Date.now() - cached.scannedAt) < maxAgeMs) {
+                // Caches written before shipCoverage existed are treated as
+                // stale so the new ship-requirement pass gets real data.
+                if ((Date.now() - cached.scannedAt) < maxAgeMs && cached.shipCoverage) {
                     console.log(`  Using cached data/ usage scan from ${new Date(cached.scannedAt).toISOString()} ` +
                         `(${cached.fileCount} files, ${Object.keys(cached.perKey).length} attribute keys). Pass --rescan to force a fresh scan.`);
                     return cached;
@@ -309,7 +352,10 @@ function createDataFolderScanner({ fetchText, withPool }) {
             };
         }
 
-        const record = { scannedAt: Date.now(), fileCount: fileEntries.length, perKey };
+        const shipCoverage = aggregateShipCoverage(fileEntries);
+        console.log(`  ${shipCoverage.baseShipCount} base ship definitions measured for attribute coverage`);
+
+        const record = { scannedAt: Date.now(), fileCount: fileEntries.length, perKey, shipCoverage };
         try {
             await fs.mkdir(path.dirname(cacheFile), { recursive: true });
             await fs.writeFile(cacheFile, JSON.stringify(record, null, 2), 'utf8');
@@ -318,7 +364,7 @@ function createDataFolderScanner({ fetchText, withPool }) {
         return record;
     }
 
-    return { scanDataFolderUsage, deriveCategoryAreaHints, aggregateDataUsage, buildTree, tokenizeLine };
+    return { scanDataFolderUsage, deriveCategoryAreaHints, aggregateDataUsage, aggregateShipCoverage, buildTree, tokenizeLine };
 }
 
 module.exports = createDataFolderScanner;
