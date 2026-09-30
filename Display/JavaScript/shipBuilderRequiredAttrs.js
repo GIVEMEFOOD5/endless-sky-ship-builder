@@ -16,23 +16,25 @@
 //
 //  HOW REQUIRED ATTRIBUTES ARE DETERMINED  (zero hardcoded key names)
 //  ─────────────────────────────────────────────────────────────────────────────
-//  Required keys are derived entirely from window.attrDefs at install time
-//  using three signals from the JSON data:
+//  attributeParser.js deriveShipRequirements() tags every attribute in
+//  window.attrDefs with `shipRequirement.level`:
 //
-//    1. meta.isExpectedNegative === true
-//       Capacity keys (outfit space, engine capacity, weapon capacity, etc.)
-//       The outfit pays the negative cost; the ship base value must be ≥ 0.
+//    'required'      → locked: can't be removed, can't be blank, backfilled
+//                      on every ship. Evidence: Ship::FinishLoading enforces
+//                      it (e.g. drag) and/or ≥98% of base-game ships set it.
+//    'recommended'   → pre-filled on NEW blank ships, but removable. Real
+//                      ships legitimately omit these (sail ships have no
+//                      engine capacity, drones have no bunks, …).
+//    'engineDerived' → computed by the game (gun ports / turret mounts come
+//                      from hardpoints). Never required from the user.
 //
-//    2. meta.shownInShipPanel === true
-//       Attributes the game shows in its own ship info panel.  These are
-//       the fundamental stats every ship is expected to have defined.
+//  shipRequirement.min / minExclusive are enforced on edit (drag must be
+//  > 0; capacities must be ≥ 0).
 //
-//    3. meta.usedInShipFunctions includes 'FinishLoading', 'Drag', or
-//       'DragForce'  — Ship.cpp reads these at load time or for core physics,
-//       so they must exist on the ship.
-//
-//  Weapon-only / status-effect / boolean flags are excluded automatically
-//  because they never appear on the ship panel and are not read at load time.
+//  If attrDefs predates the parser change (no shipRequirement anywhere), no
+//  attributes are locked and a console warning asks for a re-parse — the old
+//  flag heuristic locked ~50 keys (thrust, afterburner heat, …) while missing
+//  mass/hull/cost/category, so it is intentionally not used as a fallback.
 //
 //  HARDCODED VALUES (design decisions, not derivable from data)
 //  ─────────────────────────────────────────────────────────────────────────────
@@ -58,23 +60,19 @@ const RequiredAttrs = (() => {
     'use strict';
 
     // ─────────────────────────────────────────────────────────────────────────
-    //  SIGNALS used to derive required keys from window.attrDefs
-    //  All are property names on the attribute metadata objects — no key names.
-    // ─────────────────────────────────────────────────────────────────────────
-
-    // Signal 3: ship functions whose attributesRead list implies load-time need
-    const CORE_SHIP_FUNCTIONS = new Set(['FinishLoading', 'Drag', 'DragForce']);
-
-    // ─────────────────────────────────────────────────────────────────────────
     //  DEFAULT VALUES  ← only hardcoded values in this file
     //
-    //  Keys here that don't end up in the required set are silently ignored,
+    //  Used for both 'required' and 'recommended' keys.
+    //  Keys here that don't end up in either set are silently ignored,
     //  so this map can be broader than the derived set without causing errors.
     //
     //  Rules (per user spec):
     //    - mass, hull, cost, and all capacity/space keys → '1'
     //    - heat dissipation                              → '0.5'
     //    - drag, shields, category                       → '0' / ''
+    //      (a default that breaks the attribute's own min rule is replaced
+    //       by the engine's default — so drag '0' becomes '100', matching
+    //       what Ship::FinishLoading would do anyway)
     //    - everything else required but not listed here  → '0'
     // ─────────────────────────────────────────────────────────────────────────
 
@@ -106,65 +104,47 @@ const RequiredAttrs = (() => {
     //  STATE  — populated at install time once attrDefs is available
     // ─────────────────────────────────────────────────────────────────────────
 
-    let _requiredKeys   = new Set();   // derived from attrDefs
-    let _requiredList   = [];          // [ { key, special, defaultValue }, … ]
+    let _requiredKeys     = new Set();   // level === 'required'
+    let _requiredList     = [];          // [ { key, req, special, defaultValue }, … ]
+    let _recommendedKeys  = new Set();   // level === 'recommended'
+    let _recommendedList  = [];
+    let _reqMeta          = new Map();   // key → shipRequirement (both levels)
 
     // ─────────────────────────────────────────────────────────────────────────
     //  DERIVE REQUIRED KEYS from window.attrDefs
     // ─────────────────────────────────────────────────────────────────────────
 
-    function _deriveRequiredKeys() {
-        const ad = window.attrDefs;
-        if (!ad || !ad.attributes) {
-            console.warn('[RequiredAttrs] window.attrDefs not available — falling back to empty set.');
-            return new Set();
+    function _deriveRequirements() {
+        const out = { required: new Map(), recommended: new Map(), available: false };
+        const attrs = window.attrDefs && window.attrDefs.attributes;
+        if (!attrs) {
+            console.warn('[RequiredAttrs] window.attrDefs not available yet.');
+            return out;
         }
-
-        const attrs   = ad.attributes;
-        const derived = new Set();
-
         for (const [key, meta] of Object.entries(attrs)) {
-            // Exclude weapon-stat-only attributes — they live on the weapon
-            // sub-object, not the ship's base attributes.
-            if (meta.isWeaponStat || meta.isWeaponDataKey) continue;
-
-            // Exclude boolean flags — they're present/absent, not numeric.
-            if (meta.isBoolean) continue;
-
-            // Exclude pure status-effect trackers (ionization, scrambling…)
-            if (meta.isStatusEffect) continue;
-
-            // Signal 1: capacity key
-            if (meta.isExpectedNegative) { derived.add(key); continue; }
-
-            // Signal 2: shown in the game's ship info panel
-            if (meta.shownInShipPanel)   { derived.add(key); continue; }
-
-            // Signal 3: read by core ship functions at load / physics time
-            const fns = meta.usedInShipFunctions || [];
-            if (fns.some(fn => CORE_SHIP_FUNCTIONS.has(fn))) {
-                derived.add(key);
-            }
+            const req = meta && meta.shipRequirement;
+            if (!req) continue;
+            out.available = true;
+            if (req.level === 'required')    out.required.set(key, req);
+            if (req.level === 'recommended') out.recommended.set(key, req);
         }
-
-        // Also scan shipFunctions directly for FinishLoading.attributesRead
-        // (catches keys that may not have shownInShipPanel set)
-        const shipFns = ad.shipFunctions || {};
-        for (const fnName of CORE_SHIP_FUNCTIONS) {
-            const fn = shipFns[fnName];
-            if (fn && Array.isArray(fn.attributesRead)) {
-                for (const k of fn.attributesRead) {
-                    // Apply the same exclusions
-                    const meta = attrs[k];
-                    if (!meta) continue;
-                    if (meta.isWeaponStat || meta.isWeaponDataKey) continue;
-                    if (meta.isBoolean || meta.isStatusEffect) continue;
-                    derived.add(k);
-                }
-            }
+        if (!out.available) {
+            console.warn('[RequiredAttrs] attrDefs has no shipRequirement data — re-run the ' +
+                'parse workflow (attributeParser.js deriveShipRequirements) to enable locking.');
         }
+        return out;
+    }
 
-        return derived;
+    // A default must satisfy the attribute's own min constraint; otherwise
+    // fall back to the engine's own default, then to '1'.
+    function _defaultFor(key, req) {
+        let v = DEFAULTS_BY_KEY.hasOwnProperty(key) ? DEFAULTS_BY_KEY[key] : DEFAULT_FALLBACK;
+        const n = parseFloat(v);
+        if (req && req.min !== undefined && !isNaN(n) &&
+            (req.minExclusive ? n <= req.min : n < req.min)) {
+            v = req.engineDefault !== undefined ? String(req.engineDefault) : '1';
+        }
+        return v;
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -175,13 +155,11 @@ const RequiredAttrs = (() => {
     //    'attr'          → ship.attributes[key]
     // ─────────────────────────────────────────────────────────────────────────
 
-    function _buildRequiredList(keys) {
-        return [...keys].map(key => ({
-            key,
+    function _buildList(reqMap) {
+        return [...reqMap.entries()].map(([key, req]) => ({
+            key, req,
             special:      key === 'mass' ? 'mass' : key === 'drag' ? 'drag' : 'attr',
-            defaultValue: DEFAULTS_BY_KEY.hasOwnProperty(key)
-                              ? DEFAULTS_BY_KEY[key]
-                              : DEFAULT_FALLBACK,
+            defaultValue: _defaultFor(key, req),
         }));
     }
 
@@ -189,8 +167,44 @@ const RequiredAttrs = (() => {
     //  PUBLIC: isRequired(key)
     // ─────────────────────────────────────────────────────────────────────────
 
-    function isRequired(key) {
-        return _requiredKeys.has(key);
+    function isRequired(key)    { return _requiredKeys.has(key); }
+    function isRecommended(key) { return _recommendedKeys.has(key); }
+
+    function _getVal(ship, key) {
+        if (key === 'mass') return ship.mass;
+        if (key === 'drag') return ship.drag;
+        return (ship.attributes || {})[key];
+    }
+
+    // Returns an error string, or null if the value is acceptable.
+    function _checkValue(key, raw) {
+        const req = _reqMeta.get(key);
+        if (!req) return null;
+        const blank = raw === undefined || raw === null || String(raw).trim() === '';
+        if (blank) return _requiredKeys.has(key) ? `"${key}" is required on every ship and can't be blank.` : null;
+        if (req.min === undefined) return null;
+        const n = parseFloat(raw);
+        if (isNaN(n)) return null;
+        if (req.minExclusive && n <= req.min) return `"${key}" must be greater than ${req.min}.`;
+        if (!req.minExclusive && n < req.min) return `"${key}" can't be below ${req.min}.`;
+        return null;
+    }
+
+    // PUBLIC: list every required-attribute problem on a ship (for export checks).
+    function validate(ship) {
+        const problems = [];
+        if (!ship) return problems;
+        for (const key of _requiredKeys) {
+            const err = _checkValue(key, _getVal(ship, key));
+            if (err) problems.push({ key, message: err });
+        }
+        for (const key of _recommendedKeys) {
+            const v = _getVal(ship, key);
+            if (v === undefined || v === null || v === '') continue;
+            const err = _checkValue(key, v);
+            if (err) problems.push({ key, message: err });
+        }
+        return problems;
     }
 
     // ─────────────────────────────────────────────────────────────────────────
@@ -198,11 +212,11 @@ const RequiredAttrs = (() => {
     //  Never overwrites an existing non-empty value.
     // ─────────────────────────────────────────────────────────────────────────
 
-    function _backfill(ship) {
+    function _backfill(ship, list = _requiredList) {
         if (!ship) return;
         ship.attributes = ship.attributes || {};
 
-        for (const def of _requiredList) {
+        for (const def of list) {
             if (def.special === 'mass') {
                 if (ship.mass === undefined || ship.mass === null || ship.mass === '')
                     ship.mass = def.defaultValue;
@@ -243,6 +257,7 @@ const RequiredAttrs = (() => {
         window.sbBlank = function () {
             const ship = orig.apply(this, arguments);
             _backfill(ship);
+            _backfill(ship, _recommendedList);   // new ships start with the usual stats
             return ship;
         };
     }
@@ -285,6 +300,46 @@ const RequiredAttrs = (() => {
     }
 
     // ─────────────────────────────────────────────────────────────────────────
+    //  PATCH: sbUpdateAttrVal(input)  and  confirmAddAttr()
+    //  Reject blank required values and values below shipRequirement.min.
+    //  (Wrapped here rather than sbValidateAttrValue, which
+    //  shipBuilderAttrValidation.js replaces outright.)
+    // ─────────────────────────────────────────────────────────────────────────
+
+    function _patchUpdateAttrVal() {
+        if (typeof window.sbUpdateAttrVal !== 'function') {
+            console.warn('[RequiredAttrs] sbUpdateAttrVal not found — skipping patch.');
+            return;
+        }
+        const orig = window.sbUpdateAttrVal;
+        window.sbUpdateAttrVal = function (inp) {
+            const key = inp && inp.dataset ? inp.dataset.key : null;
+            const err = key ? _checkValue(key, inp.value) : null;
+            if (err) {
+                if (typeof sbToast === 'function') sbToast(err, 'danger');
+                const ship = window.sbCurrentShip || (typeof sbCurrentShip !== 'undefined' ? sbCurrentShip : null);
+                if (ship) inp.value = String(_getVal(ship, key) ?? '');
+                inp.style.borderColor = 'var(--c-danger-hi)';
+                setTimeout(() => { inp.style.borderColor = ''; }, 1500);
+                return;
+            }
+            return orig.apply(this, arguments);
+        };
+    }
+
+    function _patchConfirmAddAttr() {
+        if (typeof window.confirmAddAttr !== 'function') return;
+        const orig = window.confirmAddAttr;
+        window.confirmAddAttr = function () {
+            const k = (document.getElementById('new-attr-key') || {}).value;
+            const v = (document.getElementById('new-attr-val') || {}).value;
+            const err = k ? _checkValue(k.trim(), (v || '').trim()) : null;
+            if (err) { if (typeof sbToast === 'function') sbToast(err, 'danger'); return; }
+            return orig.apply(this, arguments);
+        };
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
     //  PATCH: sbRenderAttrList()
     //  After the list renders, swap ✕ buttons for 🔒 icons on required rows.
     // ─────────────────────────────────────────────────────────────────────────
@@ -306,12 +361,23 @@ const RequiredAttrs = (() => {
         if (!el) return;
 
         el.querySelectorAll('.attr-row').forEach(row => {
+            const input = row.querySelector('.attr-val-input');
+            const key   = input ? input.dataset.key : null;
+            if (!key) return;
+            const req = _reqMeta.get(key);
+            const keyEl = row.querySelector('.attr-key');
+            if (req && keyEl) {
+                const why = (req.reasons || []).join('; ');
+                keyEl.title = (keyEl.title ? keyEl.title + '\n\n' : '') +
+                    (_requiredKeys.has(key) ? 'Required' : 'Recommended') + (why ? ` — ${why}` : '');
+            }
+            if (_recommendedKeys.has(key)) row.classList.add('ra-recommended');
+            if (!_requiredKeys.has(key)) return;
+
+            row.classList.add('ra-required');
+            if (input && _checkValue(key, input.value)) input.classList.add('ra-missing');
             const btn = row.querySelector('button');
-            if (!btn) return;
-            // Extract the key name from onclick="sbRemoveAttr('key')"
-            const match = (btn.getAttribute('onclick') || '').match(/sbRemoveAttr\(['"](.+?)['"]\)/);
-            if (!match || !_requiredKeys.has(match[1])) return;
-            btn.outerHTML = `<span class="ra-locked-icon" title="${match[1]} is required and cannot be removed">🔒</span>`;
+            if (btn) btn.outerHTML = `<span class="ra-locked-icon" title="${key} is required and cannot be removed">🔒</span>`;
         });
     }
 
@@ -355,6 +421,16 @@ const RequiredAttrs = (() => {
     opacity: 0.55;
     cursor: default;
     flex-shrink: 0;
+}
+
+/* ── Required value missing / invalid ────────────────────────────── */
+.attr-row.ra-required .attr-val-input.ra-missing {
+    border-color: var(--c-danger-hi, #e05252);
+    box-shadow: 0 0 0 1px var(--c-danger-hi, #e05252) inset;
+}
+.attr-row.ra-recommended .attr-key::after {
+    content: ' •';
+    opacity: 0.45;
 }
 
 /* ── Outfit-mode: collapse sidebar, span full width ──────────────── */
@@ -414,12 +490,16 @@ const RequiredAttrs = (() => {
         // If it isn't, we try again on DOMContentLoaded and once more on the
         // dataLoaded event that DataLoader fires when plugins finish loading.
         function _init() {
-            _requiredKeys = _deriveRequiredKeys();
-            _requiredList = _buildRequiredList(_requiredKeys);
-            console.log(
-                '[RequiredAttrs] Protecting ' + _requiredKeys.size + ' attributes:',
-                [..._requiredKeys].sort().join(', ')
-            );
+            const d = _deriveRequirements();
+            _requiredKeys    = new Set(d.required.keys());
+            _recommendedKeys = new Set(d.recommended.keys());
+            _requiredList    = _buildList(d.required);
+            _recommendedList = _buildList(d.recommended);
+            _reqMeta         = new Map([...d.required, ...d.recommended]);
+            if (d.available) {
+                console.log('[RequiredAttrs] Required (' + _requiredKeys.size + '): ' + [..._requiredKeys].sort().join(', '));
+                console.log('[RequiredAttrs] Recommended (' + _recommendedKeys.size + '): ' + [..._recommendedKeys].sort().join(', '));
+            }
         }
 
         _init(); // attempt immediately (works if attrDefs is inline in HTML)
@@ -434,6 +514,8 @@ const RequiredAttrs = (() => {
         _patchBlank();
         _patchShipFromParsed();
         _patchRemoveAttr();
+        _patchUpdateAttrVal();
+        _patchConfirmAddAttr();
         _patchRenderAttrList();
         _patchPopulateBuilder();
     }
@@ -442,7 +524,7 @@ const RequiredAttrs = (() => {
     //  PUBLIC API
     // ─────────────────────────────────────────────────────────────────────────
 
-    return { install, isRequired, backfill: _backfill };
+    return { install, isRequired, isRecommended, validate, backfill: _backfill };
 
 })();
 
