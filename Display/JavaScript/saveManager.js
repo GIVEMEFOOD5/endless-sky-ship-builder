@@ -1050,6 +1050,26 @@ function smWriteActiveSaveShips(save) {
 function smImportFleetToBuilder(save, mode = 'append') {
   if (!save?.ships?.length) return { added: 0, total: 0 };
 
+  // Multiple fleets: each imported save becomes its own fleet, named after
+  // the pilot. 'replace' refreshes that fleet instead of adding a second one.
+  if (window.FleetStore) {
+    const converted = _smSerialiseForBuilder(save.ships.map(smConvertShipToBuilderFormat));
+    const name = `${save.pilot?.name || 'Imported save'} (save)`;
+    const existing = window.FleetStore.list().find(f => f.name === name);
+    let fleetId;
+    if (existing && mode === 'replace') {
+      window.FleetStore.setShips(existing.id, converted);
+      fleetId = existing.id;
+    } else if (existing) {
+      window.FleetStore.addShips(existing.id, converted);
+      fleetId = existing.id;
+    } else {
+      fleetId = window.FleetStore.create(name, converted).id;
+    }
+    window.FleetStore.setActive(fleetId);
+    return { added: converted.length, total: window.FleetStore.get(fleetId).ships.length, fleetName: window.FleetStore.get(fleetId).name };
+  }
+
   const SB_KEY = 'es_ship_builder_v4';
   let existing = [];
   try {
@@ -1115,18 +1135,22 @@ el('importFleetBtn').addEventListener('click', () => {
   if (typeof sbLoadSaveShips === 'function') sbLoadSaveShips();
 
   // Step 2 — optionally also push into the main builder fleet
-  const alsoAddToFleet = window.confirm(
-    `${shipCount} ship${shipCount !== 1 ? 's' : ''} from "${pilotName}" are now in the Ship Builder's save-ships area.\n\nAlso copy them into your main builder fleet?\n\nOK = yes, add to main fleet  |  Cancel = save-ships area only`
+  const fleetName = `${pilotName} (save)`;
+  const alsoAddToFleet = window.confirm(window.FleetStore
+    ? `${shipCount} ship${shipCount !== 1 ? 's' : ''} from "${pilotName}" are now in the Ship Builder's save-ships area.\n\nAlso copy them into a builder fleet called "${fleetName}"?\n\nOK = yes  |  Cancel = save-ships area only`
+    : `${shipCount} ship${shipCount !== 1 ? 's' : ''} from "${pilotName}" are now in the Ship Builder's save-ships area.\n\nAlso copy them into your main builder fleet?\n\nOK = yes, add to main fleet  |  Cancel = save-ships area only`
   );
 
   if (alsoAddToFleet) {
-    const doReplace = window.confirm(
-      `Add to your existing main fleet, or replace it?\n\nOK = replace  |  Cancel = append`
+    const fleetExists = window.FleetStore && window.FleetStore.list().some(f => f.name === fleetName);
+    const doReplace = (!window.FleetStore || fleetExists) && window.confirm(window.FleetStore
+      ? `A fleet called "${fleetName}" already exists. Replace its ships with this save's ships?\n\nOK = replace  |  Cancel = add to it`
+      : `Add to your existing main fleet, or replace it?\n\nOK = replace  |  Cancel = append`
     );
     const { added, total } = smImportFleetToBuilder(parsedSave, doReplace ? 'replace' : 'append');
     toast(
       added > 0
-        ? `${added} ship${added !== 1 ? 's' : ''} also added to main fleet (${total} total).`
+        ? `${added} ship${added !== 1 ? 's' : ''} added to the fleet "${window.FleetStore ? fleetName : 'main fleet'}" (${total} total).`
         : 'Main fleet import failed.',
       added > 0 ? 'success' : 'danger'
     );
