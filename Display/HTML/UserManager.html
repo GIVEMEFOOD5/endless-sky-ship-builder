@@ -14,8 +14,8 @@
 <div class="container">
  
   <header class="panel">
-    <h1>💾 Save Reader</h1>
-    <p class="subtitle">Drop in a pilot save file to inspect your fleet, outfits, and account.</p>
+    <h1>💾 Saves &amp; Account</h1>
+    <p class="subtitle">Open a pilot save to inspect or edit it, and manage your account.</p>
   </header>
 
   <!-- ════════════ MY ACCOUNT ════════════
@@ -91,7 +91,7 @@
       <div id="dropzone" class="list-row" style="cursor:pointer; padding:28px; justify-content:center; border-style:dashed; border-width:2px;">
         <div style="text-align:center; width:100%;">
           <div style="font-size:0.95rem; color:var(--c-text-mid); margin-bottom:4px;" id="dropzoneLabel">Click to choose a file, or drag it here</div>
-          <div style="font-size:0.82rem; color:var(--c-text-muted);">Parsed entirely in your browser and stored locally — nothing is uploaded anywhere.</div>
+          <div style="font-size:0.82rem; color:var(--c-text-muted);">Read in your browser. When you're logged in, it's also kept in your account so you can open and edit it on any device.</div>
         </div>
       </div>
       <input type="file" id="fileInput" accept=".txt" class="hidden">
@@ -200,8 +200,11 @@
 <script src="../JavaScript/fleetStore.js"></script>
 <script src="../JavaScript/esSaveParser.js"></script>
 <script src="../JavaScript/esSaveFile.js"></script>
+<script src="../JavaScript/saveVault.js"></script>
 <script src="../JavaScript/saveManager.js"></script>
 <script src="../JavaScript/accountSettings.js"></script>
+<script src="../JavaScript/saveEditor.js"></script>
+<script src="../JavaScript/accountCenter.js"></script>
 <script>
   // dataLoader.js exposes window.DataLoader but doesn't fetch anything until
   // .load() is called. The whole page is gated behind this — nothing here
