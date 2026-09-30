@@ -656,7 +656,7 @@ function renderFleet() {
         <div class="fleet-card__actions" onclick="event.stopPropagation()">
           <button class="btn btn-primary btn-sm"   onclick="sbEditFleetShip(${i})">✏️ Edit</button>
           <button class="btn btn-secondary btn-sm" onclick="sbDuplicate(${i})">⧉ Copy</button>
-          <button class="btn btn-secondary btn-sm" onclick="sbOpenCloudSaveModal(${i})" title="Save to your account, optionally sharing it publicly">☁️ Save</button>
+          <button class="btn btn-secondary btn-sm" onclick="sbOpenCloudSaveModal(${i})" title="Share this ship — you choose whether other people can see it">🌐 Share</button>
           <button class="btn btn-danger btn-sm"    onclick="sbConfirmDelete(${i})">🗑</button>
         </div>
       </div>`;
@@ -840,6 +840,17 @@ function sbOpenCloudSaveModal(i) {
     document.getElementById('cloud-save-name').value = ship.name || ship.variant || 'My Ship';
     document.getElementById('cloud-save-public').checked = false;
     document.getElementById('cloud-save-error').innerHTML = '';
+    // Sharing the same builder ship again updates its existing row, so
+    // pre-fill from it (public/private and name) if there is one.
+    window.supabaseClient.from('saved_ships').select('id, name, is_public')
+      .eq('user_id', user.id).eq('source_ship_id', String(ship.id)).maybeSingle()
+      .then(({ data }) => {
+        if (!data || _sbCloudSaveIndex !== i) return;
+        document.getElementById('cloud-save-name').value = data.name;
+        document.getElementById('cloud-save-public').checked = !!data.is_public;
+        document.getElementById('cloud-save-error').innerHTML =
+          '<div class="auth-form-success">Already shared — saving again updates it.</div>';
+      }, () => {});
   }
   openModal('modal-cloud-save');
 }
@@ -893,17 +904,30 @@ async function _sbEnsureDefaultSaveFile(userId) {
     submitBtn.textContent = 'Saving…';
     try {
       const saveFileId = await _sbEnsureDefaultSaveFile(user.id);
-      const { error } = await window.supabaseClient.from('saved_ships').insert({
+      // One row per builder ship: sharing again updates it instead of
+      // creating another copy (unique on user_id + source_ship_id).
+      const { data: row, error } = await window.supabaseClient.from('saved_ships').upsert({
         save_file_id: saveFileId,
         user_id: user.id,
+        source_ship_id: String(ship.id),
         name,
         build_data: buildData,
         is_public: isPublic,
-      });
+        updated_at: new Date().toISOString(),
+      }, { onConflict: 'user_id,source_ship_id' }).select('id').single();
       if (error) throw error;
 
-      closeModal('modal-cloud-save');
-      sbToast(isPublic ? 'Saved and shared publicly!' : 'Saved to your account!', 'success');
+      if (isPublic && row) {
+        const link = new URL('shipBuilder.html', location.href);
+        link.searchParams.set('shared', row.id);
+        try { await navigator.clipboard.writeText(link.href); } catch (_) { /* clipboard blocked — link still shown below */ }
+        errorBox.innerHTML = `<div class="auth-form-success">Shared! Anyone with this link can open it (copied):<br>
+          <input class="text-input" readonly value="${esc(link.href)}" onclick="this.select()" style="margin-top:6px;"></div>`;
+        sbToast('Ship shared publicly — link copied.', 'success');
+      } else {
+        closeModal('modal-cloud-save');
+        sbToast('Saved privately to your account — only you can see it.', 'success');
+      }
     } catch (err) {
       errorBox.innerHTML = `<div class="auth-form-error">${err.message || 'Could not save — try again.'}</div>`;
     } finally {
