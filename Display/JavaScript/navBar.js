@@ -241,6 +241,8 @@
       var value = usernameInput.value.trim();
       clearTimeout(usernameCheckTimer);
       if (value.length < 3) { setUsernameHint('', ''); return; }
+      var problem = window.EsAuth.usernameProblem ? window.EsAuth.usernameProblem(value) : '';
+      if (problem) { setUsernameHint(problem, 'bad'); return; }
       setUsernameHint('Checking…', 'checking');
       usernameCheckTimer = setTimeout(function () {
         window.EsAuth.isUsernameAvailable(value).then(function (available) {
@@ -335,6 +337,114 @@
     window.EsAuth.onAuthChange(function (user, profile) {
       if (user) renderSignedIn(user, profile); else renderSignedOut();
     });
+
+    // ── Forgot password / new password / choose username ──────────────
+    function byId(id) { return document.getElementById(id); }
+    function showBox(id, message, ok) {
+      var box = byId(id); if (!box) return;
+      box.innerHTML = message ? '<div class="' + (ok ? 'auth-form-success' : 'auth-form-error') + '">' + message + '</div>' : '';
+    }
+    ['es-nav-forgot-overlay', 'es-nav-username-overlay'].forEach(function (id) {
+      var o = byId(id); if (!o) return;
+      o.querySelectorAll('[data-close-overlay]').forEach(function (b) { b.addEventListener('click', function () { o.classList.remove('active'); }); });
+      o.addEventListener('click', function (e) { if (e.target === o) o.classList.remove('active'); });
+    });
+
+    var forgotBtn = byId('es-nav-forgot-btn');
+    var forgotForm = byId('es-nav-forgot-form');
+    if (forgotBtn && forgotForm) {
+      forgotBtn.addEventListener('click', function () {
+        var typed = byId('es-nav-signin-email').value.trim();
+        closeModal();
+        showBox('es-nav-forgot-error', '');
+        byId('es-nav-forgot-email').value = typed;
+        byId('es-nav-forgot-overlay').classList.add('active');
+        setTimeout(function () { byId('es-nav-forgot-email').focus(); }, 50);
+      });
+      forgotForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = byId('es-nav-forgot-email').value.trim();
+        setLoading(forgotForm, true, 'Send reset link');
+        window.EsAuth.requestPasswordReset(email)
+          .then(function () { showBox('es-nav-forgot-error', 'If that email has an account, a reset link is on its way. Check your inbox.', true); })
+          .catch(function (err) { showBox('es-nav-forgot-error', err.message || 'Could not send the reset link — try again.'); })
+          .finally(function () { setLoading(forgotForm, false, 'Send reset link'); });
+      });
+    }
+
+    var newPassOverlay = byId('es-nav-newpass-overlay');
+    var newPassForm = byId('es-nav-newpass-form');
+    function openNewPassword() {
+      if (!newPassOverlay) return;
+      showBox('es-nav-newpass-error', '');
+      newPassOverlay.classList.add('active');
+      setTimeout(function () { byId('es-nav-newpass-1').focus(); }, 50);
+    }
+    window.addEventListener('es:passwordRecovery', openNewPassword);
+    if (window.EsAuth.isInPasswordRecovery && window.EsAuth.isInPasswordRecovery()) openNewPassword();
+    if (newPassForm) newPassForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var a = byId('es-nav-newpass-1').value, b = byId('es-nav-newpass-2').value;
+      if (a.length < 6) { showBox('es-nav-newpass-error', 'Passwords need at least 6 characters.'); return; }
+      if (a !== b) { showBox('es-nav-newpass-error', "Passwords don't match."); return; }
+      setLoading(newPassForm, true, 'Save new password');
+      window.EsAuth.updatePassword(a)
+        .then(function () {
+          window.EsAuth.finishPasswordRecovery();
+          showBox('es-nav-newpass-error', 'Password changed. You are logged in.', true);
+          newPassForm.reset();
+          setTimeout(function () { newPassOverlay.classList.remove('active'); }, 1200);
+        })
+        .catch(function (err) { showBox('es-nav-newpass-error', err.message || 'Could not change the password — try again.'); })
+        .finally(function () { setLoading(newPassForm, false, 'Save new password'); });
+    });
+
+    var unameOverlay = byId('es-nav-username-overlay');
+    var unameForm = byId('es-nav-username-form');
+    var unameInput = byId('es-nav-username-input');
+    function maybeAskUsername() {
+      if (!unameOverlay) return;
+      var user = window.EsAuth.getCurrentUser();
+      var profile = window.EsAuth.getCurrentProfile();
+      if (!user || (profile && profile.username)) { unameOverlay.classList.remove('active'); return; }
+      if (sessionStorage.getItem('es_username_prompt_dismissed') === user.id) return;
+      if (window.EsAuth.isInPasswordRecovery && window.EsAuth.isInPasswordRecovery()) return;
+      unameOverlay.classList.add('active');
+    }
+    if (unameOverlay) {
+      unameOverlay.querySelectorAll('[data-close-overlay]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var u = window.EsAuth.getCurrentUser(); if (u) sessionStorage.setItem('es_username_prompt_dismissed', u.id);
+        });
+      });
+      window.EsAuth.ready().then(function () {
+        maybeAskUsername();
+        window.EsAuth.onAuthChange(function () { maybeAskUsername(); });
+      });
+      var unameTimer = null;
+      unameInput.addEventListener('input', function () {
+        var v = unameInput.value.trim(), hint = byId('es-nav-username-hint');
+        clearTimeout(unameTimer);
+        var problem = window.EsAuth.usernameProblem(v);
+        if (problem) { hint.textContent = v.length ? problem : ''; hint.className = 'auth-field-hint' + (v.length ? ' auth-field-hint--bad' : ''); return; }
+        hint.textContent = 'Checking…'; hint.className = 'auth-field-hint auth-field-hint--checking';
+        unameTimer = setTimeout(function () {
+          window.EsAuth.isUsernameAvailable(v).then(function (ok) {
+            if (unameInput.value.trim() !== v) return;
+            hint.textContent = ok ? '✓ Available' : '✗ Already taken';
+            hint.className = 'auth-field-hint ' + (ok ? 'auth-field-hint--ok' : 'auth-field-hint--bad');
+          });
+        }, 350);
+      });
+      unameForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        setLoading(unameForm, true, 'Save username');
+        window.EsAuth.updateUsername(unameInput.value)
+          .then(function () { unameOverlay.classList.remove('active'); })
+          .catch(function (err) { showBox('es-nav-username-error', err.message || 'Could not save that username.'); })
+          .finally(function () { setLoading(unameForm, false, 'Save username'); });
+      });
+    }
 
     signinForm.addEventListener('submit', function (e) {
       e.preventDefault();
