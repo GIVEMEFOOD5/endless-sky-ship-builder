@@ -65,6 +65,7 @@ const LocationResolver = require('./locationResolver');
 const EndlessSkyMapParser     = require('./mapParser');
 const EndlessSkyMissionParser = require('./missionParser');
 const { parseAttributes } = require('./attributeParser');
+const { syncAttributeTables } = require('./attributeSync');
 const crypto          = require('crypto');
 const fs              = require('fs').promises;
 const path            = require('path');
@@ -3337,6 +3338,18 @@ async function main() {
     const attrDefsPath = path.join(dataDir, 'attributeDefinitions.json');
     try {
       const attrDefsJson = JSON.parse(await fs.readFile(attrDefsPath, 'utf8'));
+
+      // Relational copy (attribute_definitions, attribute_flags, …) — what
+      // the front end now reads first. See attributeSync.js.
+      try {
+        await withRetry(() => syncAttributeTables(supabase, attrDefsJson, { shipRows: dedupedShipRows }),
+          { label: 'sync attribute tables' });
+      } catch (err) {
+        console.warn(`Could not sync attribute tables: ${err.message}`);
+      }
+
+      // Blob copy kept as a fallback while every page moves over to the
+      // tables. Safe to remove once nothing reads app_config.attributeDefinitions.
       await supabase.from('app_config').upsert({ key: 'attributeDefinitions', value: attrDefsJson });
 
       // A single cheap value the frontend can check before doing its big
