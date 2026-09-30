@@ -123,6 +123,7 @@
           <input type="password" id="es-nav-signin-password" class="text-input" required autocomplete="current-password">
         </div>
         <button type="submit" class="btn btn-primary auth-submit">Log in</button>
+        <p style="margin:12px 0 0;text-align:center;"><button type="button" id="es-nav-forgot-btn" class="auth-link-btn" style="background:none;border:none;color:var(--c-accent-hi, #93c5fd);cursor:pointer;font-size:0.85rem;text-decoration:underline;">Forgot your password?</button></p>
       </form>
 
       <!-- Sign up -->
@@ -168,5 +169,65 @@
       <button type="button" class="btn btn-secondary" id="es-nav-logout-cancel">Cancel</button>
       <button type="button" class="btn btn-danger" id="es-nav-logout-confirm">Log out</button>
     </div>
+  </div>
+</div>
+
+<!-- Forgot password: sends a reset link by email -->
+<div id="es-nav-forgot-overlay" class="overlay">
+  <div class="modal-box" style="width:min(400px,92vw);padding:24px;">
+    <div class="modal-header">
+      <span class="modal-title">Reset your password</span>
+      <button type="button" class="btn-close btn-close--sm" data-close-overlay aria-label="Close">&times;</button>
+    </div>
+    <form id="es-nav-forgot-form">
+      <div id="es-nav-forgot-error"></div>
+      <p style="color:var(--c-text-mid);margin-top:0;">Enter the email you signed up with and we'll send you a link to choose a new password.</p>
+      <div class="auth-field">
+        <label for="es-nav-forgot-email">Email</label>
+        <input type="email" id="es-nav-forgot-email" class="text-input" required autocomplete="email">
+      </div>
+      <button type="submit" class="btn btn-primary auth-submit">Send reset link</button>
+    </form>
+  </div>
+</div>
+
+<!-- Shown after following the reset link from the email -->
+<div id="es-nav-newpass-overlay" class="overlay">
+  <div class="modal-box" style="width:min(400px,92vw);padding:24px;">
+    <div class="modal-header">
+      <span class="modal-title">Choose a new password</span>
+    </div>
+    <form id="es-nav-newpass-form">
+      <div id="es-nav-newpass-error"></div>
+      <div class="auth-field">
+        <label for="es-nav-newpass-1">New password</label>
+        <input type="password" id="es-nav-newpass-1" class="text-input" required minlength="6" autocomplete="new-password">
+      </div>
+      <div class="auth-field">
+        <label for="es-nav-newpass-2">Confirm new password</label>
+        <input type="password" id="es-nav-newpass-2" class="text-input" required minlength="6" autocomplete="new-password">
+      </div>
+      <button type="submit" class="btn btn-primary auth-submit">Save new password</button>
+    </form>
+  </div>
+</div>
+
+<!-- First login without a username (e.g. email-confirmed signups) -->
+<div id="es-nav-username-overlay" class="overlay">
+  <div class="modal-box" style="width:min(400px,92vw);padding:24px;">
+    <div class="modal-header">
+      <span class="modal-title">Choose a username</span>
+      <button type="button" class="btn-close btn-close--sm" data-close-overlay aria-label="Close">&times;</button>
+    </div>
+    <form id="es-nav-username-form">
+      <div id="es-nav-username-error"></div>
+      <p style="color:var(--c-text-mid);margin-top:0;">Your username is shown on ships you share. You can change it later on the Account page.</p>
+      <div class="auth-field">
+        <label for="es-nav-username-input">Username</label>
+        <input type="text" id="es-nav-username-input" class="text-input" required minlength="3" maxlength="24" autocomplete="username">
+        <span id="es-nav-username-hint" class="auth-field-hint"></span>
+      </div>
+      <button type="submit" class="btn btn-primary auth-submit">Save username</button>
+    </form>
   </div>
 </div>
