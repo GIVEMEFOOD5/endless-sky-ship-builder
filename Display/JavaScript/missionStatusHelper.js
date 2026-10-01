@@ -192,7 +192,10 @@ function hasUnreachableCompletePath(rawEntries) {
 // so a block made only of `not "..."` checks can't mark it complete just
 // because the save lacks those conditions.
 const _CMP = ['==', '!=', '<=', '>=', '<', '>'];
+// `conds` is either a plain { name: value } map or a function name → number|null
+// (null = "can't know", which makes the whole check unknown).
 function _condValue(conds, name) {
+  if (typeof conds === 'function') return conds(name);
   const v = conds ? conds[name] : undefined;
   return typeof v === 'number' ? v : (v ? 1 : 0);
 }
@@ -205,7 +208,7 @@ function _evalExpr(tokens, conds) {
       if (t === '(' || t === ')' || t === '*' || t === '/' || t === '%') return null;
       const n = Number(t);
       if (Number.isFinite(n) && String(t).trim() !== '') total += sign * n;
-      else { const v = _condValue(conds, t); if (v !== 0) usedPresent = true; total += sign * v; }
+      else { const v = _condValue(conds, t); if (v === null) return null; if (v !== 0) usedPresent = true; total += sign * v; }
       expectTerm = false;
     } else {
       if (t === '+') sign = 1; else if (t === '-') sign = -1; else return null;
@@ -224,8 +227,14 @@ function _evalLine(entry, conds) {
     if (kids.some(k => k.value === true)) return { value: true, positives: kids.filter(k => k.value === true).reduce((n, k) => n + k.positives, 0) };
     return kids.some(k => k.value === null) ? { value: null, positives: 0 } : { value: false, positives: 0 };
   }
-  if (head === 'has' && tokens.length === 2) { const v = _condValue(conds, tokens[1]) !== 0; return { value: v, positives: v ? 1 : 0 }; }
-  if (head === 'not' && tokens.length === 2) return { value: _condValue(conds, tokens[1]) === 0, positives: 0 };
+  if (head === 'has' && tokens.length === 2) {
+    const c = _condValue(conds, tokens[1]); if (c === null) return { value: null, positives: 0 };
+    return { value: c !== 0, positives: c !== 0 ? 1 : 0 };
+  }
+  if (head === 'not' && tokens.length === 2) {
+    const c = _condValue(conds, tokens[1]); if (c === null) return { value: null, positives: 0 };
+    return { value: c === 0, positives: 0 };
+  }
   const opAt = tokens.findIndex((t, i) => i > 0 && _CMP.includes(t));
   if (opAt === -1) {
     const e = _evalExpr(tokens, conds);
@@ -252,6 +261,81 @@ function completeConditionMet(rawEntries, conds) {
   if (!block) return false;
   const r = evaluateConditionSet(block.children, conds);
   return r.value === true && r.positives > 0;
+}
+
+// ── "Can this pilot be offered it?" ──────────────────────────
+//
+// Mirrors Mission::CanOffer's condition checks (not the location ones —
+// the game also needs you to be at the right planet, which the card
+// already shows): `to offer` must pass, `to fail` must not, and the
+// mission must not have been offered as many times as `repeat` allows.
+//
+// Conditions come from the save, plus the ones the game derives from save
+// data instead of storing (credits, date, licenses, visited systems and
+// planets, reputation). Other derived conditions (flagship stats, cargo,
+// random rolls, …) can't be known here, so a check that uses them is
+// reported as "unknown" rather than guessed.
+const DERIVED_UNKNOWN = ['flagship ', 'ships: ', 'ship model: ', 'outfit: ', 'outfit (', 'installed ', 'random', 'roll:',
+  'net worth', 'salary', 'tribute', 'cargo ', 'passenger', 'bunks', 'crew', 'person destroyed', 'days since',
+  'hyperjumps', 'distance', 'role: ', 'weekday', 'total ', 'global ', 'unpaid', 'previous system', 'previous planet',
+  'combat rating', 'armament deterrence', 'cargo attractiveness', 'raid chance', 'gross ', 'drag', 'mass',
+  'month count', 'days until', 'day of', 'credit score'];
+function conditionGetter(save) {
+  const conds = (save && save.pilot && save.pilot.conditions) || {};
+  const date = String((save && save.pilot && save.pilot.date) || '').trim().split(/\s+/).map(Number);
+  const lic = new Set((save && save.licenses) || []);
+  const vs = new Set((save && save.visitedSystems) || []);
+  const vp = new Set((save && save.visitedPlanets) || []);
+  const rep = (save && save.pilot && save.pilot.reputations) || {};
+  return name => {
+    if (Object.prototype.hasOwnProperty.call(conds, name)) { const v = conds[name]; return typeof v === 'number' ? v : (v ? 1 : 0); }
+    if (name === 'credits') return Number(save?.account?.credits) || 0;
+    if (name === 'day' && date.length === 3) return date[0];
+    if (name === 'month' && date.length === 3) return date[1];
+    if (name === 'year' && date.length === 3) return date[2];
+    if (name.startsWith('license: ')) return lic.has(name.slice(9)) ? 1 : 0;
+    if (name.startsWith('visited system: ')) return vs.has(name.slice(16)) ? 1 : 0;
+    if (name.startsWith('visited planet: ')) return vp.has(name.slice(16)) ? 1 : 0;
+    if (name.startsWith('reputation: ')) return Number(rep[name.slice(12)]) || 0;
+    if (DERIVED_UNKNOWN.some(p => name.startsWith(p))) return null;
+    return 0;
+  };
+}
+function _repeatLimit(raw) {
+  const r = (raw || []).find(e => e.key === 'repeat');
+  if (!r) return 1;
+  const n = Number(r.values && r.values[0]);
+  return Number.isFinite(n) ? n : 0;            // bare `repeat` = unlimited
+}
+const _lineText = e => [e.key, ...(e.values || [])].map(v => /\s/.test(String(v)) ? `"${v}"` : String(v)).join(' ');
+
+/**
+ * → { state, label, missing: string[] }
+ *   state: 'active' | 'used_up' | 'now' | 'almost' | 'not_yet' | 'unknown'
+ */
+function offerabilityFor(name, raw, save, status) {
+  if (!Array.isArray(raw)) return { state: 'unknown', label: 'No mission data', missing: [] };
+  if (status && status.isHeld) return { state: 'active', label: 'Already accepted', missing: [] };
+  const get = conditionGetter(save);
+  const lim = _repeatLimit(raw);
+  const offered = get(`${name}: offered`) || 0;
+  if (lim > 0 && offered >= lim) return { state: 'used_up', label: lim === 1 ? 'Already offered — it won’t come back' : `Offered ${offered}/${lim} times — no more offers`, missing: [] };
+
+  const toFail = _triggerBlock(raw, 'to', 'fail');
+  if (toFail && toFail.children && toFail.children.length) {
+    const f = evaluateConditionSet(toFail.children, get);
+    if (f.value === true) return { state: 'not_yet', label: 'Its “to fail” condition is already met', missing: [] };
+  }
+  const toOffer = _triggerBlock(raw, 'to', 'offer');
+  if (!toOffer || !toOffer.children || !toOffer.children.length) return { state: 'now', label: 'No requirements', missing: [] };
+
+  const results = toOffer.children.map(c => ({ entry: c, r: _evalLine(c, get) }));
+  const failed = results.filter(x => x.r.value === false);
+  const unknown = results.filter(x => x.r.value === null);
+  if (!failed.length && !unknown.length) return { state: 'now', label: 'Requirements met', missing: [] };
+  if (!failed.length) return { state: 'unknown', label: 'Depends on things this page can’t check', missing: unknown.map(x => _lineText(x.entry)) };
+  if (failed.length === 1 && !unknown.length) return { state: 'almost', label: 'One requirement left', missing: [_lineText(failed[0].entry)] };
+  return { state: 'not_yet', label: `${failed.length} requirements not met`, missing: failed.map(x => _lineText(x.entry)) };
 }
 
 // ── Save-file access ─────────────────────────────────────────
@@ -441,6 +525,8 @@ window.MissionStatusHelper = {
   detectQuestionableResolution,
   evaluateConditionSet,
   completeConditionMet,
+  conditionGetter,
+  offerability: offerabilityFor,
   /** Shown status after both overrides above — use this for display. */
   effectiveStatus(status) {
     if (!status) return null;
