@@ -28,6 +28,15 @@
         <option value="mixed">Mixed history</option>
         <option value="offered_only">Offered only</option>
       </select>
+      <select id="offerFilterSelect" title="Uses this save's conditions to check each mission's requirements">
+        <option value="">Any availability</option>
+        <option value="now">Can be offered now</option>
+        <option value="almost">One requirement away</option>
+        <option value="now_or_almost">Now or one away</option>
+        <option value="not_yet">Not yet</option>
+        <option value="used_up">Won't be offered again</option>
+        <option value="unknown">Can't tell</option>
+      </select>
       <label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;color:var(--c-text-muted);white-space:nowrap;">
         <input type="checkbox" id="jobBoardFilterCheckbox">
         Hide job board missions
