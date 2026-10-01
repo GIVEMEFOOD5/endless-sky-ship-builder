@@ -66,6 +66,10 @@ searchInput.addEventListener('input', applyFiltersAndRender);
 if (statusFilterEl) statusFilterEl.addEventListener('change', applyFiltersAndRender);
 if (jobBoardFilterEl) jobBoardFilterEl.addEventListener('change', applyFiltersAndRender);
 if (offerFilterEl) offerFilterEl.addEventListener('change', applyFiltersAndRender);
+// A save too big for localStorage arrives a moment later, rebuilt from its stored file.
+document.addEventListener('esSaveCacheReady', () => {
+    if (window.MissionLoader && MissionLoader.isReady && MissionLoader.isReady()) refreshMissions();
+});
 
 // Event delegation: card clicks now open the mission detail modal
 // instead of expanding inline (see MissionModal below) — more room for
