@@ -183,6 +183,11 @@ const SOURCE_FILES = {
   damageDealtH:      `${ES_RAW}/DamageDealt.h`,
   jumpNavCpp:        `${ES_RAW}/ShipJumpNavigation.cpp`,
   jumpNavH:          `${ES_RAW}/ShipJumpNavigation.h`,
+  // Read only by deriveGameRules() — not attribute sources
+  playerInfoCpp:     `${ES_RAW}/PlayerInfo.cpp`,
+  aiCpp:             `${ES_RAW}/AI.cpp`,
+  systemCpp:         `${ES_RAW}/System.cpp`,
+  planetCpp:         `${ES_RAW}/Planet.cpp`,
 };
 
 // Paths (relative to source/) already covered by a bespoke parser above.
@@ -1714,6 +1719,62 @@ function mergeDataUsageIntoAttributes(attrs, perKey) {
 }
 
 // ---------------------------------------------------------------------------
+// NEW: deriveGameRules(sources)
+//
+// Game rules the website needs that aren't attributes, read straight from
+// the engine source so they follow game updates instead of being typed into
+// the front end:
+//
+//   derivedConditions — every condition the game computes instead of storing
+//     (PlayerInfo.cpp / AI.cpp: conditions["x"].ProvideNamed / ProvidePrefixed).
+//     The mission helper treats these as "can't know from the save" unless it
+//     knows how to work one out itself.
+//   universeChanges   — keys whose first un-prefixed line in an event REPLACES
+//     the list instead of adding to it (System::Load / Planet::Load
+//     `shouldOverwrite`). Used to replay a save's story changes on the map.
+//   trade             — commodity price model (System::Price::Update):
+//     price = base + trunc(priceScale · erf(supply / supplyLimit)).
+// ---------------------------------------------------------------------------
+function deriveGameRules(sources) {
+  const rules = { derivedConditions: { named: [], prefixed: [], sources: [] }, universeChanges: {}, trade: {} };
+
+  const named = new Set(), prefixed = new Set();
+  for (const [label, src] of [['PlayerInfo.cpp', sources.playerInfoCpp], ['AI.cpp', sources.aiCpp]]) {
+    if (!src) continue;
+    let found = 0;
+    for (const m of src.matchAll(/conditions\["([^"]*)"\]\.Provide(Named|Prefixed)\s*\(/g)) {
+      (m[2] === 'Named' ? named : prefixed).add(m[1]);
+      found++;
+    }
+    if (found) rules.derivedConditions.sources.push(label);
+  }
+  rules.derivedConditions.named = [...named].sort();
+  rules.derivedConditions.prefixed = [...prefixed].sort();
+
+  const overwrite = src => {
+    const m = src && src.match(/shouldOverwrite\s*=\s*\{([^}]*)\}/);
+    return m ? [...m[1].matchAll(/"([^"]+)"/g)].map(x => x[1]) : null;
+  };
+  const sysKeys = overwrite(sources.systemCpp), planetKeys = overwrite(sources.planetCpp);
+  if (sysKeys) rules.universeChanges.systemOverwriteKeys = sysKeys;
+  if (planetKeys) rules.universeChanges.planetOverwriteKeys = planetKeys;
+
+  const sys = sources.systemCpp || '';
+  const price = sys.match(/price\s*=\s*base\s*\+\s*static_cast<int>\(\s*(-?[\d.]+)\s*\*\s*erf\(\s*supply\s*\/\s*([A-Za-z_][\w]*|[\d.]+)\s*\)\s*\)/);
+  if (price) {
+    let limit = Number(price[2]);
+    if (!Number.isFinite(limit)) {
+      const c = sys.match(new RegExp(`\\b${price[2]}\\s*=\\s*([\\d.]+)`));
+      limit = c ? Number(c[1]) : NaN;
+    }
+    if (Number.isFinite(Number(price[1])) && Number.isFinite(limit)) {
+      rules.trade = { priceScale: Number(price[1]), supplyLimit: limit, formula: 'price = base + trunc(priceScale * erf(supply / supplyLimit))' };
+    }
+  }
+  return rules;
+}
+
+// ---------------------------------------------------------------------------
 // NEW: deriveShipRequirements(attrs, shipCppSrc, shipCoverage)
 //
 // Answers "must this attribute be present on a ship?" and tags each
@@ -2172,6 +2233,12 @@ async function parseAttributes(outputDir, cliOpts = {}) {
     console.log('     ' + dataOnlyKeys.slice(0, 20).join(', ') + (dataOnlyKeys.length > 20 ? ', …' : ''));
   }
 
+  // ── NEW: non-attribute game rules the front end needs ───────────────────
+  const gameRules = deriveGameRules(sources);
+  console.log(`\n  Game rules         ${gameRules.derivedConditions.named.length + gameRules.derivedConditions.prefixed.length} derived conditions, ` +
+    `${(gameRules.universeChanges.systemOverwriteKeys || []).length}/${(gameRules.universeChanges.planetOverwriteKeys || []).length} overwrite keys, ` +
+    `trade model ${gameRules.trade.priceScale !== undefined ? 'found' : 'NOT found'}`);
+
   // ── NEW: which attributes must be present on a ship ──────────────────────
   const shipRequirements = deriveShipRequirements(attributes, sources.shipCpp, dataScan.shipCoverage);
   console.log(`\n  Ship requirements  required: ${shipRequirements.required.join(', ') || '(none)'}`);
@@ -2296,6 +2363,7 @@ async function parseAttributes(outputDir, cliOpts = {}) {
     systemContext,
     systemAwareFormulas,
     shipRequirements, // ← NEW: { required, recommended, engineDerived, baseShipCount, thresholds }
+    gameRules,        // ← NEW: { derivedConditions, universeChanges, trade } — see deriveGameRules()
     attributes,
     tooltips: tooltipsObject,
     shipFunctions: shipFns,
@@ -2367,5 +2435,5 @@ module.exports = {
   deriveMovementSystem, deriveFrontendArea, mergeDataUsageIntoAttributes,
   scanDataFolderUsage, deriveCategoryAreaHints,
   deriveDamageTypesStructurally,
-  deriveShipRequirements, parseFinishLoadingRequirements,
+  deriveShipRequirements, parseFinishLoadingRequirements, deriveGameRules,
 };

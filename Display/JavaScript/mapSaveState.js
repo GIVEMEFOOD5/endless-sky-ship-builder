@@ -171,7 +171,9 @@
       const s = sysFor(name, node);
       if (!s) return;
       const f = flags.get(name) || {};
-      const overwrite = new Set(['asteroids', 'attributes', 'belt', 'fleet', 'link', 'object', 'hazard']);
+      // System::Load's `shouldOverwrite` list, as the parser read it (fallback: today's list)
+      const overwrite = new Set(window.GameKeys ? window.GameKeys.gameRule('universeChanges.systemOverwriteKeys',
+        ['asteroids', 'attributes', 'belt', 'fleet', 'link', 'object', 'hazard']) : ['asteroids', 'attributes', 'belt', 'fleet', 'link', 'object', 'hazard']);
       let links = new Set(s.links), attrs = new Set(s.attributes);
       for (const c of node.children) {
         if (!c.tokens) continue;
@@ -228,12 +230,20 @@
       const p = planetByName.get(name);
       if (!p) return;
       const sys = p.systemName;
+      // Planet::Load's `shouldOverwrite` list (parser), e.g. spaceport/port/attributes
+      const overwrite = new Set(window.GameKeys ? window.GameKeys.gameRule('universeChanges.planetOverwriteKeys',
+        ['attributes', 'description', 'spaceport', 'port', 'landscape']) : ['attributes', 'description', 'spaceport', 'port', 'landscape']);
       for (const c of node.children) {
         if (!c.tokens) continue;
         const add = c.tokens[0] === 'add', remove = c.tokens[0] === 'remove';
         const key = c.tokens[(add || remove) ? 1 : 0];
         const vals = c.tokens.slice((add || remove) ? 2 : 1);
         const removeAll = remove && !vals.length || (!add && !remove && vals[0] === 'clear');
+        // first plain line of an overwrite key replaces what was there
+        if (!add && !remove && overwrite.has(key)) {
+          overwrite.delete(key);
+          if (key === 'attributes') p.attributes = [];
+        }
         if (key === 'government') {
           if (removeAll) p.government = null;
           else if (vals[0]) { if (p.government !== vals[0]) note(sys, `${name}: government is now ${vals[0]}`); p.government = vals[0]; }

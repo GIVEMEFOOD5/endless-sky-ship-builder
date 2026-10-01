@@ -65,12 +65,10 @@ const CapacityGuard = (() => {
     //  always identical to what the capacity bars display.
     // ─────────────────────────────────────────────────────────────────────────
 
-    const CAPACITY_KEYS = [
-        'outfit space',
-        'engine capacity',
-        'weapon capacity',
-        'cargo space',
-    ];
+    // From the parser (gameKeys.js): attributes Ship::FinishLoading won't
+    // allow below zero. The list is only the fallback before attrDefs loads.
+    const _CAPACITY_FALLBACK = ['outfit space', 'engine capacity', 'weapon capacity', 'cargo space'];
+    const capacityKeys = () => (window.GameKeys ? window.GameKeys.capacityKeys(_CAPACITY_FALLBACK) : _CAPACITY_FALLBACK);
 
     // ─────────────────────────────────────────────────────────────────────────
     //  HIGHLIGHT CONTROL
@@ -122,7 +120,7 @@ const CapacityGuard = (() => {
     function _checkViolations(hypotheticalOutfits) {
         const violations = [];
 
-        for (const key of CAPACITY_KEYS) {
+        for (const key of capacityKeys()) {
             const max = sbShipCapacity(key);
             if (max <= 0) continue;
 
@@ -157,7 +155,7 @@ const CapacityGuard = (() => {
         if (!sbCurrentShip) return [];
         const violations = [];
 
-        for (const key of CAPACITY_KEYS) {
+        for (const key of capacityKeys()) {
             const max = (key in overrides) ? (Number(overrides[key]) || 0) : sbShipCapacity(key);
             if (max <= 0) continue;
 
@@ -206,7 +204,7 @@ const CapacityGuard = (() => {
             // Cannot remove even one copy — hard block
             const hypoWithout = outfits.filter((_, idx) => idx !== i).map(o => ({ ...o }));
             _showModal(`remove "${targetName}"`, _checkViolations(hypoWithout), null);
-            _highlightViolations(CAPACITY_KEYS);
+            _highlightViolations(capacityKeys());
             _sbsRefresh();
             return;
         }
@@ -260,7 +258,7 @@ const CapacityGuard = (() => {
             }
 
             // Outfit provides capacity that others depend on — try smart removal
-            const providesCapacity = CAPACITY_KEYS.some(
+            const providesCapacity = capacityKeys().some(
                 key => sbGetOutfitCapacityEffect(targetName, key) > 0
             );
 
@@ -321,7 +319,7 @@ const CapacityGuard = (() => {
             const ship = (typeof sbCurrentShip !== 'undefined') ? sbCurrentShip : null;
             if (!ship) return originalFn.call(this, key);
 
-            if (!CAPACITY_KEYS.includes(key)) return originalFn.call(this, key);
+            if (!capacityKeys().includes(key)) return originalFn.call(this, key);
 
             const violations = _checkViolationsWithAttrOverrides({ [key]: 0 });
 
@@ -349,7 +347,7 @@ const CapacityGuard = (() => {
             const newVal = parseFloat(inp.value);
             const oldVal = sbShipCapacity(key); // current max from builder
 
-            if (!CAPACITY_KEYS.includes(key)) return originalFn.call(this, inp);
+            if (!capacityKeys().includes(key)) return originalFn.call(this, inp);
             if (isNaN(newVal) || newVal >= oldVal) return originalFn.call(this, inp);
 
             const violations = _checkViolationsWithAttrOverrides({ [key]: newVal });
@@ -381,7 +379,7 @@ const CapacityGuard = (() => {
             const val   = parseFloat(valEl?.value);
 
             // Only guard capacity keys being set to a lower value than current
-            if (!CAPACITY_KEYS.includes(key) || isNaN(val))
+            if (!capacityKeys().includes(key) || isNaN(val))
                 return originalFn.apply(this, args);
 
             const currentMax = sbShipCapacity(key);

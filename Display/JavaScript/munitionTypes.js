@@ -63,7 +63,7 @@ let _ready          = false;
 // ── Constants (data-file format keys — from Weapon.cpp Load) ─────────────────
 
 // Tracking / guidance keys present in the weapon block
-const TRACKING_KEYS = [
+const TRACKING_KEYS_FALLBACK = [
     'homing',             // integer 0-4+; general homing level
     'tracking',           // generic tracking score (0–1 fraction)
     'optical tracking',   // tracks heat/visual signatures
@@ -81,7 +81,7 @@ const MISSILE_STRENGTH_KEY = 'missile strength';
 // Ammo detection uses dual-format scan — see _buildAmmoProfile
 
 // Firing-cost keys that represent consumable expenditure (not outfit attributes)
-const FIRING_COST_KEYS = [
+const FIRING_COST_KEYS_FALLBACK = [
     'firing energy',
     'firing heat',
     'firing fuel',
@@ -90,7 +90,7 @@ const FIRING_COST_KEYS = [
 ];
 
 // Firing status-injection keys (carried on the shooter, not the target)
-const FIRING_STATUS_KEYS = [
+const FIRING_STATUS_KEYS_FALLBACK = [
     'firing ion',
     'firing scramble',
     'firing disruption',
@@ -100,6 +100,14 @@ const FIRING_STATUS_KEYS = [
     'firing burn',
     'firing slowing',
 ];
+
+// The three lists above are fallbacks. With attrDefs loaded they come from
+// the weapon keys the parser read out of Weapon.cpp (gameKeys.js), so new
+// tracking types, firing costs or status effects appear without edits here.
+const _gk = () => window.GameKeys || null;
+function trackingKeys()     { return _gk() ? _gk().trackingKeys(TRACKING_KEYS_FALLBACK) : TRACKING_KEYS_FALLBACK; }
+function firingCostKeys()   { return _gk() ? _gk().firingCostKeys(FIRING_COST_KEYS_FALLBACK) : FIRING_COST_KEYS_FALLBACK; }
+function firingStatusKeys() { return _gk() ? _gk().firingStatusKeys(FIRING_STATUS_KEYS_FALLBACK) : FIRING_STATUS_KEYS_FALLBACK; }
 
 // Submunition structural keys
 const SUBMUNITION_KEYS = ['submunition', 'cluster', 'stream'];
@@ -360,7 +368,7 @@ function _buildTrackingProfile(w) {
     const breakdown = [];
     let bestScore = 0;
 
-    for (const key of TRACKING_KEYS) {
+    for (const key of trackingKeys()) {
         if (key === 'homing') continue;   // integer level, not a 0-1 score
         const val = w[key] || 0;
         if (val > 0) {
@@ -532,13 +540,13 @@ function _buildAmmoProfile(w, outfitName) {
     const hasAmmo = ammoOutfitName !== null;
 
     const firingCosts = {};
-    for (const key of FIRING_COST_KEYS) {
+    for (const key of firingCostKeys()) {
         const val = w[key] || 0;
         if (val) firingCosts[key] = val;
     }
 
     const firingStatusInj = {};
-    for (const key of FIRING_STATUS_KEYS) {
+    for (const key of firingStatusKeys()) {
         const val = w[key] || 0;
         if (val) firingStatusInj[key] = val;
     }
@@ -1084,7 +1092,7 @@ function calcInterceptChance(antiMissileStrength, missileStrength) {
  */
 function calcEffectiveTrackingScore(weapon) {
     let best = 0;
-    for (const key of TRACKING_KEYS) {
+    for (const key of trackingKeys()) {
         if (key === 'homing') continue;
         const val = (weapon && weapon[key]) || 0;
         if (val > best) best = val;
@@ -1114,11 +1122,11 @@ window.MunitionTypes = {
     calcEffectiveTrackingScore,
 
     // Constants (read-only copies for external inspection)
-    TRACKING_KEYS:       [...TRACKING_KEYS],
+    get TRACKING_KEYS()      { return [...trackingKeys()]; },
     ANTI_MISSILE_KEY,
     MISSILE_STRENGTH_KEY,
-    FIRING_COST_KEYS:    [...FIRING_COST_KEYS],
-    FIRING_STATUS_KEYS:  [...FIRING_STATUS_KEYS],
+    get FIRING_COST_KEYS()   { return [...firingCostKeys()]; },
+    get FIRING_STATUS_KEYS() { return [...firingStatusKeys()]; },
     SUBMUNITION_KEYS:    [...SUBMUNITION_KEYS],
     MAX_SUBMUNITION_DEPTH,
     HOMING_LEVEL_NAMES:  [...HOMING_LEVEL_NAMES],

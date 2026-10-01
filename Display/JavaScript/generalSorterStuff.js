@@ -112,13 +112,13 @@ function isComputedKey(key) {
 // already-discovered fields to divide by; it does not add anything that
 // wasn't already going to be scanned. label is the short name used in the
 // generated group header and field labels (e.g. "Mass per Engine Capacity").
-const PER_DIVISOR_KEYS = [
-    { key: 'outfit space',    label: 'Outfit Space'    },
-    { key: 'cargo space',     label: 'Cargo Space'     },
-    { key: 'weapon capacity', label: 'Weapon Capacity' },
-    { key: 'engine capacity', label: 'Engine Capacity' },
-    { key: 'mass',            label: 'Mass'            },
-];
+// Fallback only — _sorterPerDivisorKeys() uses the capacity attributes the parser
+// extracted (gameKeys.js) plus mass.
+const _SORTER_PER_DIVISOR_FALLBACK = ['outfit space', 'cargo space', 'weapon capacity', 'engine capacity'];
+function _sorterPerDivisorKeys() {
+    const caps = window.GameKeys ? window.GameKeys.capacityKeys(_SORTER_PER_DIVISOR_FALLBACK) : _SORTER_PER_DIVISOR_FALLBACK;
+    return [...caps, 'mass'].map(key => ({ key, label: key.replace(/\b\w/g, c => c.toUpperCase()) }));
+}
 
 // ---------------------------------------------------------------------------
 // Attribute display multiplier helper
@@ -407,7 +407,7 @@ function scanFieldsFromItems(tab, items) {
                 // (nonzero numeric) value for that divisor — items lacking one
                 // (e.g. licenses lacking 'outfit space') just won't produce a
                 // value for it at read time either way.
-                for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                for (const { key: divKey, label: divLabel } of _sorterPerDivisorKeys()) {
                     if (key === divKey) continue;
                     const divVal = item[divKey];
                     if (typeof divVal !== 'number' || divVal === 0) continue;
@@ -460,7 +460,7 @@ function scanFieldsFromItems(tab, items) {
                     // driven by whatever keys actually exist on the item, not
                     // a hardcoded list. Sign-normalized the same way as the
                     // raw outfit-attribute per-divisor fields.
-                    for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                    for (const { key: divKey, label: divLabel } of _sorterPerDivisorKeys()) {
                         const divVal = item[divKey];
                         if (typeof divVal !== 'number' || divVal === 0) continue;
                         const perDivWeaponAttrId = 'weapon_attr_per_' + keyToId(divKey) + '_' + keyToId(key);
@@ -543,7 +543,7 @@ function scanFieldsFromItems(tab, items) {
                     // submunition-only damage types get these too), only once
                     // some currently-visible item has both a weapon and a
                     // usable nonzero value for that divisor.
-                    for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                    for (const { key: divKey, label: divLabel } of _sorterPerDivisorKeys()) {
                         const divVal = item[divKey];
                         if (typeof divVal !== 'number' || divVal === 0) continue;
                         for (const dmgType of discoveredDmgTypes) {
@@ -570,7 +570,7 @@ function scanFieldsFromItems(tab, items) {
                 // field rather than a single damage type — the headline
                 // "how much damage per unit of space/mass does this weapon do"
                 // number, sourced from WeaponStats.getOutfitWeaponStats.
-                for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+                for (const { key: divKey, label: divLabel } of _sorterPerDivisorKeys()) {
                     const divVal = item[divKey];
                     if (typeof divVal !== 'number' || divVal === 0) continue;
                     const totalDpsPerDivId = 'weapon_total_dps_per_' + keyToId(divKey);

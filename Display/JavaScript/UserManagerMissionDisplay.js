@@ -67,6 +67,11 @@ if (statusFilterEl) statusFilterEl.addEventListener('change', applyFiltersAndRen
 if (jobBoardFilterEl) jobBoardFilterEl.addEventListener('change', applyFiltersAndRender);
 if (offerFilterEl) offerFilterEl.addEventListener('change', applyFiltersAndRender);
 // A save too big for localStorage arrives a moment later, rebuilt from its stored file.
+// Which conditions the game computes (parsed from its source) — refines
+// the "Can I get it?" filter once loaded.
+if (window.GameKeys) window.GameKeys.loadGameRules().then(r => {
+    if (r && window.MissionLoader && MissionLoader.isReady && MissionLoader.isReady()) refreshMissions();
+});
 document.addEventListener('esSaveCacheReady', () => {
     if (window.MissionLoader && MissionLoader.isReady && MissionLoader.isReady()) refreshMissions();
 });

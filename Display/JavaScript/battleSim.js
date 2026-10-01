@@ -42,7 +42,9 @@ const TEAM_PALETTE = [
     '#4f46e5','#9333ea','#0284c7','#b91c1c','#15803d',
 ];
 
-const FIRING_STATUS_MAP = {
+// Fallbacks — firingStatusMap() / firingResourceKeys() read the weapon keys
+// the parser extracted (gameKeys.js).
+const FIRING_STATUS_MAP_FALLBACK = {
     ionization: 'firing ion',
     scrambling: 'firing scramble',
     disruption: 'firing disruption',
@@ -53,7 +55,16 @@ const FIRING_STATUS_MAP = {
     slowing:    'firing slowing',
 };
 
-const FIRING_RESOURCE_KEYS  = ['firing energy', 'firing fuel', 'firing hull', 'firing shields'];
+const FIRING_RESOURCE_KEYS_FALLBACK = ['firing energy', 'firing fuel', 'firing hull', 'firing shields'];
+function firingStatusMap() {
+    return window.GameKeys ? window.GameKeys.firingStatusMap(FIRING_STATUS_MAP_FALLBACK) : FIRING_STATUS_MAP_FALLBACK;
+}
+// Pools a weapon draws down and can run dry of. Heat is a firing cost too,
+// but it fills up rather than running out — overheating is handled on its own.
+function firingResourceKeys() {
+    const all = window.GameKeys ? window.GameKeys.firingCostKeys(null) : null;
+    return all ? all.filter(k => k !== 'firing heat') : FIRING_RESOURCE_KEYS_FALLBACK;
+}
 const MISSILE_STRENGTH_KEY  = 'missile strength';
 function resourceLabel(key) { return key.replace(/^firing\s+/, ''); }
 
@@ -718,7 +729,7 @@ const RESUME_CONFIRM_FRAMES = 1 * 60;
 
 function createSustainState() {
     const resourceState = {};
-    for (const key of FIRING_RESOURCE_KEYS)
+    for (const key of firingResourceKeys())
         resourceState[key] = { reported:false, stallFrames:0, resumeFrames:0, reportedNames:[] };
     return { resourceState, ammoExhausted: new Set() };
 }
@@ -742,7 +753,7 @@ function checkWeaponSustainEvents(st, stats, side, t, sus, phases) {
             });
         }
     }
-    for (const key of FIRING_RESOURCE_KEYS) {
+    for (const key of firingResourceKeys()) {
         const rs = sus.resourceState[key];
         const blocked = [];
         for (let i = 0; i < weapons.length; i++) {
@@ -962,7 +973,7 @@ function shootFrame(attSt, defSt, attStats, missileQueue) {
         const scrambling = attSt.statusEffects.scrambling || 0;
         if (scrambling > 0.1 && Math.random() < (1 - Math.pow(2, -scrambling / 70))) { advanceBurst(attSt, i, burstCount, burstReload, reload); continue; }
         consumeFiringCosts(w, attSt);
-        for (const [statName, firingKey] of Object.entries(FIRING_STATUS_MAP)) {
+        for (const [statName, firingKey] of Object.entries(firingStatusMap())) {
             const val = w[firingKey] || 0;
             if (val > 0) attSt.statusEffects[statName] = (attSt.statusEffects[statName] || 0) + val;
         }

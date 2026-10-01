@@ -1290,12 +1290,13 @@ function saveShip() {
 //  CAPACITY TRACKING
 // ═══════════════════════════════════════════════════════════
 
-const SB_CAPACITY_ATTRS = {
-  'outfit space':    'outfit space',
-  'engine capacity': 'engine capacity',
-  'weapon capacity': 'weapon capacity',
-  'cargo space':     'cargo space',
-};
+// Capacity attributes come from the parser (gameKeys.js → Ship::FinishLoading's
+// "can't be negative" list); this is only the fallback before attrDefs loads.
+const SB_CAPACITY_FALLBACK = ['outfit space', 'engine capacity', 'weapon capacity', 'cargo space'];
+function sbCapacityKeys() {
+  return window.GameKeys ? window.GameKeys.capacityKeys(SB_CAPACITY_FALLBACK) : SB_CAPACITY_FALLBACK;
+}
+const sbTitleCase = k => String(k).replace(/\b\w/g, c => c.toUpperCase());
 
 // ── NEW (internal-ID pass) ──────────────────────────────────────────────
 // _sbOutfitLookup is now TWO maps in one object:
@@ -1400,12 +1401,9 @@ function sbCapacityBarHTML(label, used, max) {
 function sbRenderOutfitSpaceBar() {
   const el = document.getElementById('outfit-space-bar-wrap');
   if (!el || !sbCurrentShip) return;
-  const bars = [
-    { label: 'Outfit Space',    used: sbUsedOutfitSpace(),    max: sbMaxOutfitSpace() },
-    { label: 'Engine Capacity', used: sbUsedEngineCapacity(), max: sbMaxEngineCapacity() },
-    { label: 'Weapon Capacity', used: sbUsedWeaponCapacity(), max: sbMaxWeaponCapacity() },
-    { label: 'Cargo Space',     used: sbUsedCargoSpace(),     max: sbMaxCargoSpace() },
-  ].filter(b => b.max > 0);
+  const bars = sbCapacityKeys()
+    .map(key => ({ label: sbTitleCase(key), used: sbUsedCapacity(key), max: sbShipCapacity(key) }))
+    .filter(b => b.max > 0);
   if (!bars.length) { el.style.display = 'none'; return; }
   el.style.display = '';
   el.innerHTML = bars.map(b => sbCapacityBarHTML(b.label, b.used, b.max)).join('');
@@ -1627,6 +1625,24 @@ const SB_ATTR_GROUPS = {
   'Cloaking':  ['cloak','cloaking energy','cloaking fuel','cloaking heat'],
 };
 
+// Groups for the attribute list. With attrDefs loaded, every attribute is
+// placed by AttributeSections.classify() — the same parser-driven sections
+// the Data Viewer and stats panels use — so new attributes from game updates
+// land in the right group automatically. SB_ATTR_GROUPS is the fallback.
+function sbAttrGroups(keys) {
+  const AS = window.AttributeSections;
+  if (!AS || !window.attrDefs || !window.attrDefs.attributes) return SB_ATTR_GROUPS;
+  const groups = {};
+  for (const k of keys.filter(k => k !== 'weapon')) {
+    let section = k === 'category' || k === 'mass' || k === 'drag' || k === 'cost' ? 'General' : AS.classify(window.attrDefs, k);
+    if (!section) section = 'Other';
+    (groups[section] = groups[section] || []).push(k);
+  }
+  const ordered = {};
+  for (const name of AS.orderSections(Object.keys(groups))) ordered[name] = groups[name].sort();
+  return ordered;
+}
+
 function sbRenderAttrList() {
   const el = document.getElementById('attr-list');
   if (!el || !sbCurrentShip) return;
@@ -1645,7 +1661,7 @@ function sbRenderAttrList() {
 
   const assigned = new Set();
   let html = '';
-  for (const [group, gkeys] of Object.entries(SB_ATTR_GROUPS)) {
+  for (const [group, gkeys] of Object.entries(sbAttrGroups(allKeys))) {
     const present = gkeys.filter(k => k in syntheticAttrs);
     if (!present.length) continue;
     html += `<div class="attr-section"><div class="attr-section-title">${group}</div>`;

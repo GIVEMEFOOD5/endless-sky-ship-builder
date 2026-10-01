@@ -794,7 +794,9 @@ function getUniqueDerivedRows(attrDefs, attrsObj) {
 //  STATUS EFFECT WEAR-OFF
 // ─────────────────────────────────────────────────────────────────────────
 
-const STATUS_EFFECT_DECAY = [
+// Fallback only — statusEffectDecay() reads the list the parser extracted
+// from Ship.cpp (attrDefs.weapon.statusEffectDecay) via gameKeys.js.
+const STATUS_EFFECT_DECAY_FALLBACK = [
     { damageKey: 'ion damage',         resistKey: 'ion resistance',         label: 'Ion' },
     { damageKey: 'scrambling damage',  resistKey: 'scramble resistance',    label: 'Scrambling' },
     { damageKey: 'disruption damage',  resistKey: 'disruption resistance',  label: 'Disruption' },
@@ -804,10 +806,13 @@ const STATUS_EFFECT_DECAY = [
     { damageKey: 'corrosion damage',   resistKey: 'corrosion resistance',   label: 'Corrosion' },
     { damageKey: 'leak damage',        resistKey: 'leak resistance',        label: 'Leak' },
 ];
+function statusEffectDecay() {
+    return window.GameKeys ? window.GameKeys.statusEffects(STATUS_EFFECT_DECAY_FALLBACK) : STATUS_EFFECT_DECAY_FALLBACK;
+}
 
 function calcEffectWearOffTimes(attrs) {
     const results = [];
-    for (const { resistKey, label } of STATUS_EFFECT_DECAY) {
+    for (const { resistKey, label } of statusEffectDecay()) {
         const resist = parseFloat((attrs || {})[resistKey] ?? 0);
         if (!resist || resist <= 0) continue;
         results.push({
@@ -820,7 +825,7 @@ function calcEffectWearOffTimes(attrs) {
 
 function calcWeaponEffectDuration(weapon, targetAttrs) {
     const results = [];
-    for (const { damageKey, resistKey, label } of STATUS_EFFECT_DECAY) {
+    for (const { damageKey, resistKey, label } of statusEffectDecay()) {
         const dose   = parseFloat(weapon[damageKey] ?? 0);
         const resist = parseFloat((targetAttrs || {})[resistKey] ?? 0);
         if (!dose) continue;
@@ -923,7 +928,7 @@ function calcWeaponDerived(attrDefs, weapon, pluginId, rootReload) {
         if (sps > 0) push(label, rawVal * sps, '/s', key + '__ps');
     }
 
-    for (const { damageKey, label } of STATUS_EFFECT_DECAY) {
+    for (const { damageKey, label } of statusEffectDecay()) {
         const dose = parseFloat(weapon[damageKey] ?? 0);
         if (dose) push(`${label} dose/shot`, dose, 'units');
     }
@@ -1297,13 +1302,13 @@ function getComputedStatRows(attrDefs, computed, sectionOverride) {
 //  PER-DIVISOR EFFICIENCY RATIOS (outfits only)
 // ─────────────────────────────────────────────────────────────────────────
 
-const PER_DIVISOR_KEYS = [
-    { key: 'outfit space',    label: 'Outfit Space'    },
-    { key: 'cargo space',     label: 'Cargo Space'     },
-    { key: 'weapon capacity', label: 'Weapon Capacity' },
-    { key: 'engine capacity', label: 'Engine Capacity' },
-    { key: 'mass',            label: 'Mass'            },
-];
+// "per ton of X" divisors: every capacity attribute the parser knows
+// (gameKeys.js — Ship::FinishLoading's can't-be-negative list) plus mass.
+const _PER_DIVISOR_FALLBACK = ['outfit space', 'cargo space', 'weapon capacity', 'engine capacity'];
+function perDivisorKeys() {
+    const caps = window.GameKeys ? window.GameKeys.capacityKeys(_PER_DIVISOR_FALLBACK) : _PER_DIVISOR_FALLBACK;
+    return [...caps, 'mass'].map(key => ({ key, label: key.replace(/\b\w/g, c => c.toUpperCase()) }));
+}
 const PER_DIVISOR_EXCLUDE_NONWEAPON = new Set([]);
 const PER_DIVISOR_EXCLUDE_WEAPON    = new Set([]);
 
@@ -1339,7 +1344,7 @@ function getEfficiencyRatioRows(attrDefs, item, weaponProfile) {
     const pushRatios = (section, numKey, numLabel, numVal, excludeSet) => {
         if (typeof numVal !== 'number' || !numVal || isNaN(numVal)) return;
         if (!_isRatioEligible(attrDefs, numKey, excludeSet)) return;
-        for (const { key: divKey, label: divLabel } of PER_DIVISOR_KEYS) {
+        for (const { key: divKey, label: divLabel } of perDivisorKeys()) {
             if (numKey === divKey) continue;
             const divisor = item[divKey];
             if (typeof divisor !== 'number' || divisor === 0) continue;
@@ -1542,12 +1547,12 @@ function getEffectStats(item, attrDefs) {
     const rows = getRawAttributeRows(attrDefs, item, { skip });
 
     const effectAttrs = {};
-    for (const { damageKey } of STATUS_EFFECT_DECAY) {
+    for (const { damageKey } of statusEffectDecay()) {
         const val = parseFloat(item[damageKey] ?? 0);
         if (val) effectAttrs[damageKey] = val;
     }
     const doseRows = Object.entries(effectAttrs).map(([k, v]) => {
-        const label = STATUS_EFFECT_DECAY.find(e => e.damageKey === k)?.label ?? k;
+        const label = statusEffectDecay().find(e => e.damageKey === k)?.label ?? k;
         return {
             key: `_dose_${k}`, label: `${label} dose`, raw: v, value: fmtNum(v), unit: 'units',
             section: 'Status Effect Doses', source: SOURCE.WEAR_OFF, scalesWithQty: false, lowerBetter: false,

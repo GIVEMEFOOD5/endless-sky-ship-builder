@@ -275,6 +275,7 @@ function completeConditionMet(rawEntries, conds) {
 // planets, reputation). Other derived conditions (flagship stats, cargo,
 // random rolls, …) can't be known here, so a check that uses them is
 // reported as "unknown" rather than guessed.
+// Fallback list — see conditionGetter(); the real list is parsed from the game.
 const DERIVED_UNKNOWN = ['flagship ', 'ships: ', 'ship model: ', 'outfit: ', 'outfit (', 'installed ', 'random', 'roll:',
   'net worth', 'salary', 'tribute', 'cargo ', 'passenger', 'bunks', 'crew', 'person destroyed', 'days since',
   'hyperjumps', 'distance', 'role: ', 'weekday', 'total ', 'global ', 'unpaid', 'previous system', 'previous planet',
@@ -287,6 +288,13 @@ function conditionGetter(save) {
   const vs = new Set((save && save.visitedSystems) || []);
   const vp = new Set((save && save.visitedPlanets) || []);
   const rep = (save && save.pilot && save.pilot.reputations) || {};
+  const plugins = new Set((save && save.plugins) || []);
+  const fullName = String(save?.pilot?.name || '').trim();
+  const [first, ...rest] = fullName.split(/\s+/);
+  const last = rest.join(' ');
+  const fi = save?.pilot?.flagshipIndex;
+  const flagshipModel = Array.isArray(save?.ships) && fi != null && save.ships[fi] ? (save.ships[fi]._modelName || save.ships[fi].model || null) : null;
+  const derived = window.GameKeys ? window.GameKeys.derivedConditions() : null;
   return name => {
     if (Object.prototype.hasOwnProperty.call(conds, name)) { const v = conds[name]; return typeof v === 'number' ? v : (v ? 1 : 0); }
     if (name === 'credits') return Number(save?.account?.credits) || 0;
@@ -297,7 +305,18 @@ function conditionGetter(save) {
     if (name.startsWith('visited system: ')) return vs.has(name.slice(16)) ? 1 : 0;
     if (name.startsWith('visited planet: ')) return vp.has(name.slice(16)) ? 1 : 0;
     if (name.startsWith('reputation: ')) return Number(rep[name.slice(12)]) || 0;
-    if (DERIVED_UNKNOWN.some(p => name.startsWith(p))) return null;
+    if (name.startsWith('installed plugin: ')) return plugins.has(name.slice(18)) ? 1 : 0;
+    if (name.startsWith('flagship model: ') && flagshipModel) return flagshipModel === name.slice(16) ? 1 : 0;
+    if (name.startsWith('first name: ') && first) return first === name.slice(12) ? 1 : 0;
+    if (name.startsWith('last name: ') && last) return last === name.slice(11) ? 1 : 0;
+    if (name.startsWith('name: ') && fullName) return fullName === name.slice(6) ? 1 : 0;
+    // Anything else the game computes rather than stores can't be known
+    // here. The list comes from the parser (PlayerInfo.cpp / AI.cpp
+    // conditions[...].ProvideNamed / ProvidePrefixed); DERIVED_UNKNOWN is
+    // only the fallback until it has loaded.
+    if (derived) {
+      if (derived.named.has(name) || derived.prefixed.some(p => name.startsWith(p))) return null;
+    } else if (DERIVED_UNKNOWN.some(p => name.startsWith(p))) return null;
     return 0;
   };
 }

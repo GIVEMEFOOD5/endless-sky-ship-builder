@@ -7,7 +7,8 @@
 //    • prices are the pilot's CURRENT ones — base price from the system's
 //      `trade` line, shifted by the supply the save records for that system
 //      (`economy` block), the same formula the game uses:
-//          price = base + trunc(-100 · erf(supply / 20000))   (System::Price)
+//          price = base + trunc(scale · erf(supply / limit))   (System::Price;
+//          scale and limit are read from System.cpp by the parser)
 //    • reach is counted in hyperspace jumps along the (save-adjusted) links,
 //      from the system the pilot is in
 //    • profit uses the free cargo space of the ships travelling with the
@@ -98,6 +99,10 @@
     if (!start || !systemsByName.has(start)) return { error: `Your pilot's system (${start || 'unknown'}) isn't on this map.` };
 
     const base = basePrices(pluginDataMap, activeOutputNames);
+    // System::Price::Update constants, as the parser read them from System.cpp
+    const GK = window.GameKeys;
+    const scale = Number(GK ? GK.gameRule('trade.priceScale', -100) : -100);
+    const limit = Number(GK ? GK.gameRule('trade.supplyLimit', 20000) : 20000) || 20000;
     const supply = supplies(doc);
     const canTrade = name => {
       const s = systemsByName.get(name);
@@ -107,7 +112,7 @@
     const priceAt = (sys, c) => {
       const b = base.get(sys)?.get(c);
       if (b == null) return null;
-      return b + Math.trunc(-100 * erf((supply.get(sys)?.get(c) || 0) / 20000));
+      return b + Math.trunc(scale * erf((supply.get(sys)?.get(c) || 0) / limit));
     };
 
     // jumps from the pilot's system
