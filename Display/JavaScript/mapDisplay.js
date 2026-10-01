@@ -923,6 +923,20 @@ function _wireControls() {
     });
 }
 
+// Lets other map add-ons (mapTradeHelper.js) point the map at a system.
+window.MapView = {
+    selectSystem(name, { center = true } = {}) {
+        const s = systemsByName.get(name);
+        if (!s) return false;
+        if (center) { cam.x = s.x; cam.y = s.y; }
+        _selectSystem(s);
+        _draw();
+        if (wrap && wrap.scrollIntoView) wrap.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return true;
+    },
+    hasSystem: name => systemsByName.has(name),
+};
+
 document.addEventListener('DOMContentLoaded', init);
 
 })();
