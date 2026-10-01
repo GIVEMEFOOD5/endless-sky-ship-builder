@@ -463,10 +463,12 @@
      * The definition's `ship "Model" "Variant"` line becomes `ship "Model"`
      * — save ships never carry a variant name.
      */
-    replaceShipDefinition(indexOrUuid, definitionText) {
+    replaceShipDefinition(indexOrUuid, definition, { levels } = {}) {
       const s = this.ship(indexOrUuid);
       if (!s) throw new Error('Ship not found');
-      const def = parse(definitionText).root.children.find(n => isData(n) && n.tokens[0] === 'ship');
+      const def = typeof definition === 'string'
+        ? parse(definition).root.children.find(n => isData(n) && n.tokens[0] === 'ship')
+        : clone(definition);
       if (!def) throw new Error('No ship block found in the definition text');
       const old = s.node;
       const kept = new Map();
@@ -474,9 +476,59 @@
       const body = def.children.filter(n => !(isData(n) && SHIP_STATE_KEYS.includes(n.tokens[0])));
       const head = SHIP_HEAD_KEYS.filter(k => kept.has(k)).map(k => kept.get(k));
       const tail = SHIP_TAIL_KEYS.filter(k => kept.has(k)).map(k => kept.get(k));
-      old.tokens = ['ship', def.tokens[1] || s.model];
+      // A 3-token `ship "Model" "Variant"` block is kept as-is: the game then
+      // copies whatever the block leaves out from the model and mounts any
+      // unmounted weapons (Ship::Load sets `base` only in that form).
+      old.tokens = def.tokens.length >= 3 ? ['ship', def.tokens[1], def.tokens[2]] : ['ship', def.tokens[1] || s.model];
       old.children = [...head, ...body, ...tail];
+      if (levels) this._setLevels(old, levels);
       return this.ship(s.index);
+    }
+
+    /**
+     * Add a new ship (from ShipDefinition.fromBuild / fromGameShip, or text).
+     * It gets a fresh uuid and starts at `system`/`planet` (default: where
+     * the pilot is), with full `levels` if given.
+     */
+    addShip(definition, { name, system, planet, levels, parked = false } = {}) {
+      const def = typeof definition === 'string'
+        ? parse(definition).root.children.find(n => isData(n) && n.tokens[0] === 'ship')
+        : clone(definition);
+      if (!def) throw new Error('No ship block found');
+      const body = def.children.filter(n => !(isData(n) && SHIP_STATE_KEYS.includes(n.tokens[0])));
+      def.children = [makeNode(['name', name || def.tokens[2] || def.tokens[1]]), ...body, makeNode(['uuid', uuidV4()])];
+      this._setLevels(def, levels || {});
+      const sys = system || this.system, pl = planet === undefined ? this.planet : planet;
+      if (sys) def.children.push(makeNode(['system', sys]));
+      if (pl) def.children.push(makeNode(['planet', pl]));
+      if (parked) def.children.push(makeNode(['parked']));
+      const nodes = this.root.children;
+      let insertAt = -1;
+      nodes.forEach((n, i) => { if (key(n) === 'ship' || key(n) === 'groups') insertAt = i; });
+      if (insertAt === -1) {
+        // no ships yet: put it where the game would (before storage/licenses/account…)
+        const rank = TOP_ORDER.indexOf('ship');
+        insertAt = nodes.findIndex(c => TOP_ORDER.indexOf(key(c)) > rank) - 1;
+        if (insertAt < -1) insertAt = nodes.length - 1;
+      }
+      nodes.splice(insertAt + 1, 0, def);
+      if (this.flagshipIndex === null || this.flagshipIndex < 0) this.setFlagshipIndex(0);
+      return this.ships.find(x => x.node === def);
+    }
+
+    _setLevels(shipNode, levels) {
+      for (const k of ['crew', 'fuel', 'shields', 'hull']) {
+        if (levels[k] === undefined || levels[k] === null) continue;
+        const v = k === 'crew' ? Math.trunc(levels[k]) : levels[k];
+        const at = shipNode.children.findIndex(n => isData(n) && n.tokens[0] === k);
+        const n = makeNode([k, num(v)]);
+        if (at !== -1) shipNode.children[at] = n;
+        else {
+          // keep Ship::Save's order: after hardpoints, before position/system
+          const before = shipNode.children.findIndex(c => isData(c) && ['position', 'formation', 'system', 'planet', 'destination system', 'parked'].includes(c.tokens[0]));
+          if (before === -1) shipNode.children.push(n); else shipNode.children.splice(before, 0, n);
+        }
+      }
     }
 
     // ── missions ─────────────────────────────────────────────────────────
