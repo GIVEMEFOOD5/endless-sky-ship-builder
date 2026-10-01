@@ -12,8 +12,8 @@
   <script src="../JavaScript/navLoader.js"></script>
 
   <header>
-    <h1>Mission Data Viewer</h1>
-    <p class="subtitle">Loads a mission JSON export and formats every field into something readable.</p>
+    <h1>📜 Missions</h1>
+    <p class="subtitle">Every mission from your active plugins — with your pilot's progress when a save is open.</p>
 
     <div class="controls">
       <input type="text" id="searchInput" placeholder="Filter by name, plugin, planet..." disabled>
@@ -45,7 +45,7 @@
     </div>
 
     <p id="noSaveNotice" class="hidden">
-      No save loaded — status badges need a save imported on the Save Reader page first.
+      No save loaded — open a save on the <a href="UserManager.html">Saves &amp; Account</a> page to see mission status and what you can be offered.
     </p>
 
     <!-- Plugin selector -->
@@ -85,6 +85,9 @@
     <script src="../JavaScript/esCache.js"></script>
     <script src="../JavaScript/generalPluginStuff.js"></script>
     <script src="../JavaScript/missionLoader.js"></script>
+    <script src="../JavaScript/esSaveParser.js"></script>
+    <script src="../JavaScript/saveVault.js"></script>
+    <script src="../JavaScript/saveCache.js"></script>
     <script src="../JavaScript/missionStatusHelper.js"></script>
     <script src="../JavaScript/saveCleanupHelper.js"></script>
     <script src="../JavaScript/UserManagerMissionDisplay.js"></script>
