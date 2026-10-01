@@ -34,6 +34,7 @@
   let ctx = null;             // { id, label, pilot, doc|null, conditions, visitedSystems:Set }
   let notesBySystem = new Map();
   let summary = null;
+  let lastMap = null;          // { systemsByName, pluginDataMap, activeOutputNames } after apply()
   const eventCache = new Map(); // "plugin_id\0name" → raw text
 
   // ── which save is selected ───────────────────────────────────────────────
@@ -110,7 +111,8 @@
   // ── apply (sync) — mutates the freshly formatted map data ────────────────
   function apply({ systemsByName, planetsBySystem, governmentColors, pluginDataMap, activeOutputNames }) {
     notesBySystem = new Map();
-    if (!ctx || !pilotView) return;
+    lastMap = null;
+    if (!ctx || !pilotView) { document.dispatchEvent(new CustomEvent('mapSaveStateApplied')); return; }
     const note = (sys, text) => { if (!notesBySystem.has(sys)) notesBySystem.set(sys, []); notesBySystem.get(sys).push(text); };
 
     // base flags (not part of the formatted systems)
@@ -275,6 +277,8 @@
     for (const s of systemsByName.values()) if (s.planets.length) planetsBySystem.set(s.name, s.planets);
 
     summary = { ...(summary || {}), applied, missingEvents, hiddenCount, hasText: !!ctx.doc, missionsHidden: 0 };
+    lastMap = { systemsByName, pluginDataMap, activeOutputNames };
+    document.dispatchEvent(new CustomEvent('mapSaveStateApplied'));
   }
 
   // Non-repeatable (or repeat-limited) missions already offered as often as
@@ -347,5 +351,6 @@
   });
   document.addEventListener('DOMContentLoaded', renderToggle);
 
-  window.MapSaveState = { prepare, apply, filterMissions, detailsHtml, subtitleSuffix, isActive: () => !!(ctx && pilotView) };
+  window.MapSaveState = { prepare, apply, filterMissions, detailsHtml, subtitleSuffix, isActive: () => !!(ctx && pilotView),
+    context: () => ctx, lastMap: () => lastMap };
 })();
