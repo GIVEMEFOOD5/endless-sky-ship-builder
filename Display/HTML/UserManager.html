@@ -3,253 +3,90 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Save Reader — Endless Sky Data Viewer</title>
+<title>Mission Data Viewer</title>
 <link rel="stylesheet" href="../CSS/main.css">
 </head>
 <body>
 
-<div id="navbar-mount" data-src="NavBar.html"></div>
-<script src="../JavaScript/navLoader.js"></script>
-  
-<div class="container">
- 
-  <header class="panel">
-    <h1>💾 Saves &amp; Account</h1>
-    <p class="subtitle">Open a pilot save to inspect or edit it, and manage your account.</p>
+  <div id="navbar-mount" data-src="NavBar.html"></div>
+  <script src="../JavaScript/navLoader.js"></script>
+
+  <header>
+    <h1>📜 Missions</h1>
+    <p class="subtitle">Every mission from your active plugins — with your pilot's progress when a save is open.</p>
+
+    <div class="controls">
+      <input type="text" id="searchInput" placeholder="Filter by name, plugin, planet..." disabled>
+      <select id="statusFilterSelect">
+        <option value="">All statuses</option>
+        <option value="has_status">Has any save data</option>
+        <option value="in_progress">In progress</option>
+        <option value="available_not_accepted">Available</option>
+        <option value="completed_successfully">Completed</option>
+        <option value="completed_unsuccessfully">Failed</option>
+        <option value="declined">Declined</option>
+        <option value="mixed">Mixed history</option>
+        <option value="offered_only">Offered only</option>
+      </select>
+      <select id="offerFilterSelect" title="Uses this save's conditions to check each mission's requirements">
+        <option value="">Any availability</option>
+        <option value="now">Can be offered now</option>
+        <option value="almost">One requirement away</option>
+        <option value="now_or_almost">Now or one away</option>
+        <option value="not_yet">Not yet</option>
+        <option value="used_up">Won't be offered again</option>
+        <option value="unknown">Can't tell</option>
+      </select>
+      <label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;color:var(--c-text-muted);white-space:nowrap;">
+        <input type="checkbox" id="jobBoardFilterCheckbox">
+        Hide job board missions
+      </label>
+      <span id="countLabel"></span>
+    </div>
+
+    <p id="noSaveNotice" class="hidden">
+      No save loaded — open a save on the <a href="UserManager.html">Saves &amp; Account</a> page to see mission status and what you can be offered.
+    </p>
+
+    <!-- Plugin selector -->
+    <div class="panel search-section">
+        <h2 class="section-title" id="pluginSelectorTitle">Plugin ▼</h2>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+            <button class="btn-action" onclick="openPluginPicker()">
+                ☰ Select Plugins
+            </button>
+            <span style="font-size:0.82rem;color:#64748b;font-style:italic;">
+                First plugin = primary (for image/sprite lookup)
+            </span>
+        </div>
+        <div id="activePluginList">
+            <span class="sorter-empty">Loading plugins…</span>
+        </div>
+    </div>
+
+    <!-- Save cleanup: failed-mission conditions and already-triggered events
+         found in the current save, with buttons to remove them. Every
+         removal edits the "Updated Save" only — the original imported
+         save is never touched. Rendered entirely by
+         UserManagerMissionDisplay.js's renderCleanupPanel(). -->
+    <div class="panel search-section">
+        <h2 class="section-title" id="saveCleanupTitle">Save Cleanup ▼</h2>
+        <div id="saveCleanupPanel"></div>
+    </div>
   </header>
 
-  <!-- ════════════ MY ACCOUNT ════════════
-       Shown regardless of the loading gate below — changing your
-       username/password doesn't depend on plugin data being loaded. -->
-  <section class="panel" id="accountPanel">
-    <h2 class="section-title">👤 My Account</h2>
+  <main id="missionList">
+    <p id="status">Loading missions…</p>
+  </main>
 
-    <div id="account-logged-out" style="display:none;">
-      <p style="color:var(--c-text-mid);">Log in to manage your username and password.</p>
-      <button class="btn btn-primary" onclick="window.openAuthModal && window.openAuthModal('signin');">Log in</button>
-    </div>
-
-    <div id="account-logged-in" style="display:none;">
-      <div class="account-fields-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
-
-        <div>
-          <label for="account-username" style="display:block;font-size:0.85rem;margin-bottom:6px;">Username</label>
-          <input type="text" id="account-username" class="text-input" minlength="3" maxlength="24" autocomplete="username">
-          <span id="account-username-hint" class="auth-field-hint"></span>
-          <div id="account-username-error" style="margin-top:8px;"></div>
-          <button class="btn btn-secondary" id="account-username-save" style="margin-top:10px;">Save Username</button>
-        </div>
-
-        <div>
-          <label style="display:block;font-size:0.85rem;margin-bottom:6px;">Email</label>
-          <input type="email" id="account-email" class="text-input" autocomplete="email">
-          <p style="color:var(--c-text-dim);font-size:0.8rem;margin:6px 0 0;">Changing this sends a confirmation link to the new address — it only takes effect once you click it.</p>
-          <div id="account-email-error" style="margin-top:8px;"></div>
-          <button class="btn btn-secondary" id="account-email-save" style="margin-top:10px;">Update Email</button>
-        </div>
-
-      </div>
-
-      <hr style="border-color:var(--c-border);margin:24px 0;">
-
-      <div style="max-width:340px;">
-        <label for="account-new-password" style="display:block;font-size:0.85rem;margin-bottom:6px;">New password</label>
-        <input type="password" id="account-new-password" class="text-input" minlength="6" autocomplete="new-password" style="margin-bottom:12px;">
-        <label for="account-confirm-password" style="display:block;font-size:0.85rem;margin-bottom:6px;">Confirm new password</label>
-        <input type="password" id="account-confirm-password" class="text-input" minlength="6" autocomplete="new-password">
-        <div id="account-password-error" style="margin-top:8px;"></div>
-        <button class="btn btn-secondary" id="account-password-save" style="margin-top:10px;">Save Password</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ════════════ LOADING GATE ════════════
-       Shown until window.DataLoader finishes its initial load. Nothing
-       else on this page (uploading, switching saves, viewing results)
-       is usable until this clears, since plugin matching and the rest
-       of the page depend on window.allData being populated. -->
-  <section class="panel" id="loadingGate">
-    <div style="display:flex; align-items:center; gap:14px; padding:6px 0;">
-      <div class="spinner" style="width:22px; height:22px; border:3px solid var(--c-border); border-top-color:var(--c-accent); border-radius:50%; animation:spin 0.8s linear infinite; flex-shrink:0;"></div>
-      <div>
-        <div style="font-weight:600; color:var(--c-text);">Loading game and plugin data…</div>
-        <div style="font-size:0.85rem; color:var(--c-text-muted); margin-top:2px;">This only takes a moment. The save reader needs this before it can show your fleet or match plugins.</div>
-      </div>
-    </div>
-  </section>
-  <style>@keyframes spin { to { transform: rotate(360deg); } }</style>
- 
-  <!-- ════════════ MAIN CONTENT — hidden until loadingGate clears ════════════ -->
-  <div id="pageContent" class="hidden">
-  <section class="panel config-section" id="importPanel">
-    <h2 class="section-title">Saved Files</h2>
- 
-    <div id="savesLibrary" style="margin-bottom:18px;"></div>
- 
-    <div class="input-group" style="margin-bottom:0;">
-      <label for="fileInput">Upload a new save file (.txt)</label>
-      <div id="dropzone" class="list-row" style="cursor:pointer; padding:28px; justify-content:center; border-style:dashed; border-width:2px;">
-        <div style="text-align:center; width:100%;">
-          <div style="font-size:0.95rem; color:var(--c-text-mid); margin-bottom:4px;" id="dropzoneLabel">Click to choose a file, or drag it here</div>
-          <div style="font-size:0.82rem; color:var(--c-text-muted);">Read in your browser. When you're logged in, it's also kept in your account so you can open and edit it on any device.</div>
-        </div>
-      </div>
-      <input type="file" id="fileInput" accept=".txt" class="hidden">
-    </div>
- 
-    <div class="error hidden" id="errorBox"></div>
- 
-    <div class="button-group" id="resultButtons" style="margin-top:18px;">
-      <button class="btn btn-secondary hidden" id="exportJsonBtn">Export current save as JSON</button>
-      <button class="btn btn-primary hidden"   id="importFleetBtn">🚀 Import Fleet to Builder</button>
-      <button class="btn btn-danger hidden"    id="removeSaveBtn">Remove current save</button>
-    </div>
-  </section>
- 
-  <!-- ════════════ RESULTS ════════════ -->
-  <div id="results" class="hidden">
- 
-    <section class="panel" style="margin-bottom:30px;">
-      <h2 class="section-title" id="pilotName">Pilot</h2>
-      <p class="internal-name" id="pilotMeta" style="margin-top:0;"></p>
-      <div class="stats" id="statStrip"></div>
-    </section>
- 
-    <div class="tabs" id="resultTabs">
-      <div class="tab active" data-tab="fleet">Fleet</div>
-      <div class="tab" data-tab="cargo">Cargo &amp; Storage</div>
-      <div class="tab" data-tab="account">Account &amp; Licenses</div>
-    </div>
- 
-    <!-- Fleet tab -->
-    <div class="tab-content" id="tab-fleet">
-      <section class="search-section">
-        <input type="text" class="search-input" id="searchInput" placeholder="Search by ship name, model, or system…">
-      </section>
-      <div class="filter-section">
-        <div class="filter-title-no-margin">Sort</div>
-        <div class="filter-options" style="margin-top:12px;">
-          <select id="sortSelect" class="text-input" style="width:auto;">
-            <option value="default">As listed</option>
-            <option value="name">Name (A–Z)</option>
-            <option value="model">Model (A–Z)</option>
-            <option value="hull">Hull (high–low)</option>
-            <option value="parked">Parked first</option>
-          </select>
-        </div>
-      </div>
-      <div class="fleet-grid" id="fleetGrid"></div>
-    </div>
- 
-    <!-- Cargo & Storage tab -->
-    <div class="tab-content hidden" id="tab-cargo">
-      <section class="panel" style="margin-bottom:20px;">
-        <h2 class="section-title">Cargo Carried</h2>
-        <div id="cargoList"></div>
-      </section>
-      <section class="panel">
-        <h2 class="section-title">Planetary Storage</h2>
-        <div id="storageList"></div>
-      </section>
-    </div>
- 
-    <!-- Account & Licenses tab -->
-    <div class="tab-content hidden" id="tab-account">
-      <section class="panel" style="margin-bottom:20px;">
-        <h2 class="section-title">Account</h2>
-        <div class="attribute-grid" id="accountGrid"></div>
-      </section>
-      <section class="panel" style="margin-bottom:20px;">
-        <h2 class="section-title">Licenses</h2>
-        <div class="ld-pills" id="licenseList"></div>
-      </section>
-      <section class="panel">
-        <h2 class="section-title">Plugins</h2>
-        <div id="pluginsPanel"></div>
-      </section>
-    </div>
- 
-  </div>
- 
-  </div> <!-- /#pageContent -->
- 
-</div>
- 
-<!-- Ship detail modal -->
-<div class="modal" id="shipModal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <div>
-        <div class="modal-title" id="modalShipName">—</div>
-        <div class="internal-name" id="modalShipSub" style="margin-top:4px;"></div>
-      </div>
-      <button class="btn-close btn-close--lg" id="modalCloseBtn">&times;</button>
-    </div>
-    <div class="modal-body" id="modalBody"></div>
-  </div>
-</div>
- 
-<!-- Toast -->
-<div class="toast" id="toast"></div>
-
-<script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-<script src="../JavaScript/supabaseClient.js"></script>
-<script src="../JavaScript/auth.js"></script>
-<script src="../JavaScript/esCache.js"></script>
-<script src="../JavaScript/dataLoader.js"></script>
-<script src="../JavaScript/fleetStore.js"></script>
-<script src="../JavaScript/esSaveParser.js"></script>
-<script src="../JavaScript/esSaveFile.js"></script>
-<script src="../JavaScript/saveVault.js"></script>
-<script src="../JavaScript/saveManager.js"></script>
-<script src="../JavaScript/accountSettings.js"></script>
-<script src="../JavaScript/shipDefinition.js"></script>
-<script src="../JavaScript/saveShipPicker.js"></script>
-<script src="../JavaScript/saveEditor.js"></script>
-<script src="../JavaScript/saveHealthCheck.js"></script>
-<script src="../JavaScript/accountCenter.js"></script>
-<script>
-  // dataLoader.js exposes window.DataLoader but doesn't fetch anything until
-  // .load() is called. The whole page is gated behind this — nothing here
-  // (uploading a save, switching saves, viewing results, matching plugins)
-  // is meaningful until window.allData is actually populated, so #pageContent
-  // stays hidden and #loadingGate stays visible until .load() resolves.
-  function _srShowGateError(message) {
-    const gate = document.getElementById('loadingGate');
-    if (gate) {
-      gate.innerHTML = `
-        <div style="color:var(--c-danger-text);">
-          <strong>Could not load game/plugin data.</strong>
-          <div style="font-size:0.85rem; margin-top:4px; color:var(--c-text-muted);">${message}</div>
-          <button class="btn btn-secondary" style="margin-top:12px;" onclick="location.reload()">Retry</button>
-        </div>`;
-    }
-  }
- 
-  function _srRevealPage() {
-    const gate    = document.getElementById('loadingGate');
-    const content = document.getElementById('pageContent');
-    if (gate)    gate.classList.add('hidden');
-    if (content) content.classList.remove('hidden');
-    // Let saveManager.js know it's now safe to bootstrap (render the saves
-    // library, restore the last-open save, match plugins, etc).
-    document.dispatchEvent(new CustomEvent('saveReaderDataReady'));
-  }
- 
-  if (window.DataLoader && typeof window.DataLoader.load === 'function') {
-    window.DataLoader.load()
-      .then(() => {
-        console.log('[savereader] DataLoader finished loading. allData keys:', Object.keys(window.allData || {}));
-        _srRevealPage();
-      })
-      .catch(err => {
-        console.error('[savereader] DataLoader.load() failed:', err);
-        _srShowGateError(err && err.message ? err.message : 'Unknown error.');
-      });
-  } else {
-    console.error('[savereader] window.DataLoader is missing or has no .load() — check that ../JavaScript/dataLoader.js loaded correctly.');
-    _srShowGateError('dataLoader.js did not load correctly on this page.');
-  }
-</script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script src="../JavaScript/supabaseClient.js"></script>
+    <script src="../JavaScript/auth.js"></script>
+    <script src="../JavaScript/esCache.js"></script>
+    <script src="../JavaScript/generalPluginStuff.js"></script>
+    <script src="../JavaScript/missionLoader.js"></script>
+    <script src="../JavaScript/missionStatusHelper.js"></script>
+    <script src="../JavaScript/saveCleanupHelper.js"></script>
+    <script src="../JavaScript/UserManagerMissionDisplay.js"></script>
 </body>
 </html>
