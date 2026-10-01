@@ -355,7 +355,8 @@ function listSaves() {
 
 function getSaveById(id) {
   if (!id) return null;
-  return _readJSON(SM_SAVE_PREFIX + id);
+  // Big saves don't fit in localStorage; saveCache.js rebuilds them from the stored file.
+  return _readJSON(SM_SAVE_PREFIX + id) || (window.EsSaveCache ? window.EsSaveCache.get(id) : null);
 }
 
 function getCurrentSave() {
