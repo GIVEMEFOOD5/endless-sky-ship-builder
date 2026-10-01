@@ -43,6 +43,7 @@ const countLabel     = document.getElementById('countLabel');
 // bottom of this file for the exact markup to add for each.
 const statusFilterEl = document.getElementById('statusFilterSelect');
 const jobBoardFilterEl = document.getElementById('jobBoardFilterCheckbox');
+const offerFilterEl = document.getElementById('offerFilterSelect');
 const noSaveNoticeEl = document.getElementById('noSaveNotice');
 const cleanupPanelEl = document.getElementById('saveCleanupPanel');
 
@@ -64,6 +65,7 @@ document.addEventListener('missionsLoadError', (e) => {
 searchInput.addEventListener('input', applyFiltersAndRender);
 if (statusFilterEl) statusFilterEl.addEventListener('change', applyFiltersAndRender);
 if (jobBoardFilterEl) jobBoardFilterEl.addEventListener('change', applyFiltersAndRender);
+if (offerFilterEl) offerFilterEl.addEventListener('change', applyFiltersAndRender);
 
 // Event delegation: card clicks now open the mission detail modal
 // instead of expanding inline (see MissionModal below) — more room for
@@ -151,6 +153,17 @@ function overrideReason(m) {
     return m.status.completedByCondition ? m.status.completedByConditionReason : m.status.unreachableCompletePathReason;
 }
 
+const OFFER_BADGE = {
+    now:    { cls: 'available', text: 'Can be offered' },
+    almost: { cls: 'offered',   text: 'One step away' },
+};
+function offerBadgeHtml(m) {
+    const b = m.offer && OFFER_BADGE[m.offer.state];
+    if (!b) return '';
+    const tip = m.offer.missing && m.offer.missing.length ? `${m.offer.label}: ${m.offer.missing.join('; ')}` : m.offer.label;
+    return `<span class="mission-status-badge mission-status-badge--${b.cls}" title="${esc(tip)}">${esc(b.text)}</span>`;
+}
+
 function statusBadgeHtml(m) {
     if (!m.status) return '';
     const overridden = effectiveStatus(m) !== m.status.status;
@@ -190,6 +203,11 @@ function refreshMissions() {
         // Fold the status label into search text too, so typing "failed"
         // or "in progress" filters the list without a dedicated control.
         missions.forEach(m => { m.searchText = `${m.searchText} ${m.status.label}`.toLowerCase(); });
+        // "Can I get it?" — only meaningful with a save loaded
+        if (save && MissionStatusHelper.offerability) {
+            missions.forEach(m => { m.offer = MissionStatusHelper.offerability(m.name, m.raw, save, m.status); });
+        }
+        if (offerFilterEl) offerFilterEl.disabled = !save;
         if (noSaveNoticeEl) noSaveNoticeEl.classList.toggle('hidden', !!save);
     } else if (noSaveNoticeEl) {
         noSaveNoticeEl.classList.add('hidden');
@@ -221,6 +239,13 @@ function applyFiltersAndRender() {
             : filtered.filter(m => effectiveStatus(m) === statusPick);
     }
 
+    const offerPick = offerFilterEl && !offerFilterEl.disabled ? offerFilterEl.value : '';
+    if (offerPick) {
+        filtered = filtered.filter(m => m.offer && (offerPick === 'now_or_almost'
+            ? (m.offer.state === 'now' || m.offer.state === 'almost')
+            : m.offer.state === offerPick));
+    }
+
     if (jobBoardFilterEl && jobBoardFilterEl.checked) {
         filtered = filtered.filter(m => !(m.locations || []).includes('job'));
     }
@@ -239,6 +264,7 @@ function cardHtml(m) {
         <div class="mission-head">
           <span class="mission-title">${m.titleHtml}</span>
           <span class="mission-head-right">
+            ${offerBadgeHtml(m)}
             ${statusBadgeHtml(m)}
             <span class="mission-plugin">${m.pluginHtml}</span>
           </span>
@@ -389,6 +415,17 @@ document.addEventListener('missionModalAction', (e) => {
 // Warning banner for the "this status may not mean what it looks like"
 // patterns — see missionStatusHelper.js's detectQuestionableResolution()
 // for exactly what this does and doesn't catch.
+if (HAS_STATUS_HELPER) {
+    MissionModal.registerNote(m => {
+        if (!m.offer || m.offer.state === 'active') return '';
+        const list = m.offer.missing && m.offer.missing.length
+            ? `<ul style="margin:6px 0 0;padding-left:18px;">${m.offer.missing.map(x => `<li><code>${esc(x)}</code></li>`).join('')}</ul>` : '';
+        const lead = m.offer.state === 'almost' ? 'Still needed:' : m.offer.state === 'not_yet' ? 'Not met yet:' : m.offer.state === 'unknown' ? 'Can’t check from the save:' : '';
+        return `<div class="mission-warning-banner" style="border-color:var(--c-border);">🧭 <strong>${esc(m.offer.label)}</strong>${lead ? ` — ${lead}` : ''}${list}
+          <div style="font-size:0.8rem;color:var(--c-text-dim);margin-top:4px;">You also need to be where the mission is offered.</div></div>`;
+    });
+}
+
 if (HAS_STATUS_HELPER) {
     MissionModal.registerNote(m => {
         if (!m.status || !m.status.unreachableCompletePath) return '';
