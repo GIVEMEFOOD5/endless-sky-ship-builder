@@ -213,5 +213,5 @@
     return r;
   };
 
-  window.SaveHealthCheck = { check, collectReferences };
+  window.SaveHealthCheck = { check, collectReferences, invalidate: id => resultsBySave.delete(id) };
 })();
