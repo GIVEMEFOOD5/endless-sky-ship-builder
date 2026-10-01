@@ -336,7 +336,21 @@
 
     window.EsAuth.onAuthChange(function (user, profile) {
       if (user) renderSignedIn(user, profile); else renderSignedOut();
+      updateProfileLinks(user, profile || window.EsAuth.getCurrentProfile());
     });
+
+    // "My Profile" (top bar menu and the mobile drawer's copy of it): the
+    // signed-in pilot's own public profile, or the account page if they
+    // haven't picked a username yet. Hidden when signed out.
+    function updateProfileLinks(user, profile) {
+      document.querySelectorAll('[data-page="Profile"]').forEach(function (a) {
+        if (!user) { a.style.display = 'none'; return; }
+        a.style.display = '';
+        a.href = profile && profile.username
+          ? 'Profile.html?u=' + encodeURIComponent(profile.username)
+          : 'UserManager.html';
+      });
+    }
 
     // ── Forgot password / new password / choose username ──────────────
     function byId(id) { return document.getElementById(id); }
