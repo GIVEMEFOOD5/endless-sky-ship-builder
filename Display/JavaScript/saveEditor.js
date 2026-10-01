@@ -270,6 +270,7 @@
     pane.innerHTML = datalists() + `
       <section class="panel" style="margin-bottom:20px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;">
         <button class="btn btn-primary" data-act="download">⬇ Download edited save</button>
+        ${window.SaveSync && window.SaveSync.supported ? '<button class="btn btn-secondary" data-act="writegame" title="Write the edited save straight into the linked file in your Endless Sky saves folder">💾 Save into game file</button>' : ''}
         <button class="btn btn-secondary" data-act="revert"${hasEdits ? '' : ' disabled'}>Revert to original</button>
         <span id="sv-status" style="font-size:0.85rem;color:var(--c-text-dim);">${hasEdits ? 'This save has edits.' : 'No edits yet — changes save automatically.'}</span>
         <p style="flex-basis:100%;margin:0;font-size:0.8rem;color:var(--c-text-dim);">Close Endless Sky before replacing a save file, and keep a copy of the original.</p>
@@ -448,6 +449,11 @@
       try {
         switch (b.dataset.act) {
           case 'download': return download();
+          case 'writegame': {
+            const problems = doc.validate();
+            if (problems.length && !confirm(`This save has problems the game may not like:\n\n• ${problems.join('\n• ')}\n\nWrite it anyway?`)) return;
+            return window.SaveSync.writeToGameFile(docId, doc.toString());
+          }
           case 'revert': return revert();
           case 'outfits': openShip = openShip === ship.index ? null : ship.index; return render();
           case 'dup': doc.duplicateShip(ship.index, `${ship.name || ship.model} (copy)`); return changed('Ship duplicated.');
