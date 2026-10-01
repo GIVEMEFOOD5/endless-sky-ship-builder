@@ -185,9 +185,31 @@
 
   async function clearLocal() { await tx('readwrite', s => reqP(s.clear())); }
 
+  /** New text from the game for an existing save (same id). Edits are dropped unless keepEdits. */
+  async function replaceOriginal(id, original, { parsed, keepEdits = false } = {}) {
+    const r = (await getLocal(id)) || { id, edited: null, meta: {} };
+    r.original = original;
+    if (!keepEdits) r.edited = null;
+    r.updatedAt = Date.now();
+    if (parsed) r.meta = { ...(r.meta || {}), ...summarise(parsed, r.meta?.label) };
+    await putLocal(r);
+    if (user()) uploadToAccount(id).catch(e => console.warn('[SaveVault] upload failed', e));
+    return r;
+  }
+
+  // A FileSystemFileHandle for the save's file on disk (Chrome / Edge), so it
+  // can be re-read — and written back — without choosing the file again.
+  async function setHandle(id, handle) {
+    const r = await getLocal(id);
+    if (!r) return;
+    r.handle = handle || null;
+    await putLocal(r);
+  }
+  async function getHandle(id) { const r = await getLocal(id); return (r && r.handle) || null; }
+
   window.SaveVault = {
     put, get, text, setEdited, revert, remove,
     uploadToAccount, listAccountSaves, downloadFromAccount, localIdsMissingFromAccount,
-    deleteAllAccountFiles, clearLocal,
+    deleteAllAccountFiles, clearLocal, replaceOriginal, setHandle, getHandle,
   };
 })();
