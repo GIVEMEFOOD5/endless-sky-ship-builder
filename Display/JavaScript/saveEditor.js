@@ -290,7 +290,10 @@
       </section>
 
       <section class="panel" style="margin-bottom:20px;">
-        <h2 class="section-title">Ships (${ships.length})</h2>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
+          <h2 class="section-title" style="margin:0;">Ships (${ships.length})</h2>
+          ${window.SaveShipPicker ? '<button class="btn btn-primary btn-sm" data-act="addship">＋ Add a ship</button>' : ''}
+        </div>
         <div style="overflow-x:auto;">
         <table style="width:100%;border-collapse:collapse;font-size:0.88rem;">
           <thead><tr style="text-align:left;color:var(--c-text-dim);">
@@ -309,6 +312,7 @@
               <td><input type="checkbox" data-s="parked"${s.parked ? ' checked' : ''} aria-label="Parked"></td>
               <td style="white-space:nowrap;">
                 <button class="btn btn-secondary btn-sm" data-act="outfits">${openShip === s.index ? 'Hide outfits' : 'Outfits'}</button>
+                ${window.SaveShipPicker ? '<button class="btn btn-secondary btn-sm" data-act="refit" title="Replace this ship\'s design with one of yours, a shared one or a game ship">Refit</button>' : ''}
                 <button class="btn btn-secondary btn-sm" data-act="dup">Duplicate</button>
                 <button class="btn btn-danger btn-sm" data-act="rmship">Remove</button>
               </td>
@@ -447,6 +451,10 @@
           case 'revert': return revert();
           case 'outfits': openShip = openShip === ship.index ? null : ship.index; return render();
           case 'dup': doc.duplicateShip(ship.index, `${ship.name || ship.model} (copy)`); return changed('Ship duplicated.');
+          case 'addship':
+            return window.SaveShipPicker.open({ mode: 'add', title: 'Add a ship to this save', onPick: c => applyPicked(c, null) });
+          case 'refit':
+            return window.SaveShipPicker.open({ mode: 'refit', title: `Refit “${ship.name || ship.model}” with…`, onPick: c => applyPicked(c, ship.index) });
           case 'rmship':
             if (!confirm(`Remove "${ship.name || ship.model}" from this save? Its cargo goes with it.`)) return;
             doc.removeShip(ship.index); openShip = null; return changed('Ship removed.');
@@ -480,6 +488,49 @@
         }
       } catch (err) { say(err.message, 'danger'); render(); }
     };
+  }
+
+  // ── add / refit from the ship picker ─────────────────────────────────────
+  function gameIndex() {
+    const ships = new Map(), outfits = new Map();
+    for (const p of Object.values(window.allData || {})) {
+      for (const s of p.ships || []) if (s && s.name && !ships.has(s.name)) ships.set(s.name, s);
+      for (const o of p.outfits || []) if (o && o.name && !outfits.has(o.name)) outfits.set(o.name, o);
+    }
+    return { ships, outfits };
+  }
+
+  function applyPicked(choice, refitIndex) {
+    const D = window.ShipDefinition;
+    if (!D || !doc) return;
+    const { ships, outfits } = gameIndex();
+    let def, attrs, outs;
+    if (choice.kind === 'game') {
+      def = D.fromGameShip(choice.ship);
+      attrs = (choice.ship.baseShip ? ships.get(choice.ship.baseShip)?.attributes : choice.ship.attributes) || {};
+      outs = D.outfitList(choice.ship.outfits);
+    } else {
+      def = D.fromBuild(choice.build, new Set(ships.keys()));
+      attrs = { ...(choice.build._sourceShip ? ships.get(choice.build._sourceShip)?.attributes : {}), ...(choice.build.attributes || {}) };
+      outs = D.outfitList(choice.build.outfits);
+    }
+    const levels = D.maxLevels(attrs, outs, outfits);
+    const unknown = outs.map(([n]) => n).filter(n => !outfits.has(n));
+    const warn = unknown.length ? `\n\n${unknown.length} outfit${unknown.length === 1 ? ' isn’t' : 's aren’t'} in the plugins loaded here (${unknown.slice(0, 3).join(', ')}${unknown.length > 3 ? '…' : ''}) — the game will drop ${unknown.length === 1 ? 'it' : 'them'} unless that plugin is installed.` : '';
+
+    try {
+      if (refitIndex === null) {
+        const name = prompt(`Name for the new ship (it starts at ${doc.planet || doc.system || 'your location'}, repaired and fuelled):${warn}`, choice.label);
+        if (name === null) return;
+        doc.addShip(def, { name: name.trim() || choice.label, levels });
+        return changed(`Added “${name.trim() || choice.label}” to the save.`);
+      }
+      const target = doc.ship(refitIndex);
+      if (!confirm(`Refit “${target.name || target.model}” as ${choice.label}?\n\nIts design and installed outfits are replaced (outfits it had aren’t kept anywhere). It keeps its name, location and history, and is repaired, refuelled and crewed.${warn}`)) return;
+      doc.replaceShipDefinition(refitIndex, def, { levels });
+      openShip = null;
+      return changed(`Refitted “${target.name || target.model}”.`);
+    } catch (err) { say(err.message, 'danger'); }
   }
 
   function pilotField(t) {
