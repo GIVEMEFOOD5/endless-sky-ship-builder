@@ -75,6 +75,10 @@
     const warnings = [];
     if (typeof text !== 'string') throw new TypeError('parse() expects a string');
     if (text.charCodeAt(0) === 0xFEFF) text = text.slice(1);
+    // Saves copied around on Windows often have CRLF line endings. The game
+    // reads either; remember which so an unedited save is written back as-is.
+    const crlf = (text.match(/\r\n/g) || []).length;
+    if (crlf && crlf * 2 >= (text.match(/\n/g) || []).length) root.eol = '\r\n';
 
     const stack = [root];
     const seps  = [-1];
@@ -123,6 +127,7 @@
       const node = { tokens: [], children: [], line: ln + 1 };
       stack[stack.length - 1].children.push(node);
       stack.push(node); seps.push(sepCount);
+      const lineStart = i, depth = stack.length - 2;
 
       // tokenize the rest of the line
       while (i < line.length) {
@@ -146,6 +151,11 @@
         while (i < line.length && isWs(line[i])) i++;
         if (line[i] === '#') break;              // trailing comment
       }
+      // Remember how the line was written (quotes, spacing, indentation) so
+      // an untouched line is written back exactly as it was — some tools and
+      // older game versions quote more than today's writer does.
+      Object.defineProperty(node, 'src', { value: { lead: line.slice(0, lineStart), text: line.slice(lineStart).replace(/\r$/, ''),
+        tokens: node.tokens.join('\u0000'), depth }, writable: true, enumerable: false, configurable: true });
     }
     return { root, warnings };
   }
@@ -172,12 +182,15 @@
       for (const n of nodes) {
         if (n.blank)                 { out.push(''); continue; }
         if (n.comment !== undefined) { out.push(indent + '#' + n.comment); continue; }
-        out.push(indent + n.tokens.map(quote).join(' '));
+        const src = n.src;
+        if (src && src.depth === depth && src.tokens === n.tokens.join('\u0000')) out.push(src.lead + src.text);
+        else out.push(indent + n.tokens.map(quote).join(' '));
         if (n.children.length) walk(n.children, depth + 1);
       }
     };
     walk(root.children, 0);
-    return out.join('\n') + '\n';
+    const eol = root.eol || '\n';
+    return out.join(eol) + eol;
   }
 
   // Number → token. Integers stay integers; everything else uses the

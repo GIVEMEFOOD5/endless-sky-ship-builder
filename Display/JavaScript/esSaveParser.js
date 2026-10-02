@@ -473,11 +473,11 @@ function parseESSaveFile(text) {
   // below) purely so `result.missions` stays a first-class, obviously-
   // named field for missionStatusHelper.js to read.
   let missionName   = null;   // identifier of the mission currently being captured
-  // `groups N` is written as its OWN top-level line immediately before the
-  // `ship` line it applies to — confirmed against a real save file, this
-  // is not a child of the ship block. Stashed here and consumed by the
-  // very next ship, if any.
-  let pendingGroups = null;
+  // `groups N` is its own top-level line written right AFTER the ship it
+  // belongs to (PlayerInfo::Save writes the ship, then its groups; Load
+  // applies it to ships.back()). It's attached to the most recent ship.
+  let pendingGroups = null;   // kept for compatibility; no longer used
+  let lastShip = null;
   let missionBuffer = [];     // [{ indent, text }] for every line inside it so far
 
   // ── GENERIC BLOCK CAPTURE ──
@@ -548,12 +548,11 @@ function parseESSaveFile(text) {
         // model name is toks[1]; save files don't have variants at this line
         cur._modelName = _esName(toks[1] || '');
         cur.name       = cur._modelName;
-        cur._groups    = pendingGroups;
-        pendingGroups  = null;
+        lastShip       = cur;
         continue;
       }
 
-      if (key0 === 'groups') { pendingGroups = toks[1] != null ? _esName(toks[1]) : null; continue; }
+      if (key0 === 'groups') { if (lastShip) lastShip._groups = toks[1] != null ? _esName(toks[1]) : null; continue; }
 
       // ── pilot header fields ──
       if (key0 === 'pilot')              { result.pilot.name         = toks.slice(1).map(_esName).join(' '); continue; }

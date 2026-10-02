@@ -165,7 +165,8 @@
     const planetByName = new Map();
     for (const s of systemsByName.values()) for (const p of s.planets || []) planetByName.set(p.name, p);
 
-    let applied = 0, missingEvents = 0;
+    let applied = 0;
+    const missingNames = new Set();   // distinct events with no definition (some fire every day)
     const seen = new Set();
     const run = nodes => {
       for (const n of nodes) {
@@ -175,7 +176,7 @@
           seen.add(a);
           const kids = eventChangeNodes(a, pluginOrder);
           // events that only set conditions or visits have no map changes — that's not "missing"
-          if (!kids.length && !pluginOrder.some(pid => eventCache.has(`${pid}\u0000${a}`))) missingEvents++;
+          if (!kids.length && !pluginOrder.some(pid => eventCache.has(`${pid}\u0000${a}`))) missingNames.add(a);
           run(kids);
           seen.delete(a);
           continue;
@@ -338,7 +339,7 @@
     planetsBySystem.clear();
     for (const s of systemsByName.values()) if (s.planets.length) planetsBySystem.set(s.name, s.planets);
 
-    summary = { ...(summary || {}), applied, missingEvents, hiddenCount, hasText: !!(ctx && ctx.doc), missionsHidden: 0,
+    summary = { ...(summary || {}), applied, missingEvents: missingNames.size, hiddenCount, hasText: !!(ctx && ctx.doc), missionsHidden: 0,
                 usingSave, previews: timeline.previews.length, cut: timeline.cutIndex != null };
     document.dispatchEvent(new CustomEvent('mapSaveStateApplied'));
   }

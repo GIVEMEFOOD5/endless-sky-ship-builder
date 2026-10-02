@@ -178,12 +178,15 @@
   let saveTimer = null;
   let openShip = null;     // index whose outfit list is expanded
   let condFilter = '';
+  let shipFilter = '';
+  let shipLimit = 40;   // big fleets (some saves have 1000+ ships) are shown a page at a time
 
   async function loadEditor() {
     const pane = $('tab-edit');
     if (!pane || !currentSaveId) return;
     const rec = await V.get(currentSaveId).catch(() => null);
     if (!rec) { renderNoOriginal(pane); return; }
+    if (docId !== currentSaveId) { shipFilter = ''; shipLimit = 40; openShip = null; condFilter = ''; }
     docId = currentSaveId;
     doc = E.SaveFile.fromText(rec.edited || rec.original);
     hasEdits = !!rec.edited;
@@ -263,6 +266,12 @@
     if (!pane || !doc) return;
     const p = doc.pilot, d = doc.date || { day: 1, month: 1, year: 3013 };
     const ships = doc.ships;
+    // active ships (and the flagship) first, then parked; filtered by the search box
+    const q = shipFilter.toLowerCase();
+    const matchingShips = ships.filter(s => !q || `${s.name} ${s.model}`.toLowerCase().includes(q))
+      .sort((a, b) => (b.isFlagship - a.isFlagship) || (a.parked - b.parked) || (a.index - b.index));
+    const shownShips = matchingShips.slice(0, shipLimit);
+    if (openShip !== null && !shownShips.some(s => s.index === openShip)) { const o = ships[openShip]; if (o) shownShips.push(o); }
     const cargo = doc.cargo;
     const conds = Object.entries(doc.conditions);
     const shown = conds.filter(([k]) => !condFilter || k.toLowerCase().includes(condFilter.toLowerCase())).slice(0, 200);
@@ -302,6 +311,7 @@
         <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
           <h2 class="section-title" style="margin:0;">Ships (${ships.length})</h2>
           ${window.SaveShipPicker ? '<button class="btn btn-primary btn-sm" data-act="addship">＋ Add a ship</button>' : ''}
+          ${ships.length > 15 ? `<input class="text-input" id="sv-ship-filter" placeholder="Find a ship by name or model…" value="${h(shipFilter)}" style="max-width:280px;">` : ''}
         </div>
         <div style="overflow-x:auto;">
         <table style="width:100%;border-collapse:collapse;font-size:0.88rem;">
@@ -309,7 +319,7 @@
             <th>Flagship</th><th>Name</th><th>Model</th><th>Crew</th><th>Fuel</th><th>Shields</th><th>Hull</th><th>Parked</th><th></th>
           </tr></thead>
           <tbody>
-          ${ships.map(s => `
+          ${shownShips.map(s => `
             <tr data-ship="${s.index}" style="border-top:1px solid var(--c-border);">
               <td><input type="radio" name="sv-flag" data-s="flagship"${s.isFlagship ? ' checked' : ''} aria-label="Make flagship"></td>
               <td><input class="text-input" data-s="name" value="${h(s.name)}" style="min-width:140px;"></td>
@@ -329,6 +339,8 @@
             ${openShip === s.index ? `<tr data-ship="${s.index}"><td colspan="9">${outfitEditor(s)}</td></tr>` : ''}`).join('')}
           </tbody>
         </table></div>
+        ${matchingShips.length > shownShips.length ? `<p style="font-size:0.82rem;color:var(--c-text-dim);margin:10px 0 0;">Showing ${shownShips.length} of ${matchingShips.length} ships.
+          <button class="btn btn-secondary btn-sm" data-act="moreships">Show ${Math.min(40, matchingShips.length - shownShips.length)} more</button></p>` : ''}
       </section>
 
       <section class="panel" style="margin-bottom:20px;">
@@ -442,6 +454,13 @@
         if (t.dataset.cond !== undefined) { doc.setCondition(t.dataset.cond, Math.trunc(Number(t.value) || 0)); return changed(); }
       } catch (err) { say(err.message, 'danger'); render(); }
     };
+    const sf = $('sv-ship-filter');
+    if (sf) sf.oninput = () => {
+      shipFilter = sf.value; shipLimit = 40;
+      const pos = sf.selectionStart;
+      render();
+      const f2 = $('sv-ship-filter'); f2.focus(); f2.setSelectionRange(pos, pos);
+    };
     const filter = $('sv-cond-filter');
     if (filter) filter.oninput = () => {
       condFilter = filter.value;
@@ -468,6 +487,7 @@
             return window.SaveSync.writeToGameFile(docId, doc.toString());
           }
           case 'revert': return revert();
+          case 'moreships': shipLimit += 40; return render();
           case 'outfits': openShip = openShip === ship.index ? null : ship.index; return render();
           case 'dup': doc.duplicateShip(ship.index, `${ship.name || ship.model} (copy)`); return changed('Ship duplicated.');
           case 'addship':
