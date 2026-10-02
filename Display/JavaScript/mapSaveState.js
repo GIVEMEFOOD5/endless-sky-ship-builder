@@ -101,7 +101,7 @@
     renderToggle();
     const usingSave = !!(ctx && pilotView);
     if (!usingSave && !timeline.previews.length) { pluginOrder = await fetchEvents([], activeOutputNames) || pluginOrder; return; }
-    const changes = usingSave && ctx.doc ? (ctx.doc.top('changes')?.children || []).filter(n => n.tokens) : [];
+    const changes = usingSave && ctx.doc ? ctx.doc.changes : [];
     if (ctx) ctx.changes = changes;
     const refs = new Set(timeline.previews);
     const collect = nodes => { for (const n of nodes) if (n.tokens[0] === 'event' && n.tokens[1]) refs.add(n.tokens[1]); };
@@ -174,7 +174,8 @@
           if (seen.has(a)) continue;             // guard against loops
           seen.add(a);
           const kids = eventChangeNodes(a, pluginOrder);
-          if (!kids.length) missingEvents++;
+          // events that only set conditions or visits have no map changes — that's not "missing"
+          if (!kids.length && !pluginOrder.some(pid => eventCache.has(`${pid}\u0000${a}`))) missingEvents++;
           run(kids);
           seen.delete(a);
           continue;

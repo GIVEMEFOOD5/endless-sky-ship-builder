@@ -275,6 +275,14 @@
         <span id="sv-status" style="font-size:0.85rem;color:var(--c-text-dim);">${hasEdits ? 'This save has edits.' : 'No edits yet — changes save automatically.'}</span>
         <p style="flex-basis:100%;margin:0;font-size:0.8rem;color:var(--c-text-dim);">Close Endless Sky before replacing a save file, and keep a copy of the original.</p>
       </section>
+      ${(() => { const junk = doc.trailingJunk(); return junk.length ? `
+      <section class="panel" style="margin-bottom:20px;border-color:var(--c-warn-text, #f59e0b);">
+        <h2 class="section-title" style="margin-top:0;">⚠ This save file is damaged</h2>
+        <p style="color:var(--c-text-mid);margin:0 0 10px;">After the end of the save there are ${junk.length} leftover blocks from an older copy of the file
+          (it was overwritten without the old ending being cleared). The game loads them on top of your real save, so older story progress,
+          conditions and prices can come back. Repairing removes everything after the save's plugin list.</p>
+        <button class="btn btn-primary btn-sm" data-act="repair">🩹 Remove the leftover data</button>
+      </section>` : ''; })()}
 
       <section class="panel" style="margin-bottom:20px;">
         <h2 class="section-title">Pilot</h2>
@@ -449,6 +457,11 @@
       try {
         switch (b.dataset.act) {
           case 'download': return download();
+          case 'repair': {
+            if (!confirm('Remove everything after the end of the save (the leftover old data)? You can undo this with “Revert to original”.')) return;
+            const n = doc.removeTrailingJunk();
+            return changed(`Removed ${n} leftover blocks of old data.`);
+          }
           case 'writegame': {
             const problems = doc.validate();
             if (problems.length && !confirm(`This save has problems the game may not like:\n\n• ${problems.join('\n• ')}\n\nWrite it anyway?`)) return;

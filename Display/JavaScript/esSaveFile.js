@@ -97,13 +97,18 @@
       if (mixed) warnings.push(`line ${ln + 1}: mixed tabs and spaces in indentation`);
 
       if (i >= line.length) {                    // empty / whitespace-only line
-        // Remember it; it's kept only if the next real line is top-level,
-        // so output diffs cleanly against the game's own layout.
+        // Remembered and placed just before the next real line (below).
         if (ln < lines.length - 1) pendingBlanks++;
         continue;
       }
-      if (sepCount === 0) for (; pendingBlanks > 0; pendingBlanks--) root.children.push({ blank: true, children: [] });
-      pendingBlanks = 0;
+      // Blank lines go just before the next real line, inside whatever block
+      // that line belongs to — the game ignores them, but keeping them means
+      // an unedited save is written back byte-for-byte.
+      if (pendingBlanks) {
+        let s = stack.length - 1;
+        while (seps[s] >= sepCount) s--;
+        for (; pendingBlanks > 0; pendingBlanks--) stack[s].children.push({ blank: true, children: [] });
+      }
 
       if (line[i] === '#') {                     // full-line comment
         const commentNode = { comment: line.slice(i + 1).replace(/\r$/, ''), children: [], line: ln + 1 };
@@ -331,20 +336,26 @@
     // ── conditions ───────────────────────────────────────────────────────
     // Game rule (ConditionsStore::Save): value 0 is not written, value 1
     // is written as the bare name, anything else as `name value`.
+    // A damaged save can contain more than one `conditions` block; the game
+    // loads them in order, so later values win — the same is done here, and
+    // a change is written to every block so a later copy can't undo it.
     get conditions() {
-      const c = this.top('conditions');
       const out = {};
-      if (c) for (const n of c.children.filter(isData)) out[n.tokens[0]] = n.tokens.length > 1 ? toNum(n.tokens[1]) : 1;
+      for (const c of this.topAll('conditions'))
+        for (const n of c.children.filter(isData)) out[n.tokens[0]] = n.tokens.length > 1 ? toNum(n.tokens[1]) : 1;
       return out;
     }
     getCondition(name) { return this.conditions[name] || 0; }
     setCondition(name, value) {
-      const c = this.ensureTop('conditions');
+      const blocks = this.topAll('conditions');
+      if (!blocks.length) blocks.push(this.ensureTop('conditions'));
       const v = Math.trunc(Number(value) || 0);
-      const i = c.children.findIndex(n => isData(n) && n.tokens[0] === name);
-      if (v === 0) { if (i !== -1) c.children.splice(i, 1); return; }
       const tokens = v === 1 ? [name] : [name, String(v)];
-      if (i === -1) c.children.push(makeNode(tokens)); else c.children[i].tokens = tokens;
+      blocks.forEach((c, b) => {
+        const i = c.children.findIndex(n => isData(n) && n.tokens[0] === name);
+        if (v === 0 || (b > 0 && i === -1)) { if (i !== -1) c.children.splice(i, 1); return; }
+        if (i === -1) c.children.push(makeNode(tokens)); else c.children[i].tokens = tokens;
+      });
     }
     deleteCondition(name) { this.setCondition(name, 0); }
 
@@ -512,7 +523,9 @@
         if (insertAt < -1) insertAt = nodes.length - 1;
       }
       nodes.splice(insertAt + 1, 0, def);
-      if (this.flagshipIndex === null || this.flagshipIndex < 0) this.setFlagshipIndex(0);
+      // only pick a flagship if this is the pilot's first ship; -1 with other
+      // ships means "no flagship chosen" and the game picks one itself
+      if (this.ships.length === 1) this.setFlagshipIndex(0);
       return this.ships.find(x => x.node === def);
     }
 
@@ -622,6 +635,41 @@
     get plugins() { return (this.top('plugins')?.children || []).filter(isData).map(n => n.tokens[0]); }
 
     // ── sanity checks before download ────────────────────────────────────
+    /** Story changes in load order (all `changes` blocks, as the game reads them). */
+    get changes() { return this.topAll('changes').flatMap(c => c.children.filter(isData)); }
+
+    /**
+     * Leftovers after the end of the save. The game always writes `plugins`
+     * (and optionally `message log`) last; anything after that comes from an
+     * earlier, longer version of the file that wasn't cleared when the file
+     * was overwritten. The game still loads those stale blocks — older
+     * conditions, story changes and prices — on top of the real save.
+     */
+    trailingJunk() {
+      const nodes = this.root.children;
+      const at = nodes.findIndex(n => key(n) === 'plugins');
+      if (at === -1) return [];
+      const out = [];
+      for (let i = at + 1; i < nodes.length; i++) {
+        const n = nodes[i];
+        if (!isData(n)) continue;
+        if (key(n) === 'message log' && !out.length) continue;
+        out.push(n);
+      }
+      return out;
+    }
+    removeTrailingJunk() {
+      const junk = new Set(this.trailingJunk());
+      if (!junk.size) return 0;
+      const nodes = this.root.children;
+      const at = nodes.findIndex(n => key(n) === 'plugins');
+      let keepUntil = at;
+      for (let i = at + 1; i < nodes.length; i++) if (isData(nodes[i]) && !junk.has(nodes[i])) keepUntil = i;
+      const removed = nodes.length - keepUntil - 1;
+      this.root.children = nodes.slice(0, keepUntil + 1);
+      return removed;
+    }
+
     validate() {
       const problems = [];
       const ships = this.ships;
@@ -632,6 +680,12 @@
         if (!s.uuid) continue;
         if (seen.has(s.uuid)) problems.push(`ships ${seen.get(s.uuid)} and ${s.index} share uuid ${s.uuid}`);
         else seen.set(s.uuid, s.index);
+      }
+      const junk = this.trailingJunk();
+      if (junk.length) problems.push(`${junk.length} leftover block${junk.length === 1 ? '' : 's'} after the end of the save (old data the game would load on top of this save)`);
+      for (const k of ['conditions', 'changes', 'economy', 'account']) {
+        const n = this.topAll(k).length;
+        if (n > 1) problems.push(`the save has ${n} "${k}" sections — usually a sign of a damaged file`);
       }
       if (!this.top('pilot')) problems.push('missing "pilot" line');
       if (!this.top('date'))  problems.push('missing "date" line');

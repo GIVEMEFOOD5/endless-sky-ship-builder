@@ -50,7 +50,7 @@
   }
 
   function supplies(doc) {
-    const eco = doc.top('economy');
+    const eco = doc.topAll('economy').pop();   // a damaged save can have several; the game keeps the last
     const out = new Map();
     if (!eco) return out;
     let header = null;

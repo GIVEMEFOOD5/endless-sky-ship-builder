@@ -1,0 +1,294 @@
+diff --git a/Display/JavaScript/esSaveFile.js b/Display/JavaScript/esSaveFile.js
+index d7d712c6..8fce2add 100644
+--- a/Display/JavaScript/esSaveFile.js
++++ b/Display/JavaScript/esSaveFile.js
+@@ -97,13 +97,18 @@
+       if (mixed) warnings.push(`line ${ln + 1}: mixed tabs and spaces in indentation`);
+ 
+       if (i >= line.length) {                    // empty / whitespace-only line
+-        // Remember it; it's kept only if the next real line is top-level,
+-        // so output diffs cleanly against the game's own layout.
++        // Remembered and placed just before the next real line (below).
+         if (ln < lines.length - 1) pendingBlanks++;
+         continue;
+       }
+-      if (sepCount === 0) for (; pendingBlanks > 0; pendingBlanks--) root.children.push({ blank: true, children: [] });
+-      pendingBlanks = 0;
++      // Blank lines go just before the next real line, inside whatever block
++      // that line belongs to — the game ignores them, but keeping them means
++      // an unedited save is written back byte-for-byte.
++      if (pendingBlanks) {
++        let s = stack.length - 1;
++        while (seps[s] >= sepCount) s--;
++        for (; pendingBlanks > 0; pendingBlanks--) stack[s].children.push({ blank: true, children: [] });
++      }
+ 
+       if (line[i] === '#') {                     // full-line comment
+         const commentNode = { comment: line.slice(i + 1).replace(/\r$/, ''), children: [], line: ln + 1 };
+@@ -331,20 +336,26 @@
+     // ── conditions ───────────────────────────────────────────────────────
+     // Game rule (ConditionsStore::Save): value 0 is not written, value 1
+     // is written as the bare name, anything else as `name value`.
++    // A damaged save can contain more than one `conditions` block; the game
++    // loads them in order, so later values win — the same is done here, and
++    // a change is written to every block so a later copy can't undo it.
+     get conditions() {
+-      const c = this.top('conditions');
+       const out = {};
+-      if (c) for (const n of c.children.filter(isData)) out[n.tokens[0]] = n.tokens.length > 1 ? toNum(n.tokens[1]) : 1;
++      for (const c of this.topAll('conditions'))
++        for (const n of c.children.filter(isData)) out[n.tokens[0]] = n.tokens.length > 1 ? toNum(n.tokens[1]) : 1;
+       return out;
+     }
+     getCondition(name) { return this.conditions[name] || 0; }
+     setCondition(name, value) {
+-      const c = this.ensureTop('conditions');
++      const blocks = this.topAll('conditions');
++      if (!blocks.length) blocks.push(this.ensureTop('conditions'));
+       const v = Math.trunc(Number(value) || 0);
+-      const i = c.children.findIndex(n => isData(n) && n.tokens[0] === name);
+-      if (v === 0) { if (i !== -1) c.children.splice(i, 1); return; }
+       const tokens = v === 1 ? [name] : [name, String(v)];
+-      if (i === -1) c.children.push(makeNode(tokens)); else c.children[i].tokens = tokens;
++      blocks.forEach((c, b) => {
++        const i = c.children.findIndex(n => isData(n) && n.tokens[0] === name);
++        if (v === 0 || (b > 0 && i === -1)) { if (i !== -1) c.children.splice(i, 1); return; }
++        if (i === -1) c.children.push(makeNode(tokens)); else c.children[i].tokens = tokens;
++      });
+     }
+     deleteCondition(name) { this.setCondition(name, 0); }
+ 
+@@ -512,7 +523,9 @@
+         if (insertAt < -1) insertAt = nodes.length - 1;
+       }
+       nodes.splice(insertAt + 1, 0, def);
+-      if (this.flagshipIndex === null || this.flagshipIndex < 0) this.setFlagshipIndex(0);
++      // only pick a flagship if this is the pilot's first ship; -1 with other
++      // ships means "no flagship chosen" and the game picks one itself
++      if (this.ships.length === 1) this.setFlagshipIndex(0);
+       return this.ships.find(x => x.node === def);
+     }
+ 
+@@ -622,6 +635,41 @@
+     get plugins() { return (this.top('plugins')?.children || []).filter(isData).map(n => n.tokens[0]); }
+ 
+     // ── sanity checks before download ────────────────────────────────────
++    /** Story changes in load order (all `changes` blocks, as the game reads them). */
++    get changes() { return this.topAll('changes').flatMap(c => c.children.filter(isData)); }
++
++    /**
++     * Leftovers after the end of the save. The game always writes `plugins`
++     * (and optionally `message log`) last; anything after that comes from an
++     * earlier, longer version of the file that wasn't cleared when the file
++     * was overwritten. The game still loads those stale blocks — older
++     * conditions, story changes and prices — on top of the real save.
++     */
++    trailingJunk() {
++      const nodes = this.root.children;
++      const at = nodes.findIndex(n => key(n) === 'plugins');
++      if (at === -1) return [];
++      const out = [];
++      for (let i = at + 1; i < nodes.length; i++) {
++        const n = nodes[i];
++        if (!isData(n)) continue;
++        if (key(n) === 'message log' && !out.length) continue;
++        out.push(n);
++      }
++      return out;
++    }
++    removeTrailingJunk() {
++      const junk = new Set(this.trailingJunk());
++      if (!junk.size) return 0;
++      const nodes = this.root.children;
++      const at = nodes.findIndex(n => key(n) === 'plugins');
++      let keepUntil = at;
++      for (let i = at + 1; i < nodes.length; i++) if (isData(nodes[i]) && !junk.has(nodes[i])) keepUntil = i;
++      const removed = nodes.length - keepUntil - 1;
++      this.root.children = nodes.slice(0, keepUntil + 1);
++      return removed;
++    }
++
+     validate() {
+       const problems = [];
+       const ships = this.ships;
+@@ -633,6 +681,12 @@
+         if (seen.has(s.uuid)) problems.push(`ships ${seen.get(s.uuid)} and ${s.index} share uuid ${s.uuid}`);
+         else seen.set(s.uuid, s.index);
+       }
++      const junk = this.trailingJunk();
++      if (junk.length) problems.push(`${junk.length} leftover block${junk.length === 1 ? '' : 's'} after the end of the save (old data the game would load on top of this save)`);
++      for (const k of ['conditions', 'changes', 'economy', 'account']) {
++        const n = this.topAll(k).length;
++        if (n > 1) problems.push(`the save has ${n} "${k}" sections — usually a sign of a damaged file`);
++      }
+       if (!this.top('pilot')) problems.push('missing "pilot" line');
+       if (!this.top('date'))  problems.push('missing "date" line');
+       try { stringify(this.root); } catch (e) { problems.push(e.message); }
+diff --git a/Display/JavaScript/esSaveParser.js b/Display/JavaScript/esSaveParser.js
+index cfea6aad..914b9147 100644
+--- a/Display/JavaScript/esSaveParser.js
++++ b/Display/JavaScript/esSaveParser.js
+@@ -458,7 +458,7 @@ function parseESSaveFile(text) {
+ 
+   // cargo (player carried) parser state
+   let inTopCargo       = false;
+-  let inTopCargoOutfits = false;
++  let inTopCargoOutfits = false; let inTopCargoCommodities = false; let inStorageCommodities = false;
+ 
+   // reputation block
+   let inReputation = false;
+@@ -678,6 +678,7 @@ function parseESSaveFile(text) {
+     if (topBlock === 'cargo') {
+       if (indent === 1) {
+         inTopCargoOutfits = (key0 === 'outfits');
++        inTopCargoCommodities = (key0 === 'commodities');
+         continue;
+       }
+       if (indent === 2 && inTopCargoOutfits) {
+@@ -686,6 +687,12 @@ function parseESSaveFile(text) {
+         result.cargo.outfits[oname] = (result.cargo.outfits[oname] || 0) + ocount;
+         continue;
+       }
++      // commodities (tons) — CargoHold::Save writes them before outfits
++      if (indent === 2 && inTopCargoCommodities) {
++        const cname = _esName(toks[0]);
++        result.cargo.commodities[cname] = (result.cargo.commodities[cname] || 0) + (parseInt(toks[1]) || 0);
++        continue;
++      }
+       continue;
+     }
+ 
+@@ -701,8 +708,13 @@ function parseESSaveFile(text) {
+         inStorageOutfits = false;
+         continue;
+       }
+-      if (indent === 2 && key0 === 'cargo')   { inStorageCargo = true; inStorageOutfits = false; continue; }
+-      if (indent === 3 && key0 === 'outfits') { inStorageOutfits = true; continue; }
++      if (indent === 2 && key0 === 'cargo')   { inStorageCargo = true; inStorageOutfits = false; inStorageCommodities = false; continue; }
++      if (indent === 3) { inStorageOutfits = key0 === 'outfits'; inStorageCommodities = key0 === 'commodities'; continue; }
++      if (indent === 4 && storageEntry && inStorageCommodities) {
++        const cname = _esName(toks[0]);
++        storageEntry.cargo.commodities[cname] = (storageEntry.cargo.commodities[cname] || 0) + (parseInt(toks[1]) || 0);
++        continue;
++      }
+       if (indent === 4 && storageEntry && inStorageOutfits) {
+         const oname  = _esName(toks[0]);
+         const ocount = parseInt(toks[1]) || 1;
+diff --git a/Display/JavaScript/mapSaveState.js b/Display/JavaScript/mapSaveState.js
+index 3451b4a4..bc4e45af 100644
+--- a/Display/JavaScript/mapSaveState.js
++++ b/Display/JavaScript/mapSaveState.js
+@@ -101,7 +101,7 @@
+     renderToggle();
+     const usingSave = !!(ctx && pilotView);
+     if (!usingSave && !timeline.previews.length) { pluginOrder = await fetchEvents([], activeOutputNames) || pluginOrder; return; }
+-    const changes = usingSave && ctx.doc ? (ctx.doc.top('changes')?.children || []).filter(n => n.tokens) : [];
++    const changes = usingSave && ctx.doc ? ctx.doc.changes : [];
+     if (ctx) ctx.changes = changes;
+     const refs = new Set(timeline.previews);
+     const collect = nodes => { for (const n of nodes) if (n.tokens[0] === 'event' && n.tokens[1]) refs.add(n.tokens[1]); };
+@@ -174,7 +174,8 @@
+           if (seen.has(a)) continue;             // guard against loops
+           seen.add(a);
+           const kids = eventChangeNodes(a, pluginOrder);
+-          if (!kids.length) missingEvents++;
++          // events that only set conditions or visits have no map changes — that's not "missing"
++          if (!kids.length && !pluginOrder.some(pid => eventCache.has(`${pid}\u0000${a}`))) missingEvents++;
+           run(kids);
+           seen.delete(a);
+           continue;
+diff --git a/Display/JavaScript/mapTradeHelper.js b/Display/JavaScript/mapTradeHelper.js
+index a18845be..d051139e 100644
+--- a/Display/JavaScript/mapTradeHelper.js
++++ b/Display/JavaScript/mapTradeHelper.js
+@@ -50,7 +50,7 @@
+   }
+ 
+   function supplies(doc) {
+-    const eco = doc.top('economy');
++    const eco = doc.topAll('economy').pop();   // a damaged save can have several; the game keeps the last
+     const out = new Map();
+     if (!eco) return out;
+     let header = null;
+diff --git a/Display/JavaScript/saveEditor.js b/Display/JavaScript/saveEditor.js
+index 572fb100..38446220 100644
+--- a/Display/JavaScript/saveEditor.js
++++ b/Display/JavaScript/saveEditor.js
+@@ -275,6 +275,14 @@
+         <span id="sv-status" style="font-size:0.85rem;color:var(--c-text-dim);">${hasEdits ? 'This save has edits.' : 'No edits yet — changes save automatically.'}</span>
+         <p style="flex-basis:100%;margin:0;font-size:0.8rem;color:var(--c-text-dim);">Close Endless Sky before replacing a save file, and keep a copy of the original.</p>
+       </section>
++      ${(() => { const junk = doc.trailingJunk(); return junk.length ? `
++      <section class="panel" style="margin-bottom:20px;border-color:var(--c-warn-text, #f59e0b);">
++        <h2 class="section-title" style="margin-top:0;">⚠ This save file is damaged</h2>
++        <p style="color:var(--c-text-mid);margin:0 0 10px;">After the end of the save there are ${junk.length} leftover blocks from an older copy of the file
++          (it was overwritten without the old ending being cleared). The game loads them on top of your real save, so older story progress,
++          conditions and prices can come back. Repairing removes everything after the save's plugin list.</p>
++        <button class="btn btn-primary btn-sm" data-act="repair">🩹 Remove the leftover data</button>
++      </section>` : ''; })()}
+ 
+       <section class="panel" style="margin-bottom:20px;">
+         <h2 class="section-title">Pilot</h2>
+@@ -449,6 +457,11 @@
+       try {
+         switch (b.dataset.act) {
+           case 'download': return download();
++          case 'repair': {
++            if (!confirm('Remove everything after the end of the save (the leftover old data)? You can undo this with “Revert to original”.')) return;
++            const n = doc.removeTrailingJunk();
++            return changed(`Removed ${n} leftover blocks of old data.`);
++          }
+           case 'writegame': {
+             const problems = doc.validate();
+             if (problems.length && !confirm(`This save has problems the game may not like:\n\n• ${problems.join('\n• ')}\n\nWrite it anyway?`)) return;
+diff --git a/Display/JavaScript/saveHealthCheck.js b/Display/JavaScript/saveHealthCheck.js
+index f80a2568..4ebbe291 100644
+--- a/Display/JavaScript/saveHealthCheck.js
++++ b/Display/JavaScript/saveHealthCheck.js
+@@ -75,7 +75,7 @@
+       }
+     }
+     for (const e of doc.events) if (e.name) add('event', e.name, 'scheduled event');
+-    for (const n of (doc.top('changes')?.children || [])) if (n.tokens && n.tokens[0] === 'event') add('event', n.tokens[1], 'story history');
++    for (const n of doc.changes) if (n.tokens && n.tokens[0] === 'event') add('event', n.tokens[1], 'story history');
+     for (const g of Object.keys(doc.reputations)) add('government', g, 'reputation');
+     for (const s of doc.visitedSystems) add('system', s, 'visited');
+     for (const p of doc.visitedPlanets) add('planet', p, 'visited');
+diff --git a/Display/JavaScript/saveManager.js b/Display/JavaScript/saveManager.js
+index 2dfa1a89..c92a0f4e 100644
+--- a/Display/JavaScript/saveManager.js
++++ b/Display/JavaScript/saveManager.js
+@@ -604,7 +604,9 @@ function renderStatStrip() {
+ 
+   const cells = [
+     { label: 'Credits',         value: (parsedSave.account.credits || 0).toLocaleString() },
+-    { label: 'Combat Score',    value: (parsedSave.account.score   || 0).toLocaleString() },
++    // account "score" is the credit score (mortgage terms, 400–800); combat
++    // rating is the "combat rating" condition
++    { label: 'Combat Rating',   value: (Number(parsedSave.pilot?.conditions?.['combat rating']) || 0).toLocaleString() },
+     { label: 'Ships',           value: ships.length },
+     { label: 'Active',          value: active },
+     { label: 'Parked',          value: parked },
+@@ -680,8 +682,10 @@ function renderFleetGrid() {
+ 
+ function renderCargoStorage() {
+   const cargoEntries = Object.entries(parsedSave.cargo.outfits || {});
+-  el('cargoList').innerHTML = cargoEntries.length
+-    ? `<div class="ld-pills">${cargoEntries.map(([name, count]) =>
++  const commodityEntries = Object.entries(parsedSave.cargo.commodities || {}).filter(([, t]) => t > 0);
++  el('cargoList').innerHTML = (cargoEntries.length || commodityEntries.length)
++    ? `<div class="ld-pills">${commodityEntries.map(([name, tons]) =>
++        `<span class="ld-pill">${esc(name)} · ${tons.toLocaleString()} t</span>`).join('')}${cargoEntries.map(([name, count]) =>
+         `<span class="ld-pill">${esc(name)}${count > 1 ? ` ×${count}` : ''}</span>`).join('')}</div>`
+     : `<div class="ld-empty">No cargo carried.</div>`;
+ 
+@@ -709,7 +713,8 @@ function renderAccountLicenses() {
+   const a = parsedSave.account;
+   const cells = [
+     { label: 'Credits',      value: (a.credits || 0).toLocaleString() },
+-    { label: 'Combat Score', value: (a.score   || 0).toLocaleString() },
++    { label: 'Credit Score',  value: (a.score   || 0).toLocaleString() },
++    { label: 'Combat Rating', value: (Number(parsedSave.pilot?.conditions?.['combat rating']) || 0).toLocaleString() },
+     ...Object.entries(a.salaries || {}).map(([k, v]) => ({ label: 'Salary: ' + k, value: v.toLocaleString() + ' cr' })),
+   ];
+   el('accountGrid').innerHTML = cells.map(c => `

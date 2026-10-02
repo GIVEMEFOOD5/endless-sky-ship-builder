@@ -458,7 +458,7 @@ function parseESSaveFile(text) {
 
   // cargo (player carried) parser state
   let inTopCargo       = false;
-  let inTopCargoOutfits = false;
+  let inTopCargoOutfits = false; let inTopCargoCommodities = false; let inStorageCommodities = false;
 
   // reputation block
   let inReputation = false;
@@ -678,12 +678,19 @@ function parseESSaveFile(text) {
     if (topBlock === 'cargo') {
       if (indent === 1) {
         inTopCargoOutfits = (key0 === 'outfits');
+        inTopCargoCommodities = (key0 === 'commodities');
         continue;
       }
       if (indent === 2 && inTopCargoOutfits) {
         const oname = _esName(toks[0]);
         const ocount = parseInt(toks[1]) || 1;
         result.cargo.outfits[oname] = (result.cargo.outfits[oname] || 0) + ocount;
+        continue;
+      }
+      // commodities (tons) — CargoHold::Save writes them before outfits
+      if (indent === 2 && inTopCargoCommodities) {
+        const cname = _esName(toks[0]);
+        result.cargo.commodities[cname] = (result.cargo.commodities[cname] || 0) + (parseInt(toks[1]) || 0);
         continue;
       }
       continue;
@@ -701,8 +708,13 @@ function parseESSaveFile(text) {
         inStorageOutfits = false;
         continue;
       }
-      if (indent === 2 && key0 === 'cargo')   { inStorageCargo = true; inStorageOutfits = false; continue; }
-      if (indent === 3 && key0 === 'outfits') { inStorageOutfits = true; continue; }
+      if (indent === 2 && key0 === 'cargo')   { inStorageCargo = true; inStorageOutfits = false; inStorageCommodities = false; continue; }
+      if (indent === 3) { inStorageOutfits = key0 === 'outfits'; inStorageCommodities = key0 === 'commodities'; continue; }
+      if (indent === 4 && storageEntry && inStorageCommodities) {
+        const cname = _esName(toks[0]);
+        storageEntry.cargo.commodities[cname] = (storageEntry.cargo.commodities[cname] || 0) + (parseInt(toks[1]) || 0);
+        continue;
+      }
       if (indent === 4 && storageEntry && inStorageOutfits) {
         const oname  = _esName(toks[0]);
         const ocount = parseInt(toks[1]) || 1;

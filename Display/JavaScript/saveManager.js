@@ -604,7 +604,9 @@ function renderStatStrip() {
 
   const cells = [
     { label: 'Credits',         value: (parsedSave.account.credits || 0).toLocaleString() },
-    { label: 'Combat Score',    value: (parsedSave.account.score   || 0).toLocaleString() },
+    // account "score" is the credit score (mortgage terms, 400–800); combat
+    // rating is the "combat rating" condition
+    { label: 'Combat Rating',   value: (Number(parsedSave.pilot?.conditions?.['combat rating']) || 0).toLocaleString() },
     { label: 'Ships',           value: ships.length },
     { label: 'Active',          value: active },
     { label: 'Parked',          value: parked },
@@ -680,8 +682,10 @@ function renderFleetGrid() {
 
 function renderCargoStorage() {
   const cargoEntries = Object.entries(parsedSave.cargo.outfits || {});
-  el('cargoList').innerHTML = cargoEntries.length
-    ? `<div class="ld-pills">${cargoEntries.map(([name, count]) =>
+  const commodityEntries = Object.entries(parsedSave.cargo.commodities || {}).filter(([, t]) => t > 0);
+  el('cargoList').innerHTML = (cargoEntries.length || commodityEntries.length)
+    ? `<div class="ld-pills">${commodityEntries.map(([name, tons]) =>
+        `<span class="ld-pill">${esc(name)} · ${tons.toLocaleString()} t</span>`).join('')}${cargoEntries.map(([name, count]) =>
         `<span class="ld-pill">${esc(name)}${count > 1 ? ` ×${count}` : ''}</span>`).join('')}</div>`
     : `<div class="ld-empty">No cargo carried.</div>`;
 
@@ -709,7 +713,8 @@ function renderAccountLicenses() {
   const a = parsedSave.account;
   const cells = [
     { label: 'Credits',      value: (a.credits || 0).toLocaleString() },
-    { label: 'Combat Score', value: (a.score   || 0).toLocaleString() },
+    { label: 'Credit Score',  value: (a.score   || 0).toLocaleString() },
+    { label: 'Combat Rating', value: (Number(parsedSave.pilot?.conditions?.['combat rating']) || 0).toLocaleString() },
     ...Object.entries(a.salaries || {}).map(([k, v]) => ({ label: 'Salary: ' + k, value: v.toLocaleString() + ' cr' })),
   ];
   el('accountGrid').innerHTML = cells.map(c => `

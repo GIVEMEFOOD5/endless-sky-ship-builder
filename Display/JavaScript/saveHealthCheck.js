@@ -75,7 +75,7 @@
       }
     }
     for (const e of doc.events) if (e.name) add('event', e.name, 'scheduled event');
-    for (const n of (doc.top('changes')?.children || [])) if (n.tokens && n.tokens[0] === 'event') add('event', n.tokens[1], 'story history');
+    for (const n of doc.changes) if (n.tokens && n.tokens[0] === 'event') add('event', n.tokens[1], 'story history');
     for (const g of Object.keys(doc.reputations)) add('government', g, 'reputation');
     for (const s of doc.visitedSystems) add('system', s, 'visited');
     for (const p of doc.visitedPlanets) add('planet', p, 'visited');
