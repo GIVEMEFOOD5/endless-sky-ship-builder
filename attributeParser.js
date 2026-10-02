@@ -183,6 +183,9 @@ const SOURCE_FILES = {
   damageDealtH:      `${ES_RAW}/DamageDealt.h`,
   jumpNavCpp:        `${ES_RAW}/ShipJumpNavigation.cpp`,
   jumpNavH:          `${ES_RAW}/ShipJumpNavigation.h`,
+  // Newer game versions read ship attributes through a cache
+  // (cache.drag, cache.inertiaReduction …) filled in this file.
+  shipAttrCacheCpp:  `${ES_RAW}/ship/ShipAttributeCache.cpp`,
   // Read only by deriveGameRules() — not attribute sources
   playerInfoCpp:     `${ES_RAW}/PlayerInfo.cpp`,
   aiCpp:             `${ES_RAW}/AI.cpp`,
@@ -203,7 +206,6 @@ const SEED_PATHS = new Set([
 ]);
 
 const DATA_FILES = {
-  solSystem: `${ES_DATA}/human/Sol.txt`,
   tooltips:  `${ES_DATA}/_ui/tooltips.txt`,
 };
 
@@ -732,6 +734,40 @@ function parseOutfitInfoDisplay(src) {
 // Parse Ship.cpp
 // ---------------------------------------------------------------------------
 
+// ---------------------------------------------------------------------------
+// Ship attribute cache (newer game versions)
+//
+// Ship.cpp now reads most attributes as `cache.<member>` instead of
+// `attributes.Get("…")`; ship/ShipAttributeCache.cpp fills those members
+// (`drag = attributes.Get("drag");`, `hullRepairRate = (…Get("hull repair
+// rate")…) * (1. + …)`). Inlining each member's expression back into
+// Ship.cpp lets every existing extractor see which attributes a function
+// really uses. With an older game (no cache file) this does nothing.
+// ---------------------------------------------------------------------------
+function parseAttributeCache(src) {
+  const map = new Map();
+  if (!src) return map;
+  src = src.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/\/\/[^\n]*/g, ' ');   // drop comments
+  // one statement at a time (split on ; and braces)
+  for (const stmt of src.split(/[;{}]/)) {
+    const m = stmt.match(/^\s*([A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*)\s*=(?!=)\s*([\s\S]+?)\s*$/);
+    if (m && /\.Get\s*\(/.test(m[2])) map.set(m[1], m[2].replace(/\s+/g, ' ').trim());
+  }
+  return map;
+}
+function inlineAttributeCache(shipSrc, cacheMap) {
+  if (!shipSrc || !cacheMap || !cacheMap.size) return shipSrc;
+  return shipSrc.replace(/\bcache\.([A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*)/g, (whole, path) => {
+    // longest known member wins: cache.hullRepairCost.energy before cache.hullRepairCost
+    const parts = path.split('.');
+    for (let n = parts.length; n > 0; n--) {
+      const key = parts.slice(0, n).join('.');
+      if (cacheMap.has(key)) return '(' + cacheMap.get(key) + ')' + (n < parts.length ? '.' + parts.slice(n).join('.') : '');
+    }
+    return whole;
+  });
+}
+
 function parseShipCpp(src) {
   const allFnBodies = extractFunctionBodies(src, 'Ship::');
   const parsed      = {};
@@ -1029,7 +1065,8 @@ function parseShipTakeDamage(shipCppSrc) {
   const details = new Map();
   if (!shipCppSrc) return details;
 
-  const takeDmgMatch = shipCppSrc.match(/\bTakeDamage\s*\([^)]*\)\s*(?:const\s*)?(?:noexcept\s*)?\{/);
+  const takeDmgMatch = shipCppSrc.match(/Ship::(?:Do)?TakeDamage\s*\([^)]*\)\s*(?:const\s*)?(?:noexcept\s*)?\{/)
+      || shipCppSrc.match(/\b(?:Do)?TakeDamage\s*\([^)]*\)\s*(?:const\s*)?(?:noexcept\s*)?\{/);
   if (!takeDmgMatch) return details;
 
   const bodyStart = takeDmgMatch.index + takeDmgMatch[0].length;
@@ -1220,7 +1257,8 @@ async function deriveDamageTypesStructurally(opts) {
   // ---- shieldInteraction/category detection, re-pointed at the discovered accessor ----
   const shipCppDetails = new Map();
   if (shipCppSrc && structFields.length) {
-    const takeDmgMatch = shipCppSrc.match(/\bTakeDamage\s*\([^)]*\)\s*(?:const\s*)?(?:noexcept\s*)?\{/);
+    const takeDmgMatch = shipCppSrc.match(/Ship::(?:Do)?TakeDamage\s*\([^)]*\)\s*(?:const\s*)?(?:noexcept\s*)?\{/)
+      || shipCppSrc.match(/\b(?:Do)?TakeDamage\s*\([^)]*\)\s*(?:const\s*)?(?:noexcept\s*)?\{/);
     if (takeDmgMatch) {
       const bodyStart = takeDmgMatch.index + takeDmgMatch[0].length;
       let depth = 1, i = bodyStart;
@@ -2068,20 +2106,17 @@ async function parseAttributes(outputDir, cliOpts = {}) {
       sources[name] = await fetchText(url);
       console.log(`✓  ${sources[name].length.toLocaleString()} bytes`);
     } catch (err) {
-      console.log(`✗  ${err.message}`);
+      // Files that only exist in some game versions: DamageDealt.cpp became
+      // header-only, ShipAttributeCache.cpp only exists in newer versions.
+      const optional = ['damageDealtCpp', 'shipAttrCacheCpp'].includes(name);
+      console.log(optional && /404/.test(err.message) ? '–  not in this game version (fine)' : `✗  ${err.message}`);
       sources[name] = '';
     }
   }
 
-  let systemContext = parseSystemContext(null);
-  process.stdout.write(`  Fetching Sol.txt                `);
-  try {
-    const solText = await fetchText(DATA_FILES.solSystem);
-    systemContext = parseSystemContext(solText);
-    console.log(`✓  ${solText.length.toLocaleString()} bytes`);
-  } catch (err) {
-    console.log(`✗  ${err.message} (using default solar power 1.0)`);
-  }
+  // Reference solar power is 1.0 by definition (the game's Sol); nothing in
+  // Sol's data file changes that, so it's no longer fetched.
+  const systemContext = parseSystemContext(null);
 
   let tooltipMap = new Map();
   process.stdout.write(`  Fetching tooltips.txt           `);
@@ -2100,7 +2135,10 @@ async function parseAttributes(outputDir, cliOpts = {}) {
     : { scaleLabels: [], scaleMap: {}, booleanAttrs: {}, valueNames: [], percentNames: [], otherNames: [], expectedNegative: [], beforeAttrs: [], allAttributeKeys: [] };
   console.log(`  OutfitInfoDisplay  ${Object.keys(oidData.scaleMap).length} scale, ${Object.keys(oidData.booleanAttrs).length} boolean, ${oidData.valueNames.length} weapon stat names`);
 
-  const shipFns = sources.shipCpp ? parseShipCpp(sources.shipCpp) : {};
+  const attrCache = parseAttributeCache(sources.shipAttrCacheCpp);
+  const shipCppInlined = inlineAttributeCache(sources.shipCpp, attrCache);
+  if (attrCache.size) console.log(`  Attribute cache    ${attrCache.size} cached members inlined into Ship.cpp`);
+  const shipFns = sources.shipCpp ? parseShipCpp(shipCppInlined) : {};
   console.log(`  Ship.cpp           ${Object.keys(shipFns).length} functions`);
 
   const shipDisplay = sources.shipInfoDisplay
@@ -2436,4 +2474,5 @@ module.exports = {
   scanDataFolderUsage, deriveCategoryAreaHints,
   deriveDamageTypesStructurally,
   deriveShipRequirements, parseFinishLoadingRequirements, deriveGameRules,
+  parseAttributeCache, inlineAttributeCache, parseShipCpp, parseShipTakeDamage,
 };

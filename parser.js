@@ -572,6 +572,13 @@ class EndlessSkyParser {
     });
     const winner = ranked[0];
     const losers = ranked.slice(1).map(s => s._pluginId).join(', ');
+    // Same base ship + same competing plugins → say it once (a plugin that
+    // redefines every base ship, like "1requiredcrew", used to print
+    // thousands of identical lines). The full count is in the summary.
+    this._collisionSeen = this._collisionSeen || new Map();
+    const ckey = `${baseName}|${losers}`;
+    this._collisionSeen.set(ckey, (this._collisionSeen.get(ckey) || 0) + 1);
+    if (this._collisionSeen.get(ckey) > 1) return { baseShip: winner, error: null };
     console.warn(
       `    ⚠ Collision on base ship "${baseName}" for variant in "${variantPluginId}". ` +
       `Plugins with this ship: ${candidates.map(s => s._pluginId).join(', ')}. ` +
@@ -2657,13 +2664,17 @@ class EndlessSkyParser {
 
   resolveAllOutfitPluginIds() {
     let resolved = 0, stillMissing = 0;
+    const missingNames = new Map();   // name → times referenced (printed once each, below)
     const resolveMap = (outfitMap, ownerPluginId) => {
       if (!outfitMap || typeof outfitMap !== 'object') return;
       for (const [name, val] of Object.entries(outfitMap)) {
         if (typeof val === 'object' && val.pluginId === null) {
           const found = this._resolveOutfitPluginId(name, ownerPluginId);
           if (found) { val.pluginId = found; resolved++; }
-          else { stillMissing++; console.warn(`    ⚠ Outfit not found in any plugin: "${name}"`); }
+          else {
+            stillMissing++;
+            missingNames.set(name, (missingNames.get(name) || 0) + 1);
+          }
         }
       }
     };
@@ -2677,7 +2688,17 @@ class EndlessSkyParser {
             else { refsStillMissing++; }
         }
     }
+    if (missingNames.size) {
+      const list = [...missingNames.entries()].sort((a, b) => b[1] - a[1]);
+      console.warn(`    ⚠ ${missingNames.size} outfit name(s) used by ships/variants aren't defined by any plugin (usually an outfit from a plugin not in plugins.json):`);
+      for (const [n, c] of list.slice(0, 40)) console.warn(`       ${n}${c > 1 ? `  ×${c}` : ''}`);
+      if (list.length > 40) console.warn(`       … and ${list.length - 40} more`);
+    }
     console.log(`  Outfit pluginId resolution: ${resolved} resolved, ${stillMissing} still missing`);
+    if (this._collisionSeen && this._collisionSeen.size) {
+      const total = [...this._collisionSeen.values()].reduce((a, b) => a + b, 0);
+      console.log(`  Base-ship collisions: ${this._collisionSeen.size} distinct (${total} variant lookups) — each printed once above`);
+    }
   }
 
   /**

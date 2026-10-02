@@ -188,6 +188,7 @@ class SpeciesResolver {
    */
   resolveFleetGovernmentGaps() {
     let resolved = 0, stillUnresolved = 0;
+    let seenFleetWarn = null;   // each fleet name warned about once
     for (const entry of this.fleets) {
       if (entry.government) continue;
       if (!entry.name) { stillUnresolved++; continue; }
@@ -199,7 +200,11 @@ class SpeciesResolver {
         resolved++;
       } else {
         stillUnresolved++;
-        console.warn(`    ⚠ Fleet "${entry.name}" (plugin ${entry.pluginId}) has ships but no government could be found in any of its definitions.`);
+        seenFleetWarn = seenFleetWarn || new Set();
+        if (!seenFleetWarn.has(entry.name)) {
+          seenFleetWarn.add(entry.name);
+          console.warn(`    ⚠ Fleet "${entry.name}" (plugin ${entry.pluginId}) has ships but no government could be found in any of its definitions.`);
+        }
       }
     }
     console.log(`  Fleet government-gap resolution: ${resolved} resolved, ${stillUnresolved} unresolved`);
@@ -242,10 +247,13 @@ class SpeciesResolver {
         resolved++;
       } else {
         stillUnresolved++;
-        console.warn(`    ⚠ Planet "${entry.name}" (plugin ${entry.pluginId}) has shipyards/outfitters listed but no government could be found in any of its definitions.`);
+        // Most planets have no government line of their own — they use their
+        // system's — so this is normal; only a few examples are printed.
+        if (stillUnresolved <= 5) console.warn(`    ⚠ Planet "${entry.name}" (plugin ${entry.pluginId}) has shipyards/outfitters listed but no government of its own.`);
       }
     }
-    console.log(`  Planet government-gap resolution: ${resolved} resolved, ${stillUnresolved} unresolved`);
+    console.log(`  Planet government-gap resolution: ${resolved} resolved, ${stillUnresolved} unresolved` +
+      (stillUnresolved > 5 ? ` (first 5 shown; planets normally take their system's government)` : ''));
   }
 
   // ── Internal lookups ─────────────────────────────────────────────────────────
