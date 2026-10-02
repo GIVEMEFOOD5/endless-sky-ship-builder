@@ -36,6 +36,10 @@
   let summary = null;
   let lastMap = null;          // { systemsByName, pluginDataMap, activeOutputNames } after apply()
   const eventCache = new Map(); // "plugin_id\0name" → raw text
+  // Timeline (mapTimeline.js): how much of the save's history to replay
+  // (null = all of it), and extra events to preview on top, in order.
+  let timeline = { cutIndex: null, previews: [] };
+  let pluginOrder = [];
 
   // ── which save is selected ───────────────────────────────────────────────
   async function loadSelectedSave() {
@@ -95,25 +99,63 @@
     ctx = await loadSelectedSave();
     summary = null;
     renderToggle();
-    if (!ctx || !pilotView) return;
-    const changes = ctx.doc ? (ctx.doc.top('changes')?.children || []).filter(n => n.tokens) : [];
-    const refs = new Set();
+    const usingSave = !!(ctx && pilotView);
+    if (!usingSave && !timeline.previews.length) { pluginOrder = await fetchEvents([], activeOutputNames) || pluginOrder; return; }
+    const changes = usingSave && ctx.doc ? (ctx.doc.top('changes')?.children || []).filter(n => n.tokens) : [];
+    if (ctx) ctx.changes = changes;
+    const refs = new Set(timeline.previews);
     const collect = nodes => { for (const n of nodes) if (n.tokens[0] === 'event' && n.tokens[1]) refs.add(n.tokens[1]); };
     collect(changes);
-    ctx.changes = changes;
-    ctx.pluginOrder = await fetchEvents(refs, activeOutputNames) || [];
+    pluginOrder = await fetchEvents(refs, activeOutputNames) || [];
+    if (ctx) ctx.pluginOrder = pluginOrder;
     // events can reference events — one more round catches almost all
     const nested = new Set();
-    for (const r of refs) for (const n of eventChangeNodes(r, ctx.pluginOrder)) if (n.tokens[0] === 'event' && n.tokens[1] && !refs.has(n.tokens[1])) nested.add(n.tokens[1]);
+    for (const r of refs) for (const n of eventChangeNodes(r, pluginOrder)) if (n.tokens[0] === 'event' && n.tokens[1] && !refs.has(n.tokens[1])) nested.add(n.tokens[1]);
     if (nested.size) await fetchEvents(nested, activeOutputNames);
+  }
+
+  // The save's history as steps: one per day the game recorded changes on
+  // (the save writes a `date d m y` line before each day's changes).
+  function historySteps() {
+    const changes = (ctx && ctx.changes) || [];
+    const steps = [];
+    let cur = null;
+    changes.forEach((n, i) => {
+      if (n.tokens[0] === 'date') {
+        cur = { date: { day: +n.tokens[1], month: +n.tokens[2], year: +n.tokens[3] }, start: i, end: i + 1, events: [] };
+        steps.push(cur);
+        return;
+      }
+      if (!cur) { cur = { date: null, start: i, end: i, events: [] }; steps.push(cur); }
+      cur.end = i + 1;
+      cur.events.push(n.tokens[0] === 'event' ? n.tokens[1] : `${n.tokens[0]} ${n.tokens[1] || ''}`.trim());
+    });
+    return steps.filter(st => st.events.length);
+  }
+  /** Names of every event in the replayed part of the save's history. */
+  function happenedEvents() {
+    const changes = (ctx && ctx.changes) || [];
+    const out = new Map();
+    let date = null;
+    for (const n of changes) {
+      if (n.tokens[0] === 'date') date = { day: +n.tokens[1], month: +n.tokens[2], year: +n.tokens[3] };
+      else if (n.tokens[0] === 'event' && n.tokens[1]) out.set(n.tokens[1], date);
+    }
+    return out;
+  }
+  function setTimeline(patch) {
+    timeline = { ...timeline, ...patch };
+    if (typeof window._renderCardsFromManager === 'function') window._renderCardsFromManager(false);
   }
 
   // ── apply (sync) — mutates the freshly formatted map data ────────────────
   function apply({ systemsByName, planetsBySystem, governmentColors, pluginDataMap, activeOutputNames }) {
     notesBySystem = new Map();
-    lastMap = null;
-    if (!ctx || !pilotView) { document.dispatchEvent(new CustomEvent('mapSaveStateApplied')); return; }
-    const note = (sys, text) => { if (!notesBySystem.has(sys)) notesBySystem.set(sys, []); notesBySystem.get(sys).push(text); };
+    lastMap = { systemsByName, pluginDataMap, activeOutputNames };
+    const usingSave = !!(ctx && pilotView);
+    if (!usingSave && !timeline.previews.length) { summary = null; document.dispatchEvent(new CustomEvent('mapSaveStateApplied')); return; }
+    let notePrefix = '';
+    const note = (sys, text) => { if (!notesBySystem.has(sys)) notesBySystem.set(sys, []); notesBySystem.get(sys).push(notePrefix + text); };
 
     // base flags (not part of the formatted systems)
     const flags = new Map();
@@ -131,7 +173,7 @@
         if (key === 'event' && a) {
           if (seen.has(a)) continue;             // guard against loops
           seen.add(a);
-          const kids = eventChangeNodes(a, ctx.pluginOrder);
+          const kids = eventChangeNodes(a, pluginOrder);
           if (!kids.length) missingEvents++;
           run(kids);
           seen.delete(a);
@@ -273,11 +315,20 @@
       if (rgb.every(Number.isFinite)) governmentColors.set(name, { ...(governmentColors.get(name) || {}), color: rgb });
     }
 
-    run(ctx.changes || []);
+    if (usingSave) {
+      const all = ctx.changes || [];
+      run(timeline.cutIndex == null ? all : all.slice(0, timeline.cutIndex));
+    }
+    // previewed events on top, in the order they were picked
+    for (const name of timeline.previews) {
+      notePrefix = `If “${name}” happens: `;
+      run([{ tokens: ['event', name], children: [] }]);
+    }
+    notePrefix = '';
 
     // hidden / inaccessible systems the pilot hasn't found stay off the map
     let hiddenCount = 0;
-    for (const [name, f] of flags) {
+    if (usingSave) for (const [name, f] of flags) {
       if ((f.hidden || f.inaccessible) && !ctx.visitedSystems.has(name) && systemsByName.has(name)) {
         systemsByName.delete(name); hiddenCount++;
       }
@@ -286,8 +337,8 @@
     planetsBySystem.clear();
     for (const s of systemsByName.values()) if (s.planets.length) planetsBySystem.set(s.name, s.planets);
 
-    summary = { ...(summary || {}), applied, missingEvents, hiddenCount, hasText: !!ctx.doc, missionsHidden: 0 };
-    lastMap = { systemsByName, pluginDataMap, activeOutputNames };
+    summary = { ...(summary || {}), applied, missingEvents, hiddenCount, hasText: !!(ctx && ctx.doc), missionsHidden: 0,
+                usingSave, previews: timeline.previews.length, cut: timeline.cutIndex != null };
     document.dispatchEvent(new CustomEvent('mapSaveStateApplied'));
   }
 
@@ -338,8 +389,11 @@
   }
 
   function subtitleSuffix() {
-    if (!ctx || !pilotView || !summary) return '';
-    const bits = [`showing ${ctx.pilot}'s galaxy`];
+    if (!summary) return '';
+    const bits = [];
+    if (summary.previews) bits.push(`previewing ${summary.previews} event${summary.previews === 1 ? '' : 's'}`);
+    if (!summary.usingSave) return bits.length ? ' · ' + bits.join(' · ') : '';
+    bits.unshift(summary.cut ? `showing ${ctx.pilot}'s galaxy at an earlier date` : `showing ${ctx.pilot}'s galaxy`);
     if (!summary.hasText) bits.push('re-upload this save to include story changes');
     else if (summary.eventsUnavailable) bits.push('story changes unavailable until the parser has stored events');
     else if (summary.missingEvents) bits.push(`${summary.missingEvents} story event${summary.missingEvents === 1 ? '' : 's'} not found in the active plugins`);
@@ -350,8 +404,9 @@
 
   function detailsHtml(system) {
     const notes = notesBySystem.get(system.name);
-    if (!notes || !notes.length || !ctx || !pilotView) return '';
-    return `<div class="map-details-section"><h3>Changed in ${h(ctx.pilot)}'s save</h3>
+    if (!notes || !notes.length) return '';
+    const title = ctx && pilotView ? `Changed in ${h(ctx.pilot)}'s save` : 'Changed by previewed events';
+    return `<div class="map-details-section"><h3>${title}</h3>
       <ul style="margin:0;padding-left:18px;color:var(--c-text-mid);font-size:0.88rem;">${[...new Set(notes)].map(n => `<li>${h(n)}</li>`).join('')}</ul></div>`;
   }
 
@@ -362,5 +417,9 @@
   document.addEventListener('DOMContentLoaded', renderToggle);
 
   window.MapSaveState = { prepare, apply, filterMissions, detailsHtml, subtitleSuffix, isActive: () => !!(ctx && pilotView),
-    context: () => ctx, lastMap: () => lastMap };
+    context: () => ctx, lastMap: () => lastMap,
+    // timeline (mapTimeline.js)
+    historySteps, happenedEvents, setTimeline, timeline: () => ({ ...timeline }),
+    usingSave: () => !!(ctx && pilotView),
+    fetchEvents, eventChangeNodes, pluginOrder: () => pluginOrder };
 })();
