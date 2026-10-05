@@ -39,6 +39,7 @@
     const { data: owner } = await window.supabaseClient.from('profiles').select('username').eq('id', ship.user_id).maybeSingle();
     const me = window.EsAuth && window.EsAuth.getCurrentUser();
     const mine = me && me.id === ship.user_id;
+    if (window.PluginAvailability) await window.PluginAvailability.ready;
     const b = ship.build_data || {};
     const a = b.attributes || {};
     const outfits = b.outfits && typeof b.outfits === 'object' ? Object.values(b.outfits).reduce((n, o) => n + (o.count || 1), 0) : 0;
@@ -55,6 +56,7 @@
         <div class="fleet-card__stat"><div class="fleet-card__stat-label">Hull</div><div class="fleet-card__stat-value">${h(a.hull || '—')}</div></div>
         <div class="fleet-card__stat"><div class="fleet-card__stat-label">Outfits</div><div class="fleet-card__stat-value">${outfits}</div></div>
       </div>
+      ${window.PluginAvailability ? window.PluginAvailability.noticeHtml(b) : ''}
       ${fleets.length ? `<label for="sb-shared-fleet" style="display:block;font-size:0.85rem;margin-bottom:6px;">Add a copy to</label>
         <select id="sb-shared-fleet" class="text-input">${fleets.map(f => `<option value="${h(f.id)}"${f.id === window.FleetStore.activeId ? ' selected' : ''}>${h(f.name)} (${f.shipCount})</option>`).join('')}</select>` : ''}
       <div class="btn-group btn-group-right">

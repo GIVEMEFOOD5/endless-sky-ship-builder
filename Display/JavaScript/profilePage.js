@@ -42,11 +42,12 @@
   if (shipErr) { grid.innerHTML = `<p style="color:var(--c-danger-text);">Could not load ships: ${h(shipErr.message)}</p>`; return; }
   if (!ships.length) { grid.innerHTML = '<p style="color:var(--c-text-dim);">This pilot hasn’t shared any ships yet.</p>'; return; }
 
+  if (window.PluginAvailability) await window.PluginAvailability.ready;
   grid.innerHTML = ships.map(s => {
     const b = s.build_data || {}, a = b.attributes || {};
     const link = new URL('shipBuilder.html', location.href); link.searchParams.set('shared', s.id);
     return `<div class="fleet-card">
-      <div class="fleet-card__name">${h(s.name)}</div>
+      <div class="fleet-card__name">${h(s.name)}${window.PluginAvailability ? window.PluginAvailability.badgeHtml(b) : ''}</div>
       <div class="fleet-card__variant">${h(b._sourceShip || '')}</div>
       <div class="fleet-card__stats">
         <div class="fleet-card__stat"><div class="fleet-card__stat-label">Category</div><div class="fleet-card__stat-value" style="font-size:0.8rem;">${h(a.category || '—')}</div></div>

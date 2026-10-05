@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: '0 0 1 * *'
   workflow_dispatch:
+    inputs:
+      full_refresh:
+        description: 'Push everything again, ignoring the cache of the last run'
+        type: boolean
+        default: false
   push:
     paths:
       - 'plugins.json'
@@ -26,6 +31,7 @@ jobs:
           sparse-checkout: |
             plugins.json
             parser.js
+            Display/JavaScript/pluginRefs.js
             speciesResolver.js
             locationResolver.js
             attributeParser.js
@@ -45,13 +51,30 @@ jobs:
           git rm -r --cached data/ --quiet || true
           rm -rf data/
 
+      # What the last successful run pushed (see pushCache.js), so this run
+      # only sends changes. Restores the newest saved cache.
+      - name: Restore parse cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .parse-cache
+          key: parse-cache-${{ github.run_id }}
+          restore-keys: parse-cache-
+
       - name: Run parser
         env:
+          PARSE_FULL: ${{ inputs.full_refresh && '1' || '' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_PATH: /tmp/parser-deps/node_modules
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: node parser.js
+
+      - name: Save parse cache
+        if: success()
+        uses: actions/cache/save@v4
+        with:
+          path: .parse-cache
+          key: parse-cache-${{ github.run_id }}
 
       - name: Commit parsed data
         run: |

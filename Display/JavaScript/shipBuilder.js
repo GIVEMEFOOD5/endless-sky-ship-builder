@@ -645,7 +645,7 @@ function renderFleet() {
         ? `<span class="badge badge-blue" style="font-size:0.65rem;margin-left:6px;">based on ${esc(s._sourceShip)}</span>`
         : '';
       return `<div class="fleet-card" onclick="sbEditFleetShip(${i})">
-        <div class="fleet-card__name">${esc(s.name || 'Unnamed Ship')}${src}</div>
+        <div class="fleet-card__name">${esc(s.name || 'Unnamed Ship')}${src}${(window.PluginAvailability ? window.PluginAvailability.badgeHtml(s) : '')}</div>
         <div class="fleet-card__variant">${s.variant ? esc(s.variant) : '<em style="color:var(--c-text-dim)">No variant</em>'}</div>
         <div class="fleet-card__stats">
           <div class="fleet-card__stat"><div class="fleet-card__stat-label">Shields</div><div class="fleet-card__stat-value">${a.shields || '—'}</div></div>
@@ -2724,3 +2724,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   SBS.hookIntoBuilder();
 });
+
+// Ships that use a plugin removed from the site get a "⚠ Needs …" badge
+// (pluginAvailability.js) — redraw the fleet once that list has loaded.
+document.addEventListener('pluginAvailabilityReady', () => { try { renderFleet(); } catch (_) {} });

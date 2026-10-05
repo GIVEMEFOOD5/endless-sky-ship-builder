@@ -433,7 +433,7 @@ class LocationResolver {
   _mergePersons(result, shipName, ownerPluginId) {
     for (const ref of this.personShips) {
       if (ref.shipName !== shipName) continue;
-      if (ref.pluginId !== ownerPluginId) continue;
+      if (!this._refersTo('ship', shipName, ref.pluginId, ownerPluginId)) continue;
       const key = ref.pluginId ?? '__unknown__';
       if (!result[key]) result[key] = {};
       if (!result[key]['Persons']) result[key]['Persons'] = new Set();
@@ -447,6 +447,26 @@ class LocationResolver {
         for (const s of systems) result[key]['Systems'].add(s.systemName);
       }
     }
+  }
+
+  // ── Cross-plugin references ─────────────────────────────────────────────────
+  //
+  // A shipyard, fleet, person or mission in plugin B can name a ship that
+  // plugin A defines (B doesn't redefine it). In the game that reference
+  // IS plugin A's ship, so it belongs in A's ship's locations. Before this,
+  // every reference was matched only within its own plugin, so e.g. a
+  // mission in plugin B that gives you plugin A's ship never appeared on it.
+  //
+  // `ownerOf(kind, name, fromPluginId)` (set by the parser) answers "which
+  // plugin's definition does a reference from `fromPluginId` use?" — its own
+  // if it defines one, otherwise the highest-priority plugin's. A reference
+  // belongs to an item when that answer is the item's own plugin.
+  setOwnerResolver(fn) { this._ownerOf = typeof fn === 'function' ? fn : null; }
+
+  _refersTo(kind, name, refPluginId, ownerPluginId) {
+    if (refPluginId === ownerPluginId) return true;
+    if (!this._ownerOf) return false;
+    return this._ownerOf(kind, name, refPluginId) === ownerPluginId;
   }
 
   // ── Ship / variant location resolution ──────────────────────────────────────
@@ -472,7 +492,7 @@ _resolveShipLocations(shipName, ownerPluginId) {
 
     for (const fleet of this.fleets) {
       if (!fleet.shipNames.includes(shipName)) continue;
-      if (fleet.pluginId !== ownerPluginId) continue;
+      if (!this._refersTo('ship', shipName, fleet.pluginId, ownerPluginId)) continue;
       // Only take the Systems this SAME fleet (fleet.pluginId) spawns in —
       // not every plugin's same-named fleet. See _mergeOwnPluginOnly.
       this._mergeOwnPluginOnly(result, fleetToSystems.get(fleet.name), 'Systems', fleet.pluginId);
@@ -482,7 +502,7 @@ _resolveShipLocations(shipName, ownerPluginId) {
 
     for (const yard of this.shipyardEntries) {
       if (!yard.shipNames.includes(shipName)) continue;
-      if (yard.pluginId !== ownerPluginId) continue;
+      if (!this._refersTo('ship', shipName, yard.pluginId, ownerPluginId)) continue;
       const planetsByPlugin = yardToPlanets.get(yard.yardName);
       if (!planetsByPlugin) continue;
       // Only take planets that reference THIS shipyard entry's own plugin —
@@ -506,7 +526,7 @@ _resolveShipLocations(shipName, ownerPluginId) {
 
     for (const ref of this.missionNpcShips) {
       if (ref.shipName !== shipName) continue;
-      if (ref.pluginId !== ownerPluginId) continue;
+      if (!this._refersTo('ship', shipName, ref.pluginId, ownerPluginId)) continue;
       const key = ref.pluginId ?? '__unknown__';
       if (!result[key]) result[key] = {};
       if (!result[key]['Missions']) result[key]['Missions'] = new Set();
@@ -516,7 +536,7 @@ _resolveShipLocations(shipName, ownerPluginId) {
 
     for (const ref of this.missionGiveShips) {
       if (ref.shipName !== shipName) continue;
-      if (ref.pluginId !== ownerPluginId) continue;
+      if (!this._refersTo('ship', shipName, ref.pluginId, ownerPluginId)) continue;
       const key = ref.pluginId ?? '__unknown__';
       if (!result[key]) result[key] = {};
       if (!result[key]['Missions']) result[key]['Missions'] = new Set();
@@ -613,7 +633,7 @@ _resolveShipLocations(shipName, ownerPluginId) {
     // never contributes ships here.
     const shipsWithOutfit = new Set(
       this.shipOutfitRefs
-        .filter(r => r.outfitName === outfitName && r.pluginId === ownerPluginId)
+        .filter(r => r.outfitName === outfitName && this._refersTo('outfit', outfitName, r.pluginId, ownerPluginId))
         .map(r => r.shipName)
     );
 
@@ -627,7 +647,7 @@ _resolveShipLocations(shipName, ownerPluginId) {
       for (const ref of this.shipOutfitRefs) {
         if (ref.outfitName !== outfitName) continue;
         if (ref.shipName !== shipName) continue;
-        if (ref.pluginId !== ownerPluginId) continue;
+        if (!this._refersTo('outfit', outfitName, ref.pluginId, ownerPluginId)) continue;
         const key = ref.shipPluginId ?? '__unknown__';
         if (!result[key]) result[key] = {};
         if (!result[key]['Ships']) result[key]['Ships'] = new Set();
@@ -662,7 +682,7 @@ _resolveShipLocations(shipName, ownerPluginId) {
     // ── 3. Mission "give outfit" references — scoped to ownerPluginId ───────
     for (const ref of this.missionGiveOutfits) {
       if (ref.outfitName !== outfitName) continue;
-      if (ref.pluginId !== ownerPluginId) continue;
+      if (!this._refersTo('outfit', outfitName, ref.pluginId, ownerPluginId)) continue;
       const key = ref.pluginId ?? '__unknown__';
       if (!result[key]) result[key] = {};
       if (!result[key]['Missions']) result[key]['Missions'] = new Set();

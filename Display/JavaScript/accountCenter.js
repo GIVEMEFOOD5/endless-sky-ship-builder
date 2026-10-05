@@ -61,6 +61,7 @@
 
   // ── shared ships ─────────────────────────────────────────────────────────
   async function renderShips() {
+    if (window.PluginAvailability) await window.PluginAvailability.ready;
     const box = document.getElementById('ac-ships');
     const user = A.getCurrentUser();
     if (!box || !user) return;
@@ -72,6 +73,7 @@
       <div class="list-row" data-id="${h(s.id)}" style="margin-bottom:8px;flex-wrap:wrap;gap:8px;">
         <span class="list-row__label">${h(s.name)}
           <span style="font-size:0.75rem;color:var(--c-text-dim);">${h(s.build_data?.attributes?.category || '')}</span>
+          ${window.PluginAvailability ? window.PluginAvailability.badgeHtml(s.build_data) : ''}
           ${s.hidden_at ? `<span style="font-size:0.75rem;color:var(--c-danger-text);"> · hidden by a moderator${s.hidden_reason ? ': ' + h(s.hidden_reason) : ''}</span>` : ''}</span>
         <label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;">
           <input type="checkbox" data-act="public"${s.is_public ? ' checked' : ''}> Public</label>

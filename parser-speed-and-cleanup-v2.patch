@@ -337,135 +337,6 @@ index 1cbed0e7..d2478b25 100644
        ${fleets.length ? `<label for="sb-shared-fleet" style="display:block;font-size:0.85rem;margin-bottom:6px;">Add a copy to</label>
          <select id="sb-shared-fleet" class="text-input">${fleets.map(f => `<option value="${h(f.id)}"${f.id === window.FleetStore.activeId ? ' selected' : ''}>${h(f.name)} (${f.shipCount})</option>`).join('')}</select>` : ''}
        <div class="btn-group btn-group-right">
-diff --git a/attributeParser.js b/attributeParser.js
-index 8a8732fc..0d97de65 100644
---- a/attributeParser.js
-+++ b/attributeParser.js
-@@ -183,6 +183,9 @@ const SOURCE_FILES = {
-   damageDealtH:      `${ES_RAW}/DamageDealt.h`,
-   jumpNavCpp:        `${ES_RAW}/ShipJumpNavigation.cpp`,
-   jumpNavH:          `${ES_RAW}/ShipJumpNavigation.h`,
-+  // Newer game versions read ship attributes through a cache
-+  // (cache.drag, cache.inertiaReduction …) filled in this file.
-+  shipAttrCacheCpp:  `${ES_RAW}/ship/ShipAttributeCache.cpp`,
-   // Read only by deriveGameRules() — not attribute sources
-   playerInfoCpp:     `${ES_RAW}/PlayerInfo.cpp`,
-   aiCpp:             `${ES_RAW}/AI.cpp`,
-@@ -203,7 +206,6 @@ const SEED_PATHS = new Set([
- ]);
- 
- const DATA_FILES = {
--  solSystem: `${ES_DATA}/human/Sol.txt`,
-   tooltips:  `${ES_DATA}/_ui/tooltips.txt`,
- };
- 
-@@ -732,6 +734,40 @@ function parseOutfitInfoDisplay(src) {
- // Parse Ship.cpp
- // ---------------------------------------------------------------------------
- 
-+// ---------------------------------------------------------------------------
-+// Ship attribute cache (newer game versions)
-+//
-+// Ship.cpp now reads most attributes as `cache.<member>` instead of
-+// `attributes.Get("…")`; ship/ShipAttributeCache.cpp fills those members
-+// (`drag = attributes.Get("drag");`, `hullRepairRate = (…Get("hull repair
-+// rate")…) * (1. + …)`). Inlining each member's expression back into
-+// Ship.cpp lets every existing extractor see which attributes a function
-+// really uses. With an older game (no cache file) this does nothing.
-+// ---------------------------------------------------------------------------
-+function parseAttributeCache(src) {
-+  const map = new Map();
-+  if (!src) return map;
-+  src = src.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/\/\/[^\n]*/g, ' ');   // drop comments
-+  // one statement at a time (split on ; and braces)
-+  for (const stmt of src.split(/[;{}]/)) {
-+    const m = stmt.match(/^\s*([A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*)\s*=(?!=)\s*([\s\S]+?)\s*$/);
-+    if (m && /\.Get\s*\(/.test(m[2])) map.set(m[1], m[2].replace(/\s+/g, ' ').trim());
-+  }
-+  return map;
-+}
-+function inlineAttributeCache(shipSrc, cacheMap) {
-+  if (!shipSrc || !cacheMap || !cacheMap.size) return shipSrc;
-+  return shipSrc.replace(/\bcache\.([A-Za-z_]\w*(?:\.[A-Za-z_]\w*)*)/g, (whole, path) => {
-+    // longest known member wins: cache.hullRepairCost.energy before cache.hullRepairCost
-+    const parts = path.split('.');
-+    for (let n = parts.length; n > 0; n--) {
-+      const key = parts.slice(0, n).join('.');
-+      if (cacheMap.has(key)) return '(' + cacheMap.get(key) + ')' + (n < parts.length ? '.' + parts.slice(n).join('.') : '');
-+    }
-+    return whole;
-+  });
-+}
-+
- function parseShipCpp(src) {
-   const allFnBodies = extractFunctionBodies(src, 'Ship::');
-   const parsed      = {};
-@@ -1029,7 +1065,8 @@ function parseShipTakeDamage(shipCppSrc) {
-   const details = new Map();
-   if (!shipCppSrc) return details;
- 
--  const takeDmgMatch = shipCppSrc.match(/\bTakeDamage\s*\([^)]*\)\s*(?:const\s*)?(?:noexcept\s*)?\{/);
-+  const takeDmgMatch = shipCppSrc.match(/Ship::(?:Do)?TakeDamage\s*\([^)]*\)\s*(?:const\s*)?(?:noexcept\s*)?\{/)
-+      || shipCppSrc.match(/\b(?:Do)?TakeDamage\s*\([^)]*\)\s*(?:const\s*)?(?:noexcept\s*)?\{/);
-   if (!takeDmgMatch) return details;
- 
-   const bodyStart = takeDmgMatch.index + takeDmgMatch[0].length;
-@@ -1220,7 +1257,8 @@ async function deriveDamageTypesStructurally(opts) {
-   // ---- shieldInteraction/category detection, re-pointed at the discovered accessor ----
-   const shipCppDetails = new Map();
-   if (shipCppSrc && structFields.length) {
--    const takeDmgMatch = shipCppSrc.match(/\bTakeDamage\s*\([^)]*\)\s*(?:const\s*)?(?:noexcept\s*)?\{/);
-+    const takeDmgMatch = shipCppSrc.match(/Ship::(?:Do)?TakeDamage\s*\([^)]*\)\s*(?:const\s*)?(?:noexcept\s*)?\{/)
-+      || shipCppSrc.match(/\b(?:Do)?TakeDamage\s*\([^)]*\)\s*(?:const\s*)?(?:noexcept\s*)?\{/);
-     if (takeDmgMatch) {
-       const bodyStart = takeDmgMatch.index + takeDmgMatch[0].length;
-       let depth = 1, i = bodyStart;
-@@ -2068,20 +2106,17 @@ async function parseAttributes(outputDir, cliOpts = {}) {
-       sources[name] = await fetchText(url);
-       console.log(`✓  ${sources[name].length.toLocaleString()} bytes`);
-     } catch (err) {
--      console.log(`✗  ${err.message}`);
-+      // Files that only exist in some game versions: DamageDealt.cpp became
-+      // header-only, ShipAttributeCache.cpp only exists in newer versions.
-+      const optional = ['damageDealtCpp', 'shipAttrCacheCpp'].includes(name);
-+      console.log(optional && /404/.test(err.message) ? '–  not in this game version (fine)' : `✗  ${err.message}`);
-       sources[name] = '';
-     }
-   }
- 
--  let systemContext = parseSystemContext(null);
--  process.stdout.write(`  Fetching Sol.txt                `);
--  try {
--    const solText = await fetchText(DATA_FILES.solSystem);
--    systemContext = parseSystemContext(solText);
--    console.log(`✓  ${solText.length.toLocaleString()} bytes`);
--  } catch (err) {
--    console.log(`✗  ${err.message} (using default solar power 1.0)`);
--  }
-+  // Reference solar power is 1.0 by definition (the game's Sol); nothing in
-+  // Sol's data file changes that, so it's no longer fetched.
-+  const systemContext = parseSystemContext(null);
- 
-   let tooltipMap = new Map();
-   process.stdout.write(`  Fetching tooltips.txt           `);
-@@ -2100,7 +2135,10 @@ async function parseAttributes(outputDir, cliOpts = {}) {
-     : { scaleLabels: [], scaleMap: {}, booleanAttrs: {}, valueNames: [], percentNames: [], otherNames: [], expectedNegative: [], beforeAttrs: [], allAttributeKeys: [] };
-   console.log(`  OutfitInfoDisplay  ${Object.keys(oidData.scaleMap).length} scale, ${Object.keys(oidData.booleanAttrs).length} boolean, ${oidData.valueNames.length} weapon stat names`);
- 
--  const shipFns = sources.shipCpp ? parseShipCpp(sources.shipCpp) : {};
-+  const attrCache = parseAttributeCache(sources.shipAttrCacheCpp);
-+  const shipCppInlined = inlineAttributeCache(sources.shipCpp, attrCache);
-+  if (attrCache.size) console.log(`  Attribute cache    ${attrCache.size} cached members inlined into Ship.cpp`);
-+  const shipFns = sources.shipCpp ? parseShipCpp(shipCppInlined) : {};
-   console.log(`  Ship.cpp           ${Object.keys(shipFns).length} functions`);
- 
-   const shipDisplay = sources.shipInfoDisplay
-@@ -2436,4 +2474,5 @@ module.exports = {
-   scanDataFolderUsage, deriveCategoryAreaHints,
-   deriveDamageTypesStructurally,
-   deriveShipRequirements, parseFinishLoadingRequirements, deriveGameRules,
-+  parseAttributeCache, inlineAttributeCache, parseShipCpp, parseShipTakeDamage,
- };
 diff --git a/locationResolver.js b/locationResolver.js
 index fc630819..94ed14f8 100644
 --- a/locationResolver.js
@@ -570,7 +441,7 @@ index fc630819..94ed14f8 100644
        if (!result[key]) result[key] = {};
        if (!result[key]['Missions']) result[key]['Missions'] = new Set();
 diff --git a/parser.js b/parser.js
-index 04db0dc2..fe10fd95 100644
+index 29a695f7..fe10fd95 100644
 --- a/parser.js
 +++ b/parser.js
 @@ -66,6 +66,8 @@ const EndlessSkyMapParser     = require('./mapParser');
@@ -582,21 +453,7 @@ index 04db0dc2..fe10fd95 100644
  const crypto          = require('crypto');
  const fs              = require('fs').promises;
  const path            = require('path');
-@@ -572,6 +574,13 @@ class EndlessSkyParser {
-     });
-     const winner = ranked[0];
-     const losers = ranked.slice(1).map(s => s._pluginId).join(', ');
-+    // Same base ship + same competing plugins → say it once (a plugin that
-+    // redefines every base ship, like "1requiredcrew", used to print
-+    // thousands of identical lines). The full count is in the summary.
-+    this._collisionSeen = this._collisionSeen || new Map();
-+    const ckey = `${baseName}|${losers}`;
-+    this._collisionSeen.set(ckey, (this._collisionSeen.get(ckey) || 0) + 1);
-+    if (this._collisionSeen.get(ckey) > 1) return { baseShip: winner, error: null };
-     console.warn(
-       `    ⚠ Collision on base ship "${baseName}" for variant in "${variantPluginId}". ` +
-       `Plugins with this ship: ${candidates.map(s => s._pluginId).join(', ')}. ` +
-@@ -618,8 +627,10 @@ class EndlessSkyParser {
+@@ -625,8 +627,10 @@ class EndlessSkyParser {
      return results;
    }
  
@@ -609,7 +466,7 @@ index 04db0dc2..fe10fd95 100644
      try {
        await fs.mkdir(tmpDir, { recursive: true });
        // In detectPluginsViaLsTree, replace the clone line:
-@@ -669,7 +680,7 @@ class EndlessSkyParser {
+@@ -676,7 +680,7 @@ class EndlessSkyParser {
        }
        return kept;
      } finally {
@@ -618,7 +475,7 @@ index 04db0dc2..fe10fd95 100644
      }
    }
  
-@@ -684,9 +695,19 @@ class EndlessSkyParser {
+@@ -691,9 +695,19 @@ class EndlessSkyParser {
          if (e.name.startsWith('.') || e.name === 'node_modules') continue;
          const fullPath = path.join(dir, e.name);
          if (e.name === 'data') {
@@ -641,7 +498,7 @@ index 04db0dc2..fe10fd95 100644
            const pluginRoot = dir;
            const pluginName = pluginRoot === cloneDir ? repoName : path.basename(pluginRoot);
            const pluginRootInRepo = path.relative(cloneDir, pluginRoot) || '.';
-@@ -895,49 +916,67 @@ class EndlessSkyParser {
+@@ -902,49 +916,67 @@ class EndlessSkyParser {
      const repoGitUrl = `https://github.com/${owner}/${repo}.git`;
      console.log(`\nScanning: ${owner}/${repo} @ ${branch}`);
  
@@ -724,44 +581,7 @@ index 04db0dc2..fe10fd95 100644
          const meta = await this._parsePluginFolder(clonedPlugin, pluginId, pluginRoot);
          pluginMeta.push(meta);
  
-@@ -2657,13 +2696,17 @@ class EndlessSkyParser {
- 
-   resolveAllOutfitPluginIds() {
-     let resolved = 0, stillMissing = 0;
-+    const missingNames = new Map();   // name → times referenced (printed once each, below)
-     const resolveMap = (outfitMap, ownerPluginId) => {
-       if (!outfitMap || typeof outfitMap !== 'object') return;
-       for (const [name, val] of Object.entries(outfitMap)) {
-         if (typeof val === 'object' && val.pluginId === null) {
-           const found = this._resolveOutfitPluginId(name, ownerPluginId);
-           if (found) { val.pluginId = found; resolved++; }
--          else { stillMissing++; console.warn(`    ⚠ Outfit not found in any plugin: "${name}"`); }
-+          else {
-+            stillMissing++;
-+            missingNames.set(name, (missingNames.get(name) || 0) + 1);
-+          }
-         }
-       }
-     };
-@@ -2677,7 +2720,17 @@ class EndlessSkyParser {
-             else { refsStillMissing++; }
-         }
-     }
-+    if (missingNames.size) {
-+      const list = [...missingNames.entries()].sort((a, b) => b[1] - a[1]);
-+      console.warn(`    ⚠ ${missingNames.size} outfit name(s) used by ships/variants aren't defined by any plugin (usually an outfit from a plugin not in plugins.json):`);
-+      for (const [n, c] of list.slice(0, 40)) console.warn(`       ${n}${c > 1 ? `  ×${c}` : ''}`);
-+      if (list.length > 40) console.warn(`       … and ${list.length - 40} more`);
-+    }
-     console.log(`  Outfit pluginId resolution: ${resolved} resolved, ${stillMissing} still missing`);
-+    if (this._collisionSeen && this._collisionSeen.size) {
-+      const total = [...this._collisionSeen.values()].reduce((a, b) => a + b, 0);
-+      console.log(`  Base-ship collisions: ${this._collisionSeen.size} distinct (${total} variant lookups) — each printed once above`);
-+    }
-   }
- 
-   /**
-@@ -2866,8 +2919,15 @@ async function main() {
+@@ -2887,8 +2919,15 @@ async function main() {
        }
      }
  
@@ -777,7 +597,7 @@ index 04db0dc2..fe10fd95 100644
        console.log(`\n${'='.repeat(60)}`);
        console.log(`Source: ${source.name}  |  ${source.repository}`);
        console.log('='.repeat(60));
-@@ -2893,9 +2953,14 @@ async function main() {
+@@ -2914,9 +2953,14 @@ async function main() {
          console.error(`  Skipping and continuing with next source...`);
          continue;
        }
@@ -792,7 +612,7 @@ index 04db0dc2..fe10fd95 100644
  
      console.log(`\n${'='.repeat(60)}`);
      console.log(`Resolving deferred outfit pluginIds across all plugins...`);
-@@ -2942,6 +3007,22 @@ async function main() {
+@@ -2963,6 +3007,22 @@ async function main() {
      const planetRefStats = sharedParser.missionParser2.resolvePlanetRefs(sharedParser.mapParser);
      console.log(`  rewards: ${JSON.stringify(rewardStats)}, planet refs: ${JSON.stringify(planetRefStats)}`);
      
@@ -815,7 +635,7 @@ index 04db0dc2..fe10fd95 100644
      for (const { plugin } of allResults) {
        sharedParser.speciesResolver.attachSpecies(
          plugin.ships, plugin.variants, plugin.outfits, plugin.outputName
-@@ -2951,6 +3032,18 @@ async function main() {
+@@ -2972,6 +3032,18 @@ async function main() {
        );
      }
  
@@ -834,7 +654,7 @@ index 04db0dc2..fe10fd95 100644
      // ── Chunked upsert/insert/delete helpers ──
      // Supabase requests have a practical payload-size ceiling, so even a
      // "one go at the end" push still goes out in batches — just large ones
-@@ -3011,10 +3104,18 @@ async function main() {
+@@ -3032,10 +3104,18 @@ async function main() {
        }
        throw lastErr;
      }
@@ -855,7 +675,7 @@ index 04db0dc2..fe10fd95 100644
          await withRetry(async () => {
            let query = supabase.from(table).upsert(part, onConflict ? { onConflict } : undefined);
            if (select) query = query.select(select);
-@@ -3022,26 +3123,46 @@ async function main() {
+@@ -3043,26 +3123,46 @@ async function main() {
            if (error) throw new Error(`Supabase upsert failed for ${table}: ${error.message}`);
            if (data) results.push(...data);
          }, { label: `upsert ${table}` });
@@ -908,7 +728,7 @@ index 04db0dc2..fe10fd95 100644
      }
  
      // ══════════════════════════════════════════════════════════════════
-@@ -3211,22 +3332,37 @@ async function main() {
+@@ -3232,22 +3332,37 @@ async function main() {
      if (droppedDuplicates > 0) console.log(`  ⚠ dropped ${droppedDuplicates} duplicate internal_id row(s) before pushing`);
      if (skippedGovernmentsWithoutName > 0) console.log(`  ⚠ skipped ${skippedGovernmentsWithoutName} government entrie(s) with no name`);
  
@@ -961,7 +781,7 @@ index 04db0dc2..fe10fd95 100644
  
      // Raw event definitions (for replaying a save's changes on the Systems
      // map). One row per plugin + event name; if a plugin defines the same
-@@ -3241,124 +3377,340 @@ async function main() {
+@@ -3262,124 +3377,340 @@ async function main() {
          const prev = merged.get(k);
          merged.set(k, prev ? { ...prev, raw: prev.raw + '\n' + ev.raw } : { ...ev });
        }
@@ -1172,41 +992,7 @@ index 04db0dc2..fe10fd95 100644
 +    console.log(`  rebuilt children of ${changedShips.size} ships, ${changedVariants.size} variants, ${changedPlanets.size} planets, ` +
 +      `${changedSystems.size} systems, ${changedWormholes.size} wormholes (${secs(junctionStart)})`);
 +    timings.push(['junction tables', (Date.now() - junctionStart) / 1000]);
- 
--    const fleetRows = [], hazardRows = [], asteroidRows = [], minableRows = [], sysLinkRows = [], sysPlanetRows = [], tradeRows = [];
--    for (const systems of rawSystemsByPlugin) {
--      for (const sy of systems) {
--        const systemId = systemIdByInternalId.get(sy._internalId);
--        if (!systemId) continue;
--        for (const f of sy.fleets ?? []) fleetRows.push({ system_id: systemId, fleet_name: f.name, period: toNumeric(f.period), to_spawn: f.toSpawn ?? null });
--        for (const h of sy.hazards ?? []) hazardRows.push({ system_id: systemId, hazard_name: h.name, period: toNumeric(h.period), to_spawn: h.toSpawn ?? null });
--        for (const a of sy.asteroids ?? []) asteroidRows.push({ system_id: systemId, asteroid_name: a.name, asteroid_count: toNumeric(a.count), energy: toNumeric(a.energy) });
--        for (const m of sy.minables ?? []) minableRows.push({ system_id: systemId, minable_name: m.name, asteroid_count: toNumeric(m.count), energy: toNumeric(m.energy) });
--        for (const l of sy.links ?? []) sysLinkRows.push({ system_id: systemId, linked_system_name: l.name ?? l, explicit: l.explicit ?? null });
--        for (const p of sy.planets ?? []) sysPlanetRows.push({ system_id: systemId, planet_name: p.name });
--        for (const t of sy.trade ?? []) tradeRows.push({ system_id: systemId, commodity_name: t.name, cost: toNumeric(t.cost) });
--      }
--    }
--    const allSystemIds = [...systemIdByInternalId.values()];
--    await Promise.all([
--      deleteInChunked('system_fleets', 'system_id', allSystemIds),
--      deleteInChunked('system_hazards', 'system_id', allSystemIds),
--      deleteInChunked('system_asteroids', 'system_id', allSystemIds),
--      deleteInChunked('system_minables', 'system_id', allSystemIds),
--      deleteInChunked('system_links', 'system_id', allSystemIds),
--      deleteInChunked('system_planets', 'system_id', allSystemIds),
--      deleteInChunked('system_trade', 'system_id', allSystemIds),
--    ]);
--    await Promise.all([
--      insertChunked('system_fleets', fleetRows),
--      insertChunked('system_hazards', hazardRows),
--      insertChunked('system_asteroids', asteroidRows),
--      insertChunked('system_minables', minableRows),
--      insertChunked('system_links', sysLinkRows),
--      insertChunked('system_planets', sysPlanetRows),
--      insertChunked('system_trade', tradeRows),
--    ]);
--    console.log(`  ✓ ${shipOutfitRows.length} ship_outfits | ${variantOutfitRows.length} variant_outfits | ${linkRows.length} wormhole_links rows`);
++
 +    // ══════════════════════════════════════════════════════════════════
 +    // PHASE 4 — cleanup: remove game data that no longer exists.
 +    //   • a plugin taken out of plugins.json, or gone from its repository
@@ -1278,7 +1064,41 @@ index 04db0dc2..fe10fd95 100644
 +        });
 +        cleanup.pluginsRemoved = removed.map(p => p.display_name || p.plugin_id);
 +      }
-+
+ 
+-    const fleetRows = [], hazardRows = [], asteroidRows = [], minableRows = [], sysLinkRows = [], sysPlanetRows = [], tradeRows = [];
+-    for (const systems of rawSystemsByPlugin) {
+-      for (const sy of systems) {
+-        const systemId = systemIdByInternalId.get(sy._internalId);
+-        if (!systemId) continue;
+-        for (const f of sy.fleets ?? []) fleetRows.push({ system_id: systemId, fleet_name: f.name, period: toNumeric(f.period), to_spawn: f.toSpawn ?? null });
+-        for (const h of sy.hazards ?? []) hazardRows.push({ system_id: systemId, hazard_name: h.name, period: toNumeric(h.period), to_spawn: h.toSpawn ?? null });
+-        for (const a of sy.asteroids ?? []) asteroidRows.push({ system_id: systemId, asteroid_name: a.name, asteroid_count: toNumeric(a.count), energy: toNumeric(a.energy) });
+-        for (const m of sy.minables ?? []) minableRows.push({ system_id: systemId, minable_name: m.name, asteroid_count: toNumeric(m.count), energy: toNumeric(m.energy) });
+-        for (const l of sy.links ?? []) sysLinkRows.push({ system_id: systemId, linked_system_name: l.name ?? l, explicit: l.explicit ?? null });
+-        for (const p of sy.planets ?? []) sysPlanetRows.push({ system_id: systemId, planet_name: p.name });
+-        for (const t of sy.trade ?? []) tradeRows.push({ system_id: systemId, commodity_name: t.name, cost: toNumeric(t.cost) });
+-      }
+-    }
+-    const allSystemIds = [...systemIdByInternalId.values()];
+-    await Promise.all([
+-      deleteInChunked('system_fleets', 'system_id', allSystemIds),
+-      deleteInChunked('system_hazards', 'system_id', allSystemIds),
+-      deleteInChunked('system_asteroids', 'system_id', allSystemIds),
+-      deleteInChunked('system_minables', 'system_id', allSystemIds),
+-      deleteInChunked('system_links', 'system_id', allSystemIds),
+-      deleteInChunked('system_planets', 'system_id', allSystemIds),
+-      deleteInChunked('system_trade', 'system_id', allSystemIds),
+-    ]);
+-    await Promise.all([
+-      insertChunked('system_fleets', fleetRows),
+-      insertChunked('system_hazards', hazardRows),
+-      insertChunked('system_asteroids', asteroidRows),
+-      insertChunked('system_minables', minableRows),
+-      insertChunked('system_links', sysLinkRows),
+-      insertChunked('system_planets', sysPlanetRows),
+-      insertChunked('system_trade', tradeRows),
+-    ]);
+-    console.log(`  ✓ ${shipOutfitRows.length} ship_outfits | ${variantOutfitRows.length} variant_outfits | ${linkRows.length} wormhole_links rows`);
 +      // A removed plugin that's back again is no longer "removed".
 +      try {
 +        const { data: wasRemoved } = await supabase.from('removed_plugins').select('plugin_id');
@@ -1383,7 +1203,7 @@ index 04db0dc2..fe10fd95 100644
      console.log(`\nAll Supabase writes complete.`);
  
      // index.json, eventGovernmentImpact.json, map.json, and missionCollisions.json
-@@ -3374,7 +3726,22 @@ async function main() {
+@@ -3395,7 +3726,22 @@ async function main() {
      // Attribute definitions go straight from memory into Supabase — no
      // attributeDefinitions.json is written. (data/ is still passed because
      // the attribute parser keeps its source-discovery caches there.)
@@ -1406,7 +1226,7 @@ index 04db0dc2..fe10fd95 100644
        const attrDefsJson = await parseAttributes(dataDir);
  
        // Relational copy (attribute_definitions, attribute_flags, …) — what
-@@ -3395,9 +3762,21 @@ async function main() {
+@@ -3416,9 +3762,21 @@ async function main() {
        // skip re-fetching everything entirely.
        await supabase.from('app_config').upsert({ key: 'dataVersion', value: { updatedAt: new Date().toISOString() } });
        console.log(`\nPushed attribute definitions to Supabase.`);
@@ -1562,47 +1382,6 @@ index 00000000..93aec900
 +}
 +
 +module.exports = { PushCache, codeHash, hash, stable };
-diff --git a/speciesResolver.js b/speciesResolver.js
-index 7fb9f553..88b281b3 100644
---- a/speciesResolver.js
-+++ b/speciesResolver.js
-@@ -188,6 +188,7 @@ class SpeciesResolver {
-    */
-   resolveFleetGovernmentGaps() {
-     let resolved = 0, stillUnresolved = 0;
-+    let seenFleetWarn = null;   // each fleet name warned about once
-     for (const entry of this.fleets) {
-       if (entry.government) continue;
-       if (!entry.name) { stillUnresolved++; continue; }
-@@ -199,7 +200,11 @@ class SpeciesResolver {
-         resolved++;
-       } else {
-         stillUnresolved++;
--        console.warn(`    ⚠ Fleet "${entry.name}" (plugin ${entry.pluginId}) has ships but no government could be found in any of its definitions.`);
-+        seenFleetWarn = seenFleetWarn || new Set();
-+        if (!seenFleetWarn.has(entry.name)) {
-+          seenFleetWarn.add(entry.name);
-+          console.warn(`    ⚠ Fleet "${entry.name}" (plugin ${entry.pluginId}) has ships but no government could be found in any of its definitions.`);
-+        }
-       }
-     }
-     console.log(`  Fleet government-gap resolution: ${resolved} resolved, ${stillUnresolved} unresolved`);
-@@ -242,10 +247,13 @@ class SpeciesResolver {
-         resolved++;
-       } else {
-         stillUnresolved++;
--        console.warn(`    ⚠ Planet "${entry.name}" (plugin ${entry.pluginId}) has shipyards/outfitters listed but no government could be found in any of its definitions.`);
-+        // Most planets have no government line of their own — they use their
-+        // system's — so this is normal; only a few examples are printed.
-+        if (stillUnresolved <= 5) console.warn(`    ⚠ Planet "${entry.name}" (plugin ${entry.pluginId}) has shipyards/outfitters listed but no government of its own.`);
-       }
-     }
--    console.log(`  Planet government-gap resolution: ${resolved} resolved, ${stillUnresolved} unresolved`);
-+    console.log(`  Planet government-gap resolution: ${resolved} resolved, ${stillUnresolved} unresolved` +
-+      (stillUnresolved > 5 ? ` (first 5 shown; planets normally take their system's government)` : ''));
-   }
- 
-   // ── Internal lookups ─────────────────────────────────────────────────────────
 diff --git a/supabase/removed_plugins.sql b/supabase/removed_plugins.sql
 new file mode 100644
 index 00000000..4e1cdb94
