@@ -615,6 +615,21 @@
         };
       });
     }
+    /**
+     * Schedule an event the way the game does (`event "name"` + `date d m y`,
+     * kept before the `changes` block). The game applies it when that day comes.
+     */
+    scheduleEvent(name, date) {
+      const n = makeNode(['event', name], [makeNode(['date', num(date.day), num(date.month), num(date.year)])]);
+      const nodes = this.root.children;
+      let at = -1;
+      nodes.forEach((c, i) => { if (key(c) === 'event') at = i; });
+      if (at === -1) at = nodes.findIndex(c => key(c) === 'changes') - 1;
+      if (at < -1) at = nodes.length - 1;
+      nodes.splice(at + 1, 0, n);
+      return n;
+    }
+
     removeEvent(node) { const before = this.root.children.length; this.root.children = this.root.children.filter(n => n !== node); return before !== this.root.children.length; }
 
     // ── map knowledge ────────────────────────────────────────────────────

@@ -177,18 +177,28 @@
   let hasEdits = false;
   let saveTimer = null;
   let openShip = null;     // index whose outfit list is expanded
-  let condFilter = '';
-  let shipFilter = '';
-  let shipLimit = 40;   // big fleets (some saves have 1000+ ships) are shown a page at a time
+  let search = '';         // one search box filters every list in the editor
+  const PAGE_SIZE = { ships: 40, reps: 60, missions: 25, events: 25, conds: 50 };
+  let pages = { ships: 1, reps: 1, missions: 1, events: 1, conds: 1 };
+  let undoStack = [];      // earlier versions of the save text (newest last)
+  let lastText = null;     // the save text as of the last change
+  let pendingMission = null;   // { row, summary } chosen in "Add a mission"
+  let pendingEvent = null;     // { name, plugin_id, summary } chosen in "Schedule an event"
+  const U = () => window.UiKit;
+  const matches = text => !search || (U() ? U().match(search, text, { strict: true }) > 0 : String(text).toLowerCase().includes(search.toLowerCase()));
 
   async function loadEditor() {
     const pane = $('tab-edit');
     if (!pane || !currentSaveId) return;
     const rec = await V.get(currentSaveId).catch(() => null);
     if (!rec) { renderNoOriginal(pane); return; }
-    if (docId !== currentSaveId) { shipFilter = ''; shipLimit = 40; openShip = null; condFilter = ''; }
+    if (docId !== currentSaveId) {
+      search = ''; openShip = null; undoStack = []; pendingMission = null; pendingEvent = null;
+      pages = { ships: 1, reps: 1, missions: 1, events: 1, conds: 1 };
+    }
     docId = currentSaveId;
     doc = E.SaveFile.fromText(rec.edited || rec.original);
+    lastText = doc.toString();
     hasEdits = !!rec.edited;
     render();
   }
@@ -214,11 +224,13 @@
   }
 
   // Apply a change: persist the edited text, refresh the other tabs.
-  function changed(message) {
+  function changed(message, { undoable = false } = {}) {
     hasEdits = true;
     clearTimeout(saveTimer);
     const id = docId;
     const snapshot = doc.toString();
+    if (lastText !== null && lastText !== snapshot) { undoStack.push(lastText); if (undoStack.length > 30) undoStack.shift(); }
+    lastText = snapshot;
     saveTimer = setTimeout(async () => {
       try {
         const parsed = parseESSaveFile(snapshot);
@@ -233,7 +245,17 @@
     }, 400);
     setStatus('Saving…');
     render();
-    if (message) say(message, 'success');
+    if (message && undoable && U()) U().undoToast(message, undo);
+    else if (message) say(message, 'success');
+  }
+  function undo() {
+    if (!undoStack.length) return;
+    const prev = undoStack.pop();
+    doc = E.SaveFile.fromText(prev);
+    lastText = null;               // don't push the undone version back on
+    changed();
+    lastText = doc.toString();
+    say('Undone.', 'success');
   }
   function setStatus(text, bad) {
     const s = $('sv-status');
@@ -267,16 +289,43 @@
     const p = doc.pilot, d = doc.date || { day: 1, month: 1, year: 3013 };
     const ships = doc.ships;
     // active ships (and the flagship) first, then parked; filtered by the search box
-    const q = shipFilter.toLowerCase();
-    const matchingShips = ships.filter(s => !q || `${s.name} ${s.model}`.toLowerCase().includes(q))
+    const pg = (key, items) => {
+      const r = U() ? U().paginate(items, pages[key], PAGE_SIZE[key]) : { slice: items, page: 1, pages: 1, from: 1, to: items.length, total: items.length };
+      pages[key] = r.page; return r;
+    };
+    const pagerHtml = (key, r) => U() ? U().pager({ ...r, id: key }) : '';
+    const matchingShips = ships.filter(s => matches(`${s.name} ${s.model}`))
       .sort((a, b) => (b.isFlagship - a.isFlagship) || (a.parked - b.parked) || (a.index - b.index));
-    const shownShips = matchingShips.slice(0, shipLimit);
+    const shipPage = pg('ships', matchingShips);
+    const shownShips = shipPage.slice.slice();
     if (openShip !== null && !shownShips.some(s => s.index === openShip)) { const o = ships[openShip]; if (o) shownShips.push(o); }
     const cargo = doc.cargo;
     const conds = Object.entries(doc.conditions);
-    const shown = conds.filter(([k]) => !condFilter || k.toLowerCase().includes(condFilter.toLowerCase())).slice(0, 200);
+    const condPage = pg('conds', conds.filter(([k]) => matches(k)));
+    const shown = condPage.slice;
+    const reps = Object.entries(doc.reputations);
+    const repPage = pg('reps', reps.filter(([g]) => matches(g)));
+    const missionList = doc.missions.map((m, i) => ({ m, i })).filter(({ m }) => matches(`${m.displayName} ${m.id}`));
+    const missionPage = pg('missions', missionList);
+    const eventList = doc.events.filter(e => e.name).filter(e => matches(e.name))
+      .sort((a, b) => (a.date ? a.date.year * 400 + a.date.month * 32 + a.date.day : 0) - (b.date ? b.date.year * 400 + b.date.month * 32 + b.date.day : 0));
+    const eventPage = pg('events', eventList);
+    const count = (shownN, all) => search ? `${shownN} of ${all}` : `${all}`;
+    const fmtDate = d => d ? `${d.day}/${d.month}/${d.year}` : '—';
 
     pane.innerHTML = datalists() + `
+      <div id="sv-bar" style="position:sticky;top:0;z-index:5;background:var(--c-bg, #0f172a);padding:10px 0 12px;margin-bottom:8px;
+           display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-bottom:1px solid var(--c-border);">
+        <input class="text-input" id="sv-search" type="search" placeholder="Search ships, missions, events, conditions…  ( / )"
+               value="${h(search)}" style="max-width:360px;flex:1 1 220px;" aria-label="Search this save">
+        <button class="btn btn-secondary btn-sm" data-act="undo"${undoStack.length ? '' : ' disabled'} title="Undo the last change (Ctrl+Z)">↶ Undo${undoStack.length ? ` (${undoStack.length})` : ''}</button>
+        <nav class="sv-jump" aria-label="Jump to section">
+          ${[['pilot', 'Pilot'], ['ships', `Ships ${count(matchingShips.length, ships.length)}`], ['cargo', 'Cargo'], ['licenses', 'Licenses'],
+             ['reputation', `Reputation ${count(repPage.total, reps.length)}`], ['missions', `Missions ${count(missionList.length, doc.missions.length)}`],
+             ['events', `Events ${count(eventList.length, doc.events.filter(e => e.name).length)}`], ['conditions', `Conditions ${count(condPage.total, conds.length)}`]]
+            .map(([id, label]) => `<a href="#sv-sec-${id}" class="ld-pill" style="text-decoration:none;">${h(label)}</a>`).join('')}
+        </nav>
+      </div>
       <section class="panel" style="margin-bottom:20px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;">
         <button class="btn btn-primary" data-act="download">⬇ Download edited save</button>
         ${window.SaveSync && window.SaveSync.supported ? '<button class="btn btn-secondary" data-act="writegame" title="Write the edited save straight into the linked file in your Endless Sky saves folder">💾 Save into game file</button>' : ''}
@@ -293,9 +342,9 @@
         <button class="btn btn-primary btn-sm" data-act="repair">🩹 Remove the leftover data</button>
       </section>` : ''; })()}
 
-      <section class="panel" style="margin-bottom:20px;">
+      <section class="panel" style="margin-bottom:20px;" id="sv-sec-pilot">
         <h2 class="section-title">Pilot</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(min(180px, 100%), 1fr));gap:14px;">
           <label>First name<input class="text-input" data-f="first" value="${h(p.first)}"></label>
           <label>Last name<input class="text-input" data-f="last" value="${h(p.last)}"></label>
           <label>Credits<input class="text-input" data-f="credits" inputmode="numeric" value="${h(String(doc.credits))}"></label>
@@ -307,12 +356,12 @@
         </div>
       </section>
 
-      <section class="panel" style="margin-bottom:20px;">
+      <section class="panel" style="margin-bottom:20px;" id="sv-sec-ships">
         <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:10px;">
-          <h2 class="section-title" style="margin:0;">Ships (${ships.length})</h2>
+          <h2 class="section-title" style="margin:0;">Ships (${count(matchingShips.length, ships.length)})</h2>
           ${window.SaveShipPicker ? '<button class="btn btn-primary btn-sm" data-act="addship">＋ Add a ship</button>' : ''}
-          ${ships.length > 15 ? `<input class="text-input" id="sv-ship-filter" placeholder="Find a ship by name or model…" value="${h(shipFilter)}" style="max-width:280px;">` : ''}
         </div>
+        ${!matchingShips.length && search ? `<p style="color:var(--c-text-dim);">No ships match “${h(search)}”.</p>` : ''}
         <div style="overflow-x:auto;">
         <table style="width:100%;border-collapse:collapse;font-size:0.88rem;">
           <thead><tr style="text-align:left;color:var(--c-text-dim);">
@@ -339,17 +388,16 @@
             ${openShip === s.index ? `<tr data-ship="${s.index}"><td colspan="9">${outfitEditor(s)}</td></tr>` : ''}`).join('')}
           </tbody>
         </table></div>
-        ${matchingShips.length > shownShips.length ? `<p style="font-size:0.82rem;color:var(--c-text-dim);margin:10px 0 0;">Showing ${shownShips.length} of ${matchingShips.length} ships.
-          <button class="btn btn-secondary btn-sm" data-act="moreships">Show ${Math.min(40, matchingShips.length - shownShips.length)} more</button></p>` : ''}
+        ${pagerHtml('ships', shipPage)}
       </section>
 
-      <section class="panel" style="margin-bottom:20px;">
+      <section class="panel" style="margin-bottom:20px;" id="sv-sec-cargo">
         <h2 class="section-title">Cargo</h2>
         ${itemTable('cargo-c', 'Commodity', cargo.commodities, 'tons')}
         ${itemTable('cargo-o', 'Outfit', cargo.outfits, 'count', 'sv-outfit-names')}
       </section>
 
-      <section class="panel" style="margin-bottom:20px;">
+      <section class="panel" style="margin-bottom:20px;" id="sv-sec-licenses">
         <h2 class="section-title">Licenses</h2>
         <div class="ld-pills" style="margin-bottom:10px;">
           ${doc.licenses.map(l => `<span class="ld-pill">${h(l)} <button class="btn-remove" data-act="rmlic" data-name="${h(l)}" aria-label="Remove ${h(l)}">✕</button></span>`).join('') || '<span style="color:var(--c-text-dim);">No licenses.</span>'}
@@ -358,39 +406,65 @@
           <button class="btn btn-secondary btn-sm" data-act="addlic">Add license</button></div>
       </section>
 
-      <section class="panel" style="margin-bottom:20px;">
-        <h2 class="section-title">Reputation</h2>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px;">
-          ${Object.entries(doc.reputations).map(([g, v]) => `
+      <section class="panel" style="margin-bottom:20px;" id="sv-sec-reputation">
+        <h2 class="section-title">Reputation (${count(repPage.total, reps.length)})</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(min(230px, 100%), 1fr));gap:8px;">
+          ${repPage.slice.map(([g, v]) => `
             <label style="display:flex;align-items:center;justify-content:space-between;gap:8px;">${h(g)}
               <input type="number" class="text-input" data-rep="${h(g)}" value="${h(v)}" style="width:110px;"></label>`).join('')}
         </div>
+        ${pagerHtml('reps', repPage)}
       </section>
 
-      <section class="panel" style="margin-bottom:20px;">
-        <h2 class="section-title">Missions</h2>
-        ${doc.missions.length ? doc.missions.map((m, i) => `
+      <section class="panel" style="margin-bottom:20px;" id="sv-sec-missions">
+        <h2 class="section-title">Missions (${count(missionList.length, doc.missions.length)})</h2>
+        ${missionPage.slice.length ? missionPage.slice.map(({ m, i }) => `
           <div class="list-row" style="margin-bottom:6px;">
-            <span class="list-row__label">${h(m.displayName)}
+            <span class="list-row__label">${U() ? `<span class="uk-hl">${U().highlight(m.displayName, search)}</span>` : h(m.displayName)}
               <span style="font-size:0.75rem;color:var(--c-text-dim);">${m.kind === 'mission' ? 'accepted' : m.kind}${m.destination ? ' · to ' + h(m.destination) : ''}</span></span>
             <button class="btn btn-danger btn-sm" data-act="rmmission" data-i="${i}">Remove</button>
-          </div>`).join('') : '<p style="color:var(--c-text-dim);">No missions in this save.</p>'}
+          </div>`).join('') : `<p style="color:var(--c-text-dim);">${search ? `No missions match “${h(search)}”.` : 'No missions in this save.'}</p>`}
+        ${pagerHtml('missions', missionPage)}
         <label style="display:flex;gap:8px;align-items:center;margin-top:8px;font-size:0.85rem;">
           <input type="checkbox" id="sv-mission-conds"> Also clear the removed mission's offered/active/done/failed/declined history</label>
+
+        <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--c-border);">
+          <div style="font-weight:600;margin-bottom:6px;">Complete a mission</div>
+          <p style="font-size:0.8rem;color:var(--c-text-dim);margin:0 0 8px;">Start typing a mission's name — every mission from this save's plugins is listed.</p>
+          <input class="text-input" id="sv-mission-pick" placeholder="Mission name, e.g. Deep Archaeology 1" value="${h(pendingMission ? pendingMission.label : '')}">
+          ${pendingMission ? missionPanel() : ''}
+        </div>
       </section>
 
-      <section class="panel">
-        <h2 class="section-title">Conditions (${conds.length})</h2>
+      <section class="panel" style="margin-bottom:20px;" id="sv-sec-events">
+        <h2 class="section-title">Scheduled events (${count(eventList.length, doc.events.filter(e => e.name).length)})</h2>
+        <p style="font-size:0.8rem;color:var(--c-text-dim);margin-top:0;">Story events waiting for their date. The game applies each one when that day comes.</p>
+        ${eventPage.slice.length ? eventPage.slice.map(e => `
+          <div class="list-row" style="margin-bottom:4px;">
+            <span class="list-row__label">${U() ? `<span class="uk-hl">${U().highlight(e.name, search)}</span>` : h(e.name)}
+              <span style="font-size:0.75rem;color:var(--c-text-dim);">${fmtDate(e.date)}</span></span>
+            <button class="btn-remove" data-act="rmevent" data-name="${h(e.name)}" aria-label="Remove ${h(e.name)}">✕</button>
+          </div>`).join('') : `<p style="color:var(--c-text-dim);">${search ? `No events match “${h(search)}”.` : 'No events are scheduled.'}</p>`}
+        ${pagerHtml('events', eventPage)}
+        <div style="margin-top:16px;padding-top:14px;border-top:1px solid var(--c-border);">
+          <div style="font-weight:600;margin-bottom:6px;">Schedule an event</div>
+          <input class="text-input" id="sv-event-pick" placeholder="Event name, e.g. war begins" value="${h(pendingEvent ? pendingEvent.name : '')}">
+          ${pendingEvent ? eventPanel() : ''}
+        </div>
+      </section>
+
+      <section class="panel" id="sv-sec-conditions">
+        <h2 class="section-title">Conditions (${count(condPage.total, conds.length)})</h2>
         <p style="font-size:0.8rem;color:var(--c-text-dim);margin-top:0;">Story progress flags. Setting one to 0 removes it. Changing these can break missions — only edit ones you understand.</p>
-        <input class="text-input" id="sv-cond-filter" placeholder="Search conditions…" value="${h(condFilter)}" style="max-width:320px;margin-bottom:10px;">
         <div>${shown.map(([k, v]) => `
           <div class="list-row" style="margin-bottom:4px;">
-            <span class="list-row__label" style="word-break:break-word;">${h(k)}</span>
+            <span class="list-row__label uk-hl" style="word-break:break-word;">${U() ? U().highlight(k, search) : h(k)}</span>
             <input type="number" class="text-input" data-cond="${h(k)}" value="${h(v)}" style="width:110px;">
             <button class="btn-remove" data-act="rmcond" data-name="${h(k)}" aria-label="Remove ${h(k)}">✕</button>
           </div>`).join('')}
-          ${conds.length > shown.length ? `<p style="font-size:0.8rem;color:var(--c-text-dim);">Showing ${shown.length} of ${conds.length} — search to narrow down.</p>` : ''}
+          ${!shown.length && search ? `<p style="color:var(--c-text-dim);">No conditions match “${h(search)}”.</p>` : ''}
         </div>
+        ${pagerHtml('conds', condPage)}
         <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
           <input class="text-input" id="sv-new-cond" placeholder="New condition name" style="max-width:280px;">
           <input type="number" class="text-input" id="sv-new-cond-val" value="1" style="width:90px;">
@@ -398,6 +472,161 @@
         </div>
       </section>`;
     bind(pane);
+  }
+
+  // ── mission / event catalogues (from Supabase, for this save's plugins) ──
+  const catalog = { missions: null, events: null, pluginIds: null };
+  async function savePluginIds() {
+    if (catalog.pluginIds) return catalog.pluginIds;
+    const sb = window.supabaseClient;
+    let ids = null;
+    try {
+      const { data } = await sb.from('plugins').select('plugin_id, output_name');
+      let outputs = null;
+      if (typeof smMatchSavePlugins === 'function' && doc) {
+        const { matched } = await smMatchSavePlugins(doc.plugins);
+        outputs = new Set(matched.map(m => m.outputName));
+      }
+      ids = (data || []).filter(p => /^official-game\//.test(p.plugin_id) || !outputs || !outputs.size || outputs.has(p.output_name)).map(p => p.plugin_id);
+    } catch (_) { ids = null; }
+    return (catalog.pluginIds = ids);
+  }
+  async function fetchNames(table, cols) {
+    const sb = window.supabaseClient;
+    if (!sb) return [];
+    const ids = await savePluginIds();
+    const rows = [];
+    for (let from = 0; ; from += 1000) {
+      let q = sb.from(table).select(cols).order('name').range(from, from + 999);
+      if (ids && ids.length) q = q.in('plugin_id', ids);
+      const { data, error } = await q;
+      if (error) break;
+      rows.push(...(data || []));
+      if (!data || data.length < 1000) break;
+    }
+    return rows;
+  }
+  const pluginLabel = id => String(id || '').split('/').pop();
+  async function missionCatalog() {
+    if (!catalog.missions) catalog.missions = fetchNames('missions', 'id, name, display_name, plugin_id');
+    return catalog.missions;
+  }
+  async function eventCatalog() {
+    if (!catalog.events) catalog.events = fetchNames('game_events', 'name, plugin_id');
+    return catalog.events;
+  }
+  function searchList(rows, q, labelOf, subOf, valueOf) {
+    const scored = [];
+    for (const r of rows) {
+      const sc = Math.max(U().match(q, labelOf(r)), U().match(q, r.name) * 0.9);
+      if (sc > 0) scored.push([sc, r]);
+    }
+    scored.sort((a, b) => b[0] - a[0]);
+    return scored.slice(0, 50).map(([, r]) => ({ value: valueOf(r), label: labelOf(r), sub: subOf(r), data: r }));
+  }
+
+  function missionState(name) {
+    const g = k => Number(doc.getCondition(`${name}: ${k}`)) || 0;
+    if (doc.missions.some(m => m.id === name)) return 'in this save (accepted or on offer)';
+    if (g('done')) return 'already completed';
+    if (g('failed')) return 'failed';
+    if (g('declined')) return 'declined';
+    if (g('offered')) return 'offered before';
+    return 'never offered';
+  }
+  function missionPanel() {
+    const m = pendingMission, sum = m.summary;
+    const lines = window.MissionActions ? window.MissionActions.describe(sum) : [];
+    const radio = (v, label, hint) => `<label style="display:flex;gap:8px;align-items:flex-start;margin:4px 0;">
+      <input type="radio" name="sv-mission-mode" value="${v}"${m.mode === v ? ' checked' : ''}>
+      <span>${label}${hint ? `<span style="display:block;font-size:0.78rem;color:var(--c-text-dim);">${hint}</span>` : ''}</span></label>`;
+    return `<div style="margin-top:10px;padding:12px;border:1px solid var(--c-border);border-radius:8px;">
+      <div><strong>${h(m.row.display_name || m.row.name)}</strong>
+        <span style="font-size:0.78rem;color:var(--c-text-dim);">${h(pluginLabel(m.row.plugin_id))} · ${h(missionState(m.row.name))}</span></div>
+      ${radio('rewards', 'Mark it completed and give me its rewards', 'Like finishing it in the game.')}
+      ${radio('done', 'Mark it completed — no rewards', 'Story missions that depend on it can be offered.')}
+      ${radio('reset', 'Make it available again', 'Forgets it was offered, completed, failed or declined, so the game can offer it again.')}
+      ${m.mode === 'rewards' ? `<div style="font-size:0.85rem;margin:8px 0 0;">${lines.length
+        ? `You'll get:<ul style="margin:4px 0 0;padding-left:18px;">${lines.map(l => `<li>${h(l)}</li>`).join('')}</ul>`
+        : '<span style="color:var(--c-text-dim);">This mission has no rewards to give.</span>'}
+        ${sum.skipped.length ? `<div style="font-size:0.78rem;color:var(--c-text-dim);margin-top:4px;">Not applied here: ${h([...new Set(sum.skipped)].join(', '))} (story text and other things only the game can do).</div>` : ''}</div>` : ''}
+      <div style="display:flex;gap:8px;margin-top:10px;">
+        <button class="btn btn-primary btn-sm" data-act="applymission">Apply</button>
+        <button class="btn btn-secondary btn-sm" data-act="cancelmission">Cancel</button></div>
+    </div>`;
+  }
+  function eventPanel() {
+    const ev = pendingEvent, d = ev.date;
+    return `<div style="margin-top:10px;padding:12px;border:1px solid var(--c-border);border-radius:8px;">
+      <div><strong>${h(ev.name)}</strong> <span style="font-size:0.78rem;color:var(--c-text-dim);">${h(pluginLabel(ev.plugin_id))}</span></div>
+      <div style="font-size:0.85rem;margin:6px 0;">${h(ev.summary || 'Loading what it changes…')}</div>
+      <label style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:0.85rem;">Happens on
+        <input type="number" class="text-input" id="sv-ev-day" value="${d.day}" min="1" max="31" style="width:70px;" aria-label="Day">
+        <input type="number" class="text-input" id="sv-ev-month" value="${d.month}" min="1" max="12" style="width:70px;" aria-label="Month">
+        <input type="number" class="text-input" id="sv-ev-year" value="${d.year}" style="width:90px;" aria-label="Year">
+        <span style="color:var(--c-text-dim);">(default: tomorrow in your save)</span></label>
+      <div style="display:flex;gap:8px;margin-top:10px;">
+        <button class="btn btn-primary btn-sm" data-act="applyevent">Schedule it</button>
+        <button class="btn btn-secondary btn-sm" data-act="cancelevent">Cancel</button></div>
+    </div>`;
+  }
+  // "Changes 3 systems, 1 planet, 2 links" from an event's raw definition
+  function summarizeEvent(raw) {
+    const counts = {};
+    try {
+      for (const ev of E.parse(raw).root.children) for (const c of ev.children || []) {
+        if (!c.tokens) continue;
+        const k = c.tokens[0];
+        if (k === 'date') continue;
+        counts[k] = (counts[k] || 0) + 1;
+      }
+    } catch (_) {}
+    const names = { system: ['system', 'systems'], planet: ['planet', 'planets'], link: ['new link', 'new links'], unlink: ['removed link', 'removed links'],
+      fleet: ['fleet', 'fleets'], government: ['government', 'governments'], news: ['news item', 'news items'], shipyard: ['shipyard', 'shipyards'],
+      outfitter: ['outfitter', 'outfitters'], conversation: ['conversation', 'conversations'], galaxy: ['galaxy', 'galaxies'] };
+    const parts = Object.entries(counts).map(([k, c]) => `${c} ${(names[k] || [k, k + 's'])[c === 1 ? 0 : 1]}`);
+    return parts.length ? `Changes ${parts.join(', ')}.` : 'This event has no map changes (it may only set story flags).';
+  }
+  function addGameShip(model, name) {
+    const D = window.ShipDefinition;
+    if (!D) return false;
+    let found = null;
+    for (const p of Object.values(window.allData || {})) {
+      found = (p.ships || []).find(x => x.name === model) || (p.variants || []).find(x => x.name === model);
+      if (found) break;
+    }
+    if (!found) return false;
+    const { ships, outfits } = gameIndex();
+    const attrs = (found.baseShip ? ships.get(found.baseShip)?.attributes : found.attributes) || {};
+    doc.addShip(D.fromGameShip(found), { name, levels: D.maxLevels(attrs, D.outfitList(found.outfits), outfits) });
+    return true;
+  }
+  function bindPickers() {
+    if (!U()) return;
+    const mi = $('sv-mission-pick');
+    if (mi) U().combobox(mi, {
+      placeholderEmpty: 'No missions match — check the spelling, or that its plugin is on the site',
+      source: async q => searchList(await missionCatalog(), q, r => r.display_name || r.name,
+        r => `${r.display_name && r.display_name !== r.name ? r.name + ' · ' : ''}${pluginLabel(r.plugin_id)} · ${missionState(r.name)}`, r => r.display_name || r.name),
+      onPick: async it => {
+        const { data, error } = await window.supabaseClient.from('missions').select('id, name, display_name, plugin_id, raw').eq('id', it.data.id).maybeSingle();
+        if (error || !data) return say('Could not load that mission.', 'danger');
+        pendingMission = { row: data, label: it.label, summary: window.MissionActions.summarize(data.raw), mode: 'rewards' };
+        render();
+      },
+    });
+    const ei = $('sv-event-pick');
+    if (ei) U().combobox(ei, {
+      placeholderEmpty: 'No events match',
+      source: async q => searchList(await eventCatalog(), q, r => r.name, r => pluginLabel(r.plugin_id), r => r.name),
+      onPick: async it => {
+        const tomorrow = window.MissionActions.addDays(doc.date || { day: 1, month: 1, year: 3013 }, 1);
+        pendingEvent = { name: it.data.name, plugin_id: it.data.plugin_id, date: tomorrow, summary: null };
+        render();
+        const { data } = await window.supabaseClient.from('game_events').select('raw').eq('plugin_id', it.data.plugin_id).eq('name', it.data.name).maybeSingle();
+        if (pendingEvent && pendingEvent.name === it.data.name) { pendingEvent.summary = data ? summarizeEvent(data.raw) : 'Its definition could not be loaded.'; render(); }
+      },
+    });
   }
 
   function outfitEditor(s) {
@@ -418,7 +647,7 @@
 
   function itemTable(kind, label, items, unit, list) {
     return `<div style="margin-bottom:14px;">
-      <div style="font-weight:600;margin-bottom:6px;">${label}s</div>
+      <div style="font-weight:600;margin-bottom:6px;">${label === 'Commodity' ? 'Commodities' : label + 's'}</div>
       ${Object.entries(items).map(([n, c]) => `
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
           <input type="number" class="text-input" data-item="${kind}" data-name="${h(n)}" value="${c}" min="0" step="1" style="width:90px;">
@@ -437,6 +666,8 @@
     pane.onchange = e => {
       const t = e.target;
       try {
+        if (t.name === 'sv-mission-mode' && pendingMission) { pendingMission.mode = t.value; return render(); }
+        if (t.id === 'sv-search' || t.id === 'sv-mission-pick' || t.id === 'sv-event-pick' || /^sv-ev-/.test(t.id)) return;
         if (t.dataset.f) return pilotField(t);
         const row = t.closest('[data-ship]');
         if (t.dataset.s && row) return shipField(doc.ship(Number(row.dataset.ship)), t);
@@ -454,21 +685,29 @@
         if (t.dataset.cond !== undefined) { doc.setCondition(t.dataset.cond, Math.trunc(Number(t.value) || 0)); return changed(); }
       } catch (err) { say(err.message, 'danger'); render(); }
     };
-    const sf = $('sv-ship-filter');
-    if (sf) sf.oninput = () => {
-      shipFilter = sf.value; shipLimit = 40;
-      const pos = sf.selectionStart;
-      render();
-      const f2 = $('sv-ship-filter'); f2.focus(); f2.setSelectionRange(pos, pos);
+    const sb = $('sv-search');
+    let searchTimer = null;
+    if (sb) sb.oninput = () => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => {
+        search = sb.value.trim();
+        pages = { ships: 1, reps: 1, missions: 1, events: 1, conds: 1 };
+        const pos = sb.selectionStart;
+        render();
+        const s2 = $('sv-search'); s2.focus(); s2.setSelectionRange(pos, pos);
+      }, 150);
     };
-    const filter = $('sv-cond-filter');
-    if (filter) filter.oninput = () => {
-      condFilter = filter.value;
-      const pos = filter.selectionStart;
-      render();
-      const f2 = $('sv-cond-filter'); f2.focus(); f2.setSelectionRange(pos, pos);
-    };
+    bindPickers();
+
     pane.onclick = e => {
+      const pgBtn = e.target.closest('[data-page-of]');
+      if (pgBtn) {
+        pages[pgBtn.dataset.pageOf] = Number(pgBtn.dataset.page);
+        render();
+        const sec = { ships: 'ships', reps: 'reputation', missions: 'missions', events: 'events', conds: 'conditions' }[pgBtn.dataset.pageOf];
+        const el = $('sv-sec-' + sec); if (el) el.scrollIntoView({ block: 'start', behavior: 'smooth' });
+        return;
+      }
       const b = e.target.closest('[data-act]');
       if (!b) return;
       const row = b.closest('[data-ship]');
@@ -487,16 +726,39 @@
             return window.SaveSync.writeToGameFile(docId, doc.toString());
           }
           case 'revert': return revert();
-          case 'moreships': shipLimit += 40; return render();
+          case 'undo': return undo();
+          case 'cancelmission': pendingMission = null; return render();
+          case 'cancelevent': pendingEvent = null; return render();
+          case 'applymission': {
+            const m = pendingMission; if (!m) return;
+            const lines = window.MissionActions.apply(doc, m.row.name, m.summary, { mode: m.mode, addShip: addGameShip });
+            pendingMission = null;
+            return changed(`${m.label}: ${lines.join(' · ')}`, { undoable: true });
+          }
+          case 'applyevent': {
+            const ev = pendingEvent; if (!ev) return;
+            const d = { day: Number($('sv-ev-day').value), month: Number($('sv-ev-month').value), year: Number($('sv-ev-year').value) };
+            if (!(d.day >= 1 && d.day <= 31 && d.month >= 1 && d.month <= 12 && Number.isFinite(d.year))) return say('That date isn\'t valid.', 'danger');
+            doc.scheduleEvent(ev.name, d);
+            pendingEvent = null;
+            return changed(`Scheduled “${ev.name}” for ${d.day}/${d.month}/${d.year}.`, { undoable: true });
+          }
+          case 'rmevent': {
+            const e2 = doc.events.find(x => x.name === b.dataset.name); if (!e2) return;
+            doc.removeEvent(e2.node);
+            return changed(`Removed the event “${b.dataset.name}”.`, { undoable: true });
+          }
           case 'outfits': openShip = openShip === ship.index ? null : ship.index; return render();
           case 'dup': doc.duplicateShip(ship.index, `${ship.name || ship.model} (copy)`); return changed('Ship duplicated.');
           case 'addship':
             return window.SaveShipPicker.open({ mode: 'add', title: 'Add a ship to this save', onPick: c => applyPicked(c, null) });
           case 'refit':
             return window.SaveShipPicker.open({ mode: 'refit', title: `Refit “${ship.name || ship.model}” with…`, onPick: c => applyPicked(c, ship.index) });
-          case 'rmship':
-            if (!confirm(`Remove "${ship.name || ship.model}" from this save? Its cargo goes with it.`)) return;
-            doc.removeShip(ship.index); openShip = null; return changed('Ship removed.');
+          case 'rmship': {
+            const nm = ship.name || ship.model;
+            doc.removeShip(ship.index); openShip = null;
+            return changed(`Removed “${nm}” (and its cargo).`, { undoable: true });
+          }
           case 'addoutfit': {
             const name = $('sv-add-outfit').value.trim(); const n = Math.trunc(nonNeg($('sv-add-outfit-n').value) || 0);
             if (!name || !n) return;
@@ -513,21 +775,30 @@
           }
           case 'rmlic': doc.removeLicense(b.dataset.name); return changed();
           case 'addlic': { const v = $('sv-new-lic').value.trim(); if (!v) return; doc.addLicense(v); return changed(`Added license ${v}.`); }
-          case 'rmcond': doc.deleteCondition(b.dataset.name); return changed();
+          case 'rmcond': doc.deleteCondition(b.dataset.name); return changed(`Removed “${b.dataset.name}”.`, { undoable: true });
           case 'addcond': {
             const k = $('sv-new-cond').value.trim(); if (!k) return;
             doc.setCondition(k, Math.trunc(Number($('sv-new-cond-val').value) || 0)); return changed(`Set ${k}.`);
           }
           case 'rmmission': {
             const m = doc.missions[Number(b.dataset.i)];
-            if (!m || !confirm(`Remove the mission "${m.displayName}"? Any cargo or passengers it put on your ships are removed too.`)) return;
+            if (!m) return;
             doc.removeMission(m.id, { kinds: [m.kind], conditions: $('sv-mission-conds').checked });
-            return changed('Mission removed.');
+            return changed(`Removed the mission “${m.displayName}”.`, { undoable: true });
           }
         }
       } catch (err) { say(err.message, 'danger'); render(); }
     };
   }
+
+  // Keyboard: "/" jumps to the search box, Ctrl/Cmd+Z undoes (when not typing).
+  document.addEventListener('keydown', e => {
+    const pane = $('tab-edit');
+    if (!pane || pane.classList.contains('hidden') || !doc) return;
+    const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName || '');
+    if (e.key === '/' && !typing) { e.preventDefault(); const sb = $('sv-search'); if (sb) { sb.focus(); sb.select(); } }
+    else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z' && !e.shiftKey && !typing && undoStack.length) { e.preventDefault(); undo(); }
+  });
 
   // ── add / refit from the ship picker ─────────────────────────────────────
   function gameIndex() {

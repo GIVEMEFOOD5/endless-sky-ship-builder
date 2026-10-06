@@ -630,7 +630,7 @@ function renderFleet() {
             <span style="font-size:1.1rem;color:var(--c-text-dim);transition:transform .2s;" id="save-fleet-chevron">${sbSaveFleetCollapsed ? '▶' : '▼'}</span>
           </div>
         </div>
-        <div id="save-fleet-cards" style="display:${sbSaveFleetCollapsed ? 'none' : 'grid'};grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:24px;">
+        <div id="save-fleet-cards" style="display:${sbSaveFleetCollapsed ? 'none' : 'grid'};grid-template-columns:repeat(auto-fill, minmax(min(280px, 100%), 1fr));gap:16px;margin-bottom:24px;">
           ${saveCards}
         </div>
       </div>`;
@@ -671,7 +671,7 @@ function renderFleet() {
           </div>
           <span style="font-size:1.1rem;color:var(--c-text-dim);transition:transform .2s;" id="built-fleet-chevron">${sbBuiltFleetCollapsed ? '▶' : '▼'}</span>
         </div>
-        <div id="built-fleet-cards" style="display:${sbBuiltFleetCollapsed ? 'none' : 'grid'};grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:24px;">
+        <div id="built-fleet-cards" style="display:${sbBuiltFleetCollapsed ? 'none' : 'grid'};grid-template-columns:repeat(auto-fill, minmax(min(280px, 100%), 1fr));gap:16px;margin-bottom:24px;">
           ${builtCards}
         </div>
       </div>`;

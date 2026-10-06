@@ -262,9 +262,40 @@ function applyFiltersAndRender() {
     currentMissions = new Map(filtered.map(m => [m.id, m]));
 
     countLabel.textContent = `${filtered.length} mission${filtered.length === 1 ? '' : 's'}`;
+    // Draw cards in batches: thousands of missions at once made phones
+    // (and slower computers) stall. More are added as you scroll near the
+    // end, or with the button.
+    lastFiltered = filtered;
+    shownCount = Math.min(filtered.length, MISSION_BATCH);
     listEl.innerHTML = filtered.length
-        ? filtered.map(cardHtml).join('')
+        ? filtered.slice(0, shownCount).map(cardHtml).join('') + moreButtonHtml()
         : '<p class="mission-empty">No missions match.</p>';
+    watchMore();
+}
+
+const MISSION_BATCH = 60;
+let lastFiltered = [], shownCount = 0, moreObserver = null;
+function moreButtonHtml() {
+    const left = lastFiltered.length - shownCount;
+    return left > 0 ? `<button class="btn btn-secondary" id="missionShowMore" style="width:100%;margin-top:10px;">Show ${Math.min(left, MISSION_BATCH)} more (${left} left)</button>` : '';
+}
+function showMoreMissions() {
+    const btn = document.getElementById('missionShowMore');
+    if (!btn) return;
+    const next = lastFiltered.slice(shownCount, shownCount + MISSION_BATCH);
+    shownCount += next.length;
+    btn.insertAdjacentHTML('beforebegin', next.map(cardHtml).join(''));
+    btn.outerHTML = moreButtonHtml();
+    watchMore();
+}
+function watchMore() {
+    const btn = document.getElementById('missionShowMore');
+    if (!btn) return;
+    btn.onclick = showMoreMissions;
+    if (!('IntersectionObserver' in window)) return;
+    if (moreObserver) moreObserver.disconnect();
+    moreObserver = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) showMoreMissions(); }, { rootMargin: '600px' });
+    moreObserver.observe(btn);
 }
 
 function cardHtml(m) {
