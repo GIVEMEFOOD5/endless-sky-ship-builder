@@ -356,7 +356,9 @@ label {
 .picker-search {
     margin: 12px 16px;
     width: calc(100% - 32px);
+    box-sizing: border-box;   /* padding inside the width, so it doesn't poke past the panel */
 }
+.modal-box .picker-search.text-input { width: calc(100% - 32px); }
 
 /* ── Layout ───────────────────────────────────────────────────── */
 .container {
@@ -2592,7 +2594,10 @@ textarea.text-input { resize: vertical; min-height: 80px; }
     gap: 20px;
     align-items: start;
 }
-@media (max-width: 900px) { .builder-layout { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .builder-layout { grid-template-columns: minmax(0, 1fr); } }
+/* grid/flex children may shrink below their content's width (otherwise one
+   long outfit row widens the whole editor past the screen) */
+.builder-layout > *, .builder-sidebar > * { min-width: 0; }
 .builder-sidebar { display: flex; flex-direction: column; gap: 16px; }
  
 .input-group { margin-bottom: 14px; }
@@ -5051,6 +5056,19 @@ img, video, canvas { max-width: 100%; }
     .modal-box--detail { max-height: 92dvh; }
     .panel { padding-left: 14px; padding-right: 14px; }
     h1 { word-break: break-word; }
+    /* ship builder outfit rows: name gets its own line, size tags + count +
+       remove wrap underneath instead of squeezing the name to nothing */
+    .outfit-item { flex-wrap: wrap; row-gap: 6px; }
+    .outfit-item__name { flex: 1 1 calc(100% - 44px); white-space: normal; overflow-wrap: anywhere; }
+    .outfit-item__count { margin-left: auto; }
+    .outfit-item > .btn-danger { flex: 0 0 auto; }
+    /* hardpoint rows: position + ⚙ + ✕ on one line, the mounted outfit below */
+    .outfit-item .sb-hp-over { order: 5; flex: 1 1 100%; width: auto !important; }
+    .outfit-item .sb-hp-over ~ :not(button) { order: 6; }
+    /* add-outfit / pick-ship lists: name on its own line, details under it */
+    .sb-picker-row { flex-wrap: wrap; row-gap: 4px; }
+    .sb-picker-name { flex: 1 1 100%; white-space: normal; }
+    .sb-picker-meta { flex-shrink: 1 !important; flex-wrap: wrap; white-space: normal; }
     /* save editor: jump links in one sideways-scrolling row, so the sticky bar stays short */
     .sv-jump { flex-wrap: nowrap; overflow-x: auto; width: 100%; scrollbar-width: none; padding-bottom: 2px; }
     .sv-jump::-webkit-scrollbar { display: none; }

@@ -2209,7 +2209,7 @@ function sbRenderHP(field, elId, label, showOver) {
       `<div class="outfit-item" style="gap:4px;flex-wrap:wrap;">
         <span class="sb-hp-idx">${i + 1}</span>
         <input class="text-input" style="flex:1;min-width:70px;padding:4px 6px;font-size:0.78rem;" type="text" value="${esc(g.coords||'')}" placeholder="x y" onchange="sbUpdateHP('${field}',${i},'coords',this.value)">
-        ${showOver ? `<input class="text-input" style="width:140px;padding:4px 6px;font-size:0.78rem;" type="text" value="${esc(g.over||'')}" placeholder='outfit "Name"' onchange="sbUpdateHP('${field}',${i},'over',this.value)">` : ''}
+        ${showOver ? `<input class="text-input sb-hp-over" style="width:140px;padding:4px 6px;font-size:0.78rem;" type="text" value="${esc(g.over||'')}" placeholder='outfit "Name"' onchange="sbUpdateHP('${field}',${i},'over',this.value)">` : ''}
         <button class="btn btn-secondary btn-xs" onclick="sbOpenHPAttrEditor('${field}',${i})" title="Extra attributes (angle, arc, under, zoom...)">⚙</button>
         <button class="btn btn-danger btn-xs" onclick="sbRemoveHP('${field}',${i})">✕</button>
         ${_sbAttrsSummaryHTML(field, i, g.attrs)}
