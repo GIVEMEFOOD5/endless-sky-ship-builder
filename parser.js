@@ -3140,43 +3140,63 @@ async function main() {
     // Up to this many requests in flight at once — Supabase handles a few
     // concurrent requests fine, and this is most of the push's wall time.
     const CONCURRENCY = 4;
-    async function inPool(items, worker) {
+    async function inPool(items, worker, limit = CONCURRENCY) {
       let next = 0;
       const run = async () => { while (next < items.length) { const i = next++; await worker(items[i], i); } };
-      await Promise.all(Array.from({ length: Math.min(CONCURRENCY, items.length) }, run));
+      await Promise.all(Array.from({ length: Math.min(limit, items.length) }, run));
     }
-    async function upsertChunked(table, rows, { onConflict, select, size = CHUNK_SIZE } = {}) {
+    // Supabase cancels any statement that runs too long. Big rows (systems,
+    // planets, missions carry large JSON) can hit that, especially with
+    // several requests at once — so on a timeout the batch is split in half
+    // and each half sent on its own, down to single rows if need be.
+    const isTimeout = err => /statement timeout|canceling statement|57014|timed out|payload too large|413/i.test(err && err.message || '');
+    async function sendSplitting(part, send, label) {
+      try {
+        return await withRetry(() => send(part), { label });
+      } catch (err) {
+        if (!isTimeout(err) || part.length <= 1) throw err;
+        const mid = Math.ceil(part.length / 2);
+        console.log(`  ↘ ${label}: too slow for ${part.length} rows at once — sending ${mid} + ${part.length - mid}`);
+        const a = await sendSplitting(part.slice(0, mid), send, label);
+        const b = await sendSplitting(part.slice(mid), send, label);
+        return [...(a || []), ...(b || [])];
+      }
+    }
+    async function upsertChunked(table, rows, { onConflict, select, size = CHUNK_SIZE, concurrency = CONCURRENCY } = {}) {
       const results = [];
       await inPool(chunk(rows, size), async part => {
         if (!part.length) return;
-        await withRetry(async () => {
-          let query = supabase.from(table).upsert(part, onConflict ? { onConflict } : undefined);
+        const data = await sendSplitting(part, async p => {
+          let query = supabase.from(table).upsert(p, onConflict ? { onConflict } : undefined);
           if (select) query = query.select(select);
           const { data, error } = await query;
           if (error) throw new Error(`Supabase upsert failed for ${table}: ${error.message}`);
-          if (data) results.push(...data);
-        }, { label: `upsert ${table}` });
-      });
+          return data || [];
+        }, `upsert ${table}`);
+        if (data) results.push(...data);
+      }, concurrency);
       return results;
     }
     async function insertChunked(table, rows) {
       await inPool(chunk(rows, CHUNK_SIZE), async part => {
         if (!part.length) return;
-        await withRetry(async () => {
-          const { error } = await supabase.from(table).insert(part);
+        await sendSplitting(part, async p => {
+          const { error } = await supabase.from(table).insert(p);
           if (error) throw new Error(`Supabase insert failed for ${table}: ${error.message}`);
-        }, { label: `insert ${table}` });
+          return [];
+        }, `insert ${table}`);
       });
     }
     async function deleteInChunked(table, column, ids) {
       // ids can be long uuids — keep each request's URL short
       await inPool(chunk(ids, 200), async part => {
         if (!part.length) return;
-        await withRetry(async () => {
-          const { error } = await supabase.from(table).delete().in(column, part);
+        await sendSplitting(part, async p => {
+          const { error } = await supabase.from(table).delete().in(column, p);
           if (error) throw new Error(`Supabase delete failed for ${table}: ${error.message}`);
-        }, { label: `delete ${table}` });
-      });
+          return [];
+        }, `delete ${table}`);
+      }, 2);
     }
     // id ↔ internal_id for every row of a table (paged) — needed when
     // unchanged rows were skipped and so didn't come back from the upsert.
@@ -3394,9 +3414,10 @@ async function main() {
     await pushTable('galaxies', dedupedGalaxyRows, ik, { onConflict: 'internal_id' });
     await pushTable('governments', dedupeByComposite(allGovernmentRows, ['plugin_id', 'name']), pn, { onConflict: 'plugin_id,name' });
     await pushTable('wormholes', dedupedWormholeRows, ik, { onConflict: 'internal_id' });
-    await pushTable('planets', dedupedPlanetRows, ik, { onConflict: 'internal_id' });
-    await pushTable('systems', dedupedSystemRows, ik, { onConflict: 'internal_id' });
-    await pushTable('missions', dedupedMissionRows, ik, { onConflict: 'internal_id', size: 50 });
+    // planets/systems/missions carry big JSON — smaller batches, two at a time
+    await pushTable('planets', dedupedPlanetRows, ik, { onConflict: 'internal_id', size: 100, concurrency: 2 });
+    await pushTable('systems', dedupedSystemRows, ik, { onConflict: 'internal_id', size: 100, concurrency: 2 });
+    await pushTable('missions', dedupedMissionRows, ik, { onConflict: 'internal_id', size: 50, concurrency: 2 });
 
     // Raw event definitions (for replaying a save's changes on the Systems
     // map). One row per plugin + event name; if a plugin defines the same
@@ -3564,8 +3585,9 @@ async function main() {
     const changedSystemIds = [...changedSystems].map(k => systemIdByInternalId.get(k)).filter(Boolean);
     const SYS_TABLES = { fleets: 'system_fleets', hazards: 'system_hazards', asteroids: 'system_asteroids', minables: 'system_minables',
                          links: 'system_links', planets: 'system_planets', trade: 'system_trade' };
-    await Promise.all(Object.values(SYS_TABLES).map(t => deleteInChunked(t, 'system_id', changedSystemIds)));
-    await Promise.all(Object.entries(SYS_TABLES).map(([part, t]) => insertChunked(t, sysRows[part])));
+    // one table at a time — seven big deletes/inserts at once can trip Supabase's statement timeout
+    for (const t of Object.values(SYS_TABLES)) await deleteInChunked(t, 'system_id', changedSystemIds);
+    for (const [part, t] of Object.entries(SYS_TABLES)) await insertChunked(t, sysRows[part]);
     cache.accept('system_children');
 
     console.log(`  rebuilt children of ${changedShips.size} ships, ${changedVariants.size} variants, ${changedPlanets.size} planets, ` +
