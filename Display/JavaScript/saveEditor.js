@@ -294,7 +294,7 @@
       pages[key] = r.page; return r;
     };
     const pagerHtml = (key, r) => U() ? U().pager({ ...r, id: key }) : '';
-    const matchingShips = ships.filter(s => matches(`${s.name} ${s.model}`))
+    const matchingShips = ships.filter(s => matches(`${s.name} ${s.model} ${modelLabel(s.model)}`))
       .sort((a, b) => (b.isFlagship - a.isFlagship) || (a.parked - b.parked) || (a.index - b.index));
     const shipPage = pg('ships', matchingShips);
     const shownShips = shipPage.slice.slice();
@@ -372,7 +372,7 @@
             <tr data-ship="${s.index}" style="border-top:1px solid var(--c-border);">
               <td><input type="radio" name="sv-flag" data-s="flagship"${s.isFlagship ? ' checked' : ''} aria-label="Make flagship"></td>
               <td><input class="text-input" data-s="name" value="${h(s.name)}" style="min-width:140px;"></td>
-              <td>${h(s.model)}</td>
+              <td>${modelHtml(s.model)}</td>
               <td>${numIn('data-s="crew" min="0" step="1"', s.crew)}</td>
               <td>${numIn('data-s="fuel" min="0"', s.fuel)}</td>
               <td>${numIn('data-s="shields" min="0"', s.shields)}</td>
@@ -473,6 +473,23 @@
         </div>
       </section>`;
     bind(pane);
+  }
+
+  // A model's display name (what the game shows), with the internal name dimmed beside it.
+  let modelIdx = null, modelKey = '';
+  function modelShip(model) {
+    const key = Object.keys(window.allData || {}).map(k => k + ':' + ((window.allData[k].ships || []).length)).join('|');
+    if (!modelIdx || key !== modelKey) {
+      modelIdx = new Map(); modelKey = key;
+      for (const p of Object.values(window.allData || {}))
+        for (const s of [...(p.ships || []), ...(p.variants || [])]) if (s && s.name && !modelIdx.has(s.name)) modelIdx.set(s.name, s);
+    }
+    return modelIdx.get(model) || null;
+  }
+  function modelLabel(model) { const s = modelShip(model); return s && window.ShipNames ? window.ShipNames.label(s) : ''; }
+  function modelHtml(model) {
+    const s = modelShip(model);
+    return s && window.ShipNames ? window.ShipNames.html(s) : h(model);
   }
 
   // ── mission / event catalogues (from Supabase, for this save's plugins) ──

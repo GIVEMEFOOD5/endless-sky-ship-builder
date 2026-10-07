@@ -28,7 +28,7 @@
 
   function gameIndex() {
     const ships = new Map(), outfits = new Map();
-    for (const p of Object.values(window.allData || {})) {
+    for (const p of Object.values((window.DataLoader && typeof window.DataLoader.getActiveData === 'function' ? window.DataLoader.getActiveData() : (window.allData || {})))) {
       for (const s of p.ships || []) if (s && s.name && !ships.has(s.name)) ships.set(s.name, s);
       for (const o of p.outfits || []) if (o && o.name && !outfits.has(o.name)) outfits.set(o.name, o);
     }
@@ -45,7 +45,7 @@
     const A = window.AfStats; if (!A || !sh) return null;
     const { ships, outfits } = gameIndex();
     let hull = ships.get(sh.model);
-    if (!hull) for (const p of Object.values(window.allData || {})) { const v = (p.variants || []).find(x => x.name === sh.model); if (v) { hull = ships.get(v.baseShip) || v; break; } }
+    if (!hull) for (const p of Object.values((window.DataLoader && typeof window.DataLoader.getActiveData === 'function' ? window.DataLoader.getActiveData() : (window.allData || {})))) { const v = (p.variants || []).find(x => x.name === sh.model); if (v) { hull = ships.get(v.baseShip) || v; break; } }
     if (!hull) return null;
     return A.derive(A.hullAttrs(hull), Object.entries(sh.outfits || {}).map(([n, c]) => [n, Number(c) || 0]), outfits);
   }
@@ -142,7 +142,7 @@
           <span>Pay for it — ${s.price.toLocaleString()} credits${s.mode === 'refit' ? ' (new value minus the old ship\'s)' : ''}
             <span style="display:block;font-size:0.76rem;color:${s.cantAfford ? 'var(--c-danger-text,#f87171)' : 'var(--c-text-dim)'};">
               ${h(doc.pilot.first)} has ${credits.toLocaleString()} credits${s.cantAfford ? ' — not enough' : ''}.</span></span></label>` : ''}
-        ${missing.length ? `<p style="font-size:0.8rem;color:var(--c-warn-text, #fbbf24);">⚠ ${missing.length} outfit${missing.length === 1 ? '' : 's'} aren't in the plugins loaded here
+        ${missing.length ? `<p style="font-size:0.8rem;color:var(--c-warn-text, #fbbf24);">⚠ ${missing.length} outfit${missing.length === 1 ? '' : 's'} aren't in your selected plugins
           (${h(missing.slice(0, 4).join(', '))}${missing.length > 4 ? '…' : ''}) — the game drops ${missing.length === 1 ? 'it' : 'them'} unless that plugin is installed.</p>` : ''}
         <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
           <button class="btn btn-primary" data-b2s="apply"${s.cantAfford ? ' disabled' : ''}>${s.mode === 'refit' ? 'Refit the ship' : 'Add to the save'}</button>

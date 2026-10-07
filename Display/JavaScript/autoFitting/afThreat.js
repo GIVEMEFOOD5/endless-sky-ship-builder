@@ -44,14 +44,15 @@
   function outfitList(o) { return window.ShipDefinition ? window.ShipDefinition.outfitList(o) : Object.entries(o || {}).map(([n, v]) => [n, Number(v) || 1]); }
   function catalogue() {
     const hulls = new Map(), all = new Map(), outfits = new Map();
-    for (const p of Object.values(window.allData || {})) {
+    for (const p of Object.values(window.AfStats.activeData())) {
       for (const s of p.ships || []) { if (s && s.name && !hulls.has(s.name)) hulls.set(s.name, s); if (s && s.name && !all.has(s.name)) all.set(s.name, s); }
       for (const s of p.variants || []) if (s && s.name && !all.has(s.name)) all.set(s.name, s);
       for (const o of p.outfits || []) if (o && o.name && !outfits.has(o.name)) outfits.set(o.name, o);
     }
     return { hulls, all, outfits };
   }
-  const govsOf = s => [...new Set(Object.values(s.locations || {}).flatMap(l => (l && l.Governments) || []))];
+  // who flies a ship, according to the selected plugins only
+  const govsOf = s => [...new Set(S().activeLocations(s.locations).flatMap(l => l.Governments || []))];
 
   /** Governments that fly at least one known ship → [{ name, ships }] */
   function governments() {

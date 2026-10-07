@@ -643,7 +643,7 @@ function renderFleet() {
     const builtCards = sbFleet.map((s, i) => {
       const a = s.attributes || {};
       const src = s._sourceShip
-        ? `<span class="badge badge-blue" style="font-size:0.65rem;margin-left:6px;">based on ${esc(s._sourceShip)}</span>`
+        ? `<span class="badge badge-blue" style="font-size:0.65rem;margin-left:6px;">based on ${esc(sbShipLabel(s._sourceShip))}</span>`
         : '';
       return `<div class="fleet-card" onclick="sbEditFleetShip(${i})">
         <div class="fleet-card__name">${esc(s.name || 'Unnamed Ship')}${src}${(window.PluginAvailability ? window.PluginAvailability.badgeHtml(s) : '')}</div>
@@ -986,7 +986,7 @@ function sbOpenShipPicker() {
         const varTag = s._isVariant ? ' <em style="font-size:0.78em;color:var(--c-text-dim)">(variant)</em>' : '';
         const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(s))));
         return `<div class="sb-picker-row" onclick="sbPickShip('${encoded}')">
-          <span class="sb-picker-name">${esc(s.name || 'Unknown')}${varTag}</span>
+          <span class="sb-picker-name">${window.ShipNames ? ShipNames.html(s) : esc(s.name || 'Unknown')}${varTag}</span>
           <span class="sb-picker-meta">${esc(cat)}</span>
         </div>`;
       }).join('')}
@@ -994,6 +994,12 @@ function sbOpenShipPicker() {
 
   document.getElementById('sb-ship-picker-search').value = '';
   openModal('modal-sb-ship-picker');
+}
+
+/** What players see for a game ship's internal name (its display name, if it has one). */
+function sbShipLabel(name) {
+  const ship = sbAllShips.find(x => x.name === name);
+  return ship && window.ShipNames ? ShipNames.label(ship) : name;
 }
 
 function sbFilterShipPicker(val) {

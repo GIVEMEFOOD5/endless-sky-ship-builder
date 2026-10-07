@@ -11,7 +11,8 @@ async function filterItems() {
         const matchesSearch = !searchTerm || (
             (item.name && item.name.toLowerCase().includes(searchTerm)) ||
             (item["display name"] && item["display name"].toLowerCase().includes(searchTerm)) ||
-            (item.attributes?.["display name"] && item.attributes["display name"].toLowerCase().includes(searchTerm))
+            (item.attributes?.["display name"] && item.attributes["display name"].toLowerCase().includes(searchTerm)) ||
+            (item.displayName && String(item.displayName).toLowerCase().includes(searchTerm))
         )
         const itemCategory = (item.category || item.attributes?.category) || null;
         const effectiveCategory = itemCategory ? itemCategory : 'N/A';

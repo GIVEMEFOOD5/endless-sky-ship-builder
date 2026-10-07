@@ -186,7 +186,8 @@ function createCardPlaceholder(item) {
  
     // ── Title block ──────────────────────────────────────────────────────────
     // If a "display name" exists, show it large and the internal name smaller.
-    const displayName = item['display name'];
+    const dn = item['display name'] || item.displayName || item.attributes?.['display name'];
+    const displayName = dn && dn !== item.name ? dn : null;
     const internalName = item.name || 'Unknown';
  
     const title = document.createElement('div');
@@ -362,7 +363,16 @@ async function showDetails(item) {
 
     if (typeof clearSpriteCache === 'function') clearSpriteCache();
 
-    modalTitle.textContent = item.name || 'Unknown';
+    {
+        // display name first, the internal name smaller beside it
+        const dn = item['display name'] || item.displayName || item.attributes?.['display name'];
+        modalTitle.textContent = (dn && dn !== item.name ? dn : item.name) || 'Unknown';
+        if (dn && dn !== item.name) {
+            const sub = document.createElement('span');
+            sub.className = 'ship-realname'; sub.title = 'Internal name'; sub.textContent = item.name;
+            modalTitle.appendChild(sub);
+        }
+    }
 
     modalBody.innerHTML = '';
 

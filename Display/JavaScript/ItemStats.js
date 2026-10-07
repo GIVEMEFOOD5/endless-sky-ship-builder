@@ -214,8 +214,10 @@ if (typeof window !== 'undefined') {
 
 // ── Outfit index / lookup ───────────────────────────────────────────────
 
+// Only the selected plugins: an outfit from a plugin you haven't switched on
+// isn't in your game, so it mustn't count towards a ship's stats.
 function buildOutfitIndex() {
-    const allData = window.allData || {};
+    const allData = (window.DataLoader && typeof window.DataLoader.getActiveData === 'function' ? window.DataLoader.getActiveData() : (window.allData || {}));
     const merged  = {};
     for (const pd of Object.values(allData))
         (pd.outfits || []).forEach(o => { if (o.name && !merged[o.name]) merged[o.name] = o; });
@@ -223,7 +225,7 @@ function buildOutfitIndex() {
 }
 
 function lookupOutfit(name, pluginId) {
-    const allData = window.allData || {};
+    const allData = (window.DataLoader && typeof window.DataLoader.getActiveData === 'function' ? window.DataLoader.getActiveData() : (window.allData || {}));
     const order = [pluginId, ...Object.keys(allData).filter(k => k !== pluginId)];
     for (const pid of order) {
         const outfit = (allData[pid]?.outfits || []).find(o => o.name === name);

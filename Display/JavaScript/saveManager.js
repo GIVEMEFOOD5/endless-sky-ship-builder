@@ -628,6 +628,7 @@ function getFilteredSortedShips() {
     ships = ships.filter(({ ship }) =>
       (ship._customName || '').toLowerCase().includes(q) ||
       (ship._modelName  || '').toLowerCase().includes(q) ||
+      smModelLabel(ship._modelName).toLowerCase().includes(q) ||
       (ship._system     || '').toLowerCase().includes(q) ||
       (ship._planet     || '').toLowerCase().includes(q)
     );
@@ -661,10 +662,10 @@ function renderFleetGrid() {
 
     return `<div class="fleet-card" data-idx="${idx}">
       <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
-        <div class="fleet-card__name">${esc(ship._customName || ship._modelName)}</div>
+        <div class="fleet-card__name">${ship._customName ? esc(ship._customName) : smModelHtml(ship._modelName)}</div>
         ${statusBadge}
       </div>
-      <div class="fleet-card__variant">${esc(ship._modelName)}</div>
+      <div class="fleet-card__variant">${smModelHtml(ship._modelName)}</div>
       <div class="fleet-card__stats">
         <div class="fleet-card__stat"><div class="fleet-card__stat-label">Hull</div><div class="fleet-card__stat-value">${fmtNum(ship._hull)}</div></div>
         <div class="fleet-card__stat"><div class="fleet-card__stat-label">Shields</div><div class="fleet-card__stat-value">${fmtNum(ship._shields)}</div></div>
@@ -1190,3 +1191,17 @@ document.querySelectorAll('#resultTabs .tab').forEach(tabEl => {
 // ═══════════════════════════════════════════════════════════
 
 document.addEventListener('saveReaderDataReady', smBootstrap);
+
+// A ship model as players know it: its display name, with the internal model name dimmed beside it.
+let _smModelIdx = null, _smModelKey = '';
+function smModelShip(model) {
+  const key = Object.keys(window.allData || {}).map(k => k + ':' + ((window.allData[k].ships || []).length)).join('|');
+  if (!_smModelIdx || key !== _smModelKey) {
+    _smModelIdx = new Map(); _smModelKey = key;
+    for (const p of Object.values(window.allData || {}))
+      for (const s of [...(p.ships || []), ...(p.variants || [])]) if (s && s.name && !_smModelIdx.has(s.name)) _smModelIdx.set(s.name, s);
+  }
+  return _smModelIdx.get(model) || null;
+}
+function smModelLabel(model) { const s = smModelShip(model); return s && window.ShipNames ? window.ShipNames.label(s) : (model || ''); }
+function smModelHtml(model) { const s = smModelShip(model); return s && window.ShipNames ? window.ShipNames.html(s) : esc(model || ''); }

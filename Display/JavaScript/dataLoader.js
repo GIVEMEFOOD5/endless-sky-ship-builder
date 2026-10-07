@@ -346,6 +346,22 @@ window.DataLoader = {
     },
 
     getActivePlugins() { return [..._activePlugins]; },
+    /** { outputName: pluginData } for the selected plugins only (Local Builds included when on). */
+    getActiveData() { return _activeData(); },
+    /**
+     * Every id a selected plugin goes by: its output name plus the plugin_id
+     * ("Source/folder") used in internal ids and in location lists.
+     */
+    getActivePluginIds() {
+        const ids = new Set();
+        for (const [name, p] of Object.entries(_activeData())) {
+            ids.add(name);
+            const s = (p.ships || []).find(x => x && x._pluginId); if (s) ids.add(s._pluginId);
+            const o = (p.outfits || []).find(x => x && x.pluginId); if (o) ids.add(o.pluginId);
+            const v = (p.variants || []).find(x => x && x._pluginId); if (v) ids.add(v._pluginId);
+        }
+        return ids;
+    },
 
     async setActivePlugins(arr) {
         const withLocal = arr.includes(LOCAL_PLUGIN_ID) ? arr : [LOCAL_PLUGIN_ID, ...arr];
@@ -517,6 +533,8 @@ function reconstructShip(row, outfitsByOwnerId) {
     const ex = row.explosions || {};
     return {
         name: row.name,
+        // the name the game shows players, when the data gives one ("display name")
+        displayName: (row.attributes && row.attributes['display name']) || null,
         sprite: row.sprite,
         thumbnail: row.thumbnail,
         description: row.description,
@@ -881,4 +899,35 @@ async function ensurePluginLoaded(outputName) {
     return bundle;
 }
 
+})();
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  ShipNames — one way to show and search ship names everywhere.
+//  A ship with a "display name" (what the game shows, e.g. "Modified
+//  Carrier") is shown by that name, with its internal name ("Carrier
+//  (Alpha)") smaller and dimmer beside it. Searches match either.
+// ═══════════════════════════════════════════════════════════════════════════
+(function () {
+    const esc = s => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    const display = s => (s && (s.displayName || (s.attributes && s.attributes['display name']) || s['display name'])) || null;
+    const ShipNames = {
+        /** The main name to show. */
+        label(s) { if (!s) return ''; const d = display(s); return d && d !== s.name ? d : (s.name || ''); },
+        /** The internal name when it differs from the label (else ''). */
+        internal(s) { if (!s) return ''; const d = display(s); return d && d !== s.name ? (s.name || '') : ''; },
+        /** "Display  internal" — for search haystacks. */
+        text(s) { return `${ShipNames.label(s)} ${ShipNames.internal(s)}`.trim(); },
+        /** Does the ship match a search (name or display name)? */
+        matches(s, q) {
+            q = String(q || '').trim().toLowerCase();
+            if (!q) return true;
+            return ShipNames.text(s).toLowerCase().includes(q);
+        },
+        /** HTML: display name, then the internal name small and dim. `wrap` escapes/highlights the main part. */
+        html(s, wrap) {
+            const main = ShipNames.label(s), sub = ShipNames.internal(s);
+            return `${wrap ? wrap(main) : esc(main)}${sub ? ` <span class="ship-realname" title="Internal name">${esc(sub)}</span>` : ''}`;
+        },
+    };
+    window.ShipNames = ShipNames;
 })();

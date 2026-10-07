@@ -2510,6 +2510,10 @@ class EndlessSkyParser {
         i++; continue;
       }
 
+      // `"display name" "Modified Carrier"` — what the game shows instead of the internal name
+      const dn = stripped.match(/^["`]display name["`]\s+(?:"([^"]+)"|`([^`]+)`|(\S.*))$/);
+      if (dn) { v.displayName = dn[1] ?? dn[2] ?? dn[3]; changed = true; i++; continue; }
+
       const [parsed, ni] = this.parseBlock(lines, i, { parseHardpoints: true });
       if (parsed.displayName) { v.displayName = parsed.displayName; changed = true; }
       if (parsed.sprite && parsed.sprite !== baseShip.sprite) {
@@ -2905,6 +2909,17 @@ async readPluginTxt(pluginRootDir) {
 // Main
 // ---------------------------------------------------------------------------
 /**
+ * The game's "display name" for a ship (what the player sees instead of the
+ * internal name, e.g. variant "Carrier (Alpha)" shows as "Modified Carrier").
+ * Stored inside the attributes as "display name" so no new column is needed.
+ */
+function withDisplayName(attributes, ship) {
+  const dn = ship && (ship.displayName || ship['display name']);
+  if (!dn || dn === ship.name) return attributes;
+  return { ...(attributes || {}), 'display name': String(dn) };
+}
+
+/**
  * Keep which governments fly/sell an item: added to its locations as a
  * "Governments" list per plugin ({ pluginId: { …, Governments: [...] } }),
  * which the site shows like any other location and the auto-fitter uses
@@ -3236,7 +3251,7 @@ async function main() {
       for (const s of shipsOut) allShipRows.push({
         plugin_id: s._pluginId ?? plugin.pluginId, internal_id: s._internalId, name: s.name,
         category: s.attributes?.category ?? null, cost: toNumeric(s.attributes?.cost), mass: toNumeric(s.attributes?.mass),
-        sprite: s.sprite, thumbnail: s.thumbnail, description: s.description, attributes: s.attributes,
+        sprite: s.sprite, thumbnail: s.thumbnail, description: s.description, attributes: withDisplayName(s.attributes, s),
         hardpoints: { guns: s.guns, turrets: s.turrets, bays: s.bays, engines: s.engines,
                       leaks: s.leaks, reverseEngines: s.reverseEngines, steeringEngines: s.steeringEngines },
         explosions: { tiny: s['tiny explosion'], small: s['small explosion'], medium: s['medium explosion'],
@@ -3248,7 +3263,7 @@ async function main() {
         plugin_id: v._pluginId ?? plugin.pluginId, variant_plugin_id: v._variantPluginId ?? null,
         internal_id: v._internalId, name: v.name, base_ship_name: v.baseShip,
         category: v.attributes?.category ?? null, cost: toNumeric(v.attributes?.cost), mass: toNumeric(v.attributes?.mass),
-        sprite: v.sprite, thumbnail: v.thumbnail, description: v.description, attributes: v.attributes,
+        sprite: v.sprite, thumbnail: v.thumbnail, description: v.description, attributes: withDisplayName(v.attributes, v),
         hardpoints: { guns: v.guns, turrets: v.turrets, bays: v.bays, engines: v.engines,
                       leaks: v.leaks, reverseEngines: v.reverseEngines, steeringEngines: v.steeringEngines },
         explosions: { tiny: v['tiny explosion'], small: v['small explosion'], medium: v['medium explosion'],

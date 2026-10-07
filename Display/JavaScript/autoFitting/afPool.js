@@ -55,25 +55,28 @@
 
   /** Planet → government, and every way the story raises a reputation. */
   async function worldData() {
-    if (cache) return cache;
+    const key = [...(window.AfStats.activePluginIds() || [])].sort().join('|');
+    if (cache && cache.key === key) return cache;
     const [planets, missions, events] = await Promise.all([
       fetchAll('planets', 'name, government'),
-      fetchAll('missions', 'name, display_name, condition_side_effects, event_triggers, repeatable'),
-      fetchAll('game_events', 'name, raw', q => q.ilike('raw', '%reputation: %')),
+      fetchAll('missions', 'name, display_name, plugin_id, condition_side_effects, event_triggers, repeatable'),
+      fetchAll('game_events', 'name, plugin_id, raw', q => q.ilike('raw', '%reputation: %')),
     ]);
     const planetGov = new Map(planets.map(p => [p.name, p.government || null]));
     // government → [{ kind, name, label, value, op }]
     const menders = new Map();
     const add = (gov, entry) => { if (!menders.has(gov)) menders.set(gov, []); menders.get(gov).push(entry); };
     const raises = (op, value) => (op === '+=' && num(value) > 0) || ((op === '=' || op === '>?=') && num(value) >= 0);
-    for (const m of missions) {
+    const on = window.AfStats.activePluginIds();
+    const active = r => !on || !r.plugin_id || on.has(r.plugin_id);
+    for (const m of missions.filter(active)) {
       for (const e of m.condition_side_effects || []) {
         const g = /^reputation: (.+)$/.exec(e.condition || '');
         if (g && raises(e.op, e.value) && (e.trigger === 'onComplete' || e.trigger === 'onAccept'))
           add(g[1], { kind: 'mission', name: m.name, label: m.display_name || m.name, op: e.op, value: num(e.value), repeatable: !!m.repeatable });
       }
     }
-    for (const ev of events) {
+    for (const ev of events.filter(active)) {
       for (const line of String(ev.raw || '').split('\n')) {
         const mm = /^\s*"reputation: ([^"]+)"\s*(=|\+=|>\?=)\s*(-?\d+(?:\.\d+)?)/.exec(line);
         if (mm && raises(mm[2], mm[3])) add(mm[1], { kind: 'event', name: ev.name, label: ev.name, op: mm[2], value: num(mm[3]) });
@@ -81,11 +84,11 @@
     }
     // which missions start each event (so an event can be suggested via its mission)
     const eventMissions = new Map();
-    for (const m of missions) for (const t of m.event_triggers || []) {
+    for (const m of missions.filter(active)) for (const t of m.event_triggers || []) {
       if (!eventMissions.has(t.name)) eventMissions.set(t.name, []);
       eventMissions.get(t.name).push(m.display_name || m.name);
     }
-    return (cache = { planetGov, menders, eventMissions });
+    return (cache = { key, planetGov, menders, eventMissions });
   }
 
   /** What we know from the open save (or null). */
@@ -114,22 +117,22 @@
     } catch (_) { return null; }
   }
 
-  function pluginEntries(locations) {
-    return Object.values(locations || {}).filter(v => v && typeof v === 'object');
-  }
+  // only what the selected plugins say: a planet, ship or mission from a
+  // plugin that isn't switched on doesn't exist in your game
+  function pluginEntries(locations) { return window.AfStats.activeLocations(locations); }
 
   /** Build the per-outfit availability table. */
   async function load() {
     const world = await worldData();
     const save = await saveInfo();
     const ships = new Map();
-    for (const p of Object.values(window.allData || {})) {
+    for (const p of Object.values(window.AfStats.activeData())) {
       for (const s of [...(p.ships || []), ...(p.variants || [])]) if (s && s.name && !ships.has(s.name)) ships.set(s.name, s);
     }
     const list = [];
     const seen = new Set();
     const factionCount = new Map();
-    for (const [pid, p] of Object.entries(window.allData || {})) {
+    for (const [pid, p] of Object.entries(window.AfStats.activeData())) {
       for (const o of p.outfits || []) {
         if (!o || !o.name || seen.has(o.name)) continue;
         seen.add(o.name);

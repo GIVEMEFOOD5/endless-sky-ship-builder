@@ -41,6 +41,11 @@
         <!-- Fight button -->
         <div class="fight-btn-wrap">
             <button class="fight-btn" id="fightBtn" disabled>⚔ SIMULATE BATTLE</button>
+            <label class="sim-option" style="display:flex;gap:8px;align-items:center;justify-content:center;margin-top:10px;font-size:0.88rem;color:var(--c-text-mid);">
+              <input type="checkbox" id="skilledPilots" checked>
+              <span>✈ Skilled pilots — fly the fight: range, kiting, aim, dodging, turning and missile guidance
+                <span style="display:block;font-size:0.76rem;color:var(--c-text-dim);">Untick for the old "every shot hits, always in range" damage race.</span></span>
+            </label>
         </div>
 
         <div class="sim-loading" id="simLoading">Computing battle…</div>
@@ -117,6 +122,7 @@
 <script src="../JavaScript/computedMovementStats.js"></script>
 <script src="../JavaScript/computedStats.js"></script>
 <script src="../JavaScript/battleSimStatsDisplay.js"></script>
+<script src="../JavaScript/battleSimEngagement.js"></script>
 <script src="../JavaScript/battleSim.js"></script>
 
 </body>

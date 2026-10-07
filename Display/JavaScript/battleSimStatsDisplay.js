@@ -907,6 +907,15 @@ function buildRankingPanel(teamStats, matrix, ranked, getResult) {
 //  MAIN ENTRY POINTS
 // ─────────────────────────────────────────────────────────────────────────────
 
+// How the fight was flown (skilled pilots): distances, kiting, accuracy.
+function engagementHtml(result) {
+    const e = result && result.engagement;
+    if (!e || !e.notes || !e.notes.length) return '';
+    return `<div class="phase-item" style="display:block;padding:10px 12px;margin-bottom:8px;border:1px solid var(--c-border);border-radius:8px;">
+        <div style="font-weight:600;margin-bottom:4px;">✈ How it was flown</div>
+        <ul style="margin:0;padding-left:18px;font-size:0.86rem;">${e.notes.map(n => `<li>${escHtml(n)}</li>`).join('')}</ul></div>`;
+}
+
 function renderResults2Team(payload) {
     const { teamStats, results: result } = payload;
     const sA  = teamStats[0], sB = teamStats[1];
@@ -960,7 +969,7 @@ function renderResults2Team(payload) {
         </div>`;
 
     const phaseEl = document.getElementById('phaseList');
-    if (phaseEl) phaseEl.innerHTML = buildPhaseList(result, sA, sB);
+    if (phaseEl) phaseEl.innerHTML = engagementHtml(result) + buildPhaseList(result, sA, sB);
 
     const matEl = document.getElementById('matrixSection');
     if (matEl) { matEl.style.display = 'none'; matEl.innerHTML = ''; }

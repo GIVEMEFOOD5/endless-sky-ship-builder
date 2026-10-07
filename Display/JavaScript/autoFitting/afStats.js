@@ -241,5 +241,30 @@
     return out;
   }
 
-  return { derive, fromTotals, totals, weaponStats, warnings, isSecondary, hullAttrs, fmtTime, DAMAGE_KEYS };
+  /**
+   * The plugin data the auto-fitter may use: only the plugins switched on in
+   * the plugin picker (DataLoader's active list), not everything loaded.
+   */
+  function activeData() {
+    const all = (typeof window !== 'undefined' && window.allData) || (typeof globalThis !== 'undefined' && globalThis.allData) || {};
+    const DL = typeof window !== 'undefined' && window.DataLoader;
+    const ids = DL && typeof DL.getActivePlugins === 'function' ? DL.getActivePlugins() : null;
+    if (!ids || !ids.length) return all;
+    const on = new Set(ids);
+    return Object.fromEntries(Object.entries(all).filter(([k]) => on.has(k)));
+  }
+
+  /** Ids the selected plugins go by (output names and "Source/folder" plugin ids). null = no filter. */
+  function activePluginIds() {
+    const DL = typeof window !== 'undefined' && window.DataLoader;
+    if (DL && typeof DL.getActivePluginIds === 'function') return DL.getActivePluginIds();
+    return null;
+  }
+  /** A location map ({ pluginId: {...} }) cut down to the selected plugins. */
+  function activeLocations(locations) {
+    const ids = activePluginIds();
+    return Object.entries(locations || {}).filter(([k, v]) => v && typeof v === 'object' && (!ids || ids.has(k))).map(([, v]) => v);
+  }
+
+  return { derive, fromTotals, totals, weaponStats, warnings, isSecondary, hullAttrs, fmtTime, activeData, activePluginIds, activeLocations, DAMAGE_KEYS };
 });

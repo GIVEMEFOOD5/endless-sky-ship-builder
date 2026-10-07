@@ -68,7 +68,7 @@ const OutfitExpander = (() => {
             if (found) return found;
         }
 
-        const allData = window.allData || {};
+        const allData = (window.DataLoader && typeof window.DataLoader.getActiveData === 'function' ? window.DataLoader.getActiveData() : (window.allData || {}));   // selected plugins only
         for (const pluginData of Object.values(allData)) {
             const found = (pluginData.outfits || []).find(o =>
                 (o.name || o.displayName || '').replace(/^"([^"]*)"$/, '$1').trim() === clean

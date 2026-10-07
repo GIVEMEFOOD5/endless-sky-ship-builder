@@ -142,12 +142,9 @@ async function onPluginsChanged() {
         const activePlugins = window.PluginManager.getActivePlugins();
         const allData       = window.allData || {};
 
-        const indexOrder = window._indexPluginOrder || [];
-        const searchOrder = [
-            ...activePlugins,
-            ...indexOrder.filter(id => !activePlugins.includes(id) && allData[id]),
-            ...Object.keys(allData).filter(id => !activePlugins.includes(id) && !indexOrder.includes(id)),
-        ];
+        // Outfits come only from the selected plugins, in their selected order:
+        // a ship can't use an outfit from a plugin that isn't installed.
+        const searchOrder = [...activePlugins];
 
         // Handle both array and map formats for outfits
         for (const pid of searchOrder) {
@@ -232,7 +229,8 @@ function extractOutfitAttributes(outfit) {
 
 function _lookupOutfit(outfitName, pluginId) {
     // Tier 1: direct lookup in the outfit's own plugin
-    if (pluginId && window.allData?.[pluginId]) {
+    const _active = window.PluginManager ? window.PluginManager.getActivePlugins() : null;
+    if (pluginId && window.allData?.[pluginId] && (!_active || _active.includes(pluginId))) {
         const raw = window.allData[pluginId].outfits || [];
         const arr = Array.isArray(raw) ? raw : Object.values(raw);
         const found = arr.find(o => o.name === outfitName);
@@ -243,7 +241,7 @@ function _lookupOutfit(outfitName, pluginId) {
     if (_outfitIndex[outfitName]) return _outfitIndex[outfitName];
 
     // Tier 3: brute-force search all loaded plugins
-    for (const [pid, pluginData] of Object.entries(window.allData || {})) {
+    for (const [pid, pluginData] of Object.entries((window.DataLoader && typeof window.DataLoader.getActiveData === 'function' ? window.DataLoader.getActiveData() : (window.allData || {})))) {
         const raw = pluginData.outfits || [];
         const arr = Array.isArray(raw) ? raw : Object.values(raw);
         const found = arr.find(o => o.name === outfitName);
@@ -294,7 +292,8 @@ function resolveShipStats(ship) {
         if (!outfit) continue;
 
         if (outfit.weapon)
-            for (let i = 0; i < qty; i++) weapons.push({ _name: outfitName, ...outfit.weapon });
+            // _turret: mounted in a turret (turns on its own) rather than a fixed gun port
+            for (let i = 0; i < qty; i++) weapons.push({ _name: outfitName, _turret: (Number(extractOutfitAttributes(outfit)['turret mounts']) || 0) < 0, ...outfit.weapon });
 
         const attrs = extractOutfitAttributes(outfit);
         for (const [key, rawVal] of Object.entries(attrs)) {
@@ -810,7 +809,7 @@ function createCombatantState(stats) {
     };
 }
 
-async function simulateBattle(sA, sB, onProgress) {
+async function simulateBattle(sA, sB, onProgress, opts = {}) {
     const result = { winner:null, ttkA:Infinity, ttkB:Infinity,
         projectedTtkA:null, projectedTtkB:null, phases:[], warnings:[],
         interceptsA: 0, interceptsB: 0,
@@ -824,6 +823,13 @@ async function simulateBattle(sA, sB, onProgress) {
     };
     const timelineA = [], timelineB = [];
     let frame = 0;
+
+    // Skilled pilots (battleSimEngagement.js): distance, range, aim, dodging,
+    // facing and missile guidance decide how much of each shot lands.
+    const meta = s => s.weapons.map(w => ({ range: resolveEffectiveRange(w, new Set([w._name].filter(Boolean)), 0, 0), turret: !!w._turret }));
+    const eng = opts.skilled && window.BattleEngagement ? window.BattleEngagement.create(sA, sB, meta(sA), meta(sB)) : null;
+    const hitA = eng ? (i, def) => eng.factor('A', i, def) : null;
+    const hitB = eng ? (i, def) => eng.factor('B', i, def) : null;
 
     const YIELD_EVERY = 600;
 
@@ -851,8 +857,9 @@ async function simulateBattle(sA, sB, onProgress) {
         const preShieldsA = stA.shields, preHullA = stA.hull;
         const preShieldsB = stB.shields, preHullB = stB.hull;
 
-        if (!stA.disabled && !stA.destroyed) shootFrame(stA, stB, sA, missilesVsB);
-        if (!stB.disabled && !stB.destroyed) shootFrame(stB, stA, sB, missilesVsA);
+        if (eng) eng.step(stA, stB);
+        if (!stA.disabled && !stA.destroyed) shootFrame(stA, stB, sA, missilesVsB, hitA);
+        if (!stB.disabled && !stB.destroyed) shootFrame(stB, stA, sB, missilesVsA, hitB);
 
         if (!stB.disabled && !stB.destroyed) resolveAntiMissile(stB, sB, missilesVsB, result, 'B');
         if (!stA.disabled && !stA.destroyed) resolveAntiMissile(stA, sA, missilesVsA, result, 'A');
@@ -910,6 +917,7 @@ async function simulateBattle(sA, sB, onProgress) {
         timelineB.push({ t:finalT, shields:stB.shields, hull:stB.hull, energy:stB.energy, heat:stB.heat });
     }
     result.timelineA = timelineA; result.timelineB = timelineB;
+    if (eng) result.engagement = eng.summary(sA.name, sB.name);
     result.finalStateA = stA;     result.finalStateB = stB;
 
     const aKilled=isFinite(result.ttkA), bKilled=isFinite(result.ttkB);
@@ -957,7 +965,7 @@ async function simulateBattle(sA, sB, onProgress) {
     return result;
 }
 
-function shootFrame(attSt, defSt, attStats, missileQueue) {
+function shootFrame(attSt, defSt, attStats, missileQueue, hitFn) {
     if (attSt.isOverheated) return;
     for (let i = 0; i < attStats.weapons.length; i++) {
         const w = attStats.weapons[i];
@@ -966,6 +974,9 @@ function shootFrame(attSt, defSt, attStats, missileQueue) {
             continue;
         }
         if (attSt.weaponReloadCounters[i] > 0) { attSt.weaponReloadCounters[i]--; continue; }
+        // Skilled pilots: share of this shot expected to land (0 = target out of reach → hold fire)
+        const landed = hitFn ? hitFn(i, defSt) : 1;
+        if (landed <= 0) continue;
         const reload      = Math.max(1, w.reload || 1);
         const burstCount  = w['burst count']  || 1;
         const burstReload = w['burst reload'] || reload;
@@ -982,9 +993,9 @@ function shootFrame(attSt, defSt, attStats, missileQueue) {
             : (w['missile strength'] || 0);
         const isMissile = (w.homing || 0) > 0 || resolvedMS > 0;
         if (isMissile && missileQueue) {
-            missileQueue.push({ weapon: w, multiplier: 1, visited: new Set([w._name].filter(Boolean)), depth: 0, intercepted: false });
+            missileQueue.push({ weapon: w, multiplier: landed, visited: new Set([w._name].filter(Boolean)), depth: 0, intercepted: false });
         } else {
-            applyWeaponDamage(w, defSt, defSt.stats, 1, new Set([w._name].filter(Boolean)), 0);
+            applyWeaponDamage(w, defSt, defSt.stats, landed, new Set([w._name].filter(Boolean)), 0);
         }
         advanceBurst(attSt, i, burstCount, burstReload, reload);
     }
@@ -1258,7 +1269,7 @@ function searchShipsForTeam(teamId, query) {
     dd.innerHTML = '';
     const hits = lq.length < 1
         ? _allShips.slice(0, 80)
-        : _allShips.filter(s => s.name?.toLowerCase().includes(lq)).slice(0, 80);
+        : _allShips.filter(s => window.ShipNames ? ShipNames.matches(s, lq) : s.name?.toLowerCase().includes(lq)).slice(0, 80);
     if (!hits.length) {
         dd.innerHTML = '<div class="ship-dropdown-empty">No ships found</div>';
     } else {
@@ -1266,7 +1277,7 @@ function searchShipsForTeam(teamId, query) {
             const row = document.createElement('div');
             row.className = 'ship-dropdown-item';
             const pl = (window.allData?.[ship._pluginId]?.displayName || window.allData?.[ship._pluginId]?.sourceName) || '';
-            row.innerHTML = `<span>${escHtml(ship.name)}</span><span class="sdi-plugin">${escHtml(pl)}</span>`;
+            row.innerHTML = `<span>${window.ShipNames ? ShipNames.html(ship) : escHtml(ship.name)}</span><span class="sdi-plugin">${escHtml(pl)}</span>`;
             row.onmousedown = () => {
                 const countEl = document.getElementById('addCount_' + teamId);
                 const count   = parseInt(countEl?.value) || 1;
@@ -1342,7 +1353,7 @@ function createTeamCardElement(team) {
             const stats = entry.resolved;
             row.innerHTML = `
                 <div class="team-ship-info">
-                    <div class="team-ship-name">${escHtml(entry.shipData.name)}</div>
+                    <div class="team-ship-name">${window.ShipNames ? ShipNames.html(entry.shipData) : escHtml(entry.shipData.name)}</div>
                     <div class="team-ship-stats">
                         <span>Shld ${fmt(stats.maxShields)}</span>
                         <span>Hull ${fmt(stats.maxHull)}</span>
@@ -1422,6 +1433,7 @@ async function runSimulation() {
         const teamStats = validTeams.map(team => {
             const entries = team.ships.filter(e => e.count > 0).map(e => ({ resolved: e.resolved, count: e.count }));
             const merged  = mergeTeamStats(entries);
+            merged._teamShips = entries;   // per-ship speed/size for the skilled-pilot model
             merged.name   = team.name;
             merged.color  = team.color;
             merged._team  = team;
@@ -1429,6 +1441,7 @@ async function runSimulation() {
         });
 
         const payload = { damageTypes: _damageTypes, outfitIndex: _outfitIndex, attrDefs: _attrDefs, teamStats };
+        const simOpts = { skilled: !!document.getElementById('skilledPilots')?.checked };
         const updateProgress = typeof window.BattleSimDisplay?.updateProgressModal === 'function'
             ? window.BattleSimDisplay.updateProgressModal : () => {};
 
@@ -1438,7 +1451,7 @@ async function runSimulation() {
             payload.mode    = '2team';
             payload.results = await simulateBattle(teamStats[0], teamStats[1], (fightPct, fightLabel) => {
                 updateProgress(fightPct, `Fight 1 of 1: ${nameA} vs ${nameB}`, fightPct, fightLabel);
-            });
+            }, simOpts);
             updateProgress(100, `Fight 1 of 1: ${nameA} vs ${nameB}`, 100, 'Done');
         } else {
             const n = teamStats.length;
@@ -1454,7 +1467,7 @@ async function runSimulation() {
                     updateProgress((fightsDone / totalFights) * 100, overallLabel, 0, 'Starting…');
                     matrix[i][j] = await simulateBattle(teamStats[i], teamStats[j], (fightPct, fightLabel) => {
                         updateProgress((fightsDone / totalFights) * 100 + fightPct / totalFights, overallLabel, fightPct, fightLabel);
-                    });
+                    }, simOpts);
                     fightsDone++;
                 }
             }
@@ -1488,6 +1501,13 @@ window.removeShipFromTeam  = removeShipFromTeam;
 window.updateShipCount     = updateShipCount;
 window.renameTeam          = renameTeam;
 window.runSimulation       = runSimulation;
+// Lets other pages/tools fill the teams (e.g. "test this fit in the battle simulator")
+window.BattleSimTeams = {
+    teams: () => _teams, ships: () => _allShips,
+    create: name => createTeam(name), add: (teamId, ship, n) => addShipToTeam(teamId, ship, n),
+    clear: () => { for (const t of _teams) t.ships = []; renderAllTeams(); updateSimButton(); },
+    refresh: () => { renderAllTeams(); updateSimButton(); },
+};
 window.cancelSimulation    = cancelSimulation;
 
 window.addNewTeam = function() {

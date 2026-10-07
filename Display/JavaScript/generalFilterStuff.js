@@ -93,7 +93,8 @@ async function _runFilter() {
     const filtered = filteredData.filter(item => {
         if (hasSearch) {
             const nameMatch = item.name && item.name.toLowerCase().includes(searchTerm);
-            const displayMatch = item['display name'] && item['display name'].toLowerCase().includes(searchTerm);
+            const dn = item['display name'] || item.displayName || item.attributes?.['display name'];
+            const displayMatch = dn && String(dn).toLowerCase().includes(searchTerm);
             if (!nameMatch && !displayMatch) return false;
         }
         if (hasCat) {

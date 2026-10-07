@@ -130,15 +130,16 @@ function _buildSinglePluginIndex(pluginId) {
 }
 
 function _getOutfitIndex(pluginId) {
-    const allData    = window.allData || {};
+    // selected plugins only — outfits from plugins that aren't switched on don't exist in-game
+    const allData    = (window.DataLoader && typeof window.DataLoader.getActiveData === 'function' ? window.DataLoader.getActiveData() : (window.allData || {}));
     const cacheKey   = `_mergedOutfitIndex_${pluginId}`;
-    const pluginData = allData[pluginId];
+    const pluginData = (window.allData || {})[pluginId];
     if (pluginData?.[cacheKey]) return pluginData[cacheKey];
     const merged       = {};
     const order        = _pluginOrder || [];
     const allPluginIds = Object.keys(allData);
     const searchOrder  = [
-        pluginId,
+        ...(allData[pluginId] ? [pluginId] : []),
         ...order.filter(id => id !== pluginId && allData[id]),
         ...allPluginIds.filter(id => id !== pluginId && !order.includes(id)),
     ];
@@ -160,7 +161,7 @@ function _getOutfitIndex(pluginId) {
  */
 function _getOutfitIndexById() {
     if (_byIdIndexCache) return _byIdIndexCache;
-    const allData = window.allData || {};
+    const allData = (window.DataLoader && typeof window.DataLoader.getActiveData === 'function' ? window.DataLoader.getActiveData() : (window.allData || {}));
     const byId = {};
     for (const [pid, pluginData] of Object.entries(allData)) {
         for (const outfit of (pluginData.outfits || [])) {
@@ -191,7 +192,8 @@ function _resolveOutfitScoped(entry, byIdIndex, mergedIdx) {
     const idKey = internalId || (pluginId ? `${pluginId}::${name}` : null);
     if (idKey && byIdIndex && byIdIndex[idKey]) return byIdIndex[idKey];
     if (pluginId) {
-        const pluginData = window.allData?.[pluginId];
+        const active = window.DataLoader?.getActivePluginIds ? window.DataLoader.getActivePluginIds() : null;
+        const pluginData = (!active || active.has(pluginId)) ? window.allData?.[pluginId] : null;
         const found = (pluginData?.outfits || []).find(o => o.name === name);
         if (found) return found;
     }

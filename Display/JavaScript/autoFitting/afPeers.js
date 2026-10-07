@@ -36,9 +36,9 @@
     const S = window.AfStats;
     const out = [];
     const hulls = new Map();
-    for (const p of Object.values(window.allData || {})) for (const s of p.ships || []) if (s && s.name && !hulls.has(s.name)) hulls.set(s.name, s);
+    for (const p of Object.values(window.AfStats.activeData())) for (const s of p.ships || []) if (s && s.name && !hulls.has(s.name)) hulls.set(s.name, s);
     const seen = new Set();
-    for (const [key, p] of Object.entries(window.allData || {})) {
+    for (const [key, p] of Object.entries(window.AfStats.activeData())) {
       if (key === '__local_builds__') continue;
       const source = isBaseGame(key) ? 'game' : 'plugin';
       for (const s of [...(p.ships || []), ...(p.variants || [])]) {
@@ -64,7 +64,7 @@
 
   function outfitIndex() {
     const m = new Map();
-    for (const p of Object.values(window.allData || {})) for (const o of p.outfits || []) if (o && o.name && !m.has(o.name)) m.set(o.name, o);
+    for (const p of Object.values(window.AfStats.activeData())) for (const o of p.outfits || []) if (o && o.name && !m.has(o.name)) m.set(o.name, o);
     return m;
   }
 

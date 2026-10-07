@@ -161,7 +161,8 @@ function _getDisplayMultiplier(key) {
 function _getOutfitIndex() {
     if (_cachedOutfitIndex) return _cachedOutfitIndex;
 
-    const allData = window.allData || {};
+    // selected plugins only (see ItemStats.buildOutfitIndex)
+    const allData = (window.DataLoader && typeof window.DataLoader.getActiveData === 'function' ? window.DataLoader.getActiveData() : (window.allData || {}));
     const merged  = {};
 
     // 1. Current plugin's own outfits first — matches ComputedStats giving the
@@ -1300,3 +1301,6 @@ window.confirmSorterPicker = confirmSorterPicker;
 window.renderPickerList    = renderPickerList;
 window.onSorterTabChange   = onSorterTabChange;
 window.stampSorterValues   = stampSorterValues;
+
+// The outfit index depends on which plugins are selected.
+document.addEventListener('pluginsChanged', () => { _cachedOutfitIndex = null; });

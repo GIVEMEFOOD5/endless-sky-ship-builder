@@ -29,7 +29,7 @@
   // ── data helpers ─────────────────────────────────────────────────────────
   function outfitIndex() {
     const m = new Map();
-    for (const p of Object.values(window.allData || {})) for (const o of p.outfits || []) if (o && o.name && !m.has(o.name)) m.set(o.name, o);
+    for (const p of Object.values(window.AfStats.activeData())) for (const o of p.outfits || []) if (o && o.name && !m.has(o.name)) m.set(o.name, o);
     return m;
   }
   function designOutfits(design) {
@@ -37,7 +37,7 @@
   }
   function allShips() {
     const m = new Map();
-    for (const p of Object.values(window.allData || {})) for (const s of [...(p.ships || []), ...(p.variants || [])]) if (s && s.name && !m.has(s.name)) m.set(s.name, s);
+    for (const p of Object.values(window.AfStats.activeData())) for (const s of [...(p.ships || []), ...(p.variants || [])]) if (s && s.name && !m.has(s.name)) m.set(s.name, s);
     return m;
   }
   function shipLoadout(s, ships) {
@@ -55,6 +55,16 @@
       try { const { base, outs } = shipLoadout(s, ships); const d = S().derive(base, outs, idx); if (d.dps.total > 0) ds.push(d); } catch (_) {}
     }
     return O().damageProfile(ds);
+  }
+
+  // Ship names as players know them: display name first, internal name after.
+  const SN = () => window.ShipNames;
+  const shipLabel = name => { const s = allShips().get(name); return s && SN() ? SN().label(s) : name; };
+  const shipHtml = name => { const s = allShips().get(name); return s && SN() ? SN().html(s) : h(name); };
+  function shipOptions() {
+    // the box searches both names (browsers match the value and the label)
+    return [...allShips().values()].sort((a, b) => shipLabel(a.name).localeCompare(shipLabel(b.name)))
+      .map(s => { const l = shipLabel(s.name); return `<option value="${h(s.name)}"${l !== s.name ? ` label="${h(l)} — ${h(s.name)}"` : ''}>`; }).join('');
   }
 
   // ── window ───────────────────────────────────────────────────────────────
@@ -159,9 +169,9 @@
               ${govs.map(g => `<option value="${h(g.name)}"${f.government === g.name ? ' selected' : ''}>${h(g.name)} (${g.ships} ships)</option>`).join('')}</select></label>
             <span style="color:var(--c-text-dim);">or specific ships:</span>
             <input id="af-foe-add" class="text-input" list="af-enemy-list" placeholder="Add a ship…" style="max-width:220px;">
-            <datalist id="af-enemy-list">${[...allShips().keys()].sort().map(n => `<option value="${h(n)}">`).join('')}</datalist>
+            <datalist id="af-enemy-list">${shipOptions()}</datalist>
           </div>
-          ${f.ships.length ? `<div style="margin-top:6px;">${f.ships.map(n => `<span class="ld-pill" style="margin:2px;">${h(n)} <button class="btn-remove" data-af="foe-rm" data-name="${h(n)}" aria-label="Remove">✕</button></span>`).join('')}</div>` : ''}
+          ${f.ships.length ? `<div style="margin-top:6px;">${f.ships.map(n => `<span class="ld-pill" style="margin:2px;">${shipHtml(n)} <button class="btn-remove" data-af="foe-rm" data-name="${h(n)}" aria-label="Remove">✕</button></span>`).join('')}</div>` : ''}
           ${!govs.length ? '<div style="color:var(--c-warn-text,#fbbf24);margin-top:6px;">No government data yet — run the Parse workflow once, or add specific ships.</div>' : ''}
           <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:8px;">
             <label>How many at once <input id="af-foe-count" type="number" min="1" max="10" class="text-input" value="${f.count}" style="width:64px;display:inline-block;"></label>
@@ -171,7 +181,7 @@
             <div style="font-weight:600;margin-bottom:4px;">What you're up against (${f.profile.count} ship${f.profile.count === 1 ? '' : 's'})</div>
             <ul style="margin:0;padding-left:18px;">${f.describe.lines.map(l => `<li>${h(l)}</li>`).join('')}</ul>
             ${f.describe.priorities.length ? `<div style="margin-top:6px;">The fit will look for: <strong>${h(f.describe.priorities.join(', '))}</strong> — and weapons that suit their shields and hull.</div>` : ''}
-            <div style="margin-top:4px;color:var(--c-text-dim);font-size:0.78rem;">Hardest hitters: ${f.profile.worst.map(w => h(w.name)).join(', ')}</div>
+            <div style="margin-top:4px;color:var(--c-text-dim);font-size:0.78rem;">Hardest hitters: ${f.profile.worst.map(w => h(shipLabel(w.name))).join(', ')}</div>
           </div>` : (f.government || f.ships.length ? '<p style="color:var(--c-text-dim);">None of those ships could be measured.</p>' : '')}
         </div>`;
       })(),
@@ -181,11 +191,12 @@
       tank: `<div style="font-size:0.86rem;">Protect against
           ${ui.enemies.length ? ui.enemies.map(n => `<span class="ld-pill" style="margin:2px;">${h(n)} <button class="btn-remove" data-af="enemy-rm" data-name="${h(n)}" aria-label="Remove">✕</button></span>`).join('') : '<em style="color:var(--c-text-dim);">the average damage of every armed ship</em>'}
           <input id="af-enemy-add" class="text-input" list="af-enemy-list" placeholder="Add an enemy ship…" style="margin-top:6px;">
-          <datalist id="af-enemy-list">${[...allShips().keys()].sort().map(n => `<option value="${h(n)}">`).join('')}</datalist></div>`,
+          <datalist id="af-enemy-list">${shipOptions()}</datalist></div>`,
     };
     body.innerHTML = `
-      <p style="margin:0 0 10px;font-size:0.86rem;color:var(--c-text-mid);">Fitting <strong>${h(d.name || 'this ship')}</strong>${d._sourceShip ? ` (${h(d._sourceShip)} hull)` : ''}.
-        ${save ? `Using <strong>${h(save.pilot)}</strong>'s save for what you can reach.` : 'Open a save on Saves &amp; Account and it will use where you\'ve been, your licences and reputations.'}</p>
+      <p style="margin:0 0 10px;font-size:0.86rem;color:var(--c-text-mid);">Fitting <strong>${h(d.name || 'this ship')}</strong>${d._sourceShip ? ` (${h(shipLabel(d._sourceShip))} hull)` : ''}.
+        ${save ? `Using <strong>${h(save.pilot)}</strong>'s save for what you can reach.` : 'Open a save on Saves &amp; Account and it will use where you\'ve been, your licences and reputations.'}
+        <span style="display:block;font-size:0.78rem;color:var(--c-text-dim);">Only outfits and ships from your selected plugins are used (${Object.keys(window.AfStats.activeData()).filter(k => k !== '__local_builds__').map(h).join(', ') || 'none'}) — change them with ☰ Select Plugins.</span></p>
       <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;">${GOALS.map(tab).join('')}</div>
       ${goalOptions[ui.goal] || ''}
 
@@ -243,7 +254,7 @@
     const why = p.basis === 'same class and weight' ? `${h(p.category)}s weighing ${fmt(p.mass.min)}–${fmt(p.mass.max)} t`
       : p.basis === 'same class' ? `${h(p.category)}s (no others this weight)` : `ships weighing ${fmt(p.mass.min)}–${fmt(p.mass.max)} t`;
     return `These start at what similar ships manage: a typical (median) turn of <strong>${t}°/s</strong> and top speed of <strong>${sp}</strong>,
-      from ${p.count} ${why} — ${src}. Closest: ${p.examples.map(h).join(', ')}.`;
+      from ${p.count} ${why} — ${src}. Closest: ${p.examples.map(n => h(shipLabel(n))).join(', ')}.`;
   }
 
   function statRows(a, b) {
@@ -286,7 +297,7 @@
         <thead><tr><th style="text-align:left;">&nbsp;</th><th style="text-align:right;">Now</th><th style="text-align:right;">Auto-fit</th><th style="text-align:right;">Change</th></tr></thead>
         <tbody>${statRows(ui.current, d)}</tbody></table></div>
       ${r.counterNotes ? `<div style="margin:12px 0 0;padding:10px 12px;border:1px solid var(--c-border);border-radius:8px;font-size:0.86rem;">
-        <div style="font-weight:600;margin-bottom:4px;">Against ${h(ui.foe.ships.length ? ui.foe.ships.join(', ') : ui.foe.government)}</div>
+        <div style="font-weight:600;margin-bottom:4px;">Against ${h(ui.foe.ships.length ? ui.foe.ships.map(shipLabel).join(', ') : ui.foe.government)}</div>
         <ul style="margin:0;padding-left:18px;">${r.counterNotes.map(l => `<li>${l}</li>`).join('')}</ul>
         <div style="margin-top:4px;color:var(--c-text-dim);font-size:0.76rem;">An estimate from each side's average damage, defences, missiles vs anti-missile/jamming, range and speed — not a full battle simulation.</div></div>` : ''}
       ${warns.length ? `<ul style="margin:10px 0 0;padding-left:18px;font-size:0.84rem;">${warns.map(w => `<li style="color:${col[w.level]};">${h(w.text)}</li>`).join('')}</ul>` : ''}
@@ -345,7 +356,7 @@
         r.access = access;
         r.counterNotes = ui.goal === 'counter' ? window.AfThreat.explain(ui.current, r.derived, ui.foe.profile, ui.foe.count) : null;
         r.suggestions = ui.goal === 'general' ? suggestions(r, list) : [];
-        if (ui.goal === 'tank') r.suggestions.unshift(`Damage it's built against: ${Math.round(opts.profile.shield * 100)}% shield damage, ${Math.round(opts.profile.hull * 100)}% hull damage${ui.enemies.length ? ` (${h(ui.enemies.join(', '))})` : ' (average of every armed ship)'}.`);
+        if (ui.goal === 'tank') r.suggestions.unshift(`Damage it's built against: ${Math.round(opts.profile.shield * 100)}% shield damage, ${Math.round(opts.profile.hull * 100)}% hull damage${ui.enemies.length ? ` (${h(ui.enemies.map(shipLabel).join(', '))})` : ' (average of every armed ship)'}.`);
         ui.result = r;
       } catch (err) {
         console.error(err);

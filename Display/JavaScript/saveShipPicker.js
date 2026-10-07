@@ -22,12 +22,15 @@
   function gameShips() {
     const local = window.DataLoader?.LOCAL_PLUGIN_ID || '__local_builds__';
     const seen = new Set(), out = [];
-    for (const [id, p] of Object.entries(window.allData || {})) {
+    // game ships from the selected plugins (☰ Select Plugins on this page)
+    const data = (window.DataLoader && typeof window.DataLoader.getActiveData === 'function' ? window.DataLoader.getActiveData() : (window.allData || {}));
+    for (const [id, p] of Object.entries(data)) {
       if (id === local || p._placeholder) continue;
       for (const s of [...(p.ships || []), ...(p.variants || [])]) {
         if (!s || !s.name || seen.has(s.name)) continue;
         seen.add(s.name);
-        out.push({ kind: 'game', ship: s, label: s.name,
+        const SN = window.ShipNames;
+        out.push({ kind: 'game', ship: s, label: SN ? SN.label(s) : s.name, internal: SN ? SN.internal(s) : '',
           sub: [s.attributes?.category || (s.baseShip ? `variant of ${s.baseShip}` : ''), p.displayName || id].filter(Boolean).join(' · ') });
       }
     }
@@ -103,7 +106,7 @@
 
   function matches(item) {
     const q = (state.query || '').toLowerCase();
-    return !q || item.label.toLowerCase().includes(q) || (item.sub || '').toLowerCase().includes(q);
+    return !q || item.label.toLowerCase().includes(q) || (item.internal || '').toLowerCase().includes(q) || (item.sub || '').toLowerCase().includes(q);
   }
 
   function group(key, title, items, emptyText) {
@@ -113,7 +116,7 @@
     return `<h3 class="ssp-h">${h(title)} <span style="font-weight:400;color:var(--c-text-dim);">(${list.length})</span></h3>
       ${shown.length ? shown.map(it => `
         <div class="list-row" style="margin-bottom:6px;">
-          <span class="list-row__label">${h(it.label)}<span style="display:block;font-size:0.78rem;color:var(--c-text-dim);">${h(it.sub || '')}</span></span>
+          <span class="list-row__label">${h(it.label)}${it.internal ? ` <span class="ship-realname" title="Internal name">${h(it.internal)}</span>` : ''}<span style="display:block;font-size:0.78rem;color:var(--c-text-dim);">${h(it.sub || '')}</span></span>
           <button class="btn btn-primary btn-sm" data-pick="${key}:${items.indexOf(it)}">${state.mode === 'refit' ? 'Refit with this' : 'Add'}</button>
         </div>`).join('') : `<p class="ssp-empty">${h(emptyText)}</p>`}
       ${list.length > shown.length ? `<button class="btn btn-secondary btn-sm" data-more="${key}" style="margin-bottom:10px;">Show ${Math.min(PAGE, list.length - shown.length)} more</button>` : ''}`;

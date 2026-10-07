@@ -36,8 +36,8 @@ function _resolveOutfitIndex(outfitIndex) {
     if (window._outfitIndex && Object.keys(window._outfitIndex).length > 0)
         return window._outfitIndex;
 
-    // Fallback 2: build from allData on the fly
-    const allData = window.allData || {};
+    // Fallback 2: build from the selected plugins on the fly
+    const allData = (window.DataLoader && typeof window.DataLoader.getActiveData === 'function' ? window.DataLoader.getActiveData() : (window.allData || {}));
     const merged = {};
     for (const pluginData of Object.values(allData)) {
         const outfitsRaw = pluginData.outfits || [];
