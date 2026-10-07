@@ -273,7 +273,7 @@ function resolveShipStats(ship) {
     if (outfitSource && typeof outfitSource === 'object' && !Array.isArray(outfitSource)) {
         // Map format (both 'outfits' and 'outfitMap' keys use same { count, pluginId } structure)
         for (const [name, val] of Object.entries(outfitSource)) {
-            const cleanName = name.replace(/^"|"$/g, '');
+            const cleanName = name.replace(/^"([^"]*)"$/, '$1');
             const qty       = typeof val === 'object' ? (parseInt(val.count)  || 1) : (Number(val) || 1);
             const pluginId  = typeof val === 'object' ? (val.pluginId || null)       : null;
             if (cleanName) outfitEntries.push({ name: cleanName, count: qty, pluginId });
@@ -281,7 +281,7 @@ function resolveShipStats(ship) {
     } else if (Array.isArray(outfitSource)) {
         // Legacy array format — kept as fallback for any old cached data
         for (const o of outfitSource) {
-            const cleanName = (typeof o === 'string' ? o : (o.name || '')).replace(/^"|"$/g, '');
+            const cleanName = (typeof o === 'string' ? o : (o.name || '')).replace(/^"([^"]*)"$/, '$1');
             const qty       = typeof o === 'object' ? (parseInt(o.count)  || 1) : 1;
             const pluginId  = typeof o === 'object' ? (o.pluginId || null)       : null;
             if (cleanName) outfitEntries.push({ name: cleanName, count: qty, pluginId });

@@ -23,7 +23,7 @@
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.MissionActions = api;
 })(typeof self !== 'undefined' ? self : this, function () {
-  const clean = v => String(v ?? '').replace(/^"|"$/g, '');
+  const clean = v => String(v ?? '').replace(/^"([^"]*)"$/, '$1');
   const n = v => { const x = Number(v); return Number.isFinite(x) ? x : null; };
 
   // ── calendar (the game uses the ordinary Gregorian calendar) ────────────

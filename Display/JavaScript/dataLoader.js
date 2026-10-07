@@ -90,7 +90,7 @@ function _normaliseOutfitMap(outfits) {
     if (Array.isArray(outfits)) {
         const map = {};
         for (const o of outfits) {
-            const name = (o.name || '').replace(/^"|"$/g, '');
+            const name = (o.name || '').replace(/^"([^"]*)"$/, '$1');
             if (!name) continue;
             map[name] = {
                 count:    parseInt(o.count)   || 1,
@@ -105,7 +105,7 @@ function _normaliseOutfitMap(outfits) {
     if (typeof outfits === 'object') {
         const map = {};
         for (const [rawName, val] of Object.entries(outfits)) {
-            const name = rawName.replace(/^"|"$/g, '');
+            const name = rawName.replace(/^"([^"]*)"$/, '$1');
             if (!name) continue;
             map[name] = typeof val === 'object'
                 ? { count: parseInt(val.count) || 1, pluginId: val.pluginId || null }

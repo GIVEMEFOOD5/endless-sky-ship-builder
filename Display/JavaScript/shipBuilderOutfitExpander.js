@@ -61,7 +61,7 @@ const OutfitExpander = (() => {
     // ─────────────────────────────────────────────────────────────────────────
 
     function _findOutfit(name) {
-        const clean = name.replace(/^"|"$/g, '').trim();
+        const clean = name.replace(/^"([^"]*)"$/, '$1').trim();
 
         if (typeof sbFindOutfit === 'function') {
             const found = sbFindOutfit(clean);
@@ -71,7 +71,7 @@ const OutfitExpander = (() => {
         const allData = window.allData || {};
         for (const pluginData of Object.values(allData)) {
             const found = (pluginData.outfits || []).find(o =>
-                (o.name || o.displayName || '').replace(/^"|"$/g, '').trim() === clean
+                (o.name || o.displayName || '').replace(/^"([^"]*)"$/, '$1').trim() === clean
             );
             if (found) return found;
         }
@@ -101,7 +101,7 @@ const OutfitExpander = (() => {
         }
 
         const initials = (outfit.name || '?')
-            .replace(/^"|"$/g, '').trim()
+            .replace(/^"([^"]*)"$/, '$1').trim()
             .split(/\s+/).slice(0, 2).map(w => w[0] || '').join('').toUpperCase();
 
         return `<div class="${CLS.panel}">

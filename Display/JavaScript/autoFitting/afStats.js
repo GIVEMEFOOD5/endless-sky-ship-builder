@@ -1,0 +1,245 @@
+'use strict';
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  autoFitting/afStats.js — what a fit actually does
+//
+//  Adds a hull's attributes and every installed outfit together, then works
+//  out the numbers a pilot cares about, using the game's own formulas
+//  (Ship.cpp, 60 frames per second):
+//    max speed     = 60 · thrust / drag                (px/s)
+//    acceleration  = 3600 · thrust / mass              (px/s²)
+//    turn rate     = 60 · turn / mass                  (°/s)
+//    DPS (weapon)  = damage · 60 / reload  (× burst count / burst cycle)
+//    max heat      = 100 · (mass + heat capacity); each frame the ship
+//                    loses (0.001 · heat dissipation) of its current heat
+//  plus energy, heat and fuel budgets in three situations — idle, flying
+//  (thrust + turn) and fighting (flying + every weapon firing + shields
+//  regenerating) — and how long the ship lasts when a budget is negative.
+//
+//  window.AfStats (browser) / module.exports (Node)
+// ═══════════════════════════════════════════════════════════════════════════
+
+(function (root, factory) {
+  const api = factory();
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  else root.AfStats = api;
+})(typeof self !== 'undefined' ? self : this, function () {
+  const num = v => { const n = Number(v); return Number.isFinite(n) ? n : 0; };
+  const FPS = 60;
+
+  // damage keys counted as "damage" for DPS (the big two plus status effects)
+  const DAMAGE_KEYS = ['shield damage', 'hull damage', 'heat damage', 'ion damage', 'scrambling damage',
+    'disruption damage', 'slowing damage', 'corrosion damage', 'discharge damage', 'burn damage', 'leak damage'];
+
+  function isSecondary(o) {
+    const w = o && o.attributes && o.attributes.weapon || o && o.weapon;
+    return (o && (o.category === 'Secondary Weapons' || o.attributes?.category === 'Secondary Weapons')) || !!(w && w.ammunition);
+  }
+  function weaponOf(o) {
+    const w = (o && o.attributes && o.attributes.weapon) || (o && o.weapon);
+    return w && typeof w === 'object' ? w : null;
+  }
+  function attrsOf(o) { return (o && o.attributes) || o || {}; }
+
+  /** Per-weapon numbers (one copy). */
+  function weaponStats(o) {
+    const w = weaponOf(o);
+    if (!w) return null;
+    const reload = Math.max(1, num(w.reload) || 1);
+    const burst = Math.max(1, num(w['burst count']) || 1);
+    const burstReload = Math.max(1, num(w['burst reload']) || reload);
+    // shots per second, accounting for bursts (burst shots fire every burstReload, then a full reload)
+    const cycle = burst > 1 ? (burst - 1) * burstReload + reload : reload;
+    const shotsPerSec = FPS * burst / cycle;
+    const dmg = {};
+    let total = 0;
+    for (const k of DAMAGE_KEYS) { const v = num(w[k]); if (v) { dmg[k] = v * shotsPerSec; if (k === 'shield damage' || k === 'hull damage') total += v * shotsPerSec; } }
+    // submunitions: count their direct damage too (one level), they often carry most of it
+    for (const key of ['submunitions', 'submunition', 'submunition_2']) {
+      const subs = w[key];
+      const list = Array.isArray(subs) ? subs : subs && typeof subs === 'object' ? [subs] : [];
+      for (const s of list) {
+        const count = Math.max(1, num(s.count) || 1);
+        for (const k of ['shield damage', 'hull damage']) { const v = num(s[k]); if (v) { dmg[k] = (dmg[k] || 0) + v * count * shotsPerSec; total += v * count * shotsPerSec; } }
+      }
+    }
+    const range = num(w['range override']) || num(w.velocity) * num(w.lifetime) || 0;
+    return {
+      dps: total, damage: dmg, shotsPerSec, range,
+      energyPerSec: num(w['firing energy']) * shotsPerSec,
+      heatPerSec: num(w['firing heat']) * shotsPerSec,
+      fuelPerSec: num(w['firing fuel']) * shotsPerSec,
+      // ammunition: [{ type: "Torpedo", count: 1 }] (parser) or a plain name
+      ammo: Array.isArray(w.ammunition) ? (w.ammunition[0] && w.ammunition[0].type) || null
+          : typeof w.ammunition === 'string' ? w.ammunition : (w.ammunition && w.ammunition.type) || null,
+      ammoPerShot: Array.isArray(w.ammunition) ? Math.max(1, num(w.ammunition[0] && w.ammunition[0].count) || 1) : 1,
+      antiMissile: num(w['anti-missile']),
+      // homing / interceptable projectiles (what anti-missile and jamming work against)
+      missileStrength: num(w['missile strength']),
+      isMissile: num(w['missile strength']) > 0 || !!w.homing,
+      tracking: { generic: num(w.tracking), radar: num(w['radar tracking']), optical: num(w['optical tracking']), infrared: num(w['infrared tracking']) },
+      piercing: num(w.piercing),
+    };
+  }
+
+  /**
+   * Sum a hull and its outfits.
+   * @param {object} base   the hull's attributes (flat numbers)
+   * @param {Array<[name,count]>} outfits
+   * @param {Map<string, object>} index  outfit name → outfit (attributes flat or under .attributes)
+   */
+  function totals(base, outfits, index) {
+    const t = {};
+    for (const [k, v] of Object.entries(base || {})) if (typeof v === 'number' || (typeof v === 'string' && v !== '' && isFinite(v))) t[k] = num(v);
+    const weapons = [];
+    const unknown = [];
+    for (const [name, count] of outfits || []) {
+      const o = index && index.get(name);
+      if (!o) { unknown.push(name); continue; }
+      const a = attrsOf(o);
+      for (const [k, v] of Object.entries(a)) if (typeof v === 'number') t[k] = (t[k] || 0) + v * count;
+      const ws = weaponStats(o);
+      if (ws) weapons.push({ name, count, secondary: isSecondary(o), ...ws });
+    }
+    return { t, weapons, unknown };
+  }
+
+  /**
+   * A hull's attributes with the mount counts the game derives from its
+   * hardpoints (gun ports / turret mounts aren't attributes of the hull).
+   * Accepts a parsed game ship ({ attributes, hardpoints:{guns,turrets} })
+   * or a ship-builder design ({ attributes, guns, turrets, mass, drag }).
+   */
+  function hullAttrs(ship) {
+    const a = { ...(ship && ship.attributes || {}) };
+    for (const k of ['mass', 'drag']) if (ship && ship[k] !== undefined && ship[k] !== '' && a[k] === undefined) a[k] = num(ship[k]);
+    for (const [k, v] of Object.entries(a)) if (typeof v === 'string' && v !== '' && isFinite(v)) a[k] = Number(v);
+    const hp = (ship && ship.hardpoints) || ship || {};
+    const guns = Array.isArray(hp.guns) ? hp.guns.length : 0, turrets = Array.isArray(hp.turrets) ? hp.turrets.length : 0;
+    if (!a['gun ports']) a['gun ports'] = guns;
+    if (!a['turret mounts']) a['turret mounts'] = turrets;
+    return a;
+  }
+
+  /** Everything derived, for one fit. */
+  function derive(base, outfits, index) {
+    const { t, weapons, unknown } = totals(base, outfits, index);
+    return fromTotals(base, t, weapons, outfits, unknown);
+  }
+
+  /** The same, from already-summed totals (the optimiser adds outfits incrementally). */
+  function fromTotals(base, t, weapons, outfits, unknown = []) {
+    const g = k => t[k] || 0;
+    const mass = Math.max(1, g('mass'));
+    // Ship::Drag(): drag / (1 + drag reduction), capped at the inertial mass
+    const inertialMass = mass / (1 + Math.max(0, g('inertia reduction')));
+    const drag = Math.max(0.01, Math.min(inertialMass, g('drag') / (1 + Math.max(0, g('drag reduction')))));
+    const thrust = g('thrust'), turn = g('turn'), ab = g('afterburner thrust');
+
+    const primary = weapons.filter(w => !w.secondary), secondary = weapons.filter(w => w.secondary);
+    const sumW = (list, f) => list.reduce((s, w) => s + f(w) * w.count, 0);
+    const dps = {
+      primary: sumW(primary, w => w.dps), secondary: sumW(secondary, w => w.dps),
+      shield: sumW(weapons, w => w.damage['shield damage'] || 0), hull: sumW(weapons, w => w.damage['hull damage'] || 0),
+    };
+    dps.total = dps.primary + dps.secondary;
+
+    // ── energy / heat per second in each situation ──
+    const idleE = (g('energy generation') + g('solar collection')) - g('energy consumption') - g('cooling energy');
+    const moveE = -(g('thrusting energy') + g('turning energy'));
+    const regenE = -(g('shield energy') + g('hull energy'));
+    const fireE = -sumW(weapons, w => w.energyPerSec) / FPS;   // per frame below
+    const perFrame = { idle: idleE, flying: idleE + moveE, fighting: idleE + moveE + regenE + fireE };
+    const energy = {
+      capacity: g('energy capacity'),
+      perSec: Object.fromEntries(Object.entries(perFrame).map(([k, v]) => [k, v * FPS])),
+    };
+    energy.uptime = {};   // seconds until empty when negative (null = sustainable)
+    for (const [k, v] of Object.entries(energy.perSec)) energy.uptime[k] = v < 0 ? (energy.capacity / -v) : null;
+
+    const heatGen = g('heat generation') + g('solar heat') - g('cooling') - g('active cooling');
+    const heatPerFrame = {
+      idle: heatGen,
+      flying: heatGen + g('thrusting heat') + g('turning heat'),
+      fighting: heatGen + g('thrusting heat') + g('turning heat') + g('shield heat') + g('hull heat') + sumW(weapons, w => w.heatPerSec) / FPS,
+    };
+    const maxHeat = 100 * (mass + g('heat capacity'));
+    const loss = 0.001 * g('heat dissipation');
+    const heat = { max: maxHeat, perSec: {}, equilibriumPct: {}, overheatAfter: {} };
+    for (const [k, h] of Object.entries(heatPerFrame)) {
+      heat.perSec[k] = h * FPS;
+      const eq = loss > 0 ? h / loss : (h > 0 ? Infinity : 0);
+      heat.equilibriumPct[k] = maxHeat ? Math.max(0, eq / maxHeat * 100) : 0;
+      // time to reach max heat from cold, if it ever does: solve H(t) = eq·(1 − e^(−loss·frames))
+      if (eq > maxHeat && h > 0) heat.overheatAfter[k] = loss > 0 ? -Math.log(1 - maxHeat / eq) / loss / FPS : maxHeat / h / FPS;
+      else heat.overheatAfter[k] = null;
+    }
+
+    // ── fuel ──
+    const jumpFuel = g('jump fuel') || (g('hyperdrive') ? 100 : g('jump drive') ? 200 : 100);
+    const fuelUse = g('afterburner fuel') * FPS + g('thrusting fuel') * FPS + sumW(weapons, w => w.fuelPerSec);
+    const fuelGain = (g('ramscoop') > 0 ? 0.03 * Math.sqrt(g('ramscoop')) : 0) * FPS + g('fuel generation') * FPS;
+    const fuel = {
+      capacity: g('fuel capacity'), jumps: jumpFuel ? Math.floor(g('fuel capacity') / jumpFuel) : 0, perJump: jumpFuel,
+      burnPerSec: fuelUse, regenPerSec: fuelGain,
+      afterburnerUptime: g('afterburner fuel') > 0 ? g('fuel capacity') / Math.max(1e-9, g('afterburner fuel') * FPS - fuelGain) : null,
+    };
+
+    // ── ammunition: seconds of continuous fire per launcher type ──
+    const ammo = [];
+    for (const w of secondary) {
+      if (!w.ammo) continue;
+      const have = (outfits || []).find(([n]) => n === w.ammo);
+      const rounds = have ? have[1] : 0;
+      const usePerSec = w.shotsPerSec * w.count * (w.ammoPerShot || 1);
+      ammo.push({ weapon: w.name, ammo: w.ammo, rounds, seconds: usePerSec ? rounds / usePerSec : null });
+    }
+
+    const cap = k => ({ total: num(base?.[k]), free: g(k) });   // outfits subtract from the hull's capacity
+    return {
+      mass, drag, unknown,
+      maxSpeed: FPS * thrust / drag,
+      afterburnerSpeed: FPS * (thrust + ab) / drag,
+      acceleration: FPS * FPS * thrust / inertialMass,
+      turnRate: FPS * turn / inertialMass,
+      shields: g('shields'), hull: g('hull'),
+      shieldRegen: g('shield generation') * FPS, hullRegen: g('hull repair rate') * FPS,
+      cargo: g('cargo space'), bunks: g('bunks'), requiredCrew: g('required crew'),
+      dps, weapons, energy, heat, fuel, ammo,
+      space: {
+        outfit: cap('outfit space'), weapon: cap('weapon capacity'), engine: cap('engine capacity'),
+        guns: cap('gun ports'), turrets: cap('turret mounts'), cargo: { total: num(base?.['cargo space']), free: g('cargo space') },
+      },
+      cost: g('cost'),
+      raw: t,
+    };
+  }
+
+  const fmtTime = s => s == null ? 'indefinitely' : s >= 3600 ? '1h+' : s >= 60 ? `${Math.floor(s / 60)}m ${Math.round(s % 60)}s` : `${Math.max(0, s).toFixed(1)}s`;
+
+  /** Plain-English warnings about the fit. */
+  function warnings(d) {
+    const out = [];
+    const sp = d.space;
+    for (const [k, label] of [['outfit', 'outfit space'], ['weapon', 'weapon capacity'], ['engine', 'engine capacity'], ['guns', 'gun ports'], ['turrets', 'turret mounts']])
+      if (sp[k].free < -1e-9) out.push({ level: 'error', text: `Over ${label} by ${(-sp[k].free).toLocaleString()}.` });
+    if (d.energy.perSec.idle < 0) out.push({ level: 'error', text: `Loses energy even sitting still (${d.energy.perSec.idle.toFixed(0)}/s) — the batteries last ${fmtTime(d.energy.uptime.idle)}.` });
+    else if (d.energy.perSec.flying < 0) out.push({ level: 'warn', text: `Flying flat-out drains energy (${d.energy.perSec.flying.toFixed(0)}/s): engines stall after ${fmtTime(d.energy.uptime.flying)} at 100%.` });
+    if (d.energy.perSec.fighting < 0) out.push({ level: 'warn', text: `In a full fight (moving, all weapons firing, shields recharging) energy runs out after ${fmtTime(d.energy.uptime.fighting)} (${d.energy.perSec.fighting.toFixed(0)}/s).` });
+    for (const [k, label] of [['idle', 'sitting still'], ['flying', 'flying flat-out'], ['fighting', 'in a full fight']]) {
+      if (d.heat.overheatAfter[k] != null) { out.push({ level: k === 'fighting' ? 'warn' : 'error', text: `Overheats ${label} after about ${fmtTime(d.heat.overheatAfter[k])} (heat settles at ${Math.round(d.heat.equilibriumPct[k])}% of max).` }); break; }
+    }
+    if (d.fuel.afterburnerUptime != null) out.push({ level: 'info', text: `Afterburner uses fuel: a full tank gives ${fmtTime(d.fuel.afterburnerUptime)} of afterburner (leaving nothing to jump with).` });
+    if (d.fuel.burnPerSec > 0 && d.fuel.afterburnerUptime == null) out.push({ level: 'info', text: `Some outfits burn fuel in use (${d.fuel.burnPerSec.toFixed(1)}/s) — a full tank lasts ${fmtTime(d.fuel.capacity / d.fuel.burnPerSec)}.` });
+    if (d.fuel.jumps < 1) out.push({ level: 'error', text: 'Not enough fuel for a single jump.' });
+    for (const a of d.ammo) {
+      if (!a.rounds) out.push({ level: 'warn', text: `${a.weapon} has no ${a.ammo} loaded.` });
+      else out.push({ level: 'info', text: `${a.weapon}: ${a.rounds} × ${a.ammo} = ${fmtTime(a.seconds)} of continuous fire.` });
+    }
+    if (d.requiredCrew > d.bunks && d.bunks >= 0) out.push({ level: 'error', text: `Needs ${d.requiredCrew} crew but only has ${d.bunks} bunks.` });
+    if (d.unknown.length) out.push({ level: 'warn', text: `${d.unknown.length} outfit(s) not found in the loaded plugins: ${d.unknown.slice(0, 3).join(', ')}${d.unknown.length > 3 ? '…' : ''}` });
+    return out;
+  }
+
+  return { derive, fromTotals, totals, weaponStats, warnings, isSecondary, hullAttrs, fmtTime, DAMAGE_KEYS };
+});

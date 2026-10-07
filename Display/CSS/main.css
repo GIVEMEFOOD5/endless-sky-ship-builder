@@ -851,7 +851,9 @@ h1 {
 }
 .ad-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    /* minmax(0,…): a long value (e.g. an internal id) wraps instead of
+       widening the column past its panel and hiding every other value */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 4px 12px;
     margin-bottom: 4px;
 }
@@ -891,6 +893,8 @@ h1 {
     color: var(--c-text);
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
+    min-width: 0;
+    text-align: right;
 }
 .ad-unit { font-size: 10px; color: var(--c-text-dim); margin-left: 3px; }
 .ad-base-ship { color: var(--c-accent-text); font-size: 13px; margin-bottom: 16px; }
@@ -3060,7 +3064,13 @@ textarea.text-input { resize: vertical; min-height: 80px; }
 /* ── Narrow screens ───────────────────────────────────────────────── */
 @media (max-width: 600px) {
     .oe-stat-grid { grid-template-columns: 1fr 1fr; }
+    /* picture above the stats so they get the panel's full width */
+    .oe-panel--open { flex-direction: column; gap: 10px; }
     .oe-img-wrap  { width: 56px; height: 56px; }
+    .oe-stats-body { width: 100%; }
+    /* long values (ids, effect names) wrap under their label */
+    .ad-row { flex-wrap: wrap; row-gap: 2px; }
+    .ad-value { white-space: normal; overflow-wrap: anywhere; margin-left: auto; }
 }
 
 /* ── ≤640px: further compacting ─────────────────────────────── */
@@ -4492,7 +4502,7 @@ body {
 
 /* ── ≤500px: attribute grid single col ──────────────────────── */
 @media (max-width: 500px) {
-    .ad-grid { grid-template-columns: 1fr; }
+    .ad-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* ── ≤420px: very small phones ──────────────────────────────── */
@@ -5041,6 +5051,7 @@ img, video, canvas { max-width: 100%; }
 .panel:focus-within { position: relative; z-index: 4; }
 .sv-jump { display: flex; flex-wrap: wrap; gap: 4px; font-size: 0.8rem; }
 .button-group { flex-wrap: wrap; }
+.fleet-card__actions { flex-wrap: wrap; }
 .mission-raw-line { white-space: pre-wrap; overflow-wrap: anywhere; }
 .list-row__label, .ld-pill, .fleet-card__name { overflow-wrap: anywhere; }
 

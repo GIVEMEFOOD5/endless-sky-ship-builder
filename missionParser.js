@@ -166,7 +166,9 @@ const TOP_LEVEL_HANDLED_KEYS = new Set([
   'apparent payment',
 ]);
 
-const SIDE_EFFECT_KEYWORDS = /salary|income|wage/i;
+// salary/income, and reputation changes ("reputation: Pirate" += 5) — the
+// auto-fitter uses those to tell which missions mend a reputation.
+const SIDE_EFFECT_KEYWORDS = /salary|income|wage|^reputation: /i;
 
 // ---------------------------------------------------------------------------
 class EndlessSkyMissionParser {
@@ -431,7 +433,7 @@ class EndlessSkyMissionParser {
       const condMatch = typeof key === 'string' && values.length >= 1 &&
         (values[0] === '=' || values[0] === '+=' || values[0] === '-=' || values[0] === '>?=' || values[0] === '<?=');
       if (condMatch && SIDE_EFFECT_KEYWORDS.test(key)) {
-        mission.conditionSideEffects.push({ condition: key, op: values[0], trigger: triggerKey });
+        mission.conditionSideEffects.push({ condition: key, op: values[0], value: values[1] ?? null, trigger: triggerKey });
       }
     });
   }

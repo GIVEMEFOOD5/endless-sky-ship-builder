@@ -216,7 +216,7 @@ function _normaliseOutfitEntries(outfitSource) {
     if (Array.isArray(outfitSource)) {
         for (const o of outfitSource) {
             if (!o) continue;
-            const name = (o.name || '').replace(/^"|"$/g, '');
+            const name = (o.name || '').replace(/^"([^"]*)"$/, '$1');
             if (!name) continue;
             entries.push({
                 name,
@@ -228,7 +228,7 @@ function _normaliseOutfitEntries(outfitSource) {
         return entries;
     }
     for (const [key, val] of Object.entries(outfitSource)) {
-        const name = key.replace(/^"|"$/g, '');
+        const name = key.replace(/^"([^"]*)"$/, '$1');
         if (!name) continue;
         if (typeof val === 'object' && val !== null) {
             entries.push({

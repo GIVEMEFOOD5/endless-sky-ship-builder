@@ -138,7 +138,7 @@ function formatEventTriggers(list) {
 }
 
 function formatSideEffects(list) {
-    return list.map(e => `${mono(e.condition)} ${esc(e.op)} on ${esc(e.trigger)}`).join('<br>');
+    return list.map(e => `${mono(e.condition)} ${esc(e.op)}${e.value != null ? ' ' + esc(e.value) : ''} on ${esc(e.trigger)}`).join('<br>');
 }
 
 function flagLabel(key, value) {

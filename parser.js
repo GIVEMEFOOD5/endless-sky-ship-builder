@@ -2904,6 +2904,24 @@ async readPluginTxt(pluginRootDir) {
 // ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
+/**
+ * Keep which governments fly/sell an item: added to its locations as a
+ * "Governments" list per plugin ({ pluginId: { …, Governments: [...] } }),
+ * which the site shows like any other location and the auto-fitter uses
+ * to tell what stealing an outfit would cost in reputation.
+ */
+function withGovernments(locations, governments) {
+  if (!governments || typeof governments !== 'object') return locations;
+  const out = { ...(locations || {}) };
+  for (const [pid, list] of Object.entries(governments)) {
+    const names = (Array.isArray(list) ? list : list && typeof list === 'object' ? Object.keys(list) : [])
+      .filter(n => n !== pid);   // "unknown" fallback is { plugin: { plugin: true } } — not a government
+    if (!names.length) continue;
+    out[pid] = { ...(out[pid] || {}), Governments: [...new Set(names.map(String))].sort() };
+  }
+  return out;
+}
+
 async function main() {
   try {
     const config = JSON.parse(await fs.readFile(path.join(process.cwd(), 'plugins.json'), 'utf8'));
@@ -3211,6 +3229,7 @@ async function main() {
         thumbnail: o.thumbnail, description: o.description,
         attributes: { ...o, name: undefined, description: undefined, thumbnail: undefined,
                       pluginId: undefined, internalId: undefined,
+                      locations: withGovernments(o.locations, o.governments),
                       governments: undefined, governmentEvents: undefined },
       });
 
@@ -3222,7 +3241,7 @@ async function main() {
                       leaks: s.leaks, reverseEngines: s.reverseEngines, steeringEngines: s.steeringEngines },
         explosions: { tiny: s['tiny explosion'], small: s['small explosion'], medium: s['medium explosion'],
                       large: s['large explosion'], huge: s['huge explosion'], final: s['final explode'] },
-        locations: s.locations,
+        locations: withGovernments(s.locations, s.governments),
       });
 
       for (const v of variantsOut) allVariantRows.push({
@@ -3234,7 +3253,7 @@ async function main() {
                       leaks: v.leaks, reverseEngines: v.reverseEngines, steeringEngines: v.steeringEngines },
         explosions: { tiny: v['tiny explosion'], small: v['small explosion'], medium: v['medium explosion'],
                       large: v['large explosion'], huge: v['huge explosion'], final: v['final explode'] },
-        locations: v.locations,
+        locations: withGovernments(v.locations, v.governments),
       });
 
       for (const e of effectsOut) allEffectRows.push({

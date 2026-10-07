@@ -220,7 +220,7 @@ const SBS = (() => {
         const merged = window.ItemStats.buildOutfitIndex();
         const sbOutfits = (typeof sbAllOutfits !== 'undefined') ? sbAllOutfits : [];
         for (const o of sbOutfits) {
-            const name = (o.name || o.displayName || '').replace(/^"|"$/g, '').trim();
+            const name = (o.name || o.displayName || '').replace(/^"([^"]*)"$/, '$1').trim();
             if (!name || name in merged) continue;
             merged[name] = o;
         }
@@ -238,7 +238,7 @@ const SBS = (() => {
 
         const outfits = (ship.outfits || [])
             .map(entry => ({
-                name: (entry.name || '').replace(/^"|"$/g, '').trim(),
+                name: (entry.name || '').replace(/^"([^"]*)"$/, '$1').trim(),
                 count: parseInt(entry.count) || 1,
             }))
             .filter(e => e.name);

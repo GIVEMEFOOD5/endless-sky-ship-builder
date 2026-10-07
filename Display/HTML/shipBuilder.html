@@ -80,6 +80,9 @@
       </div>
       <div class="btn-group" style="margin:0;">
         <button class="btn btn-primary"   onclick="saveShip()">💾 Save Ship</button>
+        <button class="btn btn-secondary" onclick="window.AfUI && AfUI.open()" title="Let the site pick outfits for a goal: damage, speed, tank, cargo …">⚡ Auto-fit</button>
+        <button class="btn btn-secondary" id="sb-undo-btn" onclick="window.BuilderExtras && BuilderExtras.undo()" title="Undo the last change (Ctrl+Z)" disabled>↶ Undo</button>
+        <button class="btn btn-secondary" onclick="window.BuilderToSave && BuilderToSave.open()" title="Add this ship to one of your saves, or refit a ship in it">➜ Put in a save</button>
         <button class="btn btn-secondary" onclick="showFleetView()">← Back to Fleet</button>
       </div>
     </div>
@@ -501,6 +504,17 @@
 <script src="../JavaScript/computedStats.js"></script>
 <script src="../JavaScript/shipBuilderStats.js"></script>
 <script src="../JavaScript/shipBuilder.js"></script>
+<script src="../JavaScript/esSaveFile.js"></script>
+<script src="../JavaScript/saveVault.js"></script>
+<script src="../JavaScript/shipDefinition.js"></script>
+<script src="../JavaScript/autoFitting/afStats.js"></script>
+<script src="../JavaScript/autoFitting/afPool.js"></script>
+<script src="../JavaScript/autoFitting/afOptimizer.js"></script>
+<script src="../JavaScript/autoFitting/afPeers.js"></script>
+<script src="../JavaScript/autoFitting/afThreat.js"></script>
+<script src="../JavaScript/autoFitting/afUI.js"></script>
+<script src="../JavaScript/builderToSave.js"></script>
+<script src="../JavaScript/builderExtras.js"></script>
 <script src="../JavaScript/shipBuilderFleets.js"></script>
 <script src="../JavaScript/reportDialog.js"></script>
 <script src="../JavaScript/shipBuilderShared.js"></script>

@@ -31,7 +31,7 @@
   else root.ShipDefinition = api;
 })(typeof self !== 'undefined' ? self : this, function () {
   const node = (tokens, children = []) => ({ tokens: tokens.map(String), children });
-  const clean = v => String(v ?? '').replace(/^"|"$/g, '');
+  const clean = v => String(v ?? '').replace(/^"([^"]*)"$/, '$1');
   const isNum = v => /^-?[0-9]*\.?[0-9]+(e[-+]?\d+)?$/i.test(String(v).trim());
 
   function outfitList(outfits) {

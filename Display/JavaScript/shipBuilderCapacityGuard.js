@@ -126,7 +126,7 @@ const CapacityGuard = (() => {
 
             let used = 0;
             for (const entry of hypotheticalOutfits) {
-                const name   = (entry.name || '').replace(/^"|"$/g, '');
+                const name   = (entry.name || '').replace(/^"([^"]*)"$/, '$1');
                 const count  = parseInt(entry.count) || 1;
                 const effect = sbGetOutfitCapacityEffect(name, key);
                 // Same formula as sbUsedCapacity: net cost = -effect * count
@@ -182,7 +182,7 @@ const CapacityGuard = (() => {
 
     function _smartBulkRemove(outfits, i, originalFn) {
         const target     = outfits[i];
-        const targetName = (target.name || '').replace(/^"|"$/g, '');
+        const targetName = (target.name || '').replace(/^"([^"]*)"$/, '$1');
         const oldCount   = parseInt(target.count) || 1;
 
         // Walk keepCount from 0 upward; stop at the first count that causes
@@ -245,7 +245,7 @@ const CapacityGuard = (() => {
             const target  = outfits[i];
             if (!target) return originalFn.call(this, i);
 
-            const targetName = (target.name || '').replace(/^"|"$/g, '');
+            const targetName = (target.name || '').replace(/^"([^"]*)"$/, '$1');
 
             const hypoWithout = outfits
                 .filter((_, idx) => idx !== i)
@@ -485,7 +485,7 @@ const CapacityGuard = (() => {
             const shipBase = Number((sbCurrentShip.attributes || {})[key]) || 0;
             let outfitNet = 0;
             for (const entry of (sbCurrentShip.outfits || [])) {
-                const n = (entry.name || '').replace(/^"|"$/g, '');
+                const n = (entry.name || '').replace(/^"([^"]*)"$/, '$1');
                 const c = parseInt(entry.count) || 1;
                 outfitNet += sbGetOutfitAttrValue(n, key) * c;
             }
@@ -541,7 +541,7 @@ const CapacityGuard = (() => {
                 // sbAddOutfitFromPicker path
                 try {
                     const payload = JSON.parse(decodeURIComponent(escape(atob(args[0]))));
-                    outfitName = (payload.name || '').replace(/^"|"$/g, '').trim();
+                    outfitName = (payload.name || '').replace(/^"([^"]*)"$/, '$1').trim();
                 } catch(e) {}
                 const countEl = document.getElementById('sb-outfit-count-input');
                 count = parseInt(countEl?.value) || 1;
@@ -549,7 +549,7 @@ const CapacityGuard = (() => {
                 // confirmAddOutfit path
                 const nameEl  = document.getElementById('new-outfit-name');
                 const countEl = document.getElementById('new-outfit-count');
-                outfitName = (nameEl?.value || '').trim().replace(/^"|"$/g, '');
+                outfitName = (nameEl?.value || '').trim().replace(/^"([^"]*)"$/, '$1');
                 count      = parseInt(countEl?.value) || 1;
             }
 

@@ -448,7 +448,7 @@ function _sbNormaliseLeak(raw) {
   }
   if (typeof raw === 'string') {
     const tok = raw.trim().match(/^("([^"]+)"|(\S+))(?:\s+(\d+))?(?:\s+(\d+))?$/);
-    if (tok) return { name: (tok[2] || tok[3] || '').replace(/^"|"$/g, ''), openChance: parseInt(tok[4]) || 0, spreadChance: parseInt(tok[5]) || 0 };
+    if (tok) return { name: (tok[2] || tok[3] || '').replace(/^"([^"]*)"$/, '$1'), openChance: parseInt(tok[4]) || 0, spreadChance: parseInt(tok[5]) || 0 };
     return { name: raw.trim(), openChance: 0, spreadChance: 0 };
   }
   return { name: '', openChance: 0, spreadChance: 0 };
@@ -470,14 +470,14 @@ function _sbNormaliseOutfitsToArray(outfits) {
     internalId || (pluginId ? `${pluginId}::${name}` : null);
   if (Array.isArray(outfits)) {
     return outfits.map(o => {
-      const name     = (o.name || '').replace(/^"|"$/g, '');
+      const name     = (o.name || '').replace(/^"([^"]*)"$/, '$1');
       const pluginId = o.pluginId || null;
       return { name, count: parseInt(o.count) || 1, pluginId, internalId: withId(name, pluginId, o.internalId) };
     });
   }
   if (typeof outfits === 'object') {
     return Object.entries(outfits).map(([name, val]) => {
-      const cleanName = name.replace(/^"|"$/g, '');
+      const cleanName = name.replace(/^"([^"]*)"$/, '$1');
       const pluginId  = typeof val === 'object' ? (val.pluginId || null) : null;
       const internalId = typeof val === 'object' ? val.internalId : null;
       return {
@@ -501,7 +501,7 @@ function sbSave() {
     ...ship,
     outfits: Object.fromEntries(
       (ship.outfits || []).map(o => [
-        o.name.replace(/^"|"$/g, ''),
+        o.name.replace(/^"([^"]*)"$/, '$1'),
         { count: o.count ?? 1, pluginId: o.pluginId ?? null, internalId: o.internalId ?? null },
       ])
     ),
@@ -554,7 +554,7 @@ function sbSaveSaveShips() {
     ...ship,
     outfits: Object.fromEntries(
       (ship.outfits || []).map(o => [
-        o.name.replace(/^"|"$/g, ''),
+        o.name.replace(/^"([^"]*)"$/, '$1'),
         { count: o.count ?? 1, pluginId: o.pluginId ?? null, internalId: o.internalId ?? null },
       ])
     ),
@@ -613,6 +613,7 @@ function renderFleet() {
         <div class="fleet-card__actions" onclick="event.stopPropagation()">
           <button class="btn btn-primary btn-sm"   onclick="sbEditSaveShip(${i})">✏️ Edit</button>
           <button class="btn btn-secondary btn-sm" onclick="sbPromoteSaveShip(${i})" title="Copy into main fleet">⬆ Promote</button>
+          ${window.BuilderToSave ? `<button class="btn btn-secondary btn-sm" onclick="BuilderToSave.open(${i},'save')" title="Write this ship back into the save it came from">➜ Save file</button>` : ''}
           <button class="btn btn-danger btn-sm"    onclick="sbConfirmDeleteSaveShip(${i})">🗑</button>
         </div>
       </div>`;
@@ -657,6 +658,7 @@ function renderFleet() {
           <button class="btn btn-primary btn-sm"   onclick="sbEditFleetShip(${i})">✏️ Edit</button>
           <button class="btn btn-secondary btn-sm" onclick="sbDuplicate(${i})">⧉ Copy</button>
           <button class="btn btn-secondary btn-sm" onclick="sbOpenCloudSaveModal(${i})" title="Share this ship — you choose whether other people can see it">🌐 Share</button>
+          ${window.BuilderToSave ? `<button class="btn btn-secondary btn-sm" onclick="BuilderToSave.open(${i})" title="Add this ship to one of your saves, or refit a ship in it">➜ Save file</button>` : ''}
           <button class="btn btn-danger btn-sm"    onclick="sbConfirmDelete(${i})">🗑</button>
         </div>
       </div>`;
@@ -894,7 +896,7 @@ async function _sbEnsureDefaultSaveFile(userId) {
       name,
       outfits: Object.fromEntries(
         (ship.outfits || []).map(o => [
-          o.name.replace(/^"|"$/g, ''),
+          o.name.replace(/^"([^"]*)"$/, '$1'),
           { count: o.count ?? 1, pluginId: o.pluginId ?? null, internalId: o.internalId ?? null },
         ])
       ),
@@ -1056,7 +1058,7 @@ function sbShipFromParsed(src) {
   const outfitSource = src.outfits || src.outfitMap;
   if (outfitSource && typeof outfitSource === 'object' && !Array.isArray(outfitSource)) {
     for (const [n, val] of Object.entries(outfitSource)) {
-      const cleanName = n.replace(/^"|"$/g, '');
+      const cleanName = n.replace(/^"([^"]*)"$/, '$1');
       const count    = typeof val === 'object' ? (parseInt(val.count) || 1) : (Number(val) || 1);
       const pluginId = (typeof val === 'object' && val.pluginId) ? val.pluginId : sourcePluginId;
       const internalId = (typeof val === 'object' && val.internalId)
@@ -1066,7 +1068,7 @@ function sbShipFromParsed(src) {
     }
   } else if (Array.isArray(outfitSource)) {
     for (const o of outfitSource) {
-      const cleanName = (o.name || '').replace(/^"|"$/g, '');
+      const cleanName = (o.name || '').replace(/^"([^"]*)"$/, '$1');
       const pluginId  = o.pluginId || sourcePluginId;
       const internalId = o.internalId || (pluginId ? `${pluginId}::${cleanName}` : null);
       s.outfits.push({ name: cleanName, count: parseInt(o.count) || 1, pluginId, internalId });
@@ -1114,10 +1116,10 @@ function sbShipFromParsed(src) {
 
   const finalSrc = src.finalExplode || src['final explode'] || [];
   if (typeof finalSrc === 'string') {
-    s.finalExplode.push({ name: finalSrc.replace(/^"|"$/g, ''), count: 1 });
+    s.finalExplode.push({ name: finalSrc.replace(/^"([^"]*)"$/, '$1'), count: 1 });
   } else {
     for (const e of (Array.isArray(finalSrc) ? finalSrc : [])) {
-      s.finalExplode.push({ name: typeof e === 'string' ? e.replace(/^"|"$/g, '') : (e.name || 'final explosion large'), count: e.count || 1 });
+      s.finalExplode.push({ name: typeof e === 'string' ? e.replace(/^"([^"]*)"$/, '$1') : (e.name || 'final explosion large'), count: e.count || 1 });
     }
   }
 
@@ -1313,7 +1315,7 @@ function sbGetOutfitLookup() {
   const byId = {};
   const byName = {};
   for (const o of sbAllOutfits) {
-    const name = (o.name || o.displayName || '').trim().replace(/^"|"$/g, '');
+    const name = (o.name || o.displayName || '').trim().replace(/^"([^"]*)"$/, '$1');
     if (!name) continue;
     const pluginId = o._pn || o._pluginId || null;
     const internalId = o.internalId || o._internalId || (pluginId ? `${pluginId}::${name}` : null);
@@ -1333,7 +1335,7 @@ function sbGetOutfitLookup() {
  */
 function sbFindOutfit(outfitName, pluginId) {
   const lookup = sbGetOutfitLookup();
-  const cleanName = outfitName.replace(/^"|"$/g, '');
+  const cleanName = outfitName.replace(/^"([^"]*)"$/, '$1');
   if (pluginId) {
     const hit = lookup.byId[`${pluginId}::${cleanName}`];
     if (hit) return hit;
@@ -1483,7 +1485,7 @@ function _sbGetPortCost(outfitObj, portKey) {
 
 function _sbFillEmptyPorts(hardpoints, outfitName, needed) {
   if (!hardpoints || needed <= 0) return;
-  const clean = outfitName.replace(/^"|"$/g, '');
+  const clean = outfitName.replace(/^"([^"]*)"$/, '$1');
   let filled = 0;
   for (const hp of hardpoints) {
     if (filled >= needed) break;
@@ -1744,7 +1746,7 @@ function sbRenderOutfitsList() {
 
   el.innerHTML = outfits.map((o, i) => {
     const count   = parseInt(o.count) || 1;
-    const rawName = o.name.replace(/^"|"$/g, '');
+    const rawName = o.name.replace(/^"([^"]*)"$/, '$1');
 
     const capDefs = [
       { key: 'outfit space',    label: 'sp' },
@@ -1786,7 +1788,7 @@ function openAddOutfit() {
 }
 
 function confirmAddOutfit() {
-  const rawName = document.getElementById('new-outfit-name').value.trim().replace(/^"|"$/g, '');
+  const rawName = document.getElementById('new-outfit-name').value.trim().replace(/^"([^"]*)"$/, '$1');
   const count   = parseInt(document.getElementById('new-outfit-count').value) || 1;
   if (!rawName) { sbToast('Please enter an outfit name.', 'danger'); return; }
   if (!sbCheckOutfitSpace(rawName, count, null)) return;
@@ -1803,7 +1805,7 @@ function sbUpdateOutfitCount(i, v) {
   const newCount = parseInt(v) || 1;
   const oldCount = parseInt(sbCurrentShip.outfits[i].count) || 1;
   const diff     = newCount - oldCount;
-  const rawName  = sbCurrentShip.outfits[i].name.replace(/^"|"$/g, '');
+  const rawName  = sbCurrentShip.outfits[i].name.replace(/^"([^"]*)"$/, '$1');
   const pluginId = sbCurrentShip.outfits[i].pluginId || null;
   if (diff > 0) {
     if (!sbCheckOutfitSpace(rawName, diff, pluginId)) { const inputs = document.querySelectorAll('.outfit-item__count'); if (inputs[i]) inputs[i].value = oldCount; return; }
@@ -1815,7 +1817,7 @@ function sbUpdateOutfitCount(i, v) {
 
 function sbRemoveOutfit(i) {
   const outfit  = sbCurrentShip.outfits[i];
-  const rawName = outfit.name.replace(/^"|"$/g, '');
+  const rawName = outfit.name.replace(/^"([^"]*)"$/, '$1');
   _sbUnslotWeapons(rawName, parseInt(outfit.count) || 1);
   sbCurrentShip.outfits.splice(i, 1);
   sbRenderOutfitsList(); sbRenderGunsTurrets(); sbUpdateQuickStats(); sbRenderRaw();
@@ -1826,11 +1828,11 @@ function sbRemoveOutfit(i) {
 // name (there's no plugin-qualified form in the actual .txt grammar), so
 // there is no internalId to match against here even in principle.
 function _sbUnslotWeapons(outfitName, count) {
-  const clean = outfitName.replace(/^"|"$/g, '');
+  const clean = outfitName.replace(/^"([^"]*)"$/, '$1');
   let remaining = count;
   for (const arr of [sbCurrentShip.guns, sbCurrentShip.turrets]) {
     for (let i = (arr||[]).length - 1; i >= 0 && remaining > 0; i--) {
-      if ((arr[i].over || '').replace(/^"|"$/g, '').trim() === clean) { arr[i].over = ''; remaining--; }
+      if ((arr[i].over || '').replace(/^"([^"]*)"$/, '$1').trim() === clean) { arr[i].over = ''; remaining--; }
     }
   }
 }
@@ -1838,7 +1840,7 @@ function _sbUnslotWeapons(outfitName, count) {
 function sbAutoSlotAllOutfits(s) {
   if (!sbAllOutfits.length) return;
   for (const o of (s.outfits || [])) {
-    const rawName   = o.name.replace(/^"|"$/g, '');
+    const rawName   = o.name.replace(/^"([^"]*)"$/, '$1');
     const outfitObj = sbFindOutfit(rawName, o.pluginId);
     if (!outfitObj) continue;
     const count      = parseInt(o.count) || 1;
@@ -1966,7 +1968,7 @@ function sbFilterOutfitPicker(val) {
 
 function sbAddOutfitFromPicker(encoded) {
   const payload  = JSON.parse(decodeURIComponent(escape(atob(encoded))));
-  const rawName  = payload.name.replace(/^"|"$/g, '');
+  const rawName  = payload.name.replace(/^"([^"]*)"$/, '$1');
   const pluginId = payload.pluginId || null;
   const internalId = pluginId ? `${pluginId}::${rawName}` : null;
   const count    = parseInt(document.getElementById('sb-outfit-count-input').value) || 1;
@@ -2458,12 +2460,12 @@ function sbGenerateES(s) {
     L.push(..._sbAttrsToESLines(engineAttrs, TT));
   }
   for (const g of (s.guns    || [])) {
-    const raw = (g.over || '').trim().replace(/^"|"$/g, '');
+    const raw = (g.over || '').trim().replace(/^"([^"]*)"$/, '$1');
     L.push(`${T}gun ${g.coords || '0 0'}${raw ? ` "${raw}"` : ''}`);
     L.push(..._sbAttrsToESLines(g.attrs, TT));
   }
   for (const g of (s.turrets || [])) {
-    const raw = (g.over || '').trim().replace(/^"|"$/g, '');
+    const raw = (g.over || '').trim().replace(/^"([^"]*)"$/, '$1');
     L.push(`${T}turret ${g.coords || '0 0'}${raw ? ` "${raw}"` : ''}`);
     L.push(..._sbAttrsToESLines(g.attrs, TT));
   }

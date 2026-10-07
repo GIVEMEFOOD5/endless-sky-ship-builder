@@ -909,14 +909,14 @@ function _smNormaliseOutfitsArray(outfits) {
   if (!outfits) return [];
   if (Array.isArray(outfits)) {
     return outfits.map(o => ({
-      name:     (o.name || '').replace(/^"|"$/g, ''),
+      name:     (o.name || '').replace(/^"([^"]*)"$/, '$1'),
       count:    parseInt(o.count) || 1,
       pluginId: o.pluginId || null,
     }));
   }
   if (typeof outfits === 'object') {
     return Object.entries(outfits).map(([name, val]) => ({
-      name:     name.replace(/^"|"$/g, ''),
+      name:     name.replace(/^"([^"]*)"$/, '$1'),
       count:    typeof val === 'object' ? (parseInt(val.count) || 1) : (Number(val) || 1),
       pluginId: typeof val === 'object' ? (val.pluginId || null)     : null,
     }));
@@ -930,7 +930,7 @@ function _smNormaliseOutfitsArray(outfits) {
  */
 function smConvertShipToBuilderFormat(ship) {
   const outfits = (ship.outfits || []).map(o => ({
-    name:     (o.name || '').replace(/^"|"$/g, ''),
+    name:     (o.name || '').replace(/^"([^"]*)"$/, '$1'),
     count:    parseInt(o.count) || 1,
     pluginId: o.pluginId || null,
   }));
@@ -1021,7 +1021,7 @@ function _smSerialiseForBuilder(shipArray) {
     ...ship,
     outfits: Object.fromEntries(
       (ship.outfits || []).map(o => [
-        o.name.replace(/^"|"$/g, ''),
+        o.name.replace(/^"([^"]*)"$/, '$1'),
         { count: o.count ?? 1, pluginId: o.pluginId ?? null },
       ])
     ),

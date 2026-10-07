@@ -381,6 +381,7 @@
               <td style="white-space:nowrap;">
                 <button class="btn btn-secondary btn-sm" data-act="outfits">${openShip === s.index ? 'Hide outfits' : 'Outfits'}</button>
                 ${window.SaveShipPicker ? '<button class="btn btn-secondary btn-sm" data-act="refit" title="Replace this ship\'s design with one of yours, a shared one or a game ship">Refit</button>' : ''}
+                ${typeof smConvertShipToBuilderFormat === 'function' && typeof parseESSaveFile === 'function' ? '<button class="btn btn-secondary btn-sm" data-act="tobuilder" title="Open this ship in the Ship Builder; ➜ Put in a save there sends it back">🛠 Builder</button>' : ''}
                 <button class="btn btn-secondary btn-sm" data-act="dup">Duplicate</button>
                 <button class="btn btn-danger btn-sm" data-act="rmship">Remove</button>
               </td>
@@ -749,6 +750,15 @@
             return changed(`Removed the event “${b.dataset.name}”.`, { undoable: true });
           }
           case 'outfits': openShip = openShip === ship.index ? null : ship.index; return render();
+          case 'tobuilder': {
+            // Hand this save's ships to the builder (its "💾 Current Save Fleet") and open this one.
+            if (!ship.uuid) return say('This ship has no id in the save, so the builder can\'t match it back — save it in the game once first.', 'danger');
+            const parsed = parseESSaveFile(doc.toString());
+            smSetActiveSaveShips(_smSerialiseForBuilder(parsed.ships.map(smConvertShipToBuilderFormat)));
+            try { localStorage.setItem('ES_SB_OPEN_SAVE_SHIP', ship.uuid); } catch (_) {}
+            location.href = 'shipBuilder.html';
+            return;
+          }
           case 'dup': doc.duplicateShip(ship.index, `${ship.name || ship.model} (copy)`); return changed('Ship duplicated.');
           case 'addship':
             return window.SaveShipPicker.open({ mode: 'add', title: 'Add a ship to this save', onPick: c => applyPicked(c, null) });

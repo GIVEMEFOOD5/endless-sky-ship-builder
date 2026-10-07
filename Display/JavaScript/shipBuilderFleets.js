@@ -26,7 +26,7 @@
     return ships.map(ship => ({
       ...ship,
       outfits: Object.fromEntries((ship.outfits || []).map(o => [
-        String(o.name).replace(/^"|"$/g, ''),
+        String(o.name).replace(/^"([^"]*)"$/, '$1'),
         { count: o.count ?? 1, pluginId: o.pluginId ?? null, internalId: o.internalId ?? null },
       ])),
     }));

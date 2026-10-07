@@ -20,7 +20,7 @@
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.PluginRefs = api;
 })(typeof self !== 'undefined' ? self : this, function () {
-  const clean = v => String(v ?? '').replace(/^"|"$/g, '');
+  const clean = v => String(v ?? '').replace(/^"([^"]*)"$/, '$1');
 
   /** [[pluginKey, itemName], …] for one design. */
   function refsOf(design) {
