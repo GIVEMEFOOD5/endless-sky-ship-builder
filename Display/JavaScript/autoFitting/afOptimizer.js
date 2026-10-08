@@ -219,16 +219,16 @@
     const maxSteps = o.maxSteps || 400;
     const log = [];
     const can = c => (fit.counts.get(c.name) || 0) < (c.unique ? 1 : c.maxCount);
-    const growStep = () => {
+    const growStep = (pool = usable, pairs = true) => {
       let best = null, bestGain = 0;
-      for (const c of usable) {
+      for (const c of pool) {
         if (c.isAmmo || !can(c)) continue;
         const g = tryAdd(fit, c);
         if (!g) continue;
         const s = score(derived(base, g));
         let gain = (s - cur) / c.space;
         let pick = { g, s, c, label: c.name };
-        if (gain <= 0) {
+        if (gain <= 0 && pairs) {
           for (const sup of support) {
             if (sup === c || (g.counts.get(sup.name) || 0) >= (sup.unique ? 1 : sup.maxCount)) continue;
             const g2 = tryAdd(g, sup);
@@ -241,10 +241,70 @@
         if (gain > bestGain + 1e-12) { bestGain = gain; best = pick; }
       }
       if (!best) return false;
-      fit = best.g; cur = best.s; log.push(`+ ${best.label}`);
+      fit = best.g; cur = best.s; if (!quiet) log.push(`+ ${best.label}`);
       return true;
     };
-    for (let step = 0; step < maxSteps && growStep(); step++);
+    let quiet = false;
+
+    // ── Capacity expanders ────────────────────────────────────────────────
+    // Outfits like "Outfits Expansion" (+15 outfit space, −20 cargo, a little
+    // less heat dissipation) or a plugin's extra weapon capacity / mounts do
+    // nothing on their own — their value is what the freed room lets you fit,
+    // minus their own costs. So when the build stalls, each expander is tried
+    // with a look-ahead: add it, fill the new room as usual, and keep it only
+    // if the finished result scores better than without it.
+    const consumed = new Set();
+    for (const c of usable) for (const [k, v] of Object.entries(c.vec)) if (v < 0 && !MAY_BE_NEGATIVE.has(k)) consumed.add(k);
+    const expanders = usable.filter(c => !c.isAmmo && !c.weapon && Object.entries(c.vec).some(([k, v]) => v > 0 && consumed.has(k)));
+    const LOOKAHEAD = 20, POOL = 60;
+    // What would be worth adding if there were room? (score with space limits lifted)
+    const roomyPool = () => {
+      const roomy = cloneFit(fit);
+      for (const k of consumed) roomy.t[k] = (roomy.t[k] || 0) + 1e6;
+      const base0 = score(derived(base, roomy));
+      const ranked = [];
+      for (const c of usable) {
+        if (c.isAmmo || !can(c) || expanders.includes(c)) continue;
+        const g = cloneFit(roomy); addTo(g, c, 1);
+        const gain = score(derived(base, g)) - base0;
+        if (gain > 0) ranked.push([gain / c.space, c]);
+      }
+      return ranked.sort((a, b) => b[0] - a[0]).slice(0, POOL).map(x => x[1]);
+    };
+    const expandStep = () => {
+      if (!expanders.length) return false;
+      const startFit = fit, startCur = cur;
+      const pool = roomyPool();
+      if (!pool.length) return false;           // nothing would use the room anyway
+      let best = null;
+      for (const e of expanders) {
+        if (!can(e)) continue;
+        const g = tryAdd(startFit, e);
+        if (!g) continue;
+        quiet = true;
+        fit = g; cur = score(derived(base, g));
+        for (let i = 0; i < LOOKAHEAD && growStep(pool, false); i++);
+        quiet = false;
+        if (cur > startCur * (1 + 1e-6) + 1e-9 && (!best || cur > best.cur)) best = { fit, cur, e };
+        fit = startFit; cur = startCur;
+      }
+      if (!best) return false;
+      fit = best.fit; cur = best.cur;
+      log.push(`+ ${best.e.name} (for the room it frees) and what fills it`);
+      return true;
+    };
+    const growAll = () => {
+      let any = false;
+      for (let round = 0; round < 50; round++) {
+        let grew = false;
+        for (let step = 0; step < maxSteps && growStep(); step++) grew = true;
+        if (expandStep()) grew = true;
+        if (!grew) break;
+        any = true;
+      }
+      return any;
+    };
+    growAll();
 
     // clean-up: drop anything that doesn't pull its weight, then refill
     for (let round = 0; round < 3; round++) {
@@ -253,10 +313,11 @@
         const c = byName.get(name);
         if (!c || (p.keep || []).some(([n]) => n === name)) continue;
         const g = cloneFit(fit); addTo(g, c, -1);
+        if (!fits(g.t)) continue;               // e.g. taking out an expander would overfill the ship
         const s = score(derived(base, g));
         if (s >= cur - 1e-9) { fit = g; cur = s; changed = true; log.push(`- ${name}`); }
       }
-      for (let step = 0; step < maxSteps && growStep(); step++) changed = true;
+      if (growAll()) changed = true;
       if (!changed) break;
     }
 

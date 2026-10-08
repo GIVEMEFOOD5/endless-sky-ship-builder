@@ -348,12 +348,25 @@
     }).join('');
   }
 
+  // For outfits that add room (outfit space, weapon/engine capacity, mounts …):
+  // what they add and what they cost, so it's clear why they're in the fit.
+  const ROOM_KEYS = ['outfit space', 'weapon capacity', 'engine capacity', 'gun ports', 'turret mounts', 'cargo space', 'bunks'];
+  function expanderNote(name) {
+    const o = ui.idx.get(name) || {};
+    const a = o.attributes || o;
+    const adds = Object.entries(a).filter(([k, v]) => typeof v === 'number' && v > 0 && (ROOM_KEYS.includes(k) || / capacity$/.test(k)) && k !== 'energy capacity' && k !== 'fuel capacity');
+    if (!adds.length) return '';
+    const costs = Object.entries(a).filter(([k, v]) => typeof v === 'number' && v < 0 && k !== 'cost');
+    return `Adds ${adds.map(([k, v]) => `+${fmt(v, 4)} ${k}`).join(', ')}${costs.length ? ` · costs ${costs.map(([k, v]) => `${fmt(v, 4)} ${k}`).join(', ')}` : ''}`;
+  }
+
   function resultHtml() {
     const r = ui.result, d = r.derived;
     const icon = { buy: '🛒', plunder: '⚔', mission: '📜', owned: '📦', keep: '📌' };
     const rows = r.outfits.map(([n, k]) => {
       const src = r.access.get(n) || {};
-      return `<tr><td style="padding:3px 8px 3px 0;">${k}× ${h(n)}</td><td style="font-size:0.78rem;color:var(--c-text-dim);">${icon[src.how] || ''} ${h(src.note || '')}</td>
+      const ex = expanderNote(n);
+      return `<tr><td style="padding:3px 8px 3px 0;">${k}× ${h(n)}${ex ? `<span style="display:block;font-size:0.74rem;color:var(--c-text-dim);">${h(ex)}</span>` : ''}</td><td style="font-size:0.78rem;color:var(--c-text-dim);">${icon[src.how] || ''} ${h(src.note || '')}</td>
         <td style="text-align:right;white-space:nowrap;"><button type="button" class="af-excl-btn" data-af="excl-add" data-name="${h(n)}" title="Never use this outfit">Exclude</button></td></tr>`;
     }).join('');
     const steals = [...r.access.values()].filter(a => a.how === 'plunder' && a.steal);
@@ -416,10 +429,11 @@
         const { list, access } = candidates();
         // keep the jump drive / hyperdrive the ship already has (a fit that can't leave the system is no use)
         const mine = designOutfits(ui.design);
-        const keep = mine.filter(([n]) => { const a = ui.idx.get(n)?.attributes || {}; return (a.hyperdrive || a['jump drive']) && !ui.prefs.exclude.includes(n); });
+        const attrsOf = o => (o && (o.attributes || o)) || {};   // site outfits keep their attributes at the top level
+        const keep = mine.filter(([n]) => { const a = attrsOf(ui.idx.get(n)); return (a.hyperdrive || a['jump drive']) && !ui.prefs.exclude.includes(n); });
         for (const [n] of keep) if (!access.has(n)) { access.set(n, { how: 'keep', note: 'Kept from your current fit' }); const o = ui.idx.get(n); if (o) list.push({ name: n, outfit: o }); }
         if (!keep.length) {
-          const hd = list.find(c => (c.outfit.attributes || {}).hyperdrive);
+          const hd = list.find(c => attrsOf(c.outfit).hyperdrive);
           if (hd) keep.push([hd.name, 1]);
         }
         const opts = { ...ui.opts };
@@ -460,7 +474,7 @@
     for (const [label, f] of Object.entries(metric)) {
       let best = null;
       // remove one outfit (not the hyperdrive) and add one candidate in its place
-      const removable = r.outfits.filter(([n]) => { const a = idx.get(n)?.attributes || {}; return !(a.hyperdrive || a['jump drive']); });
+      const removable = r.outfits.filter(([n]) => { const o = idx.get(n) || {}; const a = o.attributes || o; return !(a.hyperdrive || a['jump drive']); });
       for (const [rm] of [[null], ...removable]) {
         const outs = r.outfits.map(([n, k]) => [n, n === rm ? k - 1 : k]).filter(([, k]) => k > 0);
         for (const c of list) {

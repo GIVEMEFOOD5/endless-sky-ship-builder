@@ -180,7 +180,8 @@
     const fuelUse = g('afterburner fuel') * FPS + g('thrusting fuel') * FPS + sumW(weapons, w => w.fuelPerSec);
     const fuelGain = (g('ramscoop') > 0 ? 0.03 * Math.sqrt(g('ramscoop')) : 0) * FPS + g('fuel generation') * FPS;
     const fuel = {
-      capacity: g('fuel capacity'), jumps: jumpFuel ? Math.floor(g('fuel capacity') / jumpFuel) : 0, perJump: jumpFuel,
+      // no hyperdrive / jump drive / scram drive = no jumps at all, however much fuel
+      capacity: g('fuel capacity'), jumps: (g('hyperdrive') || g('jump drive') || g('scram drive')) && jumpFuel ? Math.floor(g('fuel capacity') / jumpFuel) : 0, perJump: jumpFuel,
       burnPerSec: fuelUse, regenPerSec: fuelGain,
       afterburnerUptime: g('afterburner fuel') > 0 ? g('fuel capacity') / Math.max(1e-9, g('afterburner fuel') * FPS - fuelGain) : null,
     };
@@ -231,7 +232,8 @@
     }
     if (d.fuel.afterburnerUptime != null) out.push({ level: 'info', text: `Afterburner uses fuel: a full tank gives ${fmtTime(d.fuel.afterburnerUptime)} of afterburner (leaving nothing to jump with).` });
     if (d.fuel.burnPerSec > 0 && d.fuel.afterburnerUptime == null) out.push({ level: 'info', text: `Some outfits burn fuel in use (${d.fuel.burnPerSec.toFixed(1)}/s) — a full tank lasts ${fmtTime(d.fuel.capacity / d.fuel.burnPerSec)}.` });
-    if (d.fuel.jumps < 1) out.push({ level: 'error', text: 'Not enough fuel for a single jump.' });
+    if (!(d.raw['hyperdrive'] || d.raw['jump drive'] || d.raw['scram drive'])) out.push({ level: 'error', text: 'No hyperdrive or jump drive — it can\'t leave the system.' });
+    else if (d.fuel.jumps < 1) out.push({ level: 'error', text: 'Not enough fuel for a single jump.' });
     for (const a of d.ammo) {
       if (!a.rounds) out.push({ level: 'warn', text: `${a.weapon} has no ${a.ammo} loaded.` });
       else out.push({ level: 'info', text: `${a.weapon}: ${a.rounds} × ${a.ammo} = ${fmtTime(a.seconds)} of continuous fire.` });
