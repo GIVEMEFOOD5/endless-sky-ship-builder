@@ -268,5 +268,49 @@
     return Object.entries(locations || {}).filter(([k, v]) => v && typeof v === 'object' && (!ids || ids.has(k))).map(([, v]) => v);
   }
 
-  return { derive, fromTotals, totals, weaponStats, warnings, isSecondary, hullAttrs, fmtTime, activeData, activePluginIds, activeLocations, DAMAGE_KEYS };
+  // ── Stats a user can set targets on (auto-fit "Targets") ────────────────
+  // id → [label, unit, getter]. Any raw attribute can be targeted too, as "attr:<name>".
+  const STATS = [
+    ['dps', 'Damage / s (all weapons)', '/s', d => d.dps.total],
+    ['dps.primary', 'Damage / s — primary weapons', '/s', d => d.dps.primary],
+    ['dps.secondary', 'Damage / s — secondary weapons', '/s', d => d.dps.secondary],
+    ['dps.shield', 'Shield damage / s', '/s', d => d.dps.shield],
+    ['dps.hull', 'Hull damage / s', '/s', d => d.dps.hull],
+    ['speed', 'Top speed', '', d => d.maxSpeed],
+    ['abSpeed', 'Top speed with afterburner', '', d => d.afterburnerSpeed],
+    ['accel', 'Acceleration', '', d => d.acceleration],
+    ['turn', 'Turning', '°/s', d => d.turnRate],
+    ['shields', 'Shields', '', d => d.shields],
+    ['hull', 'Hull', '', d => d.hull],
+    ['shieldRegen', 'Shield regeneration / s', '/s', d => d.shieldRegen],
+    ['hullRegen', 'Hull repair / s', '/s', d => d.hullRegen],
+    ['toughness', 'Toughness (shields + hull + 30 s of repair)', '', d => d.shields + d.hull + (d.shieldRegen + d.hullRegen) * 30],
+    ['cargo', 'Cargo space', '', d => d.cargo],
+    ['bunks', 'Bunks', '', d => d.bunks],
+    ['spareBunks', 'Spare bunks (passengers)', '', d => d.bunks - d.requiredCrew],
+    ['crew', 'Required crew', '', d => d.requiredCrew],
+    ['jumps', 'Jumps of fuel', '', d => d.fuel.jumps],
+    ['fuel', 'Fuel capacity', '', d => d.fuel.capacity],
+    ['energy.fight', 'Energy / s in a full fight', '/s', d => d.energy.perSec.fighting],
+    ['energy.fly', 'Energy / s flying', '/s', d => d.energy.perSec.flying],
+    ['energy.idle', 'Energy / s sitting still', '/s', d => d.energy.perSec.idle],
+    ['energyCap', 'Energy capacity (batteries)', '', d => d.energy.capacity],
+    ['fightTime', 'Seconds of full fight before energy runs out', 's', d => d.energy.uptime.fighting == null ? 3600 : d.energy.uptime.fighting],
+    ['heat.fight', 'Heat in a full fight', '%', d => d.heat.equilibriumPct.fighting],
+    ['mass', 'Mass', 't', d => d.mass],
+    ['cost', 'Cost (hull + outfits)', 'cr', d => d.cost],
+    ['free.outfit', 'Free outfit space', '', d => d.space.outfit.free],
+    ['free.weapon', 'Free weapon capacity', '', d => d.space.weapon.free],
+    ['free.engine', 'Free engine capacity', '', d => d.space.engine.free],
+  ].map(([id, label, unit, get]) => ({ id, label, unit, get }));
+  const STAT_BY_ID = new Map(STATS.map(x => [x.id, x]));
+  function statValue(d, id) {
+    if (id.startsWith('attr:')) return d.raw[id.slice(5)] || 0;
+    const st = STAT_BY_ID.get(id);
+    return st ? Number(st.get(d)) || 0 : 0;
+  }
+  function statLabel(id) { return id.startsWith('attr:') ? `${id.slice(5)} (attribute)` : (STAT_BY_ID.get(id) || { label: id }).label; }
+
+  return { derive, fromTotals, totals, weaponStats, warnings, isSecondary, hullAttrs, fmtTime, activeData, activePluginIds, activeLocations,
+           STATS, statValue, statLabel, DAMAGE_KEYS };
 });

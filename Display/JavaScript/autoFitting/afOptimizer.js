@@ -114,6 +114,9 @@
   }
   function basics(d) {
     let m = 1;
+    // a ship that can't move or steer isn't a fit, whatever the goal
+    if (!(d.maxSpeed > 0)) m *= 0.05;
+    if (!(d.turnRate > 0)) m *= 0.05;
     if (d.requiredCrew > d.bunks) m *= 0.3;
     if (d.fuel.jumps < 1) m *= 0.2;
     if (d.energy.perSec.idle < 0) m *= 0.5;
@@ -142,6 +145,8 @@
       case 'cargo': return d => (d.cargo + 0.001 * d.maxSpeed) * energyFactor(d, 'flying', fight) * heatFactor(d, 'flying') * mobility(d, o) * basics(d);
       case 'tank': return d => ehp(d, o.profile || { shield: 0.5, hull: 0.5 }) * energyFactor(d, 'fighting', fight) * energyFactor(d, 'flying', fight) * heatFactor(d, 'fighting') * mobility(d, o) * basics(d);
       case 'counter': return d => o.counter(d, { energyFactor, heatFactor, mobility: dd => mobility(dd, o), basics, fight });
+      // "Just my targets": a working ship (power, cooling, can move) shaped only by the user's targets
+      case 'custom': return d => energyFactor(d, 'flying', fight) * Math.sqrt(energyFactor(d, 'fighting', fight)) * heatFactor(d, 'flying') * mobility(d, o) * basics(d);
       case 'general': default: return d => {
         const r = (v, v0) => Math.max(0.05, v) / Math.max(1, v0);
         return Math.pow(r(d.dps.total, ref.dps), 0.30) * Math.pow(r(d.maxSpeed, ref.speed), 0.20) * Math.pow(r(d.turnRate, ref.turn), 0.15)
@@ -170,7 +175,9 @@
       if (!c.weapon) return true;
       if (p.goal === 'dps' && o.weapons === 'primary') return !c.weapon.secondary;
       if (p.goal === 'dps' && o.weapons === 'secondary') return c.weapon.secondary;
-      if (p.goal !== 'dps' && p.goal !== 'general' && p.goal !== 'tank' && p.goal !== 'counter') return !!c.weapon.antiMissile;
+      // goals that aren't about weapons skip them — unless a target asks for damage
+      const wantsDamage = (o.targets || []).some(t => /^dps|damage/i.test(t.id || ''));
+      if (!['dps', 'general', 'tank', 'counter', 'custom'].includes(p.goal) && !wantsDamage) return !!c.weapon.antiMissile;
       return true;
     });
 
@@ -189,7 +196,31 @@
       // AfPeers' toughness is shields + hull + 30 s regen; ehp() weighs a 50/50 damage mix (÷0.5 each side)
       ehp: Math.max(1, peerRef.ehp / 0.5),
     };
-    const score = scorer(p.goal, o, ref);
+    const goalScore = scorer(p.goal, o, ref);
+    // User targets ("at least 5,000 dps", "turn about 90", "as much cargo as possible" …),
+    // weighted by priority, multiply the goal's score.
+    const targets = (o.targets || []).filter(t => t && t.id && t.mode);
+    const W = { must: 4, high: 2, normal: 1, low: 0.5 };
+    const targetFactor = d => {
+      let f = 1;
+      for (const t of targets) {
+        const n = targets.length;
+        // earlier in the list = a little more important when priorities are equal
+        const orderBoost = t.order != null && n > 1 ? 1 + 0.3 * (n - 1 - t.order) / (n - 1) : 1;
+        const x = S.statValue(d, t.id), v = Number(t.value) || 0, w = (W[t.priority] || 1) * orderBoost;
+        const scale = Math.max(1, Math.abs(v));
+        if (t.mode === 'min') { if (x < v) f *= Math.pow(1 + (v - x) / scale, -2 * w); }
+        else if (t.mode === 'max') { if (x > v) f *= Math.pow(1 + (x - v) / scale, -2 * w); }
+        else if (t.mode === 'near') f *= Math.pow(1 + Math.abs(x - v) / scale, -2 * w);
+        else if (t.mode === 'more' || t.mode === 'less') {
+          const r0 = Number(t.ref) || 0, sc = Math.max(1, Math.abs(r0));
+          const delta = Math.max(-3, Math.min(3, (x - r0) / sc)) * (t.mode === 'more' ? 1 : -1);
+          f *= Math.exp(0.5 * w * delta);
+        }
+      }
+      return f;
+    };
+    const score = targets.length ? (d => goalScore(d) * targetFactor(d)) : goalScore;
 
     let fit = emptyFit(base);
     for (const [n, k] of p.keep || []) { const c = byName.get(n); if (c) addTo(fit, c, k); }
@@ -229,26 +260,31 @@
     const maxSteps = o.maxSteps || 400;
     const log = [];
     const can = c => (fit.counts.get(c.name) || 0) < (c.unique ? 1 : c.maxCount);
+    const PAIR_POOL = 100;
     const growStep = (pool = usable, pairs = true) => {
       let best = null, bestGain = 0;
+      const stuck = [];   // candidates that don't help alone — the most promising get a support outfit
       for (const c of pool) {
         if (c.isAmmo || !can(c)) continue;
         const g = tryAdd(fit, c);
         if (!g) continue;
         const s = score(derived(base, g));
-        let gain = (s - cur) / c.space;
-        let pick = { g, s, c, label: c.name };
-        if (gain <= 0 && pairs) {
+        const gain = (s - cur) / c.space;
+        if (gain > bestGain + 1e-12) { bestGain = gain; best = { g, s, c, label: c.name }; }
+        else if (gain <= 0 && pairs) stuck.push([s, c, g]);
+      }
+      if (pairs && stuck.length) {
+        stuck.sort((a, b) => b[0] - a[0]);
+        for (const [, c, g] of stuck.slice(0, PAIR_POOL)) {
           for (const sup of support) {
             if (sup === c || (g.counts.get(sup.name) || 0) >= (sup.unique ? 1 : sup.maxCount)) continue;
             const g2 = tryAdd(g, sup);
             if (!g2) continue;
             const s2 = score(derived(base, g2));
             const gain2 = (s2 - cur) / (c.space + sup.space);
-            if (gain2 > gain) { gain = gain2; pick = { g: g2, s: s2, c, label: `${c.name} + ${sup.name}` }; }
+            if (gain2 > bestGain + 1e-12) { bestGain = gain2; best = { g: g2, s: s2, c, label: `${c.name} + ${sup.name}` }; }
           }
         }
-        if (gain > bestGain + 1e-12) { bestGain = gain; best = pick; }
       }
       if (!best) return false;
       fit = best.g; cur = best.s; if (!quiet) log.push(`+ ${best.label}`);
