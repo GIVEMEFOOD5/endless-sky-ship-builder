@@ -254,6 +254,10 @@
   const SHIP_TAIL_KEYS = ['crew', 'fuel', 'shields', 'hull', 'position', 'formation', 'system', 'planet',
     'destination system', 'parked'];
   const SHIP_STATE_KEYS = [...SHIP_HEAD_KEYS, ...SHIP_TAIL_KEYS];
+  // Part of the ship's DESIGN rather than its state: when a ship is added or
+  // refitted, these come from the new design (a refit to another model must
+  // not keep the old model's "display name").
+  const SHIP_DESIGN_KEYS = ['display name', 'plural', 'noun'];
 
   // ───────────────────────────────────────────────────────────────────────
   //  SaveFile — typed view + edits over the tree
@@ -496,9 +500,10 @@
       if (!def) throw new Error('No ship block found in the definition text');
       const old = s.node;
       const kept = new Map();
-      for (const k of SHIP_STATE_KEYS) { const n = kid(old, k); if (n) kept.set(k, clone(n)); }
+      for (const k of SHIP_STATE_KEYS) { if (SHIP_DESIGN_KEYS.includes(k)) continue; const n = kid(old, k); if (n) kept.set(k, clone(n)); }
+      const design = def.children.filter(n => isData(n) && SHIP_DESIGN_KEYS.includes(n.tokens[0]));
       const body = def.children.filter(n => !(isData(n) && SHIP_STATE_KEYS.includes(n.tokens[0])));
-      const head = SHIP_HEAD_KEYS.filter(k => kept.has(k)).map(k => kept.get(k));
+      const head = [...SHIP_HEAD_KEYS.filter(k => kept.has(k)).map(k => kept.get(k)), ...design];
       const tail = SHIP_TAIL_KEYS.filter(k => kept.has(k)).map(k => kept.get(k));
       // A 3-token `ship "Model" "Variant"` block is kept as-is: the game then
       // copies whatever the block leaves out from the model and mounts any
@@ -519,8 +524,9 @@
         ? parse(definition).root.children.find(n => isData(n) && n.tokens[0] === 'ship')
         : clone(definition);
       if (!def) throw new Error('No ship block found');
+      const design = def.children.filter(n => isData(n) && SHIP_DESIGN_KEYS.includes(n.tokens[0]));
       const body = def.children.filter(n => !(isData(n) && SHIP_STATE_KEYS.includes(n.tokens[0])));
-      def.children = [makeNode(['name', name || def.tokens[2] || def.tokens[1]]), ...body, makeNode(['uuid', uuidV4()])];
+      def.children = [makeNode(['name', name || def.tokens[2] || def.tokens[1]]), ...design, ...body, makeNode(['uuid', uuidV4()])];
       this._setLevels(def, levels || {});
       const sys = system || this.system, pl = planet === undefined ? this.planet : planet;
       if (sys) def.children.push(makeNode(['system', sys]));

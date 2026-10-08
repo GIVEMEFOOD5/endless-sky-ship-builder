@@ -327,6 +327,7 @@ function _esBlankShip() {
     customName: '',   // in-game pilot-given name e.g. "Great Fox"
     variant: '',
     plural: '',
+    displayName: '',
     sprite: '',
     thumbnail: '',
     description: '',
@@ -741,6 +742,7 @@ function parseESSaveFile(text) {
 
       if (key0 === 'name')       { cur._customName = _esName(toks[1]); cur.customName = cur._customName; continue; }
       if (key0 === 'plural')     { cur.plural    = _esName(toks[1]); continue; }
+      if (key0 === 'display name') { cur.displayName = _esName(toks[1]); continue; }
       if (key0 === 'thumbnail')  { cur.thumbnail = _esName(toks[1]); continue; }
       if (key0 === 'uuid')       { cur._uuid     = toks[1] || ''; continue; }
       if (key0 === 'swizzle')    { cur._swizzle  = parseInt(toks[1]) || 0; continue; }
@@ -1087,6 +1089,7 @@ function saveShipToBuilderFormat(ship) {
     customName:  ship._customName,    // pilot-assigned name — extra field not in original format
     variant:     ship.variant   || '',
     plural:      ship.plural    || '',
+    displayName: ship.displayName || '',
     sprite:      ship.sprite    || '',
     thumbnail:   ship.thumbnail || '',
     description: ship.description || '',

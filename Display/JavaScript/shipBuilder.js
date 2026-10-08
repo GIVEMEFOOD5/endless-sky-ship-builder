@@ -2411,11 +2411,16 @@ function sbGenerateES(s) {
   const L = [];
 
   L.push(`ship "${s.name || 'Unnamed'}"${s.variant ? ' ' + s.variant : ''}`);
+  // "display name" lives in the Attributes section here, but the game reads it
+  // directly under the ship line (Ship.cpp), not inside the attributes block
+  const displayName = (s.attributes && s.attributes['display name']) || '';
+  if (displayName && displayName !== s.name) L.push(`${T}"display name" "${displayName}"`);
   if (s.plural)    L.push(`${T}plural "${s.plural}"`);
   if (s.sprite)    L.push(`${T}sprite "${s.sprite}"`);
   if (s.thumbnail) L.push(`${T}thumbnail "${s.thumbnail}"`);
 
-  const attrs    = s.attributes || {};
+  const attrs    = { ...(s.attributes || {}) };
+  delete attrs['display name'];   // written above, not inside attributes
   const attrKeys = Object.keys(attrs);
   const hasMass  = s.mass && s.mass !== '';
   const hasDrag  = s.drag && s.drag !== '';
@@ -2526,6 +2531,7 @@ function sbParseES(text) {
       if (t.startsWith('sprite '))          { cur.sprite = sbStripQ(t.slice(7)); continue; }
       if (t.startsWith('thumbnail '))       { cur.thumbnail = sbStripQ(t.slice(10)); continue; }
       if (t.startsWith('plural '))          { cur.plural = sbStripQ(t.slice(7)); continue; }
+      if (/^["`]display name["`]\s/.test(t)) { cur.attributes = cur.attributes || {}; cur.attributes['display name'] = sbStripQ(t.replace(/^["`]display name["`]\s+/, '')); continue; }
       if (t === 'attributes')               { block = 'attributes'; continue; }
       if (t === 'outfits')                  { block = 'outfits'; continue; }
       if (t.startsWith('description '))     { const para = sbStripQ(t.slice(12)); cur.description = cur.description ? cur.description + '\n' + para : para; continue; }

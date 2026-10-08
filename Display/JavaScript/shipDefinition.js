@@ -70,6 +70,9 @@
     const label = b.name || b.variant || 'Custom ship';
     const head = model ? ['ship', model, b.variant ? `${label} ${b.variant}`.trim() : label] : ['ship', label];
     const kids = [];
+    // Ship::Save writes "display name" on its own line when it differs from the model name
+    const displayName = (b.attributes && b.attributes['display name']) || '';
+    if (displayName && displayName !== (model || label)) kids.push(node(['display name', displayName]));
     if (b.plural) kids.push(node(['plural', b.plural]));
     if (b.sprite) kids.push(node(['sprite', b.sprite]));
     if (b.thumbnail) kids.push(node(['thumbnail', b.thumbnail]));
@@ -84,7 +87,7 @@
     if (b.mass !== undefined && b.mass !== '') attrNode.children.push(node(['mass', b.mass]));
     if (b.drag !== undefined && b.drag !== '') attrNode.children.push(node(['drag', b.drag]));
     for (const [k, v] of Object.entries(a)) {
-      if (['category', 'licenses', 'mass', 'drag', 'weapon'].includes(k) || v === '' || v == null || typeof v === 'object') continue;
+      if (['category', 'licenses', 'mass', 'drag', 'weapon', 'display name'].includes(k) || v === '' || v == null || typeof v === 'object') continue;
       attrNode.children.push(node([k, String(v)]));
     }
     const w = b.weapon || {};

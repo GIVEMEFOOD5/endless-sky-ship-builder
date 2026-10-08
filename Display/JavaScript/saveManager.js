@@ -983,7 +983,7 @@ function smConvertShipToBuilderFormat(ship) {
     description: ship.description || '',
     mass,
     drag,
-    attributes:      attrs,
+    attributes:      ship.displayName ? { ...attrs, 'display name': ship.displayName } : attrs,
     weapon,
     outfits,
     guns,
