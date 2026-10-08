@@ -26,6 +26,32 @@
 
   let ui = null;   // state while the window is open
 
+  // Remembered between visits: never use secondary weapons, and outfits never to use.
+  const PREFS_KEY = 'af_prefs_v1';
+  function loadPrefs() { try { const p = JSON.parse(localStorage.getItem(PREFS_KEY) || '{}'); return { noSecondary: !!p.noSecondary, exclude: Array.isArray(p.exclude) ? p.exclude : [] }; } catch (_) { return { noSecondary: false, exclude: [] }; } }
+  function savePrefs() { try { localStorage.setItem(PREFS_KEY, JSON.stringify({ noSecondary: ui.prefs.noSecondary, exclude: ui.prefs.exclude })); } catch (_) {} }
+
+  // Small removable chip (ship or outfit name + ×)
+  function chip(inner, act, name) {
+    return `<span class="af-chip">${inner}<button type="button" class="af-chip__x" data-af="${act}" data-name="${h(name)}" aria-label="Remove ${h(name)}" title="Remove">×</button></span>`;
+  }
+  let styled = false;
+  function addStyles() {
+    if (styled) return; styled = true;
+    const css = document.createElement('style');
+    css.textContent = `
+      .af-chip{display:inline-flex;align-items:center;gap:4px;margin:3px 4px 3px 0;padding:3px 4px 3px 10px;border-radius:999px;
+        background:var(--c-surface-2, rgba(51,65,85,.55));border:1px solid var(--c-border, #334155);font-size:0.82rem;line-height:1.2;max-width:100%;}
+      .af-chip__x{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;min-width:22px;min-height:22px;padding:0;
+        border:0;border-radius:50%;background:transparent;color:var(--c-text-dim, #94a3b8);font-size:15px;line-height:1;cursor:pointer;}
+      .af-chip__x:hover,.af-chip__x:focus-visible{background:rgba(239,68,68,.18);color:var(--c-danger-text, #f87171);outline:none;}
+      @media (pointer: coarse){ .af-chip__x{width:28px;height:28px;min-width:28px;min-height:28px;} }
+      .af-excl-btn{border:0;background:transparent;color:var(--c-text-dim);cursor:pointer;font-size:0.76rem;padding:2px 6px;border-radius:6px;}
+      .af-excl-btn:hover{color:var(--c-danger-text,#f87171);background:rgba(239,68,68,.12);}
+    `;
+    document.head.appendChild(css);
+  }
+
   // ── data helpers ─────────────────────────────────────────────────────────
   function outfitIndex() {
     const m = new Map();
@@ -73,8 +99,20 @@
     }
     return out.sort((a, b) => b[0] - a[0]).slice(0, 50).map(x => x[1]);
   }
+  function outfitSearch(q) {
+    const out = [];
+    for (const o of ui.idx.values()) {
+      if (ui.prefs.exclude.includes(o.name)) continue;
+      const sc = window.UiKit ? window.UiKit.match(q, o.name) : (o.name.toLowerCase().includes(q.toLowerCase()) ? 1 : 0);
+      if (sc > 0) out.push([sc, { value: o.name, label: o.name, sub: o.category || (o.attributes && o.attributes.category) || '' }]);
+    }
+    return out.sort((a, b) => b[0] - a[0]).slice(0, 50).map(x => x[1]);
+  }
   function bindShipPickers() {
     if (!window.UiKit) return;
+    const ex = document.getElementById('af-excl-add');
+    if (ex) window.UiKit.combobox(ex, { source: async q => outfitSearch(q), placeholderEmpty: 'No outfits match',
+      onPick: it => { ex.value = ''; if (!ui.prefs.exclude.includes(it.value)) { ui.prefs.exclude.push(it.value); savePrefs(); } ui.result = null; render(); } });
     const hook = (id, onPick) => { const el = document.getElementById(id); if (el) window.UiKit.combobox(el, { source: async q => shipSearch(q), onPick: it => { el.value = ''; onPick(it.value); }, placeholderEmpty: 'No ships match' }); };
     hook('af-foe-add', name => { if (!ui.foe.ships.includes(name)) ui.foe.ships.push(name); refreshFoe(); render(); });
     hook('af-enemy-add', name => { if (!ui.enemies.includes(name)) ui.enemies.push(name); ui.result = null; render(); });
@@ -102,6 +140,14 @@
       else if (act === 'fac-none') { ui.factions = new Set(); render(); }
       else if (act === 'fac-visited') { ui.factions = new Set(ui.ctx.factions.filter(f => f.visited).map(f => f.name)); render(); }
       else if (act === 'enemy-rm') { ui.enemies = ui.enemies.filter(n => n !== b.dataset.name); ui.result = null; render(); }
+      else if (act === 'excl-rm') { ui.prefs.exclude = ui.prefs.exclude.filter(n => n !== b.dataset.name); savePrefs(); render(); }
+      else if (act === 'excl-clear') { ui.prefs.exclude = []; savePrefs(); render(); }
+      else if (act === 'excl-add') {
+        const n = b.dataset.name;
+        if (n && !ui.prefs.exclude.includes(n)) { ui.prefs.exclude.push(n); savePrefs(); }
+        ui.notice = `“${n}” won't be used any more — press Fit again for a fit without it.`;
+        render();
+      }
       else if (act === 'foe-rm') { ui.foe.ships = ui.foe.ships.filter(n => n !== b.dataset.name); refreshFoe(); render(); }
     });
     m.addEventListener('change', e => {
@@ -109,6 +155,11 @@
       if (!ui) return;
       if (t.dataset.fac) { t.checked ? ui.factions.add(t.dataset.fac) : ui.factions.delete(t.dataset.fac); return; }
       if (t.id === 'af-weapons') ui.opts.weapons = t.value;
+      else if (t.id === 'af-nosec') {
+        ui.prefs.noSecondary = t.checked; savePrefs();
+        if (t.checked && ui.opts.weapons !== 'primary') ui.opts.weapons = 'primary';
+        ui.result = null; render();
+      }
       else if (t.id === 'af-minturn') ui.opts.minTurn = Number(t.value) || 0;
       else if (t.id === 'af-minspeed') ui.opts.minSpeed = Number(t.value) || 0;
       else if (t.id === 'af-fight') ui.opts.fightSeconds = Math.max(5, Number(t.value) || 60);
@@ -140,6 +191,7 @@
       opts: { weapons: 'both', minTurn: 0, minSpeed: 0, fightSeconds: 60 },
       peers: null,
       foe: { government: '', ships: [], count: 2, matchSpeed: false, profile: null, describe: null },
+      prefs: loadPrefs(),
       filters: { allowBuy: true, visitedOnly: false, allowPlunder: false, plunderPolicy: 'fixable', allowMissions: false, requireLicences: true, includeOwned: true },
       factions: null,
     };
@@ -147,6 +199,8 @@
     try { ui.peers = window.AfPeers ? window.AfPeers.reference(design) : null; } catch (_) { ui.peers = null; }
     ui.opts.minTurn = Math.round(ui.peers ? ui.peers.turn : current.turnRate);
     ui.opts.minSpeed = Math.round(ui.peers ? ui.peers.speed : current.maxSpeed);
+    addStyles();
+    if (ui.prefs.noSecondary) ui.opts.weapons = 'primary';
     modal().classList.add('active');
     render();
     try { ui.ctx = await P().load(); }
@@ -180,7 +234,7 @@
             <span style="color:var(--c-text-dim);">or specific ships:</span>
             <span style="display:inline-block;min-width:220px;max-width:320px;flex:1;"><input id="af-foe-add" class="text-input" placeholder="Add a ship…" autocomplete="off"></span>
           </div>
-          ${f.ships.length ? `<div style="margin-top:6px;">${f.ships.map(n => `<span class="ld-pill" style="margin:2px;">${shipHtml(n)} <button class="btn-remove" data-af="foe-rm" data-name="${h(n)}" aria-label="Remove">✕</button></span>`).join('')}</div>` : ''}
+          ${f.ships.length ? `<div style="margin-top:6px;">${f.ships.map(n => chip(shipHtml(n), 'foe-rm', n)).join('')}</div>` : ''}
           ${!govs.length ? '<div style="color:var(--c-warn-text,#fbbf24);margin-top:6px;">No government data yet — run the Parse workflow once, or add specific ships.</div>' : ''}
           <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:8px;">
             <label>How many at once <input id="af-foe-count" type="number" min="1" max="10" class="text-input" value="${f.count}" style="width:64px;display:inline-block;"></label>
@@ -196,9 +250,10 @@
       })(),
       dps: `<label style="font-size:0.86rem;">Weapons <select id="af-weapons" class="text-input" style="width:auto;display:inline-block;margin-left:6px;">
           ${[['both', 'Primary and secondary'], ['primary', 'Primary only (guns & turrets)'], ['secondary', 'Secondary only (missiles, launchers)']]
-            .map(([v, l]) => `<option value="${v}"${ui.opts.weapons === v ? ' selected' : ''}>${l}</option>`).join('')}</select></label>`,
+            .map(([v, l]) => `<option value="${v}"${ui.opts.weapons === v ? ' selected' : ''}${ui.prefs.noSecondary && v !== 'primary' ? ' disabled' : ''}>${l}</option>`).join('')}</select></label>
+          ${ui.prefs.noSecondary ? '<span style="font-size:0.78rem;color:var(--c-text-dim);margin-left:6px;">(secondary weapons are switched off below)</span>' : ''}`,
       tank: `<div style="font-size:0.86rem;">Protect against
-          ${ui.enemies.length ? ui.enemies.map(n => `<span class="ld-pill" style="margin:2px;">${h(n)} <button class="btn-remove" data-af="enemy-rm" data-name="${h(n)}" aria-label="Remove">✕</button></span>`).join('') : '<em style="color:var(--c-text-dim);">the average damage of every armed ship</em>'}
+          ${ui.enemies.length ? ui.enemies.map(n => chip(shipHtml(n), 'enemy-rm', n)).join('') : '<em style="color:var(--c-text-dim);">the average damage of every armed ship</em>'}
           <div style="margin-top:6px;max-width:360px;"><input id="af-enemy-add" class="text-input" placeholder="Add an enemy ship…" autocomplete="off"></div></div>`,
     };
     body.innerHTML = `
@@ -216,6 +271,16 @@
         </div>
         <div style="font-size:0.78rem;color:var(--c-text-dim);margin-top:6px;">${peerNote()}</div>
         <div style="font-size:0.76rem;color:var(--c-text-dim);margin-top:4px;">Batteries may cover a fight that long; flying around must be sustainable.</div>
+      </details>
+
+      <details style="margin-top:10px;" ${ui.result ? '' : 'open'}><summary style="cursor:pointer;font-weight:600;">Outfits to leave out${ui.prefs.noSecondary || ui.prefs.exclude.length ? ` (${[ui.prefs.noSecondary && 'no secondaries', ui.prefs.exclude.length && `${ui.prefs.exclude.length} excluded`].filter(Boolean).join(', ')})` : ''}</summary>
+        <label style="display:flex;gap:8px;align-items:flex-start;margin:8px 0 4px;font-size:0.86rem;">
+          <input type="checkbox" id="af-nosec"${ui.prefs.noSecondary ? ' checked' : ''}>
+          <span>Don't use secondary weapons<span style="display:block;font-size:0.76rem;color:var(--c-text-dim);">No missiles, rockets, torpedoes or other launchers (or their ammunition), for every goal. Anti-missile turrets still count.</span></span></label>
+        <div style="font-size:0.86rem;margin-top:8px;">Never use these outfits:</div>
+        <div style="margin:4px 0;">${ui.prefs.exclude.length ? ui.prefs.exclude.map(n => chip(h(n), 'excl-rm', n)).join('') + ' <button class="btn btn-secondary btn-sm" data-af="excl-clear">Clear all</button>' : '<em style="color:var(--c-text-dim);font-size:0.82rem;">none yet — add any you don\'t want here, or press “Exclude” next to an outfit in a result</em>'}</div>
+        <div style="max-width:360px;"><input id="af-excl-add" class="text-input" placeholder="Add an outfit to leave out…" autocomplete="off"></div>
+        <div style="font-size:0.76rem;color:var(--c-text-dim);margin-top:4px;">Remembered on this device for every ship you fit.</div>
       </details>
 
       <details style="margin-top:10px;" ${ui.result ? '' : 'open'}><summary style="cursor:pointer;font-weight:600;">Where outfits can come from</summary>
@@ -288,7 +353,8 @@
     const icon = { buy: '🛒', plunder: '⚔', mission: '📜', owned: '📦', keep: '📌' };
     const rows = r.outfits.map(([n, k]) => {
       const src = r.access.get(n) || {};
-      return `<tr><td style="padding:3px 8px 3px 0;">${k}× ${h(n)}</td><td style="font-size:0.78rem;color:var(--c-text-dim);">${icon[src.how] || ''} ${h(src.note || '')}</td></tr>`;
+      return `<tr><td style="padding:3px 8px 3px 0;">${k}× ${h(n)}</td><td style="font-size:0.78rem;color:var(--c-text-dim);">${icon[src.how] || ''} ${h(src.note || '')}</td>
+        <td style="text-align:right;white-space:nowrap;"><button type="button" class="af-excl-btn" data-af="excl-add" data-name="${h(n)}" title="Never use this outfit">Exclude</button></td></tr>`;
     }).join('');
     const steals = [...r.access.values()].filter(a => a.how === 'plunder' && a.steal);
     const stealNotes = [...new Map(steals.map(a => [a.steal.gov, a.steal])).values()].map(v => {
@@ -329,7 +395,10 @@
   function candidates() {
     const f = { ...ui.filters, factions: ui.factions && ui.factions.size ? ui.factions : null };
     const access = new Map(), list = [];
+    const excluded = new Set(ui.prefs.exclude);
     for (const e of ui.ctx.list) {
+      if (excluded.has(e.name)) continue;
+      if (ui.prefs.noSecondary && S().isSecondary(e.outfit)) continue;
       const a = P().access(ui.ctx, e, f);
       if (!a.ok) continue;
       access.set(e.name, a);
@@ -347,13 +416,14 @@
         const { list, access } = candidates();
         // keep the jump drive / hyperdrive the ship already has (a fit that can't leave the system is no use)
         const mine = designOutfits(ui.design);
-        const keep = mine.filter(([n]) => { const a = ui.idx.get(n)?.attributes || {}; return a.hyperdrive || a['jump drive']; });
+        const keep = mine.filter(([n]) => { const a = ui.idx.get(n)?.attributes || {}; return (a.hyperdrive || a['jump drive']) && !ui.prefs.exclude.includes(n); });
         for (const [n] of keep) if (!access.has(n)) { access.set(n, { how: 'keep', note: 'Kept from your current fit' }); const o = ui.idx.get(n); if (o) list.push({ name: n, outfit: o }); }
         if (!keep.length) {
           const hd = list.find(c => (c.outfit.attributes || {}).hyperdrive);
           if (hd) keep.push([hd.name, 1]);
         }
         const opts = { ...ui.opts };
+        if (ui.prefs.noSecondary) opts.weapons = 'primary';
         if (ui.goal === 'tank') opts.profile = enemyProfile(ui.enemies);
         if (ui.goal === 'speed' || ui.goal === 'accel') delete opts.minSpeed;
         if (ui.goal === 'counter') {
