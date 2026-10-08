@@ -61,10 +61,23 @@
   const SN = () => window.ShipNames;
   const shipLabel = name => { const s = allShips().get(name); return s && SN() ? SN().label(s) : name; };
   const shipHtml = name => { const s = allShips().get(name); return s && SN() ? SN().html(s) : h(name); };
-  function shipOptions() {
-    // the box searches both names (browsers match the value and the label)
-    return [...allShips().values()].sort((a, b) => shipLabel(a.name).localeCompare(shipLabel(b.name)))
-      .map(s => { const l = shipLabel(s.name); return `<option value="${h(s.name)}"${l !== s.name ? ` label="${h(l)} — ${h(s.name)}"` : ''}>`; }).join('');
+  // Type-ahead for ships: matches the display name or the internal name, and
+  // lists the display name first with the internal name dimmed underneath.
+  function shipSearch(q) {
+    const SNs = SN(), out = [];
+    for (const s of allShips().values()) {
+      const label = SNs ? SNs.label(s) : s.name, internal = SNs ? SNs.internal(s) : '';
+      const score = window.UiKit ? Math.max(window.UiKit.match(q, label), internal ? window.UiKit.match(q, internal) * 0.9 : 0)
+                                 : ((label + ' ' + internal).toLowerCase().includes(q.toLowerCase()) ? 1 : 0);
+      if (score > 0) out.push([score, { value: s.name, label, sub: [internal, s.attributes?.category].filter(Boolean).join(' · ') }]);
+    }
+    return out.sort((a, b) => b[0] - a[0]).slice(0, 50).map(x => x[1]);
+  }
+  function bindShipPickers() {
+    if (!window.UiKit) return;
+    const hook = (id, onPick) => { const el = document.getElementById(id); if (el) window.UiKit.combobox(el, { source: async q => shipSearch(q), onPick: it => { el.value = ''; onPick(it.value); }, placeholderEmpty: 'No ships match' }); };
+    hook('af-foe-add', name => { if (!ui.foe.ships.includes(name)) ui.foe.ships.push(name); refreshFoe(); render(); });
+    hook('af-enemy-add', name => { if (!ui.enemies.includes(name)) ui.enemies.push(name); ui.result = null; render(); });
   }
 
   // ── window ───────────────────────────────────────────────────────────────
@@ -104,13 +117,10 @@
         if (t.name === 'af-f-allowPlunder') render();   // shows/hides the stealing policy
       }
       else if (t.id === 'af-foe-gov') { ui.foe.government = t.value; ui.foe.ships = []; refreshFoe(); render(); }
-      else if (t.id === 'af-foe-add' && t.value) { if (!ui.foe.ships.includes(t.value)) ui.foe.ships.push(t.value); t.value = ''; refreshFoe(); render(); }
+
       else if (t.id === 'af-foe-count') { ui.foe.count = Math.max(1, Math.min(10, Number(t.value) || 1)); ui.result = null; }
       else if (t.id === 'af-foe-speed') { ui.foe.matchSpeed = t.checked; ui.result = null; }
-      else if (t.id === 'af-enemy-add' && t.value) {
-        if (!ui.enemies.includes(t.value)) ui.enemies.push(t.value);
-        t.value = ''; ui.result = null; render();
-      }
+
     });
     document.body.appendChild(m);
     return m;
@@ -168,8 +178,7 @@
               <option value="">— pick one —</option>
               ${govs.map(g => `<option value="${h(g.name)}"${f.government === g.name ? ' selected' : ''}>${h(g.name)} (${g.ships} ships)</option>`).join('')}</select></label>
             <span style="color:var(--c-text-dim);">or specific ships:</span>
-            <input id="af-foe-add" class="text-input" list="af-enemy-list" placeholder="Add a ship…" style="max-width:220px;">
-            <datalist id="af-enemy-list">${shipOptions()}</datalist>
+            <span style="display:inline-block;min-width:220px;max-width:320px;flex:1;"><input id="af-foe-add" class="text-input" placeholder="Add a ship…" autocomplete="off"></span>
           </div>
           ${f.ships.length ? `<div style="margin-top:6px;">${f.ships.map(n => `<span class="ld-pill" style="margin:2px;">${shipHtml(n)} <button class="btn-remove" data-af="foe-rm" data-name="${h(n)}" aria-label="Remove">✕</button></span>`).join('')}</div>` : ''}
           ${!govs.length ? '<div style="color:var(--c-warn-text,#fbbf24);margin-top:6px;">No government data yet — run the Parse workflow once, or add specific ships.</div>' : ''}
@@ -190,8 +199,7 @@
             .map(([v, l]) => `<option value="${v}"${ui.opts.weapons === v ? ' selected' : ''}>${l}</option>`).join('')}</select></label>`,
       tank: `<div style="font-size:0.86rem;">Protect against
           ${ui.enemies.length ? ui.enemies.map(n => `<span class="ld-pill" style="margin:2px;">${h(n)} <button class="btn-remove" data-af="enemy-rm" data-name="${h(n)}" aria-label="Remove">✕</button></span>`).join('') : '<em style="color:var(--c-text-dim);">the average damage of every armed ship</em>'}
-          <input id="af-enemy-add" class="text-input" list="af-enemy-list" placeholder="Add an enemy ship…" style="margin-top:6px;">
-          <datalist id="af-enemy-list">${shipOptions()}</datalist></div>`,
+          <div style="margin-top:6px;max-width:360px;"><input id="af-enemy-add" class="text-input" placeholder="Add an enemy ship…" autocomplete="off"></div></div>`,
     };
     body.innerHTML = `
       <p style="margin:0 0 10px;font-size:0.86rem;color:var(--c-text-mid);">Fitting <strong>${h(d.name || 'this ship')}</strong>${d._sourceShip ? ` (${h(shipLabel(d._sourceShip))} hull)` : ''}.
@@ -244,6 +252,7 @@
       </div>
       ${ui.notice ? `<p style="color:var(--c-warn-text,#fbbf24);margin:8px 0 0;">${h(ui.notice)}</p>` : ''}
       <div id="af-result">${ui.result ? resultHtml() : ''}</div>`;
+    bindShipPickers();
   }
 
   function peerNote() {
