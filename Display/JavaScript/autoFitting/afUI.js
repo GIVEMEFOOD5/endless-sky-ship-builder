@@ -17,6 +17,7 @@
 (function () {
   const S = () => window.AfStats, P = () => window.AfPool, O = () => window.AfOptimizer;
   const h = s => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const num0 = v => { const n = Number(v); return Number.isFinite(n) ? n : 0; };
   const fmt = (n, d = 0) => (Number.isFinite(n) ? n : 0).toLocaleString(undefined, { maximumFractionDigits: d });
 
   const GOALS = [
@@ -162,6 +163,7 @@
       }
       else if (t.id === 'af-minturn') ui.opts.minTurn = Number(t.value) || 0;
       else if (t.id === 'af-minspeed') ui.opts.minSpeed = Number(t.value) || 0;
+      else if (t.id === 'af-mincargo') { const v = Math.max(0, Number(t.value) || 0); if (ui.goal === 'general') ui.opts.minCargo = v; else ui.opts.minCargoOther = v; }
       else if (t.id === 'af-fight') ui.opts.fightSeconds = Math.max(5, Number(t.value) || 60);
       else if (t.name && t.name.startsWith('af-f-')) {
         ui.filters[t.name.slice(5)] = t.type === 'checkbox' ? t.checked : t.value;
@@ -188,7 +190,7 @@
     const current = S().derive(base, designOutfits(design), idx);
     ui = {
       design, base, idx, current, ctx: null, loading: true, result: null, goal: 'general', enemies: [],
-      opts: { weapons: 'both', minTurn: 0, minSpeed: 0, fightSeconds: 60 },
+      opts: { weapons: 'both', minTurn: 0, minSpeed: 0, minCargo: 0, fightSeconds: 60 },
       peers: null,
       foe: { government: '', ships: [], count: 2, matchSpeed: false, profile: null, describe: null },
       prefs: loadPrefs(),
@@ -199,6 +201,10 @@
     try { ui.peers = window.AfPeers ? window.AfPeers.reference(design) : null; } catch (_) { ui.peers = null; }
     ui.opts.minTurn = Math.round(ui.peers ? ui.peers.turn : current.turnRate);
     ui.opts.minSpeed = Math.round(ui.peers ? ui.peers.speed : current.maxSpeed);
+    // All-round keeps at least the hold that similar ships (same class & weight) typically have —
+    // cargo expansions can get it there even if this hull starts smaller
+    ui.cargoDefault = Math.round(ui.peers ? ui.peers.cargo : current.cargo);
+    ui.opts.minCargo = ui.cargoDefault;
     addStyles();
     if (ui.prefs.noSecondary) ui.opts.weapons = 'primary';
     modal().classList.add('active');
@@ -267,6 +273,7 @@
         <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:8px;font-size:0.86rem;">
           <label>Turn at least <input id="af-minturn" type="number" class="text-input" value="${ui.opts.minTurn}" style="width:80px;display:inline-block;"> °/s</label>
           ${ui.goal !== 'speed' && ui.goal !== 'accel' ? `<label>Speed at least <input id="af-minspeed" type="number" class="text-input" value="${ui.opts.minSpeed}" style="width:80px;display:inline-block;"></label>` : ''}
+          ${ui.goal !== 'cargo' ? `<label title="All-round always keeps this much; other goals only if you set it">Cargo at least <input id="af-mincargo" type="number" min="0" class="text-input" value="${ui.goal === 'general' ? ui.opts.minCargo : (ui.opts.minCargoOther || 0)}" style="width:80px;display:inline-block;"></label>` : ''}
           <label>Fight length <input id="af-fight" type="number" class="text-input" value="${ui.opts.fightSeconds}" style="width:70px;display:inline-block;"> s</label>
         </div>
         <div style="font-size:0.78rem;color:var(--c-text-dim);margin-top:6px;">${peerNote()}</div>
@@ -327,11 +334,12 @@
     const t = Math.round(p.turn), sp = Math.round(p.speed);
     const why = p.basis === 'same class and weight' ? `${h(p.category)}s weighing ${fmt(p.mass.min)}–${fmt(p.mass.max)} t`
       : p.basis === 'same class' ? `${h(p.category)}s (no others this weight)` : `ships weighing ${fmt(p.mass.min)}–${fmt(p.mass.max)} t`;
-    return `These start at what similar ships manage: a typical (median) turn of <strong>${t}°/s</strong> and top speed of <strong>${sp}</strong>,
+    return `These start at what similar ships manage: a typical (median) turn of <strong>${t}°/s</strong>, top speed of <strong>${sp}</strong>${ui.goal === 'general' ? ` and a cargo hold of <strong>${fmt(ui.opts.minCargo)}</strong> (All-round keeps at least that much, and scores damage, speed, turning, toughness and cargo against these ships)` : ''},
       from ${p.count} ${why} — ${src}. Closest: ${p.examples.map(n => h(shipLabel(n))).join(', ')}.`;
   }
 
-  function statRows(a, b) {
+  function statRows(a, b, peer) {
+    const P = peer || {};
     const rows = [
       ['Damage / s', a.dps.total, b.dps.total], ['  primary', a.dps.primary, b.dps.primary], ['  secondary', a.dps.secondary, b.dps.secondary],
       ['Top speed', a.maxSpeed, b.maxSpeed], ['Acceleration', a.acceleration, b.acceleration], ['Turning °/s', a.turnRate, b.turnRate],
@@ -340,10 +348,14 @@
       ['Energy / s in a fight', a.energy.perSec.fighting, b.energy.perSec.fighting], ['Heat in a fight', a.heat.equilibriumPct.fighting, b.heat.equilibriumPct.fighting, '%'],
       ['Outfit cost', a.cost, b.cost],
     ];
+    const typical = { 'Damage / s': P.dps, 'Top speed': P.speed, 'Acceleration': P.accel, 'Turning °/s': P.turn,
+                      'Shields': P.shields, 'Hull': P.hull, 'Cargo': P.cargo, 'Bunks': P.bunks };
     return rows.map(([l, x, y, unit]) => {
       const diff = y - x, better = l.startsWith('Heat') || l === 'Outfit cost' ? diff < 0 : diff > 0;
+      const t = typical[l];
+      const peerCell = peer ? `<td style="text-align:right;color:var(--c-text-dim);">${t != null ? fmt(t, 0) : ''}</td>` : '';
       return `<tr><td style="padding:3px 8px 3px 0;">${h(l)}</td><td style="text-align:right;">${fmt(x, 1)}${unit || ''}</td>
-        <td style="text-align:right;font-weight:600;">${fmt(y, 1)}${unit || ''}</td>
+        <td style="text-align:right;font-weight:600;">${fmt(y, 1)}${unit || ''}</td>${peerCell}
         <td style="text-align:right;color:${Math.abs(diff) < 1e-6 ? 'var(--c-text-dim)' : better ? 'var(--c-success-text, #4ade80)' : 'var(--c-danger-text, #f87171)'};">${Math.abs(diff) < 1e-6 ? '—' : (diff > 0 ? '+' : '') + fmt(diff, 1)}</td></tr>`;
     }).join('');
   }
@@ -382,8 +394,8 @@
     return `
       <h3 style="margin:18px 0 6px;font-size:1rem;">Result</h3>
       <div style="overflow-x:auto;"><table style="width:100%;font-size:0.84rem;border-collapse:collapse;">
-        <thead><tr><th style="text-align:left;">&nbsp;</th><th style="text-align:right;">Now</th><th style="text-align:right;">Auto-fit</th><th style="text-align:right;">Change</th></tr></thead>
-        <tbody>${statRows(ui.current, d)}</tbody></table></div>
+        <thead><tr><th style="text-align:left;">&nbsp;</th><th style="text-align:right;">Now</th><th style="text-align:right;">Auto-fit</th>${ui.peers ? '<th style="text-align:right;" title="Median of similar ships (same class and weight)">Similar ships</th>' : ''}<th style="text-align:right;">Change</th></tr></thead>
+        <tbody>${statRows(ui.current, d, ui.peers)}</tbody></table></div>
       ${r.counterNotes ? `<div style="margin:12px 0 0;padding:10px 12px;border:1px solid var(--c-border);border-radius:8px;font-size:0.86rem;">
         <div style="font-weight:600;margin-bottom:4px;">Against ${h(ui.foe.ships.length ? ui.foe.ships.map(shipLabel).join(', ') : ui.foe.government)}</div>
         <ul style="margin:0;padding-left:18px;">${r.counterNotes.map(l => `<li>${l}</li>`).join('')}</ul>
@@ -437,9 +449,13 @@
           if (hd) keep.push([hd.name, 1]);
         }
         const opts = { ...ui.opts };
+        if (ui.peers) opts.peerRef = ui.peers;   // All-round is judged against similar ships
         if (ui.prefs.noSecondary) opts.weapons = 'primary';
         if (ui.goal === 'tank') opts.profile = enemyProfile(ui.enemies);
         if (ui.goal === 'speed' || ui.goal === 'accel') delete opts.minSpeed;
+        // All-round keeps a usable hold by default; the other goals only when asked
+        if (ui.goal === 'cargo') delete opts.minCargo;
+        else if (ui.goal !== 'general') opts.minCargo = ui.opts.minCargoOther || 0;
         if (ui.goal === 'counter') {
           if (!ui.foe.profile) { ui.running = false; ui.notice = 'Pick a government or some ships to fit against first.'; render(); return; }
           opts.counter = window.AfThreat.makeCounter(ui.foe.profile, ui.foe.count);

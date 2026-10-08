@@ -108,6 +108,8 @@
     let m = 1;
     if (o.minTurn && d.turnRate < o.minTurn) m *= Math.pow(Math.max(FLOOR, d.turnRate / o.minTurn), 2);
     if (o.minSpeed && d.maxSpeed < o.minSpeed) m *= Math.pow(Math.max(FLOOR, d.maxSpeed / o.minSpeed), 2);
+    // keep a usable hold: expansions and big outfits mustn't eat all the cargo space
+    if (o.minCargo && d.cargo < o.minCargo) m *= Math.pow(Math.max(FLOOR, Math.max(0, d.cargo) / o.minCargo), 2);
     return m;
   }
   function basics(d) {
@@ -173,12 +175,20 @@
     });
 
     let ref = { dps: 1, speed: 1, turn: 1, ehp: 1, cargo: 0 };
+    // All-round's yardstick: typical ships of the same class and weight (AfPeers) when
+    // known — otherwise this hull's own stock loadout
+    const peerRef = o.peerRef && o.peerRef.speed > 0 ? o.peerRef : null;
     if (p.reference && p.reference.length) {
       const f0 = emptyFit(base);
       for (const [n, k] of p.reference) { const c = byName.get(n) || (p.referenceIndex && p.referenceIndex.get(n) && prepare({ name: n, outfit: p.referenceIndex.get(n) })); if (c) addTo(f0, c, k); }
       const d0 = derived(base, f0);
       ref = { dps: d0.dps.total, speed: d0.maxSpeed, turn: d0.turnRate, ehp: ehp(d0, { shield: 0.5, hull: 0.5 }), cargo: d0.cargo };
     }
+    if (peerRef) ref = {
+      dps: Math.max(1, peerRef.dps), speed: peerRef.speed, turn: peerRef.turn, cargo: Math.max(0, peerRef.cargo),
+      // AfPeers' toughness is shields + hull + 30 s regen; ehp() weighs a 50/50 damage mix (÷0.5 each side)
+      ehp: Math.max(1, peerRef.ehp / 0.5),
+    };
     const score = scorer(p.goal, o, ref);
 
     let fit = emptyFit(base);

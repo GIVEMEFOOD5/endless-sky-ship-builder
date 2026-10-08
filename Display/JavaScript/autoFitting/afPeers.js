@@ -92,7 +92,11 @@
       for (const p of pick) {
         try {
           const d = S.derive(p.base, p.outs, idx);
-          if (d.turnRate > 0 && d.maxSpeed > 0) measured.push({ name: p.name, source: p.source, turn: d.turnRate, speed: d.maxSpeed, accel: d.acceleration, mass: p.hullMass });
+          if (d.turnRate > 0 && d.maxSpeed > 0) measured.push({ name: p.name, source: p.source, turn: d.turnRate, speed: d.maxSpeed, accel: d.acceleration,
+            cargo: Math.max(0, d.cargo), bunks: Math.max(0, d.bunks), dps: d.dps.total,
+            // toughness the way All-round counts it: shields + hull + 30 s of regeneration
+            ehp: d.shields + d.hull + (d.shieldRegen + d.hullRegen) * 30,
+            shields: d.shields, hull: d.hull, mass: p.hullMass });
         } catch (_) { /* skip ships whose data is incomplete */ }
       }
       if (measured.length < MIN_PEERS) continue;
@@ -102,6 +106,12 @@
       return {
         turn: median(measured.map(m => m.turn)),
         speed: median(measured.map(m => m.speed)),
+        cargo: median(measured.map(m => m.cargo)),
+        bunks: median(measured.map(m => m.bunks)),
+        dps: median(measured.map(m => m.dps)),
+        ehp: median(measured.map(m => m.ehp)),
+        shields: median(measured.map(m => m.shields)),
+        hull: median(measured.map(m => m.hull)),
         accel: median(measured.map(m => m.accel)),
         count: measured.length, basis, category,
         mass: { min: Math.min(...masses), max: Math.max(...masses) },
