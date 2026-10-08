@@ -477,7 +477,18 @@ function renderSavesLibrary() {
     return;
   }
 
-  wrap.innerHTML = registry
+  // "No save": keep your saves stored but browse the site without a pilot
+  // (missions, the map, auto-fit … all behave as if no save were open).
+  const noneCurrent = !currentSaveId;
+  const noneRow = `<div class="list-row" data-no-save="1" role="button" tabindex="0" style="${noneCurrent ? 'border-color:var(--c-accent); background:rgba(59,130,246,0.10);' : ''} margin-bottom:8px; cursor:pointer;">
+        <span class="list-row__label">
+          ⊘ No save
+          <span style="display:block;font-size:0.74rem;color:var(--c-text-dim);font-weight:400;">Use the site without a pilot — your saves stay stored</span>
+        </span>
+        ${noneCurrent ? '<span style="font-size:0.72rem; background:var(--c-success); color:var(--c-success-text); padding:2px 8px; border-radius:10px; font-weight:600;">Current</span>' : ''}
+      </div>`;
+
+  wrap.innerHTML = noneRow + registry
     .slice()
     .sort((a, b) => b.importedAt - a.importedAt)
     .map(s => {
@@ -493,12 +504,17 @@ function renderSavesLibrary() {
     })
     .join('');
 
-  wrap.querySelectorAll('.list-row').forEach(row => {
+  wrap.querySelectorAll('.list-row[data-save-id]').forEach(row => {
     row.addEventListener('click', e => {
       if (e.target.closest('.sm-delete-btn')) return;
       switchToSave(row.dataset.saveId);
     });
   });
+  const none = wrap.querySelector('[data-no-save]');
+  if (none) {
+    none.addEventListener('click', selectNoSave);
+    none.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectNoSave(); } });
+  }
   wrap.querySelectorAll('.sm-delete-btn').forEach(btn => {
     btn.addEventListener('click', e => {
       e.stopPropagation();
@@ -526,7 +542,26 @@ function switchToSave(id) {
   smSetCurrentId(id);
   renderSavesLibrary();
   renderResults();
+  document.dispatchEvent(new CustomEvent('esSaveSelected', { detail: { id } }));
   toast('Switched save.', 'success');
+}
+
+/** Stop using any save (they all stay stored). Every page then works without a pilot. */
+function selectNoSave() {
+  if (!currentSaveId) return;
+  parsedSave    = null;
+  currentSaveId = null;
+  smClearCurrentId();
+  closeSaveView();
+  renderSavesLibrary();
+  document.dispatchEvent(new CustomEvent('esSaveSelected', { detail: { id: null } }));
+  toast('No save selected — the site now works without a pilot. Pick a save to use it again.', 'success');
+}
+
+/** Hide everything that shows the open save. */
+function closeSaveView() {
+  el('results').classList.add('hidden');
+  el('resultButtons').querySelectorAll('button').forEach(b => b.classList.add('hidden'));
 }
 
 function confirmDeleteSave(id) {
@@ -541,8 +576,7 @@ function confirmDeleteSave(id) {
   if (wasCurrent) {
     parsedSave    = null;
     currentSaveId = null;
-    el('results').classList.add('hidden');
-    el('resultButtons').querySelectorAll('button').forEach(b => b.classList.add('hidden'));
+    closeSaveView();
   }
 
   renderSavesLibrary();
