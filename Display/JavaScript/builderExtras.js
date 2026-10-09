@@ -94,6 +94,13 @@
     if (window.DataLoader) window.DataLoader.onReady(() => setTimeout(tryOpen, 50));
   }
 
-  document.addEventListener('DOMContentLoaded', () => { watch(); setTimeout(openFromSave, 0); });
+  // Outfit-name boxes get the shared type-ahead (selected plugins, plugin shown)
+  function nameBoxes() {
+    if (!window.NameSearch) return;
+    const el = document.getElementById('new-outfit-name');
+    if (el) window.NameSearch.attach(el, 'outfits');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => { watch(); nameBoxes(); setTimeout(openFromSave, 0); });
   window.BuilderExtras = { undo, snapshot };
 })();

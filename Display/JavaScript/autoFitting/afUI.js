@@ -92,6 +92,7 @@
   // Type-ahead for ships: matches the display name or the internal name, and
   // lists the display name first with the internal name dimmed underneath.
   function shipSearch(q) {
+    if (window.NameSearch) return window.NameSearch.search('ships', q);
     const SNs = SN(), out = [];
     for (const s of allShips().values()) {
       const label = SNs ? SNs.label(s) : s.name, internal = SNs ? SNs.internal(s) : '';
@@ -102,6 +103,7 @@
     return out.sort((a, b) => b[0] - a[0]).slice(0, 50).map(x => x[1]);
   }
   function outfitSearch(q) {
+    if (window.NameSearch) return window.NameSearch.search('outfits', q).filter(it => !ui.prefs.exclude.includes(it.value));
     const out = [];
     for (const o of ui.idx.values()) {
       if (ui.prefs.exclude.includes(o.name)) continue;

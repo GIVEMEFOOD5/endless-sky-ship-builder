@@ -268,17 +268,6 @@
     for (const p of Object.values(window.allData || {})) for (const x of (p[kind] || [])) if (x && x.name) out.add(x.name);
     return [...out].sort();
   }
-  // Built once and kept outside the editor pane, which is re-rendered often.
-  function datalists() {
-    if (!$('sv-outfit-names')) {
-      const dl = document.createElement('datalist');
-      dl.id = 'sv-outfit-names';
-      dl.innerHTML = dataNames('outfits').map(n => `<option value="${h(n)}">`).join('');
-      document.body.appendChild(dl);
-    }
-    return '';
-  }
-
   // ── render ───────────────────────────────────────────────────────────────
   const numIn = (attr, value, extra = '') =>
     `<input type="number" class="text-input" style="width:100px;" ${attr} value="${h(value)}" ${extra}>`;
@@ -313,7 +302,7 @@
     const count = (shownN, all) => search ? `${shownN} of ${all}` : `${all}`;
     const fmtDate = d => d ? `${d.day}/${d.month}/${d.year}` : '—';
 
-    pane.innerHTML = datalists() + `
+    pane.innerHTML = `
       <div id="sv-bar" style="position:sticky;top:0;z-index:5;background:var(--c-bg, #0f172a);padding:10px 0 12px;margin-bottom:8px;
            display:flex;flex-wrap:wrap;gap:8px;align-items:center;border-bottom:1px solid var(--c-border);">
         <input class="text-input" id="sv-search" type="search" placeholder="Search ships, missions, events, conditions…  ( / )"
@@ -395,7 +384,7 @@
       <section class="panel" style="margin-bottom:20px;" id="sv-sec-cargo">
         <h2 class="section-title">Cargo</h2>
         ${itemTable('cargo-c', 'Commodity', cargo.commodities, 'tons')}
-        ${itemTable('cargo-o', 'Outfit', cargo.outfits, 'count', 'sv-outfit-names')}
+        ${itemTable('cargo-o', 'Outfit', cargo.outfits, 'count')}
       </section>
 
       <section class="panel" style="margin-bottom:20px;" id="sv-sec-licenses">
@@ -403,7 +392,7 @@
         <div class="ld-pills" style="margin-bottom:10px;">
           ${doc.licenses.map(l => `<span class="ld-pill">${h(l)} <button class="btn-remove" data-act="rmlic" data-name="${h(l)}" aria-label="Remove ${h(l)}">✕</button></span>`).join('') || '<span style="color:var(--c-text-dim);">No licenses.</span>'}
         </div>
-        <div style="display:flex;gap:8px;"><input class="text-input" id="sv-new-lic" placeholder="License name, e.g. City-Ship" style="max-width:280px;">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;"><span style="flex:1 1 200px;max-width:300px;"><input class="text-input" id="sv-new-lic" placeholder="Start typing a licence, e.g. Republic…" autocomplete="off"></span>
           <button class="btn btn-secondary btn-sm" data-act="addlic">Add license</button></div>
       </section>
 
@@ -494,20 +483,12 @@
 
   // ── mission / event catalogues (from Supabase, for this save's plugins) ──
   const catalog = { missions: null, events: null, pluginIds: null };
+  // Mission/event pickers list what your selected plugins (☰ Select Plugins) contain.
   async function savePluginIds() {
     if (catalog.pluginIds) return catalog.pluginIds;
-    const sb = window.supabaseClient;
-    let ids = null;
-    try {
-      const { data } = await sb.from('plugins').select('plugin_id, output_name');
-      let outputs = null;
-      if (typeof smMatchSavePlugins === 'function' && doc) {
-        const { matched } = await smMatchSavePlugins(doc.plugins);
-        outputs = new Set(matched.map(m => m.outputName));
-      }
-      ids = (data || []).filter(p => /^official-game\//.test(p.plugin_id) || !outputs || !outputs.size || outputs.has(p.output_name)).map(p => p.plugin_id);
-    } catch (_) { ids = null; }
-    return (catalog.pluginIds = ids);
+    const DL = window.DataLoader;
+    const ids = DL && typeof DL.getActivePluginIds === 'function' ? [...DL.getActivePluginIds()] : null;
+    return (catalog.pluginIds = ids && ids.length ? ids : null);
   }
   async function fetchNames(table, cols) {
     const sb = window.supabaseClient;
@@ -633,6 +614,13 @@
         render();
       },
     });
+    // name boxes: matches from the selected plugins, with the plugin shown
+    if (window.NameSearch) {
+      window.NameSearch.attach($('sv-add-outfit'), 'outfits');
+      window.NameSearch.attach($('sv-add-cargo-o'), 'outfits');
+      window.NameSearch.attach($('sv-add-cargo-c'), 'commodities');
+      window.NameSearch.attach($('sv-new-lic'), 'licenses');
+    }
     const ei = $('sv-event-pick');
     if (ei) U().combobox(ei, {
       placeholderEmpty: 'No events match',
@@ -655,7 +643,7 @@
           <input type="number" class="text-input" data-outfit="${h(n)}" value="${c}" min="0" step="1" style="width:80px;">
           <span>${h(n)}</span></div>`).join('') || '<p style="color:var(--c-text-dim);">No outfits installed.</p>'}
       <div style="display:flex;gap:8px;margin-top:8px;">
-        <input class="text-input" list="sv-outfit-names" id="sv-add-outfit" placeholder="Outfit name" style="max-width:300px;">
+        <span style="flex:1 1 220px;max-width:320px;"><input class="text-input" id="sv-add-outfit" placeholder="Start typing an outfit…" autocomplete="off"></span>
         <input type="number" class="text-input" id="sv-add-outfit-n" value="1" min="1" style="width:80px;">
         <button class="btn btn-secondary btn-sm" data-act="addoutfit">Install</button>
       </div>
@@ -671,7 +659,7 @@
           <input type="number" class="text-input" data-item="${kind}" data-name="${h(n)}" value="${c}" min="0" step="1" style="width:90px;">
           <span>${h(n)}</span></div>`).join('') || `<p style="color:var(--c-text-dim);margin:0 0 6px;">None.</p>`}
       <div style="display:flex;gap:8px;">
-        <input class="text-input" id="sv-add-${kind}" placeholder="${label} name"${list ? ` list="${list}"` : ''} style="max-width:260px;">
+        <span style="flex:1 1 200px;max-width:300px;"><input class="text-input" id="sv-add-${kind}" placeholder="Start typing a${label === 'Outfit' ? 'n outfit' : ' commodity'}…" autocomplete="off"></span>
         <input type="number" class="text-input" id="sv-add-${kind}-n" value="1" min="1" style="width:90px;" aria-label="${unit}">
         <button class="btn btn-secondary btn-sm" data-act="additem" data-kind="${kind}">Add</button>
       </div></div>`;

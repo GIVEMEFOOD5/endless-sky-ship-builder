@@ -5111,3 +5111,14 @@ img, video, canvas { max-width: 100%; }
 
 /* a ship's internal name next to its display name (ShipNames.html) */
 .ship-realname { font-size: 0.78em; opacity: 0.55; font-weight: 400; margin-left: 4px; white-space: nowrap; }
+
+/* A pill/chip with a remove button (licences, plugins …): small round ×, not a big red square */
+.ld-pill > .btn-remove {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 20px; height: 20px; min-width: 20px; min-height: 20px; padding: 0; margin-left: 4px;
+    border: 0; border-radius: 50%; background: transparent; color: var(--c-text-dim, #94a3b8);
+    font-size: 12px; line-height: 1; box-shadow: none;
+}
+.ld-pill > .btn-remove:hover, .ld-pill > .btn-remove:focus-visible { background: rgba(239,68,68,.18); color: var(--c-danger-text, #f87171); outline: none; }
+@media (pointer: coarse) { .ld-pill > .btn-remove { width: 26px; height: 26px; min-width: 26px; min-height: 26px; } }
+.ld-pill:has(> .btn-remove) { display: inline-flex; align-items: center; padding-right: 4px; }
