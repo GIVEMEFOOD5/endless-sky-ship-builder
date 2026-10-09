@@ -132,8 +132,14 @@ function smClearActiveSaveShips() {
   try { localStorage.removeItem(SM_ACTIVE_SHIPS_KEY); } catch (e) { /* ignore */ }
 }
 
+// A UUID: the same id is used for the save's copy in your account
+// (player_saves.id is a uuid column).
 function smMakeId() {
-  return 'save_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
+  if (window.crypto && typeof crypto.randomUUID === 'function') return crypto.randomUUID();
+  const b = new Uint8Array(16); (window.crypto || {}).getRandomValues ? crypto.getRandomValues(b) : b.forEach((_, i) => { b[i] = Math.random() * 256 | 0; });
+  b[6] = (b[6] & 0x0f) | 0x40; b[8] = (b[8] & 0x3f) | 0x80;
+  const x = [...b].map(v => v.toString(16).padStart(2, '0')).join('');
+  return `${x.slice(0, 8)}-${x.slice(8, 12)}-${x.slice(12, 16)}-${x.slice(16, 20)}-${x.slice(20)}`;
 }
 
 function smAddSave(parsed, originalFileName) {
@@ -356,19 +362,25 @@ let _dataReady = false;
 
 function smBootstrap() {
   _dataReady = true;
-  renderSavesLibrary();
 
+  // Work out the current save BEFORE drawing the list, so the list never
+  // shows "No save" as current while the save itself is on screen.
   const curId = smGetCurrentId();
   if (curId) {
     const data = smGetSaveData(curId);
     if (data) {
       parsedSave    = data;
       currentSaveId = curId;
+      renderSavesLibrary();
       renderResults();
       return;
     }
-    smClearCurrentId();
+    // Big saves aren't kept in localStorage — saveCache rebuilds them from the
+    // stored file shortly (saveSync restores it then). Only forget the choice
+    // if that save no longer exists at all.
+    if (!smGetRegistry().some(s => s.id === curId)) smClearCurrentId();
   }
+  renderSavesLibrary();
 }
 
 // ═══════════════════════════════════════════════════════════
