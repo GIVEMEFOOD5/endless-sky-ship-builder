@@ -93,37 +93,6 @@ const outfitIdByInternalId  = new Map();
 const variantIdByInternalId = new Map();
 
 // ---------------------------------------------------------------------------
-// Helper: sparse-clone specific folders from a repo
-// ---------------------------------------------------------------------------
-async function sparseClone(repoGitUrl, branch, targetDir, folders) {
-  await fs.rm(targetDir, { recursive: true, force: true });
-  await fs.mkdir(targetDir, { recursive: true });
-
-  // Inject auth token into the URL so private/rate-limited clones work
-  let authenticatedUrl = repoGitUrl;
-  if (process.env.GITHUB_TOKEN) {
-    authenticatedUrl = repoGitUrl.replace(
-      'https://github.com/',
-      `https://x-access-token:${process.env.GITHUB_TOKEN}@github.com/`
-    );
-  }
-
-  try {
-    await exec(
-      `git clone --filter=blob:none --no-checkout --depth 1 ` +
-      `--single-branch --branch ${branch} ${authenticatedUrl} "${targetDir}"`
-    );
-  } catch (err) {
-    await fs.rm(targetDir, { recursive: true, force: true });
-    throw new Error(`git clone failed for ${repoGitUrl} @ ${branch}: ${err.stderr || err.message}`);
-  }
-
-  await exec(`git -C "${targetDir}" sparse-checkout init --cone`);
-  await exec(`git -C "${targetDir}" sparse-checkout set ${folders.map(f => `"${f}"`).join(' ')}`);
-  await exec(`git -C "${targetDir}" checkout ${branch}`);
-}
-
-// ---------------------------------------------------------------------------
 // Archive download + extraction helpers
 // ---------------------------------------------------------------------------
 

@@ -3,8 +3,24 @@ let lastGovernmentData = [];
 let savedGovernmentFilterState = {};
 
 function getGovernmentsForItem(item) {
-    if (!item || typeof item.governments !== 'object') return [];
+    if (!item) return [];
     const governments = new Set();
+    // The parser stores who flies / sells an item as a "Governments" list in its
+    // locations ({ pluginId: { Governments: [...] } }) — read that, for the
+    // selected plugins only.
+    const locs = item.locations || (item.attributes && item.attributes.locations);
+    if (typeof item.governments !== 'object' && locs && typeof locs === 'object') {
+        const ids = window.DataLoader && window.DataLoader.getActivePluginIds ? window.DataLoader.getActivePluginIds() : null;
+        for (const [pid, entry] of Object.entries(locs)) {
+            if (ids && !ids.has(pid)) continue;
+            for (const g of (entry && entry.Governments) || []) {
+                const normalized = normalizeGovernmentName(String(g).trim());
+                if (normalized) governments.add(normalized);
+            }
+        }
+        return [...governments];
+    }
+    if (typeof item.governments !== 'object') return [];
 
     const activePlugins = new Set(window.PluginManager ? window.PluginManager.getActivePlugins() : []);
 
@@ -109,26 +125,9 @@ function getSelectedGovernments() {
 
 function itemMatchesGovernmentFilter(item, selected) {
     if (selected.length === 0) return true;
-    if (!item || typeof item.governments !== 'object') return false;
-
-    const activePlugins = new Set(window.PluginManager ? window.PluginManager.getActivePlugins() : []);
-
-    return selected.some(selectedGov => {
-        for (const [govKey, govMap] of Object.entries(item.governments)) {
-            if (typeof govMap !== 'object') continue;
-
-            const isActive = [...activePlugins].some(pluginId =>
-                govKey === pluginId || govKey.endsWith('/' + pluginId) || govKey === item._pluginId
-            );
-
-            if (!isActive) continue;
-
-            for (const rawGovName of Object.keys(govMap)) {
-                if (govMap[rawGovName] === true && normalizeGovernmentName(rawGovName.trim()) === selectedGov) return true;
-            }
-        }
-        return false;
-    });
+    // the same governments the filter lists for this item (selected plugins only)
+    const govs = new Set(getGovernmentsForItem(item));
+    return selected.some(g => govs.has(normalizeGovernmentName(String(g).trim())));
 }
 
 function clearGovernmentFilters() {

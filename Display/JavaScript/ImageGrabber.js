@@ -50,7 +50,6 @@ const GITHUB_API_BASE = `https://api.github.com/repos/${GITHUB_REPO}/git/trees/$
 const IMG_EXT_RE = /\.(png|jpg|jpeg)$/i;
 
 // Animation separator chars used in ES filenames
-const SEPARATORS = ['+', '~', '-', '^', '=', '@'];
 
 
 // ─── Module state ─────────────────────────────────────────────────────────────

@@ -262,12 +262,6 @@
     if (s) { s.textContent = text; s.style.color = bad ? 'var(--c-danger-text)' : 'var(--c-text-dim)'; }
   }
 
-  // ── datalists from loaded game data ──────────────────────────────────────
-  function dataNames(kind) {
-    const out = new Set();
-    for (const p of Object.values(window.allData || {})) for (const x of (p[kind] || [])) if (x && x.name) out.add(x.name);
-    return [...out].sort();
-  }
   // ── render ───────────────────────────────────────────────────────────────
   const numIn = (attr, value, extra = '') =>
     `<input type="number" class="text-input" style="width:100px;" ${attr} value="${h(value)}" ${extra}>`;

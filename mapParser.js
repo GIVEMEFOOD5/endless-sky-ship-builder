@@ -206,10 +206,6 @@ function maybeAttachToDisplay(lines, i, baseIndent, text) {
   return [{ text, toDisplay: null }, i];
 }
 
-function hashNode(obj) {
-  return crypto.createHash('sha1').update(JSON.stringify(obj)).digest('hex').slice(0, 12);
-}
-
 // ---------------------------------------------------------------------------
 // Generic indentation tree - a nothing-left-out fallback capture alongside
 // the targeted field parsing above. Every line under `system`/`planet`

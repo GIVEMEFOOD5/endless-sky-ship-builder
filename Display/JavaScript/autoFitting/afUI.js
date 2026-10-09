@@ -17,7 +17,6 @@
 (function () {
   const S = () => window.AfStats, P = () => window.AfPool, O = () => window.AfOptimizer;
   const h = s => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-  const num0 = v => { const n = Number(v); return Number.isFinite(n) ? n : 0; };
   const fmt = (n, d = 0) => (Number.isFinite(n) ? n : 0).toLocaleString(undefined, { maximumFractionDigits: d });
 
   const GOALS = [

@@ -29,24 +29,6 @@ const FPS = 60;
 //  WeaponStats falls back to the global outfit index that battleSim maintains.
 // ─────────────────────────────────────────────────────────────────────────────
 
-function _resolveOutfitIndex(outfitIndex) {
-    if (outfitIndex && Object.keys(outfitIndex).length > 0) return outfitIndex;
-
-    // Fallback 1: battleSim's live index (most complete — includes no-category submunition outfits)
-    if (window._outfitIndex && Object.keys(window._outfitIndex).length > 0)
-        return window._outfitIndex;
-
-    // Fallback 2: build from the selected plugins on the fly
-    const allData = (window.DataLoader && typeof window.DataLoader.getActiveData === 'function' ? window.DataLoader.getActiveData() : (window.allData || {}));
-    const merged = {};
-    for (const pluginData of Object.values(allData)) {
-        const outfitsRaw = pluginData.outfits || [];
-        const outfitsArr = Array.isArray(outfitsRaw) ? outfitsRaw : Object.values(outfitsRaw);
-        for (const o of outfitsArr)
-            if (o.name && !merged[o.name]) merged[o.name] = o;
-    }
-    return merged;
-}
 
 function _getSubmunitionRefs(w, outfitIndex) {
     const results = [];

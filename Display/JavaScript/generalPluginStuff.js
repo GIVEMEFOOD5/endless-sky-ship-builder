@@ -650,6 +650,5 @@ window.PluginManager = {
 window.openPluginPicker       = openPluginPicker;
 window.closePluginPicker      = closePluginPicker;
 window.confirmPluginPicker    = confirmPluginPicker;
-window.renderPluginPickerList = _renderPluginPickerList;
 
 })();

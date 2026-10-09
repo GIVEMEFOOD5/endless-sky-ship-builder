@@ -106,9 +106,6 @@ function _readGovernment(raw) {
     return (typeof g === 'string' && g.trim()) ? g.trim() : 'Uninhabited';
 }
 
-function _readBool(raw, key) {
-    return !!raw?.[key];
-}
 
 function _readObjectTree(raw) {
     return Array.isArray(raw?.objectTree) ? raw.objectTree : [];

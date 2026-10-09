@@ -10,7 +10,7 @@
 // Dependencies (loaded before this file):
 //   dataLoader.js          — DataLoader, window.allData, window.attrDefs
 //   generalPluginStuff.js  — PluginManager
-//   generalFilterStuff.js  — filterItems, _filterGeneration
+//   generalFilterStuff.js  — filterItems (search, category and government filters), _filterGeneration
 //   CheckBoxFilter.js      — getSelectedCategories, savedCategoryFilterState
 //   GovernmentsFilter.js   — getSelectedGovernments, itemMatchesGovernmentFilter
 //   Sorter.js              — applySorters, setSorterItems
@@ -606,14 +606,6 @@ function showError(message) {
     if (el) el.innerHTML = `<div class="error">${message}</div>`;
 }
 
-function clearData() {
-    const mainEl = document.getElementById('mainContent');
-    if (mainEl) mainEl.style.display = 'none';
-    const errorEl = document.getElementById('errorContainer');
-    if (errorEl) errorEl.innerHTML = '';
-    window.allData = {};
-    currentPlugin  = null;
-}
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
 
@@ -642,7 +634,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // ─── Global exports ───────────────────────────────────────────────────────────
 
 window.loadData              = loadData;
-window.clearData             = clearData;
 window.switchTab             = switchTab;
 window.closeModal            = closeModal;
 window.selectPlugin          = selectPlugin;

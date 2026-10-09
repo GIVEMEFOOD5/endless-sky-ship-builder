@@ -505,13 +505,6 @@ window.CompareDisplay = (() => {
         else                         _renderTable(body, items);
     }
 
-    // Resolve the attr map for any list entry — single item or group
-    function _resolveAttrMap(entry, qty, includeOutfits) {
-        if (entry._isGroup) return _buildGroupAttrMap(entry);
-        return includeOutfits
-            ? _buildAttrMap(entry, qty, includeOutfits)
-            : _buildAttrMap(entry, qty, false);
-    }
 
     // ── Quantity control widget ───────────────────────────────────────────────
 

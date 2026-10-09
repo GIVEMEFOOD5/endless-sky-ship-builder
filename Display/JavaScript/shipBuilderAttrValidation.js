@@ -235,7 +235,6 @@ const AttrValidation = window.AttrValidation = (() => {
         };
 
         // Also expose the rule-getter for debugging / external use
-        window.sbGetAttrRule = _getRule;
 
         console.log('[AttrValidation] Installed data-driven sbValidateAttrValue.');
     }

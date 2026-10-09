@@ -128,13 +128,6 @@ function walkAll(entries, visit) {
   }
 }
 
-function findTop(entries, key) {
-  return entries.find(e => e.key === key) || null;
-}
-function findAllTop(entries, key) {
-  return entries.filter(e => e.key === key);
-}
-
 function hashTree(entries) {
   return crypto.createHash('sha1').update(JSON.stringify(entries)).digest('hex').slice(0, 12);
 }
@@ -150,11 +143,6 @@ function namedRef(name, extra = {}) {
 const LOCATION_TAGS = new Set([
   'job', 'landing', 'assisting', 'boarding', 'shipyard',
   'outfitter', 'job board', 'entering', 'transition',
-]);
-
-const ON_TRIGGER_NAMES = new Set([
-  'offer', 'accept', 'decline', 'defer', 'fail', 'abort',
-  'visit', 'stopover', 'waypoint', 'complete', 'enter',
 ]);
 
 // Keys handled explicitly by the typed-field derivation below - everything

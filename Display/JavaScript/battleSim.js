@@ -189,10 +189,6 @@ function getProtectionKeys() {
     if (!_attrDefs?.attributes) return [];
     return Object.keys(_attrDefs.attributes).filter(k => k.endsWith(' protection'));
 }
-function getResistanceKeys() {
-    if (!_attrDefs?.attributes) return [];
-    return Object.keys(_attrDefs.attributes).filter(k => k.endsWith(' resistance'));
-}
 
 const dmgKey    = t => t.toLowerCase() + ' damage';
 const protKey   = t => t.toLowerCase() + ' protection';

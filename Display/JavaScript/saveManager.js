@@ -128,9 +128,6 @@ function smSetActiveSaveShips(shipsInMapFormat) {
   }
 }
 
-function smClearActiveSaveShips() {
-  try { localStorage.removeItem(SM_ACTIVE_SHIPS_KEY); } catch (e) { /* ignore */ }
-}
 
 // A UUID: the same id is used for the save's copy in your account
 // (player_saves.id is a uuid column).

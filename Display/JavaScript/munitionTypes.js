@@ -112,17 +112,6 @@ function firingStatusKeys() { return _gk() ? _gk().firingStatusKeys(FIRING_STATU
 // Submunition structural keys
 const SUBMUNITION_KEYS = ['submunition', 'cluster', 'stream'];
 
-// Burst / reload timing keys
-const TIMING_KEYS = ['reload', 'burst count', 'burst reload'];
-
-// Range / flight keys
-const FLIGHT_KEYS = ['velocity', 'lifetime', 'range', 'turn', 'acceleration',
-                     'drag', 'hardpoint angle', 'safe range'];
-
-// Proximity / trigger keys
-const TRIGGER_KEYS = ['trigger radius', 'blast radius', 'hit force',
-                      'split range', 'missile strength'];
-
 // ═══════════════════════════════════════════════════════════════════════════════
 //  INIT
 // ═══════════════════════════════════════════════════════════════════════════════
