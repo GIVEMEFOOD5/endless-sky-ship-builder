@@ -3,13 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mission Data Viewer</title>
+<title>Missions — Endless Sky Data Center</title>
 <link rel="stylesheet" href="../CSS/main.css">
 </head>
 <body>
 
   <div id="navbar-mount" data-src="NavBar.html"></div>
   <script src="../JavaScript/navLoader.js"></script>
+
+  <div class="container">
 
   <header>
     <h1>📜 Missions</h1>
@@ -50,7 +52,7 @@
 
     <!-- Plugin selector -->
     <div class="panel search-section">
-        <h2 class="section-title" id="pluginSelectorTitle">Plugin ▼</h2>
+        <h2 class="section-title" id="pluginSelectorTitle">Active Plugins</h2>
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
             <button class="btn-action" onclick="openPluginPicker()">
                 ☰ Select Plugins
@@ -78,6 +80,7 @@
   <main id="missionList">
     <p id="status">Loading missions…</p>
   </main>
+  </div>
 
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <script src="../JavaScript/supabaseClient.js"></script>

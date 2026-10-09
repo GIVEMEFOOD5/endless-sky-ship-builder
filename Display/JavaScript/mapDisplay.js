@@ -880,10 +880,16 @@ function _wireSearch() {
         const q = searchInput.value.trim();
         if (!q) { resultsEl.style.display = 'none'; resultsEl.innerHTML = ''; return; }
         const matches = MapCalculations.search(_visibleSet(), q, 20);
-        resultsEl.innerHTML = matches.map(s =>
-            `<div data-n="${_esc(s.name)}"><b>${_esc(s.name)}</b><span>${_esc(s.government)}</span></div>`
-        ).join('');
-        resultsEl.style.display = matches.length ? 'block' : 'none';
+        resultsEl.innerHTML = matches.length
+            ? matches.map(s => `<div data-n="${_esc(s.name)}"><b>${_esc(s.name)}</b><span>${_esc(s.government)}</span></div>`).join('')
+            : `<p class="map-search-empty" style="margin:0;padding:8px 10px;color:var(--c-text-dim);font-size:0.85rem;">No systems match “${_esc(q)}” in your selected plugins.</p>`;
+        resultsEl.style.display = 'block';
+    });
+    // Enter jumps to the first match
+    searchInput.addEventListener('keydown', e => {
+        if (e.key !== 'Enter') return;
+        const first = resultsEl.querySelector('div[data-n]');
+        if (first) { e.preventDefault(); first.click(); }
     });
     resultsEl.addEventListener('click', e => {
         const row = e.target.closest('div[data-n]');

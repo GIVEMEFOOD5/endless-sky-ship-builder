@@ -783,13 +783,29 @@
           case 'additem': {
             const kind = b.dataset.kind; const name = $(`sv-add-${kind}`).value.trim();
             const n = Math.trunc(nonNeg($(`sv-add-${kind}-n`).value) || 0);
-            if (!name || !n) return;
+            const what = kind === 'cargo-c' ? 'commodity' : 'outfit';
+            if (!name) return say(`Type ${what === 'outfit' ? 'an outfit' : 'a commodity'} name first.`, 'danger');
+            if (!n) return say('Enter how many to add (1 or more).', 'danger');
             const cur = doc.cargo[kind === 'cargo-c' ? 'commodities' : 'outfits'][name] || 0;
             if (kind === 'cargo-c') doc.setCargoCommodity(name, cur + n); else doc.setCargoOutfit(name, cur + n);
-            return changed(`Added ${n} × ${name}.`);
+            changed(`Added ${n} × ${name}.`);
+            // warn (but still allow) — names the game won't know, or more than the fleet can carry
+            const notes = [];
+            if (kind === 'cargo-o' && !gameIndex().outfits.has(name)) notes.push(`“${name}” isn't an outfit in your selected plugins — the game drops it unless its plugin is installed.`);
+            if (kind === 'cargo-c' && window.NameSearch && !window.NameSearch.search('commodities', name).some(it => it.value.toLowerCase() === name.toLowerCase()))
+              notes.push(`“${name}” isn't a commodity the game or your plugins trade.`);
+            const hold = fleetHold();
+            if (hold && hold.used > hold.capacity) notes.push(`That's ${hold.used.toLocaleString()} t of cargo, but the ships you're flying hold ${hold.capacity.toLocaleString()} t — the game won't let you carry the rest.`);
+            if (notes.length) say(`Added ${n} × ${name} — but: ${notes.join(' ')}`, 'danger');
+            return;
           }
           case 'rmlic': doc.removeLicense(b.dataset.name); return changed();
-          case 'addlic': { const v = $('sv-new-lic').value.trim(); if (!v) return; doc.addLicense(v); return changed(`Added license ${v}.`); }
+          case 'addlic': {
+            const v = $('sv-new-lic').value.trim();
+            if (!v) return say('Type a licence name first.', 'danger');
+            if (doc.licenses.includes(v)) return say(`The pilot already has the ${v} licence.`, 'danger');
+            doc.addLicense(v); return changed(`Added license ${v}.`);
+          }
           case 'rmcond': doc.deleteCondition(b.dataset.name); return changed(`Removed “${b.dataset.name}”.`, { undoable: true });
           case 'addcond': {
             const k = $('sv-new-cond').value.trim(); if (!k) return;
@@ -816,6 +832,27 @@
   });
 
   // ── add / refit from the ship picker ─────────────────────────────────────
+  // Cargo the ships you're flying (not parked) can hold, and what's in the hold now
+  // (commodities by the ton, outfits by their mass).
+  function fleetHold() {
+    const { ships, outfits } = gameIndex();
+    const num = v => Number(v) || 0;
+    const attrs = o => (o && (o.attributes || o)) || {};
+    let capacity = 0;
+    for (const sh of doc.ships) {
+      if (sh.parked) continue;
+      let hull = ships.get(sh.model);
+      if (!hull) for (const p of Object.values(window.allData || {})) { const v = (p.variants || []).find(x => x.name === sh.model); if (v) { hull = ships.get(v.baseShip) || v; break; } }
+      if (!hull) return null;   // a ship we don't know — can't tell
+      capacity += num(attrs(hull)['cargo space']);
+      for (const [n, c] of Object.entries(sh.outfits || {})) capacity += num(attrs(outfits.get(n))['cargo space']) * num(c);
+    }
+    let used = 0;
+    for (const v of Object.values(doc.cargo.commodities || {})) used += num(v);
+    for (const [n, c] of Object.entries(doc.cargo.outfits || {})) used += num(attrs(outfits.get(n)).mass) * num(c);
+    return { capacity: Math.max(0, Math.round(capacity)), used: Math.round(used) };
+  }
+
   function gameIndex() {
     const ships = new Map(), outfits = new Map();
     for (const p of Object.values(window.allData || {})) {
@@ -869,6 +906,8 @@
       }
       case 'credits':
         if (!/^-?\d+$/.test(v)) { say('Credits must be a whole number.', 'danger'); return render(); }
+        // the game stores credits as a 64-bit number
+        if (BigInt(v) > 9223372036854775807n || BigInt(v) < -9223372036854775808n) { say('That\'s more credits than the game can hold (the most is 9,223,372,036,854,775,807).', 'danger'); return render(); }
         doc.setCredits(v); return changed();
       case 'day': case 'month': case 'year': {
         const d = { ...(doc.date || { day: 1, month: 1, year: 3013 }), [t.dataset.f]: Math.trunc(Number(v)) };

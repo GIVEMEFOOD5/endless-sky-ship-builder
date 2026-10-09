@@ -1280,7 +1280,7 @@ function searchShipsForTeam(teamId, query) {
             row.innerHTML = `<span>${window.ShipNames ? ShipNames.html(ship) : escHtml(ship.name)}</span><span class="sdi-plugin">${escHtml(pl)}</span>`;
             row.onmousedown = () => {
                 const countEl = document.getElementById('addCount_' + teamId);
-                const count   = parseInt(countEl?.value) || 1;
+                const count   = clampCount(countEl);
                 addShipToTeam(teamId, ship, count);
                 const inputEl = document.getElementById('search_' + teamId);
                 if (inputEl) inputEl.value = '';
@@ -1501,6 +1501,26 @@ window.removeShipFromTeam  = removeShipFromTeam;
 window.updateShipCount     = updateShipCount;
 window.renameTeam          = renameTeam;
 window.runSimulation       = runSimulation;
+
+// Ship count boxes: 1 to 9,999 ships. Anything else is put right — and says so.
+function clampCount(el) {
+    if (!el) return 1;
+    const raw = Number(el.value);
+    const n = Math.max(1, Math.min(9999, Math.trunc(raw) || 1));
+    if (String(n) !== String(el.value).trim()) {
+        el.value = n;
+        let tip = el.parentElement && el.parentElement.querySelector('.team-count-tip');
+        if (!tip && el.parentElement) {
+            tip = document.createElement('span');
+            tip.className = 'team-count-tip';
+            tip.style.cssText = 'font-size:0.75rem;color:var(--c-warn-text,#fbbf24);margin-left:6px;';
+            el.insertAdjacentElement('afterend', tip);
+        }
+        if (tip) { tip.textContent = `Ship count must be 1–9,999 — using ${n}.`; clearTimeout(tip._t); tip._t = setTimeout(() => { tip.textContent = ''; }, 4000); }
+    }
+    return n;
+}
+document.addEventListener('change', e => { if (e.target.classList && e.target.classList.contains('team-count-input')) clampCount(e.target); });
 // Lets other pages/tools fill the teams (e.g. "test this fit in the battle simulator")
 window.BattleSimTeams = {
     teams: () => _teams, ships: () => _allShips,

@@ -217,6 +217,15 @@ function refreshMissions() {
             missions.forEach(m => { m.offer = MissionStatusHelper.offerability(m.name, m.raw, save, m.status); });
         }
         if (offerFilterEl) offerFilterEl.disabled = !save;
+        // Status filters need a save — grey them out (and reset) without one
+        if (statusFilterEl) {
+            statusFilterEl.disabled = !save;
+            statusFilterEl.title = save ? '' : 'Open a save on the Saves & Account page to filter by status';
+            if (!save && statusFilterEl.value) statusFilterEl.value = '';
+            const first = statusFilterEl.options[0];
+            if (first) { first.dataset.label = first.dataset.label || first.textContent; first.textContent = save ? first.dataset.label : 'Status: open a save first'; }
+        }
+        if (offerFilterEl && !save) offerFilterEl.title = 'Open a save on the Saves & Account page to use this';
         if (noSaveNoticeEl) noSaveNoticeEl.classList.toggle('hidden', !!save);
     } else if (noSaveNoticeEl) {
         noSaveNoticeEl.classList.add('hidden');
@@ -491,6 +500,10 @@ if (HAS_STATUS_HELPER) {
 if (HAS_CLEANUP_HELPER && HAS_STATUS_HELPER) {
 
     MissionModal.registerAction(m => {
+        // These change a save, so they need one open
+        let hasSave = false;
+        try { hasSave = !!JSON.parse(localStorage.getItem('ES_SM_CURRENT') || 'null'); } catch (_) {}
+        if (!hasSave) return '<p class="mission-modal-note" style="font-size:0.82rem;color:var(--c-text-dim);margin:0;">Open a save on the <a href="UserManager.html">Saves &amp; Account</a> page to complete or remove this mission in it.</p>';
         const buttons = [];
         const alreadyCleanlyDone = m.status && effectiveStatus(m) === MissionStatusHelper.STATUS.DONE;
         if (!alreadyCleanlyDone) {

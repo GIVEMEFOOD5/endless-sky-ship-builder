@@ -1304,3 +1304,16 @@ window.stampSorterValues   = stampSorterValues;
 
 // The outfit index depends on which plugins are selected.
 document.addEventListener('pluginsChanged', () => { _cachedOutfitIndex = null; });
+
+
+// Close the "Add Sorters" picker with Escape or a click on the dimmed background,
+// like every other pop-up on the site.
+document.addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    const overlay = document.getElementById('sorterPickerOverlay');
+    if (overlay && overlay.classList.contains('sorter-overlay-visible')) closeSorterPicker();
+});
+document.addEventListener('click', e => {
+    const overlay = document.getElementById('sorterPickerOverlay');
+    if (overlay && e.target === overlay && overlay.classList.contains('sorter-overlay-visible')) closeSorterPicker();
+});

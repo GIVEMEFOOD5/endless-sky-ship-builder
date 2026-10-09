@@ -80,7 +80,7 @@
       .uk-combo mark,.uk-hl mark{background:transparent;color:var(--c-accent-text, #60a5fa);font-weight:600;}
       .uk-pager{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:10px;font-size:0.82rem;color:var(--c-text-dim);}
       .uk-pager button{min-width:32px;}
-      .uk-toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:100;display:flex;gap:12px;align-items:center;
+      .uk-toast-unused{
         background:#111a2e;border:1px solid var(--c-border, #334155);border-radius:10px;padding:10px 14px;box-shadow:0 8px 24px rgba(0,0,0,.4);font-size:0.9rem;}
     `;
     document.head.appendChild(css);
@@ -163,15 +163,19 @@
   let toastEl = null, toastTimer = null;
   function undoToast(message, onUndo, ms = 8000) {
     addStyles();
-    if (toastEl) toastEl.remove();
     clearTimeout(toastTimer);
-    toastEl = document.createElement('div');
-    toastEl.className = 'uk-toast'; toastEl.setAttribute('role', 'status');
+    // Use the page's own message box (#toast) when there is one, so only one
+    // message shows at a time and it looks like every other message on the site.
+    const shared = document.getElementById('toast');
+    if (toastEl && toastEl !== shared) toastEl.remove();
+    toastEl = shared || document.createElement('div');
+    toastEl.className = 'toast show toast--action'; toastEl.setAttribute('role', 'status');
     toastEl.innerHTML = `<span>${h(message)}</span>${onUndo ? '<button class="btn btn-secondary btn-sm">↶ Undo</button>' : ''}`;
-    document.body.appendChild(toastEl);
+    if (!shared) document.body.appendChild(toastEl);
+    const hide = () => { if (!toastEl) return; if (toastEl === shared) { toastEl.classList.remove('show'); } else toastEl.remove(); toastEl = null; };
     const b = toastEl.querySelector('button');
-    if (b) b.onclick = () => { onUndo(); toastEl.remove(); toastEl = null; };
-    toastTimer = setTimeout(() => { if (toastEl) { toastEl.remove(); toastEl = null; } }, ms);
+    if (b) b.onclick = () => { onUndo(); hide(); };
+    toastTimer = setTimeout(hide, ms);
   }
 
   window.UiKit = { match, highlight, combobox, paginate, pager, undoToast };

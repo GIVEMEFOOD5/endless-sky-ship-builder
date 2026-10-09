@@ -238,6 +238,10 @@
       if (!a.rounds) out.push({ level: 'warn', text: `${a.weapon} has no ${a.ammo} loaded.` });
       else out.push({ level: 'info', text: `${a.weapon}: ${a.rounds} × ${a.ammo} = ${fmtTime(a.seconds)} of continuous fire.` });
     }
+    if (!(d.maxSpeed > 0)) out.push({ level: 'error', text: 'No engines — this ship can\'t move.' });
+    if (!(d.turnRate > 0)) out.push({ level: 'error', text: 'No steering — this ship can\'t turn.' });
+    if (d.maxSpeed > 0 && d.maxSpeed < 100) out.push({ level: 'warn', text: `Very slow (top speed ${Math.round(d.maxSpeed)}) — add a Top speed target if you need it faster.` });
+    if (d.turnRate > 0 && d.turnRate < 20) out.push({ level: 'warn', text: `Turns very slowly (${d.turnRate.toFixed(1)}°/s) — add a Turning target if you need it nimbler.` });
     if (d.requiredCrew > d.bunks && d.bunks >= 0) out.push({ level: 'error', text: `Needs ${d.requiredCrew} crew but only has ${d.bunks} bunks.` });
     if (d.unknown.length) out.push({ level: 'warn', text: `${d.unknown.length} outfit(s) not found in the loaded plugins: ${d.unknown.slice(0, 3).join(', ')}${d.unknown.length > 3 ? '…' : ''}` });
     return out;

@@ -169,11 +169,13 @@ function smRemoveSave(id) {
 //  PLUGIN MATCHING
 // ═══════════════════════════════════════════════════════════
 
+// plugins.json sits at the site root, two folders up from these pages — try that
+// first so the browser console isn't filled with 404s from the guesses.
 const PLUGIN_REGISTRY_CANDIDATES = [
+  '../../plugins.json',
+  '/plugins.json',
   '../plugins.json',
   './plugins.json',
-  '/plugins.json',
-  '../../plugins.json',
 ];
 
 let _pluginRegistryCache = null;
@@ -186,7 +188,6 @@ async function smLoadPluginRegistry() {
       if (!res.ok) continue;
       const json = await res.json();
       if (Array.isArray(json.plugins)) {
-        console.log('[saveManager] Loaded plugins.json from:', path);
         _pluginRegistryCache = json.plugins;
         return _pluginRegistryCache;
       }
@@ -431,6 +432,9 @@ function showError(msg) {
   const box = el('errorBox');
   box.textContent = msg;
   box.classList.remove('hidden');
+  // also as a pop-up message, and bring the box into view (on phones it can be off-screen)
+  toast(msg, 'danger');
+  try { box.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } catch (_) {}
 }
 function clearError() {
   el('errorBox').classList.add('hidden');
@@ -454,6 +458,7 @@ async function handleFile(file) {
 
   try {
     const text   = await file.text();
+    if (!text.trim()) { showError('That file is empty — choose an Endless Sky save file (.txt) from your saves folder.'); return; }
     const parsed = parseESSaveFile(text);
     if (!parsed.ships.length && !parsed.pilot.name) {
       showError('No pilot or ship data was found in this file. Make sure it\u2019s an unmodified Endless Sky save.');

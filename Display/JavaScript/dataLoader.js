@@ -188,25 +188,17 @@ function _buildLocalPlugin() {
 
     const ships = fleet.map(s => _normaliseSavedShip(s, { _isLocalBuild: true, _localId: s.id }));
 
-    // FIX: populate the local plugin's outfits array from ALL active remote
-    // plugins so ComputedStats.getOutfitIndex can find outfit attribute data.
-    // This is only needed for the outfit index lookup — not for display.
-    const remoteOutfits = [];
-    for (const [id, plugin] of Object.entries(window.allData)) {
-        if (id === LOCAL_PLUGIN_ID) continue;
-        for (const o of (plugin.outfits || [])) {
-            remoteOutfits.push(o);
-        }
-    }
-
+    // Local Builds owns only your ship designs. (It used to copy in every
+    // outfit from every loaded plugin — including ones you'd switched off —
+    // which doubled outfit counts and leaked unselected plugins into
+    // searches. Outfit lookups now search the selected plugins directly.)
     return {
         sourceName:  'Local Builds',
         displayName: 'Local Builds',
         outputName:  LOCAL_PLUGIN_ID,
         ships,
         variants: [],
-        // FIX: include remote outfits so the outfit index is populated
-        outfits:  remoteOutfits,
+        outfits:  [],
         effects:  [],
         _isLocal: true,
     };
@@ -236,12 +228,6 @@ async function _fetchPublicBuildPlugins() {
             .from('profiles').select('id, username').in('id', userIds);
         const usernameByUserId = new Map((profileRows || []).map(p => [p.id, p.username]));
 
-        const remoteOutfits = [];
-        for (const [id, plugin] of Object.entries(window.allData)) {
-            if (id === LOCAL_PLUGIN_ID || id.startsWith(PUBLIC_PLUGIN_PREFIX)) continue;
-            for (const o of (plugin.outfits || [])) remoteOutfits.push(o);
-        }
-
         const shipsByUsername = new Map();
         for (const row of shipRows) {
             const username = usernameByUserId.get(row.user_id);
@@ -259,7 +245,8 @@ async function _fetchPublicBuildPlugins() {
             const outputName = PUBLIC_PLUGIN_PREFIX + username;
             buckets[outputName] = {
                 sourceName: username, displayName: username, outputName,
-                ships, variants: [], outfits: remoteOutfits, effects: [],
+                // ships only — their outfits come from your selected plugins
+                ships, variants: [], outfits: [], effects: [],
                 _isPublicUserPlugin: true,
             };
         }

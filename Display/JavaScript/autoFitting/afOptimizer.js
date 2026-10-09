@@ -114,14 +114,24 @@
   }
   function basics(d) {
     let m = 1;
-    // a ship that can't move or steer isn't a fit, whatever the goal
-    if (!(d.maxSpeed > 0)) m *= 0.05;
-    if (!(d.turnRate > 0)) m *= 0.05;
+
     if (d.requiredCrew > d.bunks) m *= 0.3;
     if (d.fuel.jumps < 1) m *= 0.2;
     if (d.energy.perSec.idle < 0) m *= 0.5;
     return m;
   }
+  // A fit must be flyable whatever the goal: it has to move, steer, and not
+  // overheat just sitting there or cruising. These aren't limits you set —
+  // a ship that fails them isn't a ship. Applied to every goal's score.
+  function viability(d) {
+    let m = 1;
+    if (!(d.maxSpeed > 0)) m *= 0.001;
+    if (!(d.turnRate > 0)) m *= 0.001;
+    if (d.heat.equilibriumPct.idle > 100) m *= 0.01;
+    else if (d.heat.equilibriumPct.flying > 100) m *= 0.2;
+    return m;
+  }
+
   function ehp(d, profile, regenSeconds = 30) {
     const sh = d.shields + d.shieldRegen * regenSeconds, hu = d.hull + d.hullRegen * regenSeconds;
     const ps = Math.max(0.05, profile.shield), ph = Math.max(0.05, profile.hull);
@@ -220,7 +230,7 @@
       }
       return f;
     };
-    const score = targets.length ? (d => goalScore(d) * targetFactor(d)) : goalScore;
+    const score = targets.length ? (d => goalScore(d) * targetFactor(d) * viability(d)) : (d => goalScore(d) * viability(d));
 
     let fit = emptyFit(base);
     for (const [n, k] of p.keep || []) { const c = byName.get(n); if (c) addTo(fit, c, k); }

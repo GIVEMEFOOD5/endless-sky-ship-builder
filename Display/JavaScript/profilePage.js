@@ -13,7 +13,7 @@
   const grid = $('pf-ships');
 
   if (!wanted) {
-    $('pf-title').textContent = 'Pilot profile';
+    $('pf-title').textContent = '👤 Pilot Profile';
     grid.innerHTML = '<p style="color:var(--c-text-dim);">No pilot chosen. Open a profile from a shared ship.</p>';
     return;
   }
@@ -21,12 +21,12 @@
   const { data: profiles, error } = await window.supabaseClient.from('profiles').select('id, username').ilike('username', wanted.replace(/[\\%_]/g, c => '\\' + c));
   const profile = (profiles || []).find(p => p.username.toLowerCase() === wanted.toLowerCase());
   if (error || !profile) {
-    $('pf-title').textContent = 'Pilot not found';
+    $('pf-title').textContent = '👤 Pilot not found';
     $('pf-sub').textContent = `There is no pilot called “${wanted}”.`;
     grid.innerHTML = '';
     return;
   }
-  document.title = `${profile.username} — Endless Sky Nexus`;
+  document.title = `${profile.username} — ${'Endless Sky Data Center'}`;
   $('pf-title').textContent = `👤 ${profile.username}`;
 
   await window.EsAuth.ready();

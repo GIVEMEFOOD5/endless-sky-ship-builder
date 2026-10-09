@@ -110,12 +110,11 @@ window._renderCardsFromManager = async function (resetTab = false) {
 // ─── Tab switching ────────────────────────────────────────────────────────────
 
 function switchTab(tab) {
-    if (currentTab !== tab && (tab !== "ships" && tab !== "variants")) {
+    // Ships and Variants share one search; moving to or from Outfits starts fresh
+    const shipLike = t => t === 'ships' || t === 'variants';
+    if (currentTab !== tab && !(shipLike(currentTab) && shipLike(tab))) {
         const searchBar = document.getElementById('searchInput');
-        searchBar.value = "";
-    } else if (currentTab !== tab && (tab !== "outfits")) {
-        const searchBar = document.getElementById('searchInput');
-        searchBar.value = "";
+        if (searchBar) searchBar.value = "";
     }
 
     currentTab = tab;

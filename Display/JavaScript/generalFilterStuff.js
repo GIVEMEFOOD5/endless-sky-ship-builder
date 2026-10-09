@@ -118,7 +118,10 @@ async function _runFilter() {
     if (display.length === 0) {
         const msg = document.createElement('p');
         msg.style.cssText = 'grid-column:1/-1;text-align:center;color:#94a3b8;padding:40px;';
-        msg.textContent   = 'No items found';
+        const what = { ships: 'ships', variants: 'variants', outfits: 'outfits' }[typeof currentTab !== 'undefined' ? currentTab : ''] || 'items';
+        msg.textContent   = searchTerm
+            ? `No ${what} match “${searchTerm}” in your selected plugins. Try another name, or Clear Filters.`
+            : `No ${what} match these filters. Try Clear Filters.`;
         container.appendChild(msg);
         return;
     }

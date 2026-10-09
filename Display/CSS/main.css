@@ -2539,6 +2539,8 @@ textarea.text-input { resize: vertical; min-height: 80px; }
 .toast.show { transform: translateY(0); opacity: 1; }
 .toast.success { border-color: rgba(34,197,94,0.50); color: var(--c-success-text); }
 .toast.danger  { border-color: rgba(239,68,68,0.50);  color: var(--c-danger-text); }
+/* a message with a button in it (e.g. "↶ Undo") — same look, but clickable */
+.toast.toast--action { pointer-events: auto; display: flex; gap: 12px; align-items: center; }
  
 /* ── Autocomplete ─────────────────────────────────────────────── */
 .autocomplete-wrap { position: relative; flex: 1; }
@@ -2717,8 +2719,8 @@ textarea.text-input { resize: vertical; min-height: 80px; }
  
 /* ── Page header (builder pages) ─────────────────────────────── */
 .page-header { margin-bottom: 24px; }
-.page-header h1 { font-size: 2rem; color: var(--c-accent-text); margin-bottom: 6px; }
-.page-header p  { color: var(--c-text-muted); font-size: 1rem; }
+.page-header h1 { font-size: 2.5rem; color: var(--c-accent-text); margin-bottom: 10px; }   /* same as every page */
+.page-header p  { color: var(--c-text-muted); font-size: 1.1rem; }
  
 /* ── Ship / Outfit picker rows ────────────────────────────── */
 .sb-picker-group { margin-bottom: 4px; }
@@ -4526,13 +4528,16 @@ body {
    #statusFilterSelect and #noSaveNotice)
    ═══════════════════════════════════════════════════════════════ */
 
+/* Same page width as every other page; on wide screens the cards sit two
+   (or three) to a row, on phones one — each card keeps its own height. */
 #missionList {
-    max-width: 920px;
-    margin: 20px auto 0;
-    display: flex;
-    flex-direction: column;
+    margin: 20px 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(460px, 100%), 1fr));
+    align-items: start;
     gap: 14px;
 }
+#missionList > :not(.mission-card) { grid-column: 1 / -1; }
 
 .mission-card {
     background: var(--c-surface);
@@ -4764,14 +4769,7 @@ body {
     color: inherit;
 }
 
-#statusFilterSelect {
-    background: var(--c-surface);
-    border: 1px solid var(--c-border);
-    color: var(--c-text);
-    border-radius: var(--r-md);
-    padding: 8px 10px;
-    font-size: 0.85rem;
-}
+/* #statusFilterSelect uses the site-wide drop-down style (see "select" above) */
 
 #noSaveNotice {
     font-size: 0.82rem;
@@ -5062,7 +5060,7 @@ img, video, canvas { max-width: 100%; }
     .tabs .tab { flex: 0 0 auto; padding: 10px 14px; white-space: nowrap; }
     .button-group > .btn { flex: 1 1 calc(50% - 10px); }
     .toast { left: 12px; right: 12px; bottom: 12px; text-align: center; }
-    .uk-toast { left: 12px; right: 12px; transform: none; justify-content: space-between; }
+    .toast.toast--action { justify-content: space-between; }
     .modal-box, .modal-box--detail { padding: 18px; border-radius: 14px; }
     .modal-box--detail { max-height: 92dvh; }
     .panel { padding-left: 14px; padding-right: 14px; }
@@ -5122,3 +5120,35 @@ img, video, canvas { max-width: 100%; }
 .ld-pill > .btn-remove:hover, .ld-pill > .btn-remove:focus-visible { background: rgba(239,68,68,.18); color: var(--c-danger-text, #f87171); outline: none; }
 @media (pointer: coarse) { .ld-pill > .btn-remove { width: 26px; height: 26px; min-width: 26px; min-height: 26px; } }
 .ld-pill:has(> .btn-remove) { display: inline-flex; align-items: center; padding-right: 4px; }
+
+/* ══════════════════════════════════════════════════════════════════
+   Search boxes and drop-downs — one look on every page
+   (Data Viewer, Missions, Battle Simulator team search, Systems map search,
+   save editor, builder …), matching .text-input.
+   ══════════════════════════════════════════════════════════════════ */
+body .team-search-input,
+body .map-search input,
+body .controls input[type="text"],
+body .controls input:not([type]),
+body .search-input {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--c-surface-2);
+    border: 1px solid rgba(59, 130, 246, 0.40);
+    border-radius: var(--r-md);
+    color: var(--c-text);
+    font-size: 1rem;
+    transition: border-color var(--t-fast), box-shadow var(--t-fast);
+}
+body .team-search-input:focus,
+body .map-search input:focus,
+body .controls input[type="text"]:focus,
+body .controls input:not([type]):focus,
+body .search-input:focus {
+    outline: none;
+    border-color: var(--c-accent);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.20);
+}
+body .controls input[type="text"], body .controls input:not([type]) { flex: 1 1 240px; width: auto; }
+/* every drop-down uses the same background (some pages had a lighter one) */
+body select:not([multiple]):not([size]) { background-color: var(--c-surface-2); }
